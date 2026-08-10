@@ -1,0 +1,87 @@
+/* packages/ui/src/components/Button.css */
+/* Base button styles driven entirely by theme CSS variables. */
+
+.medhaa-btn {
+  position: relative;
+  overflow: hidden;
+  font-family: var(--medhaa-font-body, 'Inter', sans-serif);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: transform 150ms ease-out, box-shadow 150ms ease-out, opacity 150ms ease-out;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.medhaa-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.medhaa-btn:not(:disabled):hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.medhaa-btn:not(:disabled):active {
+  transform: translateY(0);
+}
+
+.medhaa-btn--primary {
+  background: var(--medhaa-primary);
+  color: #ffffff;
+}
+
+.medhaa-btn--secondary {
+  background: var(--medhaa-secondary);
+  color: #ffffff;
+}
+
+.medhaa-btn--ghost {
+  background: transparent;
+  color: var(--medhaa-primary);
+  border: 1.5px solid var(--medhaa-primary);
+}
+
+.medhaa-btn--danger {
+  background: #EF4444;
+  color: #ffffff;
+}
+
+.medhaa-btn--sm { padding: 6px 14px; font-size: 13px; }
+.medhaa-btn--md { padding: 10px 20px; font-size: 15px; }
+.medhaa-btn--lg { padding: 14px 28px; font-size: 17px; border-radius: 16px; }
+
+.medhaa-btn--full { width: 100%; }
+
+.medhaa-btn__spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: medhaa-spin 600ms linear infinite;
+}
+
+@keyframes medhaa-spin {
+  to { transform: rotate(360deg); }
+}
+
+.medhaa-ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: scale(0);
+  animation: medhaa-ripple-anim 600ms linear;
+  pointer-events: none;
+}
+
+@keyframes medhaa-ripple-anim {
+  to {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}

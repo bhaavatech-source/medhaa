@@ -1,0 +1,402 @@
+[
+  {
+    "id": "wing",
+    "name": "Main Wings",
+    "type": "wing",
+    "cost": 1000,
+    "tags": ["training", "passenger", "cargo"],
+    "description": "Wings create lift, which helps the aircraft rise and stay in the sky."
+  },
+  {
+    "id": "tail",
+    "name": "Tail Assembly",
+    "type": "tail",
+    "cost": 600,
+    "tags": ["training", "passenger", "rescue"],
+    "description": "The tail helps the aircraft balance and turn more safely."
+  },
+  {
+    "id": "engine",
+    "name": "Jet Engine",
+    "type": "engine",
+    "cost": 2000,
+    "tags": ["fast", "passenger", "long_range"],
+    "description": "The engine creates thrust so the plane can move fast enough to fly."
+  },
+  {
+    "id": "landing_gear",
+    "name": "Landing Gear",
+    "type": "landing",
+    "cost": 800,
+    "tags": ["training", "cargo", "rescue", "passenger"],
+    "description": "Supports the aircraft during takeoff, landing, and taxiing."
+  },
+  {
+    "id": "fuel_tank",
+    "name": "Main Fuel Tank",
+    "type": "fuel",
+    "cost": 500,
+    "tags": ["training", "cargo", "passenger", "long_range"],
+    "description": "Stores the fuel that powers the engine during flight."
+  },
+  {
+    "id": "radar",
+    "name": "Radar System",
+    "type": "guidance",
+    "cost": 1200,
+    "tags": ["rescue", "long_range"],
+    "description": "Helps with navigation and safer flying in difficult or rescue missions."
+  },
+  {
+    "id": "cargo_bay",
+    "name": "Cargo Bay",
+    "type": "mission",
+    "cost": 950,
+    "tags": ["cargo", "rescue"],
+    "description": "Lets the plane transport goods, boxes, and relief materials."
+  },
+  {
+    "id": "passenger_seats",
+    "name": "Passenger Seats",
+    "type": "interior",
+    "cost": 750,
+    "tags": ["passenger"],
+    "description": "Turns a plain aircraft into a passenger-ready flight."
+  },
+  {
+    "id": "fuselage",
+    "name": "Fuselage",
+    "type": "structure",
+    "cost": 1500,
+    "tags": ["training", "cargo", "passenger", "rescue"],
+    "description": "Holds the passengers, crew, and cargo together."
+  },
+  {
+    "id": "cockpit",
+    "name": "Cockpit Module",
+    "type": "interior",
+    "cost": 1100,
+    "tags": ["training", "cargo", "passenger", "rescue"],
+    "description": "Houses the instruments and controls needed to fly the aircraft safely."
+  },
+  {
+    "id": "ailerons",
+    "name": "Ailerons",
+    "type": "controls",
+    "cost": 300,
+    "tags": ["training", "fast"],
+    "description": "Hinged sections on the outer wings that move up and down to tilt the plane."
+  },
+  {
+    "id": "elevators",
+    "name": "Elevators",
+    "type": "controls",
+    "cost": 350,
+    "tags": ["training", "rescue"],
+    "description": "Flaps on the horizontal tail that control the pitch of the airplane."
+  },
+  {
+    "id": "rudder",
+    "name": "Rudder",
+    "type": "controls",
+    "cost": 300,
+    "tags": ["training", "passenger"],
+    "description": "A moving flap on the vertical tail that controls yaw (left and right)."
+  },
+  {
+    "id": "flaps",
+    "name": "Wing Flaps",
+    "type": "controls",
+    "cost": 450,
+    "tags": ["cargo", "passenger", "rescue"],
+    "description": "Extend down to help the plane fly slowly during takeoff and landing."
+  },
+  {
+    "id": "slats",
+    "name": "Leading Edge Slats",
+    "type": "controls",
+    "cost": 500,
+    "tags": ["rescue", "cargo"],
+    "description": "Extend from the front of the wing to prevent stalling at low speeds."
+  },
+  {
+    "id": "spoilers",
+    "name": "Spoilers",
+    "type": "controls",
+    "cost": 400,
+    "tags": ["fast", "passenger"],
+    "description": "Plates on top of the wings that pop up to reduce lift and slow down."
+  },
+  {
+    "id": "horizontal_stabilizer",
+    "name": "Horizontal Stabilizer",
+    "type": "tail",
+    "cost": 650,
+    "tags": ["training", "cargo", "passenger"],
+    "description": "A mini-wing on the tail that prevents the nose from pitching up and down."
+  },
+  {
+    "id": "vertical_stabilizer",
+    "name": "Vertical Stabilizer",
+    "type": "tail",
+    "cost": 600,
+    "tags": ["training", "cargo", "passenger"],
+    "description": "The upright tail fin that stops the plane from swinging side to side."
+  },
+  {
+    "id": "propeller",
+    "name": "Propeller System",
+    "type": "engine",
+    "cost": 850,
+    "tags": ["training", "eco"],
+    "description": "Spinning blades that create thrust on certain types of aircraft."
+  },
+  {
+    "id": "spinner",
+    "name": "Propeller Spinner",
+    "type": "engine",
+    "cost": 150,
+    "tags": ["training", "eco"],
+    "description": "A cone shaped cover over the center of the propeller to improve aerodynamics."
+  },
+  {
+    "id": "nacelle",
+    "name": "Engine Nacelle",
+    "type": "engine",
+    "cost": 550,
+    "tags": ["fast", "passenger"],
+    "description": "An aerodynamic housing that protects the engine and directs airflow."
+  },
+  {
+    "id": "windshield",
+    "name": "Reinforced Windshield",
+    "type": "safety",
+    "cost": 400,
+    "tags": ["training", "rescue", "passenger"],
+    "description": "Thick glass that withstands high winds and bird strikes."
+  },
+  {
+    "id": "altimeter",
+    "name": "Altimeter",
+    "type": "guidance",
+    "cost": 300,
+    "tags": ["training", "rescue", "cargo"],
+    "description": "An instrument that measures altitude using air pressure."
+  },
+  {
+    "id": "airspeed_indicator",
+    "name": "Airspeed Indicator",
+    "type": "guidance",
+    "cost": 250,
+    "tags": ["training", "fast"],
+    "description": "Measures the speed of the aircraft moving through the air."
+  },
+  {
+    "id": "attitude_indicator",
+    "name": "Attitude Indicator",
+    "type": "guidance",
+    "cost": 500,
+    "tags": ["training", "passenger"],
+    "description": "An artificial horizon that tells pilots if they are banking or climbing."
+  },
+  {
+    "id": "yoke",
+    "name": "Control Yoke",
+    "type": "controls",
+    "cost": 450,
+    "tags": ["training", "passenger"],
+    "description": "The steering column pilots use to pitch and roll the plane."
+  },
+  {
+    "id": "rudder_pedals",
+    "name": "Rudder Pedals",
+    "type": "controls",
+    "cost": 350,
+    "tags": ["training", "rescue"],
+    "description": "Foot pedals used to control the rudder and wheel brakes."
+  },
+  {
+    "id": "throttle",
+    "name": "Throttle Quadrant",
+    "type": "controls",
+    "cost": 400,
+    "tags": ["training", "cargo"],
+    "description": "Levers pushed forward for more power and pulled back for less."
+  },
+  {
+    "id": "apu",
+    "name": "APU (Aux Power)",
+    "type": "power",
+    "cost": 1300,
+    "tags": ["passenger", "long_range"],
+    "description": "A small engine that generates electricity and air pressure."
+  },
+  {
+    "id": "battery",
+    "name": "Main Battery",
+    "type": "power",
+    "cost": 400,
+    "tags": ["training", "rescue"],
+    "description": "Provides initial power to start systems and keeps critical screens running."
+  },
+  {
+    "id": "generator",
+    "name": "Engine Generator",
+    "type": "power",
+    "cost": 600,
+    "tags": ["long_range", "passenger"],
+    "description": "Driven by the engines to power lights, screens, and computers."
+  },
+  {
+    "id": "navigation_lights",
+    "name": "Navigation Lights",
+    "type": "safety",
+    "cost": 200,
+    "tags": ["training", "rescue"],
+    "description": "Red, green, and white lights to show the plane's direction at night."
+  },
+  {
+    "id": "beacon_light",
+    "name": "Beacon Light",
+    "type": "safety",
+    "cost": 150,
+    "tags": ["training", "cargo"],
+    "description": "A flashing red light that alerts ground crew to stay away."
+  },
+  {
+    "id": "landing_lights",
+    "name": "Landing Lights",
+    "type": "safety",
+    "cost": 350,
+    "tags": ["passenger", "rescue"],
+    "description": "Powerful headlights used during takeoff and landing to see the runway."
+  },
+  {
+    "id": "pitot_tube",
+    "name": "Pitot Tube",
+    "type": "guidance",
+    "cost": 250,
+    "tags": ["training", "fast"],
+    "description": "A forward-facing tube that senses ram air pressure to determine speed."
+  },
+  {
+    "id": "static_port",
+    "name": "Static Port",
+    "type": "guidance",
+    "cost": 150,
+    "tags": ["training", "rescue"],
+    "description": "A small hole on the side of the plane to sense outside calm air pressure."
+  },
+  {
+    "id": "transponder",
+    "name": "Transponder",
+    "type": "guidance",
+    "cost": 700,
+    "tags": ["passenger", "cargo"],
+    "description": "Sends a signal to Air Traffic Control with flight number and altitude."
+  },
+  {
+    "id": "comms_radio",
+    "name": "Comms Radio",
+    "type": "guidance",
+    "cost": 650,
+    "tags": ["training", "rescue"],
+    "description": "Used to speak with Air Traffic Control and other airplanes."
+  },
+  {
+    "id": "oxygen_system",
+    "name": "Emergency Oxygen",
+    "type": "safety",
+    "cost": 900,
+    "tags": ["passenger", "long_range"],
+    "description": "Drops masks and supplies oxygen if the cabin loses pressure."
+  },
+  {
+    "id": "flight_data_recorder",
+    "name": "Flight Data Recorder",
+    "type": "safety",
+    "cost": 1500,
+    "tags": ["passenger", "cargo"],
+    "description": "The 'black box' that saves information on speed, altitude, and controls."
+  },
+  {
+    "id": "cockpit_voice_recorder",
+    "name": "Voice Recorder",
+    "type": "safety",
+    "cost": 1400,
+    "tags": ["passenger", "cargo"],
+    "description": "Saves the audio of pilot conversations and cockpit alarms."
+  },
+  {
+    "id": "overhead_bins",
+    "name": "Overhead Bins",
+    "type": "interior",
+    "cost": 500,
+    "tags": ["passenger"],
+    "description": "Compartments above the seats for carry-on luggage."
+  },
+  {
+    "id": "galley",
+    "name": "Galley",
+    "type": "interior",
+    "cost": 1200,
+    "tags": ["passenger", "long_range"],
+    "description": "The airplane kitchen where flight attendants prepare food and drinks."
+  },
+  {
+    "id": "lavatory",
+    "name": "Lavatory",
+    "type": "interior",
+    "cost": 1000,
+    "tags": ["passenger", "long_range"],
+    "description": "A small onboard bathroom with a toilet and sink."
+  },
+  {
+    "id": "pressurization_system",
+    "name": "Pressurization System",
+    "type": "safety",
+    "cost": 1800,
+    "tags": ["passenger", "long_range"],
+    "description": "Pumps air into the cabin so people can breathe at high altitudes."
+  },
+  {
+    "id": "environmental_control",
+    "name": "Environmental Control",
+    "type": "interior",
+    "cost": 1100,
+    "tags": ["passenger", "cargo"],
+    "description": "Provides air conditioning and heating for the cabin."
+  },
+  {
+    "id": "fire_extinguishing_system",
+    "name": "Fire Extinguishers",
+    "type": "safety",
+    "cost": 850,
+    "tags": ["cargo", "passenger", "rescue"],
+    "description": "Bottles of fire retardant that can be sprayed into engines or cargo holds."
+  },
+  {
+    "id": "emergency_exits",
+    "name": "Emergency Exits",
+    "type": "safety",
+    "cost": 750,
+    "tags": ["passenger", "training"],
+    "description": "Special doors and windows designed for quick evacuation."
+  },
+  {
+    "id": "radome",
+    "name": "Nose Radome",
+    "type": "structure",
+    "cost": 600,
+    "tags": ["cargo", "passenger", "rescue"],
+    "description": "A fiberglass cover at the very front that protects the weather radar."
+  },
+  {
+    "id": "trim_tabs",
+    "name": "Trim Tabs",
+    "type": "controls",
+    "cost": 250,
+    "tags": ["training", "long_range"],
+    "description": "Small flaps on control surfaces that relieve steering pressure for the pilot."
+  }
+]

@@ -1,0 +1,27 @@
+[
+  {
+    "id": "l1",
+    "title": "Meet the Parts",
+    "goal": "Recognize basic plane systems."
+  },
+  {
+    "id": "l2",
+    "title": "Build a Trainer",
+    "goal": "Assemble a safe starter plane."
+  },
+  {
+    "id": "l3",
+    "title": "Fix the Mistakes",
+    "goal": "Spot missing systems."
+  },
+  {
+    "id": "l4",
+    "title": "Mission Matching",
+    "goal": "Choose the right aircraft for the job."
+  },
+  {
+    "id": "l5",
+    "title": "Advanced Missions",
+    "goal": "Use special systems for long, cargo, and rescue flights."
+  }
+]

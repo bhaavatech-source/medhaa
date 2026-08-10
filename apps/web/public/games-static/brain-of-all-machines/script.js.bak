@@ -1,0 +1,786 @@
+// ===== State & Storage =====
+const State = {
+  currentSection: 'welcome',
+  progress: JSON.parse(localStorage.getItem('bt_progress') || '{}'),
+  badges: JSON.parse(localStorage.getItem('bt_badges') || '{}'),
+  quizIndex: 0,
+  quizScore: 0,
+  quizAnswered: false,
+};
+
+const SectionOrder = [
+  'welcome',
+  'history',
+  'whatis',
+  'family',
+  'everywhere',
+  'flow',
+  'factory',
+  'future',
+  'quiz'
+];
+
+const BadgeDefs = [
+  {
+    id: 'explorer',
+    name: 'Chip Explorer',
+    desc: 'Visited every section',
+    check: () => SectionOrder.every(s => State.progress[s])
+  },
+  {
+    id: 'historian',
+    name: 'Time Traveler',
+    desc: 'Explored the history timeline',
+    check: () => State.progress['history']
+  },
+  {
+    id: 'collector',
+    name: 'Chip Collector',
+    desc: 'Opened 10 or more chip detail pages',
+    check: () => Object.keys(State.progress).filter(k => k.startsWith('chip_')).length >= 10
+  },
+  {
+    id: 'quizmaster',
+    name: 'Quiz Master',
+    desc: 'Scored 6 or more in the quiz',
+    check: () => State.quizScore >= 6
+  },
+  {
+    id: 'factoryboss',
+    name: 'Factory Boss',
+    desc: 'Completed the chip factory journey',
+    check: () => State.progress['factory_done']
+  }
+];
+
+function saveState() {
+  localStorage.setItem('bt_progress', JSON.stringify(State.progress));
+  localStorage.setItem('bt_badges', JSON.stringify(State.badges));
+  updateProgressBar();
+}
+
+function markVisited(section) {
+  State.progress[section] = true;
+  saveState();
+  checkBadges();
+}
+
+function updateProgressBar() {
+  const total = SectionOrder.length;
+  const done = SectionOrder.filter(s => State.progress[s]).length;
+  document.getElementById('progress-bar').style.width = (done / total * 100) + '%';
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3200);
+}
+
+function checkBadges() {
+  BadgeDefs.forEach(b => {
+    if (!State.badges[b.id] && b.check()) {
+      State.badges[b.id] = true;
+      showToast('🏆 Achievement unlocked: ' + b.name);
+    }
+  });
+  saveState();
+  renderBadgesPanel();
+}
+
+function renderBadgesPanel() {
+  const list = document.getElementById('badges-list');
+  if (!list) return;
+  list.innerHTML = '';
+
+  BadgeDefs.forEach(b => {
+    const unlocked = !!State.badges[b.id];
+    const div = document.createElement('div');
+    div.className = 'badge-item' + (unlocked ? '' : ' locked');
+    div.innerHTML = `
+      <span>${unlocked ? '🏆' : '🔒'}</span>
+      <div>
+        <strong>${b.name}</strong><br>
+        <small>${b.desc}</small>
+      </div>
+    `;
+    list.appendChild(div);
+  });
+}
+
+// ===== Navigation =====
+document.querySelectorAll('.nav-btn').forEach(btn => {
+  btn.addEventListener('click', () => goToSection(btn.dataset.section));
+});
+
+document.getElementById('badges-btn').addEventListener('click', () => {
+  document.getElementById('badges-panel').classList.toggle('hidden');
+});
+
+document.getElementById('close-badges').addEventListener('click', () => {
+  document.getElementById('badges-panel').classList.add('hidden');
+});
+
+document.getElementById('close-modal').addEventListener('click', closeModal);
+
+document.getElementById('chip-modal').addEventListener('click', (e) => {
+  if (e.target.id === 'chip-modal') closeModal();
+});
+
+document.getElementById('search-input').addEventListener('input', (e) => {
+  const q = e.target.value.toLowerCase().trim();
+  if (!q) return;
+
+  const chipMatch = Object.keys(ChipsData).find(id =>
+    ChipsData[id].name.toLowerCase().includes(q)
+  );
+
+  if (chipMatch) openChipModal(chipMatch);
+});
+
+function goToSection(section) {
+  State.currentSection = section;
+  document.querySelectorAll('.nav-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.section === section);
+  });
+  markVisited(section);
+  renderSection(section);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function renderSection(section) {
+  const stage = document.getElementById('stage');
+  stage.innerHTML = '';
+
+  const renderers = {
+    welcome: renderWelcome,
+    history: renderHistory,
+    whatis: renderWhatIs,
+    family: renderFamily,
+    everywhere: renderEverywhere,
+    flow: renderFlow,
+    factory: renderFactory,
+    future: renderFuture,
+    quiz: renderQuiz
+  };
+
+  (renderers[section] || renderWelcome)(stage);
+}
+
+// ===== Welcome =====
+function renderWelcome(stage) {
+  const stages = ['🔲', '🧮', '📱', '🚗', '🤖', '🏭', '🛰️', '🖥️'];
+
+  stage.innerHTML = `
+    <div class="welcome-hero">
+      <div class="chip-grow" id="grow-icon">🔲</div>
+      <div class="evolve-row" id="evolve-row"></div>
+      <div class="hero-msg">"One tiny invention changed the world."</div>
+      <button class="start-btn" id="begin-mission">🚀 Begin Mission: Chip Explorer</button>
+    </div>
+
+    <div class="card" style="margin-top:40px; text-align:center;">
+      <h3>The Story So Far...</h3>
+      <p style="color:var(--text-dim); margin-top:10px; line-height:1.7;">
+        One day, every electronic chip on Earth suddenly disappears. Traffic lights go dark. Phones die.
+        Hospitals lose equipment. Cars stop. Satellites go silent. Factories freeze.
+        You are the <strong>Chip Explorer</strong> — the one person who must discover what chips are,
+        why they exist, and how to bring the world back to life.
+      </p>
+    </div>
+  `;
+
+  const row = document.getElementById('evolve-row');
+
+  stages.forEach((s, i) => {
+    const el = document.createElement('span');
+    el.className = 'evolve-item';
+    el.style.animationDelay = (i * 0.28) + 's';
+    el.textContent = s;
+    row.appendChild(el);
+
+    if (i < stages.length - 1) {
+      const arrow = document.createElement('span');
+      arrow.className = 'arrow evolve-item';
+      arrow.style.animationDelay = (i * 0.28 + 0.14) + 's';
+      arrow.textContent = '→';
+      row.appendChild(arrow);
+    }
+  });
+
+  let idx = 0;
+  setInterval(() => {
+    const icon = document.getElementById('grow-icon');
+    if (!icon) return;
+    idx = (idx + 1) % stages.length;
+    icon.textContent = stages[idx];
+  }, 1400);
+
+  document.getElementById('begin-mission').addEventListener('click', () => {
+    goToSection('history');
+  });
+}
+
+// ===== History =====
+function renderHistory(stage) {
+  stage.innerHTML = `
+    <h2 class="section-title">Chip History: The Long Road to Silicon</h2>
+    <p class="section-sub">Click each milestone to reveal the inventor, importance, and world impact.</p>
+    <div class="timeline" id="timeline"></div>
+  `;
+
+  const tl = document.getElementById('timeline');
+
+  HistoryData.forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'tl-item';
+    div.innerHTML = `
+      <div class="tl-year">${item.year}</div>
+      <div class="tl-name">${item.icon} ${item.name}</div>
+      <div class="tl-detail">
+        <strong>Inventor:</strong> ${item.inventor}<br><br>
+        <strong>Why it mattered:</strong> ${item.importance}<br><br>
+        <strong>World impact:</strong> ${item.impact}
+      </div>
+    `;
+
+    div.addEventListener('click', () => {
+      div.classList.toggle('open');
+      markVisited('history_' + item.id);
+    });
+
+    tl.appendChild(div);
+  });
+}
+
+// ===== What Is A Chip =====
+const ZoomLevels = [
+  { icon: '🖥️', label: 'Machine — the complete device you use' },
+  { icon: '🔌', label: 'Circuit Board — connects all electronic parts together' },
+  { icon: '🔲', label: 'Chip — the small package doing the computing work' },
+  { icon: '📦', label: 'Package — protective outer shell and connections' },
+  { icon: '💎', label: 'Silicon Die — the tiny real chip inside the package' },
+  { icon: '🔺', label: 'Transistors — microscopic electronic switches' },
+  { icon: '⚛️', label: 'Atomic Scale — where electrons create logic behavior' }
+];
+
+function renderWhatIs(stage) {
+  stage.innerHTML = `
+    <h2 class="section-title">What Is A Chip?</h2>
+    <p class="section-sub">Zoom in from a whole machine down to the atomic scale.</p>
+
+    <div class="card">
+      <div class="zoom-stage">
+        <div class="zoom-level active" id="zoom-icon">🖥️</div>
+        <div class="zoom-label" id="zoom-label"></div>
+        <div class="zoom-controls">
+          <button id="zoom-back">◀ Zoom Out</button>
+          <button id="zoom-fwd">Zoom In ▶</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-3" style="margin-top:26px;">
+      <div class="card">
+        <h4>🔬 Semiconductor</h4>
+        <p style="color:var(--text-dim); font-size:.92rem; margin-top:8px;">
+          A material like silicon that can sometimes conduct electricity and sometimes resist it.
+          That controllable behavior makes chips possible.
+        </p>
+      </div>
+
+      <div class="card">
+        <h4>🔺 Transistor</h4>
+        <p style="color:var(--text-dim); font-size:.92rem; margin-top:8px;">
+          A transistor is a tiny electronic switch. Billions of them work together to perform logic,
+          calculations, memory, and control.
+        </p>
+      </div>
+
+      <div class="card">
+        <h4>📦 Packaging and Pins</h4>
+        <p style="color:var(--text-dim); font-size:.92rem; margin-top:8px;">
+          The outside package protects the silicon die and provides electrical connections to the board.
+        </p>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:20px;">
+      <h4>Why are chips tiny, yet so powerful?</h4>
+      <p style="color:var(--text-dim); margin-top:10px; line-height:1.65;">
+        Engineers use manufacturing methods such as photolithography to create unimaginably small transistor patterns.
+        Because transistors are so tiny, billions can fit inside a small chip, allowing huge computing power in a pocket-sized device.
+      </p>
+    </div>
+  `;
+
+  let zi = 0;
+  const icon = document.getElementById('zoom-icon');
+  const label = document.getElementById('zoom-label');
+
+  function updateZoom() {
+    icon.textContent = ZoomLevels[zi].icon;
+    label.textContent = ZoomLevels[zi].label;
+    icon.classList.add('active');
+
+    if (zi === ZoomLevels.length - 1) {
+      markVisited('whatis_full_zoom');
+    }
+  }
+
+  updateZoom();
+
+  document.getElementById('zoom-fwd').addEventListener('click', () => {
+    if (zi < ZoomLevels.length - 1) {
+      zi++;
+      updateZoom();
+    }
+  });
+
+  document.getElementById('zoom-back').addEventListener('click', () => {
+    if (zi > 0) {
+      zi--;
+      updateZoom();
+    }
+  });
+}
+
+// ===== Chip Family =====
+function renderFamily(stage) {
+  stage.innerHTML = `
+    <h2 class="section-title">The Chip Family</h2>
+    <p class="section-sub">Every chip has a specialty. Click any chip card to explore it deeply.</p>
+    <div class="grid grid-4" id="chip-grid"></div>
+  `;
+
+  const grid = document.getElementById('chip-grid');
+
+  Object.keys(ChipsData).forEach(id => {
+    const c = ChipsData[id];
+    const div = document.createElement('div');
+    div.className = 'card chip-card';
+
+    const dots = Array.from({ length: 4 }, (_, i) => {
+      return `<span class="${i < c.difficulty ? 'filled' : ''}">●</span>`;
+    }).join('');
+
+    div.innerHTML = `
+      <div class="icon">${c.icon}</div>
+      <div class="cat">${c.category}</div>
+      <h4>${c.name}</h4>
+      <p style="font-size:.84rem; color:var(--text-dim); line-height:1.5;">
+        ${c.whatItIs.slice(0, 90)}...
+      </p>
+      <div class="diff-dots">${dots}</div>
+    `;
+
+    div.addEventListener('click', () => openChipModal(id));
+    grid.appendChild(div);
+  });
+}
+
+function openChipModal(id) {
+  const c = ChipsData[id];
+  if (!c) return;
+
+  markVisited('chip_' + id);
+
+  const content = document.getElementById('modal-content');
+  content.className = 'modal-content';
+  content.innerHTML = `
+    <h2>${c.icon} ${c.name}</h2>
+    <div class="sub">${c.category} · Difficulty ${c.difficulty}/4</div>
+
+    <div class="modal-block">
+      <h4>What It Is</h4>
+      <p>${c.whatItIs}</p>
+    </div>
+
+    <div class="modal-block">
+      <h4>Why Invented</h4>
+      <p>${c.whyInvented}</p>
+    </div>
+
+    <div class="modal-block">
+      <h4>How It Works</h4>
+      <p>${c.howItWorks}</p>
+    </div>
+
+    <div class="modal-block">
+      <h4>Main Job</h4>
+      <p>${c.mainJob}</p>
+    </div>
+
+    <div class="modal-block">
+      <h4>Strengths</h4>
+      <ul>${c.strengths.map(s => `<li>${s}</li>`).join('')}</ul>
+    </div>
+
+    <div class="modal-block">
+      <h4>Limitations</h4>
+      <ul>${c.limitations.map(s => `<li>${s}</li>`).join('')}</ul>
+    </div>
+
+    <div class="modal-block">
+      <h4>Versions</h4>
+      <div class="tag-list">
+        ${c.versions.map(v => `<span class="tag">${v}</span>`).join('')}
+      </div>
+    </div>
+
+    <div class="modal-block">
+      <h4>Interesting Fact</h4>
+      <p>💡 ${c.funFact}</p>
+    </div>
+
+    <div class="modal-block">
+      <h4>Where Used</h4>
+      <div class="tag-list">
+        ${c.whereUsed.map(d => {
+          return `<span class="tag" data-device="${d}">${DevicesData[d] ? DevicesData[d].icon + ' ' + DevicesData[d].name : d}</span>`;
+        }).join('')}
+      </div>
+    </div>
+
+    <div class="modal-block">
+      <h4>Related Chips</h4>
+      <div class="tag-list">
+        ${c.related.map(r => {
+          return `<span class="tag" data-chip="${r}">${ChipsData[r] ? ChipsData[r].icon + ' ' + ChipsData[r].name : r}</span>`;
+        }).join('')}
+      </div>
+    </div>
+  `;
+
+  content.querySelectorAll('[data-chip]').forEach(el => {
+    el.addEventListener('click', () => openChipModal(el.dataset.chip));
+  });
+
+  content.querySelectorAll('[data-device]').forEach(el => {
+    el.addEventListener('click', () => {
+      closeModal();
+      goToSection('everywhere');
+      setTimeout(() => openDeviceDetail(el.dataset.device), 250);
+    });
+  });
+
+  document.getElementById('chip-modal').classList.remove('hidden');
+}
+
+function closeModal() {
+  document.getElementById('chip-modal').classList.add('hidden');
+}
+
+// ===== Chips Everywhere =====
+function renderEverywhere(stage) {
+  stage.innerHTML = `
+    <h2 class="section-title">Chips Everywhere</h2>
+    <p class="section-sub">Open a machine to discover the team of chips working inside it.</p>
+    <div class="grid grid-4" id="device-grid"></div>
+    <div id="device-detail"></div>
+  `;
+
+  const grid = document.getElementById('device-grid');
+
+  Object.keys(DevicesData).forEach(id => {
+    const d = DevicesData[id];
+    const div = document.createElement('div');
+    div.className = 'card device-card';
+    div.innerHTML = `
+      <div class="icon">${d.icon}</div>
+      <h4>${d.name}</h4>
+    `;
+    div.addEventListener('click', () => openDeviceDetail(id));
+    grid.appendChild(div);
+  });
+}
+
+function openDeviceDetail(id) {
+  const d = DevicesData[id];
+  if (!d) return;
+
+  markVisited('device_' + id);
+
+  const detail = document.getElementById('device-detail');
+  if (!detail) return;
+
+  detail.innerHTML = `
+    <div class="card device-detail">
+      <h3>${d.icon} ${d.name}</h3>
+      <p style="color:var(--text-dim); margin-top:8px; line-height:1.6;">${d.desc}</p>
+      <h4 style="margin-top:16px; color:var(--accent3); font-size:.84rem; text-transform:uppercase; letter-spacing:.07em;">Chips Inside</h4>
+      <div class="device-chip-grid">
+        ${d.chips.map(cid => {
+          const c = ChipsData[cid];
+          return c ? `<div class="mini-chip" data-chip="${cid}">${c.icon}<br><small>${c.name}</small></div>` : '';
+        }).join('')}
+      </div>
+    </div>
+  `;
+
+  detail.querySelectorAll('[data-chip]').forEach(el => {
+    el.addEventListener('click', () => openChipModal(el.dataset.chip));
+  });
+
+  detail.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// ===== Flow =====
+const FlowExample = [
+  { icon: '📷', name: 'Camera', desc: 'Captures raw light as image data' },
+  { icon: '🔧', name: 'ISP', desc: 'Improves and cleans the image signal' },
+  { icon: '🧠', name: 'CPU', desc: 'Decides what the system should do next' },
+  { icon: '⚡', name: 'Memory', desc: 'Stores the active image data temporarily' },
+  { icon: '🎮', name: 'GPU', desc: 'Prepares the image for smooth display output' },
+  { icon: '🖼️', name: 'Display', desc: 'Shows the final picture to the user' }
+];
+
+function renderFlow(stage) {
+  stage.innerHTML = `
+    <h2 class="section-title">How Chips Work Together</h2>
+    <p class="section-sub">Watch how information flows from one chip to another inside a smart device.</p>
+
+    <div class="card">
+      <div class="flow-row" id="flow-row"></div>
+      <div style="text-align:center;">
+        <button class="start-btn" id="play-flow">▶ Play Animation</button>
+      </div>
+      <div id="flow-caption" style="text-align:center; margin-top:16px; color:var(--text-dim); min-height:26px;"></div>
+    </div>
+  `;
+
+  const row = document.getElementById('flow-row');
+
+  FlowExample.forEach((node, i) => {
+    const el = document.createElement('div');
+    el.className = 'flow-node';
+    el.id = 'flow-node-' + i;
+    el.innerHTML = `
+      <div style="font-size:1.8rem;">${node.icon}</div>
+      <div style="font-size:.82rem; margin-top:4px;">${node.name}</div>
+    `;
+    row.appendChild(el);
+
+    if (i < FlowExample.length - 1) {
+      const arrow = document.createElement('div');
+      arrow.className = 'flow-arrow';
+      arrow.textContent = '→';
+      row.appendChild(arrow);
+    }
+  });
+
+  document.getElementById('play-flow').addEventListener('click', () => {
+    let i = 0;
+    const caption = document.getElementById('flow-caption');
+    document.querySelectorAll('.flow-node').forEach(n => n.classList.remove('active'));
+
+    const interval = setInterval(() => {
+      document.querySelectorAll('.flow-node').forEach(n => n.classList.remove('active'));
+
+      const current = document.getElementById('flow-node-' + i);
+      if (current) current.classList.add('active');
+      caption.textContent = FlowExample[i].icon + ' ' + FlowExample[i].name + ': ' + FlowExample[i].desc;
+
+      i++;
+      if (i >= FlowExample.length) {
+        clearInterval(interval);
+        markVisited('flow_done');
+      }
+    }, 950);
+  });
+}
+
+// ===== Factory =====
+const FactorySteps = [
+  { name: 'Silica Sand', detail: 'Common sand contains silicon dioxide, the raw starting material for chips.' },
+  { name: 'Purification', detail: 'The silicon material is purified to an extremely high level so it behaves predictably.' },
+  { name: 'Crystal Growth', detail: 'Pure silicon is grown into a large single crystal called an ingot.' },
+  { name: 'Wafer Slicing', detail: 'The crystal is sliced into very thin circular wafers and polished smooth.' },
+  { name: 'Photolithography', detail: 'Light and masks transfer extremely tiny circuit patterns onto the wafer.' },
+  { name: 'Doping', detail: 'Special atoms are added to selected areas so the silicon can control electrical flow.' },
+  { name: 'Etching', detail: 'Unwanted material is removed to leave behind the required microscopic structures.' },
+  { name: 'Metal Layers', detail: 'Tiny metal paths are added so billions of transistors can connect and communicate.' },
+  { name: 'Testing', detail: 'Each chip is checked for defects and correct electrical behavior.' },
+  { name: 'Packaging', detail: 'The silicon die is sealed in a protective package with external electrical connections.' },
+  { name: 'Finished Chip', detail: 'The completed chip is now ready to be placed inside a machine.' }
+];
+
+function renderFactory(stage) {
+  stage.innerHTML = `
+    <h2 class="section-title">Chip Factory</h2>
+    <p class="section-sub">Follow the journey from sand to a powerful finished chip.</p>
+    <div class="factory-steps" id="factory-steps"></div>
+  `;
+
+  const wrap = document.getElementById('factory-steps');
+
+  FactorySteps.forEach((step, i) => {
+    const div = document.createElement('div');
+    div.className = 'factory-step';
+    div.innerHTML = `
+      <div class="num">${i + 1}</div>
+      <div style="flex:1;">
+        <strong>${step.name}</strong>
+        <div class="factory-detail">${step.detail}</div>
+      </div>
+    `;
+
+    div.addEventListener('click', () => {
+      div.classList.toggle('open');
+      div.classList.add('done');
+      markVisited('factory_step_' + i);
+
+      const allDone = FactorySteps.every((_, idx) => State.progress['factory_step_' + idx]);
+      if (allDone) markVisited('factory_done');
+    });
+
+    wrap.appendChild(div);
+  });
+}
+
+// ===== Future Chips =====
+const FutureChips = [
+  {
+    name: 'Neuromorphic Chips',
+    icon: '🧬',
+    status: 'Early research and limited products',
+    desc: 'These chips try to imitate some brain-like behavior so AI can run with lower power.'
+  },
+  {
+    name: 'Photonic Chips',
+    icon: '💡',
+    status: 'Active research and prototypes',
+    desc: 'They use light instead of only electrical signals, which may allow faster and cooler computing.'
+  },
+  {
+    name: 'Quantum Chips',
+    icon: '⚛️',
+    status: 'Experimental',
+    desc: 'Quantum chips aim to solve certain kinds of problems in very different ways from normal chips.'
+  },
+  {
+    name: 'Flexible Electronics',
+    icon: '🧻',
+    status: 'Emerging',
+    desc: 'These circuits can bend, opening possibilities for wearable and unusual device shapes.'
+  },
+  {
+    name: 'Bio Chips',
+    icon: '🧫',
+    status: 'Research stage',
+    desc: 'These chips interact with biological systems and may help in diagnosis and health monitoring.'
+  },
+  {
+    name: 'Brain Interfaces',
+    icon: '🧠',
+    status: 'Very early experimental stage',
+    desc: 'They aim to connect electronics more directly with the human nervous system.'
+  },
+  {
+    name: 'Self-Healing Electronics',
+    icon: '🩹',
+    status: 'Research stage',
+    desc: 'These materials may someday repair small forms of damage automatically.'
+  }
+];
+
+function renderFuture(stage) {
+  stage.innerHTML = `
+    <h2 class="section-title">Future Chips</h2>
+    <p class="section-sub">These are emerging technologies and research directions, not the same as the everyday chips already widely used today.</p>
+    <div class="grid grid-3" id="future-grid"></div>
+  `;
+
+  const grid = document.getElementById('future-grid');
+
+  FutureChips.forEach(f => {
+    const div = document.createElement('div');
+    div.className = 'card future-card';
+    div.innerHTML = `
+      <div class="future-tag">${f.status}</div>
+      <h4>${f.icon} ${f.name}</h4>
+      <p style="color:var(--text-dim); font-size:.9rem; margin-top:8px; line-height:1.6;">${f.desc}</p>
+    `;
+    grid.appendChild(div);
+  });
+
+  markVisited('future_seen');
+}
+
+// ===== Quiz =====
+function renderQuiz(stage) {
+  if (State.quizIndex >= QuizData.length) {
+    stage.innerHTML = `
+      <h2 class="section-title">Quiz Adventure Complete!</h2>
+      <div class="card quiz-box">
+        <div class="quiz-score">You scored ${State.quizScore} / ${QuizData.length} 🎉</div>
+        <div style="text-align:center; margin-top:20px;">
+          <button class="start-btn" id="retry-quiz">🔁 Retry Quiz</button>
+        </div>
+      </div>
+    `;
+
+    checkBadges();
+
+    document.getElementById('retry-quiz').addEventListener('click', () => {
+      State.quizIndex = 0;
+      State.quizScore = 0;
+      State.quizAnswered = false;
+      renderQuiz(stage);
+    });
+
+    return;
+  }
+
+  const q = QuizData[State.quizIndex];
+  State.quizAnswered = false;
+
+  stage.innerHTML = `
+    <h2 class="section-title">Quiz Adventure</h2>
+    <p class="section-sub">Question ${State.quizIndex + 1} of ${QuizData.length}</p>
+
+    <div class="card quiz-box">
+      <div class="quiz-q">${q.q}</div>
+      <div id="quiz-opts"></div>
+      <div class="quiz-explain" id="quiz-explain">${q.explain}</div>
+      <div class="quiz-nav">
+        <button id="quiz-next">Next ▶</button>
+      </div>
+    </div>
+  `;
+
+  const opts = document.getElementById('quiz-opts');
+
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-opt';
+    btn.textContent = opt;
+
+    btn.addEventListener('click', () => {
+      if (State.quizAnswered) return;
+      State.quizAnswered = true;
+
+      document.querySelectorAll('.quiz-opt').forEach((b, j) => {
+        if (j === q.answer) b.classList.add('correct');
+        else if (j === i) b.classList.add('wrong');
+      });
+
+      if (i === q.answer) State.quizScore++;
+      document.getElementById('quiz-explain').style.display = 'block';
+    });
+
+    opts.appendChild(btn);
+  });
+
+  document.getElementById('quiz-next').addEventListener('click', () => {
+    if (!State.quizAnswered) return;
+    State.quizIndex++;
+    renderQuiz(stage);
+  });
+}
+
+// ===== Init =====
+renderBadgesPanel();
+updateProgressBar();
+renderSection('welcome');

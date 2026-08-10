@@ -1,0 +1,1436 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Medhā Space Academy — Complete ISS Learning System</title>
+  <link rel="icon" href="data:,">
+  <style>
+    :root {
+      --bg: #08101d;
+      --panel: rgba(10, 18, 36, 0.92);
+      --panel-2: rgba(14, 24, 47, 0.88);
+      --line: rgba(255, 255, 255, 0.08);
+      --text: #eaf2ff;
+      --muted: #9eb1d3;
+      --accent: #60a5fa;
+      --accent-2: #4ade80;
+      --gold: #fbbf24;
+      --danger: #fb7185;
+      --purple: #c084fc;
+      --cyan: #22d3ee;
+      --shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+      --r: 18px;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      height: 100%;
+      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+      background: radial-gradient(circle at top, #0b1731 0%, #050914 60%, #02040a 100%);
+      color: var(--text);
+    }
+    body { overflow: auto; }
+    .wrap { min-height: 100%; padding: 20px; }
+    
+    .shell {
+      max-width: 1420px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 320px minmax(0, 1fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    /* Navigation Sidebar */
+    .nav, .content {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--r);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+    .nav {
+      position: sticky;
+      top: 20px;
+      padding: 16px;
+      max-height: calc(100vh - 40px);
+      overflow-y: auto;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+    .logo {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #93c5fd, #2563eb 60%, #0f172a 100%);
+      box-shadow: 0 0 30px rgba(96, 165, 250, 0.35);
+      position: relative; overflow: hidden;
+      flex-shrink: 0;
+    }
+    .logo:after {
+      content: ""; position: absolute; inset: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 50%;
+    }
+    .brand h1 { font-size: 1.05rem; line-height: 1.2; margin: 0; }
+    .brand p { margin: 2px 0 0; color: var(--muted); font-size: 0.78rem; }
+    
+    /* 3D Glass Progress Card */
+    .progress-card {
+      margin: 14px 0 18px;
+      padding: 14px;
+      border: 1px solid rgba(96,165,250,0.28);
+      border-radius: 14px;
+      background: linear-gradient(145deg, rgba(37,99,235,0.15), rgba(15,23,42,0.6));
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25), inset 0 1px 1px rgba(255,255,255,0.1);
+    }
+    .progress-header {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.78rem; font-weight: 700; color: #dbeafe; margin-bottom: 8px;
+    }
+    .progress-bar-bg {
+      width: 100%; height: 8px; background: rgba(255,255,255,0.08);
+      border-radius: 999px; overflow: hidden; margin-bottom: 8px;
+    }
+    .progress-bar-fill {
+      height: 100%; width: 0%; background: linear-gradient(90deg, #3b82f6, #4ade80);
+      transition: width 0.4s ease;
+    }
+    .progress-message {
+      font-size: 0.72rem; color: var(--muted); line-height: 1.3; margin: 0;
+    }
+
+    .cat-title {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--gold);
+      margin: 14px 0 6px 4px;
+      font-weight: 700;
+    }
+    
+    #sidebarNav {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .nav button {
+      width: 100%; text-align: left; background: var(--panel-2);
+      color: var(--text); border: 1px solid var(--line);
+      padding: 10px 12px; border-radius: 12px; margin: 0;
+      cursor: pointer; transition: 0.2s ease; font-size: 0.88rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav button:hover { transform: translateY(-1px); border-color: rgba(96, 165, 250, 0.35); }
+    .nav button.active {
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.42), rgba(15, 23, 42, 0.85));
+      border-color: rgba(96, 165, 250, 0.6);
+      box-shadow: 0 0 0 1px rgba(96, 165, 250, 0.18) inset;
+      font-weight: 600;
+    }
+    .num-badge {
+      font-size: 0.7rem; background: rgba(255,255,255,0.08);
+      padding: 2px 6px; border-radius: 999px; color: var(--muted);
+    }
+
+    /* Main Content Area */
+    .content {
+      padding: 24px; min-height: 82vh; position: relative; overflow: hidden;
+    }
+    .stars, .orbitRing { position: absolute; inset: 0; pointer-events: none; }
+    .stars {
+      background-image:
+        radial-gradient(circle at 15% 20%, rgba(255,255,255,0.8) 0 1px, transparent 1.2px),
+        radial-gradient(circle at 80% 30%, rgba(255,255,255,0.7) 0 1px, transparent 1.2px),
+        radial-gradient(circle at 55% 75%, rgba(255,255,255,0.8) 0 1px, transparent 1.2px),
+        radial-gradient(circle at 28% 66%, rgba(255,255,255,0.55) 0 1px, transparent 1.2px),
+        radial-gradient(circle at 72% 82%, rgba(255,255,255,0.55) 0 1px, transparent 1.2px);
+      opacity: 0.45;
+    }
+    .orbitRing:before {
+      content: ""; position: absolute; right: -120px; top: -60px;
+      width: 360px; height: 360px; border: 1px solid rgba(96, 165, 250, 0.14);
+      border-radius: 50%; animation: spin 24s linear infinite;
+    }
+
+    /* Lesson Header & 3D Explorer Button */
+    .lesson-header { margin-bottom: 24px; position: relative; z-index: 2; }
+    .eyebrow {
+      display: inline-flex; gap: 8px; align-items: center; padding: 6px 12px;
+      border-radius: 999px; background: rgba(96, 165, 250, 0.12);
+      border: 1px solid rgba(96, 165, 250, 0.22); font-size: 0.75rem;
+      color: #cfe0ff; margin-bottom: 12px;
+    }
+    .lesson-header h2 { font-size: clamp(1.6rem, 2.5vw, 2.4rem); margin: 0 0 12px; }
+    
+    .explore-btn {
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: #fff; border: 1px solid rgba(96, 165, 250, 0.5);
+      padding: 10px 16px; border-radius: 12px; font-weight: 600;
+      cursor: pointer; transition: all 0.25s ease; font-size: 0.88rem;
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.35);
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .explore-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
+      border-color: rgba(147, 197, 253, 0.8);
+    }
+    
+    /* 12-Part Pedagogical Grid (3D Cards) */
+    .pedagogy-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      position: relative;
+      z-index: 2;
+    }
+    .card {
+      padding: 18px; border-radius: 16px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+      border: 1px solid var(--line);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      transition: 0.25s ease;
+    }
+    .card:hover { 
+      border-color: rgba(96, 165, 250, 0.28);
+      transform: translateY(-2px);
+    }
+    .card.full-width { grid-column: span 2; }
+    .card h3 {
+      font-size: 0.95rem; color: var(--gold);
+      margin: 0 0 10px; display: flex; align-items: center; gap: 8px;
+    }
+    .card p { margin: 0; line-height: 1.6; font-size: 0.92rem; color: var(--muted); }
+
+    /* Flow / Timeline Pipeline Component */
+    .pipeline {
+      display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 12px;
+    }
+    .pipe-node {
+      background: rgba(37, 99, 235, 0.2); border: 1px solid rgba(96, 165, 250, 0.3);
+      padding: 8px 14px; border-radius: 10px; font-size: 0.85rem; color: #fff;
+      font-weight: 500;
+    }
+    .pipe-arrow { color: var(--muted); font-weight: bold; }
+
+    /* Interactive Simulation Box */
+    .sim-box {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px dashed rgba(96, 165, 250, 0.4);
+      border-radius: 14px;
+      padding: 16px;
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .sim-box button {
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: #fff; border: none; padding: 10px 18px;
+      border-radius: 10px; font-weight: 600; cursor: pointer;
+      margin-top: 10px; transition: 0.2s;
+    }
+    .sim-box button:hover { transform: scale(1.03); box-shadow: 0 0 15px rgba(37,99,235,0.5); }
+    .sim-output {
+      margin-top: 12px; font-size: 0.88rem; color: var(--accent-2); font-weight: 500;
+      min-height: 20px;
+    }
+
+    /* Mini Quiz Component */
+    .quiz-options { display: grid; gap: 8px; margin-top: 12px; }
+    .quiz-btn {
+      text-align: left; padding: 10px 14px; border-radius: 10px;
+      background: rgba(255,255,255,0.04); border: 1px solid var(--line);
+      color: var(--text); cursor: pointer; transition: 0.2s;
+      font-size: 0.88rem;
+    }
+    .quiz-btn:hover { border-color: var(--accent); }
+    .quiz-btn.correct { background: rgba(74, 222, 128, 0.18); border-color: var(--accent-2); color: #fff; }
+    .quiz-btn.wrong { background: rgba(251, 113, 133, 0.18); border-color: var(--danger); }
+    
+    /* Specialized Highlight Boxes */
+    .failure-box { border-left: 3px solid var(--danger); }
+    .repair-box { border-left: 3px solid var(--accent-2); }
+    .evidence-box { border-left: 3px solid var(--cyan); background: rgba(34, 211, 238, 0.05); }
+    .myth-box { border-left: 3px solid var(--purple); background: rgba(192, 132, 252, 0.05); }
+    
+    .myth-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px; }
+    .myth-cell { padding: 10px; border-radius: 10px; font-size: 0.88rem; line-height: 1.5; }
+    .myth-cell.myth { background: rgba(251, 113, 133, 0.1); border: 1px solid rgba(251, 113, 133, 0.25); }
+    .myth-cell.fact { background: rgba(74, 222, 128, 0.1); border: 1px solid rgba(74, 222, 128, 0.25); }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes pageIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fadePage { animation: pageIn 0.35s ease; }
+
+    @media (max-width: 960px) {
+      .shell { grid-template-columns: 1fr; }
+      .nav { position: relative; top: 0; max-height: auto; }
+      .pedagogy-grid { grid-template-columns: 1fr; }
+      .card.full-width { grid-column: span 1; }
+      .myth-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="shell">
+      <!-- Sidebar Navigation -->
+      <aside class="nav" id="sidebar">
+        <div class="brand">
+          <div class="logo"></div>
+          <div>
+            <h1>Medhā Space Academy</h1>
+            <p>12-Part Precision Learning</p>
+          </div>
+        </div>
+<a href="astronaut-sim.html" target="_blank" style="
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #fbbf24, #d97706);
+  color: #000;
+  font-weight: 700;
+  text-decoration: none;
+  padding: 10px 16px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(251, 191, 36, 0.35);
+  transition: transform 0.2s;
+" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+  👨‍🚀 Be an Astronaut Simulator
+</a>
+        <!-- Progress Card -->
+        <div class="progress-card">
+          <div class="progress-header">
+            <span>MISSION PROGRESS</span>
+            <span id="progressText">0 / 35</span>
+          </div>
+          <div class="progress-bar-bg">
+            <div id="progressFill" class="progress-bar-fill"></div>
+          </div>
+          <p id="progressMessage" class="progress-message">35 chapters remaining.</p>
+        </div>
+
+        <!-- Sidebar Category Buttons Container -->
+        <div id="sidebarNav"></div>
+      </aside>
+
+      <!-- Main Lesson Display -->
+      <main class="content">
+        <div class="stars"></div>
+        <div class="orbitRing"></div>
+        <div id="page" class="fadePage"></div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    /************************************************************************
+     * 1. THE 35-CHAPTER CURRICULUM SYLLABUS (12-PART PEDAGOGY)
+     ************************************************************************/
+    const curriculum = [
+      // CATEGORY 1: OVERVIEW & HISTORY
+      {
+        id: "c1", cat: "1. Overview & History", title: "1. Introduction to the ISS",
+        what: "The International Space Station is an orbiting laboratory 400 km above Earth, built through cooperation among five major space agencies representing 15 countries, with continuous human presence since November 2000.",
+        why: "It allows scientists to study long-term human adaptation to space and test critical technologies needed for future exploration to the Moon and Mars.",
+        flow: ["Why Built?", "400 km Orbit", "15 Countries", "5 Agencies", "Continuous Presence Since 2000"],
+        fail: "Even at 400 km altitude, the thin upper atmosphere creates a small amount of drag. Without periodic reboosts, the station would slowly lose altitude over time.",
+        fix: "Astronauts and ground controllers fire thrusters on visiting cargo ships or the station's own engines to reboost its orbital altitude.",
+        howWeKnow: "We track the station's orbit using radar ground stations, GPS sensors, and continuous daily telemetry logs recorded since November 2000.",
+        myth: {
+          m: "Myth: 'There is no gravity in space, which is why the station floats.'",
+          f: "Fact: Gravity at 400 km is still about 90% as strong as on Earth! The ISS stays in orbit because it moves sideways fast enough while in continuous free fall."
+        },
+        simTitle: "Orbital Altitude Reboost Simulator",
+        simAction: "Fire Reboost Thrusters",
+        simResult: "Altitude increased by +4.2 km! Orbit stabilized against upper atmosphere drag.",
+        challenge: "The station loses a small amount of altitude each week due to thin atmospheric drag. What maneuver must engineers plan?",
+        quiz: {
+          q: "Since what year has the ISS had a continuous human presence onboard?",
+          options: ["1969", "2000", "2015"],
+          ans: 1
+        },
+        realWorld: "International agreements developed for the ISS serve as a model for global scientific treaties in Antarctica and oceanography.",
+        connect: "Connected to Orbit, Guidance, and Visiting Spacecraft systems."
+      },
+      {
+        id: "c2", cat: "1. Overview & History", title: "2. Space Station History",
+        what: "A historical progression of space habitats, evolving from early single-module test stations to today's modular international facility.",
+        why: "Each space station taught aerospace engineers valuable lessons about solar power, life support, and orbital docking techniques.",
+        flow: ["Sputnik", "Yuri Gagarin", "Apollo", "Skylab", "Salyut", "Mir", "ISS", "Artemis", "Lunar Gateway", "Mars"],
+        fail: "Early stations like Skylab and Mir experienced severe power loss, thermal challenges, and eventually could no longer safely operate.",
+        fix: "Engineers designed the ISS with modular, standardized parts so aging components could be swapped out and upgraded in orbit.",
+        howWeKnow: "Historical mission logs, astronaut flight records, and declassified technical blueprints from NASA, Roscosmos, and ESA.",
+        myth: {
+          m: "Myth: 'The ISS is the first space station ever built.'",
+          f: "Fact: Several stations came before the ISS, including Salyut, Skylab, and Mir, which paved the way for international cooperation."
+        },
+        simTitle: "Interactive Timeline Explorer",
+        simAction: "Advance Space Era",
+        simResult: "Selected Era: ISS (1998–Present) -> Next Step: Artemis Lunar Gateway!",
+        challenge: "Arrange the progression: Which major space station operated immediately before the ISS?",
+        quiz: {
+          q: "Which space station came immediately before the ISS?",
+          options: ["Skylab", "Mir", "Salyut"],
+          ans: 1
+        },
+        realWorld: "Modular architecture developed for space stations inspires modern modular Antarctic research stations.",
+        connect: "Connected to Assembly of ISS and Future Missions."
+      },
+      {
+        id: "c3", cat: "1. Overview & History", title: "3. Assembly of the ISS",
+        what: "The step-by-step orbital construction of the ISS using Space Shuttles and heavy rockets over more than a decade.",
+        why: "No single launch vehicle on Earth was large enough to lift the entire 450-ton space station into orbit at once.",
+        flow: ["Launch Module", "Docking / Berthing", "Connect Cables", "Power Up", "Life Support", "Crew Entry", "Science", "Expand"],
+        fail: "If an electrical or coolant connection between modules failed during assembly, power and life support could not cross between rooms.",
+        fix: "Spacewalking astronauts manually connected power cables, data lines, and ammonia cooling hoses between newly attached modules.",
+        howWeKnow: "High-definition structural video recorded by Shuttle crews, Canadarm2 cameras, and telemetry during every assembly spacewalk.",
+        myth: {
+          m: "Myth: 'The entire space station was launched on a single giant rocket.'",
+          f: "Fact: The ISS was assembled piece-by-piece in orbit over 40+ launch missions between 1998 and 2011."
+        },
+        simTitle: "Orbital Module Assembly Tool",
+        simAction: "Connect Unity and Zarya Modules",
+        simResult: "Modules latched securely! Power and data buses successfully verified across the hatch.",
+        challenge: "A new laboratory module has just arrived in orbit. What must astronauts connect before turning on science racks?",
+        quiz: {
+          q: "Why was the ISS launched in pieces instead of all at once?",
+          options: ["It was too heavy for a single rocket", "To test different paint colors", "It was cheaper to fly 40 times"],
+          ans: 0
+        },
+        realWorld: "Modular orbital assembly techniques are now used to construct undersea tunnels and prefab skyscrapers.",
+        connect: "Connected to Complete Anatomy, Docking, and Robotics."
+      },
+      {
+        id: "c4", cat: "1. Overview & History", title: "4. Complete Anatomy",
+        what: "The layout of pressurized laboratories, connecting nodes, airlocks, and unpressurized truss segments that form the ISS.",
+        why: "Different modules specialize in specific functions: laboratories for science, nodes for structural connections, and trusses for power and cooling.",
+        flow: ["Overview", "Purpose", "Builder Agency", "Dimensions", "Docking Ports", "Internal Layout", "Equipment", "Daily Uses"],
+        fail: "A pressure seal issue between modules could cause a gradual loss of cabin pressure, requiring immediate emergency action.",
+        fix: "Airtight hatches between connecting nodes can be closed quickly to isolate any depressurizing module and keep the rest of the station safe.",
+        howWeKnow: "Acoustic sensor monitors, ultrasonic leak detectors, and detailed CAD engineering models maintained by mission planners.",
+        myth: {
+          m: "Myth: 'Astronauts can walk anywhere inside a single giant open room.'",
+          f: "Fact: The ISS is divided into distinct modular rooms connected by hatches, much like submarines or train cars."
+        },
+        simTitle: "Module Pressure & Hatch Inspector",
+        simAction: "Scan Pressurized Modules",
+        simResult: "Destiny, Columbus, and Kibo laboratories operating at safe cabin pressure (14.7 psi).",
+        challenge: "An astronaut needs to exit into open space for a repair. Which anatomy module is used to safely leave the cabin?",
+        quiz: {
+          q: "What is the name of the main U.S. science laboratory module on the ISS?",
+          options: ["Columbus", "Destiny", "Kibo"],
+          ans: 1
+        },
+        realWorld: "Submarine bulkhead layouts and fire-door isolation systems mirror ISS node hatch anatomy.",
+        connect: "Connected to Life Support, Science Labs, and Spacewalk Airlocks."
+      },
+
+      // CATEGORY 2: CORE SYSTEMS & ANATOMY
+      {
+        id: "c5", cat: "2. Core Systems & Anatomy", title: "5. Electrical Power System",
+        what: "The large solar array wings and lithium-ion battery banks that generate and distribute all electrical power across the station.",
+        why: "Without electricity, life support, heating, computers, and scientific experiments could eventually stop operating.",
+        flow: ["Sun", "Solar Panels", "Electricity", "Battery Storage", "Power Bus", "Laboratories", "Computers", "Life Support"],
+        fail: "When the ISS flies through Earth's shadow (Night pass), solar panels stop generating electricity.",
+        fix: "Lithium-ion batteries automatically discharge to keep the station powered during the ~45-minute orbital night.",
+        howWeKnow: "Real-time voltage and current sensors on the Main Power Bus continuously transmit electrical load data to Mission Control.",
+        myth: {
+          m: "Myth: 'The ISS uses nuclear reactors for its electricity.'",
+          f: "Fact: The ISS is powered entirely by solar arrays and rechargeable lithium-ion battery banks."
+        },
+        simTitle: "Solar Array Power Grid Simulator",
+        simAction: "Simulate Orbital Eclipse (Night Pass)",
+        simResult: "Solar output: 0%. Lithium-ion Battery discharge activated. Power bus steady at 120 VDC.",
+        challenge: "A solar wing is temporarily shadowed during a maneuver. What system automatically supplies electricity to the laboratories?",
+        quiz: {
+          q: "What keeps the ISS powered when it is flying through Earth's dark shadow?",
+          options: ["Backup diesel generators", "Rechargeable lithium-ion batteries", "Nuclear reactors"],
+          ans: 1
+        },
+        realWorld: "ISS solar-to-battery switching algorithms power modern residential solar home grids.",
+        connect: "Connected to Sunlight, Thermal Control, and Engineering Challenges."
+      },
+      {
+        id: "c6", cat: "2. Core Systems & Anatomy", title: "6. Atmosphere & Air System",
+        what: "The life-support equipment that provides breathable oxygen (21%) and scrubs exhaled carbon dioxide (CO₂) from the cabin air.",
+        why: "There is no breathable air in space. Without continuous atmosphere processing, cabin air would eventually become unsafe.",
+        flow: ["Oxygen Generator", "Cabin Air (21% O2)", "Astronaut Exhale", "CO₂ Buildup", "CO₂ Scrubber", "Clean Air"],
+        fail: "If carbon dioxide removal slows down, CO₂ levels can rise above normal operating limits, causing headaches or fatigue.",
+        fix: "Astronauts activate backup removal systems or chemical filter cartridges until CO₂ returns to the safe operating range.",
+        howWeKnow: "Mass spectrometers and continuous infrared air-quality monitors sample cabin atmosphere every few seconds.",
+        myth: {
+          m: "Myth: 'Astronauts breathe pure oxygen on the ISS.'",
+          f: "Fact: The ISS cabin air is a standard Earth-like mixture of 21% oxygen and 78% nitrogen at normal sea-level pressure."
+        },
+        simTitle: "Cabin Air Scrubber Simulator",
+        simAction: "Engage Primary CO₂ Scrubbers",
+        simResult: "CO₂ returned to the safe operating range. Cabin oxygen steady at 21%.",
+        challenge: "Carbon dioxide levels are rising slightly in the sleeping quarters. Which life-support component needs cleaning or adjustment?",
+        quiz: {
+          q: "What dangerous exhaled gas must be continuously removed from cabin air?",
+          options: ["Nitrogen", "Carbon Dioxide (CO₂)", "Water vapor"],
+          ans: 1
+        },
+        realWorld: "Air scrubber technology from the ISS is used in hospital intensive care units and modern submarines.",
+        connect: "Connected to Water Recycling, Fire Safety, and Space Suits."
+      },
+      {
+        id: "c7", cat: "2. Core Systems & Anatomy", title: "7. Water Recycling System",
+        what: "A closed-loop purification plant that captures humidity, sweat, and urine and converts it into clean, potable drinking water.",
+        why: "Launching water from Earth is heavy and costly. The ISS recovers most of its water (about 98% in current systems) to stay self-sufficient.",
+        flow: ["Waste Water / Sweat", "Filtration", "Distillation", "Catalytic Oxidation", "Potable Drinking Water", "Reuse"],
+        fail: "A filter clog can slow water purification, requiring astronauts to use stored reserve water containers temporarily.",
+        fix: "Crew members replace multi-stage filtration beds and centrifuge seals to restore normal purification rates.",
+        howWeKnow: "Onboard chemical conductivity sensors and microbial water samples tested in laboratories verify water purity.",
+        myth: {
+          m: "Myth: 'Astronauts drink unfiltered wastewater.'",
+          f: "Fact: Recycled water on the ISS goes through rigorous multi-stage distillation and catalytic filtration, making it exceptionally clean and potable."
+        },
+        simTitle: "Water Purification Cycle Tool",
+        simAction: "Run Distillation & Oxidation Cycle",
+        simResult: "98% water recovery achieved! Clean, potable drinking water verified for crew use.",
+        challenge: "Why do engineers design space stations to recycle cabin humidity and sweat instead of launching new water tanks every week?",
+        quiz: {
+          q: "Approximately what percentage of water is recovered in current ISS recycling systems?",
+          options: ["50%", "75%", "About 98%"],
+          ans: 2
+        },
+        realWorld: "ISS water distillation systems provide clean drinking water in remote disaster relief zones on Earth.",
+        connect: "Connected to Atmosphere System (Oxygen generation uses recycled water via electrolysis)."
+      },
+      {
+        id: "c8", cat: "2. Core Systems & Anatomy", title: "8. Thermal Control System",
+        what: "A network of internal water loops and external ammonia coolant loops with large radiators that regulate cabin and equipment temperatures.",
+        why: "Temperatures can range from about +120°C in sunlight to below –150°C in shadow, depending on the surface and conditions. Equipment also generates intense waste heat.",
+        flow: ["Equipment Heat", "Internal Water Loop", "Heat Exchanger", "External Ammonia Loop", "Radiators", "Deep Space"],
+        fail: "If a coolant pump stops, computers and laboratories can overheat and require temporary shutdown to prevent damage.",
+        fix: "Spacewalkers or robotic arms replace external pump modules, or controllers switch coolant flow to a redundant backup radiator loop.",
+        howWeKnow: "External thermal imaging and thousands of thermocouple temperature sensors embedded across every module and truss.",
+        myth: {
+          m: "Myth: 'Space is always freezing cold, so the ISS only needs heaters.'",
+          f: "Fact: In vacuum, getting rid of waste heat from electronics is one of the biggest engineering challenges! Radiators are essential to cool the station."
+        },
+        simTitle: "Radiator Heat Rejection Simulator",
+        simAction: "Rotate Radiators Away from Sun",
+        simResult: "Waste heat radiated into deep space. Internal cabin temperature locked comfortably at 22°C.",
+        challenge: "Laboratory electronics are warming up during a bright solar pass. What external panels radiate waste heat into space?",
+        quiz: {
+          q: "What liquid is used in the external cooling loops to shed heat into space?",
+          options: ["Liquid Nitrogen", "Ammonia", "Salt water"],
+          ans: 1
+        },
+        realWorld: "Liquid cooling loops developed for ISS electronics now cool high-performance computer data centers.",
+        connect: "Connected to Electrical Power System and Space Suit Cooling."
+      },
+      {
+        id: "c9", cat: "2. Core Systems & Anatomy", title: "9. Guidance, Navigation & Control",
+        what: "The system of GPS, gyroscopes, star trackers, optical sensors, and thrusters that control the station's attitude (orientation).",
+        why: "Solar panels must face the Sun, radiators must face dark space, and docking ports must align with arriving spacecraft.",
+        flow: ["Star Trackers & GPS", "Attitude Calculation", "Control Moment Gyroscopes", "Thruster Assist", "Stable Orientation"],
+        fail: "If gyroscopes become saturated with momentum, the station could slowly drift off its required orientation.",
+        fix: "Control Moment Gyroscopes (CMGs) are desaturated by firing small rocket thruster pulses to dump excess momentum.",
+        howWeKnow: "Star trackers continuously photograph fixed constellations to calculate the station's exact angular orientation.",
+        myth: {
+          m: "Myth: 'The ISS is steered by an astronaut with a joystick at all times.'",
+          f: "Fact: Attitude control is automated using spinning Control Moment Gyroscopes and computer-controlled navigation sensors."
+        },
+        simTitle: "Attitude Control Gyroscope Tool",
+        simAction: "Spin Up Control Moment Gyroscopes",
+        simResult: "Attitude locked. Solar panels perfectly tracking solar vector without burning propellant.",
+        challenge: "The station is tilted slightly off its optimal angle. Do engineers use gyroscopes or thrusters first to rotate it without wasting fuel?",
+        quiz: {
+          q: "Which sensors help the ISS determine its orientation by observing constellations?",
+          options: ["Star trackers", "Wind vanes", "Magnetic compasses"],
+          ans: 0
+        },
+        realWorld: "Gyroscopic stabilization keeps commercial satellites and ocean vessels steady without burning fuel.",
+        connect: "Connected to Orbit, Docking, and Communication."
+      },
+      {
+        id: "c10", cat: "2. Core Systems & Anatomy", title: "10. Orbit & Trajectory",
+        what: "The high-speed path around Earth where the station moves sideways at 28,000 km/h, orbiting Earth every 90 minutes (16 sunrises/day).",
+        why: "The ISS is continuously falling toward Earth while moving sideways fast enough that it keeps missing the ground.",
+        flow: ["Gravity Pull", "Forward Sideways Speed (28,000 km/h)", "Continuous Free Fall", "90-Minute Orbit", "16 Sunrises/Day"],
+        fail: "Even at 400 km altitude, the thin upper atmosphere creates a small amount of drag, slowly lowering orbital altitude.",
+        fix: "Periodic reboost burns from visiting cargo freighters push the station back up to its target altitude.",
+        howWeKnow: "Laser ranging, radar tracking, and onboard GPS navigation sensors measure orbital velocity and altitude down to the meter.",
+        myth: {
+          m: "Myth: 'The ISS floats because there is no gravity.'",
+          f: "Fact: It is in orbit because of its high sideways speed and continuous free fall around Earth!"
+        },
+        simTitle: "Orbital Free-Fall Calculator",
+        simAction: "Verify Velocity (28,000 km/h)",
+        simResult: "Sideways velocity confirmed! The station continuously falls around Earth's curve, creating microgravity.",
+        challenge: "Why do astronauts appear weightless inside the space station?",
+        quiz: {
+          q: "Why does the ISS stay in orbit around Earth?",
+          options: ["Because there is no gravity", "It moves sideways fast enough while continuously falling around Earth", "It has wings that generate lift"],
+          ans: 1
+        },
+        realWorld: "Orbital mechanics calculations for the ISS help maintain weather and GPS satellite constellations.",
+        connect: "Connected to Introduction, Guidance, and Visiting Spacecraft."
+      },
+      {
+        id: "c11", cat: "2. Core Systems & Anatomy", title: "11. Sunlight & Shadows",
+        what: "The rapid 45-minute day and 45-minute night thermal/light cycle the station experiences on every 90-minute orbit.",
+        why: "Understanding sunlight angles is critical for solar power generation and managing thermal expansion of metal trusses.",
+        flow: ["Orbital Sunrise", "45-Min Day (Solar Power)", "Orbital Sunset", "45-Min Night (Battery Power)", "16 Cycles/Day"],
+        fail: "Rapid temperature swings between sunlight and shadow cause metal trusses to expand and contract, creating mechanical stress.",
+        fix: "Flexible joints and Multi-Layer Insulation (MLI) blankets protect modules and trusses from thermal shock.",
+        howWeKnow: "External solar sensors and structural strain gauges measure expansion and contraction during orbital sunrises.",
+        myth: {
+          m: "Myth: 'The Sun is closer in space, so it is much hotter.'",
+          f: "Fact: The ISS is only about 400 km above Earth, so it is almost the exact same distance from the Sun as we are on the ground!"
+        },
+        simTitle: "Day/Night Thermal Tracker",
+        simAction: "Simulate Orbital Sunrise Transition",
+        simResult: "Solar arrays tracking solar angle. MLI blankets insulating cabin from rapid thermal transition.",
+        challenge: "Astronauts see 16 sunrises every day! How do they sleep without sunlight waking them up constantly?",
+        quiz: {
+          q: "How many sunrises and sunsets do astronauts see in a 24-hour day on the ISS?",
+          options: ["1 sunrise", "8 sunrises", "16 sunrises"],
+          ans: 2
+        },
+        realWorld: "Multi-layer insulation blankets developed for orbital solar cycles insulate cryogenic storage tanks on Earth.",
+        connect: "Connected to Power System, Thermal Control, and Daily Life."
+      },
+
+      // CATEGORY 3: ASTRONAUT LIFE
+      {
+        id: "c12", cat: "3. Astronaut Life", title: "12. Astronaut Training",
+        what: "Years of rigorous physical, mental, engineering, language, and underwater buoyancy training required before flying to space.",
+        why: "Astronauts must act as researchers, electricians, mechanics, and medics while handling complex operational tasks.",
+        flow: ["Mental & Physical Prep", "Engineering Systems", "Neutral Buoyancy Pool", "Robotics Arm Practice", "Language Study", "Flight"],
+        fail: "Inadequate buoyancy or tool training could lead to errors or delays during critical spacewalk maintenance.",
+        fix: "Astronauts practice spacewalk procedures underwater in the Neutral Buoyancy Laboratory for hours before every mission.",
+        howWeKnow: "Training qualification logs, underwater buoyancy test metrics, and decades of astronaut flight readiness evaluations.",
+        myth: {
+          m: "Myth: 'Anyone can fly to the ISS without training as long as they are fit.'",
+          f: "Fact: ISS astronauts undergo years of specialized training in engineering, spacewalking, robotics, and languages."
+        },
+        simTitle: "Neutral Buoyancy Pool Training Tool",
+        simAction: "Practice Underwater Spacewalk Task",
+        simResult: "Neutral buoyancy achieved. Simulated tool repair task completed within target timeline!",
+        challenge: "Why do astronauts train in a giant swimming pool on Earth to prepare for spacewalks?",
+        quiz: {
+          q: "What language do all ISS astronauts learn to speak for international coordination?",
+          options: ["French", "Russian", "Spanish"],
+          ans: 1
+        },
+        realWorld: "Simulated extreme-environment training methods are used by deep-sea rescue teams and polar explorers.",
+        connect: "Connected to Spacewalks, Maintenance, and Emergencies."
+      },
+      {
+        id: "c13", cat: "3. Astronaut Life", title: "13. Daily Life in Orbit",
+        what: "The everyday routine of sleeping in tethered sleeping bags, hygiene, exercising, and working in microgravity.",
+        why: "Maintaining a structured 24-hour UTC schedule keeps crew members healthy, hygienic, and mentally sharp.",
+        flow: ["Sleeping Bags", "Morning Hygiene", "Daily Science Work", "2-Hr Exercise", "Meals", "Evening Communications"],
+        fail: "Without airflow from a ventilation fan while sleeping, an astronaut could exhale a bubble of CO₂ around their head.",
+        fix: "Crew quarters have dedicated ventilation fans that continuously circulate fresh air across sleeping bags.",
+        howWeKnow: "Daily crew schedules, acoustic cabin monitoring, and biomedical sleep studies conducted in orbit.",
+        myth: {
+          m: "Myth: 'Astronauts sleep floating freely around the room.'",
+          f: "Fact: Astronauts strap their sleeping bags to the wall inside personal crew quarters so they don't bump into equipment!"
+        },
+        simTitle: "Microgravity Hygiene & Sleep Setup",
+        simAction: "Secure Sleeping Bag & Check Air Fan",
+        simResult: "Ventilation fan ON. Sleeping bag restraints secured safely in crew quarters.",
+        challenge: "How do astronauts wash their hair without water drops floating into computer panels?",
+        quiz: {
+          q: "Why do astronauts strap their sleeping bags to the wall?",
+          options: ["To prevent floating around and bumping into equipment", "Because walls are warm", "To create artificial gravity"],
+          ans: 0
+        },
+        realWorld: "No-rinse shampoos and compact hygiene kits from space travel are used in hospital bedcare.",
+        connect: "Connected to Atmosphere System, Food, and Health."
+      },
+      {
+        id: "c14", cat: "3. Astronaut Life", title: "14. Space Food & Nutrition",
+        what: "Freeze-dried, thermostabilized, and rehydratable meals packaged in pouches to prevent floating crumbs.",
+        why: "Proper nutrition and caloric intake prevent rapid muscle weight loss and maintain morale during long missions.",
+        flow: ["Pouch Storage", "Caloric Tracking", "Hot Water Rehydration", "Magnetized Utensils", "No-Crumb Eating", "Waste Disposal"],
+        fail: "Floating bread crumbs or water blobs can drift into electrical panels or air filters, causing contamination.",
+        fix: "Astronauts eat tortillas instead of crumbly bread and drink liquids from sealed pouches using valve straws.",
+        howWeKnow: "Biomedical nutritional logs, body mass measurements, and decades of food science testing at space centers.",
+        myth: {
+          m: "Myth: 'Astronauts only eat food pills and paste from tubes.'",
+          f: "Fact: ISS astronauts eat a wide variety of meals, including fruits, vegetables, pasta, and seafood!"
+        },
+        simTitle: "Space Kitchen Meal Preparation",
+        simAction: "Inject Hot Water Into Pouch",
+        simResult: "Freeze-dried spinach and pasta rehydrated! Ready to eat safely with magnetized utensils.",
+        challenge: "Why are salt and pepper served in liquid form (dissolved in water or oil) on the ISS?",
+        quiz: {
+          q: "Why do astronauts eat tortillas instead of regular crumbly bread?",
+          options: ["They taste better", "Tortillas don't produce floating crumbs", "They are lighter"],
+          ans: 1
+        },
+        realWorld: "Freeze-drying food preservation techniques from NASA are now common in camping and emergency survival rations.",
+        connect: "Connected to Water Recycling, Health, and Plant Growth."
+      },
+      {
+        id: "c15", cat: "3. Astronaut Life", title: "15. Astronaut Health & Fitness",
+        what: "Daily physiological management to counteract bone density loss, muscle atrophy, and fluid shifts in microgravity.",
+        why: "With greatly reduced effects of gravity, muscles and bones weaken unless astronauts exercise vigorously every day.",
+        flow: ["Bone Scan", "Muscle Check", "ARED Resistance Exercise", "Treadmill Run", "Radiation Monitoring", "Medical Check"],
+        fail: "Without daily resistance exercise, astronauts would lose muscle mass and bone density, making return to Earth difficult.",
+        fix: "Crew members exercise ~2 hours every day using the ARED resistance weight machine and a harnessed treadmill.",
+        howWeKnow: "Pre- and post-flight DEXA bone density scans, ultrasound imaging, and continuous heart rate monitoring.",
+        myth: {
+          m: "Myth: 'Astronauts don't need to exercise because floating is easy.'",
+          f: "Fact: Floating is so easy that muscles and bones dissolve without 2 hours of rigorous daily resistance exercise!"
+        },
+        simTitle: "ARED Resistance Exercise Gym",
+        simAction: "Complete Daily Workout Routine",
+        simResult: "Muscle mass preserved. Bone density decline prevented for today's orbital shift!",
+        challenge: "Why do astronauts get a slight 'puffy face' during their first few days in microgravity?",
+        quiz: {
+          q: "About how many hours per day do astronauts exercise on the ISS?",
+          options: ["30 minutes", "About 2 hours", "5 hours"],
+          ans: 1
+        },
+        realWorld: "Osteoporosis treatments and rehabilitation machines for bedridden patients benefit from ISS bone loss studies.",
+        connect: "Connected to Daily Life, Radiation, and Science."
+      },
+
+      // CATEGORY 4: OPERATIONS & SAFETY
+      {
+        id: "c16", cat: "4. Operations & Safety", title: "16. Docking vs. Berthing",
+        what: "The automated and robotic maneuvers used to connect visiting spacecraft to the space station's docking ports.",
+        why: "Spacecraft like Crew Dragon and Soyuz dock autonomously, while Canadarm2 is used for berthing certain cargo spacecraft by capturing and manually attaching them.",
+        flow: ["Approach Orbit", "Laser Alignment", "Autonomous Docking (Dragon/Soyuz)", "OR Canadarm2 Berthing (Cargo)", "Hatch Equalization"],
+        fail: "An alignment error during docking could damage docking mechanism latches or seals.",
+        fix: "Laser guidance sensors, automated collision-avoidance aborts, and manual crew overrides ensure millimeter precision.",
+        howWeKnow: "High-speed laser radar telemetry, docking ring contact sensors, and external camera feeds during arrival.",
+        myth: {
+          m: "Myth: 'Docking and Berthing are the exact same word for parking a spacecraft.'",
+          f: "Fact: Docking is automated collision-latching (like Dragon), while Berthing uses the robotic arm to capture and bolt cargo ships!"
+        },
+        simTitle: "Orbital Docking & Berthing Monitor",
+        simAction: "Engage Docking Soft Capture Latches",
+        simResult: "Soft capture confirmed! Retracting hooks for hard dock and airtight seal verification.",
+        challenge: "A visiting cargo spacecraft is approaching. What must astronauts check before opening the hatch between vehicles?",
+        quiz: {
+          q: "Which robotic arm is used for berthing certain unpiloted cargo spacecraft?",
+          options: ["RoboHand", "Canadarm2", "SpaceCrane"],
+          ans: 1
+        },
+        realWorld: "Precision laser docking sensors are now used for autonomous drone landings and automated warehouse vehicles.",
+        connect: "Connected to Visiting Spacecraft, Guidance, and Robotics."
+      },
+      {
+        id: "c17", cat: "4. Operations & Safety", title: "17. Visiting Spacecraft",
+        what: "The fleet of crew and cargo vehicles from different agencies and commercial partners that travel to and from the ISS.",
+        why: "Without regular supply deliveries from Earth, the station would run out of scientific experiments, spare parts, and provisions.",
+        flow: ["Crew Dragon", "Soyuz", "Progress Cargo", "Cygnus Cargo", "HTV / New Freighters", "Starliner"],
+        fail: "If a cargo spacecraft launch is delayed on Earth, the station must rely on its reserve supplies and stored water tanks.",
+        fix: "The ISS maintains several months of buffer supplies (pantry reserves, spare filters, and water containers) onboard.",
+        howWeKnow: "Cargo manifests, automated docking logs, and barcode tracking systems used by astronauts when unloading bags.",
+        myth: {
+          m: "Myth: 'Only one type of spaceship can visit the International Space Station.'",
+          f: "Fact: An international fleet of vehicles—including Dragon, Soyuz, Cygnus, and Progress—regularly visits the station."
+        },
+        simTitle: "Cargo Manifest Inspector Tool",
+        simAction: "Unload Visiting Cargo Spacecraft",
+        simResult: "Delivered: 4 science racks, food provisions, new spacesuit batteries, and fresh fruit for the crew!",
+        challenge: "Why does the ISS keep several months of extra food and water in storage racks?",
+        quiz: {
+          q: "Why does the ISS maintain extra buffer supplies of food and water?",
+          options: ["In case a cargo launch from Earth is delayed", "For space parties", "To weigh down the station"],
+          ans: 0
+        },
+        realWorld: "Commercial cargo supply chains to the ISS pioneered today's private aerospace launch industry.",
+        connect: "Connected to Docking, Orbit, and Food."
+      },
+      {
+        id: "c18", cat: "4. Operations & Safety", title: "18. Spacewalks (EVA)",
+        what: "Extravehicular Activities where astronauts leave the pressurized cabin in spacesuits to work on the exterior hull.",
+        why: "Certain repairs, solar array maintenance, and external science installations can only be performed outside.",
+        flow: ["Pre-breathe Pure O2", "Suit Integrity Check", "Airlock Depressurization", "Hull Repair", "Tether Safety", "Airlock Return"],
+        fail: "A tool dropped in open space drifts away forever, and a tether disconnection would be a serious safety hazard.",
+        fix: "Astronauts anchor themselves with steel tethers and wear a SAFER nitrogen jetpack to fly back if disconnected.",
+        howWeKnow: "Helmet cameras, spacesuit biomedical telemetry, and continuous voice communication with Mission Control during EVAs.",
+        myth: {
+          m: "Myth: 'Astronauts can jump outside for a quick 5-minute spacewalk whenever they want.'",
+          f: "Fact: Spacewalks require hours of pre-breathing preparation and safety checks before opening the airlock!"
+        },
+        simTitle: "Airlock Depressurization Sequence",
+        simAction: "Open External Airlock Hatch",
+        simResult: "Tethers secured to handrails. SAFER rescue jetpack armed. You are safely in open space!",
+        challenge: "Why do astronauts breathe pure oxygen in the airlock before lowering suit pressure for a spacewalk?",
+        quiz: {
+          q: "What emergency jetpack system helps an astronaut return to the station if their tether breaks?",
+          options: ["A parachute", "SAFER nitrogen jetpack", "A long pole"],
+          ans: 1
+        },
+        realWorld: "Spacewalk tool engineering improved underwater welding gear and hazardous material handling suits.",
+        connect: "Connected to Space Suit, Robotics, and Maintenance."
+      },
+      {
+        id: "c19", cat: "4. Operations & Safety", title: "19. The Space Suit (EMU)",
+        what: "A miniature personal spacecraft worn during spacewalks that provides oxygen, thermal cooling, communication, and shielding.",
+        why: "The suit protects astronauts from vacuum, micrometeoroids, and extreme temperature swings between sunlight and shadow.",
+        flow: ["Helmet & Visor", "Liquid Cooling Garment", "Oxygen Tank", "Battery Pack", "Radio Communication", "Tether Attachment"],
+        fail: "If the water-cooling garment inside the suit leaks, water can creep into the helmet and obscure vision or breathing.",
+        fix: "Astronauts use absorbent helmet pads and immediately terminate the spacewalk if water leakage is detected.",
+        howWeKnow: "Real-time suit pressure telemetry, oxygen consumption sensors, and post-spacewalk suit inspection logs.",
+        myth: {
+          m: "Myth: 'Space suits are just heavy winter jackets with fishbowl helmets.'",
+          f: "Fact: An EMU space suit is a complex multi-layer personal spacecraft with its own cooling, power, and oxygen systems!"
+        },
+        simTitle: "Space Suit Life Support Check",
+        simAction: "Verify Suit Oxygen & Cooling Loop",
+        simResult: "Suit pressure stable at 4.3 psi. Liquid cooling loop flowing smoothly. Radio clear.",
+        challenge: "What is the purpose of the Liquid Cooling and Ventilation Garment worn underneath the outer spacesuit?",
+        quiz: {
+          q: "What is the primary function of the Liquid Cooling Garment inside a spacesuit?",
+          options: ["To make the suit look blue", "To prevent the astronaut from overheating", "To store drinking water"],
+          ans: 1
+        },
+        realWorld: "Spacesuit cooling fabric technology is now worn by firefighters and professional race car drivers.",
+        connect: "Connected to Spacewalks, Thermal Control, and Atmosphere System."
+      },
+      {
+        id: "c20", cat: "4. Operations & Safety", title: "20. Emergency Procedures",
+        what: "Standardized protocols and alarms for the three primary spacecraft emergencies: Fire, Pressure Leak, and Ammonia Leak.",
+        why: "In space, astronauts must act immediately using specially designed fire extinguishers and emergency procedures.",
+        flow: ["Alarm Sounded", "Identify Threat Type", "Don Emergency Masks", "Specially Designed Extinguisher / Isolate Module", "Verify Safety"],
+        fail: "An uncontained fire or rapid pressure drop could require astronauts to evacuate to their docked spacecraft.",
+        fix: "Crew members practice emergency drills, closing node hatches to isolate depressurizing areas and using specialized extinguishers.",
+        howWeKnow: "Automated smoke detectors, acoustic pressure drop sensors, and ammonia toxicity alarms across all modules.",
+        myth: {
+          m: "Myth: 'Astronauts use normal water hoses to put out fires in space.'",
+          f: "Fact: Specially designed fire extinguishers and emergency procedures are used depending on the spacecraft and fire type!"
+        },
+        simTitle: "Station Alarm Simulator",
+        simAction: "Simulate Cabin Pressure Alert",
+        simResult: "WARNING: Pressure drop detected! Crew checking ultrasonic leak detectors and closing node hatches.",
+        challenge: "An alarm sounds indicating a potential hazard. Where do astronauts retreat to check safety and prepare lifeboats?",
+        quiz: {
+          q: "What are the three primary emergencies astronauts train for on the ISS?",
+          options: ["Fire, Pressure Leak, Ammonia Leak", "Bad food, Cold water, Broken TV", "Solar eclipse, Rain, Wind"],
+          ans: 0
+        },
+        realWorld: "ISS automated fire detection and suppression sensors protect commercial submarines and modern aircraft.",
+        connect: "Connected to Atmosphere System, Complete Anatomy, and Visiting Spacecraft."
+      },
+      {
+        id: "c21", cat: "4. Operations & Safety", title: "21. Space Radiation & Protection",
+        what: "Cosmic rays and solar particle events that bombard spacecraft outside Earth's thick atmosphere.",
+        why: "Radiation exposure can affect astronaut health over long missions, so shielding and monitoring are critical.",
+        flow: ["Cosmic Rays & Solar Flare", "Dosimeter Tracking", "Hull Shielding", "Move to Shielded Areas", "Storm Shelter Safety"],
+        fail: "During a high-energy solar particle event, standard cabin shielding may need augmentation to protect crew.",
+        fix: "Astronauts shelter in the most shielded areas of the station, often near supplies and water containers.",
+        howWeKnow: "Personal astronaut radiation dosimeters, radiation detectors, and biological sample analysis over 25 years.",
+        myth: {
+          m: "Myth: 'Every module on the ISS has a thick lead water wall around it.'",
+          f: "Fact: Astronauts use the most shielded areas of the station, often near supplies and water containers, during solar storms."
+        },
+        simTitle: "Solar Particle Monitor Tool",
+        simAction: "Move Crew to Shielded Shelter Area",
+        simResult: "Crew positioned near water containers and cargo shielding. Radiation exposure minimized safely.",
+        challenge: "Why are water containers and dense cargo supplies effective at shielding astronauts from space radiation?",
+        quiz: {
+          q: "Where do astronauts shelter during a high-energy solar particle event?",
+          options: ["Outside on the solar panels", "In the most shielded areas of the station near supplies and water", "In the glass cupola"],
+          ans: 1
+        },
+        realWorld: "Radiation shielding materials tested on the ISS help protect airline pilots and medical clinicians on Earth.",
+        connect: "Connected to Space Environment, Health, and Future Missions."
+      },
+      {
+        id: "c22", cat: "4. Operations & Safety", title: "22. The Space Environment",
+        what: "The surrounding low Earth orbit environment characterized by vacuum, micrometeoroids, orbital debris, and atomic oxygen.",
+        why: "Understanding this harsh environment allows engineers to design spacecraft materials that resist erosion and impacts.",
+        flow: ["Vacuum", "Micrometeoroid Impacts", "Orbital Debris Tracking", "Thermal Swings", "Atomic Oxygen", "Auroras"],
+        fail: "High-speed orbital debris or micrometeoroids could puncture unprotected solar arrays or radiator panels.",
+        fix: "The ISS uses Whipple shields (spaced outer bumper sheets) that shatter incoming particles before they hit the inner hull.",
+        howWeKnow: "Radar debris tracking from Earth and physical analysis of impact craters on returned solar panels.",
+        myth: {
+          m: "Myth: 'Space around Earth is completely empty and peaceful.'",
+          f: "Fact: Low Earth orbit contains fast-moving micrometeoroids, orbital debris, and corrosive atomic oxygen!"
+        },
+        simTitle: "Whipple Shield Impact Test Tool",
+        simAction: "Test Debris Bumper Shielding",
+        simResult: "Debris particle shattered on outer aluminum bumper. Inner pressurized hull completely undamaged!",
+        challenge: "Why do astronauts see glowing green Auroras below the space station during high solar activity?",
+        quiz: {
+          q: "What special bumper shields protect ISS hulls from tiny micrometeoroids?",
+          options: ["Whipple Shields", "Wooden planks", "Glass plates"],
+          ans: 0
+        },
+        realWorld: "Space debris tracking algorithms help protect global communication and GPS satellites.",
+        connect: "Connected to Orbit, Radiation, and Engineering Challenges."
+      },
+      {
+        id: "c23", cat: "4. Operations & Safety", title: "23. Station Maintenance",
+        what: "The continuous routine of replacing filters, lubricating docking gears, repairing plumbing, and updating systems.",
+        why: "Like any complex facility, equipment wears out over time and requires proactive inspection and maintenance.",
+        flow: ["Diagnostic Scan", "Filter Replacement", "Plumbing Inspection", "Part Swap", "System Testing", "Log Update"],
+        fail: "If a water pump or exercise machine breaks without maintenance, station operations are affected.",
+        fix: "Astronauts use onboard spare parts inventories and 3D printers to repair mechanical and electronic components.",
+        howWeKnow: "Digital maintenance tracking logs, acoustic vibration sensors on fans, and astronaut repair reports.",
+        myth: {
+          m: "Myth: 'When something breaks on the ISS, a repair ship arrives the next day.'",
+          f: "Fact: Astronauts act as their own plumbers and mechanics, fixing systems themselves using onboard spare parts!"
+        },
+        simTitle: "Diagnostic Maintenance Repair",
+        simAction: "Replace Worn Cabin Air Filter",
+        simResult: "Airflow resistance returned to normal. Maintenance log updated for Mission Control.",
+        challenge: "Why is having spare parts and 3D printing capabilities onboard essential for ISS maintenance?",
+        quiz: {
+          q: "Who is primarily responsible for fixing plumbing and equipment on the ISS?",
+          options: ["Visiting repair crews from Earth", "The astronauts themselves", "Robots only"],
+          ans: 1
+        },
+        realWorld: "Predictive maintenance schedules developed for the ISS are used in offshore oil rigs and power plants.",
+        connect: "Connected to Robotics, Astronaut Training, and Water Recycling."
+      },
+      {
+        id: "c24", cat: "4. Operations & Safety", title: "24. Communications & Mission Control",
+        what: "The global network of tracking satellites, ground stations, and Mission Control centers that communicate with the ISS 24/7.",
+        why: "Mission Control centers in Houston, Moscow, Munich, and Tsukuba monitor telemetry and assist crew work schedules.",
+        flow: ["ISS Antenna", "TDRS Relay Satellites", "Ground Station", "Mission Control Centers", "Scientists & Families"],
+        fail: "When the ISS passes out of range of relay satellites, a brief 'Loss of Signal' (LOS) communication blackout can occur.",
+        fix: "Onboard computers autonomously manage routine life support during LOS periods until satellite contact returns.",
+        howWeKnow: "Continuous S-band and Ku-band radio telemetry links transmitting voice, video, and data every second.",
+        myth: {
+          m: "Myth: 'Astronauts can only talk to Earth when flying directly over their home country.'",
+          f: "Fact: The TDRS relay satellite network allows nearly continuous global communication from anywhere in orbit."
+        },
+        simTitle: "TDRS Satellite Relay Link Tool",
+        simAction: "Establish High-Gain Antenna Link",
+        simResult: "Signal Locked! Live HD video and scientific telemetry transmitting to Mission Control Houston.",
+        challenge: "Why does the ISS transmit signals up to tracking satellites instead of directly down to the ground?",
+        quiz: {
+          q: "What is the acronym for the NASA relay satellites that provide ISS communications around the globe?",
+          options: ["GPS", "TDRS", "WIFI"],
+          ans: 1
+        },
+        realWorld: "The ISS Tracking and Data Relay Satellite network helped pioneer modern global satellite internet architecture.",
+        connect: "Connected to Guidance, Science, and Astronaut Life."
+      },
+
+      // CATEGORY 5: SCIENCE LABS & DISCOVERIES
+      {
+        id: "c25", cat: "5. Science Labs & Discoveries", title: "25. Space Science & Research",
+        what: "The scientific research mission of the ISS across biology, physics, astronomy, and human physiology.",
+        why: "Conducting experiments with greatly reduced effects of gravity reveals fundamental truths about how cells, fluids, and materials behave.",
+        flow: ["Experiment Goal", "Equipment Setup", "Microgravity Execution", "Data Collection", "Earth Benefits"],
+        fail: "If a laboratory freezer (MELFI) loses power, biological samples could warm up and lose scientific value.",
+        fix: "Uninterruptible power feeds and backup cooling systems keep scientific samples frozen safely at –80°C.",
+        howWeKnow: "Peer-reviewed scientific papers published by NASA, ESA, JAXA, and university researchers worldwide.",
+        myth: {
+          m: "Myth: 'The ISS is just a hotel where astronauts look out the window.'",
+          f: "Fact: The ISS is a full-time laboratory where thousands of experiments are conducted with greatly reduced effects of gravity!"
+        },
+        simTitle: "Microgravity Experiment Rack Tool",
+        simAction: "Run Protein Crystallization Experiment",
+        simResult: "Ultra-pure protein crystals grown with greatly reduced effects of gravity! Data logged for medical research.",
+        challenge: "Why can researchers observe fluid phenomena more clearly in microgravity than on Earth?",
+        quiz: {
+          q: "Why is the ISS an ideal place to conduct scientific experiments?",
+          options: ["It is very quiet", "It allows experiments with greatly reduced effects of gravity", "It is closer to the Sun"],
+          ans: 1
+        },
+        realWorld: "Space science research has contributed to new medical treatments, better water purifiers, and advanced alloys.",
+        connect: "Connected to Complete Anatomy, Fluid Physics, and Crystal Growth."
+      },
+      {
+        id: "c26", cat: "5. Science Labs & Discoveries", title: "26. Space Robotics (Canadarm2)",
+        what: "The 17-meter robotic arm (Canadarm2) and Dextre robot that work across the exterior hull of the space station.",
+        why: "Robots move heavy modules, assist with berthing cargo capsules, and perform repairs without requiring spacewalks.",
+        flow: ["Canadarm2 Grapple", "Dextre Precision Hand", "Free-Flying Robots (Astrobee)", "Robotic Berthing", "External Maintenance"],
+        fail: "If a robotic joint motor cools down too much in shadow, joint movement could become stiff.",
+        fix: "Each joint includes thermal heaters and redundant motors to maintain smooth robotic motion.",
+        howWeKnow: "Robotic joint encoder telemetry and external video cameras monitored by robotics operators on Earth.",
+        myth: {
+          m: "Myth: 'Canadarm2 is permanently fixed to one spot on the station.'",
+          f: "Fact: Canadarm2 can 'walk' end-over-end across the station's exterior using grapple fixtures!"
+        },
+        simTitle: "Canadarm2 Berthing Simulator",
+        simAction: "Berth Arriving Cargo Capsule",
+        simResult: "Robotic arm captured cargo capsule and successfully berthed it to the node port!",
+        challenge: "How does Canadarm2 move from one end of the space station to the other?",
+        quiz: {
+          q: "What is the name of the large Canadian robotic arm on the outside of the ISS?",
+          options: ["RoboHand", "Canadarm2", "SpaceCrane"],
+          ans: 1
+        },
+        realWorld: "Canadarm2 precision robotic engineering was adapted to create neurosurgical robots for MRI-guided surgery.",
+        connect: "Connected to Assembly of ISS, Docking vs. Berthing, and Spacewalks."
+      },
+      {
+        id: "c27", cat: "5. Science Labs & Discoveries", title: "27. Earth Observation & Climate",
+        what: "Using the Cupola window and external sensors to photograph weather patterns, forests, oceans, and natural disasters.",
+        why: "The ISS flies over 90% of Earth's populated area, providing a valuable viewpoint for storm tracking and environmental science.",
+        flow: ["Cupola Observation", "Weather Tracking", "Forest Monitoring", "Flood & Cyclone Mapping", "Climate Data collection"],
+        fail: "Cloud cover or sunlight glare off the ocean can occasionally obscure visible photography of target regions.",
+        fix: "Astronauts use multi-spectral and radar sensors that can observe land changes through clouds and darkness.",
+        howWeKnow: "Millions of cataloged Earth observation photographs taken by astronauts and automated external cameras.",
+        myth: {
+          m: "Myth: 'Astronauts can see individual people walking on Earth with their bare eyes.'",
+          f: "Fact: From 400 km up, astronauts can see cities, rivers, and storms, but need camera lenses to see small buildings."
+        },
+        simTitle: "Cupola Earth Observation Camera",
+        simAction: "Photograph Weather System",
+        simResult: "High-resolution storm imagery recorded and transmitted to Earth environmental forecasting centers.",
+        challenge: "Why is the 7-window Cupola module such an important location for astronauts and scientists?",
+        quiz: {
+          q: "What is the name of the dome-shaped window module astronauts use to observe Earth?",
+          options: ["The Balcony", "The Cupola", "The Glass Room"],
+          ans: 1
+        },
+        realWorld: "ISS agricultural and flood photographs assist farmers and disaster rescue coordinators worldwide.",
+        connect: "Connected to Orbit, Communication, and Science."
+      },
+      {
+        id: "c28", cat: "5. Science Labs & Discoveries", title: "28. Plant Growth in Space",
+        what: "Growing leafy greens and test crops in orbital botanical chambers like Veggie and the Advanced Plant Habitat.",
+        why: "Future deep-space missions to the Moon and Mars will require crews to grow fresh food and supplement life support.",
+        flow: ["Seeds in Soil Pillows", "Capillary Watering", "LED Growth Light", "Root Orientation", "Harvest & Sampling"],
+        fail: "In microgravity, water does not drain downwards; excess water can form spheres around roots and reduce air access.",
+        fix: "Engineers use specialized 'soil pillows' that use capillary action to deliver moisture directly to roots without flooding.",
+        howWeKnow: "Harvested plant sample return analysis, genetic sequencing, and crew taste tests conducted in orbit.",
+        myth: {
+          m: "Myth: 'Plants cannot grow in space because roots don't know which way is down.'",
+          f: "Fact: Plants use light and moisture gradients to guide root and stem growth even with greatly reduced effects of gravity!"
+        },
+        simTitle: "Veggie Botanical Chamber Tool",
+        simAction: "Water & Harvest Space Lettuce",
+        simResult: "Red Romaine lettuce harvested! Crew receives fresh greens with vitamins and psychological benefit.",
+        challenge: "How do astronauts water plants in microgravity without water drops floating away?",
+        quiz: {
+          q: "How do astronauts water plants in microgravity without flooding the roots?",
+          options: ["Using standard watering cans", "Using specialized capillary soil pillows", "Plants don't need water in space"],
+          ans: 1
+        },
+        realWorld: "LED growth light spectra perfected on the ISS are used in indoor vertical urban farms on Earth.",
+        connect: "Connected to Food, Atmosphere System, and Future Missions."
+      },
+      {
+        id: "c29", cat: "5. Science Labs & Discoveries", title: "29. Fire Behavior in Space",
+        what: "Studying how flames burn in microgravity inside sealed, specialized combustion experimental chambers.",
+        why: "In microgravity, flames burn as spherical domes at lower temperatures; understanding this improves spacecraft fire safety.",
+        flow: ["Sealed Combustion Chamber", "Droplet Ignition", "Spherical Burn Pattern", "Soot Analysis", "Safety Extinguishing"],
+        fail: "Without natural upward convection, hot gases do not rise; air ventilation currents influence how flames move.",
+        fix: "Station smoke detectors monitor air ducts, and specially designed fire extinguishers and emergency procedures are used.",
+        howWeKnow: "High-speed video and temperature data from the Combustion Integrated Rack inside the Destiny laboratory.",
+        myth: {
+          m: "Myth: 'A candle flame in space looks tall and flickers upwards just like on Earth.'",
+          f: "Fact: Without buoyancy from gravity, a flame in microgravity burns as a round, dome-shaped sphere!"
+        },
+        simTitle: "Combustion Integrated Rack Tool",
+        simAction: "Ignite Test Droplet in Chamber",
+        simResult: "Spherical flame observed! Combustion data recorded safely without cabin contamination.",
+        challenge: "Why does a flame form a round sphere in microgravity instead of pointing upward?",
+        quiz: {
+          q: "What shape does a flame take in microgravity?",
+          options: ["Tall and thin", "A round sphere", "It won't burn at all"],
+          ans: 1
+        },
+        realWorld: "ISS combustion research helps engineers design cleaner-burning engines and more effective fire extinguishers.",
+        connect: "Connected to Emergencies, Atmosphere System, and Science."
+      },
+      {
+        id: "c30", cat: "5. Science Labs & Discoveries", title: "30. Protein Crystal Growth",
+        what: "Growing well-ordered biological crystals in space for pharmaceutical and medical structure analysis.",
+        why: "With greatly reduced effects of gravity, crystals grow slowly without sedimentation, revealing clear 3D molecular structures.",
+        flow: ["Sample Loading", "Microgravity Crystallization", "No-Sediment Growth", "X-Ray Diffraction", "Drug Formulation"],
+        fail: "Vibrations from exercise treadmills could occasionally disturb delicate crystal formation.",
+        fix: "Crystallization chambers are mounted on vibration-isolation platforms to protect growing crystals.",
+        howWeKnow: "X-ray crystallography scans of space-grown crystals compared against Earth-grown samples in medical labs.",
+        myth: {
+          m: "Myth: 'Growing crystals in space is just a hobby for astronauts.'",
+          f: "Fact: Protein crystal growth on the ISS has directly contributed to real-world medicines and disease treatments!"
+        },
+        simTitle: "Protein Crystallization Chamber",
+        simAction: "Scan Protein Crystal Structure",
+        simResult: "Clear 3D molecular blueprint revealed. Data sent to medical labs for drug design.",
+        challenge: "Why can researchers grow better-ordered crystals in space than in a normal laboratory on Earth?",
+        quiz: {
+          q: "Why do protein crystals grow with fewer defects in space than on Earth?",
+          options: ["Because space is colder", "Greatly reduced effects of gravity prevent sedimentation", "Astronauts talk to them"],
+          ans: 1
+        },
+        realWorld: "ISS crystal research has aided the development of treatments for cancer and muscular disorders.",
+        connect: "Connected to Science, Health, and Materials Science."
+      },
+      {
+        id: "c31", cat: "5. Science Labs & Discoveries", title: "31. Fluid Physics in Microgravity",
+        what: "Studying how liquids behave without buoyancy, dominated by surface tension, wetting, and capillary action.",
+        why: "Understanding microgravity fluid physics is critical for designing fuel tanks, plumbing, and medical diagnostics in space.",
+        flow: ["Surface Tension Dominance", "Capillary Action", "Spherical Droplets", "Fuel Tank Vanes", "Fluid Physics Lab"],
+        fail: "Without buoyancy, rocket fuel can float away from engine intake pipes, causing thrusters to suck bubbles.",
+        fix: "Engineers design tanks with internal capillary vanes that use surface tension to guide fuel to engine valves.",
+        howWeKnow: "Capillary flow experiments and high-speed fluid physics cameras operated in ESA and NASA laboratories.",
+        myth: {
+          m: "Myth: 'Water spilled in space falls to the floor immediately.'",
+          f: "Fact: Spilled water forms floating spheres held together by surface tension until absorbed by a towel!"
+        },
+        simTitle: "Capillary Fluid Flow Tool",
+        simAction: "Test Surface Tension Cup",
+        simResult: "Liquid clings to cup walls and flows along capillary grooves smoothly!",
+        challenge: "Why does spilled liquid form a floating sphere in space instead of a puddle on the floor?",
+        quiz: {
+          q: "What force dominates how liquids behave in microgravity?",
+          options: ["Gravity buoyancy", "Surface tension and capillary action", "Magnetism"],
+          ans: 1
+        },
+        realWorld: "Capillary flow research from ISS improved medical diagnostic chips and heat pipes in computers.",
+        connect: "Connected to Water Recycling, Plant Growth, and Guidance."
+      },
+      {
+        id: "c32", cat: "5. Science Labs & Discoveries", title: "32. Materials Science & Manufacturing",
+        what: "Melting metals, glass, and alloys in orbital furnaces to produce materials with uniform structures.",
+        why: "With greatly reduced effects of gravity, heavy and light elements mix evenly without separating, creating specialized alloys and optical fibers.",
+        flow: ["Alloy Mixing", "Electrostatic Levitation Furnace", "ZBLAN Fiber Optics", "Uniform Solidification", "Sample Return"],
+        fail: "Air bubbles or container contact on Earth can cause flaws in optical fibers and metal alloys.",
+        fix: "Levitation furnaces hold molten metal spheres in mid-air using magnetic or electrostatic fields without touching container walls.",
+        howWeKnow: "Microscopic structural analysis of ZBLAN optical fibers and metal alloys manufactured on the ISS.",
+        myth: {
+          m: "Myth: 'You cannot melt metals in space because there is no air.'",
+          f: "Fact: Electric and electrostatic vacuum furnaces on the ISS melt alloys to high temperatures!"
+        },
+        simTitle: "Electrostatic Levitation Furnace",
+        simAction: "Melt & Fuse Test Alloy",
+        simResult: "Alloy solidified uniformly without container defects. Material structure verified!",
+        challenge: "Why do heavy and light metals mix evenly in microgravity instead of separating into layers?",
+        quiz: {
+          q: "What happens when you mix heavy and light molten metals in microgravity?",
+          options: ["The heavy metal sinks to the bottom", "They mix evenly without separating", "They explode"],
+          ans: 1
+        },
+        realWorld: "Space-manufactured optical fibers and alloys pave the way for high-speed communication lines and aerospace turbines.",
+        connect: "Connected to Science Labs, Maintenance, and Future Missions."
+      },
+
+      // CATEGORY 6: THE FUTURE & CHALLENGES
+      {
+        id: "c33", cat: "6. Future & Challenges", title: "33. Future Missions & Beyond",
+        what: "Applying 25+ years of ISS operational experience to design the Artemis Lunar Gateway and future Mars exploration vehicles.",
+        why: "The ISS serves as humanity's testbed to master life support, robotics, and international cooperation before deep-space missions.",
+        flow: ["ISS Experience", "Artemis Moon Missions", "Lunar Gateway Station", "Commercial LEO Stations", "Mars Exploration"],
+        fail: "The ISS structural airframe will eventually reach the end of its planned operational lifetime.",
+        fix: "Space agencies and commercial partners are developing new modular stations to continue orbital research as the ISS retires.",
+        howWeKnow: "NASA Artemis architecture blueprints, ESA Lunar Gateway agreements, and commercial LEO development plans.",
+        myth: {
+          m: "Myth: 'When the ISS retires, humanity will stop living in space.'",
+          f: "Fact: New commercial space stations and the Lunar Gateway will continue continuous human presence in space!"
+        },
+        simTitle: "Lunar Gateway Architecture Tool",
+        simAction: "Compare ISS to Lunar Gateway",
+        simResult: "Gateway is smaller but features autonomous deep-space life support systems proven on the ISS!",
+        challenge: "Why is the operational experience gained on the ISS essential for planning missions to Mars?",
+        quiz: {
+          q: "What is the name of the new space station being built to orbit the Moon?",
+          options: ["Lunar Gateway", "Mir 2", "Apollo Station"],
+          ans: 0
+        },
+        realWorld: "Commercial space stations will soon expand orbital access for universities and industries globally.",
+        connect: "Connected to History, Assembly of ISS, and Engineering Challenges."
+      },
+      {
+        id: "c34", cat: "6. Future & Challenges", title: "34. Engineering Challenge: Power Outage",
+        what: "An interactive problem-solving lesson where students diagnose and resolve an electrical system trip on the station.",
+        why: "Engineers use logical checklists: identify symptoms, isolate the root cause, swap components, and restore power safely.",
+        flow: ["Bus Alarm Trip", "Identify Affected Equipment", "Check Telemetry", "Isolate Short Circuit", "Restore Bus Power"],
+        fail: "A trip on a secondary electrical bus can temporarily turn off power to science freezers or lighting in a module.",
+        fix: "Follow the diagnostic procedure: check battery charge, inspect switching units, and bypass the isolated fault.",
+        howWeKnow: "Actual historical electrical trip logs and telemetry records handled by electrical controllers in Mission Control.",
+        myth: {
+          m: "Myth: 'If one fuse blows, the entire space station goes completely dark.'",
+          f: "Fact: The ISS has redundant electrical channels so backup buses keep critical life support running!"
+        },
+        simTitle: "Diagnostic Control Console",
+        simAction: "Run System Diagnostic & Repair",
+        simResult: "SUCCESS: Faulty Switching Unit isolated. Secondary Power Bus restored to normal capacity!",
+        challenge: "When an electrical bus trips offline, what is the first logical step an engineer takes before changing parts?",
+        quiz: {
+          q: "When an electrical system trips on the ISS, what is the first step engineers take?",
+          options: ["Panic", "Identify the root cause and isolate the fault", "Put on a spacesuit"],
+          ans: 1
+        },
+        realWorld: "Systematic root-cause engineering analysis is used to solve electrical grid failures on Earth.",
+        connect: "Connected to Electrical Power System, Emergencies, and Maintenance."
+      },
+      {
+        id: "c35", cat: "6. Future & Challenges", title: "35. Final Challenge: Design Your ISS",
+        what: "The capstone creative challenge where students design a modular space station balancing power, life support, and laboratories.",
+        why: "Designing a functioning station requires balancing electricity generation with the power consumption of laboratories and crew quarters.",
+        flow: ["Select Altitude", "Add Solar Panels", "Add Life Support", "Add Crew Modules", "Add Science Labs", "Verify Balance"],
+        fail: "If a design includes five laboratories but only one solar array, electrical demand will exceed generation capacity.",
+        fix: "Balance the architecture: ensure every pressurized module has sufficient solar power and life-support capacity.",
+        howWeKnow: "Decades of aerospace systems engineering balance calculations used to construct the International Space Station.",
+        myth: {
+          m: "Myth: 'You can attach as many laboratory rooms as you want without adding solar panels.'",
+          f: "Fact: Every new laboratory module requires extra electrical power and life-support capacity to operate safely!"
+        },
+        simTitle: "Space Station Architect Studio",
+        simAction: "Validate Space Station Design",
+        simResult: "CONGRATULATIONS! Your station has balanced Power (140 kW), Life Support for 6 crew, and 4 Labs!",
+        challenge: "Why must space station designers balance the number of science laboratories with the size of solar arrays?",
+        quiz: {
+          q: "Why must a space station designer balance solar panels with laboratory modules?",
+          options: ["To make it look symmetrical", "Because laboratories consume electricity generated by solar arrays", "To keep gravity equal"],
+          ans: 1
+        },
+        realWorld: "Systems engineering design balance is how architects design sustainable eco-cities and research facilities.",
+        connect: "Connected to ALL 35 ISS Learning Systems!"
+      }
+    ];
+
+    const lessonToExplorerModule = {
+      c1: 'zarya',        
+      c2: 'zvezda',       
+      c3: 'pma1',         
+      c4: 'destiny',      
+      c5: 'solarAB',      
+      c6: 'co2scrub',     
+      c7: 'wrs',          
+      c8: 'tcs',          
+      c9: 'navatt',       
+      c10: 'zarya',       
+      c11: 'solarCD',     
+      c13: 'crewquarters',
+      c14: 'galley',       
+      c15: 'ared',         
+      c16: 'canadarm2',    
+      c17: 'pma2',         
+      c18: 'quest',        
+      c19: 'eva-suit',     
+      c20: 'firedet',      
+      c21: 'radiation',    
+      c22: 'extcams',      
+      c23: 'esp',          
+      c24: 'commsHigh',    
+      c25: 'destiny',       
+      c26: 'canadarm2',     
+      c27: 'cupola',        
+      c28: 'plantchambers', 
+      c29: 'glovebox',      
+      c30: 'expracks',      
+      c31: 'glovebox',      
+      c32: 'expracks',      
+      c34: 'pdu',           
+      c35: 'truss'          
+    };
+
+    const completedLessons = new Set();
+
+    function updateProgress() {
+      const completed = completedLessons.size;
+      const total = curriculum.length;
+      const percent = (completed / total) * 100;
+
+      document.getElementById('progressText').textContent = `${completed} / ${total}`;
+      document.getElementById('progressFill').style.width = `${percent}%`;
+
+      document.getElementById('progressMessage').textContent =
+        completed === total
+          ? 'Mission complete — you are ready for the final ISS design challenge.'
+          : `${total - completed} chapter${total - completed === 1 ? '' : 's'} remaining.`;
+    }
+
+    /************************************************************************
+     * 2. RENDER THE NAVIGATION SIDEBAR
+     ************************************************************************/
+    const sidebarNavEl = document.getElementById("sidebarNav");
+
+    function buildSidebar() {
+      let currentCat = "";
+      curriculum.forEach((item, index) => {
+        if (item.cat !== currentCat) {
+          currentCat = item.cat;
+          const catHeader = document.createElement("div");
+          catHeader.className = "cat-title";
+          catHeader.textContent = currentCat;
+          sidebarNavEl.appendChild(catHeader);
+        }
+        const btn = document.createElement("button");
+        btn.dataset.id = item.id;
+        btn.innerHTML = `<span>${item.title}</span> <span class="num-badge">#${index + 1}</span>`;
+        btn.addEventListener("click", () => selectLesson(item.id));
+        sidebarNavEl.appendChild(btn);
+      });
+    }
+
+    /************************************************************************
+     * 3. RENDER THE 12-PART PEDAGOGICAL TEMPLATE
+     ************************************************************************/
+    const pageEl = document.getElementById("page");
+
+    function selectLesson(id) {
+      const data = curriculum.find(item => item.id === id) || curriculum[0];
+      const explorerModule = lessonToExplorerModule[data.id] || '';
+      
+      document.querySelectorAll("#sidebarNav button").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.id === id);
+      });
+
+      const pipelineHtml = data.flow.map((step, idx) => {
+        const arrow = idx < data.flow.length - 1 ? `<span class="pipe-arrow">→</span>` : "";
+        return `<span class="pipe-node">${step}</span>${arrow}`;
+      }).join(" ");
+
+      const quizHtml = data.quiz.options.map((opt, idx) => {
+        return `<button class="quiz-btn" onclick="checkQuiz(this, ${idx}, ${data.quiz.ans})">${opt}</button>`;
+      }).join("");
+
+      pageEl.className = "fadePage";
+      pageEl.innerHTML = `
+        <header class="lesson-header">
+          <div class="eyebrow">${data.cat} • 12-Part Precision Learning Structure</div>
+          <h2>${data.title}</h2>
+
+          ${explorerModule ? `
+            <button class="explore-btn" onclick="openExplorer('${explorerModule}')">
+              <span>🚀 Open related 3D system</span>
+            </button>
+          ` : ''}
+        </header>
+
+        <div class="pedagogy-grid">
+          <!-- 1. What is it? -->
+          <div class="card">
+            <h3>🌍 1. What is it?</h3>
+            <p>${data.what}</p>
+          </div>
+
+          <!-- 2. Why is it needed? -->
+          <div class="card">
+            <h3>🚀 2. Why is it needed?</h3>
+            <p>${data.why}</p>
+          </div>
+
+          <!-- 3. How does it work? -->
+          <div class="card full-width">
+            <h3>⚙️ 3. How does it work? (System Pipeline)</h3>
+            <p>Follow the functional sequence across the space station:</p>
+            <div class="pipeline">${pipelineHtml}</div>
+          </div>
+
+          <!-- 4. What happens if it fails? -->
+          <div class="card failure-box">
+            <h3>⚠️ 4. What happens if it fails?</h3>
+            <p>${data.fail}</p>
+          </div>
+
+          <!-- 5. How do astronauts fix it? -->
+          <div class="card repair-box">
+            <h3>🛠️ 5. How do astronauts fix it?</h3>
+            <p>${data.fix}</p>
+          </div>
+
+          <!-- 6. How do we know this? -->
+          <div class="card evidence-box">
+            <h3>🔬 6. How do we know this?</h3>
+            <p>${data.howWeKnow}</p>
+          </div>
+
+          <!-- 7. Myth vs. Fact -->
+          <div class="card myth-box">
+            <h3>💡 7. Myth vs. Fact</h3>
+            <div class="myth-grid">
+              <div class="myth-cell myth">${data.myth.m}</div>
+              <div class="myth-cell fact">${data.myth.f}</div>
+            </div>
+          </div>
+
+          <!-- 8. Interactive Animation / Simulation Widget -->
+          <div class="card full-width">
+            <h3>🎮 8. Interactive Simulation Widget: ${data.simTitle}</h3>
+            <div class="sim-box">
+              <p>Test this system in simulated microgravity right now:</p>
+              <button onclick="runSimulation('${data.id}')">${data.simAction}</button>
+              <div id="sim-res-${data.id}" class="sim-output">Ready for simulation...</div>
+            </div>
+          </div>
+
+          <!-- 9. Mini Challenge -->
+          <div class="card">
+            <h3>🧠 9. Mini Engineering Challenge</h3>
+            <p><strong>Solve this:</strong> ${data.challenge}</p>
+          </div>
+
+          <!-- 10. Quick Quiz -->
+          <div class="card">
+            <h3>❓ 10. Quick Knowledge Quiz</h3>
+            <p>${data.quiz.q}</p>
+            <div class="quiz-options">${quizHtml}</div>
+            <div id="quiz-msg" style="margin-top:8px; font-size:0.85rem; font-weight:600;"></div>
+          </div>
+
+          <!-- 11. Real-World Applications -->
+          <div class="card">
+            <h3>🌎 11. Real-World Applications on Earth</h3>
+            <p>${data.realWorld}</p>
+          </div>
+
+          <!-- 12. Connection to Other ISS Systems -->
+          <div class="card">
+            <h3>🔗 12. Connection to Other ISS Systems</h3>
+            <p>${data.connect}</p>
+          </div>
+        </div>
+      `;
+      location.hash = id;
+    }
+
+    /************************************************************************
+     * 4. INTERACTIVE WIDGET HANDLERS (SIMULATION & QUIZ)
+     ************************************************************************/
+    function runSimulation(id) {
+      const data = curriculum.find(item => item.id === id);
+      const outEl = document.getElementById(`sim-res-${id}`);
+      if (!outEl || !data) return;
+      outEl.style.color = "#fbbf24";
+      outEl.textContent = "Executing orbital command... Processing telemetry...";
+      setTimeout(() => {
+        outEl.style.color = "#4ade80";
+        outEl.textContent = data.simResult;
+      }, 600);
+    }
+
+    function checkQuiz(btnEl, selectedIdx, correctIdx) {
+      const msgEl = document.getElementById("quiz-msg");
+      const parent = btnEl.parentElement;
+      parent.querySelectorAll(".quiz-btn").forEach(b => b.classList.remove("correct", "wrong"));
+
+      if (selectedIdx === correctIdx) {
+        btnEl.classList.add("correct");
+        msgEl.style.color = "#4ade80";
+        msgEl.textContent = "✓ Correct! Excellent space systems knowledge!";
+        
+        // Progress update logic
+        const activeId = location.hash.replace('#', '') || 'c1';
+        completedLessons.add(activeId);
+        updateProgress();
+      } else {
+        btnEl.classList.add("wrong");
+        msgEl.style.color = "#fb7185";
+        msgEl.textContent = "✗ Incorrect. Check 'How it works' and try again!";
+      }
+    }
+
+    function openExplorer(moduleId) {
+      const url = moduleId
+        ? `./iss-anatomy-explorer-jsondriven.html#module=${moduleId}`
+        : './iss-anatomy-explorer-jsondriven.html';
+      window.open(url, '_blank');
+    }
+
+    // Initialize Academy on Load
+    buildSidebar();
+    updateProgress();
+    const initialHash = location.hash.replace("#", "");
+    const validId = curriculum.some(item => item.id === initialHash) ? initialHash : "c1";
+    selectLesson(validId);
+  </script>
+</body>
+</html>

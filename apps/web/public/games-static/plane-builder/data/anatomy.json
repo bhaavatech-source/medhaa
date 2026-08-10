@@ -1,0 +1,402 @@
+[
+  {
+    "id": "wing",
+    "name": "Wing",
+    "short": "Wings help the plane stay up.",
+    "function": "Wings create lift, which helps the aircraft rise and stay in the sky.",
+    "ifMissing": "The plane cannot lift properly and may never leave the ground.",
+    "lesson": "A plane needs enough lift to fly. Bigger or better-shaped wings help for longer or steadier trips."
+  },
+  {
+    "id": "tail",
+    "name": "Tail",
+    "short": "The tail keeps the plane steady.",
+    "function": "The tail helps the aircraft balance and turn more safely.",
+    "ifMissing": "The plane may wobble, tip, or lose direction control.",
+    "lesson": "The tail is like a helper that keeps the airplane calm and pointed in the right direction."
+  },
+  {
+    "id": "engine",
+    "name": "Engine",
+    "short": "The engine pushes the plane forward.",
+    "function": "The engine creates thrust so the plane can move fast enough to fly.",
+    "ifMissing": "The plane cannot gain enough speed for takeoff.",
+    "lesson": "Planes need thrust. Without forward push, even good wings will not be enough."
+  },
+  {
+    "id": "landing_gear",
+    "name": "Landing Gear",
+    "short": "Landing gear helps the plane land safely.",
+    "function": "Landing gear supports the aircraft during takeoff, landing, and taxiing.",
+    "ifMissing": "Landing becomes rough, unsafe, and likely to damage the plane.",
+    "lesson": "A good flight is not only about takeoff. Safe landing matters too."
+  },
+  {
+    "id": "fuel_tank",
+    "name": "Fuel Tank",
+    "short": "The fuel tank feeds the engine.",
+    "function": "The fuel tank stores the fuel that powers the engine during flight.",
+    "ifMissing": "The engine may stop before the mission is complete.",
+    "lesson": "A plane needs energy for the whole journey, not just the beginning."
+  },
+  {
+    "id": "radar",
+    "name": "Radar",
+    "short": "Radar gives extra guidance.",
+    "function": "Radar helps with navigation and safer flying in difficult or rescue missions.",
+    "ifMissing": "The mission may not have enough support in tricky conditions.",
+    "lesson": "Some flights need more than basic parts. Smart missions need smart guidance tools."
+  },
+  {
+    "id": "cargo_bay",
+    "name": "Cargo Bay",
+    "short": "Cargo bays carry supplies.",
+    "function": "Cargo space lets the plane transport goods, boxes, and relief materials.",
+    "ifMissing": "A cargo mission may have no place to carry its load.",
+    "lesson": "Different planes are built for different jobs. Carrying people is not the same as carrying goods."
+  },
+  {
+    "id": "passenger_seats",
+    "name": "Passenger Seats",
+    "short": "Seats make the plane ready for people.",
+    "function": "Seats help turn a plain aircraft into a passenger-ready flight.",
+    "ifMissing": "A passenger plane may work mechanically but not serve its purpose well.",
+    "lesson": "Mission fit matters. The best build is not only safe, but also right for the job."
+  },
+  {
+    "id": "fuselage",
+    "name": "Fuselage",
+    "short": "The main body of the plane.",
+    "function": "Holds the passengers, crew, and cargo together while connecting the wings and tail.",
+    "ifMissing": "There is nowhere to put the passengers, crew, or other parts.",
+    "lesson": "The central structure brings everything together to make a working machine."
+  },
+  {
+    "id": "cockpit",
+    "name": "Cockpit",
+    "short": "Where the pilots fly the plane.",
+    "function": "Houses the instruments and controls needed to fly the aircraft safely.",
+    "ifMissing": "The pilots have no place to control or monitor the flight.",
+    "lesson": "Every vehicle needs a command center to guide its path."
+  },
+  {
+    "id": "ailerons",
+    "name": "Ailerons",
+    "short": "Help the plane roll left or right.",
+    "function": "Hinged sections on the outer wings that move up and down to tilt the plane.",
+    "ifMissing": "The plane cannot turn smoothly or balance its wings.",
+    "lesson": "Small adjustments make big differences in changing direction."
+  },
+  {
+    "id": "elevators",
+    "name": "Elevators",
+    "short": "Make the plane point up or down.",
+    "function": "Flaps on the horizontal tail that control the pitch of the airplane.",
+    "ifMissing": "The plane cannot climb into the sky or descend properly.",
+    "lesson": "You need to control your angle to rise up and come back down."
+  },
+  {
+    "id": "rudder",
+    "name": "Rudder",
+    "short": "Steers the nose left or right.",
+    "function": "A moving flap on the vertical tail that controls yaw.",
+    "ifMissing": "The plane cannot make coordinated turns or stay straight in crosswinds.",
+    "lesson": "Staying on a straight path requires a steady steering mechanism."
+  },
+  {
+    "id": "flaps",
+    "name": "Flaps",
+    "short": "Increase lift at slower speeds.",
+    "function": "Sections on the inner wings that extend down to help the plane fly slowly during takeoff and landing.",
+    "ifMissing": "The plane must land and take off at dangerously high speeds.",
+    "lesson": "Sometimes slowing down safely is just as important as going fast."
+  },
+  {
+    "id": "slats",
+    "name": "Slats",
+    "short": "Help the wings catch air.",
+    "function": "Extend from the front of the wing to prevent stalling at low speeds.",
+    "ifMissing": "The plane might drop out of the sky when flying too slow.",
+    "lesson": "Changing shape helps adapt to different phases of the journey."
+  },
+  {
+    "id": "spoilers",
+    "name": "Spoilers",
+    "short": "Slow the plane down in the air.",
+    "function": "Plates on top of the wings that pop up to reduce lift and increase drag.",
+    "ifMissing": "The plane may float too far down the runway or descend too fast.",
+    "lesson": "You need a way to hit the brakes, even when you are in the sky."
+  },
+  {
+    "id": "horizontal_stabilizer",
+    "name": "Horizontal Stabilizer",
+    "short": "Keeps the plane level.",
+    "function": "A mini-wing on the tail that prevents the nose from pitching up and down on its own.",
+    "ifMissing": "The plane would constantly try to flip end-over-end.",
+    "lesson": "Stability is essential for a smooth and predictable ride."
+  },
+  {
+    "id": "vertical_stabilizer",
+    "name": "Vertical Stabilizer",
+    "short": "Keeps the plane pointing forward.",
+    "function": "The upright tail fin that stops the plane from swinging side to side.",
+    "ifMissing": "The plane would wiggle violently like a fish out of water.",
+    "lesson": "A strong foundation keeps you moving straight ahead."
+  },
+  {
+    "id": "propeller",
+    "name": "Propeller",
+    "short": "Pulls the plane through the air.",
+    "function": "Spinning blades that create thrust on certain types of aircraft.",
+    "ifMissing": "The plane sits still and cannot fly.",
+    "lesson": "Rotational energy is a powerful way to move forward."
+  },
+  {
+    "id": "spinner",
+    "name": "Spinner",
+    "short": "Makes the propeller smooth.",
+    "function": "A cone shaped cover over the center of the propeller to improve aerodynamics.",
+    "ifMissing": "Air hitting the flat hub creates drag and slows the plane down.",
+    "lesson": "Streamlining reduces resistance and makes the journey easier."
+  },
+  {
+    "id": "nacelle",
+    "name": "Nacelle",
+    "short": "Covers the engine.",
+    "function": "An aerodynamic housing that protects the engine and directs airflow.",
+    "ifMissing": "The engine is exposed to weather and causes massive drag.",
+    "lesson": "Protecting your core components ensures they work efficiently."
+  },
+  {
+    "id": "windshield",
+    "name": "Windshield",
+    "short": "Let pilots see outside safely.",
+    "function": "Thick glass that withstands high winds and bird strikes.",
+    "ifMissing": "Pilots are blinded by wind and cannot navigate visually.",
+    "lesson": "Clear vision is vital for steering a safe course."
+  },
+  {
+    "id": "altimeter",
+    "name": "Altimeter",
+    "short": "Tells how high the plane is.",
+    "function": "An instrument that measures altitude using air pressure.",
+    "ifMissing": "Pilots might fly too low and hit obstacles or too high and lose oxygen.",
+    "lesson": "Knowing your exact vertical position is critical for safety."
+  },
+  {
+    "id": "airspeed_indicator",
+    "name": "Airspeed Indicator",
+    "short": "Shows how fast the plane flies.",
+    "function": "Measures the speed of the aircraft moving through the air.",
+    "ifMissing": "The plane might fly too slow and fall, or too fast and break apart.",
+    "lesson": "Speed must be carefully managed to stay in the safe zone."
+  },
+  {
+    "id": "attitude_indicator",
+    "name": "Attitude Indicator",
+    "short": "Shows if the plane is level.",
+    "function": "An artificial horizon that tells pilots if they are banking or climbing.",
+    "ifMissing": "Pilots can get disoriented in clouds and crash.",
+    "lesson": "When you cannot trust your senses, rely on accurate data."
+  },
+  {
+    "id": "yoke",
+    "name": "Yoke",
+    "short": "The steering wheel.",
+    "function": "The control column pilots use to pitch and roll the plane.",
+    "ifMissing": "Pilots cannot guide the plane's movements by hand.",
+    "lesson": "Every pilot needs a physical connection to direct their path."
+  },
+  {
+    "id": "rudder_pedals",
+    "name": "Rudder Pedals",
+    "short": "Steer the plane on the ground and air.",
+    "function": "Foot pedals used to control the rudder and wheel brakes.",
+    "ifMissing": "The plane cannot turn smoothly or stop safely on the runway.",
+    "lesson": "Sometimes you need hands and feet working together for complete control."
+  },
+  {
+    "id": "throttle",
+    "name": "Throttle",
+    "short": "Controls engine power.",
+    "function": "Levers pushed forward for more power and pulled back for less.",
+    "ifMissing": "The plane cannot change speed or climb effectively.",
+    "lesson": "Managing power is the key to managing your journey."
+  },
+  {
+    "id": "apu",
+    "name": "APU (Auxiliary Power Unit)",
+    "short": "Provides backup power.",
+    "function": "A small engine that generates electricity and air pressure when main engines are off.",
+    "ifMissing": "The plane has no power at the gate and cannot start its main engines.",
+    "lesson": "Having a reliable backup system is crucial for independence."
+  },
+  {
+    "id": "battery",
+    "name": "Battery",
+    "short": "Stores electrical power.",
+    "function": "Provides initial power to start the APU and keeps critical systems running in an emergency.",
+    "ifMissing": "The plane cannot start up or loses all screens if engines fail.",
+    "lesson": "Stored energy saves the day when the main power source stops."
+  },
+  {
+    "id": "generator",
+    "name": "Generator",
+    "short": "Makes electricity in flight.",
+    "function": "Driven by the engines to power lights, screens, and computers.",
+    "ifMissing": "The plane goes dark and loses vital instruments mid-flight.",
+    "lesson": "Continuous energy generation is needed for modern complex systems."
+  },
+  {
+    "id": "navigation_lights",
+    "name": "Navigation Lights",
+    "short": "Show the plane's direction at night.",
+    "function": "Red, green, and white lights on the wingtips and tail.",
+    "ifMissing": "Other planes cannot tell which way the aircraft is traveling.",
+    "lesson": "Clear communication with others helps avoid collisions."
+  },
+  {
+    "id": "beacon_light",
+    "name": "Beacon Light",
+    "short": "Warns people the engines are running.",
+    "function": "A flashing red light that alerts ground crew to stay away.",
+    "ifMissing": "Ground crew might get too close to a running engine.",
+    "lesson": "Visual warnings are a simple way to maintain safety."
+  },
+  {
+    "id": "landing_lights",
+    "name": "Landing Lights",
+    "short": "Bright lights for the runway.",
+    "function": "Powerful headlights used during takeoff and landing to see the runway.",
+    "ifMissing": "Pilots cannot see the ground clearly at night.",
+    "lesson": "Shining a light on your immediate path helps you land safely."
+  },
+  {
+    "id": "pitot_tube",
+    "name": "Pitot Tube",
+    "short": "Measures incoming air.",
+    "function": "A forward-facing tube that senses ram air pressure to determine speed.",
+    "ifMissing": "The plane loses its airspeed reading.",
+    "lesson": "Small sensors can provide the most vital pieces of information."
+  },
+  {
+    "id": "static_port",
+    "name": "Static Port",
+    "short": "Measures calm air pressure.",
+    "function": "A small hole on the side of the plane to sense outside air pressure.",
+    "ifMissing": "The altimeter and airspeed indicator will give false readings.",
+    "lesson": "You need a baseline of calm to measure against the storm."
+  },
+  {
+    "id": "transponder",
+    "name": "Transponder",
+    "short": "Identifies the plane on radar.",
+    "function": "Sends a signal to Air Traffic Control with the plane's flight number and altitude.",
+    "ifMissing": "The plane becomes an unknown, invisible dot to controllers.",
+    "lesson": "Being easily identifiable keeps you integrated with the wider system."
+  },
+  {
+    "id": "comms_radio",
+    "name": "Comms Radio",
+    "short": "Lets pilots talk to the ground.",
+    "function": "Used to speak with Air Traffic Control and other airplanes.",
+    "ifMissing": "The plane is isolated and cannot receive instructions or warnings.",
+    "lesson": "Communication is essential for coordinating safe travel."
+  },
+  {
+    "id": "oxygen_system",
+    "name": "Oxygen System",
+    "short": "Provides air in emergencies.",
+    "function": "Drops masks and supplies oxygen if the cabin loses pressure.",
+    "ifMissing": "Passengers and crew could pass out from lack of air.",
+    "lesson": "Always have a life-saving backup for the things you need most."
+  },
+  {
+    "id": "flight_data_recorder",
+    "name": "Flight Data Recorder",
+    "short": "Records how the plane is flying.",
+    "function": "The 'black box' that saves information on speed, altitude, and controls.",
+    "ifMissing": "Investigators cannot figure out why a crash happened.",
+    "lesson": "Learning from past mistakes prevents future tragedies."
+  },
+  {
+    "id": "cockpit_voice_recorder",
+    "name": "Cockpit Voice Recorder",
+    "short": "Records what the pilots say.",
+    "function": "Saves the audio of pilot conversations and cockpit alarms.",
+    "ifMissing": "Important context about pilot decisions is lost in an accident.",
+    "lesson": "Hearing the human side of an event provides the missing puzzle pieces."
+  },
+  {
+    "id": "overhead_bins",
+    "name": "Overhead Bins",
+    "short": "Store passenger bags.",
+    "function": "Compartments above the seats for carry-on luggage.",
+    "ifMissing": "The cabin gets cluttered, blocking escapes and making people uncomfortable.",
+    "lesson": "Organized storage makes the journey better for everyone."
+  },
+  {
+    "id": "galley",
+    "name": "Galley",
+    "short": "The airplane kitchen.",
+    "function": "Where flight attendants prepare food and drinks.",
+    "ifMissing": "Passengers go hungry and thirsty on long flights.",
+    "lesson": "Comfort and nourishment are important for morale on long trips."
+  },
+  {
+    "id": "lavatory",
+    "name": "Lavatory",
+    "short": "The airplane bathroom.",
+    "function": "A small room with a toilet and sink.",
+    "ifMissing": "Passengers suffer severe discomfort on longer flights.",
+    "lesson": "Basic human needs must be met no matter where you are."
+  },
+  {
+    "id": "pressurization_system",
+    "name": "Pressurization System",
+    "short": "Keeps the cabin air thick.",
+    "function": "Pumps air into the cabin so people can breathe at 30,000 feet.",
+    "ifMissing": "The air becomes too thin to breathe, and freezing cold.",
+    "lesson": "Creating a safe artificial environment lets you travel in hostile spaces."
+  },
+  {
+    "id": "environmental_control_system",
+    "name": "Environmental Control System",
+    "short": "Controls temperature and air flow.",
+    "function": "Provides air conditioning and heating for the cabin.",
+    "ifMissing": "The plane becomes freezing cold or boiling hot.",
+    "lesson": "Comfort relies on a delicate balance of temperature and fresh air."
+  },
+  {
+    "id": "fire_extinguishing_system",
+    "name": "Fire Extinguishing System",
+    "short": "Puts out engine fires.",
+    "function": "Bottles of fire retardant that can be sprayed into engines or cargo holds.",
+    "ifMissing": "A small fire can quickly destroy the entire aircraft.",
+    "lesson": "You must be able to fight hazards immediately, even in mid-air."
+  },
+  {
+    "id": "emergency_exits",
+    "name": "Emergency Exits",
+    "short": "Ways to escape the plane.",
+    "function": "Special doors and windows designed for quick evacuation.",
+    "ifMissing": "Passengers get trapped inside during an emergency.",
+    "lesson": "Always know your way out when things go wrong."
+  },
+  {
+    "id": "radome",
+    "name": "Radome",
+    "short": "The nose cone.",
+    "function": "A fiberglass cover at the very front that protects the weather radar.",
+    "ifMissing": "The radar gets destroyed by wind and rain.",
+    "lesson": "Delicate instruments need tough shields."
+  },
+  {
+    "id": "trim_tabs",
+    "name": "Trim Tabs",
+    "short": "Make flying easier.",
+    "function": "Small flaps on the trailing edge of control surfaces that relieve pressure on the controls.",
+    "ifMissing": "The pilot has to constantly push or pull hard on the yoke, getting tired.",
+    "lesson": "Small adjustments take the heavy burden off the main operator."
+  }
+]

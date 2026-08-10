@@ -1,0 +1,52 @@
+{
+  "missing_wings": {
+    "title": "Missing Wings",
+    "text": "Your plane cannot stay in the sky without wings.",
+    "hint": "Install a wing pair before testing again."
+  },
+  "missing_tail": {
+    "title": "Missing Tail",
+    "text": "The plane may wobble or turn badly without a tail.",
+    "hint": "Add a tail so the plane can stay steady."
+  },
+  "missing_engine": {
+    "title": "Engine Missing",
+    "text": "Your plane has no power to move forward.",
+    "hint": "Install an engine to create thrust."
+  },
+  "missing_fuel": {
+    "title": "Fuel Problem",
+    "text": "The plane may stop before the trip is complete.",
+    "hint": "Add a fuel tank for the mission."
+  },
+  "missing_landing_gear": {
+    "title": "Landing Risk",
+    "text": "The plane may not take off or land safely yet.",
+    "hint": "Install landing gear before the runway test."
+  },
+  "lift_too_low": {
+    "title": "Lift Problem",
+    "text": "The plane may not rise into the air.",
+    "hint": "Use stronger or larger wings."
+  },
+  "stability_too_low": {
+    "title": "Balance Problem",
+    "text": "The plane may tilt too much while flying.",
+    "hint": "Improve the tail or reduce bad part combinations."
+  },
+  "thrust_too_low": {
+    "title": "Engine Too Weak",
+    "text": "This engine may not be strong enough.",
+    "hint": "Try a stronger engine or a lighter body."
+  },
+  "budget_exceeded": {
+    "title": "Budget Too High",
+    "text": "This build costs more than the mission budget.",
+    "hint": "Choose simpler parts to stay within budget."
+  },
+  "pass": {
+    "title": "Ready for Takeoff",
+    "text": "Great job. This plane looks ready to fly.",
+    "hint": "Press next mission to continue."
+  }
+}

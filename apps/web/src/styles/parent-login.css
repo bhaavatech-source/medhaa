@@ -1,0 +1,60 @@
+.parent-login-page {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #3b1c02, #7c2d12, #9a3412);
+  overflow: hidden;
+}
+
+.parent-login-orbs { position: absolute; inset: 0; pointer-events: none; }
+.pl-orb { position: absolute; border-radius: 50%; filter: blur(50px); opacity: 0.4; animation: plOrbFloat 9s ease-in-out infinite; }
+.pl-orb-1 { width: 220px; height: 220px; background: #f97316; top: 8%; left: 10%; }
+.pl-orb-2 { width: 260px; height: 260px; background: #fbbf24; bottom: 5%; right: 8%; animation-delay: 2.5s; }
+
+@keyframes plOrbFloat { 0%,100% { transform: translate(0,0); } 50% { transform: translate(24px,-24px); } }
+
+.parent-login-card {
+  position: relative; z-index: 1;
+  background: #ffffff; border-radius: 20px; padding: 48px 40px; width: 380px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+  animation: cardEnter 0.6s cubic-bezier(0.16,1,0.3,1);
+}
+
+@keyframes cardEnter { from { opacity: 0; transform: translateY(32px); } to { opacity: 1; transform: translateY(0); } }
+
+.parent-login-brand { text-align: center; margin-bottom: 32px; }
+.parent-login-logo { font-size: 44px; }
+.parent-login-brand h1 {
+  margin: 8px 0 0; font-size: 24px;
+  background: linear-gradient(135deg, #f97316, #fbbf24);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.parent-login-brand p { margin: 4px 0 0; color: #6b7280; font-size: 13px; }
+
+.parent-login-form label { display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 16px; }
+.parent-login-form input {
+  width: 100%; padding: 12px 14px; margin-top: 6px;
+  border: 1.5px solid #d1d5db; border-radius: 10px; font-size: 15px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.parent-login-form input:focus { outline: none; border-color: #f97316; box-shadow: 0 0 0 4px rgba(249,115,22,0.15); }
+
+.parent-login-error { background: #fef2f2; color: #b91c1c; padding: 10px 14px; border-radius: 8px; font-size: 13px; margin-bottom: 16px; }
+
+.parent-login-submit {
+  width: 100%; padding: 13px; border: none; border-radius: 10px;
+  background: linear-gradient(135deg, #f97316, #fbbf24);
+  color: white; font-size: 15px; font-weight: 700; cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.parent-login-submit:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(249,115,22,0.4); }
+.parent-login-submit:disabled { opacity: 0.6; }
+
+.parent-login-back { display: block; text-align: center; margin-top: 24px; font-size: 13px; color: #6b7280; text-decoration: none; }
+.parent-login-back:hover { color: #f97316; }
+
+@media (max-width: 480px) {
+  .parent-login-card { width: 90%; padding: 36px 24px; }
+}

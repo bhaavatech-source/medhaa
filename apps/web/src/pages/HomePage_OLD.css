@@ -1,0 +1,78 @@
+.home-wrap {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f7f6f2 0%, #e6f2f0 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 24px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.home-hero { text-align: center; margin-bottom: 50px; animation: fadeDown 0.8s ease; }
+.home-title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  color: #01696f;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+.home-sub { font-size: 1.1rem; color: #6b6963; margin-top: 8px; }
+
+.role-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
+  max-width: 1000px;
+  width: 100%;
+}
+
+.role-admin:hover { border-top: 4px solid #dc2626; }
+
+.role-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 36px 28px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  animation: fadeUp 0.6s ease both;
+}
+.role-card:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 12px 32px rgba(0,0,0,0.12); }
+.role-card:nth-child(2) { animation-delay: 0.1s; }
+.role-card:nth-child(3) { animation-delay: 0.2s; }
+
+.role-icon { font-size: 3rem; margin-bottom: 14px; }
+.role-card h3 { font-size: 1.3rem; margin: 0 0 8px; color: #28251d; }
+.role-card p { font-size: 0.92rem; color: #6b6963; line-height: 1.5; margin: 0; }
+
+.role-teacher:hover { border-top: 4px solid #6b2fa8; }
+.role-parent:hover { border-top: 4px solid #01696f; }
+.role-student:hover { border-top: 4px solid #c28a00; }
+
+.home-footer { margin-top: 60px; font-size: 0.8rem; color: #bab9b4; }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeDown { from { opacity: 0; transform: translateY(-24px); } to { opacity: 1; transform: translateY(0); } }
+
+.role-icon-student {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 14px;
+  animation: controllerFloat 2.8s ease-in-out infinite;
+  filter: drop-shadow(0 6px 12px rgba(13,148,136,0.3));
+}
+
+.role-icon-student svg {
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes controllerFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-6px) rotate(-3deg); }
+}
+
+.role-card:hover .role-icon-student {
+  animation: controllerFloat 1.2s ease-in-out infinite;
+}

@@ -1,0 +1,143 @@
+{
+  "station_overview": {
+    "name": "International Space Station",
+    "tagline": "A permanently inhabited laboratory in low Earth orbit.",
+    "what_is_it": "The ISS is a modular space station used for long-duration human habitation, research, technology demonstration, and international cooperation.",
+    "purpose": [
+      "Microgravity science",
+      "Human health research",
+      "Technology testing",
+      "Earth observation",
+      "Preparation for future Moon and Mars missions"
+    ]
+  },
+  "quick_facts": {
+    "partners_agencies": 5,
+    "partner_countries": 15,
+    "continuous_occupation_since": "2000-11",
+    "typical_crew": 7,
+    "length_m": 109,
+    "solar_array_span_m": 73,
+    "mass_kg": 419725,
+    "pressurized_volume_m3": 1005,
+    "power_kw": "75-90"
+  },
+  "partners": [
+    {
+      "agency": "NASA",
+      "country_group": "United States",
+      "role": "Overall program leadership, U.S. Orbital Segment, operations, research, logistics"
+    },
+    {
+      "agency": "Roscosmos",
+      "country_group": "Russia",
+      "role": "Russian Orbital Segment, propulsion, docking, attitude support, crew transport heritage"
+    },
+    {
+      "agency": "ESA",
+      "country_group": "Europe",
+      "role": "Columbus laboratory and European contributions through member states"
+    },
+    {
+      "agency": "JAXA",
+      "country_group": "Japan",
+      "role": "Kibo laboratory and Japanese research systems"
+    },
+    {
+      "agency": "CSA",
+      "country_group": "Canada",
+      "role": "Canadarm2 and robotic systems"
+    }
+  ],
+  "countries": [
+    "United States",
+    "Russia",
+    "Japan",
+    "Canada",
+    "Belgium",
+    "Denmark",
+    "France",
+    "Germany",
+    "Italy",
+    "Netherlands",
+    "Norway",
+    "Spain",
+    "Sweden",
+    "Switzerland",
+    "United Kingdom"
+  ],
+  "systems": [
+    {
+      "id": "power",
+      "title": "Power System",
+      "what_it_does": "Generates, stores, and distributes electricity across the station.",
+      "key_parts": ["solar arrays", "batteries", "power channels", "distribution units"],
+      "why_it_matters": "Without power, life support, computing, science, lighting, communications, and thermal control are affected."
+    },
+    {
+      "id": "life-support",
+      "title": "Life Support",
+      "what_it_does": "Maintains breathable air, water recovery, pressure control, and habitability.",
+      "key_parts": ["oxygen generation", "carbon dioxide removal", "water recycling", "air circulation"],
+      "why_it_matters": "This system makes long-duration human life possible."
+    },
+    {
+      "id": "thermal",
+      "title": "Thermal Control",
+      "what_it_does": "Removes excess heat and keeps equipment and crew areas within safe temperature limits.",
+      "key_parts": ["radiators", "coolant loops", "heat exchangers"],
+      "why_it_matters": "Spacecraft systems can overheat or freeze without thermal regulation."
+    },
+    {
+      "id": "robotics",
+      "title": "Robotics",
+      "what_it_does": "Supports assembly, capture, maintenance, and external operations.",
+      "key_parts": ["Canadarm2", "Dextre", "robotic workstations"],
+      "why_it_matters": "Robotics reduce astronaut risk and extend what can be done outside the station."
+    }
+  ],
+  "timeline": [
+    {
+      "year": 1998,
+      "title": "Assembly begins",
+      "detail": "The first ISS elements launched and on-orbit assembly started."
+    },
+    {
+      "year": 2000,
+      "title": "Continuous human occupation begins",
+      "detail": "Crews began living aboard the station continuously."
+    },
+    {
+      "year": 2001,
+      "title": "Major U.S. laboratory capability expands",
+      "detail": "Research and habitation capability grew as major modules were added."
+    },
+    {
+      "year": 2008,
+      "title": "Columbus and Kibo era",
+      "detail": "European and Japanese laboratory capabilities expanded the station’s science role."
+    }
+  ],
+  "minimum_requirements_for_station": [
+    "Pressurized crew habitat",
+    "Electrical power generation and storage",
+    "Air revitalization and life support",
+    "Thermal control",
+    "Attitude/orbit control",
+    "Docking or visiting vehicle interface",
+    "Communications with Earth",
+    "Computers and fault monitoring",
+    "Radiation and debris protection",
+    "Logistics and maintenance capability"
+  ],
+  "iss_class_capabilities": [
+    "Permanent crew operations",
+    "Multiple laboratories",
+    "Large-scale solar power generation",
+    "Robotics for assembly and maintenance",
+    "Multiple docking ports",
+    "Redundant systems",
+    "International mission control coordination",
+    "Long-term science utilization"
+  ]
+}

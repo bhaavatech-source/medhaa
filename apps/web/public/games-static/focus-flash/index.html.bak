@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Focus Flash - Attention Trainer</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+
+    <!-- START SCREEN -->
+    <div id="startScreen" class="screen active">
+      <button id="soundToggle" class="sound-btn" title="Toggle Sound">🔊</button>
+      <h1 class="pop-in">🎯 Focus Flash</h1>
+      <p class="subtitle">An Adaptive Attention Training Game</p>
+
+      <div class="mode-tabs">
+        <button class="mode-tab active" data-mode="selective">🔎 Selective Attention</button>
+        <button class="mode-tab" data-mode="sustained">👁️ Sustained Attention</button>
+      </div>
+
+      <p class="instructions" id="modeInstructions">Find and tap the <b>target shape</b> before it disappears. Difficulty adapts to you as you play!</p>
+
+      <div class="level-buttons" id="selectiveLevels">
+        <button class="lvl-btn easy" data-mode="selective" data-level="easy">Start Easier 🟢</button>
+        <button class="lvl-btn medium" data-mode="selective" data-level="medium">Start Medium 🟠</button>
+        <button class="lvl-btn hard" data-mode="selective" data-level="hard">Start Harder 🔴</button>
+      </div>
+
+      <div class="level-buttons hidden" id="sustainedLevels">
+        <button class="lvl-btn easy" data-mode="sustained" data-level="easy">Start Easier 🟢</button>
+        <button class="lvl-btn medium" data-mode="sustained" data-level="medium">Start Medium 🟠</button>
+        <button class="lvl-btn hard" data-mode="sustained" data-level="hard">Start Harder 🔴</button>
+      </div>
+
+      <p class="adaptive-note">🧠 Difficulty auto-adjusts every few trials based on your performance</p>
+      <button id="progressBtn" class="secondary-btn">📊 View My Progress</button>
+    </div>
+
+    <!-- SELECTIVE ATTENTION GAME SCREEN -->
+    <div id="gameScreen" class="screen">
+      <button id="soundToggleGame" class="sound-btn" title="Toggle Sound">🔊</button>
+      <div class="progress-bar-wrapper"><div id="progressBar"></div></div>
+      <div class="hud">
+        <div class="hud-item">Difficulty: <span id="hudDifficulty">1</span>/10</div>
+        <div class="hud-item">Round: <span id="hudRound">0</span>/<span id="hudTotalRounds">0</span></div>
+        <div class="hud-item">Score: <span id="hudScore">0</span></div>
+        <div class="hud-item" id="timeWrapper">Time: <span id="hudTime">0</span>s</div>
+      </div>
+      <div id="targetBanner"></div>
+      <div id="grid"></div>
+      <div id="feedback"></div>
+      <div id="comboPopup"></div>
+      <div id="milestonePopup"></div>
+      <div id="difficultyPopup"></div>
+    </div>
+
+    <!-- SUSTAINED ATTENTION (CPT) GAME SCREEN -->
+    <div id="sustainedScreen" class="screen">
+      <button id="soundToggleSustained" class="sound-btn" title="Toggle Sound">🔊</button>
+      <div class="progress-bar-wrapper"><div id="sustainedProgressBar"></div></div>
+      <div class="hud">
+        <div class="hud-item">Difficulty: <span id="sHudDifficulty">1</span>/10</div>
+        <div class="hud-item">Trial: <span id="sHudTrial">0</span>/<span id="sHudTotalTrials">0</span></div>
+        <div class="hud-item">Score: <span id="sHudScore">0</span></div>
+      </div>
+      <div id="sustainedRule"></div>
+      <div id="sustainedStage">
+        <div id="sustainedShapeWrap"></div>
+      </div>
+      <button id="tapTargetBtn">TAP if this is the target!</button>
+      <div id="sustainedFeedback"></div>
+    </div>
+
+    <!-- END SCREEN -->
+    <div id="endScreen" class="screen">
+      <div id="endStars" class="stars"></div>
+      <h1 class="pop-in">Session Complete!</h1>
+      <div class="stats" id="statsGrid">
+        <div class="stat-box"><span id="statScore">0</span><label>Score</label></div>
+        <div class="stat-box"><span id="statAccuracy">0%</span><label>Accuracy</label></div>
+        <div class="stat-box"><span id="statAvgRT">0ms</span><label>Avg Reaction</label></div>
+        <div class="stat-box"><span id="statFinalDifficulty">0</span><label>Final Difficulty</label></div>
+      </div>
+      <p id="attentionVerdict"></p>
+      <button id="restartBtn">Play Again</button>
+      <button id="viewProgressFromEnd" class="secondary-btn">📊 View Progress</button>
+    </div>
+
+    <!-- PROGRESS SCREEN -->
+    <div id="progressScreen" class="screen">
+      <h1 class="pop-in">📊 My Progress</h1>
+      <p class="subtitle" id="progressSummary">Keep training to see trends!</p>
+      <canvas id="progressChart" width="560" height="220"></canvas>
+      <div id="historyTableWrap"></div>
+      <button id="backFromProgress">Back</button>
+      <button id="clearHistoryBtn" class="secondary-btn danger">Clear History</button>
+    </div>
+
+  </div>
+<script src="script.js"></script>
+</body>
+</html>

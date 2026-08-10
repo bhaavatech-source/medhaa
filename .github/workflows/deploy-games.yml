@@ -1,0 +1,39 @@
+# .github/workflows/deploy-games.yml
+# Deploys the games-static folder (all ~40 standalone HTML/JS games) to
+# games.medhaa.net whenever a game is added or updated. Runs from the
+# new GitHub account/repo holding your game bundles.
+
+name: Deploy Games to medhaa.net
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "games-static/**"
+
+jobs:
+  deploy-games:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate every game has a bridge script reference
+        run: |
+          # Fails the build early if a game folder forgot to include
+          # medhaa-bridge.js — prevents silently broken analytics.
+          for dir in games-static/*/; do
+            name=$(basename "$dir")
+            if [ "$name" = "_shared" ]; then continue; fi
+            if ! grep -q "medhaa-bridge.js" "$dir/index.html"; then
+              echo "ERROR: $name/index.html is missing medhaa-bridge.js include"
+              exit 1
+            fi
+          done
+
+      - name: Deploy to Render static site (games.medhaa.net)
+        uses: JorgeLNJunior/render-deploy@v1.4.5
+        with:
+          service_id: ${{ secrets.RENDER_GAMES_SERVICE_ID }}
+          api_key: ${{ secrets.RENDER_API_KEY }}
+          wait_deploy: true

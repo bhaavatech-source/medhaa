@@ -1,0 +1,13 @@
+{
+  "name": "@medhaa/game-sdk",
+  "version": "1.0.0",
+  "private": true,
+  "main": "src/index.ts",
+  "@medhaa/game-sdk": "*",
+  "@medhaa/games": "*",
+  "types": "src/index.ts",
+  "exports": {
+    "./types": "./src/types.ts",
+    "./reportSession": "./src/reportSession.ts"
+  }
+}

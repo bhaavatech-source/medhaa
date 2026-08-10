@@ -1,0 +1,258 @@
+[
+  {
+    "id": "wing_basic",
+    "name": "Basic Wings",
+    "type": "wing",
+    "cost": 900,
+    "tags": ["training", "cargo", "rescue", "passenger"],
+    "description": "Good starter wings for normal flights."
+  },
+  {
+    "id": "wing_long_range",
+    "name": "Long-Range Wings",
+    "type": "wing",
+    "cost": 1400,
+    "tags": ["long_range", "passenger", "rescue"],
+    "description": "Helps the plane travel farther and glide better."
+  },
+  {
+    "id": "wing_delta",
+    "name": "Delta Wings",
+    "type": "wing",
+    "cost": 1650,
+    "tags": ["fast", "rescue"],
+    "description": "Sharp wings for faster aircraft."
+  },
+  {
+    "id": "wing_glider",
+    "name": "Glider Wings",
+    "type": "wing",
+    "cost": 780,
+    "tags": ["training", "eco"],
+    "description": "Wide wings for smooth gliding."
+  },
+  {
+    "id": "wing_heavy_lift",
+    "name": "Heavy-Lift Wings",
+    "type": "wing",
+    "cost": 1850,
+    "tags": ["cargo"],
+    "description": "Built for bigger loads."
+  },
+  {
+    "id": "tail_basic",
+    "name": "Tail System",
+    "type": "tail",
+    "cost": 480,
+    "tags": ["training", "cargo", "rescue", "passenger", "long_range"],
+    "description": "Keeps the aircraft balanced and easier to steer."
+  },
+  {
+    "id": "tail_twin",
+    "name": "Twin Tail",
+    "type": "tail",
+    "cost": 880,
+    "tags": ["fast", "cargo"],
+    "description": "Extra control for powerful builds."
+  },
+  {
+    "id": "tail_high_stability",
+    "name": "High Stability Tail",
+    "type": "tail",
+    "cost": 760,
+    "tags": ["training", "rescue", "long_range"],
+    "description": "Helps smoother turning and balance."
+  },
+  {
+    "id": "engine_prop_basic",
+    "name": "Propeller Engine",
+    "type": "engine",
+    "cost": 1200,
+    "tags": ["training", "cargo", "rescue"],
+    "description": "A simple engine for smaller aircraft."
+  },
+  {
+    "id": "engine_jet_light",
+    "name": "Light Jet Engine",
+    "type": "engine",
+    "cost": 1700,
+    "tags": ["passenger", "long_range", "fast"],
+    "description": "A faster engine for bigger travel missions."
+  },
+  {
+    "id": "engine_turboprop",
+    "name": "Turboprop Engine",
+    "type": "engine",
+    "cost": 1500,
+    "tags": ["cargo", "rescue"],
+    "description": "A balanced engine for utility flights."
+  },
+  {
+    "id": "engine_heavy_jet",
+    "name": "Heavy Jet Engine",
+    "type": "engine",
+    "cost": 2400,
+    "tags": ["passenger", "cargo", "long_range"],
+    "description": "Strong power for bigger aircraft."
+  },
+  {
+    "id": "landing_gear_basic",
+    "name": "Landing Gear",
+    "type": "landing",
+    "cost": 700,
+    "tags": ["training", "cargo", "rescue", "passenger", "long_range"],
+    "description": "Helps the plane take off and land safely."
+  },
+  {
+    "id": "landing_gear_heavy",
+    "name": "Heavy Landing Gear",
+    "type": "landing",
+    "cost": 1180,
+    "tags": ["cargo", "long_range"],
+    "description": "Safer support for heavier planes."
+  },
+  {
+    "id": "fuel_tank_small",
+    "name": "Fuel Tank",
+    "type": "fuel",
+    "cost": 520,
+    "tags": ["training", "cargo", "rescue", "passenger", "long_range"],
+    "description": "Stores the fuel the engine needs."
+  },
+  {
+    "id": "fuel_tank_long",
+    "name": "Long-Range Fuel Tank",
+    "type": "fuel",
+    "cost": 940,
+    "tags": ["long_range", "passenger", "rescue"],
+    "description": "Carries more fuel for longer travel."
+  },
+  {
+    "id": "radar_basic",
+    "name": "Radar System",
+    "type": "guidance",
+    "cost": 670,
+    "tags": ["rescue", "long_range"],
+    "description": "Adds guidance and helps with safe navigation."
+  },
+  {
+    "id": "weather_sensor",
+    "name": "Weather Sensor",
+    "type": "guidance",
+    "cost": 540,
+    "tags": ["rescue", "long_range"],
+    "description": "Warns about stormy skies."
+  },
+  {
+    "id": "gps_module",
+    "name": "GPS Module",
+    "type": "guidance",
+    "cost": 620,
+    "tags": ["passenger", "long_range", "rescue"],
+    "description": "Helps pilots stay on route."
+  },
+  {
+    "id": "cargo_bay_light",
+    "name": "Cargo Bay",
+    "type": "mission",
+    "cost": 820,
+    "tags": ["cargo"],
+    "description": "Carries supplies and delivery boxes."
+  },
+  {
+    "id": "cargo_bay_heavy",
+    "name": "Heavy Cargo Bay",
+    "type": "mission",
+    "cost": 1350,
+    "tags": ["cargo"],
+    "description": "Carries large heavy materials."
+  },
+  {
+    "id": "rescue_kit",
+    "name": "Rescue Kit",
+    "type": "mission",
+    "cost": 680,
+    "tags": ["rescue"],
+    "description": "Medical and emergency support tools."
+  },
+  {
+    "id": "water_float_kit",
+    "name": "Water Float Kit",
+    "type": "mission",
+    "cost": 1100,
+    "tags": ["rescue"],
+    "description": "Helps in water rescue missions."
+  },
+  {
+    "id": "passenger_seats_small",
+    "name": "Passenger Seats",
+    "type": "interior",
+    "cost": 620,
+    "tags": ["passenger"],
+    "description": "Makes room for people on the flight."
+  },
+  {
+    "id": "passenger_seats_comfort",
+    "name": "Comfort Seats",
+    "type": "interior",
+    "cost": 980,
+    "tags": ["passenger", "long_range"],
+    "description": "Better seating for longer trips."
+  },
+  {
+    "id": "cockpit_glass_basic",
+    "name": "Cockpit Glass",
+    "type": "safety",
+    "cost": 430,
+    "tags": ["training", "passenger", "rescue"],
+    "description": "Protects the pilot and improves visibility."
+  },
+  {
+    "id": "seatbelt_system",
+    "name": "Seatbelt System",
+    "type": "safety",
+    "cost": 390,
+    "tags": ["passenger", "training"],
+    "description": "Adds safer passenger travel."
+  },
+  {
+    "id": "fire_suppression",
+    "name": "Fire Suppression Kit",
+    "type": "safety",
+    "cost": 720,
+    "tags": ["cargo", "passenger", "rescue"],
+    "description": "Helps control emergency fires."
+  },
+  {
+    "id": "oxygen_system",
+    "name": "Oxygen System",
+    "type": "safety",
+    "cost": 880,
+    "tags": ["passenger", "long_range"],
+    "description": "Supports high-altitude comfort and safety."
+  },
+  {
+    "id": "solar_panel_aux",
+    "name": "Solar Assist Panel",
+    "type": "power",
+    "cost": 760,
+    "tags": ["eco", "long_range"],
+    "description": "Provides extra support power."
+  },
+  {
+    "id": "battery_aux",
+    "name": "Aux Battery",
+    "type": "power",
+    "cost": 410,
+    "tags": ["training", "rescue", "passenger"],
+    "description": "Backup electric support for systems."
+  },
+  {
+    "id": "camera_system",
+    "name": "Camera System",
+    "type": "guidance",
+    "cost": 590,
+    "tags": ["rescue", "survey"],
+    "description": "Helps observe ground areas from the sky."
+  }
+]

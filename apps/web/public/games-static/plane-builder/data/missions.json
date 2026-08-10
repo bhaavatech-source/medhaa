@@ -1,0 +1,92 @@
+[
+  {
+    "id": "m1",
+    "title": "Training Flight",
+    "description": "Build a safe beginner plane for a short practice trip.",
+    "budget": 4300,
+    "required": ["wing_basic", "tail_basic", "engine_prop_basic", "landing_gear_basic", "fuel_tank_small"],
+    "tags": ["training"],
+    "goal": "Create a simple, safe starter plane."
+  },
+  {
+    "id": "m2",
+    "title": "School Supply Delivery",
+    "description": "A nearby town needs books and supplies. Build a cargo plane for the job.",
+    "budget": 5000,
+    "required": ["wing_basic", "tail_basic", "engine_prop_basic", "landing_gear_basic", "fuel_tank_small", "cargo_bay_light"],
+    "tags": ["cargo"],
+    "goal": "Carry boxes safely to the destination."
+  },
+  {
+    "id": "m3",
+    "title": "Rescue Mission",
+    "description": "A rescue team needs a guided aircraft to help in a difficult area.",
+    "budget": 5400,
+    "required": ["wing_basic", "tail_basic", "engine_prop_basic", "landing_gear_basic", "fuel_tank_small", "radar_basic"],
+    "tags": ["rescue"],
+    "goal": "Build a safer rescue plane with guidance."
+  },
+  {
+    "id": "m4",
+    "title": "Passenger Shuttle",
+    "description": "Build a comfortable plane to carry passengers on a short trip.",
+    "budget": 5600,
+    "required": ["wing_basic", "tail_basic", "engine_jet_light", "landing_gear_basic", "fuel_tank_small", "passenger_seats_small"],
+    "tags": ["passenger"],
+    "goal": "Make a passenger-friendly aircraft."
+  },
+  {
+    "id": "m5",
+    "title": "Long Journey Flight",
+    "description": "This mission needs a plane that can travel farther with better support systems.",
+    "budget": 6200,
+    "required": ["wing_long_range", "tail_basic", "engine_jet_light", "landing_gear_basic", "fuel_tank_small", "radar_basic"],
+    "tags": ["long_range"],
+    "goal": "Prepare an aircraft for a longer and smarter journey."
+  },
+  {
+    "id": "m6",
+    "title": "Storm Watch Flight",
+    "description": "Fly safely through changing weather and report the storm path.",
+    "budget": 6400,
+    "required": ["wing_long_range", "tail_high_stability", "engine_turboprop", "landing_gear_basic", "fuel_tank_long", "weather_sensor"],
+    "tags": ["rescue", "long_range"],
+    "goal": "Use stable flight systems to survive rough weather."
+  },
+  {
+    "id": "m7",
+    "title": "Island Rescue",
+    "description": "Reach a distant island and deliver emergency help.",
+    "budget": 6900,
+    "required": ["wing_long_range", "tail_high_stability", "engine_turboprop", "landing_gear_basic", "fuel_tank_long", "rescue_kit", "gps_module"],
+    "tags": ["rescue", "long_range"],
+    "goal": "Build a smart and dependable rescue aircraft."
+  },
+  {
+    "id": "m8",
+    "title": "Heavy Cargo Lift",
+    "description": "Carry big machine parts to a work site.",
+    "budget": 7800,
+    "required": ["wing_heavy_lift", "tail_twin", "engine_heavy_jet", "landing_gear_heavy", "fuel_tank_long", "cargo_bay_heavy"],
+    "tags": ["cargo"],
+    "goal": "Lift more weight without losing stability."
+  },
+  {
+    "id": "m9",
+    "title": "Eco Training Challenge",
+    "description": "Build a low-cost learning plane with smart support power.",
+    "budget": 4700,
+    "required": ["wing_glider", "tail_basic", "engine_prop_basic", "landing_gear_basic", "fuel_tank_small", "solar_panel_aux"],
+    "tags": ["training", "eco"],
+    "goal": "Use simple systems and efficient support power."
+  },
+  {
+    "id": "m10",
+    "title": "Mountain Survey",
+    "description": "Scan difficult mountain routes for safe paths.",
+    "budget": 6500,
+    "required": ["wing_long_range", "tail_high_stability", "engine_turboprop", "landing_gear_basic", "fuel_tank_long", "camera_system", "gps_module"],
+    "tags": ["survey", "long_range"],
+    "goal": "Build a survey aircraft with eyes in the sky."
+  }
+]

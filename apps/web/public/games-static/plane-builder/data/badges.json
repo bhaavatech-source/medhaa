@@ -1,0 +1,8 @@
+[
+  { "id": "badge_training", "name": "Training Ace", "rule": "Complete 3 training-friendly missions." },
+  { "id": "badge_cargo", "name": "Cargo Captain", "rule": "Complete 3 cargo missions." },
+  { "id": "badge_rescue", "name": "Rescue Hero", "rule": "Complete 3 rescue missions." },
+  { "id": "badge_passenger", "name": "Passenger Pilot", "rule": "Complete 2 passenger missions." },
+  { "id": "badge_long_range", "name": "Long Route Master", "rule": "Complete 3 long-range flights." },
+  { "id": "badge_budget", "name": "Budget Builder", "rule": "Win a mission under budget." }
+]

@@ -1,0 +1,11 @@
+
+const QuizData = [
+  {q:"Which chip acts as the general 'decision maker' of most computers?", options:["GPU","CPU","DAC","ROM"], answer:1, explain:"The CPU fetches, decodes, and executes instructions to control the whole system."},
+  {q:"Which chip is best at doing thousands of identical calculations at once?", options:["CPU","MCU","GPU","EEPROM"], answer:2, explain:"GPUs have thousands of small cores for massive parallel math, ideal for graphics and AI."},
+  {q:"Which memory type loses all its data when power is switched off?", options:["ROM","RAM","Flash","EEPROM"], answer:1, explain:"RAM is fast but volatile — it forgets everything without continuous power."},
+  {q:"What does an ADC do?", options:["Converts digital to analog","Converts analog to digital","Stores data permanently","Controls motors"], answer:1, explain:"An ADC converts real-world analog signals into digital numbers a computer can process."},
+  {q:"Which chip type can be rewired even after manufacturing?", options:["ASIC","FPGA","ROM","DAC"], answer:1, explain:"FPGAs contain reconfigurable logic blocks that engineers can reprogram after the chip is made."},
+  {q:"Why do phones use an NPU instead of relying only on the CPU for AI tasks?", options:["NPUs are cheaper to make","NPUs run AI math far more power-efficiently","NPUs replace the need for memory","NPUs control the screen"], answer:1, explain:"NPUs are optimized for neural network math, saving huge amounts of battery compared to using the CPU."},
+  {q:"What is the main purpose of a Battery Management IC?", options:["Increase screen brightness","Play audio","Keep the battery safe and efficient","Connect to Wi-Fi"], answer:2, explain:"It constantly monitors voltage, current, and temperature to prevent battery damage."},
+  {q:"Which invention directly led to the microprocessor?", options:["Vacuum tube","Abacus","Integrated Circuit","Internet"], answer:2, explain:"Integrated circuits (1958) allowed many transistors on one chip, paving the way for the 1971 microprocessor."}
+];

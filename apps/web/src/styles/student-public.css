@@ -1,0 +1,208 @@
+.student-public {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fef9c3, #fde68a, #fbcfe8);
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+.student-hero {
+  position: relative;
+  text-align: center;
+  padding: 64px 24px 40px;
+  overflow: hidden;
+}
+
+.student-hero h1 {
+  font-size: 34px;
+  color: #92400e;
+  margin: 0 0 12px;
+  animation: bounceIn 0.6s ease;
+}
+
+.student-hero p {
+  color: #78350f;
+  font-size: 16px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+@keyframes bounceIn {
+  0% { opacity: 0; transform: translateY(-20px) scale(0.9); }
+  60% { opacity: 1; transform: translateY(4px) scale(1.02); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+.floating-shapes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.shape {
+  position: absolute;
+  font-size: 32px;
+  animation: float 5s ease-in-out infinite;
+  opacity: 0.85;
+}
+
+.shape-1 { top: 10%; left: 8%; animation-delay: 0s; }
+.shape-2 { top: 20%; right: 10%; animation-delay: 1s; }
+.shape-3 { bottom: 10%; left: 15%; animation-delay: 2s; }
+.shape-4 { bottom: 5%; right: 18%; animation-delay: 1.5s; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-16px) rotate(8deg); }
+}
+
+.domain-showcase {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 0 24px 40px;
+}
+
+.domain-tile {
+  background: #fff;
+  border-radius: 20px;
+  padding: 28px 24px;
+  width: 260px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  border-top: 4px solid var(--tile-color);
+  opacity: 0;
+  animation: tileIn 0.5s ease forwards;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  font-family: inherit;
+}
+
+.domain-tile:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.14);
+}
+
+.domain-tile-active {
+  outline: 3px solid var(--tile-color);
+  transform: translateY(-4px);
+}
+
+@keyframes tileIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.domain-tile-icon {
+  font-size: 36px;
+  margin-bottom: 8px;
+}
+
+.domain-tile h3 {
+  margin: 0 0 4px;
+  font-size: 18px;
+  color: #1f2937;
+}
+
+.domain-tile-subtitle {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--tile-color);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+
+.domain-tile p {
+  font-size: 13px;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.games-section-title {
+  text-align: center;
+  font-size: 24px;
+  color: #1f2937;
+  margin: 0 0 32px;
+}
+
+.student-games-wrap {
+  background: #fff;
+  border-radius: 32px 32px 0 0;
+  padding: 40px 24px;
+  min-height: 50vh;
+}
+
+.login-popup-anim {
+  animation: popupSlideIn 0.4s ease;
+}
+
+@keyframes popupSlideIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Demo banner — additive only */
+
+.demo-banner {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: linear-gradient(135deg, #2c3e6b, #3fa7d6);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 0 0 14px 14px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+}
+
+.demo-banner-home {
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0.95;
+  transition: opacity 0.15s ease;
+}
+
+.demo-banner-home:hover { opacity: 1; text-decoration: underline; }
+
+.demo-banner-text {
+  font-size: 0.85rem;
+  opacity: 0.92;
+  flex: 1;
+  text-align: center;
+}
+
+.demo-banner-cta {
+  background: #fff;
+  color: #2c3e6b;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 8px 16px;
+  border-radius: 10px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.demo-banner-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+@media (max-width: 600px) {
+  .demo-banner { flex-direction: column; text-align: center; }
+}

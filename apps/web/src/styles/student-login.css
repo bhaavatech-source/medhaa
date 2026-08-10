@@ -1,0 +1,152 @@
+.student-login-wrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0f0e1a, #1a1630);
+  font-family: 'Poppins', 'Inter', sans-serif;
+  padding: 20px;
+}
+
+.student-login-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  width: 380px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.35);
+  text-align: center;
+}
+
+.student-login-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.student-login-logo {
+  font-size: 40px;
+  margin-bottom: 4px;
+}
+
+.student-login-brand h1 {
+  margin: 0;
+  color: #01696f;
+  font-size: 1.6rem;
+}
+
+.student-login-gate-msg {
+  background: rgba(1, 105, 111, 0.08);
+  border: 1px solid rgba(1, 105, 111, 0.2);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 18px;
+  font-size: 0.85rem;
+  color: #01696f;
+  text-align: left;
+}
+
+.student-login-sub {
+  color: #888;
+  font-size: 0.85rem;
+  margin-bottom: 18px;
+}
+
+.student-login-form {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.student-login-form label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.student-login-form input,
+.student-login-form select {
+  padding: 10px 12px;
+  border: 1.5px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin-bottom: 12px;
+  outline: none;
+}
+
+.student-login-error {
+  color: #a12c7b;
+  font-size: 0.8rem;
+  margin-bottom: 8px;
+}
+
+.student-login-btn-primary {
+  padding: 12px;
+  background: #01696f;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.student-login-btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.student-login-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #ccc;
+  font-size: 0.75rem;
+  margin: 18px 0;
+}
+
+.student-login-divider::before,
+.student-login-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #eee;
+}
+
+.student-login-divider span {
+  padding: 0 10px;
+}
+
+.student-login-ctas {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.student-login-btn-premium {
+  display: block;
+  padding: 11px;
+  background: linear-gradient(135deg, #f59e0b, #f97316);
+  color: #fff;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.student-login-btn-report {
+  display: block;
+  padding: 11px;
+  background: linear-gradient(135deg, #01696f, #06b6d4);
+  color: #fff;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.student-login-help {
+  font-size: 0.7rem;
+  color: #ccc;
+  margin-top: 16px;
+}

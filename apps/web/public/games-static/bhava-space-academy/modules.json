@@ -1,0 +1,1904 @@
+{
+  "meta": {
+    "version": "2.0",
+    "moduleCount": 53,
+    "categories": {
+      "structure": "#4fd1ff",
+      "life-support": "#4ade80",
+      "power": "#fbbf24",
+      "science": "#c084fc",
+      "thermal": "#f97316",
+      "robotics": "#f472b6",
+      "eva": "#38bdf8",
+      "comms": "#a3e635",
+      "daily-life": "#fb7185",
+      "safety": "#ef4444"
+    }
+  },
+  "modules": [
+    {
+      "id": "zarya",
+      "label": "Zarya Module",
+      "cat": "structure",
+      "pos": [-9, 0, 0],
+      "size": [1.6, 1.6, 3],
+      "shape": "cylinder",
+      "rot": [0, 0, 0],
+      "explain": "Zarya was the first ISS module (1998), providing early power, storage and propulsion before other modules arrived.[cite: 1]",
+      "summary": "Zarya was the first ISS element and helped provide early control, storage, and electrical support.[cite: 1]",
+      "why_it_matters": "It made the earliest phase of station assembly possible before more permanent systems were added.[cite: 1]",
+      "full_explanation": "Zarya, also called the Functional Cargo Block, was the first module launched for the ISS. It provided early propulsion, storage, guidance support, and electrical power during the station’s initial assembly period.[cite: 1]",
+      "built_by": ["Roscosmos", "NASA"],
+      "country_partners": ["Russia", "United States"],
+      "system_dependencies": ["power", "structure", "guidance"],
+      "related_modules": ["unity", "pma1", "zvezda"],
+      "difficulty": "basic",
+      "fun_fact": "Zarya means 'sunrise' in Russian.",
+      "tags": ["first-module", "assembly", "propulsion"],
+      "quiz": {
+        "question": "Why is Zarya important in ISS history?",
+        "options": [
+          "It was the first ISS module launched",
+          "It was the station’s main robotic arm",
+          "It was the first solar array truss",
+          "It was built only for tourism"
+        ],
+        "answer_index": 0
+      },
+      "fail": {
+        "type": "attitude",
+        "title": "Zarya control fails",
+        "steps": [
+          "Station attitude drifts.[cite: 1]",
+          "Backup thrusters engage automatically.[cite: 1]",
+          "You must restore Zarya's guidance computer.[cite: 1]"
+        ]
+      }
+    },
+    {
+      "id": "zvezda",
+      "label": "Zvezda Service Module",
+      "cat": "life-support",
+      "pos": [-12, 0, 0],
+      "size": [1.8, 1.8, 4],
+      "shape": "cylinder",
+      "explain": "Zvezda provides life support, crew quarters and propulsion — the 'command module' inherited from Mir technology.[cite: 1]",
+      "summary": "Zvezda is a core Russian service module that supports crew living, life support, and station control.[cite: 1]",
+      "why_it_matters": "It provides habitation and critical systems needed for long-duration occupancy.[cite: 1]",
+      "full_explanation": "Zvezda is one of the station’s most important service modules. It supports life support, crew quarters, guidance, and propulsion functions, and it played a major role in enabling continuous habitation aboard the ISS.[cite: 1]",
+      "built_by": ["Roscosmos"],
+      "country_partners": ["Russia"],
+      "system_dependencies": ["life-support", "power", "comms", "safety"],
+      "related_modules": ["zarya", "poisk", "nauka", "radiation"],
+      "difficulty": "basic",
+      "fun_fact": "Zvezda became central to early ISS living operations after launch.[cite: 1]",
+      "tags": ["service-module", "crew", "habitation", "propulsion"],
+      "quiz": {
+        "question": "What is one major role of Zvezda on the ISS?",
+        "options": [
+          "Life support and crew habitation",
+          "Deploying weather balloons",
+          "Only external camera storage",
+          "Main solar array rotation"
+        ],
+        "answer_index": 0
+      },
+      "fail": {
+        "type": "oxygen",
+        "title": "Zvezda life support offline",
+        "steps": [
+          "CO2 levels start climbing station-wide.[cite: 1]",
+          "Crew alarms trigger.[cite: 1]",
+          "Trace air scrubbers back to Zvezda.[cite: 1]"
+        ]
+      }
+    },
+    {
+      "id": "unity",
+      "label": "Unity Node",
+      "cat": "structure",
+      "pos": [-6, 0, 0],
+      "size": [1.8, 1.8, 2.2],
+      "shape": "cylinder",
+      "explain": "Unity (Node 1) connects the US and Russian segments and provides docking ports for modules and visiting vehicles.[cite: 1]",
+      "summary": "Unity is Node 1, acting as a connecting passageway between the US and Russian segments.[cite: 1]",
+      "why_it_matters": "It serves as a critical structural hub and docking location for visiting vehicles and modules.[cite: 1]",
+      "full_explanation": "Unity (Node 1) was the first U.S.-built node on the station. It connects the U.S. and Russian segments and provides essential docking ports for expanding the station and receiving visiting spacecraft.[cite: 1]",
+      "built_by": ["NASA"],
+      "country_partners": ["United States"],
+      "system_dependencies": ["structure", "power"],
+      "related_modules": ["zarya", "pma1", "destiny"],
+      "difficulty": "basic",
+      "fun_fact": "Unity was the first U.S.-built node connected to the ISS.",
+      "tags": ["node", "docking", "structure"],
+      "quiz": {
+        "question": "What primary function does Unity (Node 1) serve?",
+        "options": [
+          "Connecting the US and Russian segments",
+          "Generating all station oxygen",
+          "Hosting European biology experiments",
+          "Storing waste water exclusively"
+        ],
+        "answer_index": 0
+      },
+      "fail": {
+        "type": "docking",
+        "title": "Unity docking clamp jammed",
+        "steps": [
+          "An arriving cargo ship cannot dock.[cite: 1]",
+          "Pressure seals must be checked.[cite: 1]",
+          "Test the clamp mechanism manually.[cite: 1]"
+        ]
+      }
+    },
+    {
+      "id": "destiny",
+      "label": "Destiny Laboratory",
+      "cat": "science",
+      "pos": [-3, 0, 0],
+      "size": [2, 2, 4],
+      "shape": "cylinder",
+      "explain": "Destiny is the primary US research lab, hosting racks for biology, physics, and materials science experiments.[cite: 1]",
+      "summary": "Destiny is the main U.S. laboratory module for scientific research aboard the ISS.[cite: 1]",
+      "why_it_matters": "It allows long-duration microgravity experiments that cannot be performed the same way on Earth.[cite: 1]",
+      "full_explanation": "Destiny is one of the station’s primary science laboratories and supports a wide range of research in biology, physics, materials science, and human health. Its rack-based design allows experiments to be installed, upgraded, and replaced over time.[cite: 1]",
+      "built_by": ["NASA"],
+      "country_partners": ["United States"],
+      "system_dependencies": ["power", "thermal", "comms", "science"],
+      "related_modules": ["harmony", "expracks", "glovebox", "columbus", "kibo"],
+      "difficulty": "basic",
+      "fun_fact": "Many ISS research results that support future exploration missions pass through laboratory spaces like Destiny.",
+      "tags": ["lab", "research", "microgravity", "science"],
+      "quiz": {
+        "question": "What is Destiny mainly used for?",
+        "options": [
+          "Scientific experiments in microgravity",
+          "Launching external satellites directly",
+          "Storing emergency oxygen masks",
+          "Rotating solar arrays"
+        ],
+        "answer_index": 0
+      },
+      "fail": {
+        "type": "cooling",
+        "title": "Experiment rack overheating",
+        "steps": [
+          "A protein crystal experiment is at risk.[cite: 1]",
+          "Cooling loop pressure is abnormal.[cite: 1]",
+          "Investigate the thermal control system.[cite: 1]"
+        ]
+      }
+    },
+    {
+      "id": "harmony",
+      "label": "Harmony Node",
+      "cat": "structure",
+      "pos": [0, 0, 0],
+      "size": [2, 2, 2.4],
+      "shape": "cylinder",
+      "explain": "Harmony (Node 2) links Destiny, Columbus and Kibo, and serves as a docking point for cargo vehicles.[cite: 1]",
+      "summary": "Harmony (Node 2) is a utility hub connecting international laboratory modules and cargo spacecraft.[cite: 1]",
+      "why_it_matters": "It connects three major international laboratories together: Destiny, Columbus, and Kibo.[cite: 1]",
+      "full_explanation": "Harmony (Node 2) provides vital structural and utility connections between the U.S. Destiny laboratory, the European Columbus laboratory, and the Japanese Kibo module, while also serving as a docking hub for cargo vehicles.[cite: 1]",
+      "built_by": ["NASA"],
+      "country_partners": ["United States"],
+      "system_dependencies": ["structure", "power", "comms"],
+      "related_modules": ["destiny", "columbus", "kibo", "pma2"],
+      "difficulty": "basic",
+      "fun_fact": "Harmony acts as the main international crossroads of the space station.",
+      "tags": ["node", "hub", "docking"],
+      "quiz": {
+        "question": "Which three laboratory modules does Harmony (Node 2) link together?",
+        "options": [
+          "Destiny, Columbus, and Kibo",
+          "Zarya, Zvezda, and Nauka",
+          "Unity, Tranquility, and Cupola",
+          "Quest, Poisk, and Rassvet"
+        ],
+        "answer_index": 0
+      },
+      "fail": {
+        "type": "computer",
+        "title": "Harmony hatch sensor fault",
+        "steps": [
+          "Hatch shows 'unsealed' incorrectly.[cite: 1]",
+          "Crew cannot confirm safe passage.[cite: 1]",
+          "Recalibrate the pressure sensor.[cite: 1]"
+        ]
+      }
+    },
+    {
+      "id": "columbus",
+      "label": "Columbus Laboratory",
+      "cat": "science",
+      "pos": [2.5, 0, 2.8],
+      "size": [2, 2, 3.8],
+      "shape": "cylinder",
+      "rot": [0, 1.5708, 0],
+      "explain": "Columbus, built by ESA, hosts European physics, biology, and fluid science experiments.[cite: 1]",
+      "summary": "Columbus is the primary European Space Agency (ESA) research laboratory on the ISS.[cite: 1]",
+      "why_it_matters": "It provides dedicated multidisciplinary research facilities for European science in microgravity.[cite: 1]",
+      "full_explanation": "Built by ESA, the Columbus Laboratory hosts experiments in biology, fluid physics, and materials science, expanding the station's scientific capacity with specialized European payload racks.[cite: 1]",
+      "built_by": ["ESA"],
+      "country_partners": ["Europe"],
+      "system_dependencies": ["power", "thermal", "science"],
+      "related_modules": ["harmony", "destiny", "kibo"],
+      "difficulty": "intermediate",
+      "fun_fact": "Columbus was ESA's largest single contribution to the ISS.",
+      "tags": ["esa", "lab", "science"],
+      "quiz": {
+        "question": "Which space agency built the Columbus Laboratory?",
+        "options": [
+          "European Space Agency (ESA)",
+          "NASA",
+          "Roscosmos",
+          "JAXA"
+        ],
+        "answer_index": 0
+      },
+      "fail": {
+        "type": "fire",
+        "title": "Combustion experiment smoke alert",
+        "steps": [
+          "Smoke detector triggers.[cite: 1]",
+          "Airflow must be isolated.[cite: 1]",
+          "Check fire suppression routing.[cite: 1]"
+        ]
+      }
+    },
+    {
+      "id": "kibo",
+      "label": "Kibo Module",
+      "cat": "science",
+      "pos": [2.5, 0, -2.8],
+      "size": [2.2, 2.2, 5],
+      "shape": "cylinder",
+      "rot": [0, -1.5708, 0],
+      "explain": "Kibo, Japan's module, includes a lab, logistics section, robotic arm and airlock for small satellite deployment.[cite: 1]",
+      "summary": "Kibo is Japan's multipurpose module featuring a laboratory, airlock, and dedicated robotic arm.[cite: 1]",
+      "why_it_matters": "It enables unique external experiments and small satellite deployments via its specialized airlock.[cite: 1]",
+      "full_explanation": "Kibo is Japan's contribution to the ISS. It features an internal laboratory, a logistics storage section, a dedicated robotic arm, and an airlock used to deploy small satellites directly into orbit.[cite: 1]",
+      "built_by": ["JAXA"],
+      "country_partners": ["Japan"],
+      "system_dependencies": ["power", "robotics", "science"],
+      "related_modules": ["harmony", "columbus", "destiny"],
+      "difficulty": "intermediate",
+      "fun_fact": "Kibo means 'hope' in Japanese.",
+      "tags": ["jaxa", "airlock", "satellite-deployment"],
+      "quiz": {
+        "question": "What unique feature does the Kibo module use to deploy small satellites?",
+        "options": [
+          "A dedicated airlock and robotic arm",
+          "A high-speed centrifugal launcher",
+          "Main station solar thrusters",
+          "A parachute deployment chute"
+        ],
+        "answer_index": 0
+      },
+      "fail": {
+        "type": "pressure",
+        "title": "Kibo airlock pressure mismatch",
+        "steps": [
+          "A small satellite deployment is delayed.[cite: 1]",
+          "Pressure won't equalize.[cite: 1]",
+          "Diagnose the airlock valve.[cite: 1]"
+        ]
+      }
+    },
+    {
+      "id": "tranquility",
+      "label": "Tranquility Node",
+      "cat": "life-support",
+      "pos": [0, 0, 3.2],
+      "size": [1.8, 1.8, 2.2],
+      "shape": "cylinder",
+      "rot": [0, 1.5708, 0],
+      "explain": "Tranquility (Node 3) houses life-support hardware including the water recovery and oxygen generation systems.[cite: 1]",
+      "summary": "Tranquility (Node 3) is a vital life-support hub managing water recovery and oxygen generation.[cite: 1]",
+      "why_it_matters": "It contains the primary systems that recycle water and generate breathable oxygen for the crew.[cite: 1]",
+      "full_explanation": "Tranquility (Node 3) houses essential environmental control and life-support systems, including the Water Recovery System and Oxygen Generation System, making long-term crew habitation sustainable.[cite: 1]",
+      "built_by": ["ESA", "NASA"],
+      "country_partners": ["Europe", "United States"],
+      "system_dependencies": ["life-support", "power", "water"],
+      "related_modules": ["unity", "cupola", "wrs", "o2gen"],
+      "difficulty": "intermediate",
+      "fun_fact": "Tranquility was named after the Sea of Tranquility on the Moon.",
+      "tags": ["life-support", "node", "recycling"],
+      "quiz": {
+        "question": "Which critical life-support systems are housed inside Tranquility (Node 3)?",
+        "options": [
+          "Water recovery and oxygen generation systems",
+          "Main propulsion thrusters",
+          "High-gain communication antennas",
+          "External solar array controllers"
+        ],
+        "answer_index": 0
+      },
+      "fail": {
+        "type": "water",
+        "title": "Waste recycling backlog",
+        "steps": [
+          "Water recovery output slows.[cite: 1]",
+          "Storage tanks near capacity.[cite: 1]",
+          "Trace the water recovery system.[cite: 1]"
+        ]
+      }
+    },
+    {
+      "id": "cupola",
+      "label": "Cupola Observation Deck",
+      "cat": "structure",
+      "pos": [0, -1.6, 4.6],
+      "size": [1, 1, 1],
+      "shape": "sphere",
+      "explain": "The Cupola is a windowed dome used for Earth observation and to visually guide robotic arm operations.[cite: 1]",
+      "summary": "The Cupola is a seven-window observation dome providing panoramic views of Earth and external operations.[cite: 1]",
+      "why_it_matters": "It gives astronauts direct visual awareness for robotic arm tasks, spacecraft docking, and Earth observation.[cite: 1]",
+      "full_explanation": "The Cupola observation deck features seven window panes that provide astronauts with a 360-degree view around the station. It is used to visually monitor robotic arm movements, incoming spacecraft, and Earth features.[cite: 1]",
+      "built_by": ["ESA"],
+      "country_partners": ["Europe"],
+      "system_dependencies": ["structure", "robotics"],
+      "related_modules": ["tranquility", "canadarm2"],
+      "difficulty": "basic",
+      "fun_fact": "The Cupola's windows are equipped with protective shutters to shield against micrometeoroids.[cite: 1]",
+      "tags": ["observation", "windows", "robotics-control"],
+      "quiz": {
+        "question": "Why do astronauts use the Cupola Observation Deck?",
+        "options": [
+          "For Earth observation and guiding robotic arm operations",
+          "To store excess liquid hydrogen",
+          "As the primary sleeping quarter",
+          "To burn off carbon dioxide"
+        ],
+        "answer_index": 0
+      },
+      "fail": {
+        "type": "micrometeoroid",
+        "title": "Cupola shutter stuck",
+        "steps": [
+          "Micrometeoroid shield won't close before a debris pass.[cite: 1]",
+          "Crew must manually override.[cite: 1]",
+          "Inspect the shutter motor.[cite: 1]"
+        ]
+      }
+    },
+    {
+      "id": "quest",
+      "label": "Quest Airlock",
+      "cat": "eva",
+      "pos": [0, 1.6, -2.2],
+      "size": [1.2, 1.2, 1.6],
+      "shape": "cylinder",
+      "explain": "Quest is the primary airlock for US spacesuits, used to depressurize before spacewalks (EVAs).[cite: 1]",
+      "summary": "Quest is the main U.S. airlock used by astronauts to conduct extravehicular activities (EVAs).[cite: 1]",
+      "why_it_matters": "It provides the controlled environment needed to prepare suits and depressurize before stepping into space.[cite: 1]",
+      "full_explanation": "The Quest Airlock is the primary U.S. airlock module on the ISS. It allows astronauts to depressurize the chamber and exit the station in U.S. spacesuits to perform external spacewalks and maintenance.[cite: 1]",
+      "built_by": ["NASA"],
+      "country_partners": ["United States"],
+      "system_dependencies": ["eva", "life-support", "power"],
+      "related_modules": ["unity", "eva-suit"],
+      "difficulty": "intermediate",
+      "fun_fact": "Quest can support both U.S. spacesuits and Russian Orlan spacesuits if required.",
+      "tags": ["airlock", "eva", "spacewalk"],
+      "quiz": {
+        "question": "What is the primary function of the Quest Airlock?",
+        "options": [
+          "Depressurizing before spacewalks (EVAs)",
+          "Generating solar electricity",
+          "Cooking crew meals",
+          "Recycling waste water"
+        ],
+        "answer_index": 0
+      },
+      "fail": {
+        "type": "oxygen",
+        "title": "Suit oxygen check failing",
+        "steps": [
+          "A spacewalk is scheduled in 20 minutes.[cite: 1]",
+          "Pre-breathe protocol incomplete.[cite: 1]",
+          "Verify oxygen tank pressure.[cite: 1]"
+        ]
+      }
+    },
+    {
+      "id": "leonardo",
+      "label": "Leonardo Logistics Module",
+      "cat": "structure",
+      "pos": [-3, 2.4, 0],
+      "size": [1.6, 1.6, 2.4],
+      "shape": "cylinder",
+      "explain": "Leonardo is a Permanent Multipurpose Module used for storage of spare parts and supplies.[cite: 1]",
+      "summary": "Leonardo is a permanent storage module that holds spare hardware, supplies, and logistics racks.[cite: 1]",
+      "why_it_matters": "It provides critical internal volume for storing replacement equipment and supplies.[cite: 1]",
+      "full_explanation": "Originally used as a Multi-Purpose Logistics Module transported inside space shuttles, Leonardo was modified into a Permanent Multipurpose Module attached to the ISS to provide long-term storage for spare parts and supplies.[cite: 1]",
+      "built_by": ["ASI", "NASA"],
+      "country_partners": ["Italy", "United States"],
+      "system_dependencies": ["structure"],
+      "related_modules": ["unity", "tranquility"],
+      "difficulty": "basic",
+      "fun_fact": "Leonardo flew to space multiple times inside Space Shuttles before being permanently attached to the ISS.",
+      "tags": ["storage", "logistics", "pmm"],
+      "quiz": {
+        "question": "What is the Leonardo module primarily used for on the ISS?",
+        "options": [
+          "Storage of spare parts and supplies",
+          "Primary station propulsion",
+          "Deploying external solar sails",
+          "Housing the main exercise treadmill"
+        ],
+        "answer_index": 0
+      },
+      "fail": null
+    },
+    {
+      "id": "rassvet",
+      "label": "Rassvet Module",
+      "cat": "structure",
+      "pos": [-9, 0, -2.4],
+      "size": [1.3, 1.3, 2.6],
+      "shape": "cylinder",
+      "rot": [0, 1.5708, 0],
+      "explain": "Rassvet is a Russian mini-research module used for docking and cargo storage.[cite: 1]",
+      "summary": "Rassvet is a Russian mini-research module providing docking capability and storage space.[cite: 1]",
+      "why_it_matters": "It adds an essential docking port for Russian spacecraft along with internal cargo storage.[cite: 1]",
+      "full_explanation": "Rassvet (Mini-Research Module 1) is a Russian module used primarily for spacecraft docking and cargo storage, while also providing facilities for scientific experiments.[cite: 1]",
+      "built_by": ["Roscosmos"],
+      "country_partners": ["Russia"],
+      "system_dependencies": ["structure"],
+      "related_modules": ["zarya", "poisk"],
+      "difficulty": "basic",
+      "fun_fact": "Rassvet means 'dawn' in Russian.",
+      "tags": ["russian-segment", "docking", "storage"],
+      "quiz": {
+        "question": "What are the two main functions of the Rassvet module?",
+        "options": [
+          "Docking and cargo storage",
+          "Main solar tracking and battery charging",
+          "Spacewalk airlock and robot control",
+          "Water filtration and oxygen electrolysis"
+        ],
+        "answer_index": 0
+      },
+      "fail": null
+    },
+    {
+      "id": "poisk",
+      "label": "Poisk Module",
+      "cat": "structure",
+      "pos": [-12, 1.6, 0],
+      "size": [1.3, 1.3, 2.6],
+      "shape": "cylinder",
+      "explain": "Poisk provides an additional Russian docking port and airlock for spacewalks.[cite: 1]",
+      "summary": "Poisk is a Russian research and docking module that also functions as an EVA airlock.[cite: 1]",
+      "why_it_matters": "It serves double duty as a docking port for Soyuz/Progress ships and an airlock for Russian spacewalks.[cite: 1]",
+      "full_explanation": "Poisk (Mini-Research Module 2) provides an extra Russian docking port on the ISS and serves as an airlock for spacewalks conducted by cosmonauts using Russian spacesuits.[cite: 1]",
+      "built_by": ["Roscosmos"],
+      "country_partners": ["Russia"],
+      "system_dependencies": ["structure", "eva"],
+      "related_modules": ["zvezda", "rassvet"],
+      "difficulty": "intermediate",
+      "fun_fact": "Poisk means 'search' or 'exploration' in Russian.",
+      "tags": ["russian-segment", "airlock", "docking"],
+      "quiz": {
+        "question": "Besides providing a docking port, what else is Poisk used for?",
+        "options": [
+          "An airlock for spacewalks",
+          "A greenhouse for growing wheat",
+          "The primary waste management vent",
+          "The main communication array relay"
+        ],
+        "answer_index": 0
+      },
+      "fail": {
+        "type": "docking",
+        "title": "Poisk airlock seal warning",
+        "steps": [
+          "Pressure differential detected at hatch.[cite: 1]",
+          "Crew must verify seal integrity.[cite: 1]",
+          "Run a leak-check cycle.[cite: 1]"
+        ]
+      }
+    },
+    {
+      "id": "nauka",
+      "label": "Nauka Module",
+      "cat": "science",
+      "pos": [-14.5, 0, 0],
+      "size": [1.8, 1.8, 4],
+      "shape": "cylinder",
+      "explain": "Nauka is Russia's multipurpose laboratory module, added in 2021 for research and storage.[cite: 1]",
+      "summary": "Nauka is the primary Russian laboratory module for science, docking, and cargo storage.[cite: 1]",
+      "why_it_matters": "It significantly expanded the scientific research volume and technical capability of the Russian segment.[cite: 1]",
+      "full_explanation": "Nauka, the Multipurpose Laboratory Module launched in 2021, expanded the Russian segment of the ISS by providing facilities for scientific research, cargo storage, and improved station control.[cite: 1]",
+      "built_by": ["Roscosmos"],
+      "country_partners": ["Russia"],
+      "system_dependencies": ["science", "power", "guidance"],
+      "related_modules": ["zvezda", "poisk"],
+      "difficulty": "intermediate",
+      "fun_fact": "Nauka means 'science' in Russian.",
+      "tags": ["russian-segment", "laboratory", "science"],
+      "quiz": {
+        "question": "When was the Nauka multipurpose laboratory module added to the ISS?",
+        "options": [
+          "2021",
+          "1998",
+          "2005",
+          "2011"
+        ],
+        "answer_index": 0
+      },
+      "fail": {
+        "type": "computer",
+        "title": "Nauka thruster software glitch",
+        "steps": [
+          "Unexpected orientation change detected.[cite: 1]",
+          "Ground control pauses the maneuver.[cite: 1]",
+          "Inspect the propulsion control software.[cite: 1]"
+        ]
+      }
+    },
+    {
+      "id": "pma1",
+      "label": "Pressurized Mating Adapter 1",
+      "cat": "structure",
+      "pos": [-7.5, 0, 0],
+      "size": [0.6, 0.6, 0.6],
+      "shape": "cylinder",
+      "explain": "PMA-1 connects Zarya to Unity, joining the earliest US and Russian segments.[cite: 1]",
+      "summary": "PMA-1 is the permanent docking adapter linking Zarya and Unity.[cite: 1]",
+      "why_it_matters": "It formed the first bridge between U.S. and Russian station elements during initial assembly.[cite: 1]",
+      "full_explanation": "Pressurized Mating Adapter 1 (PMA-1) connects the Russian-built Zarya module to the U.S.-built Unity Node, joining the earliest segments of the International Space Station.[cite: 1]",
+      "built_by": ["NASA"],
+      "country_partners": ["United States", "Russia"],
+      "system_dependencies": ["structure"],
+      "related_modules": ["zarya", "unity"],
+      "difficulty": "basic",
+      "fun_fact": "PMA-1 joined the first two ISS modules together in orbit in December 1998.",
+      "tags": ["adapter", "mating", "assembly"],
+      "quiz": {
+        "question": "Which two modules does Pressurized Mating Adapter 1 (PMA-1) connect?",
+        "options": [
+          "Zarya and Unity",
+          "Destiny and Columbus",
+          "Zvezda and Nauka",
+          "Tranquility and Cupola"
+        ],
+        "answer_index": 0
+      },
+      "fail": null
+    },
+    {
+      "id": "pma2",
+      "label": "Pressurized Mating Adapter 2",
+      "cat": "structure",
+      "pos": [3.8, 0, 0],
+      "size": [0.6, 0.6, 0.6],
+      "shape": "cylinder",
+      "explain": "PMA-2 provides a docking location at the forward end of Harmony for crew vehicles.[cite: 1]",
+      "summary": "PMA-2 is a forward docking adapter attached to Harmony for crew spacecraft.[cite: 1]",
+      "why_it_matters": "It serves as the primary docking port location for arriving commercial and international crew vehicles.[cite: 1]",
+      "full_explanation": "Pressurized Mating Adapter 2 (PMA-2) is positioned at the forward end of the Harmony Node. It provides a standardized docking port interface for visiting crew vehicles.[cite: 1]",
+      "built_by": ["NASA"],
+      "country_partners": ["United States"],
+      "system_dependencies": ["structure"],
+      "related_modules": ["harmony", "ida1"],
+      "difficulty": "basic",
+      "fun_fact": "PMA-2 was used as the primary docking port for Space Shuttles visiting the station.",
+      "tags": ["adapter", "docking", "harmony"],
+      "quiz": {
+        "question": "Where is Pressurized Mating Adapter 2 (PMA-2) located?",
+        "options": [
+          "At the forward end of Harmony",
+          "Inside the Quest Airlock",
+          "On the Zvezda Service Module",
+          "Underneath the Cupola"
+        ],
+        "answer_index": 0
+      },
+      "fail": null
+    },
+    {
+      "id": "pma3",
+      "label": "Pressurized Mating Adapter 3",
+      "cat": "structure",
+      "pos": [1.2, 1.6, 0],
+      "size": [0.6, 0.6, 0.6],
+      "shape": "cylinder",
+      "explain": "PMA-3 was relocated over the station's life to support new docking adapter installations.[cite: 1]",
+      "summary": "PMA-3 is a versatile docking adapter relocated to support international docking adapters.[cite: 1]",
+      "why_it_matters": "It provides a secondary crew docking port location to support multiple visiting spacecraft.[cite: 1]",
+      "full_explanation": "Pressurized Mating Adapter 3 (PMA-3) was moved several times during station assembly before being positioned to support new International Docking Adapter (IDA) installations for visiting vehicles.[cite: 1]",
+      "built_by": ["NASA"],
+      "country_partners": ["United States"],
+      "system_dependencies": ["structure"],
+      "related_modules": ["harmony", "ida2"],
+      "difficulty": "basic",
+      "fun_fact": "PMA-3 was moved by robotic arms multiple times to make room for station expansion.",
+      "tags": ["adapter", "docking", "relocated"],
+      "quiz": {
+        "question": "Why was PMA-3 relocated over the station's life?",
+        "options": [
+          "To support new docking adapter installations",
+          "To serve as a fuel tank",
+          "To replace broken solar wings",
+          "To store experiment racks"
+        ],
+        "answer_index": 0
+      },
+      "fail": null
+    },
+    {
+      "id": "truss",
+      "label": "Integrated Truss Structure",
+      "cat": "structure",
+      "pos": [0, 4, 0],
+      "size": [24, 0.6, 0.6],
+      "shape": "box",
+      "explain": "The truss is the station's backbone, holding solar arrays, radiators and external equipment.[cite: 1]",
+      "summary": "The Integrated Truss Structure is the long external backbone supporting arrays and radiators.[cite: 1]",
+      "why_it_matters": "It structurally supports the station's solar arrays, cooling radiators, and external utility lines.[cite: 1]",
+      "full_explanation": "The Integrated Truss Structure spans over 100 meters as the structural backbone of the ISS. It mounts solar array wings, thermal radiators, external equipment platforms, and the Canadarm2 mobile transporter rail.[cite: 1]",
+      "built_by": ["NASA"],
+      "country_partners": ["United States"],
+      "system_dependencies": ["structure"],
+      "related_modules": ["solarAB", "solarCD", "radiators", "canadarm2"],
+      "difficulty": "intermediate",
+      "fun_fact": "The truss structure is longer than an American football field.",
+      "tags": ["backbone", "truss", "external"],
+      "quiz": {
+        "question": "What is the primary role of the Integrated Truss Structure?",
+        "options": [
+          "Holding solar arrays, radiators, and external equipment",
+          "Providing private crew sleep quarters",
+          "Recycling carbon dioxide into breathable air",
+          "Docking Soyuz spacecraft"
+        ],
+        "answer_index": 0
+      },
+      "fail": {
+        "type": "micrometeoroid",
+        "title": "Truss segment vibration detected",
+        "steps": [
+          "Sensors detect unusual vibration.[cite: 1]",
+          "A micrometeoroid impact is suspected.[cite: 1]",
+          "Inspect the truss segment with cameras.[cite: 1]"
+        ]
+      }
+    },
+    {
+      "id": "solarAB",
+      "label": "Solar Array Wings (A & B)",
+      "cat": "power",
+      "pos": [-8, 4, 0],
+      "size": [6, 0.1, 2],
+      "shape": "box",
+      "explain": "Solar arrays convert sunlight to electricity, feeding charge controllers that store energy in batteries for use during orbital night.[cite: 1]",
+      "summary": "Solar Array Wings (A & B) generate electrical power from sunlight for the ISS.[cite: 1]",
+      "why_it_matters": "They supply the electrical energy required to run every life support, science, and communication system.[cite: 1]",
+      "full_explanation": "Solar Array Wings A & B convert solar energy into electrical power. This power feeds charge controllers that direct electricity to station systems and store surplus energy in battery units for use during orbital night.[cite: 1]",
+      "built_by": ["NASA"],
+      "country_partners": ["United States"],
+      "system_dependencies": ["power"],
+      "related_modules": ["truss", "battery", "pdu"],
+      "difficulty": "basic",
+      "fun_fact": "The ISS solar array wings generate enough electricity to power dozens of homes.",
+      "tags": ["power", "solar-arrays", "electricity"],
+      "quiz": {
+        "question": "How is solar energy used during orbital night on the ISS?",
+        "options": [
+          "Energy stored in batteries during sunlight is used",
+          "Backup diesel engines activate automatically",
+          "The station powers down completely",
+          "Astronauts generate power with stationary bikes"
+        ],
+        "answer_index": 0
+      },
+      "fail": {
+        "type": "power",
+        "title": "Solar Array A/B power drops to zero",
+        "steps": [
+          "Lights dim across the US segment.[cite: 1]",
+          "Battery charge starts falling.[cite: 1]",
+          "Trace the energy flow: array → charge controller → battery → distribution unit.[cite: 1]"
+        ]
+      }
+    },
+    {
+      "id": "solarCD",
+      "label": "Solar Array Wings (C & D)",
+      "cat": "power",
+      "pos": [8, 4, 0],
+      "size": [6, 0.1, 2],
+      "shape": "box",
+      "explain": "Rotary joints continuously reorient the arrays toward the sun as the station orbits Earth every 90 minutes.[cite: 1]",
+      "summary": "Solar Array Wings (C & D) generate power and use rotary joints to track the sun.[cite: 1]",
+      "why_it_matters": "Continuous sun tracking maximizes electricity generation throughout the station's 90-minute orbit.[cite: 1]",
+      "full_explanation": "Solar Array Wings C & D work alongside arrays A & B to generate power. Their rotary joints continuously adjust the orientation of the solar panels toward the sun as the ISS orbits Earth every 90 minutes.[cite: 1]",
+      "built_by": ["NASA"],
+      "country_partners": ["United States"],
+      "system_dependencies": ["power"],
+      "related_modules": ["truss", "battery", "pdu"],
+      "difficulty": "intermediate",
+      "fun_fact": "The ISS orbits Earth every 90 minutes, experiencing 16 sunrises and sunsets every day.[cite: 1]",
+      "tags": ["power", "solar-arrays", "sun-tracking"],
+      "quiz": {
+        "question": "Why do the solar arrays use rotary joints?",
+        "options": [
+          "To continuously reorient toward the sun during orbit",
+          "To fold up during spacewalks",
+          "To create artificial gravity by spinning",
+          "To avoid colliding with visiting cargo ships"
+        ],
+        "answer_index": 0
+      },
+      "fail": {
+        "type": "power",
+        "title": "Solar Array C/D misaligned",
+        "steps": [
+          "Power generation drops 40%.[cite: 1]",
+          "Sun-tracking motor reports an error.[cite: 1]",
+          "Recalibrate the array's rotary joint.[cite: 1]"
+        ]
+      }
+    },
+    {
+      "id": "radiators",
+      "label": "Radiator Panels",
+      "cat": "thermal",
+      "pos": [4, 4, 0],
+      "size": [4, 0.1, 1.5],
+      "shape": "box",
+      "explain": "Radiators release excess heat from electronics and crew activity into space, since there's no air to cool things naturally.[cite: 1]",
+      "summary": "Radiator panels expel unwanted heat generated by station equipment and astronauts into space.[cite: 1]",
+      "why_it_matters": "Without radiators, heat would quickly build up in the vacuum of space, causing systems to overheat.[cite: 1]",
+      "full_explanation": "Because space is a vacuum with no air to naturally dissipate heat, radiator panels radiate excess heat generated by electronic equipment and crew activity away from the ISS into space.[cite: 1]",
+      "built_by": ["NASA"],
+      "country_partners": ["United States"],
+      "system_dependencies": ["thermal"],
+      "related_modules": ["truss", "tcs"],
+      "difficulty": "intermediate",
+      "fun_fact": "Radiator panels are made of highly reflective material to avoid absorbing solar heat.",
+      "tags": ["thermal", "radiators", "heat-rejection"],
+      "quiz": {
+        "question": "Why are radiator panels necessary on the ISS?",
+        "options": [
+          "There is no air in space to cool electronics naturally",
+          "They absorb UV radiation for experiment racks",
+          "They block solar flares from reaching the crew",
+          "They generate backup electricity from heat"
+        ],
+        "answer_index": 0
+      },
+      "fail": {
+        "type": "cooling",
+        "title": "Radiator ammonia leak suspected",
+        "steps": [
+          "Cooling loop pressure is dropping.[cite: 1]",
+          "Crew must isolate the affected loop.[cite: 1]",
+          "Inspect for micrometeoroid damage.[cite: 1]"
+        ]
+      }
+    },
+    {
+      "id": "tcs",
+      "label": "Thermal Control System",
+      "cat": "thermal",
+      "pos": [3, 3.5, -1.5],
+      "size": [0.8, 0.5, 0.8],
+      "shape": "box",
+      "explain": "The Thermal Control System circulates coolant (ammonia externally, water internally) to keep all systems within safe temperature ranges.[cite: 1]",
+      "summary": "The Thermal Control System pumps coolant through internal and external loops to regulate temperatures.[cite: 1]",
+      "why_it_matters": "It prevents electronics and habitation areas from freezing or overheating in extreme space temperatures.[cite: 1]",
+      "full_explanation": "The Thermal Control System (TCS) maintains safe operating temperatures across the ISS. It circulates water through internal cabin cooling loops and ammonia through external loops to transfer excess heat to the radiators.[cite: 1]",
+      "built_by": ["NASA"],
+      "country_partners": ["United States"],
+      "system_dependencies": ["thermal", "power"],
+      "related_modules": ["radiators", "destiny", "columbus", "kibo"],
+      "difficulty": "intermediate",
+      "fun_fact": "Ammonia is used in external loops because it does not freeze at typical external space temperatures.",
+      "tags": ["thermal", "cooling", "ammonia"],
+      "quiz": {
+        "question": "Which two coolants are used by the ISS Thermal Control System?",
+        "options": [
+          "Ammonia externally and water internally",
+          "Liquid nitrogen and helium",
+          "Hydrogen peroxide and saltwater",
+          "Freon and alcohol"
+        ],
+        "answer_index": 0
+      },
+      "fail": {
+        "type": "cooling",
+        "title": "Internal loop temperature spike",
+        "steps": [
+          "Cabin air feels warmer than normal.[cite: 1]",
+          "Coolant flow rate looks abnormal.[cite: 1]",
+          "Check the internal thermal control loop pump.[cite: 1]"
+        ]
+      }
+    },
+    {
+      "id": "battery",
+      "label": "Battery Units",
+      "cat": "power",
+      "pos": [-4, 3.2, 0],
+      "size": [0.8, 0.5, 0.8],
+      "shape": "box",
+      "explain": "Nickel-hydrogen batteries store solar energy so systems keep running during the 45 minutes per orbit spent in Earth's shadow.[cite: 1]",
+      "summary": "Battery units store electrical energy to power the station when it orbits in Earth's shadow.[cite: 1]",
+      "why_it_matters": "They prevent power blackouts during the 45 minutes of orbital darkness experienced every orbit.[cite: 1]",
+      "full_explanation": "Battery units store solar electricity generated during orbital daytime so that all critical station systems keep running seamlessly during the roughly 45 minutes per orbit spent in Earth's shadow.[cite: 1]",
+      "built_by": ["NASA"],
+      "country_partners": ["United States"],
+      "system_dependencies": ["power"],
+      "related_modules": ["solarAB", "solarCD", "pdu"],
+      "difficulty": "intermediate",
+      "fun_fact": "Many original nickel-hydrogen batteries on the ISS were upgraded to lighter lithium-ion batteries over time.",
+      "tags": ["power", "batteries", "storage"],
+      "quiz": {
+        "question": "How long is the ISS in Earth's shadow during each orbit?",
+        "options": [
+          "45 minutes",
+          "10 minutes",
+          "4 hours",
+          "12 hours"
+        ],
+        "answer_index": 0
+      },
+      "fail": {
+        "type": "power",
+        "title": "Battery degradation detected",
+        "steps": [
+          "Charge cycles are shorter than expected.[cite: 1]",
+          "One battery unit reports reduced capacity.[cite: 1]",
+          "Test individual battery cell voltage.[cite: 1]"
+        ]
+      }
+    },
+    {
+      "id": "pdu",
+      "label": "Power Distribution Units",
+      "cat": "power",
+      "pos": [-2, 3.2, 0],
+      "size": [0.8, 0.5, 0.8],
+      "shape": "box",
+      "explain": "PDUs route electricity from batteries to every module, balancing supply with demand across the station.[cite: 1]",
+      "summary": "Power Distribution Units distribute and regulate electrical power across all ISS modules.[cite: 1]",
+      "why_it_matters": "They balance power loads so that critical life support and experiments receive stable electricity.[cite: 1]",
+      "full_explanation": "Power Distribution Units (PDUs) route electrical power from the solar arrays and batteries to every module on the station, balancing electrical supply with subsystem demand.[cite: 1]",
+      "built_by": ["NASA"],
+      "country_partners": ["United States"],
+      "system_dependencies": ["power"],
+      "related_modules": ["battery", "solarAB", "solarCD"],
+      "difficulty": "intermediate",
+      "fun_fact": "PDUs can automatically isolate electrical faults to prevent station-wide power outages.",
+      "tags": ["power", "distribution", "electrical"],
+      "quiz": {
+        "question": "What is the main function of Power Distribution Units (PDUs)?",
+        "options": [
+          "Routing electricity from batteries to every module and balancing supply",
+          "Converting oxygen into water",
+          "Controlling the robotic arm's joints",
+          "Monitoring external radiation levels"
+        ],
+        "answer_index": 0
+      },
+      "fail": {
+        "type": "power",
+        "title": "Power distribution imbalance",
+        "steps": [
+          "One module is drawing excess power.[cite: 1]",
+          "Others report undervoltage.[cite: 1]",
+          "Rebalance load across distribution units.[cite: 1]"
+        ]
+      }
+    },
+    {
+      "id": "n2tanks",
+      "label": "Nitrogen Storage Tanks",
+      "cat": "life-support",
+      "pos": [-5, 3.2, 1],
+      "size": [0.5, 0.5, 0.8],
+      "shape": "cylinder",
+      "explain": "Nitrogen tanks supply gas used to pressurize the cabin atmosphere alongside oxygen.[cite: 1]",
+      "summary": "Nitrogen Storage Tanks hold pressurized nitrogen gas for cabin atmosphere control.[cite: 1]",
+      "why_it_matters": "Nitrogen mixes with oxygen to create an Earth-like breathable atmosphere inside the station.[cite: 1]",
+      "full_explanation": "Nitrogen Storage Tanks store high-pressure nitrogen gas. This gas is combined with oxygen to maintain an atmospheric composition and pressure inside the cabin similar to Earth's sea-level air.[cite: 1]",
+      "built_by": ["NASA"],
+      "country_partners": ["United States"],
+      "system_dependencies": ["life-support"],
+      "related_modules": ["tranquility", "o2gen"],
+      "difficulty": "basic",
+      "fun_fact": "Earth's air is roughly 78% nitrogen, so the ISS maintains a similar mixture for crew safety.",
+      "tags": ["life-support", "nitrogen", "atmosphere"],
+      "quiz": {
+        "question": "Why does the ISS store nitrogen gas?",
+        "options": [
+          "To pressurize the cabin atmosphere alongside oxygen",
+          "To fuel the main attitude thrusters",
+          "To extinguish laboratory fires instantly",
+          "To cool down the solar array wings"
+        ],
+        "answer_index": 0
+      },
+      "fail": null
+    },
+    {
+      "id": "h2tanks",
+      "label": "Hydrogen Storage Tanks",
+      "cat": "life-support",
+      "pos": [-5, 3.2, -1],
+      "size": [0.5, 0.5, 0.8],
+      "shape": "cylinder",
+      "explain": "Hydrogen, a byproduct of the oxygen generation system, is stored or vented safely to avoid buildup.[cite: 1]",
+      "summary": "Hydrogen Storage Tanks safely handle hydrogen gas produced during oxygen generation.[cite: 1]",
+      "why_it_matters": "Properly handling hydrogen prevents flammable gas buildup and allows recycling in carbon dioxide scrubbers.[cite: 1]",
+      "full_explanation": "Hydrogen gas is generated as a byproduct when the Oxygen Generation System splits water into oxygen and hydrogen via electrolysis. The Hydrogen Storage Tanks safely hold or vent this gas to prevent buildup.[cite: 1]",
+      "built_by": ["NASA"],
+      "country_partners": ["United States"],
+      "system_dependencies": ["life-support"],
+      "related_modules": ["o2gen", "tranquility"],
+      "difficulty": "intermediate",
+      "fun_fact": "Some hydrogen is combined with waste CO2 in the Sabatier system to create water and methane.",
+      "tags": ["life-support", "hydrogen", "gas-storage"],
+      "quiz": {
+        "question": "Where does the hydrogen stored in these tanks come from?",
+        "options": [
+          "As a byproduct of the oxygen generation system",
+          "From visiting Soyuz rocket stages",
+          "From solar radiation particles",
+          "From the crew galley food warmers"
+        ],
+        "answer_index": 0
+      },
+      "fail": null
+    },
+    {
+      "id": "cdh",
+      "label": "Command & Data Handling System",
+      "cat": "comms",
+      "pos": [0.5, 2.4, -1],
+      "size": [0.6, 0.6, 0.6],
+      "shape": "box",
+      "explain": "C&DH computers process commands, manage data, and coordinate every subsystem aboard the station.[cite: 1]",
+      "summary": "The C&DH System is the central computer network controlling all ISS operations.[cite: 1]",
+      "why_it_matters": "It serves as the station's electronic brain, coordinating life support, power, and telemetry.[cite: 1]",
+      "full_explanation": "The Command & Data Handling (C&DH) System acts as the primary computing and control network for the ISS. It processes commands, manages data flow, and monitors all critical station subsystems.[cite: 1]",
+      "built_by": ["NASA"],
+      "country_partners": ["United States"],
+      "system_dependencies": ["comms", "power"],
+      "related_modules": ["commsHigh", "commsLow"],
+      "difficulty": "intermediate",
+      "fun_fact": "C&DH uses automated backup computers that take over instantly if a primary processor faults.[cite: 1]",
+      "tags": ["computers", "data", "control"],
+      "quiz": {
+        "question": "What is the role of the Command & Data Handling (C&DH) system?",
+        "options": [
+          "Processing commands, managing data, and coordinating subsystems",
+          "Purifying drinking water from humidity",
+          "Controlling external spacesuit temperature",
+          "Rotating solar arrays automatically"
+        ],
+        "answer_index": 0
+      },
+      "fail": {
+        "type": "computer",
+        "title": "Command computer reboot loop",
+        "steps": [
+          "A control computer keeps restarting.[cite: 1]",
+          "Backup computer takes over automatically.[cite: 1]",
+          "Diagnose the faulty processor card.[cite: 1]"
+        ]
+      }
+    },
+    {
+      "id": "commsHigh",
+      "label": "High Gain Antennas",
+      "cat": "comms",
+      "pos": [5, 4.5, 0.6],
+      "size": [0.15, 1.5, 0.15],
+      "shape": "box",
+      "explain": "High gain antennas relay large amounts of data, video and voice between the ISS and mission control via relay satellites.[cite: 1]",
+      "summary": "High Gain Antennas transmit high-bandwidth video, voice, and data to Mission Control.[cite: 1]",
+      "why_it_matters": "They enable high-speed communications and live video feeds between astronauts and Earth.[cite: 1]",
+      "full_explanation": "High Gain Antennas provide primary, high-bandwidth communications between the ISS and Mission Control. They transmit large amounts of experimental data, voice, and video via orbital relay satellites.[cite: 1]",
+      "built_by": ["NASA"],
+      "country_partners": ["United States"],
+      "system_dependencies": ["comms", "power"],
+      "related_modules": ["cdh", "commsLow"],
+      "difficulty": "intermediate",
+      "fun_fact": "High gain antennas must constantly steer to point toward relay satellites in orbit.",
+      "tags": ["comms", "antenna", "telemetry"],
+      "quiz": {
+        "question": "How do High Gain Antennas communicate with Mission Control?",
+        "options": [
+          "Via relay satellites",
+          "Using underwater fiber cables",
+          "By reflecting signals off the Moon",
+          "Directly through shortwave radio only"
+        ],
+        "answer_index": 0
+      },
+      "fail": {
+        "type": "comms",
+        "title": "Signal to Mission Control lost",
+        "steps": [
+          "Telemetry feed drops out.[cite: 1]",
+          "Backup low-gain antenna activates.[cite: 1]",
+          "Trace the high-gain antenna pointing system.[cite: 1]"
+        ]
+      }
+    },
+    {
+      "id": "commsLow",
+      "label": "Low Gain Antennas",
+      "cat": "comms",
+      "pos": [5, 4.5, -0.6],
+      "size": [0.15, 0.8, 0.15],
+      "shape": "box",
+      "explain": "Low gain antennas provide backup, lower-bandwidth communication when the high gain system is unavailable.[cite: 1]",
+      "summary": "Low Gain Antennas provide reliable backup communications for voice and basic telemetry.[cite: 1]",
+      "why_it_matters": "They ensure the station never loses contact with Earth even if high-gain tracking drops.[cite: 1]",
+      "full_explanation": "Low Gain Antennas serve as a backup communication system for the ISS. They provide lower-bandwidth voice and telemetry links when the High Gain Antennas are obstructed or unavailable.[cite: 1]",
+      "built_by": ["NASA"],
+      "country_partners": ["United States"],
+      "system_dependencies": ["comms", "power"],
+      "related_modules": ["cdh", "commsHigh"],
+      "difficulty": "basic",
+      "fun_fact": "Low gain antennas have a wider beam, so they don't need precise pointing like high gain antennas.",
+      "tags": ["comms", "backup", "antenna"],
+      "quiz": {
+        "question": "When are Low Gain Antennas primarily used?",
+        "options": [
+          "As backup when the high gain system is unavailable",
+          "Only during solar eclipses",
+          "To broadcast television signals to Earth",
+          "To control visiting Russian Progress ships"
+        ],
+        "answer_index": 0
+      },
+      "fail": {
+        "type": "comms",
+        "title": "Backup antenna signal weak",
+        "steps": [
+          "Voice quality degrades intermittently.[cite: 1]",
+          "Signal strength fluctuates.[cite: 1]",
+          "Check antenna alignment and cabling.[cite: 1]"
+        ]
+      }
+    },
+    {
+      "id": "canadarm2",
+      "label": "Canadarm2 Robotic Arm",
+      "cat": "robotics",
+      "pos": [1, 3, 1.5],
+      "size": [0.25, 0.25, 6],
+      "shape": "box",
+      "rot": [0.3, 0.5, 0],
+      "explain": "Canadarm2 is a 17.6m robotic arm used to capture visiting spacecraft, move modules, and support spacewalks.[cite: 1]",
+      "summary": "Canadarm2 is a 17.6-meter robotic arm used for spacecraft capture and station assembly.[cite: 1]",
+      "why_it_matters": "It is essential for catching unpiloted cargo ships and moving heavy hardware outside the station.[cite: 1]",
+      "full_explanation": "Canadarm2 is Canada's primary robotics contribution to the ISS. Measuring 17.6 meters, it captures visiting cargo spacecraft, transports heavy modules, and assists astronauts during spacewalks.[cite: 1]",
+      "built_by": ["CSA"],
+      "country_partners": ["Canada"],
+      "system_dependencies": ["robotics", "power", "comms"],
+      "related_modules": ["cupola", "dextre", "truss"],
+      "difficulty": "intermediate",
+      "fun_fact": "Canadarm2 can walk end-over-end across the station's exterior using anchor ports.",
+      "tags": ["csa", "robotics", "arm"],
+      "quiz": {
+        "question": "How long is the Canadarm2 robotic arm?",
+        "options": [
+          "17.6 meters",
+          "5 meters",
+          "30 meters",
+          "10.2 meters"
+        ],
+        "answer_index": 0
+      },
+      "fail": {
+        "type": "robotics",
+        "title": "Canadarm2 joint stuck mid-capture",
+        "steps": [
+          "A cargo ship is waiting to be grappled.[cite: 1]",
+          "One joint reports a torque error.[cite: 1]",
+          "Diagnose which of the 7 joints failed.[cite: 1]"
+        ]
+      }
+    },
+    {
+      "id": "dextre",
+      "label": "Dextre Robotic Hand",
+      "cat": "robotics",
+      "pos": [1, 3, 4.2],
+      "size": [0.6, 1, 0.4],
+      "shape": "box",
+      "explain": "Dextre is a two-armed robotic 'hand' that performs delicate maintenance tasks outside without needing a spacewalk.[cite: 1]",
+      "summary": "Dextre is a dual-armed robotic handyman that performs delicate outdoor maintenance.[cite: 1]",
+      "why_it_matters": "It reduces the need for astronauts to perform risky spacewalks for routine exterior maintenance.[cite: 1]",
+      "full_explanation": "Dextre, the Special Purpose Dexterous Manipulator, is a two-armed robot built by Canada. It attaches to Canadarm2 or work platforms to perform delicate maintenance, tool exchanges, and battery replacements outside the station.[cite: 1]",
+      "built_by": ["CSA"],
+      "country_partners": ["Canada"],
+      "system_dependencies": ["robotics", "power"],
+      "related_modules": ["canadarm2", "esp"],
+      "difficulty": "intermediate",
+      "fun_fact": "Dextre is equipped with built-in cameras and lights in its grippers for precision work.",
+      "tags": ["csa", "robotics", "maintenance"],
+      "quiz": {
+        "question": "What is the primary advantage of using Dextre for external maintenance?",
+        "options": [
+          "It performs delicate tasks outside without needing an astronaut spacewalk",
+          "It can fly independently away from the station",
+          "It generates solar power while working",
+          "It cooks meals for the crew"
+        ],
+        "answer_index": 0
+      },
+      "fail": {
+        "type": "robotics",
+        "title": "Dextre gripper misalignment",
+        "steps": [
+          "A tool exchange fails to lock.[cite: 1]",
+          "Camera feed shows a slight offset.[cite: 1]",
+          "Recalibrate the gripper position sensor.[cite: 1]"
+        ]
+      }
+    },
+    {
+      "id": "esp",
+      "label": "External Stowage Platforms",
+      "cat": "structure",
+      "pos": [-6, 3, -1.5],
+      "size": [1.2, 0.2, 1.2],
+      "shape": "box",
+      "explain": "External stowage platforms hold spare parts outside so astronauts don't need a spacewalk just to fetch supplies.[cite: 1]",
+      "summary": "External Stowage Platforms store spare equipment on the outside of the station.[cite: 1]",
+      "why_it_matters": "They keep replacement hardware easily accessible for robotic arms and spacewalkers.[cite: 1]",
+      "full_explanation": "External Stowage Platforms (ESPs) are unpressurized external platforms attached to the station. They store spare parts—known as Orbital Replacement Units—outside so they can be retrieved by Canadarm2 or Dextre without an EVA.[cite: 1]",
+      "built_by": ["NASA"],
+      "country_partners": ["United States"],
+      "system_dependencies": ["structure"],
+      "related_modules": ["canadarm2", "dextre", "truss"],
+      "difficulty": "basic",
+      "fun_fact": "Spare parts stored on ESPs include spare battery units, gyroscopes, and pump modules.",
+      "tags": ["storage", "external", "spares"],
+      "quiz": {
+        "question": "Why are spare parts stored on External Stowage Platforms (ESPs)?",
+        "options": [
+          "So astronauts or robots don't need to fetch supplies from inside",
+          "Because they are too flammable for internal storage",
+          "To shield the station from solar radiation",
+          "To increase the station's aerodynamic lift"
+        ],
+        "answer_index": 0
+      },
+      "fail": null
+    },
+    {
+      "id": "expracks",
+      "label": "Experiment Racks",
+      "cat": "science",
+      "pos": [-3, -0.6, 0.5],
+      "size": [0.8, 0.8, 0.8],
+      "shape": "box",
+      "explain": "Standardized racks host modular science payloads that can be swapped between Destiny, Columbus and Kibo.[cite: 1]",
+      "summary": "Experiment Racks are standardized modular units that host scientific payloads.[cite: 1]",
+      "why_it_matters": "Their modular design allows astronauts to install, operate, and replace experiments easily.[cite: 1]",
+      "full_explanation": "Experiment Racks use the International Standard Payload Rack (ISPR) format to house modular scientific payloads. These racks provide power, data, and cooling and can be swapped between the Destiny, Columbus, and Kibo labs.[cite: 1]",
+      "built_by": ["NASA", "ESA", "JAXA"],
+      "country_partners": ["United States", "Europe", "Japan"],
+      "system_dependencies": ["science", "power", "thermal", "comms"],
+      "related_modules": ["destiny", "columbus", "kibo"],
+      "difficulty": "basic",
+      "fun_fact": "Each standard experiment rack is about the size of a large home refrigerator.",
+      "tags": ["science", "racks", "payloads"],
+      "quiz": {
+        "question": "Which laboratory modules can host standardized Experiment Racks?",
+        "options": [
+          "Destiny, Columbus, and Kibo",
+          "Zarya, Zvezda, and Poisk",
+          "Cupola, Quest, and Unity",
+          "Tranquility, Harmony, and Rassvet"
+        ],
+        "answer_index": 0
+      },
+      "fail": {
+        "type": "power",
+        "title": "Experiment rack power interruption",
+        "steps": [
+          "A running experiment loses power mid-cycle.[cite: 1]",
+          "Data logging stops.[cite: 1]",
+          "Check the rack's dedicated power feed.[cite: 1]"
+        ]
+      }
+    },
+    {
+      "id": "glovebox",
+      "label": "Microgravity Science Glovebox",
+      "cat": "science",
+      "pos": [-2, -0.6, 1],
+      "size": [0.6, 0.6, 0.6],
+      "shape": "box",
+      "explain": "The glovebox lets astronauts handle small particles, fluids or flames safely without contaminating the cabin.[cite: 1]",
+      "summary": "The Microgravity Science Glovebox provides a sealed enclosure for hazardous experiments.[cite: 1]",
+      "why_it_matters": "It prevents hazardous materials, fluids, or flames from floating freely into the cabin.[cite: 1]",
+      "full_explanation": "The Microgravity Science Glovebox (MSG) is a sealed workspace with built-in gloves. It enables astronauts to safely manipulate fluids, small particles, chemical experiments, or flames without contaminating the station's atmosphere.[cite: 1]",
+      "built_by": ["ESA", "NASA"],
+      "country_partners": ["Europe", "United States"],
+      "system_dependencies": ["science", "power", "thermal"],
+      "related_modules": ["destiny", "expracks"],
+      "difficulty": "basic",
+      "fun_fact": "The glovebox maintains negative pressure so nothing can escape if a glove leaks.",
+      "tags": ["science", "glovebox", "safety"],
+      "quiz": {
+        "question": "Why do astronauts use the Microgravity Science Glovebox?",
+        "options": [
+          "To handle fluids, particles, or flames safely without contaminating the cabin",
+          "To repair spacesuit gloves after EVAs",
+          "To wash dishes after galley meals",
+          "To store emergency breathing oxygen masks"
+        ],
+        "answer_index": 0
+      },
+      "fail": null
+    },
+    {
+      "id": "plantchambers",
+      "label": "Plant Growth Chambers",
+      "cat": "science",
+      "pos": [2.5, -0.6, 1.5],
+      "size": [0.6, 0.6, 0.6],
+      "shape": "box",
+      "explain": "Plant growth chambers test how crops grow in microgravity — vital research for future Moon and Mars food supplies.[cite: 1]",
+      "summary": "Plant Growth Chambers study agriculture and plant development in microgravity.[cite: 1]",
+      "why_it_matters": "Growing fresh food in space is critical for long-duration missions to the Moon and Mars.[cite: 1]",
+      "full_explanation": "Plant Growth Chambers, such as Veggie and the Advanced Plant Habitat, test how crops grow in microgravity. This research helps astronauts harvest fresh food and prepare agricultural techniques for future exploration missions.[cite: 1]",
+      "built_by": ["NASA"],
+      "country_partners": ["United States"],
+      "system_dependencies": ["science", "power", "life-support"],
+      "related_modules": ["destiny", "kibo", "columbus"],
+      "difficulty": "intermediate",
+      "fun_fact": "Astronauts have grown and eaten red romaine lettuce and radishes harvested in these chambers.",
+      "tags": ["science", "plants", "agriculture"],
+      "quiz": {
+        "question": "Why is plant growth research on the ISS important?",
+        "options": [
+          "It is vital research for future Moon and Mars food supplies",
+          "Plants produce 100% of the station's electricity",
+          "Plants replace all carbon dioxide scrubbers",
+          "Roots are used to bind structural truss segments"
+        ],
+        "answer_index": 0
+      },
+      "fail": {
+        "type": "life-support-sci",
+        "title": "Plant growth chamber humidity spike",
+        "steps": [
+          "Leaf condensation looks abnormal.[cite: 1]",
+          "Growth rate data looks inconsistent.[cite: 1]",
+          "Check humidity and LED light cycle settings.[cite: 1]"
+        ]
+      }
+    },
+    {
+      "id": "crewquarters",
+      "label": "Crew Quarters (Sleep Pods)",
+      "cat": "daily-life",
+      "pos": [-10.5, 1.2, 0],
+      "size": [0.9, 0.9, 0.9],
+      "shape": "box",
+      "explain": "Each astronaut has a small private sleep pod with sound insulation, ventilation and personal storage.[cite: 1]",
+      "summary": "Crew Quarters are private sleep pods providing astronauts with rest and personal space.[cite: 1]",
+      "why_it_matters": "Privacy, sound insulation, and proper ventilation are essential for crew well-being and sleep.[cite: 1]",
+      "full_explanation": "Crew Quarters (Sleep Pods) provide each astronaut with a private compartment roughly the size of a phone booth. Each pod includes sound insulation, ventilation fans, a tethered sleeping bag, and space for personal belongings.[cite: 1]",
+      "built_by": ["NASA", "Roscosmos"],
+      "country_partners": ["United States", "Russia"],
+      "system_dependencies": ["life-support", "power"],
+      "related_modules": ["harmony", "zvezda"],
+      "difficulty": "basic",
+      "fun_fact": "Without ventilation fans in sleep pods, exhaled carbon dioxide could form a bubble around an astronaut's head.",
+      "tags": ["crew", "daily-life", "sleep"],
+      "quiz": {
+        "question": "What amenities are included in each astronaut's Crew Quarter sleep pod?",
+        "options": [
+          "Sound insulation, ventilation, and personal storage",
+          "A full-size water bed and microwave",
+          "An emergency spacesuit and airlock hatch",
+          "A stationary cycle and treadmill"
+        ],
+        "answer_index": 0
+      },
+      "fail": null
+    },
+    {
+      "id": "galley",
+      "label": "Galley (Food Preparation)",
+      "cat": "daily-life",
+      "pos": [-11, -1.2, 0],
+      "size": [0.9, 0.9, 0.9],
+      "shape": "box",
+      "explain": "The galley includes a food warmer and rehydration station — there's no refrigerator, so most food is dried or shelf-stable.[cite: 1]",
+      "summary": "The Galley is the kitchen area where crew members warm and rehydrate their meals.[cite: 1]",
+      "why_it_matters": "It allows astronauts to prepare shelf-stable meals safely without traditional refrigeration.[cite: 1]",
+      "full_explanation": "The station Galley serves as the dining and food preparation station. Because there is no food refrigerator, meals are shelf-stable, freeze-dried, or irradiated, and astronauts use a water dispenser and food warmer to prepare them.[cite: 1]",
+      "built_by": ["NASA", "Roscosmos"],
+      "country_partners": ["United States", "Russia"],
+      "system_dependencies": ["life-support", "power"],
+      "related_modules": ["unity", "zvezda"],
+      "difficulty": "basic",
+      "fun_fact": "Salt and pepper are dispensed in liquid form so granules don't float away into equipment.",
+      "tags": ["daily-life", "food", "galley"],
+      "quiz": {
+        "question": "Why is most food in the ISS galley dried or shelf-stable?",
+        "options": [
+          "There is no food refrigerator on the station",
+          "Cold food cannot be digested in microgravity",
+          "Refrigerators interfere with high-gain antennas",
+          "Dry food weighs ten times more than fresh food"
+        ],
+        "answer_index": 0
+      },
+      "fail": null
+    },
+    {
+      "id": "hygiene",
+      "label": "Hygiene Compartment",
+      "cat": "daily-life",
+      "pos": [-11.8, -1.2, 0.8],
+      "size": [0.7, 0.9, 0.7],
+      "shape": "box",
+      "explain": "Astronauts use no-rinse soap, special toilets and vacuum suction rather than showers or plumbing as on Earth.[cite: 1]",
+      "summary": "The Hygiene Compartment provides facilities for personal grooming and sanitation.[cite: 1]",
+      "why_it_matters": "It enables astronauts to stay clean without using showers or gravity-fed plumbing.[cite: 1]",
+      "full_explanation": "The Hygiene Compartment allows astronauts to perform personal grooming in microgravity. Because water floats freely, crew members use no-rinse soap, rinseless shampoos, and vacuum-assisted toilets rather than traditional plumbing.[cite: 1]",
+      "built_by": ["NASA", "Roscosmos"],
+      "country_partners": ["United States", "Russia"],
+      "system_dependencies": ["life-support", "power"],
+      "related_modules": ["waste", "tranquility"],
+      "difficulty": "basic",
+      "fun_fact": "Water droplets from washing up are sucked into vents to be recycled back into drinking water.",
+      "tags": ["daily-life", "hygiene", "sanitation"],
+      "quiz": {
+        "question": "How do astronauts handle personal hygiene on the ISS without gravity-fed showers?",
+        "options": [
+          "Using no-rinse soap, special toilets, and vacuum suction",
+          "Using external airlocks for steam cleaning",
+          "Bathing in pure liquid nitrogen",
+          "Using centrifugal shower drums"
+        ],
+        "answer_index": 0
+      },
+      "fail": null
+    },
+    {
+      "id": "ared",
+      "label": "Exercise Treadmill (ARED)",
+      "cat": "daily-life",
+      "pos": [-9, -1.2, 1.2],
+      "size": [0.8, 0.5, 1.2],
+      "shape": "box",
+      "explain": "Astronauts exercise about 2 hours daily using ARED and a treadmill to counteract muscle and bone loss in microgravity.[cite: 1]",
+      "summary": "ARED is a resistive exercise machine used to prevent muscle and bone loss.[cite: 1]",
+      "why_it_matters": "Daily exercise is mandatory to prevent astronauts' bones and muscles from deteriorating in space.[cite: 1]",
+      "full_explanation": "The Advanced Resistive Exercise Device (ARED) uses vacuum cylinders to simulate lifting weights in microgravity. Astronauts exercise for roughly 2 hours daily using ARED and treadmills to counteract bone and muscle atrophy.[cite: 1]",
+      "built_by": ["NASA"],
+      "country_partners": ["United States"],
+      "system_dependencies": ["structure", "life-support"],
+      "related_modules": ["tranquility", "cevis"],
+      "difficulty": "basic",
+      "fun_fact": "Astronauts must wear a harness strapped to the treadmill so they don't float away while running.",
+      "tags": ["exercise", "daily-life", "health"],
+      "quiz": {
+        "question": "Why do astronauts spend about 2 hours daily exercising on machines like ARED?",
+        "options": [
+          "To counteract muscle and bone loss in microgravity",
+          "To generate manual electricity for the galley",
+          "To keep the cabin air circulating properly",
+          "To calibrate the station's gyroscopes"
+        ],
+        "answer_index": 0
+      },
+      "fail": null
+    },
+    {
+      "id": "cevis",
+      "label": "Station Bike (CEVIS)",
+      "cat": "daily-life",
+      "pos": [-9, -1.2, -1.2],
+      "size": [0.6, 0.6, 1],
+      "shape": "box",
+      "explain": "CEVIS is a stationary cycle ergometer used for cardiovascular exercise without pedals attached to the floor.[cite: 1]",
+      "summary": "CEVIS is a stationary bicycle ergometer designed for cardiovascular fitness in orbit.[cite: 1]",
+      "why_it_matters": "Cardiovascular workouts prevent heart conditioning loss during long-duration spaceflight.[cite: 1]",
+      "full_explanation": "The Cycle Ergometer with Vibration Isolation and Stabilization (CEVIS) is a stationary space bicycle. Astronauts clip their shoes into the pedals and wear a seat belt to get intense cardiovascular exercise without shaking the station.[cite: 1]",
+      "built_by": ["NASA"],
+      "country_partners": ["United States"],
+      "system_dependencies": ["structure", "power"],
+      "related_modules": ["ared", "tranquility"],
+      "difficulty": "basic",
+      "fun_fact": "CEVIS has no handlebars; astronauts hold onto side grips to stabilize their bodies while pedaling.",
+      "tags": ["exercise", "daily-life", "cardio"],
+      "quiz": {
+        "question": "What type of exercise machine is CEVIS?",
+        "options": [
+          "A stationary cycle ergometer for cardiovascular exercise",
+          "A hydraulic leg-press machine",
+          "A rowing machine with water resistance",
+          "A zero-gravity climbing wall"
+        ],
+        "answer_index": 0
+      },
+      "fail": null
+    },
+    {
+      "id": "waste",
+      "label": "Waste Management System",
+      "cat": "life-support",
+      "pos": [-11.8, -1.2, -0.8],
+      "size": [0.6, 0.9, 0.6],
+      "shape": "box",
+      "explain": "The waste management system uses airflow instead of gravity to safely handle human waste in microgravity.[cite: 1]",
+      "summary": "The Waste Management System uses airflow suction to collect and process human waste.[cite: 1]",
+      "why_it_matters": "Proper sanitation and waste collection are essential for cleanliness and water recycling.[cite: 1]",
+      "full_explanation": "The Waste Management System (space toilet) relies on airflow rather than gravity to direct human waste away from the body. Liquid waste is sent to the Water Recovery System for recycling, while solid waste is sealed for disposal.[cite: 1]",
+      "built_by": ["Roscosmos", "NASA"],
+      "country_partners": ["Russia", "United States"],
+      "system_dependencies": ["life-support", "power"],
+      "related_modules": ["hygiene", "wrs", "tranquility"],
+      "difficulty": "intermediate",
+      "fun_fact": "Urine collected by the waste management system is recycled into clean drinking water.",
+      "tags": ["life-support", "sanitation", "waste"],
+      "quiz": {
+        "question": "What force does the ISS Waste Management System use instead of gravity?",
+        "options": [
+          "Airflow suction",
+          "Centrifugal spinning",
+          "Magnetic attraction",
+          "High-pressure water jets"
+        ],
+        "answer_index": 0
+      },
+      "fail": {
+        "type": "water",
+        "title": "Waste system pressure alarm",
+        "steps": [
+          "Suction pressure reads abnormally low.[cite: 1]",
+          "Odor control filter light is on.[cite: 1]",
+          "Inspect the fan separator unit.[cite: 1]"
+        ]
+      }
+    },
+    {
+      "id": "firedet",
+      "label": "Fire Detection System",
+      "cat": "safety",
+      "pos": [0, -1.6, -2],
+      "size": [0.4, 0.4, 0.4],
+      "shape": "box",
+      "explain": "Smoke detectors and portable fire extinguishers let the crew respond within seconds, since fire behaves very differently in microgravity.[cite: 1]",
+      "summary": "The Fire Detection System monitors smoke and provides instant fire suppression tools.[cite: 1]",
+      "why_it_matters": "Fire is one of the most dangerous orbital emergencies, requiring immediate detection and suppression.[cite: 1]",
+      "full_explanation": "Because warm air does not rise in microgravity, smoke detectors use forced airflow to sense fires. The Fire Detection System includes automated alarms and portable extinguishers containing CO2 or fine water mist to put out flames.[cite: 1]",
+      "built_by": ["NASA", "Roscosmos"],
+      "country_partners": ["United States", "Russia"],
+      "system_dependencies": ["safety", "power", "comms"],
+      "related_modules": ["emergo2", "cdh"],
+      "difficulty": "intermediate",
+      "fun_fact": "Flames in microgravity form spheres rather than teardrop shapes.",
+      "tags": ["safety", "fire", "emergency"],
+      "quiz": {
+        "question": "Why is fire detection and response different in microgravity?",
+        "options": [
+          "Fire behaves very differently because warm air doesn't rise naturally",
+          "Flames instantly freeze in cabin air",
+          "Fire extinguishers cannot be discharged in space",
+          "Smoke sinks straight to the floor"
+        ],
+        "answer_index": 0
+      },
+      "fail": {
+        "type": "fire",
+        "title": "Smoke sensor triggered",
+        "steps": [
+          "An alarm sounds in the US segment.[cite: 1]",
+          "Crew dons protective masks.[cite: 1]",
+          "Identify the smoke source with handheld sensors.[cite: 1]"
+        ]
+      }
+    },
+    {
+      "id": "emergo2",
+      "label": "Emergency Oxygen Supply",
+      "cat": "safety",
+      "pos": [0.6, -1.6, -2],
+      "size": [0.4, 0.4, 0.4],
+      "shape": "box",
+      "explain": "Portable breathing apparatuses provide emergency oxygen during fire, depressurization or toxic atmosphere events.[cite: 1]",
+      "summary": "The Emergency Oxygen Supply provides portable masks during cabin contamination or leaks.[cite: 1]",
+      "why_it_matters": "It supplies breathable air to astronauts during smoke, toxic gas, or rapid depressurization emergencies.[cite: 1]",
+      "full_explanation": "The Emergency Oxygen Supply includes Portable Breathing Apparatuses (PBAs) and oxygen candles. Astronauts wear these masks to breathe safely during fires, chemical spills, or depressurization events while resolving the emergency.[cite: 1]",
+      "built_by": ["NASA", "Roscosmos"],
+      "country_partners": ["United States", "Russia"],
+      "system_dependencies": ["safety", "life-support"],
+      "related_modules": ["firedet", "o2gen"],
+      "difficulty": "basic",
+      "fun_fact": "Emergency oxygen masks can be plugged into station oxygen manifolds anywhere in the cabin.",
+      "tags": ["safety", "oxygen", "emergency"],
+      "quiz": {
+        "question": "When do astronauts use the Emergency Oxygen Supply apparatuses?",
+        "options": [
+          "During fire, depressurization, or toxic atmosphere events",
+          "During routine 2-hour exercise sessions",
+          "Every time they sleep in crew quarters",
+          "While cooking meals in the galley"
+        ],
+        "answer_index": 0
+      },
+      "fail": {
+        "type": "oxygen",
+        "title": "Emergency oxygen mask deployment test failed",
+        "steps": [
+          "A routine check shows a mask valve is stiff.[cite: 1]",
+          "Backup masks are verified.[cite: 1]",
+          "Replace or lubricate the valve mechanism.[cite: 1]"
+        ]
+      }
+    },
+    {
+      "id": "navatt",
+      "label": "Navigation & Attitude Control",
+      "cat": "safety",
+      "pos": [-1, 1.6, -1],
+      "size": [0.6, 0.4, 0.6],
+      "shape": "box",
+      "explain": "Gyroscopes (and thrusters as backup) keep the station correctly oriented toward the sun and Earth without using fuel.[cite: 1]",
+      "summary": "Navigation & Attitude Control uses gyroscopes and thrusters to steer the station.[cite: 1]",
+      "why_it_matters": "Correct station orientation is required for solar power generation, thermal balance, and communications.[cite: 1]",
+      "full_explanation": "The Navigation & Attitude Control system uses four Control Moment Gyroscopes (CMGs) to maintain station orientation without propellant. When gyroscopes reach their spin limit, Russian thrusters fire briefly to desaturate them.[cite: 1]",
+      "built_by": ["NASA", "Roscosmos"],
+      "country_partners": ["United States", "Russia"],
+      "system_dependencies": ["safety", "power", "guidance"],
+      "related_modules": ["zarya", "zvezda", "truss"],
+      "difficulty": "intermediate",
+      "fun_fact": "Using gyroscopes instead of thrusters saves tons of rocket fuel every year.",
+      "tags": ["guidance", "gyroscopes", "attitude"],
+      "quiz": {
+        "question": "How do gyroscopes help the ISS maintain its attitude?",
+        "options": [
+          "They keep the station oriented toward the sun and Earth without using fuel",
+          "They generate artificial gravity inside the laboratories",
+          "They pump liquid ammonia through cooling loops",
+          "They steer visiting cargo ships autonomously"
+        ],
+        "answer_index": 0
+      },
+      "fail": {
+        "type": "attitude",
+        "title": "Attitude control gyroscope drift",
+        "steps": [
+          "Station orientation slowly drifts off target.[cite: 1]",
+          "A gyroscope reports abnormal spin rate.[cite: 1]",
+          "Diagnose which of the 4 gyroscopes is failing.[cite: 1]"
+        ]
+      }
+    },
+    {
+      "id": "extcams",
+      "label": "External Cameras & Sensors",
+      "cat": "safety",
+      "pos": [2, 1.6, -3],
+      "size": [0.3, 0.3, 0.3],
+      "shape": "box",
+      "explain": "External cameras help crew and ground controllers monitor docking, spacewalks, and structural health visually.[cite: 1]",
+      "summary": "External Cameras & Sensors visually monitor spacecraft operations and exterior hardware.[cite: 1]",
+      "why_it_matters": "They provide ground control and crew with vital visual confirmation of exterior safety and docking.[cite: 1]",
+      "full_explanation": "External Cameras & Sensors are mounted across the truss and modules. They transmit live video to crew members and Mission Control to monitor docking ships, assist spacewalkers, and inspect structural health.[cite: 1]",
+      "built_by": ["NASA"],
+      "country_partners": ["United States"],
+      "system_dependencies": ["safety", "comms", "power"],
+      "related_modules": ["cupola", "canadarm2", "truss"],
+      "difficulty": "basic",
+      "fun_fact": "Some external cameras are mounted on pan-tilt mechanisms controlled from Earth.",
+      "tags": ["safety", "cameras", "sensors"],
+      "quiz": {
+        "question": "What are External Cameras & Sensors used for on the ISS?",
+        "options": [
+          "Monitoring docking, spacewalks, and structural health visually",
+          "Measuring internal cabin humidity levels",
+          "Reheating food packages in the galley",
+          "Controlling sleep pod sound insulation"
+        ],
+        "answer_index": 0
+      },
+      "fail": null
+    },
+    {
+      "id": "radiation",
+      "label": "Radiation Monitoring System",
+      "cat": "safety",
+      "pos": [-2, -1.6, -2],
+      "size": [0.4, 0.4, 0.4],
+      "shape": "box",
+      "explain": "During radiation storms, crew shelter in heavily shielded modules like Zvezda, since spacecraft walls alone don't block all radiation.[cite: 1]",
+      "summary": "The Radiation Monitoring System tracks space radiation and alerts crew to solar storms.[cite: 1]",
+      "why_it_matters": "It warns astronauts to shelter during solar flares to prevent dangerous radiation exposure.[cite: 1]",
+      "full_explanation": "The Radiation Monitoring System continuously measures cosmic rays and solar radiation levels. When a solar storm occurs, alarms alert the crew to take shelter in heavily shielded modules like Zvezda to minimize radiation doses.[cite: 1]",
+      "built_by": ["NASA", "Roscosmos"],
+      "country_partners": ["United States", "Russia"],
+      "system_dependencies": ["safety", "power", "comms"],
+      "related_modules": ["zvezda", "cdh"],
+      "difficulty": "intermediate",
+      "fun_fact": "Astronauts wear personal dosimeters to track their cumulative radiation exposure over time.",
+      "tags": ["safety", "radiation", "solar-storm"],
+      "quiz": {
+        "question": "What action do astronauts take when a radiation storm warning is issued?",
+        "options": [
+          "They shelter in heavily shielded modules like Zvezda",
+          "They put on spacewalk suits and exit the airlock",
+          "They turn off all solar arrays immediately",
+          "They open the Cupola shutters to watch the storm"
+        ],
+        "answer_index": 0
+      },
+      "fail": {
+        "type": "radiation",
+        "title": "Radiation storm warning issued",
+        "steps": [
+          "A solar flare has been detected.[cite: 1]",
+          "Radiation levels are rising station-wide.[cite: 1]",
+          "Guide the crew to the most shielded module.[cite: 1]"
+        ]
+      }
+    },
+    {
+      "id": "o2gen",
+      "label": "Oxygen Generation System",
+      "cat": "life-support",
+      "pos": [0.8, -0.5, 3.2],
+      "size": [0.7, 0.7, 0.7],
+      "shape": "box",
+      "explain": "The OGS splits water into oxygen and hydrogen via electrolysis — the hydrogen is vented or recycled, oxygen is released to the cabin.[cite: 1]",
+      "summary": "The Oxygen Generation System produces breathable air by splitting water molecules.[cite: 1]",
+      "why_it_matters": "It generates breathable oxygen for the crew without relying solely on resupply ships.[cite: 1]",
+      "full_explanation": "The Oxygen Generation System (OGS) uses electrolysis to split water (H2O) into oxygen (O2) and hydrogen (H2). Breathable oxygen is released into the cabin air, while hydrogen is safely vented or recycled.[cite: 1]",
+      "built_by": ["NASA"],
+      "country_partners": ["United States"],
+      "system_dependencies": ["life-support", "power", "water"],
+      "related_modules": ["tranquility", "wrs", "h2tanks"],
+      "difficulty": "intermediate",
+      "fun_fact": "The OGS can produce enough breathable oxygen to support up to 11 crew members at once.",
+      "tags": ["life-support", "oxygen", "electrolysis"],
+      "quiz": {
+        "question": "How does the Oxygen Generation System (OGS) produce oxygen?",
+        "options": [
+          "By splitting water into oxygen and hydrogen via electrolysis",
+          "By filtering oxygen out of space vacuum",
+          "By burning solid carbon dioxide blocks",
+          "By compressing exhaled breath in tanks"
+        ],
+        "answer_index": 0
+      },
+      "fail": {
+        "type": "oxygen",
+        "title": "Oxygen generator output falling",
+        "steps": [
+          "O2 percentage begins dropping station-wide.[cite: 1]",
+          "Backup oxygen candles are on standby.[cite: 1]",
+          "Investigate the water electrolysis unit.[cite: 1]"
+        ]
+      }
+    },
+    {
+      "id": "wrs",
+      "label": "Water Recovery System",
+      "cat": "life-support",
+      "pos": [-0.8, -0.5, 3.2],
+      "size": [0.7, 0.7, 0.7],
+      "shape": "box",
+      "explain": "The WRS recycles urine, sweat and moisture from air into drinking water — recovering about 90% of water aboard.[cite: 1]",
+      "summary": "The Water Recovery System purifies urine, sweat, and condensation into clean drinking water.[cite: 1]",
+      "why_it_matters": "Recycling ~90% of station water is essential for surviving without constant water resupply ships.[cite: 1]",
+      "full_explanation": "The Water Recovery System (WRS) recovers roughly 90% of all water on the ISS. It filters and distills urine, sweat, and cabin condensation into clean, purified drinking water that exceeds Earth tap water standards.[cite: 1]",
+      "built_by": ["NASA"],
+      "country_partners": ["United States"],
+      "system_dependencies": ["life-support", "power"],
+      "related_modules": ["tranquility", "o2gen", "waste"],
+      "difficulty": "intermediate",
+      "fun_fact": "Astronauts jokingly summarize the WRS with the slogan: 'Today's coffee is tomorrow's coffee.'",
+      "tags": ["life-support", "water", "recycling"],
+      "quiz": {
+        "question": "Approximately what percentage of water aboard the ISS is recovered by the WRS?",
+        "options": [
+          "About 90%",
+          "About 50%",
+          "About 25%",
+          "100%"
+        ],
+        "answer_index": 0
+      },
+      "fail": {
+        "type": "water",
+        "title": "Water Recovery filter clogged",
+        "steps": [
+          "Drinking water output slows.[cite: 1]",
+          "Recycled water quality alert triggers.[cite: 1]",
+          "Check the filtration and distillation unit.[cite: 1]"
+        ]
+      }
+    },
+    {
+      "id": "co2scrub",
+      "label": "Carbon Dioxide Scrubbers",
+      "cat": "life-support",
+      "pos": [0, -0.5, 4],
+      "size": [0.7, 0.7, 0.7],
+      "shape": "box",
+      "explain": "Carbon dioxide removal assemblies use absorbent beds to capture CO2 that crew members exhale, keeping air breathable.[cite: 1]",
+      "summary": "Carbon Dioxide Scrubbers remove exhaled CO2 from the cabin air to prevent toxicity.[cite: 1]",
+      "why_it_matters": "Without scrubbers, exhaled CO2 would rapidly rise to toxic levels, causing headaches and asphyxiation.[cite: 1]",
+      "full_explanation": "Carbon Dioxide Removal Assemblies (CDRA) circulate cabin air through absorbent beds of zeolite filters. These filters capture the carbon dioxide exhaled by astronauts, keeping the atmosphere fresh and breathable.[cite: 1]",
+      "built_by": ["NASA"],
+      "country_partners": ["United States"],
+      "system_dependencies": ["life-support", "power"],
+      "related_modules": ["tranquility", "o2gen"],
+      "difficulty": "basic",
+      "fun_fact": "Zeolite absorbent beds are periodically heated in space vacuum to release trapped CO2 and regenerate.",
+      "tags": ["life-support", "co2", "air-scrubber"],
+      "quiz": {
+        "question": "What is the function of Carbon Dioxide Scrubbers?",
+        "options": [
+          "Using absorbent beds to capture exhaled CO2 and keep air breathable",
+          "Adding carbon dioxide to plant growth chambers only",
+          "Generating hydrogen gas for attitude thrusters",
+          "Cooling down experiment racks in Destiny"
+        ],
+        "answer_index": 0
+      },
+      "fail": {
+        "type": "oxygen",
+        "title": "CO2 levels rising",
+        "steps": [
+          "Crew reports mild headaches.[cite: 1]",
+          "Scrubber cycle seems too slow.[cite: 1]",
+          "Inspect the CDRA absorbent beds.[cite: 1]"
+        ]
+      }
+    },
+    {
+      "id": "eva-suit",
+      "label": "EVA Spacesuit Systems",
+      "cat": "eva",
+      "pos": [0.5, 1.6, -3],
+      "size": [0.4, 0.8, 0.3],
+      "shape": "box",
+      "explain": "Spacesuits (EMUs) provide oxygen, pressure, temperature control and micrometeoroid protection during spacewalks.[cite: 1]",
+      "summary": "EVA Spacesuits are miniature personal spacecraft protecting astronauts outside the station.[cite: 1]",
+      "why_it_matters": "They provide life support, pressure, and temperature control required to survive in space.[cite: 1]",
+      "full_explanation": "Extravehicular Mobility Units (EMUs) are U.S. spacesuits worn during EVAs. Each suit functions as an independent, miniature spacecraft, providing oxygen, thermal control, communications, and micrometeoroid protection.[cite: 1]",
+      "built_by": ["NASA"],
+      "country_partners": ["United States"],
+      "system_dependencies": ["eva", "life-support", "power", "comms"],
+      "related_modules": ["quest"],
+      "difficulty": "intermediate",
+      "fun_fact": "An EMU spacesuit weighs roughly 280 pounds on Earth but feels weightless in orbit.",
+      "tags": ["eva", "spacesuit", "emu"],
+      "quiz": {
+        "question": "What protections and systems do EVA Spacesuits (EMUs) provide during spacewalks?",
+        "options": [
+          "Oxygen, pressure, temperature control, and micrometeoroid protection",
+          "Solar power generation and attitude gyroscopes",
+          "Food rehydration and galley water storage",
+          "Long-range radar and high-gain video relay"
+        ],
+        "answer_index": 0
+      },
+      "fail": {
+        "type": "cooling",
+        "title": "Suit cooling garment malfunction",
+        "steps": [
+          "Astronaut reports overheating during a spacewalk.[cite: 1]",
+          "Water cooling loop pressure is abnormal.[cite: 1]",
+          "Diagnose the liquid cooling garment.[cite: 1]"
+        ]
+      }
+    },
+    {
+      "id": "ida1",
+      "label": "Docking Port IDA-1",
+      "cat": "structure",
+      "pos": [4.4, 0, 0.6],
+      "size": [0.5, 0.5, 0.5],
+      "shape": "cylinder",
+      "explain": "International Docking Adapters allow crew and cargo vehicles to autonomously dock or be berthed to the station.[cite: 1]",
+      "summary": "IDA-1 is a docking port enabling autonomous spacecraft dockings at the station.[cite: 1]",
+      "why_it_matters": "It provides the standardized interface used by commercial crew vehicles to dock automatically.[cite: 1]",
+      "full_explanation": "International Docking Adapter 1 (IDA-1) is attached to PMA-2 at the forward end of Harmony. It converts older shuttle docking mechanisms into standard ports that allow commercial crew and cargo ships to dock autonomously.[cite: 1]",
+      "built_by": ["NASA"],
+      "country_partners": ["United States"],
+      "system_dependencies": ["structure", "comms"],
+      "related_modules": ["pma2", "harmony"],
+      "difficulty": "intermediate",
+      "fun_fact": "IDA-1 uses laser retro-reflectors and targets to help approaching spacecraft dock automatically.",
+      "tags": ["docking", "ida", "commercial-crew"],
+      "quiz": {
+        "question": "What is the purpose of International Docking Adapters like IDA-1?",
+        "options": [
+          "Allowing crew and cargo vehicles to autonomously dock or be berthed",
+          "Storing spare lithium-ion battery modules",
+          "Filtering ammonia coolant before it reaches radiators",
+          "Housing the station's backup attitude gyroscopes"
+        ],
+        "answer_index": 0
+      },
+      "fail": {
+        "type": "docking",
+        "title": "IDA-1 alignment sensor error",
+        "steps": [
+          "An arriving crew capsule cannot lock in.[cite: 1]",
+          "Sensors show a slight angle offset.[cite: 1]",
+          "Guide the approach using camera feedback.[cite: 1]"
+        ]
+      }
+    },
+    {
+      "id": "ida2",
+      "label": "Docking Port IDA-2",
+      "cat": "structure",
+      "pos": [4.4, 0, -0.6],
+      "size": [0.5, 0.5, 0.5],
+      "shape": "cylinder",
+      "explain": "A second IDA allows two crew vehicles to be docked simultaneously, increasing crew rotation flexibility.[cite: 1]",
+      "summary": "IDA-2 provides a second autonomous docking port for commercial crew spacecraft.[cite: 1]",
+      "why_it_matters": "Having a second docking adapter allows two crew spacecraft to dock at the station simultaneously.[cite: 1]",
+      "full_explanation": "International Docking Adapter 2 (IDA-2) works alongside IDA-1 to provide two standardized docking ports. This redundancy allows two commercial crew or cargo spacecraft to remain docked at the ISS simultaneously.[cite: 1]",
+      "built_by": ["NASA"],
+      "country_partners": ["United States"],
+      "system_dependencies": ["structure", "comms"],
+      "related_modules": ["pma3", "harmony", "ida1"],
+      "difficulty": "intermediate",
+      "fun_fact": "IDA-2 was installed by astronauts during a spacewalk in 2016.",
+      "tags": ["docking", "ida", "redundancy"],
+      "quiz": {
+        "question": "Why was a second International Docking Adapter (IDA-2) added to the ISS?",
+        "options": [
+          "To allow two crew vehicles to be docked simultaneously",
+          "To serve as a permanent escape pod",
+          "To replace the broken Zarya propulsion system",
+          "To provide extra window viewing for tourists"
+        ],
+        "answer_index": 0
+      },
+      "fail": null
+    },
+    {
+      "id": "ida3",
+      "label": "Docking Port IDA-3",
+      "cat": "structure",
+      "pos": [-12.6, 1.6, 0.6],
+      "size": [0.5, 0.5, 0.5],
+      "shape": "cylinder",
+      "explain": "IDA-3 on the Russian segment supports Soyuz and Progress vehicle dockings.[cite: 1]",
+      "summary": "IDA-3 is a docking interface on the Russian segment for Soyuz and Progress ships.[cite: 1]",
+      "why_it_matters": "It supports continuous crew rotation and cargo delivery missions for the Russian segment.[cite: 1]",
+      "full_explanation": "Docking Port IDA-3 is located on the Russian segment of the station. It provides compatible docking mechanisms to receive arriving Soyuz crew spacecraft and unpiloted Progress resupply vehicles.[cite: 1]",
+      "built_by": ["Roscosmos"],
+      "country_partners": ["Russia"],
+      "system_dependencies": ["structure", "comms"],
+      "related_modules": ["zvezda", "poisk"],
+      "difficulty": "basic",
+      "fun_fact": "Soyuz spacecraft use automated Kurs radar systems to align with Russian docking ports.",
+      "tags": ["docking", "soyuz", "russian-segment"],
+      "quiz": {
+        "question": "Which spacecraft primarily dock at IDA-3 on the Russian segment?",
+        "options": [
+          "Soyuz and Progress vehicles",
+          "Space Shuttles",
+          "Apollo command modules",
+          "European ATV freighters only"
+        ],
+        "answer_index": 0
+      },
+      "fail": null
+    }
+  ]
+}

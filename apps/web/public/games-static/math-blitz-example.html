@@ -1,0 +1,43 @@
+<!-- games-static/math-blitz/index.html -->
+<!-- This is an EXAMPLE of the only edit needed in your existing
+     standalone HTML/JS game folder. Your actual game markup, styles,
+     and logic scripts stay exactly as they are — just add the two
+     highlighted lines (bridge include + lifecycle calls). -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Math Blitz</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="game-root"></div>
+
+  <!-- Your existing game logic file(s) — unchanged -->
+  <script src="game.js"></script>
+
+  <!-- ADD THIS ONE LINE: gives the game medhaaSessionStart/End/HintUsed -->
+  <script src="../_shared/medhaa-bridge.js"></script>
+
+  <script>
+    // ADD THESE CALLS inside your existing game.js flow, at the
+    // equivalent points (game start / game over / hint shown):
+    //
+    // On "Start" button click:
+    //   medhaaSessionStart();
+    //
+    // On game over / completion:
+    //   medhaaSessionEnd({
+    //     durationMs: elapsedMs,
+    //     score: finalScore,
+    //     accuracy: correctAnswers / totalQuestions,
+    //     hintsUsed: hintCount,
+    //     completionStatus: "completed"
+    //   });
+    //
+    // On hint button click:
+    //   medhaaHintUsed();
+  </script>
+</body>
+</html>

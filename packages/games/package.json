@@ -1,0 +1,14 @@
+{
+  "name": "@medhaa/games",
+  "version": "1.0.0",
+  "private": true,
+  "exports": {
+    "./math-blitz": "./math-blitz/index.tsx",
+    "./logic-grid": "./logic-grid/index.tsx",
+    "./memory-match": "./memory-match/index.tsx",
+    "./devanagari-learning": "./devanagari-learning/index.tsx",
+    "./nagarikx": "./nagarikx/index.tsx",
+    "./finance-blitz": "./finance-blitz/index.tsx",
+    "./emotion-explorer": "./emotion-explorer/index.tsx"
+  }
+}

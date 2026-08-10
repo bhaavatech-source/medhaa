@@ -1,0 +1,44 @@
+[
+  {
+    "id": "nose",
+    "label": "Nose / Cockpit",
+    "job": "Where the pilot sits and controls the plane.",
+    "ifMissing": "The plane cannot be properly controlled."
+  },
+  {
+    "id": "fuselage",
+    "label": "Fuselage",
+    "job": "The main body holding the people and systems.",
+    "ifMissing": "There is no proper body to connect the plane parts."
+  },
+  {
+    "id": "wings",
+    "label": "Wings",
+    "job": "Help the plane create lift and stay in the air.",
+    "ifMissing": "The plane cannot fly upward."
+  },
+  {
+    "id": "tail",
+    "label": "Tail",
+    "job": "Helps the plane stay balanced and turn correctly.",
+    "ifMissing": "The plane becomes unstable."
+  },
+  {
+    "id": "engine",
+    "label": "Engine / Propeller",
+    "job": "Pushes the plane forward.",
+    "ifMissing": "The plane has no thrust."
+  },
+  {
+    "id": "landing",
+    "label": "Landing Gear",
+    "job": "Helps takeoff, rolling, and landing.",
+    "ifMissing": "Takeoff and landing become unsafe."
+  },
+  {
+    "id": "fuel",
+    "label": "Fuel Tank",
+    "job": "Stores the fuel needed for the trip.",
+    "ifMissing": "The plane may stop during the mission."
+  }
+]

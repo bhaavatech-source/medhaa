@@ -1,0 +1,240 @@
+/* ============================================
+   games-grid-enhanced.css
+   Playful, bouncy animations for the kids games grid.
+   Purely additive — does not modify games-grid.css
+   or any component logic. Safe to import alongside
+   the existing stylesheet.
+   ============================================ */
+
+/* ---------- Domain section entrance ---------- */
+.domain-section {
+  animation: sectionPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes sectionPop {
+  0%   { opacity: 0; transform: translateY(24px) scale(0.98); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.domain-title {
+  position: relative;
+  display: inline-block;
+  animation: titleWiggle 0.6s ease-out both;
+}
+
+@keyframes titleWiggle {
+  0%   { opacity: 0; transform: translateX(-10px) rotate(-2deg); }
+  60%  { transform: translateX(2px) rotate(1deg); }
+  100% { opacity: 1; transform: translateX(0) rotate(0deg); }
+}
+
+/* Little bounce underline on domain titles */
+.domain-title::after {
+  content: '';
+  display: block;
+  height: 4px;
+  width: 40px;
+  margin-top: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #6ee7f9, #a78bfa, #f9a8d4);
+  background-size: 200% 100%;
+  animation: rainbowSlide 3s linear infinite;
+}
+
+@keyframes rainbowSlide {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+/* ---------- Game card grid: staggered pop-in ---------- */
+.games-grid {
+  perspective: 800px;
+}
+
+.games-grid > * {
+  animation: cardPopIn 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation-delay: calc(var(--card-index, 0) * 60ms);
+  transform-origin: center bottom;
+  transition:
+    transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.28s ease,
+    filter 0.28s ease;
+  will-change: transform;
+}
+
+/* Auto-assign stagger index via nth-child since JS isn't touched */
+.games-grid > *:nth-child(1)  { --card-index: 1; }
+.games-grid > *:nth-child(2)  { --card-index: 2; }
+.games-grid > *:nth-child(3)  { --card-index: 3; }
+.games-grid > *:nth-child(4)  { --card-index: 4; }
+.games-grid > *:nth-child(5)  { --card-index: 5; }
+.games-grid > *:nth-child(6)  { --card-index: 6; }
+.games-grid > *:nth-child(7)  { --card-index: 7; }
+.games-grid > *:nth-child(8)  { --card-index: 8; }
+.games-grid > *:nth-child(n+9){ --card-index: 9; }
+
+@keyframes cardPopIn {
+  0%   { opacity: 0; transform: translateY(30px) scale(0.85) rotate(-2deg); }
+  55%  { opacity: 1; transform: translateY(-4px) scale(1.03) rotate(1deg); }
+  100% { opacity: 1; transform: translateY(0) scale(1) rotate(0deg); }
+}
+
+/* ---------- Hover / tap bounce on playable cards ---------- */
+.games-grid > *:hover {
+  transform: translateY(-8px) scale(1.035) rotate(-0.6deg);
+  box-shadow: 0 16px 28px -8px rgba(80, 60, 180, 0.28);
+  filter: brightness(1.03);
+}
+
+.games-grid > *:active {
+  transform: translateY(-2px) scale(0.97) rotate(0deg);
+  transition-duration: 0.12s;
+}
+
+/* Card image / thumbnail gentle float */
+.games-grid img,
+.games-grid [class*="thumbnail"],
+.games-grid [class*="cover"] {
+  transition: transform 0.35s ease;
+}
+
+.games-grid > *:hover img,
+.games-grid > *:hover [class*="thumbnail"],
+.games-grid > *:hover [class*="cover"] {
+  transform: scale(1.06) rotate(1deg);
+}
+
+/* ---------- Play Now buttons: shine sweep + bounce ---------- */
+.games-grid button,
+.games-grid [class*="play-btn"],
+.games-grid [class*="playButton"] {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+}
+
+.games-grid button::before,
+.games-grid [class*="play-btn"]::before,
+.games-grid [class*="playButton"]::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -75%;
+  width: 50%; height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.55), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.55s ease;
+}
+
+.games-grid button:hover::before,
+.games-grid [class*="play-btn"]:hover::before,
+.games-grid [class*="playButton"]:hover::before {
+  left: 125%;
+}
+
+.games-grid button:hover,
+.games-grid [class*="play-btn"]:hover,
+.games-grid [class*="playButton"]:hover {
+  transform: scale(1.08) translateY(-2px);
+}
+
+.games-grid button:active,
+.games-grid [class*="play-btn"]:active,
+.games-grid [class*="playButton"]:active {
+  transform: scale(0.94);
+}
+
+/* ---------- Locked / Coming Soon cards: gentle life ---------- */
+.games-grid [class*="locked"],
+.games-grid [data-locked="true"] {
+  filter: saturate(0.75);
+}
+
+.games-grid [class*="lock-icon"],
+.games-grid svg[class*="lock"] {
+  animation: lockPulse 2.4s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes lockPulse {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.85; }
+  50%      { transform: scale(1.12) rotate(-4deg); opacity: 1; }
+}
+
+/* Shimmer sweep across "Coming Soon" badges/buttons */
+.games-grid [class*="coming-soon"],
+.games-grid button:disabled {
+  position: relative;
+  overflow: hidden;
+  background-image: linear-gradient(
+    100deg,
+    rgba(255,255,255,0) 30%,
+    rgba(255,255,255,0.5) 50%,
+    rgba(255,255,255,0) 70%
+  );
+  background-size: 200% 100%;
+  animation: shimmerSweep 2.6s ease-in-out infinite;
+}
+
+@keyframes shimmerSweep {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ---------- Tier badges: friendly color pop ---------- */
+.games-grid [class*="tier-badge"],
+.games-grid [class*="badge"] {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.games-grid > *:hover [class*="tier-badge"],
+.games-grid > *:hover [class*="badge"] {
+  transform: scale(1.1) rotate(-3deg);
+}
+
+/* Trial countdown badge: soft pulse to create urgency (friendly, not stressful) */
+.games-grid [class*="trial"] {
+  animation: trialPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes trialPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.35); }
+  50%      { box-shadow: 0 0 0 6px rgba(245, 158, 11, 0); }
+}
+
+/* ---------- BrainScoreNudge banner: friendly attention grab ---------- */
+.games-grid-wrap > *:first-child {
+  animation: nudgeSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes nudgeSlideIn {
+  0%   { opacity: 0; transform: translateY(-16px) scale(0.96); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ---------- Empty state: friendly float ---------- */
+.games-grid-empty,
+.games-grid-loading {
+  animation: floatSoft 2.4s ease-in-out infinite;
+}
+
+@keyframes floatSoft {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+
+/* ---------- Respect reduced motion preference ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .domain-section,
+  .domain-title,
+  .games-grid > *,
+  .games-grid button,
+  .games-grid [class*="lock-icon"],
+  .games-grid [class*="coming-soon"],
+  .games-grid [class*="trial"],
+  .games-grid-wrap > *:first-child,
+  .games-grid-empty,
+  .games-grid-loading {
+    animation: none !important;
+    transition: none !important;
+  }
+}

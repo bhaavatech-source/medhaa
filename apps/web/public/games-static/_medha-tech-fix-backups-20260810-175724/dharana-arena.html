@@ -1,0 +1,1057 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dhāraṇā Arena — Holistic Attention Trainer | Medhā Tech</title>
+<style>
+:root {
+  --bg-1: #0f0c29; --bg-2: #302b63; --bg-3: #24243e;
+  --primary: #00d4ff; --secondary: #ff6b6b; --accent: #ffd93d;
+  --success: #6bcf7f; --danger: #ff4757; --purple: #a55eea;
+  --pink: #ff6b9d; --green: #26de81; --orange: #fd9644;
+  --calm: #4fd1c5; --breath: #667eea;
+  --text: #ffffff; --text-dim: #b8b8d4;
+  --card-bg: rgba(255,255,255,0.08); --card-border: rgba(255,255,255,0.15);
+  --radius: 16px; --shadow: 0 8px 32px rgba(0,0,0,0.3);
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: linear-gradient(135deg, var(--bg-1), var(--bg-2), var(--bg-3));
+  background-size: 400% 400%; animation: bgShift 15s ease infinite;
+  color: var(--text); min-height: 100vh; overflow-x: hidden;
+  user-select: none; -webkit-user-select: none;
+}
+@keyframes bgShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+#particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+.particle { position: absolute; border-radius: 50%; opacity: 0.15; animation: floatUp linear infinite; }
+@keyframes floatUp { from { transform: translateY(100vh) scale(0); } to { transform: translateY(-10vh) scale(1); } }
+.screen { display: none; position: relative; z-index: 1; min-height: 100vh; padding: 20px; animation: fadeIn 0.5s ease; }
+.screen.active { display: flex; flex-direction: column; align-items: center; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+/* HOME */
+#homeScreen { justify-content: center; }
+.logo-container { text-align: center; margin-bottom: 16px; }
+.logo { font-size: 3rem; font-weight: 800; background: linear-gradient(135deg, var(--primary), var(--purple), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: 2px; animation: glowPulse 3s ease infinite; }
+@keyframes glowPulse { 0%, 100% { filter: drop-shadow(0 0 10px rgba(0,212,255,0.5)); } 50% { filter: drop-shadow(0 0 25px rgba(165,94,234,0.7)); } }
+.tagline { font-size: 1.05rem; color: var(--text-dim); margin-top: 8px; letter-spacing: 1px; }
+.brand { font-size: 0.85rem; color: var(--accent); margin-top: 8px; font-weight: 600; letter-spacing: 2px; }
+.version-tag { font-size: 0.7rem; color: var(--calm); margin-top: 4px; }
+
+.home-stats { display: flex; gap: 14px; margin: 14px 0; flex-wrap: wrap; justify-content: center; }
+.home-stat { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 10px 18px; text-align: center; backdrop-filter: blur(10px); min-width: 90px; }
+.home-stat .hs-icon { font-size: 1.4rem; }
+.home-stat .hs-val { font-size: 1.3rem; font-weight: 800; color: var(--accent); }
+.home-stat .hs-label { font-size: 0.68rem; color: var(--text-dim); }
+
+.age-select { display: flex; gap: 18px; margin: 16px 0; flex-wrap: wrap; justify-content: center; }
+.age-card { background: var(--card-bg); border: 2px solid var(--card-border); border-radius: var(--radius); padding: 18px 28px; cursor: pointer; text-align: center; transition: var(--transition); backdrop-filter: blur(10px); position: relative; overflow: hidden; }
+.age-card::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent); transform: rotate(45deg) translateX(-100%); transition: 0.6s; }
+.age-card:hover::before { transform: rotate(45deg) translateX(100%); }
+.age-card:hover { transform: translateY(-5px) scale(1.03); border-color: var(--primary); box-shadow: 0 12px 40px rgba(0,212,255,0.3); }
+.age-card.selected { border-color: var(--accent); background: rgba(255,217,61,0.15); box-shadow: 0 12px 40px rgba(255,217,61,0.3); }
+.age-icon { font-size: 2.3rem; margin-bottom: 6px; }
+.age-title { font-size: 1.1rem; font-weight: 700; }
+.age-range { font-size: 0.85rem; color: var(--text-dim); margin-top: 4px; }
+
+.mode-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; max-width: 900px; width: 100%; margin: 14px 0; }
+.mode-card { background: var(--card-bg); border: 2px solid var(--card-border); border-radius: var(--radius); padding: 18px 14px; cursor: pointer; text-align: center; transition: var(--transition); backdrop-filter: blur(10px); position: relative; overflow: hidden; }
+.mode-card:hover { transform: translateY(-4px); border-color: var(--mode-color, var(--primary)); box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
+.mode-card .mode-icon { font-size: 2.4rem; margin-bottom: 6px; display: block; animation: bounceIcon 2s ease infinite; }
+@keyframes bounceIcon { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+.mode-card .mode-name { font-size: 1.05rem; font-weight: 700; margin-bottom: 4px; }
+.mode-card .mode-desc { font-size: 0.75rem; color: var(--text-dim); line-height: 1.4; }
+.mode-card .mode-tag { display: inline-block; margin-top: 6px; padding: 3px 9px; border-radius: 20px; font-size: 0.65rem; font-weight: 600; background: var(--mode-color, var(--primary)); color: #000; }
+.mode-card .diff-badge { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.4); border-radius: 10px; padding: 2px 7px; font-size: 0.62rem; font-weight: 700; color: var(--accent); border: 1px solid var(--card-border); }
+
+.btn { padding: 13px 32px; border: none; border-radius: 30px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: var(--transition); font-family: inherit; letter-spacing: 1px; }
+.btn-primary { background: linear-gradient(135deg, var(--primary), var(--purple)); color: #fff; box-shadow: 0 6px 20px rgba(0,212,255,0.4); }
+.btn-primary:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 10px 30px rgba(0,212,255,0.6); }
+.btn-secondary { background: var(--card-bg); color: var(--text); border: 2px solid var(--card-border); }
+.btn-secondary:hover { border-color: var(--primary); background: rgba(0,212,255,0.1); }
+.btn-calm { background: linear-gradient(135deg, var(--calm), var(--breath)); color: #fff; box-shadow: 0 6px 20px rgba(79,209,197,0.4); }
+.btn-calm:hover { transform: translateY(-3px) scale(1.05); }
+.btn-icon { width: 42px; height: 42px; border-radius: 50%; border: 2px solid var(--card-border); background: var(--card-bg); color: var(--text); font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: var(--transition); }
+.btn-icon:hover { border-color: var(--primary); transform: scale(1.1); }
+.home-actions { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; justify-content: center; }
+
+/* SETTINGS TOGGLE */
+.settings-row { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; justify-content: center; }
+.toggle-chip { display: flex; align-items: center; gap: 8px; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; padding: 6px 14px; cursor: pointer; font-size: 0.82rem; transition: var(--transition); }
+.toggle-chip:hover { border-color: var(--primary); }
+.toggle-chip.active { border-color: var(--success); background: rgba(107,207,127,0.12); }
+.toggle-chip .tc-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.2); transition: var(--transition); }
+.toggle-chip.active .tc-dot { background: var(--success); box-shadow: 0 0 8px rgba(107,207,127,0.6); }
+
+/* GAME SCREEN */
+#gameScreen { padding: 10px; }
+.game-header { width: 100%; max-width: 900px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px; }
+.game-title-bar { display: flex; align-items: center; gap: 8px; }
+.game-title-bar .mode-emoji { font-size: 1.7rem; }
+.game-title-bar h2 { font-size: 1.2rem; font-weight: 700; }
+.diff-indicator { font-size: 0.72rem; background: rgba(0,0,0,0.3); border: 1px solid var(--accent); border-radius: 10px; padding: 2px 8px; color: var(--accent); font-weight: 600; }
+.stats-bar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.stat-pill { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; padding: 5px 12px; font-size: 0.82rem; font-weight: 600; display: flex; align-items: center; gap: 5px; backdrop-filter: blur(10px); }
+.stat-pill .stat-icon { font-size: 1rem; }
+.stat-pill .stat-val { color: var(--accent); font-weight: 800; }
+#timerPill .stat-val { color: var(--primary); }
+#streakPill .stat-val { color: var(--pink); }
+.timer-bar-container { width: 100%; max-width: 900px; height: 5px; background: rgba(255,255,255,0.1); border-radius: 10px; margin-bottom: 10px; overflow: hidden; }
+#timerBar { height: 100%; width: 100%; background: linear-gradient(90deg, var(--green), var(--accent), var(--danger)); border-radius: 10px; transition: width 0.1s linear; }
+.game-area { width: 100%; max-width: 900px; background: var(--card-bg); border: 2px solid var(--card-border); border-radius: var(--radius); padding: 22px; min-height: 360px; display: flex; flex-direction: column; align-items: center; justify-content: center; backdrop-filter: blur(10px); box-shadow: var(--shadow); position: relative; overflow: hidden; }
+.instruction-text { text-align: center; font-size: 1rem; color: var(--text-dim); margin-bottom: 14px; line-height: 1.6; }
+.instruction-text strong { color: var(--accent); }
+.countdown-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 10; border-radius: var(--radius); }
+.countdown-number { font-size: 5.5rem; font-weight: 800; color: var(--primary); animation: countdownPop 1s ease; }
+@keyframes countdownPop { 0% { transform: scale(0); opacity: 0; } 50% { transform: scale(1.3); opacity: 1; } 100% { transform: scale(1); opacity: 0.8; } }
+
+/* TRACK */
+.track-grid { display: grid; gap: 10px; margin: 14px auto; }
+.track-item { width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; cursor: pointer; transition: var(--transition); background: var(--card-bg); border: 2px solid var(--card-border); }
+.track-item.target { background: linear-gradient(135deg, var(--accent), var(--orange)); box-shadow: 0 0 20px rgba(255,217,61,0.6); animation: targetPulse 1s ease; }
+@keyframes targetPulse { 0% { transform: scale(0.5); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+.track-item.normal { background: var(--card-bg); border-color: var(--card-border); }
+.track-item:hover { transform: scale(1.1); border-color: var(--primary); }
+.track-item.correct { background: var(--success) !important; animation: correctPop 0.5s ease; }
+.track-item.wrong { background: var(--danger) !important; animation: shake 0.5s ease; }
+@keyframes correctPop { 0% { transform: scale(1); } 50% { transform: scale(1.3); } 100% { transform: scale(1); } }
+@keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
+
+/* SIGNAL */
+.signal-display { width: 170px; height: 170px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 4rem; margin: 14px auto; transition: all 0.15s ease; cursor: pointer; border: 4px solid var(--card-border); background: var(--card-bg); }
+.signal-go { background: radial-gradient(circle, var(--success), #2ed573); border-color: var(--success); box-shadow: 0 0 40px rgba(107,207,127,0.5); animation: goPulse 0.3s ease; }
+.signal-nogo { background: radial-gradient(circle, var(--danger), #ff4757); border-color: var(--danger); box-shadow: 0 0 40px rgba(255,71,87,0.5); animation: noGoShake 0.3s ease; }
+.signal-neutral { background: radial-gradient(circle, #57606f, #2f3542); border-color: #57606f; }
+@keyframes goPulse { 0% { transform: scale(0.8); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+@keyframes noGoShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
+.tap-hint { text-align: center; margin-top: 10px; font-size: 0.82rem; color: var(--text-dim); }
+
+/* MEMORY */
+.memory-grid { display: grid; gap: 8px; margin: 14px auto; }
+.memory-cell { width: 60px; height: 60px; border-radius: 12px; background: var(--card-bg); border: 2px solid var(--card-border); cursor: pointer; transition: var(--transition); display: flex; align-items: center; justify-content: center; }
+.memory-cell:hover { border-color: var(--primary); transform: scale(1.05); }
+.memory-cell.lit { background: linear-gradient(135deg, var(--primary), var(--purple)); box-shadow: 0 0 25px rgba(0,212,255,0.6); border-color: var(--primary); transform: scale(1.05); }
+.memory-cell.correct-lit { background: var(--success); box-shadow: 0 0 25px rgba(107,207,127,0.6); }
+.memory-cell.wrong-lit { background: var(--danger); animation: shake 0.4s ease; }
+.memory-phase-text { text-align: center; font-size: 1.1rem; font-weight: 700; margin: 6px 0; color: var(--accent); min-height: 28px; }
+
+/* SCAN */
+.scan-container { display: grid; gap: 6px; margin: 14px auto; max-width: 600px; }
+.scan-item { width: 48px; height: 48px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; cursor: pointer; transition: var(--transition); background: var(--card-bg); border: 2px solid var(--card-border); }
+.scan-item:hover { transform: scale(1.1); border-color: var(--primary); }
+.scan-item.found { background: var(--success); border-color: var(--success); animation: correctPop 0.4s ease; }
+.scan-item.miss { background: var(--danger); animation: shake 0.4s ease; }
+.scan-target-display { background: var(--card-bg); border: 2px solid var(--accent); border-radius: 20px; padding: 8px 18px; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-size: 1rem; }
+.scan-target-display .target-emoji { font-size: 1.6rem; }
+.scan-target-display .found-count { color: var(--accent); font-weight: 800; }
+
+/* DUAL */
+.dual-container { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; width: 100%; }
+.dual-panel { flex: 1; min-width: 250px; background: rgba(255,255,255,0.05); border: 2px solid var(--card-border); border-radius: var(--radius); padding: 16px; text-align: center; position: relative; }
+.dual-panel h3 { font-size: 0.95rem; margin-bottom: 8px; color: var(--text-dim); }
+.dual-panel .panel-score { position: absolute; top: 6px; right: 12px; font-size: 0.78rem; color: var(--accent); font-weight: 700; }
+.dual-shape { width: 85px; height: 85px; margin: 6px auto; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 2rem; transition: all 0.2s ease; cursor: pointer; }
+.dual-shape.circle { border-radius: 50%; }
+.dual-color-btns, .dual-shape-btns { display: flex; gap: 6px; justify-content: center; margin-top: 8px; flex-wrap: wrap; }
+.dual-btn { padding: 7px 12px; border: 2px solid var(--card-border); border-radius: 10px; background: var(--card-bg); color: var(--text); cursor: pointer; font-size: 0.78rem; font-weight: 600; transition: var(--transition); font-family: inherit; }
+.dual-btn:hover { border-color: var(--primary); transform: scale(1.05); }
+.dual-feedback { min-height: 22px; margin-top: 6px; font-size: 0.82rem; font-weight: 600; }
+.dual-feedback.correct { color: var(--success); }
+.dual-feedback.wrong { color: var(--danger); }
+
+/* FEEDBACK */
+.feedback-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; z-index: 100; pointer-events: none; }
+.feedback-pop { font-size: 3.5rem; font-weight: 800; animation: feedbackPop 0.8s ease forwards; }
+@keyframes feedbackPop { 0% { transform: scale(0) rotate(-10deg); opacity: 0; } 30% { transform: scale(1.3) rotate(5deg); opacity: 1; } 70% { transform: scale(1) rotate(0); opacity: 1; } 100% { transform: scale(1.5) rotate(0); opacity: 0; } }
+.confetti { position: fixed; width: 10px; height: 10px; z-index: 200; pointer-events: none; animation: confettiFall 2s linear forwards; }
+@keyframes confettiFall { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
+.diff-up-banner { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, var(--accent), var(--orange)); color: #000; padding: 10px 26px; border-radius: 30px; font-size: 0.95rem; font-weight: 700; z-index: 300; box-shadow: 0 8px 30px rgba(255,217,61,0.5); animation: bannerSlide 3s ease forwards; }
+@keyframes bannerSlide { 0% { transform: translateX(-50%) translateY(-80px); opacity: 0; } 15% { transform: translateX(-50%) translateY(0); opacity: 1; } 85% { transform: translateX(-50%) translateY(0); opacity: 1; } 100% { transform: translateX(-50%) translateY(-80px); opacity: 0; } }
+
+/* ====== BREATHING SCREEN ====== */
+#breathingScreen { justify-content: center; }
+.breathing-container { text-align: center; max-width: 500px; width: 90%; }
+.breathing-title { font-size: 1.6rem; font-weight: 700; margin-bottom: 8px; background: linear-gradient(135deg, var(--calm), var(--breath)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.breathing-subtitle { font-size: 0.9rem; color: var(--text-dim); margin-bottom: 30px; line-height: 1.5; }
+.breathing-circle-wrapper { display: flex; justify-content: center; align-items: center; height: 280px; margin: 20px 0; position: relative; }
+.breathing-circle {
+  width: 140px; height: 140px; border-radius: 50%;
+  background: radial-gradient(circle, var(--calm), var(--breath));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; font-weight: 700; color: #fff;
+  box-shadow: 0 0 40px rgba(79,209,197,0.4);
+  transition: transform 4s ease-in-out, box-shadow 4s ease-in-out;
+}
+.breathing-circle.expanded { transform: scale(2.2); box-shadow: 0 0 80px rgba(102,126,234,0.5); }
+.breathing-circle.contracted { transform: scale(0.9); }
+.breathing-rings { position: absolute; width: 140px; height: 140px; border-radius: 50%; border: 2px solid rgba(79,209,197,0.2); transition: transform 4s ease-in-out, opacity 4s ease-in-out; }
+.breathing-rings.ring2 { width: 180px; height: 180px; border-color: rgba(102,126,234,0.15); }
+.breathing-rings.expanded { transform: scale(2.5); opacity: 0.3; }
+.breathing-rings.contracted { transform: scale(1); opacity: 0.5; }
+.breathing-phase { font-size: 1.4rem; font-weight: 700; margin: 10px 0; min-height: 30px; color: var(--calm); }
+.breathing-counter { font-size: 0.85rem; color: var(--text-dim); margin-top: 8px; }
+.breathing-skip { margin-top: 20px; }
+.breathing-progress { width: 200px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 10px; margin: 12px auto; overflow: hidden; }
+.breathing-progress-fill { height: 100%; background: linear-gradient(90deg, var(--calm), var(--breath)); border-radius: 10px; transition: width 0.3s linear; width: 0%; }
+
+/* ====== PHYSICAL BREAK OVERLAY ====== */
+.physical-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15,12,41,0.95); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 250; animation: fadeIn 0.3s ease; }
+.physical-overlay .po-icon { font-size: 5rem; margin-bottom: 16px; animation: bounceIcon 1.5s ease infinite; }
+.physical-overlay .po-title { font-size: 1.8rem; font-weight: 700; margin-bottom: 8px; background: linear-gradient(135deg, var(--green), var(--calm)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.physical-overlay .po-desc { font-size: 1.1rem; color: var(--text-dim); margin-bottom: 20px; text-align: center; max-width: 400px; line-height: 1.5; }
+.physical-overlay .po-countdown { font-size: 4rem; font-weight: 800; color: var(--green); animation: countdownPop 1s ease; }
+.physical-overlay .po-timer-bar { width: 250px; height: 6px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; margin: 16px 0; }
+.physical-overlay .po-timer-fill { height: 100%; background: linear-gradient(90deg, var(--green), var(--calm)); border-radius: 10px; transition: width 0.1s linear; width: 100%; }
+.physical-overlay .po-skip-btn { margin-top: 20px; }
+
+/* ====== TRANSFER TASK SCREEN ====== */
+#transferScreen { justify-content: center; }
+.transfer-container { max-width: 650px; width: 90%; }
+.transfer-header { text-align: center; margin-bottom: 20px; }
+.transfer-header h2 { font-size: 1.5rem; font-weight: 700; background: linear-gradient(135deg, var(--accent), var(--orange)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.transfer-header p { font-size: 0.88rem; color: var(--text-dim); margin-top: 6px; }
+.transfer-card { background: var(--card-bg); border: 2px solid var(--card-border); border-radius: var(--radius); padding: 24px; backdrop-filter: blur(10px); box-shadow: var(--shadow); margin-bottom: 16px; }
+.transfer-task-type { display: inline-block; background: rgba(0,212,255,0.15); border: 1px solid var(--primary); border-radius: 10px; padding: 3px 12px; font-size: 0.75rem; font-weight: 600; color: var(--primary); margin-bottom: 12px; }
+.transfer-passage { font-size: 0.95rem; line-height: 1.8; color: var(--text); margin-bottom: 16px; padding: 16px; background: rgba(0,0,0,0.2); border-radius: 12px; border-left: 3px solid var(--accent); }
+.transfer-question { font-size: 1rem; font-weight: 600; margin-bottom: 14px; color: var(--accent); }
+.transfer-options { display: flex; flex-direction: column; gap: 10px; }
+.transfer-option { padding: 12px 18px; border: 2px solid var(--card-border); border-radius: 12px; background: var(--card-bg); color: var(--text); cursor: pointer; font-size: 0.92rem; transition: var(--transition); font-family: inherit; text-align: left; }
+.transfer-option:hover { border-color: var(--primary); transform: translateX(4px); background: rgba(0,212,255,0.08); }
+.transfer-option.correct { border-color: var(--success); background: rgba(107,207,127,0.15); color: var(--success); }
+.transfer-option.wrong { border-color: var(--danger); background: rgba(255,71,87,0.15); }
+.transfer-result { text-align: center; padding: 20px; }
+.transfer-result .tr-icon { font-size: 3rem; margin-bottom: 8px; }
+.transfer-result .tr-msg { font-size: 1.1rem; font-weight: 600; }
+.transfer-actions { display: flex; gap: 12px; justify-content: center; margin-top: 20px; flex-wrap: wrap; }
+
+/* RESULTS */
+#resultsScreen { justify-content: center; }
+.results-card { background: var(--card-bg); border: 2px solid var(--card-border); border-radius: 20px; padding: 32px; max-width: 500px; width: 90%; text-align: center; backdrop-filter: blur(10px); box-shadow: var(--shadow); }
+.results-card h2 { font-size: 1.7rem; margin-bottom: 14px; background: linear-gradient(135deg, var(--accent), var(--orange)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.results-score { font-size: 3.2rem; font-weight: 800; color: var(--primary); margin: 14px 0; animation: scoreReveal 1s ease; }
+@keyframes scoreReveal { 0% { transform: scale(0); opacity: 0; } 60% { transform: scale(1.2); } 100% { transform: scale(1); opacity: 1; } }
+.results-breakdown { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin: 14px 0; }
+.breakdown-item { text-align: center; }
+.breakdown-item .breakdown-val { font-size: 1.5rem; font-weight: 700; color: var(--accent); }
+.breakdown-item .breakdown-label { font-size: 0.72rem; color: var(--text-dim); }
+.rating-stars { font-size: 1.7rem; margin: 10px 0; letter-spacing: 5px; }
+.results-message { font-size: 0.95rem; color: var(--text-dim); margin: 10px 0; line-height: 1.6; }
+.journey-update { background: rgba(0,212,255,0.1); border: 1px solid var(--primary); border-radius: 12px; padding: 10px; margin: 12px 0; font-size: 0.85rem; }
+.journey-update .ju-title { color: var(--primary); font-weight: 700; margin-bottom: 4px; }
+.journey-bar { height: 7px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; margin-top: 6px; }
+.journey-bar-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--purple)); border-radius: 10px; transition: width 0.8s ease; }
+.transfer-scores-summary { background: rgba(255,217,61,0.08); border: 1px solid var(--accent); border-radius: 12px; padding: 10px; margin: 10px 0; font-size: 0.85rem; }
+.transfer-scores-summary .tss-title { color: var(--accent); font-weight: 700; margin-bottom: 4px; }
+.results-actions { display: flex; gap: 10px; justify-content: center; margin-top: 18px; flex-wrap: wrap; }
+
+/* PROGRESS DASHBOARD */
+#progressScreen { justify-content: flex-start; padding-top: 30px; }
+.progress-container { max-width: 800px; width: 100%; }
+.progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; flex-wrap: wrap; gap: 8px; }
+.progress-header h2 { font-size: 1.7rem; font-weight: 800; background: linear-gradient(135deg, var(--primary), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.progress-overview { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-bottom: 20px; }
+.overview-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 16px; text-align: center; backdrop-filter: blur(10px); }
+.overview-card .oc-icon { font-size: 1.6rem; margin-bottom: 4px; }
+.overview-card .oc-val { font-size: 1.6rem; font-weight: 800; color: var(--accent); }
+.overview-card .oc-label { font-size: 0.75rem; color: var(--text-dim); margin-top: 2px; }
+.journey-section, .diff-section, .chart-section, .history-section { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 18px; margin-bottom: 16px; backdrop-filter: blur(10px); }
+.journey-section h3, .diff-section h3, .chart-section h3, .history-section h3 { font-size: 1.05rem; margin-bottom: 10px; color: var(--accent); }
+.journey-path { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; }
+.journey-node { aspect-ratio: 1; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; border: 2px solid var(--card-border); background: rgba(255,255,255,0.05); transition: var(--transition); }
+.journey-node.completed { background: linear-gradient(135deg, var(--success), var(--green)); border-color: var(--success); color: #000; box-shadow: 0 0 12px rgba(107,207,127,0.4); }
+.journey-node.current { background: linear-gradient(135deg, var(--accent), var(--orange)); border-color: var(--accent); color: #000; animation: currentPulse 1.5s ease infinite; box-shadow: 0 0 15px rgba(255,217,61,0.6); }
+@keyframes currentPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+.journey-node.locked { opacity: 0.4; }
+.diff-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
+.diff-item { background: rgba(255,255,255,0.05); border: 1px solid var(--card-border); border-radius: 10px; padding: 10px; text-align: center; }
+.diff-item .di-name { font-size: 0.8rem; font-weight: 600; margin-bottom: 4px; }
+.diff-dots { display: flex; gap: 3px; justify-content: center; }
+.diff-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.15); }
+.diff-dot.filled { background: var(--accent); box-shadow: 0 0 6px rgba(255,217,61,0.5); }
+.chart-canvas { width: 100%; height: 150px; border-radius: 10px; background: rgba(0,0,0,0.2); }
+.chart-empty { text-align: center; color: var(--text-dim); font-size: 0.85rem; padding: 25px; }
+.history-list { max-height: 280px; overflow-y: auto; }
+.history-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.82rem; }
+.history-item:last-child { border-bottom: none; }
+.history-item .hi-mode { font-weight: 600; }
+.history-item .hi-stats { display: flex; gap: 8px; color: var(--text-dim); }
+.history-item .hi-stats .hi-acc { color: var(--success); font-weight: 600; }
+.history-empty { text-align: center; color: var(--text-dim); font-size: 0.85rem; padding: 18px; }
+.progress-actions { display: flex; gap: 10px; justify-content: center; margin-top: 10px; flex-wrap: wrap; }
+.btn-danger { background: rgba(255,71,87,0.15); color: var(--danger); border: 2px solid rgba(255,71,87,0.3); }
+
+@media (max-width: 600px) {
+  .logo { font-size: 2rem; }
+  .mode-grid { grid-template-columns: 1fr 1fr; }
+  .mode-card { padding: 12px 6px; }
+  .mode-card .mode-icon { font-size: 1.8rem; }
+  .mode-card .mode-name { font-size: 0.88rem; }
+  .mode-card .mode-desc { font-size: 0.68rem; }
+  .track-item { width: 52px; height: 52px; font-size: 1.4rem; }
+  .memory-cell { width: 48px; height: 48px; }
+  .scan-item { width: 38px; height: 38px; font-size: 1.1rem; }
+  .signal-display { width: 135px; height: 135px; font-size: 3.2rem; }
+  .dual-shape { width: 65px; height: 65px; font-size: 1.6rem; }
+  .stat-pill { font-size: 0.75rem; padding: 4px 10px; }
+  .game-area { padding: 14px; }
+  .dual-container { flex-direction: column; }
+  .journey-path { grid-template-columns: repeat(6, 1fr); }
+  .results-card { padding: 22px; }
+  .progress-overview { grid-template-columns: 1fr 1fr; }
+  .breathing-circle { width: 110px; height: 110px; }
+  .breathing-circle.expanded { transform: scale(2); }
+  .breathing-circle-wrapper { height: 240px; }
+  .breathing-rings { width: 110px; height: 110px; }
+  .breathing-rings.ring2 { width: 140px; height: 140px; }
+}
+</style>
+</head>
+<body>
+
+<div id="particles"></div>
+
+<!-- HOME -->
+<div class="screen active" id="homeScreen">
+  <div class="logo-container">
+    <div class="logo">Dhāraṇā Arena</div>
+    <div class="tagline">Train Your Attention • Sharpen Your Focus</div>
+    <div class="brand">⚡ Medhā Tech</div>
+    <div class="version-tag">v3 — Holistic Attention Edition</div>
+  </div>
+  <div class="home-stats" id="homeStatsBar"></div>
+  <div class="age-select">
+    <div class="age-card" data-age="junior" onclick="selectAge('junior')"><div class="age-icon">🧒</div><div class="age-title">Juniors</div><div class="age-range">Ages 7–12</div></div>
+    <div class="age-card" data-age="teen" onclick="selectAge('teen')"><div class="age-icon">🧑</div><div class="age-title">Teens</div><div class="age-range">Ages 13–17</div></div>
+  </div>
+  <div class="mode-grid" id="modeGrid"></div>
+  <div class="settings-row">
+    <div class="toggle-chip active" id="toggleBreathing" onclick="toggleSetting('breathing', this)"><div class="tc-dot"></div>🫁 Breathing Warm-up</div>
+    <div class="toggle-chip active" id="togglePhysical" onclick="toggleSetting('physical', this)"><div class="tc-dot"></div>🤸 Physical Breaks</div>
+    <div class="toggle-chip active" id="toggleTransfer" onclick="toggleSetting('transfer', this)"><div class="tc-dot"></div>📖 Classroom Transfer</div>
+  </div>
+  <div class="home-actions">
+    <button class="btn btn-secondary" onclick="showProgress()">📊 My Progress</button>
+  </div>
+</div>
+
+<!-- BREATHING -->
+<div class="screen" id="breathingScreen">
+  <div class="breathing-container">
+    <div class="breathing-title">🫁 Calm Your Mind</div>
+    <div class="breathing-subtitle">Before we begin, let's take a moment to breathe.<br>Follow the circle — breathe in as it grows, out as it shrinks.</div>
+    <div class="breathing-circle-wrapper">
+      <div class="breathing-rings ring2" id="breathRing2"></div>
+      <div class="breathing-rings" id="breathRing1"></div>
+      <div class="breathing-circle" id="breathCircle">Breathe</div>
+    </div>
+    <div class="breathing-phase" id="breathPhase">Get ready...</div>
+    <div class="breathing-counter" id="breathCounter">Starting in 3...</div>
+    <div class="breathing-progress"><div class="breathing-progress-fill" id="breathProgress"></div></div>
+    <div class="breathing-skip">
+      <button class="btn btn-secondary" onclick="skipBreathing()">Skip →</button>
+    </div>
+  </div>
+</div>
+
+<!-- GAME -->
+<div class="screen" id="gameScreen">
+  <div class="game-header">
+    <div class="game-title-bar">
+      <button class="btn-icon" onclick="goHome()">⬅️</button>
+      <span class="mode-emoji" id="modeEmoji">🎯</span>
+      <h2 id="modeTitle">Spot &amp; Track</h2>
+      <span class="diff-indicator" id="diffIndicator">Level 1</span>
+    </div>
+    <div class="stats-bar">
+      <div class="stat-pill"><span class="stat-icon">⭐</span> <span class="stat-val" id="scoreVal">0</span></div>
+      <div class="stat-pill"><span class="stat-icon">🔄</span> <span class="stat-val" id="roundVal">1</span>/<span id="totalRounds">10</span></div>
+      <div class="stat-pill" id="streakPill"><span class="stat-icon">🔥</span> <span class="stat-val" id="streakVal">0</span></div>
+      <div class="stat-pill" id="timerPill"><span class="stat-icon">⏱️</span> <span class="stat-val" id="timerVal">0s</span></div>
+    </div>
+  </div>
+  <div class="timer-bar-container"><div id="timerBar"></div></div>
+  <div class="game-area" id="gameArea">
+    <div class="instruction-text" id="instructionText">Select a mode to begin!</div>
+    <div id="gameContent"></div>
+  </div>
+</div>
+
+<!-- TRANSFER TASK -->
+<div class="screen" id="transferScreen">
+  <div class="transfer-container">
+    <div class="transfer-header">
+      <h2>📖 Classroom Focus Challenge</h2>
+      <p id="transferIntro">Let's apply your attention to a real-world task!</p>
+    </div>
+    <div class="transfer-card" id="transferCard"></div>
+    <div class="transfer-actions">
+      <button class="btn btn-secondary" onclick="skipTransfer()">Skip</button>
+    </div>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<div class="screen" id="resultsScreen">
+  <div class="results-card">
+    <h2 id="resultsTitle">Game Complete!</h2>
+    <div class="rating-stars" id="ratingStars">⭐⭐⭐</div>
+    <div class="results-score" id="finalScore">0</div>
+    <div class="results-breakdown" id="resultsBreakdown"></div>
+    <div class="journey-update" id="journeyUpdate"></div>
+    <div class="transfer-scores-summary" id="transferSummary" style="display:none;"></div>
+    <div class="results-message" id="resultsMessage"></div>
+    <div class="results-actions">
+      <button class="btn btn-primary" onclick="replayGame()">🔄 Play Again</button>
+      <button class="btn btn-secondary" onclick="showProgress()">📊 Progress</button>
+      <button class="btn btn-secondary" onclick="goHome()">🏠 Home</button>
+    </div>
+  </div>
+</div>
+
+<!-- PROGRESS -->
+<div class="screen" id="progressScreen">
+  <div class="progress-container">
+    <div class="progress-header">
+      <h2>📊 My Attention Journey</h2>
+      <button class="btn-icon" onclick="goHome()">⬅️</button>
+    </div>
+    <div class="progress-overview" id="progressOverview"></div>
+    <div class="journey-section"><h3>🗺️ 24-Session Journey</h3><div class="journey-path" id="journeyPath"></div></div>
+    <div class="diff-section"><h3>⚡ Difficulty Levels</h3><div class="diff-grid" id="diffGrid"></div></div>
+    <div class="chart-section"><h3>📈 Accuracy Trend</h3><canvas class="chart-canvas" id="accuracyChart"></canvas><div class="chart-empty" id="accuracyEmpty" style="display:none;">Play more sessions to see your accuracy trend!</div></div>
+    <div class="chart-section"><h3>⚡ Response Time Trend</h3><canvas class="chart-canvas" id="rtChart"></canvas><div class="chart-empty" id="rtEmpty" style="display:none;">Play more sessions to see your response time trend!</div></div>
+    <div class="history-section"><h3>📋 Session History</h3><div class="history-list" id="historyList"></div></div>
+    <div class="progress-actions">
+      <button class="btn btn-secondary" onclick="goHome()">🏠 Home</button>
+      <button class="btn btn-danger" onclick="resetProgress()">🗑️ Reset All Data</button>
+    </div>
+  </div>
+</div>
+
+<div class="feedback-overlay" id="feedbackOverlay"></div>
+
+<script>
+// ============================================================
+// Dhāraṇā Arena v3 — Holistic Attention Edition
+// Medhā Tech | Single-file vanilla HTML/CSS/JS
+// Features: 5 game modes + Breathing warm-up + Physical breaks
+//   + Classroom transfer tasks + Adaptive difficulty + Progress tracking
+// ============================================================
+
+const State = {
+  age: null, mode: null, score: 0, round: 1, totalRounds: 10,
+  streak: 0, maxStreak: 0, correctCount: 0, wrongCount: 0,
+  reactionTimes: [], timer: null, roundStartTime: 0, isPlaying: false,
+  _keyHandler: null, _currentConfig: null,
+  settings: { breathing: true, physical: true, transfer: true },
+  breathingCompleted: false,
+  physicalBreakRound: 0,
+  transferScore: 0, transferTotal: 0,
+};
+
+// PROGRESS SYSTEM
+const STORAGE_KEY = 'dharana_arena_v3_progress';
+const TOTAL_JOURNEY_SESSIONS = 24;
+
+function loadProgress() {
+  try { const d = JSON.parse(localStorage.getItem(STORAGE_KEY)); if (d) return d; } catch(e) {}
+  return { sessions: [], dayStreak: 0, lastPlayDate: null, totalSessions: 0, totalPlayTime: 0, bestScores: {}, difficulty: { track: 1, signal: 1, memory: 1, scan: 1, dual: 1 }, journeyCompleted: 0, transferHistory: [], breathingCount: 0, physicalCount: 0 };
+}
+function saveProgress(d) { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(d)); } catch(e) {} }
+function getTodayStr() { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); }
+function getDaysBetween(d1, d2) { const a = new Date(d1+'T00:00:00'); const b = new Date(d2+'T00:00:00'); return Math.round((b - a) / 86400000); }
+function updateDayStreak(p) { const today = getTodayStr(); if (p.lastPlayDate === today) return; if (p.lastPlayDate) { const gap = getDaysBetween(p.lastPlayDate, today); if (gap === 1) p.dayStreak++; else if (gap > 1) p.dayStreak = 1; } else p.dayStreak = 1; p.lastPlayDate = today; }
+
+function recordSession(mode, age, score, accuracy, avgRT, maxStreak, transferScore, transferTotal) {
+  const p = loadProgress(); updateDayStreak(p);
+  const session = { date: getTodayStr(), timestamp: Date.now(), mode, age, score, accuracy, avgRT, maxStreak, difficulty: p.difficulty[mode], transferScore, transferTotal };
+  p.sessions.push(session); p.totalSessions++;
+  if (!p.bestScores[mode] || score > p.bestScores[mode]) p.bestScores[mode] = score;
+  if (p.journeyCompleted < TOTAL_JOURNEY_SESSIONS) p.journeyCompleted++;
+  if (State.breathingCompleted) p.breathingCount++;
+  if (State.settings.physical && State.physicalBreakRound > 0) p.physicalCount++;
+
+  let diffChanged = false, diffDirection = '', oldDiff = p.difficulty[mode];
+  if (accuracy >= 85 && p.difficulty[mode] < 5) { p.difficulty[mode]++; diffChanged = true; diffDirection = 'up'; }
+  else if (accuracy < 50 && p.difficulty[mode] > 1) { p.difficulty[mode]--; diffChanged = true; diffDirection = 'down'; }
+
+  if (transferTotal > 0) p.transferHistory.push({ date: getTodayStr(), score: transferScore, total: transferTotal });
+  saveProgress(p);
+  return { diffChanged, diffDirection, oldDiff, newDiff: p.difficulty[mode], journeyCompleted: p.journeyCompleted };
+}
+
+// ADAPTIVE DIFFICULTY
+const BaseConfig = {
+  junior: { track: { gridSize: 4, shuffleSpeed: 800, shuffles: 3, rounds: 8, roundTime: 5 }, signal: { rounds: 15, showTime: 1500, gapTime: 500, goRatio: 0.65 }, memory: { gridSize: 3, maxSeq: 5, rounds: 6, showTime: 600 }, scan: { gridSize: 5, targets: 3, rounds: 6, roundTime: 15 }, dual: { rounds: 8, showTime: 2500, gapTime: 500 } },
+  teen: { track: { gridSize: 6, shuffleSpeed: 500, shuffles: 5, rounds: 10, roundTime: 4 }, signal: { rounds: 25, showTime: 1000, gapTime: 300, goRatio: 0.6 }, memory: { gridSize: 4, maxSeq: 8, rounds: 8, showTime: 450 }, scan: { gridSize: 7, targets: 5, rounds: 8, roundTime: 12 }, dual: { rounds: 12, showTime: 1800, gapTime: 300 } },
+};
+function getAdaptiveConfig(mode, age, dl) {
+  const b = JSON.parse(JSON.stringify(BaseConfig[age][mode]));
+  switch(mode) {
+    case 'track': b.gridSize = Math.min(b.gridSize + Math.floor((dl-1)/2), 8); b.shuffles = b.shuffles + (dl-1); b.shuffleSpeed = Math.max(300, b.shuffleSpeed - (dl-1)*80); b.roundTime = Math.max(2, b.roundTime - (dl-1)*0.4); break;
+    case 'signal': b.rounds = b.rounds + (dl-1)*3; b.showTime = Math.max(500, b.showTime - (dl-1)*150); b.gapTime = Math.max(150, b.gapTime - (dl-1)*60); b.goRatio = Math.max(0.45, b.goRatio - (dl-1)*0.04); break;
+    case 'memory': b.maxSeq = b.maxSeq + (dl-1); b.showTime = Math.max(250, b.showTime - (dl-1)*60); if (dl >= 4) b.gridSize = b.gridSize + 1; break;
+    case 'scan': b.gridSize = Math.min(b.gridSize + Math.floor((dl-1)/2), 10); b.targets = b.targets + (dl-1); b.roundTime = Math.max(6, b.roundTime - (dl-1)*1.2); break;
+    case 'dual': b.rounds = b.rounds + (dl-1)*2; b.showTime = Math.max(1200, b.showTime - (dl-1)*150); b.gapTime = Math.max(150, b.gapTime - (dl-1)*40); break;
+  }
+  return b;
+}
+function getCurrentDifficulty(mode) { return loadProgress().difficulty[mode] || 1; }
+
+// AUDIO ENGINE
+let audioCtx = null;
+function initAudio() { if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)(); if (audioCtx.state === 'suspended') audioCtx.resume(); }
+function playTone(f, d, t='sine', v=0.15) { if (!audioCtx) return; const o = audioCtx.createOscillator(); const g = audioCtx.createGain(); o.type = t; o.frequency.value = f; g.gain.setValueAtTime(v, audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + d); o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(audioCtx.currentTime + d); }
+function playCorrect() { playTone(523.25,0.12); setTimeout(()=>playTone(659.25,0.12),80); setTimeout(()=>playTone(783.99,0.15),160); }
+function playWrong() { playTone(196,0.2,'sawtooth',0.12); setTimeout(()=>playTone(146.83,0.25,'sawtooth',0.1),100); }
+function playClick() { playTone(800,0.05,'square',0.08); }
+function playLevelUp() { [523,659,784,1047,1319].forEach((f,i)=>setTimeout(()=>playTone(f,0.15,'sine',0.13),i*100)); }
+function playCountdown(n) { if (n>0) playTone(440,0.15); else playTone(880,0.3); }
+function playFinish() { [523,659,784,1047,1319].forEach((f,i)=>setTimeout(()=>playTone(f,0.2,'sine',0.12),i*120)); }
+function playBreathIn() { playTone(220, 3, 'sine', 0.06); setTimeout(()=>playTone(277, 2, 'sine', 0.05), 1500); }
+function playBreathOut() { playTone(330, 0.5, 'sine', 0.05); setTimeout(()=>playTone(247, 3, 'sine', 0.05), 200); }
+
+// PARTICLES
+function createParticles() { const c = document.getElementById('particles'); const cols = ['#00d4ff','#a55eea','#ff6b9d','#ffd93d','#6bcf7f']; for (let i=0;i<25;i++) { const p=document.createElement('div'); p.className='particle'; const s=Math.random()*20+10; p.style.width=s+'px'; p.style.height=s+'px'; p.style.left=Math.random()*100+'%'; p.style.background=cols[Math.floor(Math.random()*cols.length)]; p.style.animationDuration=(Math.random()*10+8)+'s'; p.style.animationDelay=(Math.random()*10)+'s'; c.appendChild(p); } }
+createParticles();
+
+// NAVIGATION
+function showScreen(id) { document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
+function selectAge(age) { initAudio(); State.age = age; document.querySelectorAll('.age-card').forEach(c=>c.classList.remove('selected')); document.querySelector(`[data-age="${age}"]`).classList.add('selected'); playClick(); }
+function goHome() { if (State.timer) { clearInterval(State.timer); State.timer = null; } if (State._breathTimer) { clearInterval(State._breathTimer); State._breathTimer = null; } if (State._keyHandler) { document.removeEventListener('keydown', State._keyHandler); State._keyHandler = null; } State.isPlaying = false; renderHomeStats(); renderModeGrid(); showScreen('homeScreen'); }
+function toggleSetting(key, el) { State.settings[key] = !State.settings[key]; el.classList.toggle('active'); playClick(); }
+
+// HOME RENDERING
+const ModeInfo = {
+  track: { emoji:'🎯', name:'Spot & Track', desc:'Follow a target as it hides among lookalikes. Trains sustained visual attention.', tag:'Sustained Attention', color:'#00d4ff' },
+  signal: { emoji:'🚦', name:'Signal Rush', desc:'Tap on green, hold back on red. Builds response control and inhibition.', tag:'Selective Attention', color:'#6bcf7f' },
+  memory: { emoji:'🧩', name:'Memory Matrix', desc:'Watch the pattern light up, then repeat it. Strengthens working memory.', tag:'Working Memory', color:'#a55eea' },
+  scan: { emoji:'🔍', name:'Scan Quest', desc:'Find all matching items fast. Develops visual scanning speed.', tag:'Visual Scanning', color:'#ffd93d' },
+  dual: { emoji:'⚡', name:'Dual Dash', desc:'Handle two tasks at once! Trains divided attention and multitasking.', tag:'Divided Attention', color:'#ff6b9d' },
+};
+
+function renderHomeStats() {
+  const p = loadProgress();
+  document.getElementById('homeStatsBar').innerHTML = `
+    <div class="home-stat"><div class="hs-icon">🔥</div><div class="hs-val">${p.dayStreak}</div><div class="hs-label">Day Streak</div></div>
+    <div class="home-stat"><div class="hs-icon">🎮</div><div class="hs-val">${p.totalSessions}</div><div class="hs-label">Total Sessions</div></div>
+    <div class="home-stat"><div class="hs-icon">🗺️</div><div class="hs-val">${p.journeyCompleted}/${TOTAL_JOURNEY_SESSIONS}</div><div class="hs-label">Journey</div></div>
+    <div class="home-stat"><div class="hs-icon">🫁</div><div class="hs-val">${p.breathingCount}</div><div class="hs-label">Breathing</div></div>`;
+}
+function renderModeGrid() {
+  const g = document.getElementById('modeGrid'); const p = loadProgress(); g.innerHTML = '';
+  Object.keys(ModeInfo).forEach(mode => { const info = ModeInfo[mode]; const diff = p.difficulty[mode] || 1;
+    const c = document.createElement('div'); c.className='mode-card'; c.style.setProperty('--mode-color', info.color); c.onclick = () => startGame(mode);
+    c.innerHTML = `<div class="diff-badge">Lv ${diff}/5</div><span class="mode-icon">${info.emoji}</span><div class="mode-name">${info.name}</div><div class="mode-desc">${info.desc}</div><span class="mode-tag">${info.tag}</span>`;
+    g.appendChild(c);
+  });
+}
+
+// SETTINGS PERSISTENCE
+function loadSettings() { try { const s = JSON.parse(localStorage.getItem('dharana_settings_v3')); if (s) State.settings = s; } catch(e) {} }
+function saveSettings() { try { localStorage.setItem('dharana_settings_v3', JSON.stringify(State.settings)); } catch(e) {} }
+function syncSettingsUI() {
+  document.getElementById('toggleBreathing').classList.toggle('active', State.settings.breathing);
+  document.getElementById('togglePhysical').classList.toggle('active', State.settings.physical);
+  document.getElementById('toggleTransfer').classList.toggle('active', State.settings.transfer);
+}
+
+// GAME FLOW: Start -> Breathing -> Countdown -> Game (with physical breaks) -> Transfer -> Results
+function startGame(mode) {
+  initAudio();
+  if (!State.age) { State.age = 'junior'; document.querySelector('[data-age="junior"]').classList.add('selected'); }
+  saveSettings(); syncSettingsUI();
+  State.mode = mode; State.score = 0; State.round = 1; State.streak = 0; State.maxStreak = 0;
+  State.correctCount = 0; State.wrongCount = 0; State.reactionTimes = [];
+  State.breathingCompleted = false; State.physicalBreakRound = 0;
+  State.transferScore = 0; State.transferTotal = 0;
+
+  const dl = getCurrentDifficulty(mode);
+  const cfg = getAdaptiveConfig(mode, State.age, dl);
+  State._currentConfig = cfg; State.totalRounds = cfg.rounds;
+  const info = ModeInfo[mode];
+  document.getElementById('modeEmoji').textContent = info.emoji;
+  document.getElementById('modeTitle').textContent = info.name;
+  document.getElementById('diffIndicator').textContent = 'Level ' + dl + '/5';
+
+  if (State.settings.breathing) { showScreen('breathingScreen'); startBreathing(); }
+  else { enterGame(); }
+}
+
+// BREATHING WARM-UP
+function startBreathing() {
+  const circle = document.getElementById('breathCircle');
+  const ring1 = document.getElementById('breathRing1');
+  const ring2 = document.getElementById('breathRing2');
+  const phaseEl = document.getElementById('breathPhase');
+  const counterEl = document.getElementById('breathCounter');
+  const progressEl = document.getElementById('breathProgress');
+
+  let cycles = 0;
+  const totalCycles = 3;
+  const inhaleTime = 4000;
+  const holdTime = 2000;
+  const exhaleTime = 4000;
+  const cycleTime = inhaleTime + holdTime + exhaleTime;
+
+  let startDelay = 3;
+  counterEl.textContent = `Starting in ${startDelay}...`;
+  phaseEl.textContent = 'Get ready...';
+  circle.className = 'breathing-circle contracted';
+  ring1.className = 'breathing-rings contracted';
+  ring2.className = 'breathing-rings ring2 contracted';
+
+  State._breathTimer = setInterval(() => {
+    startDelay--;
+    if (startDelay <= 0) {
+      clearInterval(State._breathTimer);
+      State._breathTimer = null;
+      counterEl.textContent = `Cycle 1 of ${totalCycles}`;
+      runBreathCycle(0);
+    } else {
+      counterEl.textContent = `Starting in ${startDelay}...`;
+      playCountdown(startDelay);
+    }
+  }, 1000);
+
+  function runBreathCycle(cycle) {
+    if (cycle >= totalCycles) {
+      phaseEl.textContent = '✨ You are ready!';
+      counterEl.textContent = 'Let\'s begin!';
+      progressEl.style.width = '100%';
+      State.breathingCompleted = true;
+      setTimeout(() => enterGame(), 1500);
+      return;
+    }
+
+    counterEl.textContent = `Cycle ${cycle + 1} of ${totalCycles}`;
+    const progressPct = (cycle / totalCycles) * 100;
+    progressEl.style.width = progressPct + '%';
+
+    // Inhale
+    phaseEl.textContent = '🌬️ Breathe in...';
+    circle.className = 'breathing-circle expanded';
+    ring1.className = 'breathing-rings expanded';
+    ring2.className = 'breathing-rings ring2 expanded';
+    playBreathIn();
+
+    setTimeout(() => {
+      // Hold
+      phaseEl.textContent = '⏸️ Hold...';
+      circle.style.transform = 'scale(2.2)';
+    }, inhaleTime);
+
+    setTimeout(() => {
+      // Exhale
+      phaseEl.textContent = '💨 Breathe out...';
+      circle.className = 'breathing-circle contracted';
+      ring1.className = 'breathing-rings contracted';
+      ring2.className = 'breathing-rings ring2 contracted';
+      playBreathOut();
+    }, inhaleTime + holdTime);
+
+    setTimeout(() => {
+      runBreathCycle(cycle + 1);
+    }, cycleTime);
+  }
+}
+
+function skipBreathing() {
+  if (State._breathTimer) { clearInterval(State._breathTimer); State._breathTimer = null; }
+  State.breathingCompleted = false;
+  enterGame();
+}
+
+function enterGame() {
+  showScreen('gameScreen');
+  updateStats();
+  showCountdown(() => { State.isPlaying = true; runRound(); });
+}
+
+function showCountdown(cb) {
+  const ga = document.getElementById('gameArea');
+  let count = 3;
+  const ov = document.createElement('div'); ov.className = 'countdown-overlay'; ga.appendChild(ov);
+  function tick() {
+    if (count > 0) { ov.innerHTML = `<div class="countdown-number">${count}</div>`; playCountdown(count); count--; setTimeout(tick, 800); }
+    else { ov.innerHTML = `<div class="countdown-number">Go!</div>`; playCountdown(0); setTimeout(() => { ov.remove(); cb(); }, 600); }
+  }
+  tick();
+}
+
+// PHYSICAL BREAKS
+const PhysicalBreaks = [
+  { icon: '🧘', title: 'Stand Up!', desc: 'Stand up tall, stretch your arms to the sky, and reach as high as you can!', duration: 15 },
+  { icon: '👋', title: 'Clap 5 Times!', desc: 'Clap your hands loudly 5 times with full energy!', duration: 10 },
+  { icon: '🤸', title: '3 Jumping Jacks!', desc: 'Do 3 jumping jacks — move your whole body!', duration: 12 },
+  { icon: '👐', title: 'Touch Your Toes!', desc: 'Bend down and try to touch your toes. Hold for 3 seconds!', duration: 12 },
+  { icon: '🔄', title: 'Turn Around!', desc: 'Stand up and turn around slowly 2 times. Find your balance!', duration: 15 },
+  { icon: '💪', title: 'Arm Circles!', desc: 'Make 5 big circles with your arms forward, then 5 backward!', duration: 15 },
+  { icon: '👁️', title: 'Look Far Away!', desc: 'Look at something far away through a window for 10 seconds. Rest your eyes!', duration: 12 },
+  { icon: '🫁', title: 'Big Breath!', desc: 'Take 3 deep breaths — in through your nose, out through your mouth!', duration: 12 },
+  { icon: '🦵', title: 'March in Place!', desc: 'March in place 10 times — lift your knees high!', duration: 15 },
+  { icon: '👐', title: 'Squeeze & Release!', desc: 'Squeeze both fists tight for 3 seconds, then release. Repeat 3 times!', duration: 12 },
+];
+
+function showPhysicalBreak(afterCallback) {
+  const brk = PhysicalBreaks[Math.floor(Math.random() * PhysicalBreaks.length)];
+  const overlay = document.createElement('div');
+  overlay.className = 'physical-overlay';
+  overlay.id = 'physicalOverlay';
+  overlay.innerHTML = `
+    <div class="po-icon">${brk.icon}</div>
+    <div class="po-title">${brk.title}</div>
+    <div class="po-desc">${brk.desc}</div>
+    <div class="po-countdown" id="poCountdown">${brk.duration}</div>
+    <div class="po-timer-bar"><div class="po-timer-fill" id="poTimerFill"></div></div>
+    <button class="btn btn-primary po-skip-btn" onclick="document.getElementById('physicalOverlay').remove(); (window._poCallback||(()=>{}))(); window._poCallback=null;">Done! ✅</button>
+  `;
+  document.body.appendChild(overlay);
+  playLevelUp();
+
+  const startTime = Date.now();
+  const totalMs = brk.duration * 1000;
+  const countdownEl = overlay.querySelector('#poCountdown');
+  const timerFill = overlay.querySelector('#poTimerFill');
+
+  State._physicalTimer = setInterval(() => {
+    const elapsed = Date.now() - startTime;
+    const remaining = Math.max(0, totalMs - elapsed);
+    const secs = Math.ceil(remaining / 1000);
+    countdownEl.textContent = secs;
+    timerFill.style.width = (remaining / totalMs * 100) + '%';
+    if (secs <= 3 && secs > 0 && secs !== State._lastPoSec) {
+      playTone(600, 0.1, 'sine', 0.08);
+      State._lastPoSec = secs;
+    }
+    if (remaining <= 0) {
+      clearInterval(State._physicalTimer);
+      State._physicalTimer = null;
+      overlay.remove();
+      playCorrect();
+      if (window._poCallback) { window._poCallback(); window._poCallback = null; }
+    }
+  }, 100);
+}
+
+// GAME ROUND DISPATCHER
+function runRound() {
+  if (State.settings.physical && State.totalRounds >= 6) {
+    const breakInterval = Math.floor(State.totalRounds / 3);
+    if (State.round > 1 && State.round <= State.totalRounds && (State.round - 1) % breakInterval === 0 && State.round !== State.totalRounds + 1) {
+      State.physicalBreakRound = State.round;
+      showPhysicalBreak(() => { runGameRound(); });
+      return;
+    }
+  }
+  runGameRound();
+}
+
+function runGameRound() {
+  const cfg = State._currentConfig;
+  if (State.mode === 'track') runTrackRound(cfg);
+  else if (State.mode === 'signal') runSignalRound(cfg);
+  else if (State.mode === 'memory') runMemoryRound(cfg);
+  else if (State.mode === 'scan') runScanRound(cfg);
+  else if (State.mode === 'dual') runDualRound(cfg);
+}
+
+// COMMON GAME FUNCTIONS
+function updateStats() { document.getElementById('scoreVal').textContent = State.score; document.getElementById('roundVal').textContent = State.round; document.getElementById('streakVal').textContent = State.streak; }
+function startTimer(s, cb) { if (State.timer) clearInterval(State.timer); const st = Date.now(); const tm = s*1000; State.roundStartTime = st; State.timer = setInterval(() => { const e = Date.now()-st; const r = Math.max(0, tm-e); document.getElementById('timerBar').style.width = (r/tm*100)+'%'; document.getElementById('timerVal').textContent = Math.ceil(r/1000)+'s'; if (r<=0) { clearInterval(State.timer); State.timer=null; if(cb) cb(); } }, 50); }
+function stopTimer() { if (State.timer) { clearInterval(State.timer); State.timer=null; } }
+function recordReactionTime() { State.reactionTimes.push(Date.now() - State.roundStartTime); }
+function handleCorrect(p) { State.score+=p; State.streak++; State.maxStreak=Math.max(State.maxStreak,State.streak); State.correctCount++; recordReactionTime(); playCorrect(); showFeedback('+'+p,'#6bcf7f'); burstConfetti(8); updateStats(); }
+function handleWrong() { State.streak=0; State.wrongCount++; playWrong(); showFeedback('✗','#ff4757'); updateStats(); }
+function showFeedback(t,c) { const o=document.getElementById('feedbackOverlay'); const p=document.createElement('div'); p.className='feedback-pop'; p.textContent=t; p.style.color=c; o.appendChild(p); setTimeout(()=>p.remove(),800); }
+function burstConfetti(n) { const cols=['#00d4ff','#ff6b6b','#ffd93d','#6bcf7f','#a55eea','#ff6b9d']; for(let i=0;i<n;i++){const c=document.createElement('div'); c.className='confetti'; c.style.left=(40+Math.random()*20)+'%'; c.style.top=(40+Math.random()*20)+'%'; c.style.background=cols[Math.floor(Math.random()*cols.length)]; c.style.animationDuration=(1+Math.random())+'s'; c.style.animationDelay=(Math.random()*0.3)+'s'; document.body.appendChild(c); setTimeout(()=>c.remove(),2500);} }
+function showDiffUpBanner(mode, nl) { const b=document.createElement('div'); b.className='diff-up-banner'; b.innerHTML=`⚡ Difficulty Up! ${ModeInfo[mode].emoji} ${ModeInfo[mode].name} → Level ${nl}/5`; document.body.appendChild(b); playLevelUp(); burstConfetti(20); setTimeout(()=>b.remove(),3000); }
+function nextRound() { State.round++; if (State.round > State.totalRounds) { endGame(); return; } updateStats(); setTimeout(() => runRound(), 600); }
+
+// END GAME -> TRANSFER -> RESULTS
+function endGame() {
+  State.isPlaying = false; stopTimer();
+  if (State._keyHandler) { document.removeEventListener('keydown', State._keyHandler); State._keyHandler = null; }
+  playFinish(); burstConfetti(30);
+
+  if (State.settings.transfer) {
+    startTransferTask();
+  } else {
+    showResults();
+  }
+}
+
+// ====== CLASSROOM TRANSFER TASKS ======
+const TransferTasks = {
+  junior: [
+    { type: 'reading', passage: 'Ravi was walking to school when he saw a red bicycle leaning against a mango tree. The tree had 12 green mangoes. A brown cat was sleeping under the tree. Ravi counted 5 birds on the branches before he continued walking.', question: 'How many mangoes were on the tree?', options: ['5', '8', '12', '15'], answer: 2 },
+    { type: 'reading', passage: 'Priya packed her school bag. She put in 4 notebooks, 2 pencils, 1 eraser, and a blue water bottle. Her mother gave her an apple for lunch. The bus came at 7:30 in the morning.', question: 'What color was Priya\'s water bottle?', options: ['Red', 'Blue', 'Green', 'Yellow'], answer: 1 },
+    { type: 'reading', passage: 'At the market, Arjun saw 3 men selling vegetables, 2 women selling flowers, and 1 child helping his father at the fruit stall. A dog was sitting near the vegetable cart. The sun was very bright.', question: 'How many women were selling flowers?', options: ['1', '2', '3', '4'], answer: 1 },
+    { type: 'detail', passage: 'Scene: A classroom has 5 rows of desks. Each row has 4 desks. The blackboard is green. The teacher\'s desk has a red pen, a blue pen, and a clock. The clock shows 10:15.', question: 'What color is the blackboard?', options: ['Black', 'Green', 'Blue', 'White'], answer: 1 },
+    { type: 'detail', passage: 'Scene: In the library, there are 6 bookshelves. The first shelf has storybooks. The second has science books. A girl in a yellow dress is reading. The librarian has glasses.', question: 'What is on the second bookshelf?', options: ['Storybooks', 'Science books', 'History books', 'Comic books'], answer: 1 },
+    { type: 'reading', passage: 'Kavya went to the park. She saw a swing, a slide, and a seesaw. 3 children were on the swing, 2 on the slide, and 1 on the seesaw. A butterfly with orange wings flew past her.', question: 'How many children were on the slide?', options: ['1', '2', '3', '4'], answer: 1 },
+  ],
+  teen: [
+    { type: 'reading', passage: 'A scientific study tested 48 students divided into two groups. Group A received 8 weeks of attention training. Group B received no training. After 8 weeks, Group A showed 23% improvement in sustained attention tasks and 15% improvement in working memory. Group B showed no significant change. The researchers noted that improvements persisted for 12 months post-training.', question: 'What percentage improvement did Group A show in working memory?', options: ['8%', '15%', '23%', '48%'], answer: 1 },
+    { type: 'reading', passage: 'The human brain processes visual information in approximately 13 milliseconds. Attention acts as a filter, selecting which information enters conscious awareness. Research shows that sustained attention requires the prefrontal cortex to continuously suppress distractions. When attention lapses, even for 2 seconds, critical information can be missed entirely.', question: 'How long does it take the brain to process visual information?', options: ['2 seconds', '13 milliseconds', '8 weeks', '15% of a second'], answer: 1 },
+    { type: 'reading', passage: 'In a classroom experiment, students who practiced mindful breathing for 5 minutes before a test scored 12% higher than those who did not. The breathing group also reported feeling calmer and more focused. Interestingly, students who combined breathing with brief physical movement scored 18% higher than the control group.', question: 'Which group scored 18% higher than the control?', options: ['The breathing-only group', 'The no-training group', 'The breathing + movement group', 'The test group'], answer: 2 },
+    { type: 'detail', passage: 'Scenario: You are reading instructions for an exam. The paper says: "Write your name in the top-right corner. Use only blue or black pen. Answer questions 1-10 in Section A, then 11-15 in Section B. You have 90 minutes. Do not turn the page until told."', question: 'Where should you write your name?', options: ['Top-left corner', 'Top-right corner', 'Bottom of the page', 'Center of the page'], answer: 1 },
+    { type: 'detail', passage: 'Scenario: A laboratory safety manual states: "Wear goggles at all times. No food in the lab. Report spills immediately. Know the location of the fire extinguisher and first aid kit. Never mix chemicals without permission."', question: 'What should you do if there is a spill?', options: ['Clean it up silently', 'Report it immediately', 'Wait for the teacher to notice', 'Leave the lab'], answer: 1 },
+    { type: 'reading', passage: 'Research on attention spans shows that the average teenager can sustain focus on a single task for about 20-30 minutes before performance declines. However, this can be extended to 45+ minutes with training. The key factors are: minimizing distractions, taking short breaks every 20 minutes, and practicing mindfulness techniques regularly.', question: 'How long can an average teenager sustain focus without training?', options: ['10-15 minutes', '20-30 minutes', '45+ minutes', '60+ minutes'], answer: 1 },
+  ],
+};
+
+let transferCurrentTask = null;
+
+function startTransferTask() {
+  const tasks = TransferTasks[State.age] || TransferTasks.junior;
+  transferCurrentTask = tasks[Math.floor(Math.random() * tasks.length)];
+  State.transferTotal = 1;
+  renderTransferTask();
+  document.getElementById('transferIntro').textContent = 'Let\'s apply your attention to a real-world task! This simulates classroom focus.';
+  showScreen('transferScreen');
+}
+
+function renderTransferTask() {
+  const card = document.getElementById('transferCard');
+  const task = transferCurrentTask;
+  const typeLabel = task.type === 'reading' ? '📖 Reading Comprehension' : '👁️ Detail Observation';
+  card.innerHTML = `
+    <div class="transfer-task-type">${typeLabel}</div>
+    <div class="transfer-passage">${task.passage}</div>
+    <div class="transfer-question">${task.question}</div>
+    <div class="transfer-options" id="transferOptions"></div>
+  `;
+  const optsEl = document.getElementById('transferOptions');
+  task.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'transfer-option';
+    btn.textContent = opt;
+    btn.onclick = () => answerTransfer(i);
+    optsEl.appendChild(btn);
+  });
+}
+
+function answerTransfer(idx) {
+  const task = transferCurrentTask;
+  const options = document.querySelectorAll('.transfer-option');
+  options.forEach(o => o.style.pointerEvents = 'none');
+
+  if (idx === task.answer) {
+    options[idx].classList.add('correct');
+    State.transferScore = 1;
+    playCorrect();
+    burstConfetti(10);
+  } else {
+    options[idx].classList.add('wrong');
+    options[task.answer].classList.add('correct');
+    State.transferScore = 0;
+    playWrong();
+  }
+
+  const card = document.getElementById('transferCard');
+  const result = document.createElement('div');
+  result.className = 'transfer-result';
+  result.innerHTML = `
+    <div class="tr-icon">${idx === task.answer ? '✅' : '💡'}</div>
+    <div class="tr-msg">${idx === task.answer ? 'Correct! Great attention to detail!' : 'Not quite! The correct answer is highlighted. Keep practicing your focus!'}</div>
+  `;
+  card.appendChild(result);
+
+  setTimeout(() => showResults(), 2500);
+}
+
+function skipTransfer() {
+  State.transferScore = 0;
+  State.transferTotal = 0;
+  showResults();
+}
+
+// RESULTS
+function showResults() {
+  const avgRT = State.reactionTimes.length > 0 ? Math.round(State.reactionTimes.reduce((a,b)=>a+b,0) / State.reactionTimes.length / 10) / 100 : 0;
+  const accuracy = State.correctCount + State.wrongCount > 0 ? Math.round(State.correctCount / (State.correctCount + State.wrongCount) * 100) : 0;
+
+  let stars = '⭐';
+  if (accuracy >= 90) stars = '⭐⭐⭐⭐⭐';
+  else if (accuracy >= 75) stars = '⭐⭐⭐⭐';
+  else if (accuracy >= 60) stars = '⭐⭐⭐';
+  else if (accuracy >= 40) stars = '⭐⭐';
+
+  let message = '';
+  if (accuracy >= 90) message = 'Outstanding focus! Your attention skills are razor-sharp. 🌟';
+  else if (accuracy >= 75) message = 'Great job! You are building strong attention skills. 💪';
+  else if (accuracy >= 60) message = 'Good effort! You are on the right track. 🎯';
+  else message = 'Every champion starts here! Practice regularly and grow. 🌱';
+
+  const result = recordSession(State.mode, State.age, State.score, accuracy, avgRT, State.maxStreak, State.transferScore, State.transferTotal);
+
+  document.getElementById('resultsTitle').textContent = ModeInfo[State.mode].name + ' Complete!';
+  document.getElementById('ratingStars').textContent = stars;
+  document.getElementById('finalScore').textContent = State.score;
+  document.getElementById('resultsBreakdown').innerHTML = `
+    <div class="breakdown-item"><div class="breakdown-val">${State.correctCount}</div><div class="breakdown-label">Correct</div></div>
+    <div class="breakdown-item"><div class="breakdown-val">${accuracy}%</div><div class="breakdown-label">Accuracy</div></div>
+    <div class="breakdown-item"><div class="breakdown-val">${State.maxStreak}</div><div class="breakdown-label">Best Streak</div></div>
+    <div class="breakdown-item"><div class="breakdown-val">${avgRT}s</div><div class="breakdown-label">Avg Response</div></div>`;
+
+  const jp = Math.round((result.journeyCompleted / TOTAL_JOURNEY_SESSIONS) * 100);
+  let jh = `<div class="ju-title">🗺️ Journey Progress</div>Session ${result.journeyCompleted} of ${TOTAL_JOURNEY_SESSIONS} (${jp}%)<div class="journey-bar"><div class="journey-bar-fill" style="width:${jp}%"></div></div>`;
+  if (result.diffChanged && result.diffDirection === 'up') jh += `<div style="margin-top:6px;color:var(--accent);font-weight:700;">⚡ Difficulty increased to Level ${result.newDiff}/5!</div>`;
+  else if (result.diffChanged && result.diffDirection === 'down') jh += `<div style="margin-top:6px;color:var(--primary);">📉 Difficulty adjusted to Level ${result.newDiff}/5.</div>`;
+  else { if (accuracy < 85 && accuracy >= 50) jh += `<div style="margin-top:6px;color:var(--text-dim);">Reach 85% accuracy to unlock the next level!</div>`; }
+  document.getElementById('journeyUpdate').innerHTML = jh;
+
+  // Transfer summary
+  const ts = document.getElementById('transferSummary');
+  if (State.transferTotal > 0) {
+    ts.style.display = 'block';
+    ts.innerHTML = `<div class="tss-title">📖 Classroom Transfer Task</div>You scored ${State.transferScore}/${State.transferTotal} on the real-world attention task!`;
+  } else {
+    ts.style.display = 'none';
+  }
+
+  document.getElementById('resultsMessage').textContent = message;
+
+  setTimeout(() => {
+    showScreen('resultsScreen');
+    if (result.diffChanged && result.diffDirection === 'up') { setTimeout(() => showDiffUpBanner(State.mode, result.newDiff), 500); }
+  }, 500);
+}
+
+function replayGame() { startGame(State.mode); }
+
+// ====== GAME MODES (same as v2) ======
+function runTrackRound(cfg) {
+  const c = document.getElementById('gameContent'); const ti = cfg.gridSize * cfg.gridSize;
+  let tIdx = Math.floor(Math.random()*ti);
+  document.getElementById('instructionText').innerHTML = 'Watch the <strong>golden star ⭐</strong>. When items shuffle, click it!';
+  c.innerHTML = ''; const g = document.createElement('div'); g.className='track-grid'; g.style.gridTemplateColumns=`repeat(${cfg.gridSize},1fr)`; g.style.maxWidth=(cfg.gridSize*75)+'px';
+  for (let i=0;i<ti;i++){const it=document.createElement('div');it.className='track-item';if(i===tIdx){it.classList.add('target');it.textContent='⭐';}else{it.classList.add('normal');it.textContent='🌟';}it.dataset.idx=i;g.appendChild(it);}
+  c.appendChild(g);
+  startTimer(cfg.roundTime, ()=>{handleWrong();nextRound();});
+  setTimeout(()=>{
+    document.querySelectorAll('.track-item.target').forEach(e=>{e.classList.remove('target');e.classList.add('normal');e.textContent='🌟';});
+    document.getElementById('instructionText').innerHTML='Now <strong>click the star ⭐</strong> you tracked!';
+    let sc=0;function ds(){if(sc>=cfg.shuffles)return;const items=Array.from(g.children);for(let i=items.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));g.insertBefore(items[j],items[i]);if(j<i)g.insertBefore(items[i],items[j]);}sc++;setTimeout(ds,cfg.shuffleSpeed);}
+    setTimeout(ds,500);
+    g.querySelectorAll('.track-item').forEach(el=>{el.addEventListener('click',function(){if(!State.isPlaying)return;stopTimer();if(parseInt(this.dataset.idx)===tIdx){this.classList.add('correct');handleCorrect(10+State.streak*2);}else{this.classList.add('wrong');handleWrong();}setTimeout(()=>nextRound(),800);});});
+  },2500);
+}
+
+function runSignalRound(cfg) {
+  let ss={isGo:false,responded:false,st:null};let sc2=0;
+  const c=document.getElementById('gameContent');
+  c.innerHTML=`<div class="instruction-text">Tap ONLY when <strong>green</strong> ✅. Do NOT tap when <strong style="color:var(--danger)">red</strong> ❌!</div><div class="signal-display" id="signalDisplay">⏳</div><div class="tap-hint">Tap or press SPACEBAR</div>`;
+  const d=document.getElementById('signalDisplay');
+  State.round=1;State.totalRounds=cfg.rounds;document.getElementById('roundVal').textContent='1';document.getElementById('totalRounds').textContent=cfg.rounds;
+  function sns(){if(sc2>=cfg.rounds){endGame();return;}ss.responded=false;ss.isGo=Math.random()<cfg.goRatio;d.className='signal-display neutral';d.textContent='...';State.roundStartTime=Date.now();document.getElementById('roundVal').textContent=sc2+1;
+    setTimeout(()=>{if(ss.responded)return;if(ss.isGo){d.className='signal-display signal-go';d.textContent='✅';}else{d.className='signal-display signal-nogo';d.textContent='❌';}ss.st=setTimeout(()=>{if(!ss.responded){if(ss.isGo){handleWrong();}else{State.correctCount++;State.score+=5;State.streak++;State.maxStreak=Math.max(State.maxStreak,State.streak);playCorrect();showFeedback('+5','#6bcf7f');updateStats();}sc2++;State.round=sc2+1;setTimeout(sns,cfg.gapTime);}},cfg.showTime);},cfg.gapTime+Math.random()*500);}
+  function hst(){if(ss.responded)return;if(!d.classList.contains('signal-go')&&!d.classList.contains('signal-nogo'))return;ss.responded=true;if(ss.st)clearTimeout(ss.st);if(ss.isGo&&d.classList.contains('signal-go')){recordReactionTime();handleCorrect(10+State.streak*2);d.style.transform='scale(0.9)';setTimeout(()=>d.style.transform='',200);}else{handleWrong();d.style.animation='noGoShake 0.3s ease';setTimeout(()=>d.style.animation='',300);}sc2++;State.round=sc2+1;setTimeout(sns,cfg.gapTime);}
+  d.addEventListener('click',hst);
+  const kh=(e)=>{if(e.code==='Space'&&State.isPlaying&&State.mode==='signal'){e.preventDefault();hst();}};
+  document.addEventListener('keydown',kh);State._keyHandler=kh;sns();
+}
+
+function runMemoryRound(cfg) {
+  const c=document.getElementById('gameContent');const sl=Math.min(cfg.maxSeq,2+Math.floor(State.round/2));const gs=cfg.gridSize;const tc=gs*gs;const seq=[];
+  for(let i=0;i<sl;i++){let cl;do{cl=Math.floor(Math.random()*tc);}while(seq.includes(cl));seq.push(cl);}
+  document.getElementById('instructionText').innerHTML='Watch the pattern <strong>light up</strong>, then repeat it!';
+  c.innerHTML='';const pt=document.createElement('div');pt.className='memory-phase-text';pt.textContent='Memorize...';c.appendChild(pt);
+  const g=document.createElement('div');g.className='memory-grid';g.style.gridTemplateColumns=`repeat(${gs},1fr)`;g.style.maxWidth=(gs*68)+'px';
+  for(let i=0;i<tc;i++){const cl=document.createElement('div');cl.className='memory-cell';cl.dataset.idx=i;g.appendChild(cl);}
+  c.appendChild(g);const cells=g.querySelectorAll('.memory-cell');
+  let si=0;function ss2(){if(si<seq.length){const ci=seq[si];cells[ci].classList.add('lit');playTone(400+si*80,0.25);setTimeout(()=>{cells[ci].classList.remove('lit');si++;setTimeout(ss2,200);},cfg.showTime);}else{pt.textContent='Your turn! Repeat the pattern';pt.style.color='var(--success)';startInput();}}
+  let ii=0;function startInput(){State.roundStartTime=Date.now();startTimer(sl*3,()=>{handleWrong();nextRound();});cells.forEach(cl=>{cl.addEventListener('click',function(){if(!State.isPlaying)return;const idx=parseInt(this.dataset.idx);if(idx===seq[ii]){this.classList.add('correct-lit');playTone(500+ii*60,0.15);ii++;if(ii===seq.length){stopTimer();handleCorrect(10*sl+State.streak*3);cells.forEach(c2=>c2.style.pointerEvents='none');setTimeout(()=>nextRound(),800);}}else{this.classList.add('wrong-lit');stopTimer();handleWrong();cells.forEach(c2=>c2.style.pointerEvents='none');setTimeout(()=>nextRound(),800);}});});}
+  setTimeout(ss2,600);
+}
+
+function runScanRound(cfg) {
+  const Emojis=['⭐','🌟','💫','✨','🌙','☀️','🔥','💧','🌈','🌸','🍀','🎈','🎀','💎','🔔','🎵'];
+  const c=document.getElementById('gameContent');const tc=cfg.gridSize*cfg.gridSize;const tE=Emojis[Math.floor(Math.random()*Emojis.length)];const dist=Emojis.filter(e=>e!==tE);let tp=[];
+  while(tp.length<cfg.targets){const p=Math.floor(Math.random()*tc);if(!tp.includes(p))tp.push(p);}
+  document.getElementById('instructionText').innerHTML=`Find ALL <strong>${tE}</strong> items fast!`;
+  c.innerHTML=`<div class="scan-target-display"><span>Find:</span><span class="target-emoji">${tE}</span><span class="found-count"><span id="foundCount">0</span>/${cfg.targets}</span></div>`;
+  const g=document.createElement('div');g.className='scan-container';g.style.gridTemplateColumns=`repeat(${cfg.gridSize},1fr)`;
+  for(let i=0;i<tc;i++){const it=document.createElement('div');it.className='scan-item';if(tp.includes(i)){it.textContent=tE;it.dataset.target='true';}else{it.textContent=dist[Math.floor(Math.random()*dist.length)];}it.dataset.idx=i;g.appendChild(it);}
+  c.appendChild(g);let fc=0;startTimer(cfg.roundTime,()=>{g.querySelectorAll('.scan-item[data-target="true"]:not(.found)').forEach(e=>e.classList.add('miss'));handleWrong();nextRound();});
+  g.querySelectorAll('.scan-item').forEach(it=>{it.addEventListener('click',function(){if(!State.isPlaying)return;if(this.classList.contains('found'))return;if(this.dataset.target==='true'){this.classList.add('found');fc++;document.getElementById('foundCount').textContent=fc;playTone(600+fc*50,0.12);if(fc===cfg.targets){stopTimer();recordReactionTime();handleCorrect(15+State.streak*3);burstConfetti(12);setTimeout(()=>nextRound(),600);}}else{this.classList.add('miss');playWrong();State.score=Math.max(0,State.score-3);State.streak=0;showFeedback('-3','#ff4757');updateStats();setTimeout(()=>this.classList.remove('miss'),600);}});});
+}
+
+function runDualRound(cfg) {
+  const c=document.getElementById('gameContent');let ps={left:0,right:0};let tt=0;const Shapes=['circle','square'];const ch=['#00d4ff','#ff6b6b','#ffd93d','#6bcf7f'];const ce=['🔵','🔴','🟡','🟢'];
+  document.getElementById('instructionText').innerHTML=`<strong>Left:</strong> Match the SHAPE. <strong>Right:</strong> Match the COLOR.`;
+  c.innerHTML=`<div class="dual-container"><div class="dual-panel"><h3>🔹 Shape Match</h3><div class="panel-score" id="leftScore">0</div><div class="dual-shape" id="leftShape">❓</div><div class="dual-shape-btns"><button class="dual-btn" data-panel="left" data-answer="circle">⭕ Circle</button><button class="dual-btn" data-panel="left" data-answer="square">⬜ Square</button></div><div class="dual-feedback" id="leftFeedback"></div></div><div class="dual-panel"><h3>🎨 Color Match</h3><div class="panel-score" id="rightScore">0</div><div class="dual-shape" id="rightShape" style="background:var(--card-bg);">🎨</div><div class="dual-color-btns"><button class="dual-btn" data-panel="right" data-answer="0">🔵 Blue</button><button class="dual-btn" data-panel="right" data-answer="1">🔴 Red</button><button class="dual-btn" data-panel="right" data-answer="2">🟡 Yellow</button><button class="dual-btn" data-panel="right" data-answer="3">🟢 Green</button></div><div class="dual-feedback" id="rightFeedback"></div></div></div>`;
+  let la=null,ra=null,lA=false,rA=false,tt2=null;
+  State.round=1;State.totalRounds=cfg.rounds;document.getElementById('roundVal').textContent='1';document.getElementById('totalRounds').textContent=cfg.rounds;
+  function nt(){if(tt>=cfg.rounds){endGame();return;}document.getElementById('roundVal').textContent=tt+1;lA=true;rA=true;
+    const si=Math.floor(Math.random()*2);la=Shapes[si];const ls=document.getElementById('leftShape');ls.className='dual-shape '+la;ls.style.background=ch[Math.floor(Math.random()*4)];ls.textContent='';
+    const ci=Math.floor(Math.random()*4);ra=ci.toString();const rs=document.getElementById('rightShape');rs.style.background=ch[ci];rs.textContent=ce[ci];rs.className='dual-shape circle';
+    document.getElementById('leftFeedback').textContent='';document.getElementById('leftFeedback').className='dual-feedback';document.getElementById('rightFeedback').textContent='';document.getElementById('rightFeedback').className='dual-feedback';
+    State.roundStartTime=Date.now();if(tt2)clearTimeout(tt2);tt2=setTimeout(()=>{if(lA){lA=false;document.getElementById('leftFeedback').textContent='⏰ Too slow!';document.getElementById('leftFeedback').className='dual-feedback wrong';}if(rA){rA=false;document.getElementById('rightFeedback').textContent='⏰ Too slow!';document.getElementById('rightFeedback').className='dual-feedback wrong';}handleWrong();tt++;setTimeout(nt,cfg.gapTime);},cfg.showTime);}
+  document.querySelectorAll('.dual-btn').forEach(btn=>{btn.addEventListener('click',function(){const pn=this.dataset.panel;const an=this.dataset.answer;
+    if(pn==='left'&&lA){lA=false;const fb=document.getElementById('leftFeedback');if(an===la){ps.left++;document.getElementById('leftScore').textContent=ps.left;fb.textContent='✓';fb.className='dual-feedback correct';playTone(700,0.12);}else{fb.textContent='✗';fb.className='dual-feedback wrong';playWrong();}}
+    else if(pn==='right'&&rA){rA=false;const fb=document.getElementById('rightFeedback');if(an===ra){ps.right++;document.getElementById('rightScore').textContent=ps.right;fb.textContent='✓';fb.className='dual-feedback correct';playTone(800,0.12);}else{fb.textContent='✗';fb.className='dual-feedback wrong';playWrong();}}
+    if(!lA&&!rA){if(tt2)clearTimeout(tt2);const bc=document.getElementById('leftFeedback').classList.contains('correct')&&document.getElementById('rightFeedback').classList.contains('correct');if(bc){recordReactionTime();handleCorrect(12+State.streak*3);burstConfetti(8);}else{handleWrong();}tt++;State.round=tt+1;updateStats();setTimeout(nt,cfg.gapTime);}});});
+  nt();
+}
+
+// PROGRESS DASHBOARD
+function showProgress() { renderProgressDashboard(); showScreen('progressScreen'); }
+function renderProgressDashboard() {
+  const p = loadProgress();
+  document.getElementById('progressOverview').innerHTML = `
+    <div class="overview-card"><div class="oc-icon">🔥</div><div class="oc-val">${p.dayStreak}</div><div class="oc-label">Day Streak</div></div>
+    <div class="overview-card"><div class="oc-icon">🎮</div><div class="oc-val">${p.totalSessions}</div><div class="oc-label">Total Sessions</div></div>
+    <div class="overview-card"><div class="oc-icon">🗺️</div><div class="oc-val">${p.journeyCompleted}/${TOTAL_JOURNEY_SESSIONS}</div><div class="oc-label">Journey Done</div></div>
+    <div class="overview-card"><div class="oc-icon">🫁</div><div class="oc-val">${p.breathingCount}</div><div class="oc-label">Breathing Sessions</div></div>
+    <div class="overview-card"><div class="oc-icon">🤸</div><div class="oc-val">${p.physicalCount}</div><div class="oc-label">Physical Breaks</div></div>
+    <div class="overview-card"><div class="oc-icon">🏆</div><div class="oc-val">${Object.values(p.bestScores).reduce((a,b)=>Math.max(a,b),0)}</div><div class="oc-label">Best Score</div></div>`;
+  const jp=document.getElementById('journeyPath');jp.innerHTML='';
+  for(let i=0;i<TOTAL_JOURNEY_SESSIONS;i++){const n=document.createElement('div');n.className='journey-node';if(i<p.journeyCompleted){n.classList.add('completed');n.innerHTML='✓';}else if(i===p.journeyCompleted){n.classList.add('current');n.innerHTML='▶';}else{n.classList.add('locked');n.innerHTML=i+1;}jp.appendChild(n);}
+  const dg=document.getElementById('diffGrid');dg.innerHTML='';
+  Object.keys(ModeInfo).forEach(mode=>{const lv=p.difficulty[mode]||1;let dots='';for(let i=0;i<5;i++){dots+=`<div class="diff-dot ${i<lv?'filled':''}"></div>`;}const it=document.createElement('div');it.className='diff-item';it.innerHTML=`<div class="di-name">${ModeInfo[mode].emoji} ${ModeInfo[mode].name}</div><div class="diff-dots">${dots}</div>`;dg.appendChild(it);});
+  drawTrendChart('accuracyChart','accuracyEmpty',p.sessions,'accuracy','%','#6bcf7f',100);
+  drawTrendChart('rtChart','rtEmpty',p.sessions,'avgRT','s','#00d4ff',null,true);
+  renderHistory(p.sessions);
+}
+function drawTrendChart(cid,eid,sessions,metric,unit,color,maxVal,lowerIsBetter) {
+  const cv=document.getElementById(cid);const ee=document.getElementById(eid);
+  if(sessions.length===0){cv.style.display='none';ee.style.display='block';return;}
+  cv.style.display='block';ee.style.display='none';
+  const data=sessions.map(s=>s[metric]);const recent=data.slice(-15);const dpr=window.devicePixelRatio||1;const w=cv.offsetWidth;const h=150;cv.width=w*dpr;cv.height=h*dpr;const ctx=cv.getContext('2d');ctx.scale(dpr,dpr);ctx.clearRect(0,0,w,h);
+  const pad={t:12,r:12,b:22,l:32};const cw=w-pad.l-pad.r;const ch2=h-pad.t-pad.b;const dMax=Math.max(...recent);const dMin=Math.min(...recent);const rng=dMax-dMin||1;const yMax=maxVal||(dMax+rng*0.2);const yMin=lowerIsBetter?Math.max(0,dMin-rng*0.2):0;
+  ctx.strokeStyle='rgba(255,255,255,0.08)';ctx.lineWidth=1;
+  for(let i=0;i<=4;i++){const y=pad.t+(ch2/4)*i;ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(w-pad.r,y);ctx.stroke();const val=yMax-((yMax-yMin)/4)*i;ctx.fillStyle='rgba(255,255,255,0.3)';ctx.font='9px sans-serif';ctx.textAlign='right';ctx.fillText(val.toFixed(1)+unit,pad.l-5,y+3);}
+  if(recent.length===1){ctx.fillStyle=color;ctx.beginPath();ctx.arc(pad.l+cw/2,pad.t+ch2/2,5,0,Math.PI*2);ctx.fill();}
+  else{ctx.strokeStyle=color;ctx.lineWidth=2.5;ctx.lineJoin='round';ctx.beginPath();
+  recent.forEach((v,i)=>{const x=pad.l+(cw/(recent.length-1))*i;const n=(v-yMin)/(yMax-yMin);const y=pad.t+ch2-(n*ch2);if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});ctx.stroke();
+  ctx.lineTo(pad.l+cw,pad.t+ch2);ctx.lineTo(pad.l,pad.t+ch2);ctx.closePath();const grad=ctx.createLinearGradient(0,pad.t,0,pad.t+ch2);grad.addColorStop(0,color+'40');grad.addColorStop(1,color+'00');ctx.fillStyle=grad;ctx.fill();
+  recent.forEach((v,i)=>{const x=pad.l+(cw/(recent.length-1))*i;const n=(v-yMin)/(yMax-yMin);const y=pad.t+ch2-(n*ch2);ctx.fillStyle=color;ctx.beginPath();ctx.arc(x,y,3,0,Math.PI*2);ctx.fill();});}
+  ctx.fillStyle='rgba(255,255,255,0.3)';ctx.font='8px sans-serif';ctx.textAlign='center';ctx.fillText('1',pad.l,h-8);ctx.fillText(recent.length.toString(),w-pad.r,h-8);ctx.textAlign='left';ctx.fillText('Sessions →',pad.l,h-5);
+}
+function renderHistory(sessions) {
+  const list=document.getElementById('historyList');
+  if(sessions.length===0){list.innerHTML='<div class="history-empty">No sessions yet. Play your first game! 🎮</div>';return;}
+  const recent=sessions.slice(-20).reverse();
+  list.innerHTML=recent.map(s=>{const info=ModeInfo[s.mode]||{emoji:'🎮',name:s.mode};return `<div class="history-item"><div class="hi-mode">${info.emoji} ${info.name} <span style="color:var(--text-dim);font-size:0.75rem;">(Lv${s.difficulty})</span></div><div class="hi-stats"><span>⭐ ${s.score}</span><span class="hi-acc">${s.accuracy}%</span><span>⚡ ${s.avgRT}s</span>${s.transferTotal>0?`<span>📖 ${s.transferScore}/${s.transferTotal}</span>`:''}<span style="color:var(--text-dim);font-size:0.72rem;">${s.date}</span></div></div>`;}).join('');
+}
+function resetProgress() { if(confirm('Delete ALL progress, history, streaks, and difficulty levels? This cannot be undone.')){localStorage.removeItem(STORAGE_KEY);renderProgressDashboard();renderHomeStats();renderModeGrid();alert('All progress data reset. Fresh start! 🌱');} }
+
+// INIT
+loadSettings(); syncSettingsUI(); renderHomeStats(); renderModeGrid();
+</script>
+
+
+  <!-- Medhā Tech Session Tracker -->
+  <script>document.title = "Memory Match";</script>
+  <script src="bhava-bridge.js"></script>
+<script src="bhava-session.js"></script>
+<script src="bhava-game-nav.js"></script>
+<script src="bhava-tech-all.js"></script>
+  <script src="bhava-responsive.js"></script>
+</body>
+</html>

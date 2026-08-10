@@ -1,0 +1,73 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
+import LoginPage from './pages/LoginPage';
+import HomePage from './pages/HomePage';
+import ParentDemo from './pages/ParentDemo';
+import StudentPublic from './pages/StudentPublic';
+import ProtectedRoute from './components/ProtectedRoute';
+import { GamesGrid } from './components/GamesGrid';
+
+const API_URL = 'http://localhost:4000/api';
+
+function StudentDashboard() {
+  return <GamesGrid apiUrl={API_URL} />;
+}
+function ParentDashboard() {
+  return <div style={{ padding: 40 }}>Parent Dashboard (coming soon)</div>;
+}
+function TeacherDashboard() {
+  return <div style={{ padding: 40 }}>Teacher Dashboard (coming soon)</div>;
+}
+function AdminDashboard() {
+  return <div style={{ padding: 40 }}>Admin Dashboard (coming soon)</div>;
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/games" element={<StudentPublic />} />
+          <Route path="/parent-demo" element={<ParentDemo />} />
+          <Route
+            path="/student"
+            element={
+              <ProtectedRoute role="student">
+                <StudentDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/parent"
+            element={
+              <ProtectedRoute role="parent">
+                <ParentDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/teacher"
+            element={
+              <ProtectedRoute role="teacher">
+                <TeacherDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute role="admin">
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="*" element={<HomePage />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
+  );
+}
+
+export default App;
