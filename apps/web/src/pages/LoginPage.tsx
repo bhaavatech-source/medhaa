@@ -65,11 +65,11 @@ export function LoginPage({ role: roleProp }: { role?: string }) {
         <form onSubmit={handleSubmit} className="login-form">
           <label>
             Email
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" required />
+            <input type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" required />
           </label>
           <label>
             Password
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" required />
+            <input type="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" required />
           </label>
 
           {error && <div className="login-error">{error}</div>}

@@ -1,5 +1,56 @@
 const COLORS = ["#ef4444","#3b82f6","#eab308","#22c55e","#a855f7","#ec4899"];
-const SHAPES = ["circle","square","triangle","star"];
+// Thematic Asset Dictionaries
+const THEMES = {
+  shapes: ["circle", "square", "triangle", "star"],
+  space: ["🚀", "🛰️", "🛸", "🪐", "👨‍🚀"],
+  vehicles: ["🚁", "🏎️", "🚜", "🛵", "🚒"],
+  chips: ["🔋", "🔌", "💾", "📡", "🖲️"] // Electronic components
+};
+
+// Capture Settings Elements
+const themeSelect = document.getElementById("themeSelect");
+const driftingToggle = document.getElementById("driftingToggle");
+const playstyleSelect = document.getElementById("playstyleSelect");
+// --- LOAD SAVED SETTINGS ---
+// Check if the player has saved settings; if not, use defaults
+const savedTheme = localStorage.getItem("focusFlashTheme") || "shapes";
+const savedDrifting = localStorage.getItem("focusFlashDrifting") === "true";
+const savedPlaystyle = localStorage.getItem("focusFlashPlaystyle") || "standard";
+
+// Apply the saved settings to the visual menu
+themeSelect.value = savedTheme;
+driftingToggle.checked = savedDrifting;
+playstyleSelect.value = savedPlaystyle;
+
+// --- SAVE SETTINGS ON CHANGE ---
+// Whenever the player changes a setting, instantly save it to memory
+themeSelect.addEventListener("change", () => {
+  localStorage.setItem("focusFlashTheme", themeSelect.value);
+});
+
+driftingToggle.addEventListener("change", () => {
+  localStorage.setItem("focusFlashDrifting", driftingToggle.checked);
+});
+
+playstyleSelect.addEventListener("change", () => {
+  localStorage.setItem("focusFlashPlaystyle", playstyleSelect.value);
+});
+const mascotArea = document.getElementById("mascotArea");
+
+// Helper to create visual combo particles
+function createParticles(x, y) {
+  for (let i = 0; i < 8; i++) {
+    const particle = document.createElement("div");
+    particle.className = "particle";
+    particle.textContent = "✨";
+    particle.style.left = x + "px";
+    particle.style.top = y + "px";
+    particle.style.setProperty('--tx', (Math.random() * 100 - 50) + "px");
+    particle.style.setProperty('--ty', (Math.random() * 100 - 50) + "px");
+    document.body.appendChild(particle);
+    setTimeout(() => particle.remove(), 600);
+  }
+}
 const STORAGE_KEY = "focusFlashHistory";
 
 const START_DIFFICULTY = { easy: 2, medium: 5, hard: 8 };
@@ -132,10 +183,16 @@ function selectiveParamsFromDifficulty(level) {
     cols: 5,
     roundTime: Math.max(3, 9 - level * 0.5),
     distractorRatio: Math.min(0.75, 0.25 + level * 0.05),
-    ruleSwitchEvery: level >= 8 ? 1 : level >= 5 ? 3 : 999,
-    dualTarget: level >= 8
+    
+    // This ensures the target shape/color changes EVERY single round
+    ruleSwitchEvery: 1, 
+    
+    // This introduces TWO targets to find starting at Level 4 (instead of 8)
+    dualTarget: level >= 4 
   };
 }
+
+
 function sustainedParamsFromDifficulty(level) {
   level = Math.max(1, Math.min(10, level));
   return {
@@ -188,21 +245,26 @@ function startSelectiveGame(levelName) {
 
 function pickTarget(cfg, prevTarget) {
   let shape, color;
+  // Get the array of items for whatever theme is currently selected
+  const currentShapes = THEMES[themeSelect.value]; 
+
   do {
-    shape = SHAPES[Math.floor(Math.random() * SHAPES.length)];
+    shape = currentShapes[Math.floor(Math.random() * currentShapes.length)];
     color = COLORS[Math.floor(Math.random() * COLORS.length)];
   } while (prevTarget && shape === prevTarget.shape && color === prevTarget.color);
 
   const target = { shape, color };
   let target2 = null;
+  
   if (cfg.dualTarget) {
     let shape2, color2;
     do {
-      shape2 = SHAPES[Math.floor(Math.random() * SHAPES.length)];
+      shape2 = currentShapes[Math.floor(Math.random() * currentShapes.length)];
       color2 = COLORS[Math.floor(Math.random() * COLORS.length)];
     } while (shape2 === shape && color2 === color);
     target2 = { shape: shape2, color: color2 };
   }
+  
   return { target, target2 };
 }
 
@@ -271,21 +333,40 @@ function renderShapeEl(shape, color, sizePercent = 60) {
   el.style.width = sizePercent + "%";
   el.style.height = sizePercent + "%";
   el.style.margin = "auto";
-  if (shape === "circle") {
-    el.style.background = color;
-    el.style.borderRadius = "50%";
-  } else if (shape === "square") {
-    el.style.background = color;
-    el.style.borderRadius = "4px";
-  } else if (shape === "triangle") {
-    el.style.width = "0"; el.style.height = "0";
-    el.style.background = "transparent";
-    el.style.borderLeft = "22px solid transparent";
-    el.style.borderRight = "22px solid transparent";
-    el.style.borderBottom = `40px solid ${color}`;
-  } else if (shape === "star") {
-    el.style.background = color;
-    el.style.clipPath = "polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)";
+  el.style.display = "flex";
+  el.style.alignItems = "center";
+  el.style.justifyContent = "center";
+  
+  // Apply drifting class if toggled by player
+  if (driftingToggle.checked) {
+    el.classList.add("drift");
+    el.style.animationDelay = (Math.random() * 2) + "s"; // Randomize drift offset
+  }
+
+  const currentTheme = themeSelect.value;
+
+  if (currentTheme === "shapes") {
+      if (shape === "circle") {
+        el.style.background = color;
+        el.style.borderRadius = "50%";
+      } else if (shape === "square") {
+        el.style.background = color;
+        el.style.borderRadius = "4px";
+      } else if (shape === "triangle") {
+        el.style.width = "0"; el.style.height = "0";
+        el.style.background = "transparent";
+        el.style.borderLeft = "22px solid transparent";
+        el.style.borderRight = "22px solid transparent";
+        el.style.borderBottom = `40px solid ${color}`;
+      } else if (shape === "star") {
+        el.style.background = color;
+        el.style.clipPath = "polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)";
+      }
+  } else {
+      // For Space, Vehicles, and Chips, render the emoji as the shape
+      el.style.fontSize = "2.5rem";
+      el.style.filter = `drop-shadow(2px 4px 6px ${color})`; // Use color as an aura/glow
+      el.textContent = shape;
   }
   return el;
 }
@@ -319,10 +400,14 @@ function buildGrid() {
     }
   }
 
+  // Get the array of items for whatever theme is currently selected
+  const currentShapes = THEMES[themeSelect.value];
+
   while (placed < totalCells) {
     let shape, color;
     do {
-      shape = SHAPES[Math.floor(Math.random() * SHAPES.length)];
+      // Use currentShapes instead of the old SHAPES variable
+      shape = currentShapes[Math.floor(Math.random() * currentShapes.length)];
       color = COLORS[Math.floor(Math.random() * COLORS.length)];
     } while (isTargetCell(shape, color));
     cells[positions[placed]] = { shape, color, isTarget: false };
@@ -371,17 +456,39 @@ function adjustDifficultyIfNeeded(hudEl) {
   }
 }
 
-function handleTap(cellEl, cellData) {
+function handleTap(cellEl, cellData, event) {
   if (cellEl.dataset.done) return;
   cellEl.dataset.done = "1";
   const rt = performance.now() - state.roundStartTime;
+  
+  const logoEl = document.getElementById("medhaaLogo");
+  
+  // Reset logo animation state
+  logoEl.className = "";
+  void logoEl.offsetWidth; // Trigger reflow to restart animations
 
   if (cellData.isTarget) {
     state.hits++;
     comboStreak++;
     let points = 10;
-    if (comboStreak >= 5) { points = 20; playCombo(); showCombo("🔥 Combo x" + comboStreak + "!"); }
-    else playCorrect();
+    
+    if (comboStreak >= 5) { 
+        points = 20; 
+        playCombo(); 
+        showCombo("🔥 Combo x" + comboStreak + "!");
+        
+        const rect = cellEl.getBoundingClientRect();
+        createParticles(rect.left + rect.width / 2, rect.top + rect.height / 2);
+        
+        // Super bounce for combos
+        logoEl.classList.add("logo-combo"); 
+    }
+    else {
+        playCorrect();
+        // Happy bounce for regular correct taps
+        logoEl.classList.add("logo-happy");
+    }
+    
     state.score += points;
     state.reactionTimes.push(rt);
     state.remainingTargets--;
@@ -390,9 +497,14 @@ function handleTap(cellEl, cellData) {
     feedback.textContent = comboStreak >= 5 ? `Correct! 🔥 x${comboStreak}` : "Correct!";
     feedback.className = "correct";
     state.perfWindow.push({ correct: true, rt });
+    
   } else {
     state.wrongTaps++;
     comboStreak = 0;
+    
+    // Shake animation for wrong taps
+    logoEl.classList.add("logo-wrong");
+    
     state.score = Math.max(0, state.score - 5);
     cellEl.classList.add("wrong-hit");
     cellEl.style.opacity = "0.15";
@@ -401,6 +513,7 @@ function handleTap(cellEl, cellData) {
     playWrong();
     state.perfWindow.push({ correct: false, rt: null });
   }
+  
   document.getElementById("hudScore").textContent = state.score;
   adjustDifficultyIfNeeded(document.getElementById("hudDifficulty"));
 

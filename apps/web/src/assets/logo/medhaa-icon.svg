@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 760">
+  <defs>
+    <linearGradient id="wingL" gradientUnits="userSpaceOnUse" x1="20" y1="170" x2="500" y2="740">
+      <stop offset="0" stop-color="#FFC329"/><stop offset=".35" stop-color="#FF704A"/>
+      <stop offset=".7" stop-color="#E93291"/><stop offset="1" stop-color="#5F3CC7"/>
+    </linearGradient>
+    <linearGradient id="wingR" gradientUnits="userSpaceOnUse" x1="980" y1="170" x2="500" y2="740">
+      <stop offset="0" stop-color="#FFC329"/><stop offset=".35" stop-color="#FF704A"/>
+      <stop offset=".7" stop-color="#E93291"/><stop offset="1" stop-color="#5F3CC7"/>
+    </linearGradient>
+    <linearGradient id="legL" gradientUnits="userSpaceOnUse" x1="100" y1="430" x2="100" y2="715">
+      <stop offset="0" stop-color="#D640A8"/><stop offset="1" stop-color="#7B3FC9"/>
+    </linearGradient>
+    <linearGradient id="legR" gradientUnits="userSpaceOnUse" x1="900" y1="430" x2="900" y2="715">
+      <stop offset="0" stop-color="#E04FA0"/><stop offset="1" stop-color="#9B45C4"/>
+    </linearGradient>
+    <linearGradient id="person" gradientUnits="userSpaceOnUse" x1="500" y1="215" x2="500" y2="525">
+      <stop offset="0" stop-color="#FF7A50"/><stop offset=".35" stop-color="#F34374"/>
+      <stop offset="1" stop-color="#C22FA8"/>
+    </linearGradient>
+    <linearGradient id="star" gradientUnits="userSpaceOnUse" x1="500" y1="8" x2="500" y2="192">
+      <stop offset="0" stop-color="#FFD22F"/><stop offset="1" stop-color="#FF9F0A"/>
+    </linearGradient>
+  </defs>
+
+  <path fill="url(#legL)" d="M6 262 L14 262 C90 305 160 375 200 452 L200 642 Q200 712 103 712 Q6 712 6 642 Z"/>
+  <path fill="url(#legR)" d="M994 262 L986 262 C910 305 840 375 800 452 L800 642 Q800 712 897 712 Q994 712 994 642 Z"/>
+
+  <path fill="url(#wingL)" d="M14 176 C16 166 26 160 38 163 C230 195 390 330 500 740 C430 600 260 430 14 262 C4 236 4 200 14 176 Z"/>
+  <path fill="url(#wingR)" d="M986 176 C984 166 974 160 962 163 C770 195 610 330 500 740 C570 600 740 430 986 262 C996 236 996 200 986 176 Z"/>
+
+  <g fill="url(#person)">
+    <circle cx="500" cy="278" r="56"/>
+    <path d="M445 330 L445 465 Q445 522 500 522 Q555 522 555 465 L555 330 Z"/>
+  </g>
+  <g stroke="url(#person)" stroke-width="40" stroke-linecap="round" fill="none">
+    <path d="M472 348 L362 254"/>
+    <path d="M528 348 L638 254"/>
+  </g>
+
+  <path fill="url(#star)" d="M500 8 Q522 78 618 100 Q522 122 500 192 Q478 122 382 100 Q478 78 500 8 Z"/>
+</svg>

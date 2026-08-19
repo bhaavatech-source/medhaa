@@ -2,6 +2,9 @@ import { useState } from 'react';
 import '../styles/teacher-dashboard.css';
 import { Link } from 'react-router-dom';
 
+// assuming this component is located in a sibling folder like src/pages or src/components
+import medhaLogo from "../assets/logo/M_2.png";
+
 
 type Capacity = 'Focus' | 'Attention' | 'Memory' | 'Imagination' | 'Creativity' | 'Self-Awareness';
 
@@ -42,10 +45,10 @@ const domainFocusList: { domain: string; count: number; color: string }[] = [
 
 
 const teachingTips = [
-  { subject: 'Maths', tip: 'Start each lesson with a 2-minute warm-up puzzle — patterns, sequences, or number games. Wakes up logical thinking without extra prep.' },
-  { subject: 'Language', tip: 'Use "story feelings" discussions: ask how a character felt and why. One question per lesson builds empathy naturally.' },
-  { subject: 'Science', tip: 'Assign roles in group experiments — observer, recorder, presenter. Rotating roles builds leadership and cooperation together.' },
-  { subject: 'Activities', tip: 'Let students design their own rules for a game. Builds social awareness and confidence organically.' },
+  { student: 'Rohan Verma', area: 'Attention', subject: 'Maths', task: 'Give one short, timed pattern or sequence problem. Ask him to read the question once, underline the key information, and solve it without switching tasks.', game: 'Try an attention or pattern game for 5 minutes.' },
+  { student: 'Ishita Nair', area: 'Self-Awareness', subject: 'Language', task: 'After a short paragraph, ask her to write one sentence: “What was I thinking while I read this?” Then compare it with what the character was thinking.', game: 'Try a reflection, memory or attention game for 5 minutes.' },
+  { student: 'Kabir Shah', area: 'Focus', subject: 'Science', task: 'Give him one observation task during an experiment. Ask him to record three observations before discussing the result with classmates.', game: 'Try a focused visual or reasoning game for 5 minutes.' },
+  { student: 'Meera Iyer', area: 'Attention', subject: 'Any subject', task: 'Give one instruction containing two steps. Ask her to repeat the steps in her own words before beginning the work.', game: 'Try a short attention-and-memory game for 5 minutes.' },
 ];
 
 
@@ -71,7 +74,7 @@ export function TeacherDashboard() {
 
       <header className="teacher-header">
         <div className="teacher-brand">
-          <span className="teacher-logo">🎓</span>
+          <span className="teacher-logo" aria-hidden="true"><span className="teacher-logo-ring">✦</span><span className="teacher-logo-core">M</span></span>
           <div>
             <h1>Class 4B Dashboard</h1>
             <p>32 students · Bhāva Tech Academy</p>
@@ -97,13 +100,13 @@ export function TeacherDashboard() {
           <div className="capacity-grid">
             {capacityAverages.map((c, i) => (
               <div className="capacity-card" key={c.key} style={{ animationDelay: `${i * 0.07}s` }}>
-                <div className="capacity-bar-track">
-                  <div className="capacity-bar-fill" style={{ width: `${c.value}%`, background: c.color }} />
+                <div className="capacity-ring" style={{ background: `conic-gradient(${c.color} ${c.value * 3.6}deg, #e8edf5 0deg)` }} aria-label={`${c.key}: ${c.value}`}>
+                  <div className="capacity-ring-inner">
+                    <strong style={{ color: c.color }}>{c.value}</strong>
+                    <span>/100</span>
+                  </div>
                 </div>
-                <div className="capacity-row">
-                  <span>{c.key}</span>
-                  <strong style={{ color: c.color }}>{c.value}</strong>
-                </div>
+                <div className="capacity-label">{c.key}</div>
               </div>
             ))}
           </div>
@@ -111,15 +114,26 @@ export function TeacherDashboard() {
 
           <h2 className="t-section-heading">🎯 Needs Attention</h2>
           <div className="focus-list">
-            {capacityFocusList.map((f) => (
-              <div className="focus-item" key={f.name + f.capacity}>
-                <div className="focus-avatar">{f.name.charAt(0)}</div>
-                <div className="focus-info">
-                  <strong>{f.name}</strong>
-                  <span>{f.capacity} · <b className="focus-score">{f.score}</b></span>
-                </div>
-              </div>
-            ))}
+            {capacityFocusList.map((f) => {
+              const guidance = teachingTips.find((t) => t.student === f.name);
+              return (
+                <article className="focus-item" key={f.name + f.capacity}>
+                  <div className="focus-avatar">{f.name.charAt(0)}</div>
+                  <div className="focus-info">
+                    <div className="focus-heading">
+                      <strong>{f.name}</strong>
+                      <span>{f.capacity} · <b className="focus-score">{f.score}</b></span>
+                    </div>
+                    {guidance && (
+                      <div className="focus-guidance">
+                        <strong>{guidance.subject}: </strong>{guidance.task}
+                        <span className="focus-game">🎮 {guidance.game}</span>
+                      </div>
+                    )}
+                  </div>
+                </article>
+              );
+            })}
           </div>
 
 
@@ -156,13 +170,18 @@ export function TeacherDashboard() {
 
       {tab === 'tips' && (
         <section className="teacher-section">
-          <h2 className="t-section-heading">Class-Level Teaching Tips</h2>
+          <h2 className="t-section-heading">Student-Specific Guidance</h2>
           <div className="tips-grid">
             {teachingTips.map((t) => (
-              <div className="tip-card" key={t.subject}>
-                <span className="tip-subject">{t.subject}</span>
-                <p>{t.tip}</p>
-              </div>
+              <article className="tip-card" key={t.student}>
+                <div className="tip-card-top">
+                  <span className="tip-subject">{t.subject}</span>
+                  <span className="tip-area">{t.area}</span>
+                </div>
+                <h3>{t.student}</h3>
+                <p>{t.task}</p>
+                <div className="tip-game">🎮 {t.game}</div>
+              </article>
             ))}
           </div>
         </section>
@@ -177,13 +196,43 @@ export function TeacherDashboard() {
 
         <div className="demo-cta-inner">
           <span className="demo-cta-badge">✨ Live Demo</span>
-          <h2 className="demo-cta-title">Ready to see your own students&apos; reports?</h2>
+
+          <h2 className="demo-cta-title">
+            Ready to see your own students&apos; reports?
+          </h2>
+
           <div className="demo-cta-actions">
-            <Link to="/login/teacher" className="demo-cta-primary">
+            <Link to="/signup/teacher" className="demo-cta-primary">
               Sign up to see your students&apos; reports
               <span className="demo-cta-arrow">→</span>
             </Link>
-            <Link to="/" className="demo-cta-secondary">Home</Link>
+
+            <Link to="/" className="demo-cta-secondary">
+              Home
+            </Link>
+
+            <div
+              style={{
+                display: 'flex',
+                gap: '15px',
+                alignItems: 'center',
+              }}
+            >
+              <Link
+  to="/teacher-workspace"
+  className="teacher-workspace"
+>
+  ✦ Teacher Workspace
+</Link>
+
+ {/* Add a container for your links to keep them tidy */}
+          <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
+            {/* THIS IS THE NEW LINK TO YOUR APPROACH PAGE */}
+            <Link to="/our-approach" className="demo-cta-secondary">
+              How it Works
+            </Link>
+			</div>
+            </div>
           </div>
         </div>
       </section>

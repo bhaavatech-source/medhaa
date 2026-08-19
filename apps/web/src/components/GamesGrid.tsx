@@ -12,6 +12,7 @@ interface GameWithAccess {
   domain: string;
   ageLabel: string;
   skills: string[];
+  kind: 'game' | 'activity';   // ADD THIS LINE
   tier: GameTier;
   access: { allowed: boolean; reason: string; daysSinceSignup: number };
 }

@@ -1,11 +1,10 @@
-// src/pages/hooks/useLoginForm.ts
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec';
+const API_URL = 'http://localhost:4000/api';
 
-export function useLoginForm(role: 'student' | 'parent' | 'teacher' | 'school' | 'admin', redirectTo: string) {
+export function useLoginForm(role: string, redirectTo: string) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -24,19 +23,23 @@ export function useLoginForm(role: 'student' | 'parent' | 'teacher' | 'school' |
 
     setLoading(true);
     try {
-      const res = await fetch(APPS_SCRIPT_URL, {
+      const res = await fetch(`${API_URL}/auth/login`, {
         method: 'POST',
-        body: JSON.stringify({ action: 'login', role, email, password })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
       });
       const data = await res.json();
 
-      if (data.error) {
-        setError(data.error);
+      if (!res.ok) {
+        setError(data.error || 'Invalid email or password.');
         setLoading(false);
         return;
       }
 
-      login(data.user, data.token);
+      const payload = JSON.parse(atob(data.accessToken.split('.')[1]));
+      login({ id: payload.id, email, role: payload.role }, data.accessToken);
+      localStorage.setItem('refreshToken', data.refreshToken);
+
       navigate(redirectTo);
     } catch (err) {
       setError('Login error. Please check your connection and try again.');

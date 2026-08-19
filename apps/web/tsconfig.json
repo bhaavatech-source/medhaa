@@ -12,7 +12,8 @@
     "strict": true,
     "baseUrl": ".",
     "paths": {
-      "@medhaa/*": ["../../packages/*/src"]
+      "@medhaa/*": ["../../packages/*/src"],
+      "@medhaa/ui/*": ["../../packages/ui/src"]
     }
   },
   "include": ["src", "src/components/GamesDiscovery.tsx"]

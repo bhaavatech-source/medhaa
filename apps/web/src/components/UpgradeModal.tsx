@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import qrImage from '../assets/BT_QR.jpeg';
 import '../styles/upgrade-modal.css';
 
 interface Plan {
@@ -15,13 +16,15 @@ interface UpgradeModalProps {
   onClose: () => void;
 }
 
-type Step = 'choose-plan' | 'payment' | 'confirming' | 'success';
+type Step = 'choose-plan' | 'payment' | 'submitting' | 'submitted';
 
 export function UpgradeModal({ apiUrl, gameTitle, onClose }: UpgradeModalProps) {
   const [plans, setPlans] = useState<Plan[]>([]);
   const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
   const [step, setStep] = useState<Step>('choose-plan');
-  const [paymentLinks, setPaymentLinks] = useState<{ upiLink: string; whatsappLink: string; subscriptionId: string } | null>(null);
+  const [subscriptionId, setSubscriptionId] = useState<string | null>(null);
+  const [refId, setRefId] = useState('');
+  const [error, setError] = useState('');
 
   useEffect(() => {
     fetch(`${apiUrl}/subscriptions/plans`)
@@ -31,27 +34,32 @@ export function UpgradeModal({ apiUrl, gameTitle, onClose }: UpgradeModalProps) 
 
   async function handleSelectPlan(plan: Plan) {
     setSelectedPlan(plan);
-    const token = localStorage.getItem('access-token');
+    const token = localStorage.getItem('accessToken');
     const res = await fetch(`${apiUrl}/subscriptions/initiate`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
       body: JSON.stringify({ planId: plan.id }),
     });
     const data = await res.json();
-    setPaymentLinks(data);
+    setSubscriptionId(data.subscriptionId);
     setStep('payment');
   }
 
-  async function handleIveePaid() {
-    if (!paymentLinks) return;
-    setStep('confirming');
-    const token = localStorage.getItem('access-token');
-    await fetch(`${apiUrl}/subscriptions/${paymentLinks.subscriptionId}/confirm`, {
+  async function handleSubmitReference() {
+    if (!subscriptionId) return;
+    if (!refId.trim() || refId.trim().length < 4) {
+      setError('Please enter a valid transaction reference ID');
+      return;
+    }
+    setError('');
+    setStep('submitting');
+    const token = localStorage.getItem('accessToken');
+    await fetch(`${apiUrl}/subscriptions/${subscriptionId}/submit-reference`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-      body: JSON.stringify({ transactionRef: 'pending-manual-verification' }),
+      body: JSON.stringify({ transactionRef: refId.trim() }),
     });
-    setStep('success');
+    setStep('submitted');
   }
 
   return (
@@ -76,33 +84,46 @@ export function UpgradeModal({ apiUrl, gameTitle, onClose }: UpgradeModalProps) 
           </>
         )}
 
-        {step === 'payment' && paymentLinks && selectedPlan && (
+        {step === 'payment' && selectedPlan && (
           <>
             <h2 className="upgrade-title">Pay ₹{(selectedPlan.amountPaise / 100).toLocaleString('en-IN')}</h2>
-            <p className="upgrade-sub">Complete payment via UPI or WhatsApp, then tap &ldquo;I&apos;ve Paid&rdquo;.</p>
-            <div className="payment-options">
-              <a href={paymentLinks.upiLink} className="pay-btn pay-upi">Pay via UPI / GPay / PhonePe</a>
-              <a href={paymentLinks.whatsappLink} target="_blank" rel="noopener noreferrer" className="pay-btn pay-whatsapp">
-                Confirm via WhatsApp
-              </a>
-            </div>
-            <button className="ive-paid-btn" onClick={handleIveePaid}>I&apos;ve Paid</button>
+            <p className="upgrade-sub">Scan the QR code below using any UPI app, then enter your transaction reference ID.</p>
+
+            <img src={qrImage} alt="BhavaTech UPI QR Code" className="upgrade-qr" />
+            <p className="upgrade-upi-id">UPI ID: yespay.smessi10194393@yesbankltd</p>
+
+            <label className="upgrade-ref-label">
+              Transaction Reference ID
+              <input
+                type="text"
+                value={refId}
+                onChange={(e) => setRefId(e.target.value)}
+                placeholder="e.g. 123456789012"
+                className="upgrade-ref-input"
+              />
+            </label>
+
+            {error && <div className="upgrade-error">{error}</div>}
+
+            <button className="ive-paid-btn" onClick={handleSubmitReference}>Submit Reference ID</button>
           </>
         )}
 
-        {step === 'confirming' && (
+        {step === 'submitting' && (
           <div className="upgrade-loading">
             <div className="spinner" />
-            <p>Confirming your payment…</p>
+            <p>Submitting your reference…</p>
           </div>
         )}
 
-        {step === 'success' && (
+        {step === 'submitted' && (
           <div className="upgrade-success">
-            <div className="success-icon">🎉</div>
-            <h2 className="upgrade-title">You&apos;re all set!</h2>
-            <p className="upgrade-sub">Your subscription is active. Refresh to start playing.</p>
-            <button className="ive-paid-btn" onClick={() => window.location.reload()}>Refresh Now</button>
+            <div className="success-icon">✅</div>
+            <h2 className="upgrade-title">Reference submitted!</h2>
+            <p className="upgrade-sub">
+              We'll verify your payment and activate your subscription shortly. This usually takes a few hours.
+            </p>
+            <button className="ive-paid-btn" onClick={onClose}>Close</button>
           </div>
         )}
       </div>

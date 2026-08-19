@@ -16,26 +16,46 @@ export const PERMANENT_FREE_GAMES = [
   'soccomm-enhanced',
   'neuroflash-memory',
   'calm-zone',
+  'good-habits',                          // NEW
+  'medha-read-anybook-in-3hrs',           // NEW
 ];
 
-export const ROTATING_FREE_GAMES = [
-  'bhava-tech-likhwell',
-  'brain-garden',
-  'brain-quest',
-  'day-hero-game',
-  'day-super-hero',
-  'iq-test-level-3',
-  'logic-game',
-  'math-blitz-example',
-  'math-blitz',
-  'memory-match-puzzle',
-  'memory-match-ultimate',
-  'memory-zoo-puzzle',
-  'mindscape-pro',
-  'mindspark-iq',
-  'neurospark',
-  'percentile-game',
+export const ROTATING_FREE_BATCHES: string[][] = [
+  ['bhava-tech-likhwell', 'brain-garden', 'brain-quest', 'day-hero-game', 'day-super-hero', 'iq-test-level-3'],
+  ['logic-game', 'math-blitz-example', 'math-blitz', 'memory-match-puzzle', 'memory-match-ultimate', 'memory-zoo-puzzle'],
+  ['mindscape-pro', 'mindspark-iq', 'neurospark', 'percentile-game'],
 ];
+
+export const ROTATING_FREE_GAMES = ROTATING_FREE_BATCHES.flat();
+
+const ROTATING_FREE_UNLOCK_START_DAY = 31;
+const ROTATING_FREE_BATCH_LENGTH_DAYS = 7;
+
+function getActiveBatchIndex(daysSinceSignup: number): number {
+  if (daysSinceSignup < ROTATING_FREE_UNLOCK_START_DAY) return -1;
+  const daysIntoRotation = daysSinceSignup - ROTATING_FREE_UNLOCK_START_DAY;
+  const weeksElapsed = Math.floor(daysIntoRotation / ROTATING_FREE_BATCH_LENGTH_DAYS);
+  return weeksElapsed % ROTATING_FREE_BATCHES.length;
+}
+
+function getRotatingFreeStatus(slug: string, daysSinceSignup: number): { allowed: boolean; reason: string } {
+  const gameBatchIndex = ROTATING_FREE_BATCHES.findIndex((batch) => batch.includes(slug));
+  if (gameBatchIndex === -1) {
+    return { allowed: false, reason: 'not scheduled' };
+  }
+
+  const activeBatchIndex = getActiveBatchIndex(daysSinceSignup);
+
+  if (activeBatchIndex === -1) {
+    return { allowed: false, reason: `unlocks on day ${ROTATING_FREE_UNLOCK_START_DAY}` };
+  }
+
+  if (gameBatchIndex === activeBatchIndex) {
+    return { allowed: true, reason: `this week's rotation (batch ${activeBatchIndex + 1})` };
+  }
+
+  return { allowed: false, reason: `locked — plays in a future rotation (batch ${gameBatchIndex + 1})` };
+}
 
 export const PREMIUM_ONLY_GAMES = [
   'nadopaasana',
@@ -62,6 +82,15 @@ export const PREMIUM_ONLY_GAMES = [
   'grammar-pro',
   'heart-heroes',
   'imaginia-quest',
+  'bhava-tech-build-your-bike',   // NEW
+  'know-maths',                   // NEW
+  'empathy-quest',                // NEW
+   'mental-rotation-game',          // ADD
+  'visual-difference-detector',    // ADD
+  'empathy-conversation',          // ADD
+  'hidden-science',                // ADD
+  'logic-grid-puzzle',             // ADD
+
 ];
 
 const PREMIUM_TRIAL_DAYS = 10;
@@ -107,16 +136,9 @@ export function checkGameAccess({
   }
 
   if (tier === 'rotating-free') {
-    if (daysSinceSignup >= ROTATING_FREE_UNLOCK_DAY) {
-      return { tier, allowed: true, reason: 'rotating free game unlocked', daysSinceSignup };
-    }
-    return {
-      tier,
-      allowed: false,
-      reason: `unlocks on day ${ROTATING_FREE_UNLOCK_DAY}`,
-      daysSinceSignup,
-    };
-  }
+  const status = getRotatingFreeStatus(gameSlug, daysSinceSignup);
+  return { tier, allowed: status.allowed, reason: status.reason, daysSinceSignup };
+}
 
   if (tier === 'premium-only') {
     if (isSubscribed) {

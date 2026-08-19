@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" data-bhava-mobile="nudge">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>BCS Lite — Bhāva Cognitive Screen</title>
+<title>My Medhā</title>
 <style>
 /* ======== CSS VARIABLES & RESET ======== */
 :root {
@@ -478,7 +478,7 @@ select option { background: #1a2a3a; }
   <!-- ===== PERSISTENT NAV BAR ===== -->
   <div id="bcs-nav" style="position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:center;justify-content:space-between;padding:8px 16px;background:rgba(10,18,40,0.85);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,0.08);">
     <button onclick="goBack()" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);color:#fff;font-family:inherit;font-size:0.82rem;font-weight:700;padding:7px 18px;border-radius:20px;cursor:pointer;" onmouseover="this.style.background='rgba(255,255,255,0.18)'" onmouseout="this.style.background='rgba(255,255,255,0.08)'">&#8592; Back</button>
-    <span style="font-size:0.75rem;font-weight:700;letter-spacing:0.08em;color:rgba(255,255,255,0.35);text-transform:uppercase;">BCS Lite</span>
+    <span style="font-size:0.75rem;font-weight:700;letter-spacing:0.08em;color:rgba(255,255,255,0.35);text-transform:uppercase;">My Medhā </span>
     <button onclick="goHome()" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);color:#fff;font-family:inherit;font-size:0.82rem;font-weight:700;padding:7px 18px;border-radius:20px;cursor:pointer;" onmouseover="this.style.background='rgba(255,255,255,0.18)'" onmouseout="this.style.background='rgba(255,255,255,0.08)'">&#127968; Home</button>
   </div>
   <div style="height:48px;"></div>
@@ -489,8 +489,8 @@ select option { background: #1a2a3a; }
     <div class="logo-bar">
       <div class="logo-icon">🧠</div>
       <div class="logo-text">
-        <h1>BCS Lite</h1>
-        <p>Bhāva Cognitive Screen · Enhanced Edition</p>
+        <h1>My Medhā</h1>
+        <p>Medhā Cognitive Screen</p>
       </div>
     </div>
     <div class="card">
@@ -585,7 +585,7 @@ select option { background: #1a2a3a; }
           </select>
         </div>
       </div>
-      <div style="background:rgba(255,209,102,0.10);border:1px solid rgba(255,209,102,0.3);border-radius:10px;padding:12px 16px;margin-bottom:14px;font-size:0.8rem;line-height:1.6;color:var(--accent3);"><strong>Disclaimer:</strong> BCS Lite is a screening tool only, not a clinical diagnosis. Results reflect performance on this session and may vary with mood, health, or environment. This report should be interpreted by a qualified facilitator alongside other observations. Do not use scores as the sole basis for academic or psychological decisions.</div>
+      <div style="background:rgba(255,209,102,0.10);border:1px solid rgba(255,209,102,0.3);border-radius:10px;padding:12px 16px;margin-bottom:14px;font-size:0.8rem;line-height:1.6;color:var(--accent3);"><strong>Disclaimer:</strong> My Medhā is a screening tool only, not a clinical diagnosis. Results reflect performance on this session and may vary with mood, health, or environment. This report should be interpreted by a qualified facilitator alongside other observations. Do not use scores as the sole basis for academic or psychological decisions.</div>
       <div class="divider"></div>
       <button class="btn btn-primary btn-full" onclick="startAssessment()">Start Assessment →</button>
     </div>
@@ -749,7 +749,7 @@ select option { background: #1a2a3a; }
 
     <div class="card">
       <div class="section-title">Your Cognitive Journey</div>
-      <p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:8px;">Check this against your next assessment after 30 days of Bhāva activities</p>
+      <p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:8px;">Check this against your next assessment after 30 days of Medhā activities</p>
       <div class="journey-track" id="journey-track"></div>
       <p style="font-size:0.72rem;color:var(--text-muted);text-align:center;margin-top:4px;">
         Current: <span id="journey-current-label" style="color:var(--accent);font-weight:700"></span>
@@ -1954,7 +1954,7 @@ async function saveData(payload) {
     } catch(e) {}
   }
 
-  // 2. Bhava Cloud
+  // 2. Medhā Cloud
   try {
     const res = await fetch(BHAVA_CLOUD_URL, {
       method:'POST',
@@ -2004,6 +2004,8 @@ function restartAssessment() {
 }
 </script>
 
+<script src="bhava-game-bank-compatibility-fix.js"></script>
+<script src="bhava-verified-starter-game-bank.js"></script>
 <script src="bhava-20-item-checkpoint.js"></script>
 <script src="bhava-bridge.js"></script>
 <script src="bhava-session.js"></script>

@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Medhā — Laptop Anatomy & Physiology</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+  
+  <style>
+    /* Base Styles */
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #080c16;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+    .app-shell { max-width: 1400px; margin: 0 auto; padding: 20px; }
+    .glass { background: rgba(255, 255, 255, 0.03); border-radius: 15px; padding: 20px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.05); }
+    
+    /* Topbar & Mode Switcher */
+    .topbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 20px; }
+    .brand h1 { margin: 0; font-family: 'Orbitron', sans-serif; color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+    
+    .mode-switcher {
+      display: flex;
+      background: rgba(0,0,0,0.5);
+      border-radius: 30px;
+      padding: 5px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .mode-btn {
+      padding: 10px 25px;
+      border-radius: 25px;
+      border: none;
+      background: transparent;
+      color: #888;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .mode-btn.active { background: linear-gradient(45deg, #00d2ff, #3a7bd5); color: #fff; box-shadow: 0 0 15px rgba(0, 210, 255, 0.4); }
+
+    /* Main Views */
+    .view-section { display: none; }
+    .view-section.active { display: block; animation: slide-in-magic 0.4s ease-out; }
+
+    /* Shared Typography & Effects */
+    .hero-copy h2 {
+      text-align: center;
+      background: linear-gradient(90deg, #ff00cc, #00d2ff, #ffcc00, #ff00cc);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradient-glow 5s linear infinite;
+      font-size: 2.8rem;
+      text-transform: uppercase;
+      font-family: 'Orbitron', sans-serif;
+      margin-bottom: 10px;
+    }
+
+    @keyframes gradient-glow { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
+    @keyframes slide-in-magic { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+    @keyframes bounce-fun { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-4px) scale(1.05); } }
+
+    /* =========================================
+       ANATOMY STYLES
+       ========================================= */
+    .dual-view-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; padding: 20px; }
+    .device-container { display: flex; flex-direction: column; align-items: center; gap: 15px; }
+    .device-label { font-family: 'Orbitron', sans-serif; color: #00d2ff; letter-spacing: 2px; text-transform: uppercase; font-size: 1.1rem; text-shadow: 0 0 10px rgba(0, 210, 255, 0.5); }
+    
+    .anatomy-part { cursor: pointer; transition: all 0.3s ease; transform-origin: center; }
+    .anatomy-part:hover { filter: drop-shadow(0 0 15px rgba(0,210,255,0.8)) brightness(1.4); }
+    .anatomy-part.active-part { animation: electric-pulse 1.5s infinite; z-index: 10; }
+    
+    @keyframes electric-pulse {
+      0%, 100% { filter: drop-shadow(0 0 15px #00ffcc) brightness(1.5); }
+      50% { filter: drop-shadow(0 0 35px #00d2ff) brightness(2); }
+    }
+    
+    .tab-content { position: relative; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .tab-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 30px; padding: 15px; background: rgba(0,0,0,0.3); border-radius: 15px; }
+    .tab-btn { font-size: 0.9rem; border-radius: 20px; padding: 8px 14px; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); color: #aaa; cursor: pointer; }
+    .tab-btn:hover { border-color: #00d2ff; color: #fff; }
+    .tab-btn.active { animation: bounce-fun 2s infinite; background: linear-gradient(45deg, #008cff, #00d2ff); color: #fff; font-weight: 800; border: 1px solid #fff; box-shadow: 0 0 20px rgba(0, 210, 255, 0.5); }
+    .tab-btn.turbo-tab { background: linear-gradient(45deg, #ff00cc, #3333ff); color: white; font-weight: 800; }
+
+    .info-card { background: rgba(15, 20, 30, 0.9); border: 2px solid #00d2ff; border-radius: 20px; padding: 25px; animation: slide-in-magic 0.4s ease-out forwards; box-shadow: inset 0 0 30px rgba(0, 210, 255, 0.1), 0 10px 30px rgba(0,0,0,0.6); }
+    .info-card h4 { color: #00ffcc; font-size: 2.2rem; text-shadow: 2px 2px 0 #0055ff; margin-bottom: 15px; font-family: 'Orbitron', sans-serif; }
+    .info-card p { font-size: 1.15rem; line-height: 1.6; color: #d1d5db; }
+
+    /* Custom Tooltip */
+    .hover-tooltip { position: absolute; background: rgba(10, 15, 25, 0.95); color: #00ffcc; padding: 8px 14px; border-radius: 8px; border: 1px solid #008cff; font-weight: 700; pointer-events: none; display: none; z-index: 1000; box-shadow: 0 4px 15px rgba(0, 140, 255, 0.4); font-family: 'Orbitron', sans-serif; font-size: 0.9rem; letter-spacing: 1px; }
+
+    /* =========================================
+       PHYSIOLOGY STYLES
+       ========================================= */
+    .simulator-container { display: flex; flex-direction: column; align-items: center; gap: 30px; }
+    .action-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; padding: 15px; background: rgba(0,0,0,0.4); border-radius: 20px; max-width: 900px; }
+    .action-btn { font-family: 'Orbitron', sans-serif; font-size: 0.95rem; font-weight: 700; border-radius: 30px; padding: 10px 18px; border: none; cursor: pointer; transition: all 0.3s ease; text-transform: uppercase; color: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+    .action-btn:hover { transform: scale(1.05) translateY(-2px); box-shadow: 0 8px 25px rgba(255,255,255,0.2); filter: brightness(1.2); }
+    .action-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; filter: none; }
+
+    .flow-svg { width: 100%; max-width: 900px; height: auto; background: rgba(0,0,0,0.2); border-radius: 20px; padding: 20px; border: 1px solid rgba(255,255,255,0.05); }
+    .node-box { fill: #1e293b; stroke: #475569; stroke-width: 3; transition: all 0.3s ease; }
+    .node-text { font-family: 'Orbitron', sans-serif; font-size: 13px; fill: #94a3b8; font-weight: bold; transition: all 0.3s ease; }
+    .flow-path { fill: none; stroke: #334155; stroke-width: 4; stroke-dasharray: 10, 10; transition: stroke 0.3s ease; }
+    
+    .node.active .node-box { fill: #0f172a; stroke: #ffcc00; filter: drop-shadow(0 0 15px #ffcc00); }
+    .node.active .node-text { fill: #ffcc00; }
+    .path.active { stroke: #00ffcc; animation: dash-flow 1s linear infinite; filter: drop-shadow(0 0 8px #00ffcc); }
+    @keyframes dash-flow { from { stroke-dashoffset: 40; } to { stroke-dashoffset: 0; } }
+
+    .status-panel { width: 100%; max-width: 900px; background: rgba(15, 23, 42, 0.9); border: 2px solid #3b82f6; border-radius: 15px; padding: 25px; min-height: 100px; display: flex; align-items: center; justify-content: center; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    .status-text { font-size: 1.4rem; color: #60a5fa; font-weight: 500; line-height: 1.5; }
+    .status-highlight { color: #00ffcc; font-family: 'Orbitron', sans-serif; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <!-- Hover Tooltip for Anatomy -->
+  <div id="hoverTooltip" class="hover-tooltip"></div>
+
+  <div class="app-shell">
+    
+    <!-- TOP NAVIGATION -->
+    <header class="topbar">
+      <div class="brand">
+        <h1>Medhā Computing</h1>
+      </div>
+      <div class="mode-switcher">
+        <button class="mode-btn active" onclick="switchMode('anatomy')">🔍 ANATOMY EXPLORER</button>
+        <button class="mode-btn" onclick="switchMode('physiology')">⚡ PHYSIOLOGY SIMULATOR</button>
+      </div>
+    </header>
+
+    <!-- ==========================================
+         VIEW 1: ANATOMY EXPLORER
+         ========================================== -->
+    <div id="view-anatomy" class="view-section active">
+      <section class="hero card glass">
+        <div class="hero-copy">
+          <h2>Inside a Laptop! 💻🔍</h2>
+          <p style="text-align: center; font-size: 1.2rem; color: #cbd5e1;">Hover over the components of the Screen and the Base to uncover their secrets!</p>
+        </div>
+      </section>
+
+      <section class="anatomy-explorer card glass">
+        <div class="dual-view-container">
+          
+          <!-- LEFT: LAPTOP SCREEN (LID) -->
+          <div class="device-container">
+            <div class="device-label">1. Display Lid</div>
+            <svg class="anatomy-svg" viewBox="0 0 340 240" xmlns="http://www.w3.org/2000/svg" style="height: 300px; width: auto;">
+              <defs>
+                <linearGradient id="laptopScreen" x2="0" y2="1"><stop stop-color="#1e3a8a"/><stop offset="1" stop-color="#0f172a"/></linearGradient>
+              </defs>
+              <!-- Lid Chassis -->
+              <g class="anatomy-part" data-part="bezel" data-tab="tab-bezel">
+                <rect x="10" y="10" width="320" height="220" rx="15" fill="#1e293b" stroke="#475569" stroke-width="3"/>
+                <rect x="15" y="15" width="310" height="210" rx="10" fill="#0f172a"/>
+              </g>
+              <!-- Screen Panel -->
+              <g class="anatomy-part" data-part="screen" data-tab="tab-screen">
+                <rect x="20" y="25" width="300" height="190" rx="4" fill="url(#laptopScreen)"/>
+                <!-- Fake UI Desktop -->
+                <rect x="30" y="195" width="280" height="15" rx="2" fill="rgba(255,255,255,0.1)"/> <!-- Taskbar -->
+                <rect x="40" y="40" width="40" height="30" rx="4" fill="rgba(255,255,255,0.1)"/> <!-- Window -->
+                <rect x="100" y="40" width="120" height="80" rx="4" fill="rgba(255,255,255,0.05)"/> <!-- Window 2 -->
+              </g>
+              <!-- Webcam & Mic Array -->
+              <g class="anatomy-part" data-part="webcam" data-tab="tab-webcam">
+                <circle cx="170" cy="18" r="3" fill="#111" stroke="#3498db" stroke-width="1"/>
+                <circle cx="170" cy="18" r="1" fill="#fff"/>
+              </g>
+              <g class="anatomy-part" data-part="mic" data-tab="tab-mic">
+                <circle cx="155" cy="18" r="1" fill="#64748b"/>
+                <circle cx="185" cy="18" r="1" fill="#64748b"/>
+              </g>
+            </svg>
+          </div>
+
+          <!-- RIGHT: LAPTOP BASE (MOTHERBOARD + PORTS + KEYBOARD) -->
+          <div class="device-container">
+            <div class="device-label">2. Base & Internals</div>
+            <svg class="anatomy-svg" viewBox="0 0 340 240" xmlns="http://www.w3.org/2000/svg" style="height: 300px; width: auto;">
+              
+              <!-- Bottom Chassis -->
+              <g class="anatomy-part" data-part="chassis" data-tab="tab-chassis">
+                <rect x="10" y="10" width="320" height="220" rx="15" fill="#1e293b" stroke="#64748b" stroke-width="3"/>
+                <rect x="15" y="15" width="310" height="210" rx="10" fill="#0f172a"/>
+              </g>
+
+              <!-- LEFT PORTS -->
+              <g class="anatomy-part" data-part="chargeport" data-tab="tab-chargeport">
+                <!-- DC Charging Barrel -->
+                <rect x="4" y="30" width="6" height="12" rx="1" fill="#f39c12"/>
+                <circle cx="10" cy="36" r="2" fill="#111"/>
+              </g>
+              <g class="anatomy-part" data-part="usb" data-tab="tab-usb">
+                <!-- USB-A -->
+                <rect x="4" y="55" width="6" height="18" rx="1" fill="#3498db"/>
+                <rect x="6" y="58" width="2" height="12" fill="#fff"/>
+              </g>
+              <g class="anatomy-part" data-part="audiojack" data-tab="tab-audiojack">
+                <!-- Headphone 3.5mm -->
+                <rect x="4" y="85" width="6" height="10" rx="1" fill="#2ecc71"/>
+                <circle cx="10" cy="90" r="2" fill="#111"/>
+              </g>
+
+              <!-- RIGHT PORTS -->
+              <g class="anatomy-part" data-part="hdmi" data-tab="tab-hdmi">
+                <!-- HDMI Port -->
+                <polygon points="330,40 336,42 336,54 330,56" fill="#f1c40f"/>
+                <rect x="330" y="44" width="4" height="8" fill="#111"/>
+              </g>
+              <g class="anatomy-part" data-part="usb" data-tab="tab-usb">
+                <!-- USB-C -->
+                <rect x="330" y="75" width="6" height="10" rx="2" fill="#bdc3c7"/>
+                <rect x="332" y="78" width="2" height="4" fill="#111"/>
+              </g>
+
+              <!-- Motherboard Board -->
+              <g class="anatomy-part" data-part="motherboard" data-tab="tab-motherboard">
+                <path d="M 50 20 L 290 20 L 290 140 L 220 140 L 220 160 L 120 160 L 120 140 L 50 140 Z" fill="#0b5345" stroke="#1abc9c" stroke-width="2"/>
+                <!-- Trace lines -->
+                <path d="M 80 50 L 100 50 M 200 120 L 220 120 M 150 40 L 150 60" stroke="#1abc9c" stroke-width="1" opacity="0.5"/>
+              </g>
+
+              <!-- Battery -->
+              <g class="anatomy-part" data-part="battery" data-tab="tab-battery">
+                <rect x="50" y="150" width="240" height="70" rx="5" fill="#34495e" stroke="#3498db" stroke-width="2"/>
+                <rect x="55" y="155" width="70" height="60" rx="2" fill="#2c3e50"/>
+                <rect x="135" y="155" width="70" height="60" rx="2" fill="#2c3e50"/>
+                <rect x="215" y="155" width="70" height="60" rx="2" fill="#2c3e50"/>
+                <text x="170" y="188" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="10" fill="#fff">99Wh Li-Po BATTERY</text>
+              </g>
+
+              <!-- CPU & GPU (The Brain & Muscle) -->
+              <g class="anatomy-part" data-part="cpu" data-tab="tab-cpu">
+                <rect x="110" y="50" width="40" height="40" fill="#d35400" stroke="#fff" stroke-width="1"/>
+                <text x="130" y="73" text-anchor="middle" font-weight="bold" font-size="10" fill="#fff">CPU</text>
+              </g>
+              <g class="anatomy-part" data-part="gpu" data-tab="tab-gpu">
+                <rect x="180" y="45" width="50" height="50" fill="#8e44ad" stroke="#fff" stroke-width="1"/>
+                <text x="205" y="73" text-anchor="middle" font-weight="bold" font-size="10" fill="#fff">GPU</text>
+              </g>
+
+              <!-- RAM Memory -->
+              <g class="anatomy-part" data-part="ram" data-tab="tab-ram">
+                <rect x="120" y="100" width="50" height="12" fill="#2980b9" stroke="#fff" stroke-width="1"/>
+                <rect x="120" y="115" width="50" height="12" fill="#2980b9" stroke="#fff" stroke-width="1"/>
+                <text x="145" y="109" text-anchor="middle" font-weight="bold" font-size="6" fill="#fff">RAM</text>
+              </g>
+
+              <!-- NVMe SSD Storage -->
+              <g class="anatomy-part" data-part="ssd" data-tab="tab-ssd">
+                <rect x="210" y="105" width="60" height="18" fill="#16a085" stroke="#f1c40f" stroke-width="1"/>
+                <rect x="215" y="108" width="12" height="12" fill="#111"/>
+                <text x="245" y="118" text-anchor="middle" font-weight="bold" font-size="7" fill="#fff">NVMe SSD</text>
+              </g>
+
+              <!-- Cooling System (Fans & Heatpipes) -->
+              <g class="anatomy-part" data-part="cooling" data-tab="tab-cooling">
+                <!-- Heatpipes -->
+                <path d="M 85 45 C 100 45, 130 55, 130 55 M 255 45 C 240 45, 205 55, 205 55" fill="none" stroke="#e67e22" stroke-width="6"/>
+                <!-- Left Fan -->
+                <circle cx="70" cy="50" r="22" fill="#2c3e50" stroke="#7f8c8d" stroke-width="2"/>
+                <circle cx="70" cy="50" r="18" fill="none" stroke="#95a5a6" stroke-width="1" stroke-dasharray="4,2"/>
+                <!-- Right Fan -->
+                <circle cx="270" cy="50" r="22" fill="#2c3e50" stroke="#7f8c8d" stroke-width="2"/>
+                <circle cx="270" cy="50" r="18" fill="none" stroke="#95a5a6" stroke-width="1" stroke-dasharray="4,2"/>
+              </g>
+
+              <!-- Stereo Speakers -->
+              <g class="anatomy-part" data-part="speakers" data-tab="tab-speakers">
+                <rect x="18" y="140" width="25" height="60" rx="4" fill="#111" stroke="#333"/>
+                <circle cx="30" cy="155" r="5" fill="#333"/><circle cx="30" cy="185" r="5" fill="#333"/>
+                <rect x="297" y="140" width="25" height="60" rx="4" fill="#111" stroke="#333"/>
+                <circle cx="310" cy="155" r="5" fill="#333"/><circle cx="310" cy="185" r="5" fill="#333"/>
+              </g>
+
+              <!-- POWER BUTTON -->
+              <g class="anatomy-part" data-part="powerbtn" data-tab="tab-powerbtn">
+                <circle cx="310" cy="30" r="8" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+                <path d="M 310 25 L 310 30 M 306 28 A 4.5 4.5 0 1 0 314 28" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+              </g>
+
+              <!-- TRANSLUCENT KEYBOARD & TRACKPAD OVERLAY -->
+              <g class="anatomy-part" data-part="keyboard" data-tab="tab-keyboard">
+                <!-- Keyboard Grid Box -->
+                <rect x="35" y="110" width="270" height="70" rx="4" fill="rgba(255,255,255,0.06)" stroke="#00ffcc" stroke-width="1.5" stroke-dasharray="2,2"/>
+                <text x="170" y="148" text-anchor="middle" font-family="Orbitron" font-weight="bold" font-size="14" fill="rgba(0, 255, 204, 0.75)" letter-spacing="2">KEYBOARD DECK</text>
+                
+                <!-- Trackpad Box -->
+                <rect x="130" y="185" width="80" height="35" rx="4" fill="rgba(255,255,255,0.08)" stroke="#00ffcc" stroke-width="1.5" stroke-dasharray="2,2"/>
+                <text x="170" y="208" text-anchor="middle" font-family="Orbitron" font-size="9" font-weight="bold" fill="rgba(0, 255, 204, 0.75)" letter-spacing="1">TRACKPAD</text>
+              </g>
+
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      <section class="anatomy-detail card glass">
+        <div class="section-head" style="text-align: center; margin-bottom: 20px;">
+          <h3 id="detailTitle" style="font-size: 2rem; color: #61dafb; font-family: 'Orbitron', sans-serif;">Select a component 🔍</h3>
+        </div>
+        
+        <div class="anatomy-tabs">
+          <!-- NAVIGATION BUTTONS -->
+          <div class="tab-row">
+            <button class="tab-btn active" data-tab="tab-intro">👋 Welcome</button>
+            <button class="tab-btn turbo-tab" data-tab="tab-turbo">⚡ Overclock Mode!</button>
+            
+            <!-- Lid -->
+            <button class="tab-btn" data-tab="tab-screen">📺 Display Panel</button>
+            <button class="tab-btn" data-tab="tab-webcam">📷 Webcam</button>
+            <button class="tab-btn" data-tab="tab-mic">🎙️ Array Mics</button>
+            <button class="tab-btn" data-tab="tab-bezel">🛡️ Lid Bezel</button>
+
+            <!-- Base Main -->
+            <button class="tab-btn" data-tab="tab-keyboard">⌨️ Keyboard & Pad</button>
+            <button class="tab-btn" data-tab="tab-powerbtn">⏻ Power Button</button>
+            <button class="tab-btn" data-tab="tab-chassis">💻 Aluminum Base</button>
+            <button class="tab-btn" data-tab="tab-motherboard">🧩 Motherboard</button>
+            
+            <!-- Chips & Hardware -->
+            <button class="tab-btn" data-tab="tab-cpu">🧠 CPU (Processor)</button>
+            <button class="tab-btn" data-tab="tab-gpu">🎮 GPU (Graphics)</button>
+            <button class="tab-btn" data-tab="tab-ram">🚀 RAM</button>
+            <button class="tab-btn" data-tab="tab-ssd">💾 NVMe SSD</button>
+            <button class="tab-btn" data-tab="tab-battery">🔋 Huge Battery</button>
+            <button class="tab-btn" data-tab="tab-cooling">❄️ Fans & Copper</button>
+            <button class="tab-btn" data-tab="tab-speakers">🔊 Stereo Speakers</button>
+
+            <!-- Ports -->
+            <button class="tab-btn" data-tab="tab-chargeport">⚡ Charging Port</button>
+            <button class="tab-btn" data-tab="tab-usb">🔱 USB Ports</button>
+            <button class="tab-btn" data-tab="tab-hdmi">📺 HDMI Port</button>
+            <button class="tab-btn" data-tab="tab-audiojack">🎧 Headphone Jack</button>
+          </div>
+
+          <div class="tab-content">
+            <!-- CONTENT PANELS -->
+            <div id="tab-intro" class="tab-panel active"><div class="info-card"><h4>👋 Welcome to Laptop Anatomy!</h4><p>We've taken an X-Ray of the laptop! On the left is the screen lid. On the right, you can see the translucent keyboard floating right over the massive high-tech engine room underneath. Click around!</p></div></div>
+            <div id="tab-turbo" class="tab-panel"><div class="info-card"><h4>⚡ OVERCLOCK MODE ACTIVATED!</h4><p>Maximum processing power engaged! The fans are spinning up and the laptop is working at lightning speed!</p></div></div>
+            
+            <div id="tab-screen" class="tab-panel"><div class="info-card"><h4>📺 Display Panel</h4><p>A beautiful high-resolution screen made of millions of tiny lights to show your games, code, and movies perfectly.</p></div></div>
+            <div id="tab-webcam" class="tab-panel"><div class="info-card"><h4>📷 HD Webcam</h4><p>A tiny high-definition camera built right into the top bezel so you can join video calls or stream your games.</p></div></div>
+            <div id="tab-mic" class="tab-panel"><div class="info-card"><h4>🎙️ Array Microphones</h4><p>Multiple tiny microphones spaced apart. They work together to hear your voice clearly while ignoring background noise like clicking keyboards!</p></div></div>
+            <div id="tab-bezel" class="tab-panel"><div class="info-card"><h4>🛡️ Lid Bezel & Chassis</h4><p>The tough outer frame that protects the fragile glass screen from bending and snapping in your backpack.</p></div></div>
+
+            <div id="tab-keyboard" class="tab-panel"><div class="info-card"><h4>⌨️ Keyboard & Trackpad</h4><p>The input grid! It senses the electrical connections when your fingers press the keys or swipe the pad, sending those commands straight to the CPU.</p></div></div>
+            <div id="tab-powerbtn" class="tab-panel"><div class="info-card"><h4>⏻ Power Button</h4><p>The master switch! When you press it, it tells the motherboard to wake up the battery and start the entire boot sequence.</p></div></div>
+            <div id="tab-chassis" class="tab-panel"><div class="info-card"><h4>💻 Aluminum Base</h4><p>The heavy bottom case of the laptop. It acts as armor, keeping all the expensive chips safe while also helping absorb heat.</p></div></div>
+            <div id="tab-motherboard" class="tab-panel"><div class="info-card"><h4>🧩 Motherboard</h4><p>The giant electronic city grid! Every single component plugs into this board so they can send electricity and data to each other.</p></div></div>
+            <div id="tab-cpu" class="tab-panel"><div class="info-card"><h4>🧠 CPU (Processor)</h4><p>The main brain of the computer. It handles all the logic, math, and instructions required to open apps and run the operating system.</p></div></div>
+            <div id="tab-gpu" class="tab-panel"><div class="info-card"><h4>🎮 GPU (Graphics Card)</h4><p>The muscle! This special chip calculates insanely complex 3D math to draw video game graphics and render videos super fast.</p></div></div>
+            <div id="tab-ram" class="tab-panel"><div class="info-card"><h4>🚀 RAM (Memory)</h4><p>The computer's short-term workbench. It temporarily holds the apps and tabs you have open RIGHT NOW so the CPU can reach them instantly.</p></div></div>
+            <div id="tab-ssd" class="tab-panel"><div class="info-card"><h4>💾 NVMe SSD (Storage)</h4><p>The digital vault. A super-fast flash drive where your operating system, downloaded games, and files are saved permanently.</p></div></div>
+            <div id="tab-battery" class="tab-panel"><div class="info-card"><h4>🔋 99Wh Li-Po Battery</h4><p>A massive array of lithium-polymer cells. Laptops need HUGE batteries because big screens and powerful CPUs drink a lot of electricity.</p></div></div>
+            <div id="tab-cooling" class="tab-panel"><div class="info-card"><h4>❄️ Fans & Copper Heatpipes</h4><p>CPUs and GPUs get burning hot! The orange copper pipes suck the heat away, and the spinning fans blast the hot air out the back vents.</p></div></div>
+            <div id="tab-speakers" class="tab-panel"><div class="info-card"><h4>🔊 Stereo Speakers</h4><p>Large vibrating magnets located on the left and right sides to give you loud, immersive stereo sound for movies and games.</p></div></div>
+            
+            <div id="tab-chargeport" class="tab-panel"><div class="info-card"><h4>⚡ Charging Port</h4><p>The high-voltage gate! It funnels raw power from the wall socket straight into the battery and the motherboard.</p></div></div>
+            <div id="tab-usb" class="tab-panel"><div class="info-card"><h4>🔱 USB Ports</h4><p>The universal connectors! These ports allow you to plug in your mouse, flash drives, external keyboards, and phones.</p></div></div>
+            <div id="tab-hdmi" class="tab-panel"><div class="info-card"><h4>📺 HDMI Port</h4><p>The video pipeline! It blasts millions of pixels from the GPU out to external monitors, TVs, and projectors.</p></div></div>
+            <div id="tab-audiojack" class="tab-panel"><div class="info-card"><h4>🎧 Headphone Jack</h4><p>The 3.5mm analog gate! It takes electrical sound waves from the motherboard and sends them straight into your wired headphones.</p></div></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ==========================================
+         VIEW 2: PHYSIOLOGY SIMULATOR
+         ========================================== -->
+    <div id="view-physiology" class="view-section">
+      <section class="hero card glass">
+        <div class="hero-copy">
+          <h2>Laptop Physiology 💭⚡</h2>
+          <p style="text-align: center; font-size: 1.2rem; color: #cbd5e1;">How does a laptop actually work? Click any of the 10 actions below to watch data and electricity flow through the system!</p>
+        </div>
+      </section>
+
+      <section class="simulator-container card glass">
+        
+        <!-- Action Triggers (10 Functions) -->
+        <div class="action-row">
+          <button class="action-btn" style="background: linear-gradient(45deg, #1abc9c, #16a085);" onclick="triggerPhysiology('boot')">🔄 Boot Up</button>
+          <button class="action-btn" style="background: linear-gradient(45deg, #3498db, #2980b9);" onclick="triggerPhysiology('type')">⌨️ Type Document</button>
+          <button class="action-btn" style="background: linear-gradient(45deg, #9b59b6, #8e44ad);" onclick="triggerPhysiology('game')">🎮 Play 3D Game</button>
+          <button class="action-btn" style="background: linear-gradient(45deg, #e74c3c, #c0392b);" onclick="triggerPhysiology('videocall')">📹 Video Call</button>
+          <button class="action-btn" style="background: linear-gradient(45deg, #f1c40f, #f39c12); color:#000;" onclick="triggerPhysiology('browse')">🌐 Wi-Fi Browsing</button>
+          
+          <button class="action-btn" style="background: linear-gradient(45deg, #2ecc71, #27ae60);" onclick="triggerPhysiology('save')">💾 Save File</button>
+          <button class="action-btn" style="background: linear-gradient(45deg, #e67e22, #d35400);" onclick="triggerPhysiology('music')">🎵 Play Music</button>
+          <button class="action-btn" style="background: linear-gradient(45deg, #34495e, #2c3e50);" onclick="triggerPhysiology('compile')">⚙️ Compile Code</button>
+          <button class="action-btn" style="background: linear-gradient(45deg, #ff00cc, #990099);" onclick="triggerPhysiology('movie')">🍿 Stream Movie</button>
+          <button class="action-btn" style="background: linear-gradient(45deg, #00d2ff, #3a7bd5);" onclick="triggerPhysiology('charge')">⚡ Plug Charger</button>
+        </div>
+
+        <!-- Data Flow Diagram SVG -->
+        <svg class="flow-svg" viewBox="0 0 900 500" xmlns="http://www.w3.org/2000/svg">
+          <!-- Background Grid -->
+          <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1" />
+          </pattern>
+          <rect width="100%" height="100%" fill="url(#grid)" />
+
+          <!-- PATHS (Data Highways) -->
+          <g id="phys-paths">
+            <!-- Inputs to Center -->
+            <path id="path-bat-cpu" class="flow-path" d="M 170 100 L 370 170" />
+            <path id="path-key-cpu" class="flow-path" d="M 170 250 L 370 250" />
+            <path id="path-cam-cpu" class="flow-path" d="M 170 400 L 370 280" />
+            
+            <!-- Core Interconnects -->
+            <path id="path-ssd-ram" class="flow-path" d="M 420 100 L 420 170" />
+            <path id="path-ram-cpu" class="flow-path" d="M 420 170 L 420 230" />
+            <path id="path-cpu-gpu" class="flow-path" d="M 420 270 L 420 370" />
+            <path id="path-cpu-ssd" class="flow-path" d="M 400 230 L 400 100" /> <!-- reverse -->
+            
+            <!-- Center to Outputs/Peripherals -->
+            <path id="path-cpu-screen" class="flow-path" d="M 470 250 L 670 150" />
+            <path id="path-gpu-screen" class="flow-path" d="M 470 400 L 670 150" />
+            
+            <path id="path-cpu-wifi" class="flow-path" d="M 470 250 L 670 280" />
+            <path id="path-cpu-speaker" class="flow-path" d="M 470 250 L 670 400" />
+            <path id="path-gpu-fan" class="flow-path" d="M 470 400 L 700 400" /> <!-- shared general heat path -->
+          </g>
+
+          <!-- NODES (Components) -->
+          <!-- Left Column (Inputs / Power) -->
+          <g id="node-battery" class="node" transform="translate(50, 70)">
+            <rect class="node-box" width="120" height="60" rx="10" />
+            <text class="node-text" x="60" y="35" text-anchor="middle">🔋 BATTERY/PWR</text>
+          </g>
+          <g id="node-keyboard" class="node" transform="translate(50, 220)">
+            <rect class="node-box" width="120" height="60" rx="10" />
+            <text class="node-text" x="60" y="35" text-anchor="middle">⌨️ KEYBOARD</text>
+          </g>
+          <g id="node-webcam" class="node" transform="translate(50, 370)">
+            <rect class="node-box" width="120" height="60" rx="10" />
+            <text class="node-text" x="60" y="35" text-anchor="middle">📷 WEBCAM/MIC</text>
+          </g>
+
+          <!-- Center Column (Processing & Memory) -->
+          <g id="node-ssd" class="node" transform="translate(370, 40)">
+            <rect class="node-box" width="100" height="60" rx="10" />
+            <text class="node-text" x="50" y="35" text-anchor="middle">💾 SSD</text>
+          </g>
+          <g id="node-ram" class="node" transform="translate(370, 140)">
+            <rect class="node-box" width="100" height="60" rx="10" />
+            <text class="node-text" x="50" y="35" text-anchor="middle">🚀 RAM</text>
+          </g>
+          <g id="node-cpu" class="node" transform="translate(350, 230)">
+            <rect class="node-box" width="140" height="80" rx="15" />
+            <text class="node-text" x="70" y="45" text-anchor="middle">🧠 CPU (Brain)</text>
+          </g>
+          <g id="node-gpu" class="node" transform="translate(370, 370)">
+            <rect class="node-box" width="100" height="70" rx="10" />
+            <text class="node-text" x="50" y="40" text-anchor="middle">🎮 GPU</text>
+          </g>
+
+          <!-- Right Column (Outputs & Comm) -->
+          <g id="node-screen" class="node" transform="translate(670, 120)">
+            <rect class="node-box" width="120" height="70" rx="10" />
+            <text class="node-text" x="60" y="40" text-anchor="middle">📺 SCREEN</text>
+          </g>
+          <g id="node-wifi" class="node" transform="translate(670, 250)">
+            <rect class="node-box" width="120" height="60" rx="10" />
+            <text class="node-text" x="60" y="35" text-anchor="middle">🌐 WI-FI CARD</text>
+          </g>
+          <g id="node-speaker" class="node" transform="translate(670, 370)">
+            <rect class="node-box" width="120" height="60" rx="10" />
+            <text class="node-text" x="60" y="35" text-anchor="middle">🔊 SPEAKERS</text>
+          </g>
+        </svg>
+
+        <!-- Status Panel -->
+        <div class="status-panel">
+          <div id="statusText" class="status-text">
+            System Standby. Select one of the 10 actions above to see how a laptop functions!
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+  </div>
+
+  <script>
+    // ==========================================
+    // GLOBAL LOGIC
+    // ==========================================
+    
+    // View Switcher
+    function switchMode(mode) {
+      document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.mode-btn').forEach(el => el.classList.remove('active'));
+      
+      if (mode === 'anatomy') {
+        document.getElementById('view-anatomy').classList.add('active');
+        document.querySelector('.mode-btn:nth-child(1)').classList.add('active');
+      } else {
+        document.getElementById('view-physiology').classList.add('active');
+        document.querySelector('.mode-btn:nth-child(2)').classList.add('active');
+      }
+    }
+
+    // Audio Context Setup
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    let audioCtx;
+
+    function initAudio() {
+      if (!audioCtx) audioCtx = new AudioContext();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+    }
+
+    function playBeep(freq = 600, type = 'sine') {
+      initAudio();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain); gain.connect(audioCtx.destination);
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+      gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+      osc.start(); osc.stop(audioCtx.currentTime + 0.1);
+    }
+
+    function playTurboSound() {
+      initAudio();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain); gain.connect(audioCtx.destination);
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(100, audioCtx.currentTime);
+      osc.frequency.linearRampToValueAtTime(800, audioCtx.currentTime + 0.3);
+      gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+      osc.start(); osc.stop(audioCtx.currentTime + 0.4);
+    }
+
+
+    // ==========================================
+    // ANATOMY LOGIC
+    // ==========================================
+    const anatomyTitles = {
+        'tab-intro': '👋 Welcome!',
+        'tab-turbo': '⚡ TURBO UPGRADES!',
+        'tab-screen': '📺 Display Panel',
+        'tab-webcam': '📷 Webcam',
+        'tab-mic': '🎙️ Array Mics',
+        'tab-bezel': '🛡️ Lid Bezel',
+        'tab-keyboard': '⌨️ Keyboard & Trackpad',
+        'tab-powerbtn': '⏻ Power Button',
+        'tab-chassis': '💻 Aluminum Base',
+        'tab-motherboard': '🧩 Motherboard',
+        'tab-cpu': '🧠 CPU',
+        'tab-gpu': '🎮 GPU',
+        'tab-ram': '🚀 RAM',
+        'tab-ssd': '💾 NVMe SSD',
+        'tab-battery': '🔋 Battery',
+        'tab-cooling': '❄️ Cooling Fans',
+        'tab-speakers': '🔊 Stereo Speakers',
+        'tab-chargeport': '⚡ Charging Port',
+        'tab-usb': '🔱 USB Ports',
+        'tab-hdmi': '📺 HDMI Port',
+        'tab-audiojack': '🎧 Headphone Jack'
+      };
+
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const svgParts = document.querySelectorAll('.anatomy-part');
+    const tooltip = document.getElementById('hoverTooltip');
+
+    svgParts.forEach(part => {
+      part.addEventListener('mousemove', (e) => {
+        const tabId = part.dataset.tab;
+        const rawTitle = anatomyTitles[tabId].replace(/[^a-zA-Z\s()&]/g, '').trim(); 
+        tooltip.textContent = rawTitle;
+        tooltip.style.display = 'block';
+        tooltip.style.left = (e.pageX + 15) + 'px';
+        tooltip.style.top = (e.pageY + 15) + 'px';
+      });
+      part.addEventListener('mouseleave', () => { tooltip.style.display = 'none'; });
+    });
+
+    function activateAnatomyUI(tabId) {
+      if (tabId === 'tab-turbo') { playTurboSound(); } else { playBeep(700, 'sine'); }
+
+      tabButtons.forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      svgParts.forEach(p => p.classList.remove('active-part'));
+      
+      const activeBtn = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
+      if (activeBtn) activeBtn.classList.add('active');
+      
+      const activePanel = document.getElementById(tabId);
+      if (activePanel) {
+        activePanel.classList.add('active');
+        const infoCard = activePanel.querySelector('.info-card');
+        if (infoCard) { infoCard.style.animation = 'none'; setTimeout(() => infoCard.style.animation = '', 10); }
+      }
+
+      const matchingParts = document.querySelectorAll(`.anatomy-part[data-tab="${tabId}"]`);
+      matchingParts.forEach(part => part.classList.add('active-part'));
+
+      const titleEl = document.getElementById('detailTitle');
+      if (titleEl) titleEl.textContent = anatomyTitles[tabId] || 'Component Details 🔍';
+    }
+
+    tabButtons.forEach(btn => btn.addEventListener('click', () => activateAnatomyUI(btn.dataset.tab)));
+    svgParts.forEach(part => part.addEventListener('click', () => { activateAnatomyUI(part.dataset.tab); tooltip.style.display = 'none'; }));
+
+
+    // ==========================================
+    // PHYSIOLOGY LOGIC (10 Functions)
+    // ==========================================
+    function resetSimulator() {
+      document.querySelectorAll('.node').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.flow-path').forEach(el => el.classList.remove('active'));
+    }
+
+    function activateStep(nodes, paths, message, delay, soundFreq = 600) {
+      return new Promise(resolve => {
+        setTimeout(() => {
+          playBeep(soundFreq);
+          if (nodes) nodes.forEach(id => document.getElementById(`node-${id}`).classList.add('active'));
+          if (paths) paths.forEach(id => document.getElementById(`path-${id}`).classList.add('active'));
+          document.getElementById('statusText').innerHTML = message;
+          resolve();
+        }, delay);
+      });
+    }
+
+    async function triggerPhysiology(action) {
+      const buttons = document.querySelectorAll('.action-btn');
+      buttons.forEach(b => b.disabled = true);
+      resetSimulator();
+
+      const st = document.getElementById('statusText');
+
+      if (action === 'boot') {
+        st.innerHTML = "Initializing Boot Sequence...";
+        await activateStep(['battery', 'cpu'], ['bat-cpu'], "1. <span class='status-highlight'>BATTERY</span> sends power to wake up the <span class='status-highlight'>CPU</span>.", 1000, 300);
+        await activateStep(['ssd', 'ram'], ['ssd-ram', 'ram-cpu'], "2. The Operating System (Windows/macOS) is copied from the slow <span class='status-highlight'>SSD</span> into the fast <span class='status-highlight'>RAM</span>.", 1500, 500);
+        await activateStep(['screen'], ['cpu-screen'], "3. The CPU draws the login desktop on the <span class='status-highlight'>SCREEN</span>. Laptop is ready!", 1500, 800);
+      } 
+      else if (action === 'type') {
+        st.innerHTML = "Opening Word Document...";
+        await activateStep(['keyboard', 'cpu'], ['key-cpu'], "1. You press a key on the <span class='status-highlight'>KEYBOARD</span>, sending an electrical signal to the <span class='status-highlight'>CPU</span>.", 1000, 400);
+        await activateStep(['ram'], ['ram-cpu'], "2. The CPU updates the document file temporarily held in the <span class='status-highlight'>RAM</span>.", 1000, 600);
+        await activateStep(['screen'], ['cpu-screen'], "3. The CPU updates the <span class='status-highlight'>SCREEN</span> to show the letter you just typed.", 1000, 800);
+      }
+      else if (action === 'game') {
+        st.innerHTML = "Launching 3D Video Game...";
+        await activateStep(['ssd', 'ram', 'cpu'], ['ssd-ram', 'ram-cpu'], "1. Massive 3D level files are loaded from the <span class='status-highlight'>SSD</span> into <span class='status-highlight'>RAM</span> for the CPU.", 1000, 300);
+        await activateStep(['gpu'], ['cpu-gpu'], "2. The CPU sends heavy geometry math to the <span class='status-highlight'>GPU</span>, which calculates lighting and textures.", 1500, 500);
+        await activateStep(['screen', 'speaker'], ['gpu-screen', 'cpu-speaker'], "3. The GPU pushes 60 frames per second to the <span class='status-highlight'>SCREEN</span> while the CPU plays explosion sounds on the <span class='status-highlight'>SPEAKERS</span>!", 1500, 1000);
+      }
+      else if (action === 'videocall') {
+        st.innerHTML = "Starting Zoom / Video Call...";
+        await activateStep(['webcam', 'cpu'], ['cam-cpu'], "1. The <span class='status-highlight'>WEBCAM & MIC</span> capture your face and voice, sending raw data to the <span class='status-highlight'>CPU</span>.", 1000, 500);
+        await activateStep(['wifi'], ['cpu-wifi'], "2. The CPU compresses the video and sends it to the <span class='status-highlight'>WI-FI</span> card to broadcast over the internet.", 1500, 700);
+        await activateStep(['screen', 'speaker'], ['cpu-screen', 'cpu-speaker'], "3. Incoming Wi-Fi video from your friends is displayed on the <span class='status-highlight'>SCREEN</span> and <span class='status-highlight'>SPEAKERS</span>.", 1500, 900);
+      }
+      else if (action === 'browse') {
+        st.innerHTML = "Opening Web Browser...";
+        await activateStep(['wifi', 'cpu'], ['cpu-wifi'], "1. The <span class='status-highlight'>WI-FI</span> card requests website data from the internet and hands it to the <span class='status-highlight'>CPU</span>.", 1000, 400);
+        await activateStep(['ram'], ['ram-cpu'], "2. The CPU parses the messy HTML code and stores the website layout in <span class='status-highlight'>RAM</span>.", 1500, 600);
+        await activateStep(['screen'], ['cpu-screen'], "3. The perfectly rendered webpage is displayed on your <span class='status-highlight'>SCREEN</span>.", 1500, 800);
+      }
+      else if (action === 'save') {
+        st.innerHTML = "Pressing Ctrl+S (Save)...";
+        await activateStep(['keyboard', 'cpu'], ['key-cpu'], "1. You press the Save shortcut on the <span class='status-highlight'>KEYBOARD</span>.", 1000, 500);
+        await activateStep(['ram'], ['ram-cpu'], "2. The <span class='status-highlight'>CPU</span> grabs the latest version of your work out of the temporary <span class='status-highlight'>RAM</span>.", 1500, 600);
+        await activateStep(['ssd'], ['cpu-ssd'], "3. The data is written permanently into the <span class='status-highlight'>SSD</span> memory chips so it won't be lost if power fails.", 1500, 900);
+      }
+      else if (action === 'music') {
+        st.innerHTML = "Opening Spotify / Music Player...";
+        await activateStep(['wifi', 'cpu'], ['cpu-wifi'], "1. Music data streams in through the <span class='status-highlight'>WI-FI</span> antenna to the <span class='status-highlight'>CPU</span>.", 1000, 400);
+        await activateStep(['ram'], ['ram-cpu'], "2. The CPU buffers the audio data in <span class='status-highlight'>RAM</span> to prevent stuttering.", 1500, 600);
+        await activateStep(['speaker'], ['cpu-speaker'], "3. The CPU converts digital data into analog waves, vibrating the <span class='status-highlight'>SPEAKERS</span> to make sound!", 1500, 800);
+      }
+      else if (action === 'compile') {
+        st.innerHTML = "Compiling Code (Heavy CPU load)...";
+        await activateStep(['ssd', 'ram'], ['ssd-ram'], "1. Thousands of lines of raw code are loaded from the <span class='status-highlight'>SSD</span> to <span class='status-highlight'>RAM</span>.", 1000, 300);
+        await activateStep(['cpu'], ['ram-cpu'], "2. The <span class='status-highlight'>CPU</span> works at 100% capacity, translating human code into machine 1s and 0s. (Fans spin up!)", 1500, 700);
+        await activateStep(['ssd', 'screen'], ['cpu-ssd', 'cpu-screen'], "3. The finished application is saved back to the <span class='status-highlight'>SSD</span> and a 'Success' message appears on <span class='status-highlight'>SCREEN</span>.", 2000, 1000);
+      }
+      else if (action === 'movie') {
+        st.innerHTML = "Streaming a 4K Movie...";
+        await activateStep(['wifi', 'cpu'], ['cpu-wifi'], "1. 4K Video chunks are downloaded via <span class='status-highlight'>WI-FI</span>.", 1000, 500);
+        await activateStep(['gpu'], ['cpu-gpu'], "2. The CPU hands the heavy video decoding work to the <span class='status-highlight'>GPU</span> for smooth playback.", 1500, 700);
+        await activateStep(['screen', 'speaker'], ['gpu-screen', 'cpu-speaker'], "3. The GPU pushes millions of pixels to the <span class='status-highlight'>SCREEN</span> while stereo audio hits the <span class='status-highlight'>SPEAKERS</span>.", 1500, 900);
+      }
+      else if (action === 'charge') {
+        st.innerHTML = "Plugging in the USB-C Charger...";
+        await activateStep(['battery'], [], "1. Electricity flows from the wall into the laptop's power port.", 1000, 400);
+        await activateStep(['battery', 'cpu'], ['bat-cpu'], "2. The Motherboard directs power to fill up the <span class='status-highlight'>BATTERY</span> cells while simultaneously powering the <span class='status-highlight'>CPU</span>.", 1500, 600);
+        await activateStep(['screen'], ['cpu-screen'], "3. A charging icon lights up on the <span class='status-highlight'>SCREEN</span>.", 1500, 800);
+      }
+
+      setTimeout(() => { buttons.forEach(b => b.disabled = false); }, 1000);
+    }
+  </script>
+</body>
+</html>

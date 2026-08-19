@@ -1,30 +1,60 @@
 import { Router, Response } from 'express';
-import { PrismaClient, SubscriptionPlan, SubscriptionStatus } from '@prisma/client';
-import { authenticate, AuthenticatedRequest } from '../middleware/auth';
+import { PrismaClient, SubscriptionStatus, SubscriptionPlan } from '@prisma/client';
+import { authenticate, requireRole, AuthenticatedRequest } from '../middleware/auth';
 
 const prisma = new PrismaClient();
 const router = Router();
 
-const PLAN_CATALOG: Record<
-  Exclude<SubscriptionPlan, 'FREE'>,
-  { name: string; amountPaise: number; durationDays: number | null; description: string }
-> = {
-  PLUS: { name: 'Plus', amountPaise: 29900, durationDays: 30, description: 'Access to Plus-tier premium games' },
-  PREMIUM: { name: 'Premium', amountPaise: 49900, durationDays: 30, description: 'Access to all 21 premium games' },
-  FAMILY: { name: 'Family', amountPaise: 89900, durationDays: 30, description: 'Up to 4 student profiles, full premium access' },
-  SCHOOL: { name: 'School', amountPaise: 0, durationDays: 365, description: 'Bulk licensing for schools — contact sales' },
-  INSTITUTION: { name: 'Institution', amountPaise: 0, durationDays: 365, description: 'Custom institutional licensing — contact sales' },
-  LIFETIME: { name: 'Lifetime', amountPaise: 499900, durationDays: null, description: 'One-time payment, lifetime premium access' },
-};
+const PLAN_CATALOG = {
+  MONTHLY_1: {
+    name: 'Monthly — 1 Child',
+    amountPaise: 14900,
+    durationDays: 30,
+    maxChildren: 1,
+    description: 'Unlimited games, full progress reports, and IQ/EQ/SQ tracking for 1 child, for 30 days.',
+  },
+  MONTHLY_2: {
+    name: 'Monthly — 2 Children',
+    amountPaise: 22900,
+    durationDays: 30,
+    maxChildren: 2,
+    description: 'Unlimited games, full progress reports, and IQ/EQ/SQ tracking for up to 2 children, for 30 days.',
+  },
+  YEARLY_1: {
+    name: 'Yearly — 1 Child',
+    amountPaise: 69900,
+    durationDays: 365,
+    maxChildren: 1,
+    description: 'Unlimited games, full progress reports, and IQ/EQ/SQ tracking for 1 child, for a full year. Best value.',
+  },
+  YEARLY_2: {
+    name: 'Yearly — 2 Children (Limited Offer)',
+    amountPaise: 99900,
+    durationDays: 365,
+    maxChildren: 2,
+    description: 'Unlimited games, full progress reports, and IQ/EQ/SQ tracking for up to 2 children, for a full year. Limited-time price.',
+    limitedOffer: true,
+  },
+} as const;
+
+type PlanId = keyof typeof PLAN_CATALOG;
+
+const BENEFITS = [
+  'Unlimited access to every game, no daily play limit',
+  'Full IQ, EQ & SQ progress reports after every session',
+  'Weekly brain-score tracking and trend charts',
+  'Priority access to new games as they launch',
+  'Downloadable report cards for school submission',
+];
 
 router.get('/plans', (_req, res: Response) => {
   const plans = Object.entries(PLAN_CATALOG).map(([id, details]) => ({ id, ...details }));
-  res.json({ plans });
+  res.json({ plans, benefits: BENEFITS, upiId: 'yespay.smessi10194393@yesbankltd' });
 });
 
 router.post('/initiate', authenticate, async (req: AuthenticatedRequest, res: Response) => {
   const { planId } = req.body as { planId: string };
-  const plan = planId as keyof typeof PLAN_CATALOG;
+  const plan = planId as PlanId;
 
   if (!PLAN_CATALOG[plan]) {
     res.status(400).json({ error: 'Invalid plan selected' });
@@ -36,42 +66,37 @@ router.post('/initiate', authenticate, async (req: AuthenticatedRequest, res: Re
   const subscription = await prisma.subscription.upsert({
     where: { userId: req.user!.id },
     update: {
-      plan: plan as SubscriptionPlan,
-      status: SubscriptionStatus.TRIALING,
+  plan: plan as SubscriptionPlan,
+  status: SubscriptionStatus.PENDING,
       amount: details.amountPaise,
-      paymentMethod: 'upi',
+      paymentMethod: 'upi-manual',
     },
     create: {
-      userId: req.user!.id,
-      plan: plan as SubscriptionPlan,
-      status: SubscriptionStatus.TRIALING,
+  userId: req.user!.id,
+  plan: plan as SubscriptionPlan,
+  status: SubscriptionStatus.PENDING,
       amount: details.amountPaise,
-      paymentMethod: 'upi',
+      paymentMethod: 'upi-manual',
     },
   });
-
-  const upiId = process.env.MEDHAA_UPI_ID || 'medhaa@upi';
-  const upiLink = `upi://pay?pa=${upiId}&pn=MEDHAA&am=${(details.amountPaise / 100).toFixed(2)}&tn=${encodeURIComponent(
-    `MEDHAA ${details.name} - ${subscription.id}`
-  )}&cu=INR`;
-
-  const whatsappNumber = process.env.MEDHAA_WHATSAPP_NUMBER || '919999999999';
-  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-    `Hi, I'd like to subscribe to the ${details.name} plan on MEDHAA. My subscription ID is ${subscription.id}.`
-  )}`;
 
   res.json({
     subscriptionId: subscription.id,
-    upiLink,
-    whatsappLink,
     amount: details.amountPaise / 100,
     plan: details.name,
+    upiId: 'yespay.smessi10194393@yesbankltd',
+    upiLink: `upi://pay?pa=yespay.smessi10194393@yesbankltd&pn=Bhava%20Tech&am=${(details.amountPaise / 100).toFixed(2)}&cu=INR&tn=${encodeURIComponent(details.name)}`,
   });
 });
 
-router.post('/:id/confirm', authenticate, async (req: AuthenticatedRequest, res: Response) => {
+router.post('/:id/submit-reference', authenticate, async (req: AuthenticatedRequest, res: Response) => {
   const id = req.params.id as string;
-  const { transactionRef } = req.body as { transactionRef?: string };
+  const { transactionRef, notes } = req.body as { transactionRef: string; notes?: string };
+
+  if (!transactionRef || transactionRef.trim().length < 4) {
+    res.status(400).json({ error: 'Please enter a valid transaction reference ID' });
+    return;
+  }
 
   const subscription = await prisma.subscription.findUnique({ where: { id } });
   if (!subscription || subscription.userId !== req.user!.id) {
@@ -79,7 +104,32 @@ router.post('/:id/confirm', authenticate, async (req: AuthenticatedRequest, res:
     return;
   }
 
-  const details = PLAN_CATALOG[subscription.plan as keyof typeof PLAN_CATALOG];
+  const updated = await prisma.subscription.update({
+    where: { id },
+    data: {
+      transactionRef: transactionRef.trim(),
+      notes: notes?.trim() || null,
+      status: SubscriptionStatus.PENDING,
+    },
+  });
+
+  res.json({
+    message: 'Reference submitted! Your subscription will be activated within a few hours after verification.',
+    subscription: updated,
+  });
+});
+
+router.post('/:id/confirm', authenticate, requireRole(['admin']), async (req: AuthenticatedRequest, res: Response) => {
+  const id = req.params.id as string;
+  const { transactionRef } = req.body as { transactionRef?: string };
+
+  const subscription = await prisma.subscription.findUnique({ where: { id } });
+  if (!subscription) {
+    res.status(404).json({ error: 'Subscription not found' });
+    return;
+  }
+
+  const details = PLAN_CATALOG[subscription.plan as PlanId];
   const currentPeriodEnd = details?.durationDays
     ? new Date(Date.now() + details.durationDays * 24 * 60 * 60 * 1000)
     : null;

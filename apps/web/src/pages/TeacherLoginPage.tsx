@@ -22,11 +22,11 @@ const { email, setEmail, password, setPassword, error, loading, handleSubmit } =
         <form onSubmit={handleSubmit} className="teacher-login-form">
           <label>
             Email
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@school.edu" required />
+            <input type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@school.edu" required />
           </label>
           <label>
             Password
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" required />
+            <input type="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" required />
           </label>
 
           {error && <div className="teacher-login-error">{error}</div>}

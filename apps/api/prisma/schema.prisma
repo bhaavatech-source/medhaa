@@ -27,9 +27,15 @@ enum SubscriptionPlan {
   SCHOOL
   INSTITUTION
   LIFETIME
+  MONTHLY_1
+  MONTHLY_2
+  YEARLY_1
+  YEARLY_2
 }
 
+
 enum SubscriptionStatus {
+  PENDING
   TRIALING
   ACTIVE
   EXPIRED
@@ -119,6 +125,7 @@ model Game {
   entryPath   String
   ageLabel    String?
   skills      String[]
+  kind        String   @default("game")
   attempts    GameAttempt[]
 }
 
@@ -177,6 +184,7 @@ model Subscription {
   paymentMethod    String?
   transactionRef   String?
   createdAt        DateTime           @default(now())
+  notes String?
 }
 
 model CognitiveCheckIn {

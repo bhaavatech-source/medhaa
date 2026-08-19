@@ -6,8 +6,7 @@ interface LoginPricingModalProps {
 }
 
 export default function LoginPricingModal({ onClose }: LoginPricingModalProps) {
-  const { email, setEmail, password, setPassword, error, loading, handleSubmit } = useLoginForm();
-
+ const { email, setEmail, password, setPassword, error, loading, handleSubmit } = useLoginForm('student', '/student-demo');
   return (
     <div className="lpm-overlay">
       <div className="lpm-card">

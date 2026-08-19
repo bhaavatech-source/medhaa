@@ -1,809 +1,909 @@
 <!DOCTYPE html>
-<html lang="en" data-bhava-mobile="nudge">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Google Search Lab – Deep Web Tech Explorer v2</title>
+  <title>Google Search Architecture – Master Lab</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     :root {
-      --bg1: #050713;
-      --bg2: #0c1630;
-      --accent1: #00e0ff;
-      --accent2: #ff6fd8;
-      --accent3: #ffe66d;
-      --card: rgba(8, 16, 40, 0.96);
-      --soft: #c8d0ff;
-      --text: #f5f7ff;
-      --good: #42f59b;
-      --bad: #ff4b5c;
+      --bg-dark: #050814; --panel-bg: rgba(13, 22, 48, 0.92); --border-color: rgba(0, 224, 255, 0.25);
+      --accent-cyan: #00e0ff; --accent-pink: #ff3399; --accent-gold: #ffcc00;
+      --good-green: #00ff88; --alert-red: #ff3b5c; --text-main: #f0f4ff; --text-muted: #8ba0c8;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top left, #141b3a, #050713 60%);
-      color: var(--text);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-    .shell {
-      width: 100%;
-      max-width: 1200px;
-      height: 96vh;
-      border-radius: 26px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(0,0,0,0.85));
-      border: 1px solid rgba(255,255,255,0.12);
-      box-shadow: 0 24px 46px rgba(0,0,0,0.9);
-      backdrop-filter: blur(20px);
-      display: grid;
-      grid-template-rows: 80px 1fr 90px;
-      position: relative;
-      overflow: hidden;
-    }
-    .orb { position: absolute; border-radius: 50%; filter: blur(40px); opacity: 0.5; pointer-events: none; animation: float 18s linear infinite; }
-    .orb1 { width: 260px; height: 260px; background: radial-gradient(circle, var(--accent1), transparent); top: -60px; left: -80px; }
-    .orb2 { width: 320px; height: 320px; background: radial-gradient(circle, var(--accent2), transparent); bottom: -120px; right: -140px; animation-delay: -3s; }
-    .orb3 { width: 220px; height: 220px; background: radial-gradient(circle, var(--accent3), transparent); bottom: 40%; left: 45%; animation-delay: -8s; }
-    @keyframes float { 0%{transform:translate3d(0,0,0) scale(1);}25%{transform:translate3d(18px,-10px,0) scale(1.05);}50%{transform:translate3d(-14px,12px,0) scale(0.95);}75%{transform:translate3d(12px,18px,0) scale(1.06);}100%{transform:translate3d(0,0,0) scale(1);} }
-    header { display:flex; align-items:center; justify-content:space-between; padding:12px 24px; z-index:2; }
-    .brand { display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; font-size:0.9rem; }
-    .logo { width:32px; height:32px; border-radius:10px; background:conic-gradient(from 220deg,#4285F4,#EA4335,#FBBC05,#34A853,#4285F4); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:900; font-size:18px; box-shadow:0 0 18px rgba(0,0,0,0.5); }
-    .tabs { display:flex; align-items:center; gap:8px; padding:4px 10px; border-radius:999px; background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.12); }
-    .tab { padding:6px 12px; border-radius:999px; font-size:0.78rem; color:var(--soft); cursor:pointer; border:1px solid transparent; display:flex; align-items:center; gap:6px; opacity:0.5; transition:all 0.25s; }
-    .tab span.icon{font-size:1rem;}
-    .tab.active{ opacity:1; color:#fff; border-color:rgba(255,255,255,0.18); background:linear-gradient(130deg,rgba(0,224,255,0.6),rgba(255,111,216,0.45)); }
-    .scorebox { font-size:0.82rem; color:var(--soft); text-align:right; }
-    .scorebox strong { color:var(--accent3); }
-    main { padding:12px 24px 6px 24px; display:grid; grid-template-columns:minmax(280px,340px) minmax(0,1fr); gap:16px; z-index:2; }
-    .left { border-radius:20px; background:var(--card); border:1px solid rgba(255,255,255,0.12); padding:16px; display:grid; grid-template-rows:auto auto; row-gap:8px; }
-    .avatar-ring { width:130px; height:130px; border-radius:50%; border:3px dashed rgba(255,255,255,0.3); display:flex; align-items:center; justify-content:center; margin:0 auto 8px auto; animation:spin 12s linear infinite; }
-    .avatar-core { width:96px; height:96px; border-radius:50%; background:radial-gradient(circle at 30% 20%,#ffffff,#4285F4 40%,#050713 100%); display:flex; align-items:center; justify-content:center; font-size:40px; box-shadow:0 0 26px rgba(66,133,244,0.8); }
-    @keyframes spin{from{transform:rotate(0);}to{transform:rotate(360deg);}}
-    .avatar-text { text-align:center; margin-bottom:8px; }
-    .avatar-text h2 { font-size:1.1rem; letter-spacing:0.03em; }
-    .avatar-text p { font-size:0.85rem; color:var(--soft); margin-top:4px; }
-    .hint { margin-top:10px; padding:10px 12px; border-radius:14px; background:linear-gradient(120deg,rgba(0,224,255,0.25),rgba(52,168,83,0.2)); border:1px solid rgba(255,255,255,0.08); font-size:0.8rem; color:var(--soft); }
-    .hint strong{color:#fff;}
-    .mission-box { margin-top:10px; padding:10px 12px; border-radius:14px; background:rgba(0,0,0,0.55); border:1px solid rgba(255,255,255,0.14); font-size:0.78rem; color:var(--soft); }
-    .mission-title { font-size:0.8rem; color:var(--accent3); margin-bottom:4px; }
-    .mission-list { margin-left:10px; }
-    .mission-list li { margin-bottom:3px; }
-    .prog-wrap{margin-top:10px;}
-    .prog-label{font-size:0.75rem;color:var(--soft);display:flex;justify-content:space-between;}
-    .prog-track{width:100%;height:7px;border-radius:999px;background:rgba(255,255,255,0.06);overflow:hidden;}
-    .prog-fill{width:0%;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--accent1),var(--accent2),var(--accent3));transition:width 0.5s ease-out;}
-    .right { border-radius:20px; background:var(--card); border:1px solid rgba(255,255,255,0.12); padding:18px 18px 14px 18px; display:flex; flex-direction:column; justify-content:space-between; position:relative; }
-    .panel { display:none; }
-    .panel.active { display:block; }
-    .stage-header{display:flex;justify-content:space-between;align-items:baseline;}
-    .stage-title{font-size:1.05rem;display:inline-flex;align-items:center;gap:6px;}
-    .stage-title span.icon{font-size:1.4rem;}
-    .stage-subtitle{font-size:0.8rem;color:var(--soft);}
-    .stage-text{margin-top:10px;font-size:0.9rem;color:var(--soft);line-height:1.4;}
-    .lab-grid{margin-top:14px;border-radius:16px;background:linear-gradient(145deg,rgba(0,0,0,0.4),rgba(0,224,255,0.18));border:1px solid rgba(255,255,255,0.12);padding:12px;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:10px;font-size:0.85rem;}
-    .lab-vis{position:relative;min-height:190px;}
-    .lab-ctrl{border-left:1px solid rgba(255,255,255,0.08);padding-left:10px;}
-    .lab-title{font-size:0.88rem;margin-bottom:6px;}
-    .tiny{font-size:0.75rem;color:var(--soft);}
-    .node-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:8px;}
-    .doc-card{border-radius:14px;padding:8px;background:radial-gradient(circle at 0% 0%,rgba(0,224,255,0.25),rgba(0,0,0,0.9));border:1px solid rgba(255,255,255,0.18);font-size:0.8rem;position:relative;}
-    .doc-card h4{font-size:0.8rem;margin-bottom:3px;}
-    .doc-card .meta{font-size:0.7rem;color:var(--soft);}
-    .doc-card.visited{box-shadow:0 0 0 2px var(--good);}
-    .doc-card.blocked{box-shadow:0 0 0 2px var(--bad);opacity:0.7;}
-    .small-btn{border-radius:999px;padding:6px 10px;font-size:0.78rem;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px;margin-top:4px;background:rgba(0,0,0,0.4);color:var(--soft);border:1px solid rgba(255,255,255,0.14);transition:all 0.2s;}
-    .small-btn.primary{background:linear-gradient(130deg,var(--accent1),var(--accent2));color:#050713;border-color:transparent;font-weight:600;}
-    .small-btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,0.7);}
-    .chip-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;}
-    .chip{padding:4px 8px;border-radius:999px;font-size:0.75rem;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.18);cursor:pointer;}
-    .chip.sel{background:rgba(0,224,255,0.4);}
-    .shelf{margin-top:6px;border-radius:12px;padding:6px 8px;background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.14);min-height:46px;}
-    .shelf-title{font-size:0.78rem;color:var(--soft);margin-bottom:3px;}
-    .rank-list{margin-top:8px;}
-    .rank-row{display:flex;align-items:center;justify-content:space-between;font-size:0.8rem;padding:4px 0;}
-    .bar-wrap{flex:1;margin-left:6px;height:6px;border-radius:999px;background:rgba(255,255,255,0.06);overflow:hidden;}
-    .bar-fill{height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--accent1),var(--accent2));}
-    .toggle-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px;}
-    .toggle{font-size:0.78rem;display:inline-flex;align-items:center;gap:4px;padding:4px 8px;border-radius:999px;background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.14);cursor:pointer;}
-    .toggle.active{background:rgba(0,224,255,0.35);}
-    .dc-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:6px;}
-    .dc-card{border-radius:14px;padding:8px;background:radial-gradient(circle at 0% 0%,rgba(0,224,255,0.2),rgba(0,0,0,0.9));border:1px solid rgba(255,255,255,0.18);font-size:0.8rem;}
-    .dc-card h4{font-size:0.8rem;margin-bottom:2px;}
-    .dc-card .meta{font-size:0.75rem;color:var(--soft);}
-    .slider-row{margin-top:4px;font-size:0.75rem;color:var(--soft);}
-    .slider-row input[type="range"]{width:100%;}
-    .gauge{margin-top:8px;height:9px;border-radius:999px;background:rgba(255,255,255,0.06);overflow:hidden;}
-    .gauge-fill{height:100%;border-radius:inherit;background:linear-gradient(90deg,#42f59b,#ffe66d,#ff4b5c);}
-    .log{font-size:0.78rem;color:var(--soft);margin-top:6px;min-height:34px;}
-    .log.success{color:var(--good);}
-    footer{padding:12px 24px;display:flex;align-items:center;justify-content:space-between;font-size:0.8rem;color:var(--soft);z-index:2;}
-    .footer-right{display:flex;align-items:center;gap:10px;}
-    .primary-btn,.ghost-btn{border-radius:999px;padding:8px 16px;font-size:0.8rem;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:all 0.2s;}
-    .primary-btn{background:linear-gradient(130deg,var(--accent1),var(--accent2));color:#050713;font-weight:600;box-shadow:0 6px 16px rgba(0,0,0,0.8);}
-    .primary-btn:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,0,0,0.9);}
-    .ghost-btn{background:rgba(0,0,0,0.3);color:var(--soft);border:1px solid rgba(255,255,255,0.14);}
-    .ghost-btn:hover{background:rgba(255,255,255,0.06);color:#fff;}
-    @media(max-width:900px){.shell{height:auto;min-height:100vh;border-radius:0;}main{grid-template-columns:1fr;}}
-    @media(max-width:540px){.lab-grid{grid-template-columns:1fr;}.dc-grid{grid-template-columns:1fr 1fr;}.node-grid{grid-template-columns:1fr 1fr;}}
+    * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: radial-gradient(circle at top center, #101a38 0%, var(--bg-dark) 80%); color: var(--text-main); min-height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+    .master-shell { width: 98vw; max-width: 1440px; height: 96vh; background: var(--panel-bg); border: 1px solid var(--border-color); border-radius: 24px; box-shadow: 0 25px 60px rgba(0,0,0,0.85); display: grid; grid-template-rows: 75px auto 1fr 55px; overflow: hidden; position: relative; }
+    header { display: flex; align-items: center; justify-content: space-between; padding: 0 24px; border-bottom: 1px solid rgba(255,255,255,0.08); background: rgba(0,0,0,0.4); }
+    .brand-block { display: flex; align-items: center; gap: 14px; }
+    .brand-logo { width: 40px; height: 40px; border-radius: 12px; background: conic-gradient(from 220deg, #4285F4, #EA4335, #FBBC05, #34A853, #4285F4); display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 900; color: #fff; }
+    .header-actions { display: flex; gap: 12px; }
+    .icon-btn { background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); color: #fff; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 0.82rem; font-weight: 700; }
+    .icon-btn:hover { background: rgba(0,224,255,0.2); }
+    
+    /* Chapter Tracker */
+    .chapter-bar { display: flex; gap: 6px; padding: 8px 24px; background: rgba(0,0,0,0.2); border-bottom: 1px solid rgba(255,255,255,0.05); overflow-x: auto; }
+    .ch-pill { padding: 6px 14px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); color: var(--text-muted); cursor: pointer; white-space: nowrap; }
+    .ch-pill.active { background: linear-gradient(135deg, rgba(0,224,255,0.3), rgba(255,51,153,0.3)); border-color: var(--accent-cyan); color: #fff; }
+    .ch-pill.locked { opacity: 0.4; cursor: not-allowed; }
+
+    /* Layout */
+    main { display: grid; grid-template-columns: 340px 1fr; gap: 16px; padding: 16px; height: 100%; overflow: hidden; }
+    .workbench-sidebar { background: rgba(0,0,0,0.35); border: 1px solid var(--border-color); border-radius: 18px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; }
+    .workbench-stage { background: rgba(0,0,0,0.35); border: 1px solid var(--border-color); border-radius: 18px; padding: 16px; position: relative; overflow: hidden; display: none; height: 100%; grid-template-columns: 1fr 340px; gap: 16px; }
+    .workbench-stage.active { display: grid; }
+    .interactive-canvas { background: rgba(5,8,20,0.8); border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; position: relative; overflow: hidden; display: flex; flex-direction: column; }
+    .controls-panel { background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; }
+    .action-btn { width: 100%; padding: 12px; border-radius: 12px; font-weight: 700; font-size: 0.88rem; border: none; cursor: pointer; color: #050814; background: linear-gradient(135deg, var(--accent-cyan), var(--good-green)); transition: all 0.2s; }
+    
+    /* Modals */
+    .modal-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(5,8,20,0.96); z-index: 100; display: none; flex-direction: column; padding: 30px; justify-content: center; align-items: center; }
+    .modal-overlay.active { display: flex; }
+    .modal-window { width: 100%; max-width: 900px; max-height: 85vh; background: var(--panel-bg); border: 1px solid var(--border-color); border-radius: 20px; padding: 24px; display: flex; flex-direction: column; overflow: hidden; }
+    .close-btn { background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer; }
+    
+    /* Utility Classes for content */
+    .inspector-panel { background: rgba(0,0,0,0.5); border: 1px dashed rgba(0,224,255,0.3); border-radius: 14px; padding: 14px; min-height: 160px; font-size: 0.82rem; }
+    footer { display: flex; align-items: center; justify-content: space-between; padding: 0 24px; border-top: 1px solid rgba(255,255,255,0.08); font-size: 0.78rem; color: var(--text-muted); background: rgba(0,0,0,0.3); }
   </style>
-  <link rel="stylesheet" href="bhava-responsive.css">
 </head>
 <body>
-  <div class="shell">
-    <div class="orb orb1"></div>
-    <div class="orb orb2"></div>
-    <div class="orb orb3"></div>
+  <div class="master-shell">
     <header>
-      <div class="brand"><div class="logo">G</div><span>Google Search Lab</span></div>
-      <div class="tabs" id="tabs">
-        <div class="tab active" data-stage="intro"><span class="icon">📊</span><span>Overview</span></div>
-        <div class="tab" data-stage="crawl"><span class="icon">🌐</span><span>Crawl & Analyse</span></div>
-        <div class="tab" data-stage="index"><span class="icon">📂</span><span>Inverted Index</span></div>
-        <div class="tab" data-stage="rank"><span class="icon">⚙️</span><span>Ranking Engine</span></div>
-        <div class="tab" data-stage="infra"><span class="icon">🛰️</span><span>Query & Infra</span></div>
+      <div class="brand-block">
+        <div class="brand-logo">G</div>
+        <div class="brand-text">
+          <h1 style="font-size: 1.15rem;">Google Search Architecture</h1>
+          <span style="font-size: 0.75rem; color: var(--accent-cyan);" id="headerPhaseText">Phase 1: Foundations</span>
+        </div>
       </div>
-      <div class="scorebox">Labs completed: <strong id="labsDone">0</strong> / <span id="labsTotal">4</span> • Rating estimate: <strong id="ratingEstimate">0.0 / 10</strong></div>
+      <div class="header-actions">
+        <button class="icon-btn" id="btnGlossary">📖 Glossary</button>
+        <button class="icon-btn" style="border-color: var(--accent-gold); color: var(--accent-gold);" id="btnQuizVault">🏆 Quiz Vault</button>
+      </div>
     </header>
-    <main>
-      <section class="left">
+
+    <!-- Master Chapter Tracker -->
+    <!-- Master Chapter Tracker -->
+    <div class="chapter-bar" id="chapterBar">
+      <div class="ch-pill active" data-ch="0">Ch 1: The Physical Web</div>
+      <div class="ch-pill locked" data-ch="1">Ch 2: Websites & DNS</div>
+      <div class="ch-pill locked" data-ch="2">Ch 3: Birth of Google</div>
+      <div class="ch-pill locked" data-ch="3">Ch 4: 4-Layer Engine</div>
+      <div class="ch-pill locked" data-ch="4" id="pill-p2">Ch 5: Global Scaling</div>
+      <div class="ch-pill locked" data-ch="5">Ch 6: Then vs. Now</div>
+      <div class="ch-pill locked" data-ch="6">Ch 7: Android & Chrome</div>
+      <div class="ch-pill locked" data-ch="9">Ch 10: Silicon Wars (TPUs)</div>
+      <div class="ch-pill locked" data-ch="10">Ch 11: Generative Search</div>
+      <div class="ch-pill locked" data-ch="11">Ch 12: Vector Space</div>
+     <div class="ch-pill locked" data-ch="13">Ch 14: Defense Strategy</div>
+      <div class="ch-pill locked" data-ch="14">Ch 15: Democratizing Tech</div>
+      <div class="ch-pill locked" data-ch="15">Ch 16: Petabyte Scale</div>
+      <!-- Phase 5 placeholder -->
+      <div class="ch-pill locked" data-ch="16" id="pill-p5">Ch 17: Unsolved Dilemmas</div>
+      <div class="ch-pill locked" data-ch="17">Ch 18: Solution Sandbox</div>
+      <div class="ch-pill locked" data-ch="18">Ch 19: Architecture Defense</div>
+      <div class="ch-pill locked" data-ch="19">Ch 20: Master Certification</div>
+    </div>
+	<main>
+      <!-- Sidebar Information Panel -->
+      <section class="workbench-sidebar">
         <div>
-          <div class="avatar-ring"><div class="avatar-core" id="avatar">🔎</div></div>
-          <div class="avatar-text">
-            <h2>Search Engineer Trainee</h2>
-            <p id="roleText">Use each lab as an experiment. Follow the mission steps, then observe the system response.</p>
-          </div>
-          <div class="hint" id="hintBox"><strong>Hint:</strong> Google does not scan the whole web for every query. It crawls and analyses pages ahead of time, builds an inverted index, and answers from that index using ranking and distributed infrastructure.[web:19][web:70]</div>
-        </div>
-        <div>
-          <div class="mission-box" id="missionBox">
-            <div class="mission-title">Current mission</div>
-            <ul class="mission-list" id="missionList">
-              <li>Overview: watch one query move through all four layers.</li>
-              <li>Crawl: ensure important public docs enter the repository but private/test docs do not.</li>
-              <li>Index: build posting lists and run an intersection query.</li>
-              <li>Rank: adjust signal weights and see which doc becomes #1.</li>
-            </ul>
-          </div>
-          <div class="prog-wrap">
-            <div class="prog-label"><span>Journey progress</span><span id="progLabel">0%</span></div>
-            <div class="prog-track"><div class="prog-fill" id="progFill"></div></div>
+          <span id="sidebarRole" style="font-size: 0.72rem; color: var(--accent-gold); background: rgba(255,204,0,0.1); padding: 4px 10px; border-radius: 10px;">Role: Network Engineer</span>
+          <h2 id="sidebarChTitle" style="font-size: 1.2rem; color: #fff; margin: 8px 0;">The Physical Internet</h2>
+          <p id="sidebarChDesc" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">The internet is physical glass fibers beneath oceans, transmitting data using laser light pulses at 200,000 km/s.</p>
+          <div class="inspector-panel">
+            <strong style="color: var(--accent-cyan);">🔍 Real-Time Inspector</strong>
+            <p id="inspectorText" style="margin-top: 8px;">Click components on the right to inspect real engineering properties.</p>
           </div>
         </div>
       </section>
-      <section class="right">
-        <div id="panel-intro" class="panel active">
-          <div class="stage-header">
-            <div class="stage-title"><span class="icon">📊</span><span>Overview – Pipeline view</span></div>
-            <div class="stage-subtitle">Follow one query through crawl, analysis, index, ranking, and infrastructure.</div>
-          </div>
-          <div class="stage-text">
-            A modern search engine has four core layers: <strong>crawling</strong> (discover public documents), <strong>document analysis</strong> (extract words, links, language), <strong>inverted index + ranking</strong> (build term → document postings and compute scores), and <strong>query + infrastructure</strong> (parse the user query and answer from distributed data centers).[web:19][web:70]</div>
-          <div class="lab-grid">
-            <div class="lab-vis">
-              <div class="lab-title">Pipeline diagram</div>
-              <p class="tiny">Mission: click "Animate" and carefully read each box as it lights up.</p>
-              <div class="node-grid" style="margin-top:8px;">
-                <div class="doc-card" id="nCrawl"><h4>1. Crawl</h4><div class="meta">Googlebot fetches URLs.</div></div>
-                <div class="doc-card" id="nAnalyse"><h4>2. Analyse</h4><div class="meta">Tokenise text, detect language.</div></div>
-                <div class="doc-card" id="nIndex"><h4>3. Inverted index & rank</h4><div class="meta">Build postings and scores.</div></div>
-                <div class="doc-card" id="nQuery"><h4>4. Query & infra</h4><div class="meta">Merge shards and respond.</div></div>
-              </div>
-              <div class="gauge" style="margin-top:12px;"><div class="gauge-fill" id="pipeGauge" style="width:0;"></div></div>
-            </div>
-            <div class="lab-ctrl">
-              <div class="lab-title">Steps for this lab</div>
-              <p>1. Press the button once and track the order of boxes.
-              <br>2. Say out loud: "crawl → analyse → index & rank → query & infra".
-              <br>3. Ask: where do my documents live? Where does my query travel?</p>
-              <button class="small-btn primary" id="btnAnimatePipe">▶ Animate pipeline</button>
-              <div class="log" id="introLog"></div>
-            </div>
-          </div>
-        </div>
 
-        <div id="panel-crawl" class="panel">
-          <div class="stage-header">
-            <div class="stage-title"><span class="icon">🌐</span><span>Crawl & document analysis</span></div>
-            <div class="stage-subtitle">Choose which documents are allowed into the system.</div>
-          </div>
-          <div class="stage-text">
-            Crawlers like <strong>Googlebot</strong> fetch public URLs. A document analyser then turns each page into structured data: tokenised words, stripped stop‑words, extracted links, and language tags.[web:19][web:78] Private or blocked documents should remain outside the index.
-          </div>
-          <div class="lab-grid">
-            <div class="lab-vis">
-              <div class="lab-title">Document set</div>
-              <p class="tiny">Mission: allow important docs, block login/test docs, then run the crawl.</p>
-              <div class="node-grid" id="crawlDocs"></div>
+      <!-- PHASE 1 HTML CONTENT CONTAINER -->
+      <div id="phase1-container">
+        <!-- Ch 1 Stage -->
+        <!-- Ch 1 Stage -->
+        <section class="workbench-stage active" id="stage0">
+          <div class="interactive-canvas" id="seaMap" style="background: radial-gradient(circle at 50% 50%, #0c224a, #050d26); position: relative;">
+            <div class="stage-hud" style="position: absolute; top: 12px; left: 12px; right: 12px; display: flex; justify-content: space-between; z-index: 10;">
+              <span style="background: rgba(5,8,20,0.9); border: 1px solid var(--accent-cyan); color: var(--accent-cyan); padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 700;">Submarine Fiber Grid</span>
+              <span id="hudStatus0" style="background: rgba(5,8,20,0.9); border: 1px solid var(--accent-cyan); color: var(--accent-cyan); padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 700;">Grid: DISCONNECTED</span>
             </div>
-            <div class="lab-ctrl">
-              <div class="lab-title">Steps for this lab</div>
-              <p>1. Keep <strong>doc101</strong> and <strong>doc102</strong> crawlable.
-              <br>2. Block <strong>doc103</strong> (login) and <strong>doc104</strong> (robots/test).
-              <br>3. Decide what to do with <strong>doc105</strong> (low‑value parameter page).
-              <br>4. Click "Run crawl & analyse" and check the log.</p>
-              <button class="small-btn primary" id="btnRunCrawl">▶ Run crawl & analyse</button>
-              <button class="small-btn" id="btnResetCrawl">⟲ Reset docs</button>
-              <div class="log" id="crawlLog"></div>
-            </div>
+            <svg id="seaSvg" style="position: absolute; width: 100%; height: 100%; pointer-events: none;"></svg>
+            <div class="cable-node" id="node1" style="top:55%; left:20%; position: absolute; width: 44px; height: 44px; border-radius: 50%; background: rgba(0,224,255,0.2); border: 2px solid var(--accent-cyan); display: flex; align-items: center; justify-content: center; font-size: 20px; cursor: pointer; z-index: 5; transition: all 0.3s;">🇮🇳</div>
+            <div class="cable-node" id="node2" style="top:35%; left:45%; position: absolute; width: 44px; height: 44px; border-radius: 50%; background: rgba(0,224,255,0.2); border: 2px solid var(--accent-cyan); display: flex; align-items: center; justify-content: center; font-size: 20px; cursor: pointer; z-index: 5; transition: all 0.3s;">⚓</div>
+            <div class="cable-node" id="node3" style="top:60%; left:65%; position: absolute; width: 44px; height: 44px; border-radius: 50%; background: rgba(0,224,255,0.2); border: 2px solid var(--accent-cyan); display: flex; align-items: center; justify-content: center; font-size: 20px; cursor: pointer; z-index: 5; transition: all 0.3s;">⚓</div>
+            <div class="cable-node" id="node4" style="top:40%; left:85%; position: absolute; width: 44px; height: 44px; border-radius: 50%; background: rgba(0,224,255,0.2); border: 2px solid var(--accent-cyan); display: flex; align-items: center; justify-content: center; font-size: 20px; cursor: pointer; z-index: 5; transition: all 0.3s;">🏢</div>
           </div>
-        </div>
+          <div class="controls-panel">
+            <div>
+              <h4 style="color: var(--accent-cyan);">Optical Splicing</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">Click the nodes sequentially across the ocean to establish the fiber light path.</p>
+            </div>
+            <button class="action-btn" id="btnTestCh1" style="display: none;">Check Latency</button>
+          </div>
+        </section>
 
-        <div id="panel-index" class="panel">
-          <div class="stage-header">
-            <div class="stage-title"><span class="icon">📂</span><span>Inverted index builder</span></div>
-            <div class="stage-subtitle">Create term → document posting lists.</div>
+        <!-- Ch 2 Stage -->
+        <section class="workbench-stage" id="stage1">
+          <div class="interactive-canvas" style="justify-content: center; align-items: center;">
+            <p style="color: var(--text-muted);">[DNS Resolution Map Rendered Here]</p>
+            <button class="action-btn" id="ch2Interact" style="width: 200px;">Ping Domain Name Server</button>
           </div>
-          <div class="stage-text">
-            Google stores a huge dictionary of terms where each term points to a posting list of document IDs. Queries look up one or more terms and intersect or combine those lists to find candidate documents.[web:75][web:70] Here you manually build a tiny version.
-          </div>
-          <div class="lab-grid">
-            <div class="lab-vis">
-              <div class="lab-title">Documents and terms</div>
-              <p class="tiny">Mission: make sure the key documents appear in postings for "search" and "index".</p>
-              <div id="indexDocs"></div>
+          <div class="controls-panel">
+            <div>
+              <h4 style="color: var(--accent-cyan);">HTTP Request</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">Websites live on remote servers. Google only catalogs them.</p>
             </div>
-            <div class="lab-ctrl">
-              <div class="lab-title">Steps for this lab</div>
-              <p>1. Click terms in each document to send doc IDs into postings.
-              <br>2. Use the term selector to inspect postings.
-              <br>3. When ready, press "Run sample query" to intersect postings for "search" and "index".</p>
-              <div class="chip-row" id="termSelectors"></div>
-              <div class="shelf" id="postingShelf">
-                <div class="shelf-title">Current term → document IDs</div>
-                <div class="chip-row" id="postingContents"></div>
-              </div>
-              <button class="small-btn primary" id="btnRunTermQuery">▶ Run sample query</button>
-              <div class="log" id="indexLog"></div>
-            </div>
+            <button class="action-btn" id="btnTestCh2" style="display: none;">Fetch HTML</button>
           </div>
-        </div>
+        </section>
 
-        <div id="panel-rank" class="panel">
-          <div class="stage-header">
-            <div class="stage-title"><span class="icon">⚙️</span><span>Ranking engine</span></div>
-            <div class="stage-subtitle">Balance relevance, PageRank and freshness.</div>
+        <!-- Ch 3 Stage -->
+        <section class="workbench-stage" id="stage2">
+          <div class="interactive-canvas" style="justify-content: center; align-items: center;">
+            <p style="color: var(--text-muted);">[1998 PageRank Authority Graph]</p>
+            <button class="action-btn" id="ch3Interact" style="width: 200px;">Analyze Backlinks</button>
           </div>
-          <div class="stage-text">
-            For each candidate document, Google computes scores using term statistics, link‑based authority (PageRank), freshness, and many other signals.[web:70][web:75] In this simplified engine you choose which signals matter and see how the winning document changes.
-          </div>
-          <div class="lab-grid">
-            <div class="lab-vis">
-              <div class="lab-title">Query: "search engine architecture"</div>
-              <p class="tiny">Mission: get the most balanced technical article to rank #1.</p>
-              <div class="rank-list" id="rankList"></div>
+          <div class="controls-panel">
+            <div>
+              <h4 style="color: var(--accent-cyan);">The 1998 Breakthrough</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">Larry Page & Sergey Brin treated hyperlinks as votes of trust.</p>
             </div>
-            <div class="lab-ctrl">
-              <div class="lab-title">Steps for this lab</div>
-              <p>1. Start with all signals on and note the top document.
-              <br>2. Turn off PageRank and see what changes.
-              <br>3. Turn off freshness and compare again.
-              <br>4. Discuss which combination seems best for this query.</p>
-              <div class="toggle-row" id="signalToggles"></div>
-              <button class="small-btn primary" id="btnRunRank">▶ Recompute ranking</button>
-              <div class="log" id="rankLog"></div>
-            </div>
+            <button class="action-btn" id="btnTestCh3" style="display: none;">Compute PageRank</button>
           </div>
-        </div>
+        </section>
 
-        <div id="panel-infra" class="panel">
-          <div class="stage-header">
-            <div class="stage-title"><span class="icon">🛰️</span><span>Query engine & infrastructure</span></div>
-            <div class="stage-subtitle">Parse queries and respond from distributed data centers.</div>
+        <!-- Ch 4 Stage -->
+        <section class="workbench-stage" id="stage3">
+          <div class="interactive-canvas" style="justify-content: center; align-items: center;">
+             <p style="color: var(--text-muted);">[4-Layer Search Engine Architecture]</p>
+             <button class="action-btn" id="ch4Interact" style="width: 200px;">Run Engine Pipeline</button>
           </div>
-          <div class="stage-text">
-            The query engine cleans the input (spelling, synonyms), fans out a request to multiple index shards, merges the responses, and sends them from nearby data centers to keep latency low.[web:70][web:40] You will toggle query features and adjust server counts to see both relevance and speed change.
-          </div>
-          <div class="lab-grid">
-            <div class="lab-vis">
-              <div class="lab-title">Query configuration</div>
-              <p class="tiny">Mission: produce a good candidate set while keeping latency under ~80 ms.</p>
-              <div class="chip-row" id="queryFeatureToggles"></div>
-              <div class="shelf" style="margin-top:8px;">
-                <div class="shelf-title">Parsed query & candidate docs</div>
-                <div class="chip-row" id="queryResultDocs"></div>
-              </div>
+          <div class="controls-panel">
+            <div>
+              <h4 style="color: var(--accent-cyan);">End-to-End Pipeline</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">Crawling ➔ Analysis ➔ Indexing ➔ Query Routing.</p>
             </div>
-            <div class="lab-ctrl">
-              <div class="lab-title">Steps for this lab</div>
-              <p>1. Choose which query features should be on for "search engine design".
-              <br>2. Adjust server sliders for India, Europe and US.
-              <br>3. Run the query and check candidate docs and latency.
-              <br>4. Try to reach a configuration with both good docs and low latency.</p>
-              <div class="dc-grid" id="dcGrid"></div>
-              <div class="gauge"><div class="gauge-fill" id="latGauge" style="width:50%;"></div></div>
-              <button class="small-btn primary" id="btnRunInfra">▶ Run query through infra</button>
-              <div class="log" id="infraLog"></div>
-            </div>
+            <button class="action-btn" id="btnTestCh4" style="display: none;">Complete Phase 1 Evaluation</button>
           </div>
-        </div>
-      </section>
-    </main>
-    <footer>
-      <div>Current lab: <span id="footerLab">Overview</span> • Role: <span id="footerRole">See all layers together</span></div>
-      <div class="footer-right">
-        <button class="ghost-btn" id="btnResetAll">⟲ Reset all</button>
-        <button class="primary-btn" id="btnNextLab">Next lab ▶</button>
+        </section>
       </div>
+      <!-- END PHASE 1 CONTENT -->
+
+      <!-- PLACEHOLDER FOR PHASE 2 -->
+      <div id="phase2-container"></div>
+	  <!-- PHASE 2 HTML CONTENT CONTAINER -->
+      <div id="phase2-container">
+        <!-- Ch 5 Stage -->
+        <section class="workbench-stage" id="stage4">
+          <div class="interactive-canvas" style="justify-content: center; align-items: center; background: #0c224a;">
+            <p style="color: var(--text-muted); text-align: center; padding: 20px;">[Global Fiber + LEO Satellite Map]</p>
+            <button class="action-btn" id="ch5Interact" style="width: 200px; background: linear-gradient(135deg, #ffe66d, #f5a623);">Deploy LEO Satellite</button>
+          </div>
+          <div class="controls-panel">
+            <div>
+              <h4 style="color: var(--accent-cyan);">Global Scaling</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">Fiber connects continents, but satellites solve the "last-mile" for remote users.</p>
+            </div>
+            <button class="action-btn" id="btnTestCh5" style="display: none;">Check Global Coverage</button>
+          </div>
+        </section>
+
+        <!-- Ch 6 Stage -->
+        <section class="workbench-stage" id="stage5">
+          <div class="interactive-canvas" style="justify-content: center; align-items: center;">
+            <p style="color: var(--text-muted);">[1998 Server Rack vs. 2026 TPU Cluster]</p>
+            <button class="action-btn" id="ch6Interact" style="width: 200px; background: linear-gradient(135deg, #ffe66d, #f5a623);">Upgrade to TPU Silicon</button>
+          </div>
+          <div class="controls-panel">
+            <div>
+              <h4 style="color: var(--accent-cyan);">Then vs. Now</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">From standard CPUs to custom AI accelerators designed for massive machine learning.</p>
+            </div>
+            <button class="action-btn" id="btnTestCh6" style="display: none;">Benchmark Compute Power</button>
+          </div>
+        </section>
+
+        <!-- Ch 7 Stage -->
+        <section class="workbench-stage" id="stage6">
+          <div class="interactive-canvas" style="justify-content: center; align-items: center;">
+            <p style="color: var(--text-muted);">[Android OS & Chrome Browser Data Streams]</p>
+            <button class="action-btn" id="ch7Interact" style="width: 200px; background: linear-gradient(135deg, #ffe66d, #f5a623);">Sync Ecosystem Data</button>
+          </div>
+          <div class="controls-panel">
+            <div>
+              <h4 style="color: var(--accent-cyan);">Android & Chrome Ecosystem</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">Owning the mobile OS and browser provides unprecedented real-time user metrics.</p>
+            </div>
+            <button class="action-btn" id="btnTestCh7" style="display: none;">Analyze Data Flow</button>
+          </div>
+        </section>
+
+        <!-- Ch 8 Stage -->
+        <section class="workbench-stage" id="stage7">
+          <div class="interactive-canvas" style="justify-content: center; align-items: center;">
+             <p style="color: var(--text-muted);">[Data Gravity Well & Monopoly Metrics]</p>
+             <button class="action-btn" id="ch8Interact" style="width: 200px; background: linear-gradient(135deg, #ffe66d, #f5a623);">Simulate Market Share</button>
+          </div>
+          <div class="controls-panel">
+            <div>
+              <h4 style="color: var(--accent-cyan);">The Monopoly Era</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">Over 90% market share creates a "Data Gravity" feedback loop, automatically improving the engine.</p>
+            </div>
+            <button class="action-btn" id="btnTestCh8" style="display: none;">Complete Phase 2 Evaluation</button>
+          </div>
+        </section>
+      </div>
+	  <!-- PHASE 3 HTML CONTENT CONTAINER -->
+      <div id="phase3-container">
+        <!-- Ch 9 Stage -->
+        <section class="workbench-stage" id="stage8">
+          <div class="interactive-canvas" style="justify-content: center; align-items: center; background: #1a0f14;">
+            <p style="color: var(--text-muted); text-align: center; padding: 20px;">[Market Competitor Radar: OpenAI, TikTok, Bing]</p>
+            <button class="action-btn" id="ch9Interact" style="width: 250px; background: linear-gradient(135deg, #ff3399, #ffcc00);">Scan Market Threats</button>
+          </div>
+          <div class="controls-panel">
+            <div>
+              <h4 style="color: var(--accent-pink);">Rise of Rivals</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">After years of monopoly, specialized AI chatbots and social video platforms are pulling users away.</p>
+            </div>
+            <button class="action-btn" id="btnTestCh9" style="display: none;">Assess Competitor Impact</button>
+          </div>
+        </section>
+
+        <!-- Ch 10 Stage -->
+        <section class="workbench-stage" id="stage9">
+          <div class="interactive-canvas" style="justify-content: center; align-items: center;">
+            <p style="color: var(--text-muted);">[Motherboard View: CPU vs. GPU vs. Custom TPU]</p>
+            <button class="action-btn" id="ch10Interact" style="width: 250px; background: linear-gradient(135deg, #ff3399, #ffcc00);">Slot TPU into Server Rack</button>
+          </div>
+          <div class="controls-panel">
+            <div>
+              <h4 style="color: var(--accent-pink);">Silicon Wars (TPUs)</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">To process AI faster than competitors, Google designs its own Application-Specific Integrated Circuits (ASICs).</p>
+            </div>
+            <button class="action-btn" id="btnTestCh10" style="display: none;">Run Hardware Diagnostic</button>
+          </div>
+        </section>
+
+        <!-- Ch 11 Stage -->
+        <section class="workbench-stage" id="stage10">
+          <div class="interactive-canvas" style="justify-content: center; align-items: center;">
+            <p style="color: var(--text-muted);">[LLM Transformer Architecture & AI Overview Generation]</p>
+            <button class="action-btn" id="ch11Interact" style="width: 250px; background: linear-gradient(135deg, #ff3399, #ffcc00);">Synthesize Generative Answer</button>
+          </div>
+          <div class="controls-panel">
+            <div>
+              <h4 style="color: var(--accent-pink);">Generative Search</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">Instead of just listing blue links, Large Language Models (LLMs) read the top pages and synthesize a direct answer.</p>
+            </div>
+            <button class="action-btn" id="btnTestCh11" style="display: none;">Verify AI Accuracy</button>
+          </div>
+        </section>
+
+        <!-- Ch 12 Stage -->
+        <section class="workbench-stage" id="stage11">
+          <div class="interactive-canvas" style="justify-content: center; align-items: center;">
+             <p style="color: var(--text-muted);">[3D Semantic Vector Space Mapping]</p>
+             <button class="action-btn" id="ch12Interact" style="width: 250px; background: linear-gradient(135deg, #ff3399, #ffcc00);">Map Concept to Vector</button>
+          </div>
+          <div class="controls-panel">
+            <div>
+              <h4 style="color: var(--accent-pink);">Vector Space</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">Modern engines don't match exact words; they match "meaning" by converting text into high-dimensional numbers (embeddings).</p>
+            </div>
+            <button class="action-btn" id="btnTestCh12" style="display: none;">Complete Phase 3 Evaluation</button>
+          </div>
+        </section>
+      </div>
+
+      <!-- PLACEHOLDER FOR PHASE 4 -->
+      <div id="phase4-container"></div>
+	  
+	  <!-- PHASE 4 HTML CONTENT CONTAINER -->
+      <div id="phase4-container">
+        <!-- Ch 13 Stage -->
+        <section class="workbench-stage" id="stage12">
+          <div class="interactive-canvas" style="justify-content: center; align-items: center; background: #0f1a14;">
+            <p style="color: var(--text-muted); text-align: center; padding: 20px;">[Niche Market Focus: Vertical Search & Closed Ecosystems]</p>
+            <button class="action-btn" id="ch13Interact" style="width: 250px; background: linear-gradient(135deg, #00ff88, #00e0ff); color: #000;">Deploy Vertical Search Strategy</button>
+          </div>
+          <div class="controls-panel">
+            <div>
+              <h4 style="color: var(--good-green);">Challenger Tactics</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">Competitors can't beat Google at everything, so they focus on "Vertical Search" (e.g., Amazon for products, TikTok for short video trends).</p>
+            </div>
+            <button class="action-btn" id="btnTestCh13" style="display: none;">Analyze Market Fragmentation</button>
+          </div>
+        </section>
+
+        <!-- Ch 14 Stage -->
+        <section class="workbench-stage" id="stage13">
+          <div class="interactive-canvas" style="justify-content: center; align-items: center;">
+            <p style="color: var(--text-muted);">[Kubernetes Microservices Mesh Defense]</p>
+            <button class="action-btn" id="ch14Interact" style="width: 250px; background: linear-gradient(135deg, #00ff88, #00e0ff); color: #000;">Scale Microservice Mesh</button>
+          </div>
+          <div class="controls-panel">
+            <div>
+              <h4 style="color: var(--good-green);">Defense Strategy</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">Google defends its position by integrating services (Maps, YouTube, Search) tightly through a massive, scalable microservice architecture.</p>
+            </div>
+            <button class="action-btn" id="btnTestCh14" style="display: none;">Verify Ecosystem Lock-in</button>
+          </div>
+        </section>
+
+        <!-- Ch 15 Stage -->
+        <section class="workbench-stage" id="stage14">
+          <div class="interactive-canvas" style="justify-content: center; align-items: center;">
+            <p style="color: var(--text-muted);">[Open-Source Tech Release: TensorFlow & Kubernetes]</p>
+            <button class="action-btn" id="ch15Interact" style="width: 250px; background: linear-gradient(135deg, #00ff88, #00e0ff); color: #000;">Open-Source Core Tech</button>
+          </div>
+          <div class="controls-panel">
+            <div>
+              <h4 style="color: var(--good-green);">Democratizing Tech</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">To shape the industry standard, big tech open-sources their internal tools. By giving away Kubernetes and TensorFlow, they ensure everyone builds on their foundational logic.</p>
+            </div>
+            <button class="action-btn" id="btnTestCh15" style="display: none;">Track Developer Adoption</button>
+          </div>
+        </section>
+
+        <!-- Ch 16 Stage -->
+        <section class="workbench-stage" id="stage15">
+          <div class="interactive-canvas" style="justify-content: center; align-items: center;">
+             <p style="color: var(--text-muted);">[Petabyte Data Lake Processing Node]</p>
+             <button class="action-btn" id="ch16Interact" style="width: 250px; background: linear-gradient(135deg, #00ff88, #00e0ff); color: #000;">Execute MapReduce Job</button>
+          </div>
+          <div class="controls-panel">
+            <div>
+              <h4 style="color: var(--good-green);">Petabyte Scale</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">Processing the entire web requires splitting tasks across thousands of computers simultaneously using frameworks like MapReduce.</p>
+            </div>
+            <button class="action-btn" id="btnTestCh16" style="display: none;">Complete Phase 4 Evaluation</button>
+          </div>
+        </section>
+      </div>
+
+      <!-- PLACEHOLDER FOR PHASE 5 -->
+      <div id="phase5-container"></div>
+	  <!-- PHASE 5 HTML CONTENT CONTAINER -->
+      <div id="phase5-container">
+        <!-- Ch 17 Stage -->
+        <section class="workbench-stage" id="stage16">
+          <div class="interactive-canvas" style="justify-content: center; align-items: center; background: #1a0f0f;">
+            <p style="color: var(--text-muted); text-align: center; padding: 20px;">[Dilemma Matrix: AI Hallucination | Energy Consumption | Ad-Bloat]</p>
+            <button class="action-btn" id="ch17Interact" style="width: 250px; background: linear-gradient(135deg, #ff3b5c, #ffcc00); color: #000;">Analyze System Flaws</button>
+          </div>
+          <div class="controls-panel">
+            <div>
+              <h4 style="color: var(--alert-red);">Unsolved Dilemmas</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">Modern search engines consume massive amounts of electricity, struggle with AI hallucinating facts, and clutter results with advertisements.</p>
+            </div>
+            <button class="action-btn" id="btnTestCh17" style="display: none;">Acknowledge Engineering Limits</button>
+          </div>
+        </section>
+
+        <!-- Ch 18 Stage -->
+        <section class="workbench-stage" id="stage17">
+          <div class="interactive-canvas" style="justify-content: center; align-items: center;">
+            <p style="color: var(--text-muted);">[Solution Sandbox: Adjust parameters to fix Hallucination without breaking Latency]</p>
+            <button class="action-btn" id="ch18Interact" style="width: 250px; background: linear-gradient(135deg, #00e0ff, #ff3399); color: #fff;">Apply RAG Fact-Checking</button>
+          </div>
+          <div class="controls-panel">
+            <div>
+              <h4 style="color: var(--accent-cyan);">Solution Sandbox</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">Implement Retrieval-Augmented Generation (RAG) to force the AI to cite sources, reducing hallucination but increasing latency.</p>
+            </div>
+            <button class="action-btn" id="btnTestCh18" style="display: none;">Verify Solution</button>
+          </div>
+        </section>
+
+        <!-- Ch 19 Stage -->
+        <section class="workbench-stage" id="stage18">
+          <div class="interactive-canvas" style="justify-content: center; align-items: center;">
+            <p style="color: var(--text-muted);">[Global Architecture Blueprint Review]</p>
+            <button class="action-btn" id="ch19Interact" style="width: 250px; background: linear-gradient(135deg, #00e0ff, #ff3399); color: #fff;">Lock Final Architecture</button>
+          </div>
+          <div class="controls-panel">
+            <div>
+              <h4 style="color: var(--accent-cyan);">Architecture Defense</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">Final review of your 4-layer engine, TPU infrastructure, and defense mechanisms before the master evaluation.</p>
+            </div>
+            <button class="action-btn" id="btnTestCh19" style="display: none;">Initiate Final Defense</button>
+          </div>
+        </section>
+
+        <!-- Ch 20 Stage (Certification) -->
+        <section class="workbench-stage" id="stage19">
+          <div class="interactive-canvas" style="justify-content: center; align-items: center; background: radial-gradient(circle, rgba(255,204,0,0.2), transparent);">
+             <div style="text-align: center; display: none;" id="certBadgeBox">
+               <div style="font-size: 4rem; margin-bottom: 10px; text-shadow: 0 0 20px var(--accent-gold);">🏅</div>
+               <h2 style="color: var(--accent-gold); letter-spacing: 0.1em; margin-bottom: 5px;">MASTER ARCHITECT</h2>
+               <p style="font-size: 0.85rem; color: var(--good-green);">Cognitive Assessment Synced to Medhaa Network</p>
+             </div>
+             <button class="action-btn" id="ch20Interact" style="width: 250px; background: linear-gradient(135deg, #ffcc00, #ff3399); color: #000;">Generate Credentials</button>
+          </div>
+          <div class="controls-panel">
+            <div>
+              <h4 style="color: var(--accent-gold);">Master Certification</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">You have successfully navigated from physical glass fibers to LLM logic. Your assessment data is ready for export.</p>
+            </div>
+            <button class="action-btn" id="btnTestCh20" style="display: none;" onclick="location.reload()">Restart Curriculum</button>
+          </div>
+        </section>
+      </div>
+
+    </main>
+
+<!-- Quiz Modal -->
+    <div class="modal-overlay" id="quizModal">
+      <div class="modal-window" style="max-width: 600px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px; margin-bottom: 15px;">
+          <h2 id="quizModalTitle" style="color: #fff; font-size: 1.3rem;">🏆 Engineering Evaluation</h2>
+          <button class="close-btn" onclick="document.getElementById('quizModal').classList.remove('active')">&times;</button>
+        </div>
+        <div id="quizContent"></div>
+      </div>
+    </div>
+
+    <footer>
+      <div>Bhaavajaalam Medhaa System Engine</div>
+      <div>Phase 1 of 5 Active</div>
     </footer>
   </div>
-  <script>
-    const tabs = document.querySelectorAll('.tab');
-    const panels = {
-      intro: document.getElementById('panel-intro'),
-      crawl: document.getElementById('panel-crawl'),
-      index: document.getElementById('panel-index'),
-      rank: document.getElementById('panel-rank'),
-      infra: document.getElementById('panel-infra')
+<script>
+    // ---------------------------------------------------------
+    // 1. GLOBAL STATE & METADATA
+    // ---------------------------------------------------------
+    let currentCh = 0;
+    const stages = document.querySelectorAll('.workbench-stage');
+    const pills = document.querySelectorAll('.ch-pill');
+
+    const chData = [
+      { role: 'Network Engineer', title: 'Ch 1: The Physical Internet', desc: 'The internet is glass fibers beneath oceans. Click to lay cables.' },
+      { role: 'Systems Engineer', title: 'Ch 2: Websites & DNS Resolution', desc: 'DNS translates domain names into routable numerical IP addresses.' },
+      { role: 'Algorithm Engineer', title: 'Ch 3: Birth of Google (1998)', desc: 'Discover how PageRank transformed early search by analyzing backlinks.' },
+      { role: 'Search Architect', title: 'Ch 4: The 4-Layer Search Engine', desc: 'Master the complete pipeline: Crawling ➔ Analysis ➔ Index ➔ Query.' },
+      { role: 'Infrastructure Lead', title: 'Ch 5: Global Scaling', desc: 'Fiber connects continents, but LEO satellites solve last-mile connectivity.' },
+      { role: 'Hardware Engineer', title: 'Ch 6: Then vs. Now', desc: 'Upgrade from 1998 commodity servers to custom 2026 TPU AI clusters.' },
+      { role: 'Product Strategist', title: 'Ch 7: Android & Chrome', desc: 'Owning the OS and browser ecosystem feeds massive real-time user data to the index.' },
+      { role: 'Market Analyst', title: 'Ch 8: The Monopoly Era', desc: 'Analyze how a 90% market share creates an unbeatable data gravity loop.' },
+      { role: 'Competitive Analyst', title: 'Ch 9: Rise of Rivals', desc: 'Specialized AI bots and social video platforms are changing how Gen Z searches.' },
+      { role: 'Silicon Engineer', title: 'Ch 10: Silicon Wars (TPUs)', desc: 'Standard chips are too slow. We must deploy custom Tensor Processing Units.' },
+      { role: 'AI Researcher', title: 'Ch 11: Generative Search', desc: 'Use LLMs to read the search results and generate a synthesized direct answer.' },
+      { role: 'Machine Learning Eng.', title: 'Ch 12: Vector Space', desc: 'Convert words into mathematical vectors so the engine understands true meaning.' },
+      { role: 'Strategy Director', title: 'Ch 13: Challenger Tactics', desc: 'Learn how competitors use Vertical Search to attack Google where it is weakest.' },
+      { role: 'Systems Architect', title: 'Ch 14: Defense Strategy', desc: 'See how Google uses interconnected Microservices to trap users in its ecosystem.' },
+      { role: 'Open Source Lead', title: 'Ch 15: Democratizing Tech', desc: 'Release internal tools like TensorFlow to ensure the world builds on your standards.' },
+      { role: 'Data Engineer', title: 'Ch 16: Petabyte Scale', desc: 'Execute parallel processing to handle data lakes larger than human comprehension.' },
+      { role: 'Ethics Lead', title: 'Ch 17: Unsolved Dilemmas', desc: 'Analyze modern constraints: AI Hallucinations, Energy consumption, and Ad-bloat.' },
+      { role: 'Solutions Architect', title: 'Ch 18: Solution Sandbox', desc: 'Apply RAG fact-checking to reduce hallucinations without breaking server latency limits.' },
+      { role: 'Chief Engineer', title: 'Ch 19: Architecture Defense', desc: 'Lock the final architecture blueprint before the ultimate evaluation.' },
+      { role: 'Master Architect', title: 'Ch 20: Certification', desc: 'Sync cognitive assessment data and claim your Master Architect credentials.' }
+    ];
+
+    // Master Glossary Database
+    // Carefully mapped to ensure exactly 4+ terms per Phase to guarantee the procedural quiz math works flawlessly.
+    const GlossaryData = [
+      // Phase 1 Terms
+      { t: "Submarine Cable", d: "Fiber-optic cables laid on the ocean floor carrying 99% of international data." },
+      { t: "Silica Glass", d: "Ultra-pure glass core inside optical fibers that guides laser photons." },
+      { t: "DNS (Domain Name System)", d: "Hierarchical system translating human URLs to computer IP addresses." },
+      { t: "PageRank", d: "Algorithm calculating website authority by evaluating incoming backlink graphs." },
+      { t: "Inverted Index", d: "Core dictionary data structure mapping single words directly to Document IDs." },
+      // Phase 2 Terms
+      { t: "Data Center", d: "Massive facility housing server racks, cooling, and backup power grids." },
+      { t: "Latency", d: "Total time required for a packet of data to travel from origin to destination." },
+      { t: "TPU (Tensor Processing Unit)", d: "Custom ASIC silicon developed by Google specifically for neural network AI." },
+      { t: "Data Gravity", d: "The ability of a massive dataset to attract more applications and users, creating a monopoly loop." },
+      { t: "Load Balancer", d: "Reverse proxy distributing incoming client requests across server pools." },
+      // Phase 3 Terms
+      { t: "Large Language Model (LLM)", d: "Massive neural network trained on hundreds of billions of tokens for text synthesis." },
+      { t: "Vector Search", d: "Matching search query embeddings in multidimensional vector space by semantic distance." },
+      { t: "Generative AI", d: "Artificial intelligence capable of generating text, images, or other media natively." },
+      { t: "Tokenization", d: "Splitting sentence strings into individual word tokens for dictionary lookup." },
+      { t: "Transformer Architecture", d: "A deep learning model utilizing self-attention to weight the significance of input data." },
+      // Phase 4 Terms
+      { t: "Microservice Mesh", d: "Architectural pattern breaking monolithic search into hundreds of specialized micro-services." },
+      { t: "Kubernetes (K8s)", d: "Open-source container orchestration engine managing automated application deployments." },
+      { t: "MapReduce", d: "Programming model for processing massive big data sets with a parallel, distributed algorithm." },
+      { t: "Vertical Search", d: "A search engine designed to focus on a specific niche, medium, or genre." },
+      { t: "Data Lake", d: "Massive storage repository housing raw, unprocessed multi-petabyte datasets." },
+      // Phase 5 Terms
+      { t: "AI Hallucination", d: "When a generative model produces plausible-sounding but factually incorrect outputs." },
+      { t: "RAG (Retrieval-Augmented Gen)", d: "Grounding LLM outputs by feeding real-time verified search index documents into prompts." },
+      { t: "Dark Pattern", d: "A user interface that has been carefully crafted to trick users into doing things." },
+      { t: "Cognitive Load", d: "The total amount of mental effort being used in the working memory during user interaction." },
+      { t: "SLO (Service Level Objective)", d: "Target reliability metric guiding engineering operations and server uptime." }
+    ];
+
+    // ---------------------------------------------------------
+    // 2. NAVIGATION & UI LOGIC
+    // ---------------------------------------------------------
+    function setChapter(idx) {
+      if(idx > 19) return; 
+      currentCh = idx;
+      
+      stages.forEach((s, i) => s.classList.toggle('active', i === idx));
+      pills.forEach((p, i) => {
+        p.classList.toggle('active', i === idx);
+        if(i <= idx) p.classList.remove('locked');
+      });
+
+      document.getElementById('sidebarRole').textContent = `Role: ${chData[idx].role}`;
+      document.getElementById('sidebarChTitle').textContent = chData[idx].title;
+      document.getElementById('sidebarChDesc').textContent = chData[idx].desc;
+      
+      let phaseText = "Phase 1: Foundations";
+      if(idx > 3) phaseText = "Phase 2: Expansion & Architecture";
+      if(idx > 7) phaseText = "Phase 3: Competitors & Tech Wars";
+      if(idx > 11) phaseText = "Phase 4: Technology & Society";
+      if(idx > 15) phaseText = "Phase 5: Solutions & Master Lab";
+      
+      document.getElementById('headerPhaseText').textContent = phaseText;
+      document.getElementById('inspectorText').textContent = 'Click on components to inspect their engineering properties.';
+
+      const activePill = pills[idx];
+      const bar = document.getElementById('chapterBar');
+      if (activePill) {
+        bar.scrollLeft = activePill.offsetLeft - (bar.offsetWidth / 2) + (activePill.offsetWidth / 2);
+      }
+    }
+
+    function updateInspector(msg) {
+        document.getElementById('inspectorText').textContent = msg;
+    }
+
+    // ---------------------------------------------------------
+    // 3. EXPERT QUIZ ENGINE (PROGRAMMATIC DOM CREATION)
+    // ---------------------------------------------------------
+    let quizQueue = [];
+    let currentQuizIndex = 0;
+    let targetNextChapter = 0;
+
+    function generateExpertExam(narrativeQ, options, correctIdx, nextCh) {
+      targetNextChapter = nextCh;
+      quizQueue = [];
+      
+      // 1. Narrative Concept Question
+      quizQueue.push({ q: narrativeQ, opts: options, a: correctIdx });
+
+      // 2. Dynamic Glossary Questions (Safe Modulus Math)
+      const phase = Math.floor(currentCh / 4); 
+      const baseIdx = phase * 5; 
+      const term1 = GlossaryData[baseIdx % GlossaryData.length];
+      const term2 = GlossaryData[(baseIdx + 1) % GlossaryData.length];
+      const distractor1 = GlossaryData[(baseIdx + 2) % GlossaryData.length].d;
+      const distractor2 = GlossaryData[(baseIdx + 3) % GlossaryData.length].d;
+
+      let opts1 = [term1.d, distractor1, distractor2].sort(() => Math.random() - 0.5);
+      quizQueue.push({ 
+        q: `TECHNICAL VOCABULARY: Which of the following best defines "${term1.t}"?`, 
+        opts: opts1, 
+        a: opts1.indexOf(term1.d) 
+      });
+
+      let opts2 = [term2.t, GlossaryData[(baseIdx + 2) % GlossaryData.length].t, GlossaryData[(baseIdx + 3) % GlossaryData.length].t].sort(() => Math.random() - 0.5);
+      quizQueue.push({ 
+        q: `TECHNICAL VOCABULARY: What term is defined as: "${term2.d}"?`, 
+        opts: opts2, 
+        a: opts2.indexOf(term2.t) 
+      });
+
+      currentQuizIndex = 0;
+      renderQuizItem();
+    }
+
+    function renderQuizItem() {
+      const qData = quizQueue[currentQuizIndex];
+      const modal = document.getElementById('quizModal');
+      const content = document.getElementById('quizContent');
+      
+      document.getElementById('quizModalTitle').innerHTML = `🏆 Engineering Evaluation (Question ${currentQuizIndex + 1} of 3)`;
+
+      // Safely clear DOM
+      content.innerHTML = '';
+      
+      const qText = document.createElement('p');
+      qText.style.fontSize = '1.1rem';
+      qText.style.marginBottom = '15px';
+      qText.style.lineHeight = '1.4';
+      qText.textContent = qData.q;
+      content.appendChild(qText);
+
+      const btnContainer = document.createElement('div');
+      btnContainer.style.display = 'flex';
+      btnContainer.style.flexDirection = 'column';
+      btnContainer.style.gap = '10px';
+
+      qData.opts.forEach((opt, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'action-btn';
+        btn.style.background = 'rgba(255,255,255,0.05)';
+        btn.style.color = '#fff';
+        btn.style.textAlign = 'left';
+        btn.style.fontWeight = 'normal';
+        btn.style.padding = '14px';
+        btn.style.border = '1px solid transparent';
+        btn.textContent = opt;
+        
+        btn.onclick = () => {
+          // Instantly lock buttons to prevent click-bleed
+          const allBtns = btnContainer.querySelectorAll('button');
+          allBtns.forEach(b => b.style.pointerEvents = 'none');
+
+          if(i === qData.a) {
+            btn.style.background = 'rgba(0,255,136,0.2)';
+            btn.style.border = '1px solid #00ff88';
+            
+            setTimeout(() => {
+              currentQuizIndex++;
+              if(currentQuizIndex < quizQueue.length) {
+                renderQuizItem(); 
+              } else {
+                document.getElementById('quizModal').classList.remove('active');
+                handleChapterAdvance(targetNextChapter);
+              }
+            }, 600);
+            
+          } else {
+            btn.style.background = 'rgba(255,59,92,0.2)';
+            btn.style.border = '1px solid #ff3b5c';
+            alert("Incorrect architecture logic. Review the glossary and try again.");
+            
+            allBtns.forEach(b => {
+                b.style.pointerEvents = 'auto';
+                b.style.background = 'rgba(255,255,255,0.05)';
+                b.style.border = '1px solid transparent';
+            });
+          }
+        };
+        btnContainer.appendChild(btn);
+      });
+      
+      content.appendChild(btnContainer);
+      modal.classList.add('active');
+    }
+
+    function handleChapterAdvance(nextCh) {
+      if(nextCh === 4) {
+         updateInspector('Phase 1 Complete! Evaluation passed. Ready for Phase 2.');
+         document.getElementById('pill-p2').classList.remove('locked');
+      } else if(nextCh === 8) {
+         updateInspector('Phase 2 Complete! Evaluation passed. Ready for Phase 3.');
+         document.getElementById('pill-p3').classList.remove('locked');
+      } else if(nextCh === 12) {
+         updateInspector('Phase 3 Complete! Evaluation passed. Ready for Phase 4.');
+         document.getElementById('pill-p4').classList.remove('locked');
+      } else if(nextCh === 16) {
+         updateInspector('Phase 4 Complete! Architecture understood. Ready for Phase 5.');
+         document.getElementById('pill-p5').classList.remove('locked');
+      } else {
+         setChapter(nextCh);
+      }
+    }
+	// ---------------------------------------------------------
+    // 4. INTERACTIVE CHAPTER LOGIC (CLICK-TO-REVEAL)
+    // ---------------------------------------------------------
+
+    // --- PHASE 1: Foundations ---
+    
+    // Chapter 1 Map Logic
+    let ch1Steps = 0;
+    const cNodes = ['node1', 'node2', 'node3', 'node4'];
+    const ch1Explanations = [
+      "India Cable Landing Station: Where the undersea fiber connects to the terrestrial land network.",
+      "Optical Repeater A: An underwater amplifier that boosts the laser signal so it doesn't fade.",
+      "Optical Repeater B: Amplifies the light pulse across the freezing ocean floor.",
+      "US Data Center: The destination where optical laser signals are converted back into server data."
+    ];
+    
+    cNodes.forEach((id, idx) => {
+      const el = document.getElementById(id);
+      if(el) {
+        el.addEventListener('click', () => {
+          updateInspector(ch1Explanations[idx]);
+          if (idx === ch1Steps) {
+            el.style.borderColor = '#00ff88';
+            el.style.background = 'rgba(0,255,136,0.2)';
+            el.style.boxShadow = '0 0 20px #00ff88';
+            ch1Steps++;
+            
+            const svg = document.getElementById('seaSvg');
+            svg.innerHTML = '';
+            for (let i = 0; i < ch1Steps - 1; i++) {
+              const r1 = document.getElementById(cNodes[i]).getBoundingClientRect();
+              const r2 = document.getElementById(cNodes[i+1]).getBoundingClientRect();
+              const p = document.getElementById('seaMap').getBoundingClientRect();
+              const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+              line.setAttribute('x1', r1.left + r1.width/2 - p.left);
+              line.setAttribute('y1', r1.top + r1.height/2 - p.top);
+              line.setAttribute('x2', r2.left + r2.width/2 - p.left);
+              line.setAttribute('y2', r2.top + r2.height/2 - p.top);
+              line.setAttribute('stroke', '#00ff88');
+              line.setAttribute('stroke-width', '4');
+              line.setAttribute('stroke-dasharray', '6');
+              svg.appendChild(line);
+            }
+            if (ch1Steps === 4) {
+              document.getElementById('hudStatus0').textContent = 'Grid: OPTICAL PATH LOCKED';
+              document.getElementById('hudStatus0').style.color = '#00ff88';
+              document.getElementById('hudStatus0').style.borderColor = '#00ff88';
+              document.getElementById('btnTestCh1').style.display = 'block';
+            }
+          }
+        });
+      }
+    });
+    
+    document.getElementById('ch1Interact')?.addEventListener('click', function() {
+      this.style.display = 'none'; 
+      updateInspector('Interact with the map above to lay the cables.');
+    });
+    document.getElementById('btnTestCh1').onclick = () => { generateExpertExam("What physical medium carries 99% of global internet traffic?", ["Undersea Fiber-Optic Cables", "Satellites", "Copper Wires"], 0, 1); };
+
+    // Chapter 2
+    document.getElementById('ch2Interact').onclick = function() {
+      this.style.display = 'none'; 
+      updateInspector('DNS Node: Translating the human-readable domain (bhaavajaalam.com) into a machine-routable IP address.');
+      document.getElementById('btnTestCh2').style.display = 'block';
     };
-    const avatarEl = document.getElementById('avatar');
-    const roleTextEl = document.getElementById('roleText');
-    const hintBoxEl = document.getElementById('hintBox');
-    const missionBoxEl = document.getElementById('missionBox');
-    const missionListEl = document.getElementById('missionList');
-    const progFillEl = document.getElementById('progFill');
-    const progLabelEl = document.getElementById('progLabel');
-    const labsDoneEl = document.getElementById('labsDone');
-    const labsTotalEl = document.getElementById('labsTotal');
-    const ratingEstimateEl = document.getElementById('ratingEstimate');
-    const footerLabEl = document.getElementById('footerLab');
-    const footerRoleEl = document.getElementById('footerRole');
+    document.getElementById('btnTestCh2').onclick = () => { generateExpertExam("What does DNS do?", ["Translates URLs to IPs", "Crawls websites", "Ranks pages"], 0, 2); };
 
-    const labsCompleted = { crawl: false, index: false, rank: false, infra: false };
+    // Chapter 3
+    document.getElementById('ch3Interact').onclick = function() {
+      this.style.display = 'none'; 
+      updateInspector('PageRank Engine: The system maps billions of links, treating each as a vote of confidence to determine true authority.');
+      document.getElementById('btnTestCh3').style.display = 'block';
+    };
+    document.getElementById('btnTestCh3').onclick = () => { generateExpertExam("How did PageRank revolutionize search?", ["Hyperlinks act as votes of trust", "Counted keywords", "Blocked spam"], 0, 3); };
 
-    function updateProgress() {
-      const done = Object.values(labsCompleted).filter(Boolean).length;
-      labsDoneEl.textContent = done;
-      const total = parseInt(labsTotalEl.textContent, 10);
-      const pct = Math.round((done / total) * 100);
-      progFillEl.style.width = pct + '%';
-      progLabelEl.textContent = pct + '%';
-      const rating = 6 + (pct / 100) * 3.5; // from ~6 to ~9.5 as labs are completed
-      ratingEstimateEl.textContent = rating.toFixed(1) + ' / 10';
-    }
+    // Chapter 4
+    document.getElementById('ch4Interact').onclick = function() {
+      this.style.display = 'none'; 
+      updateInspector('Engine Pipeline: Data flows from raw crawl, to parsed tokens, into the Inverted Index, and out via the Query engine.');
+      document.getElementById('btnTestCh4').style.display = 'block';
+    };
+    document.getElementById('btnTestCh4').onclick = () => { generateExpertExam("Which data structure maps keywords to Document IDs instantly?", ["Inverted Index", "Linear Array", "SQL Table"], 0, 4); };
 
-    function setMission(stage) {
-      const items = [];
-      if (stage === 'intro') {
-        items.push('Watch the pipeline animation once.');
-        items.push('Name each layer: crawl, analyse, index & rank, query & infra.');
-      } else if (stage === 'crawl') {
-        items.push('Keep doc101 and doc102 crawlable.');
-        items.push('Block doc103 and doc104.');
-        items.push('Decide whether doc105 should be crawled.');
-      } else if (stage === 'index') {
-        items.push('Send each document ID into at least one posting list.');
-        items.push('Make sure term "search" and term "index" have postings.');
-        items.push('Run the intersect query and read candidate docs.');
-      } else if (stage === 'rank') {
-        items.push('Compute ranking once with all signals on.');
-        items.push('Turn off one signal and compare the top doc.');
-      } else if (stage === 'infra') {
-        items.push('Choose query features for "search engine design".');
-        items.push('Adjust servers so latency stays reasonable.');
-        items.push('Run the query and inspect candidate docs.');
-      }
-      missionListEl.innerHTML = '';
-      items.forEach(text => {
-        const li = document.createElement('li');
-        li.textContent = text;
-        missionListEl.appendChild(li);
-      });
-    }
 
-    function setAvatar(stage) {
-      if (stage === 'crawl') {
-        avatarEl.textContent = '🌐';
-        roleTextEl.textContent = 'Decide which URLs are crawled and analysed into documents.';
-        hintBoxEl.innerHTML = '<strong>Hint:</strong> If a document is blocked or private, it usually does not enter the search index.';
-      } else if (stage === 'index') {
-        avatarEl.textContent = '📂';
-        roleTextEl.textContent = 'Build term → document posting lists for fast lookup.';
-        hintBoxEl.innerHTML = '<strong>Hint:</strong> Inverted indexes are the core structure behind search speed.';
-      } else if (stage === 'rank') {
-        avatarEl.textContent = '⚙️';
-        roleTextEl.textContent = 'Combine signals to choose which document should be first.';
-        hintBoxEl.innerHTML = '<strong>Hint:</strong> Relevance, PageRank and freshness interact to create final ranking.';
-      } else if (stage === 'infra') {
-        avatarEl.textContent = '🛰️';
-        roleTextEl.textContent = 'Parse the query and route it through distributed data centers.';
-        hintBoxEl.innerHTML = '<strong>Hint:</strong> More servers and closer regions usually lower latency.';
-      } else {
-        avatarEl.textContent = '🔎';
-        roleTextEl.textContent = 'Use each lab as an experiment. Follow the mission steps, then observe the system response.';
-        hintBoxEl.innerHTML = '<strong>Hint:</strong> Understanding the pipeline helps you reason about how results appear.';
-      }
-      setMission(stage);
-    }
+    // --- PHASE 2: Expansion & Architecture ---
+    
+    // Chapter 5
+    document.getElementById('ch5Interact').onclick = function() {
+      this.style.display = 'none'; 
+      updateInspector('LEO Satellite: Deploying satellites provides vital last-mile connectivity to remote users where undersea cables cannot reach.');
+      document.getElementById('btnTestCh5').style.display = 'block';
+    };
+    document.getElementById('btnTestCh5').onclick = () => { generateExpertExam("What technology complements subsea cables for remote users?", ["Low-Earth Orbit (LEO) Satellites", "Dial-up Modems", "Top-of-Rack Switches"], 0, 5); };
 
-    function showPanel(stageKey) {
-      Object.keys(panels).forEach(k => {
-        panels[k].classList.toggle('active', k === stageKey);
-      });
-      tabs.forEach(tab => {
-        tab.classList.toggle('active', tab.dataset.stage === stageKey);
-      });
-      setAvatar(stageKey);
-      const labels = { intro:'Overview', crawl:'Crawl & Analyse', index:'Inverted Index', rank:'Ranking Engine', infra:'Query & Infra' };
-      footerLabEl.textContent = labels[stageKey];
-      footerRoleEl.textContent = stageKey === 'intro' ? 'See all layers together' : 'Operate this layer yourself';
-    }
+    // Chapter 6
+    document.getElementById('ch6Interact').onclick = function() {
+      this.style.display = 'none'; 
+      updateInspector('TPU Hardware: Standard CPUs are too slow for AI. Custom Tensor Processing Units execute massive matrix mathematics instantly.');
+      document.getElementById('btnTestCh6').style.display = 'block';
+    };
+    document.getElementById('btnTestCh6').onclick = () => { generateExpertExam("What custom hardware accelerates neural network machine learning?", ["TPU (Tensor Processing Unit)", "Standard Desktop CPUs", "Magnetic Hard Drives"], 0, 6); };
 
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        showPanel(tab.dataset.stage);
-      });
-    });
+    // Chapter 7
+    document.getElementById('ch7Interact').onclick = function() {
+      this.style.display = 'none'; 
+      updateInspector('Data Ecosystem: Owning Android and Chrome allows the engine to capture real-time user behavior to constantly refine rankings.');
+      document.getElementById('btnTestCh7').style.display = 'block';
+    };
+    document.getElementById('btnTestCh7').onclick = () => { generateExpertExam("How do Android and Chrome strategically benefit the core search engine?", ["They provide massive streams of real-time user interaction data", "They manufacture fiber cables", "They manually index web pages"], 0, 7); };
 
-    document.getElementById('btnNextLab').addEventListener('click', () => {
-      const order = ['intro', 'crawl', 'index', 'rank', 'infra'];
-      const current = Array.from(tabs).find(t => t.classList.contains('active')).dataset.stage;
-      const idx = order.indexOf(current);
-      const next = order[Math.min(order.length - 1, idx + 1)];
-      showPanel(next);
-    });
+    // Chapter 8
+    document.getElementById('ch8Interact').onclick = function() {
+      this.style.display = 'none'; 
+      updateInspector('Data Gravity: A 90% market share means more users generate more data, which makes the engine better, which attracts more users.');
+      document.getElementById('btnTestCh8').style.display = 'block';
+    };
+    document.getElementById('btnTestCh8').onclick = () => { generateExpertExam("What concept describes how massive market share creates a feedback loop that improves the engine?", ["Data Gravity", "Hardware Deprecation", "Crawl Budgeting"], 0, 8); };
 
-    document.getElementById('btnResetAll').addEventListener('click', () => {
-      Object.keys(labsCompleted).forEach(k => labsCompleted[k] = false);
-      updateProgress();
-      showPanel('intro');
-      resetCrawlLab();
-      resetIndexLab();
-      resetRankLab();
-      resetInfraLab();
-    });
 
-    // Overview pipeline animation
-    const nCrawl = document.getElementById('nCrawl');
-    const nAnalyse = document.getElementById('nAnalyse');
-    const nIndex = document.getElementById('nIndex');
-    const nQuery = document.getElementById('nQuery');
-    const pipeGauge = document.getElementById('pipeGauge');
-    const introLog = document.getElementById('introLog');
+    // --- PHASE 3: Competitors & Tech Wars ---
+    
+    // Chapter 9
+    document.getElementById('ch9Interact').onclick = function() {
+      this.style.display = 'none'; 
+      updateInspector('Market Rivals: Gen Z is abandoning traditional search for visual social platforms and direct conversational AI.');
+      document.getElementById('btnTestCh9').style.display = 'block';
+    };
+    document.getElementById('btnTestCh9').onclick = () => { generateExpertExam("Why are new competitors able to challenge the traditional search monopoly?", ["They offer specialized conversational AI and visual paradigms", "They bought the undersea cables", "They stopped using DNS"], 0, 9); };
 
-    document.getElementById('btnAnimatePipe').addEventListener('click', () => {
-      pipeGauge.style.transition = 'width 1.8s ease';
-      pipeGauge.style.width = '100%';
-      nCrawl.classList.add('visited');
-      setTimeout(() => nAnalyse.classList.add('visited'), 400);
-      setTimeout(() => nIndex.classList.add('visited'), 900);
-      setTimeout(() => nQuery.classList.add('visited'), 1400);
-      introLog.textContent = 'Query path: crawl → analyse → inverted index & rank → query & infra.';
-      introLog.classList.add('success');
-      setTimeout(() => {
-        pipeGauge.style.transition = 'none';
-        pipeGauge.style.width = '0%';
-        [nCrawl,nAnalyse,nIndex,nQuery].forEach(el => el.classList.remove('visited'));
-        introLog.classList.remove('success');
-      }, 2200);
-    });
+    // Chapter 10
+    document.getElementById('ch10Interact').onclick = function() {
+      this.style.display = 'none'; 
+      updateInspector('Silicon Wars: He who owns the fastest chips wins the AI race. Custom ASICs vastly outpace commercial GPUs.');
+      document.getElementById('btnTestCh10').style.display = 'block';
+    };
+    document.getElementById('btnTestCh10').onclick = () => { generateExpertExam("Why build custom ASICs like TPUs?", ["To execute AI operations much faster and cheaper than standard chips", "To cool the data center", "To lay cables"], 0, 10); };
 
-    // Crawl lab
-    const crawlDocsEl = document.getElementById('crawlDocs');
-    const crawlLogEl = document.getElementById('crawlLog');
-    const crawlTemplate = [
-      { id:'doc101', title:'Public homepage', url:'example.com/', role:'public', blocked:false },
-      { id:'doc102', title:'Article: search architecture', url:'example.com/search-architecture', role:'public', blocked:false },
-      { id:'doc103', title:'Login-only dashboard', url:'example.com/dashboard', role:'requires login', blocked:true },
-      { id:'doc104', title:'Robots-blocked testing page', url:'example.com/test-area', role:'robots disallow', blocked:true },
-      { id:'doc105', title:'Low-value parameter page', url:'example.com/?session=123', role:'duplicate/low value', blocked:false }
-    ];
-    let crawlDocsState = [];
+    // Chapter 11
+    document.getElementById('ch11Interact').onclick = function() {
+      this.style.display = 'none'; 
+      updateInspector('Generative Engine: Large Language Models read the top 10 results and synthesize them into a single, cohesive answer paragraph.');
+      document.getElementById('btnTestCh11').style.display = 'block';
+    };
+    document.getElementById('btnTestCh11').onclick = () => { generateExpertExam("What does 'Generative Search' do differently?", ["Synthesizes a direct, readable answer instead of just providing a list of links", "Crawls faster", "Removes advertisements"], 0, 11); };
 
-    function renderCrawlDocs() {
-      crawlDocsEl.innerHTML = '';
-      crawlDocsState.forEach(doc => {
-        const card = document.createElement('div');
-        card.className = 'doc-card' + (doc.blocked ? ' blocked' : '');
-        card.dataset.id = doc.id;
-        card.innerHTML = `<h4>${doc.id}</h4><div class="meta">${doc.title}</div><div class="meta">${doc.url}</div><div class="meta">Rule: ${doc.role}</div><div class="tiny"><label><input type="checkbox" class="chk-block" ${doc.blocked ? 'checked' : ''}/> Exclude from crawl</label></div>`;
-        crawlDocsEl.appendChild(card);
-      });
-      crawlDocsEl.querySelectorAll('.chk-block').forEach((chk, idx) => {
-        chk.addEventListener('change', () => {
-          crawlDocsState[idx].blocked = chk.checked;
-          renderCrawlDocs();
-        });
-      });
-    }
+    // Chapter 12
+    document.getElementById('ch12Interact').onclick = function() {
+      this.style.display = 'none'; 
+      updateInspector('Vector Space: Converting text into mathematical embeddings allows the engine to understand semantic meaning, not just exact keywords.');
+      document.getElementById('btnTestCh12').style.display = 'block';
+    };
+    document.getElementById('btnTestCh12').onclick = () => { generateExpertExam("How does 'Vector Search' improve understanding?", ["By translating words into numbers to find semantic meaning rather than exact matches", "By translating pages into Spanish", "By turning text into 3D graphics"], 0, 12); };
 
-    function resetCrawlLab() {
-      crawlDocsState = crawlTemplate.map(d => ({ ...d }));
-      renderCrawlDocs();
-      crawlLogEl.textContent = '';
-      crawlLogEl.classList.remove('success');
-    }
 
-    function runCrawl() {
-      crawlDocsEl.querySelectorAll('.doc-card').forEach(el => el.classList.remove('visited'));
-      const analysed = [];
-      const skipped = [];
-      crawlDocsState.forEach(doc => {
-        if (doc.blocked) skipped.push(doc.id); else {
-          analysed.push(doc.id);
-          const el = crawlDocsEl.querySelector(`.doc-card[data-id="${doc.id}"]`);
-          if (el) el.classList.add('visited');
-        }
-      });
-      crawlLogEl.textContent = `Analysed: ${analysed.join(', ') || 'none'} • Skipped: ${skipped.join(', ') || 'none'}`;
-      if (analysed.includes('doc101') && analysed.includes('doc102') && skipped.includes('doc103') && skipped.includes('doc104')) {
-        crawlLogEl.textContent += ' • Mission complete: public docs in, private/test docs out.';
-        crawlLogEl.classList.add('success');
-        labsCompleted.crawl = true;
-        updateProgress();
-      } else {
-        crawlLogEl.classList.remove('success');
-      }
-    }
+    // --- PHASE 4: Technology & Society ---
+    
+    // Chapter 13
+    document.getElementById('ch13Interact').onclick = function() {
+      this.style.display = 'none'; 
+      updateInspector('Vertical Search: Competitors attack Google by dominating a specific niche, like Amazon dominating e-commerce product searches.');
+      document.getElementById('btnTestCh13').style.display = 'block';
+    };
+    document.getElementById('btnTestCh13').onclick = () => { generateExpertExam("What is 'Vertical Search'?", ["Focusing a search engine on a specific niche, like products or short videos", "Searching from bottom to top", "Searching via satellite"], 0, 13); };
 
-    document.getElementById('btnRunCrawl').addEventListener('click', runCrawl);
-    document.getElementById('btnResetCrawl').addEventListener('click', resetCrawlLab);
+    // Chapter 14
+    document.getElementById('ch14Interact').onclick = function() {
+      this.style.display = 'none'; 
+      updateInspector('Microservices: Breaking the engine into hundreds of isolated microservices allows rapid, independent updates without crashing the system.');
+      document.getElementById('btnTestCh14').style.display = 'block';
+    };
+    document.getElementById('btnTestCh14').onclick = () => { generateExpertExam("How do microservices help maintain tech defense?", ["They allow independent, rapid scaling of separate features that connect together", "They reduce the need for physical servers", "They prevent competitors from seeing HTML"], 0, 14); };
 
-    // Index lab
-    const indexDocsEl = document.getElementById('indexDocs');
-    const termSelectorsEl = document.getElementById('termSelectors');
-    const postingContentsEl = document.getElementById('postingContents');
-    const indexLogEl = document.getElementById('indexLog');
+    // Chapter 15
+    document.getElementById('ch15Interact').onclick = function() {
+      this.style.display = 'none'; 
+      updateInspector('Open Source Strategy: By giving away tools like Kubernetes, tech giants ensure the entire industry builds on their foundational logic.');
+      document.getElementById('btnTestCh15').style.display = 'block';
+    };
+    document.getElementById('btnTestCh15').onclick = () => { generateExpertExam("Why do major tech companies open-source highly advanced internal tools?", ["To define the industry standard, ensuring others build on their ecosystem", "They ran out of server space", "To delete the software"], 0, 15); };
 
-    const indexDocs = [
-      { id:'doc201', title:'Search engine architecture', terms:['search','engine','architecture'] },
-      { id:'doc202', title:'Inverted index design', terms:['inverted','index','posting'] },
-      { id:'doc203', title:'Ranking algorithm overview', terms:['ranking','score','pagerank'] }
-    ];
-    const allTerms = ['search','engine','architecture','inverted','index','posting','ranking','score','pagerank'];
-    let selectedTerm = 'search';
-    const postings = {}; // term -> doc IDs
+    // Chapter 16
+    document.getElementById('ch16Interact').onclick = function() {
+      this.style.display = 'none'; 
+      updateInspector('Data Lake Processing: You cannot process the entire internet on one computer. MapReduce splits the job across thousands of servers simultaneously.');
+      document.getElementById('btnTestCh16').style.display = 'block';
+    };
+    document.getElementById('btnTestCh16').onclick = () => { generateExpertExam("What is the primary function of MapReduce?", ["To split massive data processing tasks simultaneously across thousands of computers", "To reduce fiber cable size", "To generate AI images"], 0, 16); };
 
-    function renderIndexDocs() {
-      indexDocsEl.innerHTML = '';
-      indexDocs.forEach(doc => {
-        const card = document.createElement('div');
-        card.className = 'doc-card';
-        card.innerHTML = `<h4>${doc.id}</h4><div class="meta">${doc.title}</div>`;
-        const row = document.createElement('div');
-        row.className = 'chip-row';
-        doc.terms.forEach(t => {
-          const chip = document.createElement('div');
-          chip.className = 'chip';
-          chip.textContent = t;
-          chip.addEventListener('click', () => addToPosting(t, doc.id));
-          row.appendChild(chip);
-        });
-        card.appendChild(row);
-        indexDocsEl.appendChild(card);
-      });
-    }
 
-    function renderTermSelectors() {
-      termSelectorsEl.innerHTML = '';
-      allTerms.forEach(t => {
-        const chip = document.createElement('div');
-        chip.className = 'chip' + (t === selectedTerm ? ' sel' : '');
-        chip.textContent = t;
-        chip.addEventListener('click', () => {
-          selectedTerm = t;
-          renderTermSelectors();
-          renderPostingContents();
-        });
-        termSelectorsEl.appendChild(chip);
-      });
-    }
+    // --- PHASE 5: Solutions & Master Lab ---
+    
+    // Chapter 17
+    document.getElementById('ch17Interact').onclick = function() {
+      this.style.display = 'none'; 
+      updateInspector('System Flaws: AI models hallucinate false facts because they are trained to predict the next word, not to verify the truth.');
+      document.getElementById('btnTestCh17').style.display = 'block';
+    };
+    document.getElementById('btnTestCh17').onclick = () => { generateExpertExam("What is AI Hallucination?", ["When a generative model produces plausible-sounding but factually incorrect outputs", "When a screen breaks", "When a server overheats"], 0, 17); };
 
-    function addToPosting(term, docId) {
-      if (!postings[term]) postings[term] = [];
-      if (!postings[term].includes(docId)) postings[term].push(docId);
-      selectedTerm = term;
-      renderTermSelectors();
-      renderPostingContents();
-      indexLogEl.textContent = `Added ${docId} to posting list for "${term}".`;
-      indexLogEl.classList.remove('success');
-    }
+    // Chapter 18
+    document.getElementById('ch18Interact').onclick = function() {
+      this.style.display = 'none'; 
+      updateInspector('RAG Implementation: We force the AI to cite sources by retrieving verified documents from the Inverted Index before generating the answer.');
+      document.getElementById('btnTestCh18').style.display = 'block';
+    };
+    document.getElementById('btnTestCh18').onclick = () => { generateExpertExam("How does RAG solve AI hallucination?", ["By grounding the language model's answer on real-time retrieved facts", "By turning off the AI entirely", "By switching server racks"], 0, 18); };
 
-    function renderPostingContents() {
-      postingContentsEl.innerHTML = '';
-      const docs = postings[selectedTerm] || [];
-      docs.forEach(id => {
-        const chip = document.createElement('div');
-        chip.className = 'chip';
-        chip.textContent = id;
-        postingContentsEl.appendChild(chip);
-      });
-    }
+    // Chapter 19
+    document.getElementById('ch19Interact').onclick = function() {
+      this.style.display = 'none'; 
+      updateInspector('Architecture Locked: You have successfully integrated global fiber, TPU hardware, LLM synthesis, and RAG fact-checking into a single engine.');
+      document.getElementById('btnTestCh19').style.display = 'block';
+    };
+    document.getElementById('btnTestCh19').onclick = () => { generateExpertExam("To maintain market dominance, what must a modern search engine combine?", ["Global physical infrastructure, LLM semantic understanding, and trust frameworks", "Only undersea cables and DNS", "Only PageRank and HTML parsing"], 0, 19); };
 
-    function runTermQuery() {
-      const pSearch = postings['search'] || [];
-      const pIndex = postings['index'] || [];
-      const intersect = pSearch.filter(id => pIndex.includes(id));
-      indexLogEl.textContent = `Query "search index" candidates: ${intersect.join(', ') || 'none'} (intersection of postings).`;
-      if (pSearch.length > 0 && pIndex.length > 0) {
-        indexLogEl.textContent += ' • Mission complete: postings exist for both terms.';
-        indexLogEl.classList.add('success');
-        labsCompleted.index = true;
-        updateProgress();
-      } else {
-        indexLogEl.classList.remove('success');
-      }
-    }
-
-    document.getElementById('btnRunTermQuery').addEventListener('click', runTermQuery);
-
-    function resetIndexLab() {
-      for (const k in postings) delete postings[k];
-      selectedTerm = 'search';
-      renderIndexDocs();
-      renderTermSelectors();
-      renderPostingContents();
-      indexLogEl.textContent = '';
-      indexLogEl.classList.remove('success');
-    }
-
-    // Ranking lab
-    const rankListEl = document.getElementById('rankList');
-    const signalTogglesEl = document.getElementById('signalToggles');
-    const rankLogEl = document.getElementById('rankLog');
-
-    const rankDocs = [
-      { id:'doc301', title:'Core architecture article', relevance:0.95, pagerank:0.9, freshness:0.7 },
-      { id:'doc302', title:'Older academic PDF', relevance:0.9, pagerank:0.95, freshness:0.3 },
-      { id:'doc303', title:'Short blog summary', relevance:0.7, pagerank:0.4, freshness:0.9 },
-      { id:'doc304', title:'Unrelated marketing page', relevance:0.2, pagerank:0.2, freshness:0.8 }
-    ];
-    const signalWeights = { relevance:1, pagerank:1, freshness:1 };
-
-    function renderSignalToggles() {
-      signalTogglesEl.innerHTML = '';
-      Object.keys(signalWeights).forEach(k => {
-        const label = k === 'relevance' ? 'Relevance' : k === 'pagerank' ? 'PageRank' : 'Freshness';
-        const toggle = document.createElement('div');
-        toggle.className = 'toggle' + (signalWeights[k] > 0 ? ' active' : '');
-        toggle.innerHTML = `<span>${label}</span>`;
-        toggle.addEventListener('click', () => {
-          signalWeights[k] = signalWeights[k] > 0 ? 0 : 1;
-          renderSignalToggles();
-        });
-        signalTogglesEl.appendChild(toggle);
-      });
-    }
-
-    function computeRankScore(doc) {
-      return doc.relevance * signalWeights.relevance + doc.pagerank * signalWeights.pagerank + doc.freshness * signalWeights.freshness;
-    }
-
-    function renderRankList() {
-      const withScore = rankDocs.map(d => ({ ...d, score: computeRankScore(d) }));
-      withScore.sort((a,b) => b.score - a.score);
-      rankListEl.innerHTML = '';
-      withScore.forEach((d, idx) => {
-        const row = document.createElement('div');
-        row.className = 'rank-row';
-        row.innerHTML = `<span>#${idx+1} – ${d.id}</span><div class="bar-wrap"><div class="bar-fill" style="width:${Math.round(d.score*33)}%;"></div></div>`;
-        rankListEl.appendChild(row);
-      });
-      rankLogEl.textContent = `Current top document: ${withScore[0].id} (${withScore[0].title}).`;
-    }
-
-    function runRanking() {
-      renderRankList();
-      rankLogEl.classList.add('success');
-      labsCompleted.rank = true;
-      updateProgress();
-    }
-
-    document.getElementById('btnRunRank').addEventListener('click', runRanking);
-
-    function resetRankLab() {
-      signalWeights.relevance = 1;
-      signalWeights.pagerank = 1;
-      signalWeights.freshness = 1;
-      renderSignalToggles();
-      renderRankList();
-      rankLogEl.textContent = '';
-      rankLogEl.classList.remove('success');
-    }
-
-    // Query & infra lab
-    const queryFeatureTogglesEl = document.getElementById('queryFeatureToggles');
-    const queryResultDocsEl = document.getElementById('queryResultDocs');
-    const dcGridEl = document.getElementById('dcGrid');
-    const latGaugeEl = document.getElementById('latGauge');
-    const infraLogEl = document.getElementById('infraLog');
-
-    const queryFeatures = { synonyms:true, spellcheck:true, personalization:false };
-    const infraDcTemplate = [
-      { id:'india', name:'India data center', base:40, servers:6 },
-      { id:'europe', name:'Europe data center', base:90, servers:5 },
-      { id:'us', name:'US data center', base:130, servers:4 }
-    ];
-    let infraDcState = [];
-
-    function renderQueryFeatureToggles() {
-      queryFeatureTogglesEl.innerHTML = '';
-      Object.keys(queryFeatures).forEach(k => {
-        const label = k === 'synonyms' ? 'Synonym expansion' : k === 'spellcheck' ? 'Spelling correction' : 'Personalisation';
-        const tog = document.createElement('div');
-        tog.className = 'toggle' + (queryFeatures[k] ? ' active' : '');
-        tog.innerHTML = `<span>${label}</span>`;
-        tog.addEventListener('click', () => {
-          queryFeatures[k] = !queryFeatures[k];
-          renderQueryFeatureToggles();
-        });
-        queryFeatureTogglesEl.appendChild(tog);
-      });
-    }
-
-    function renderDcGrid() {
-      dcGridEl.innerHTML = '';
-      infraDcState.forEach(dc => {
-        const card = document.createElement('div');
-        card.className = 'dc-card';
-        card.dataset.id = dc.id;
-        card.innerHTML = `<h4>${dc.name}</h4><div class="meta">Base latency: ${dc.base} ms</div><div class="slider-row">Servers: <span class="srv-val">${dc.servers}</span><input type="range" min="2" max="16" value="${dc.servers}" /></div>`;
-        const range = card.querySelector('input[type="range"]');
-        const srvVal = card.querySelector('.srv-val');
-        range.addEventListener('input', () => {
-          dc.servers = parseInt(range.value,10);
-          srvVal.textContent = dc.servers;
-        });
-        dcGridEl.appendChild(card);
-      });
-    }
-
-    function runInfraQuery() {
-      queryResultDocsEl.innerHTML = '';
-      const baseCandidates = ['doc201','doc202','doc301'];
-      let candidates = baseCandidates.slice();
-      if (queryFeatures.synonyms) candidates.push('doc303');
-      if (!queryFeatures.spellcheck) candidates = candidates.filter(id => id !== 'doc202');
-      const uniq = Array.from(new Set(candidates));
-      uniq.forEach(id => {
-        const chip = document.createElement('div');
-        chip.className = 'chip';
-        chip.textContent = id;
-        queryResultDocsEl.appendChild(chip);
-      });
-
-      let totalLatency = 0;
-      let centers = 0;
-      infraDcState.forEach(dc => {
-        const latency = Math.max(20, dc.base - dc.servers * 3);
-        totalLatency += latency;
-        centers += 1;
-      });
-      const avg = Math.round(totalLatency / centers);
-      const pct = Math.max(5, Math.min(95, 100 - (avg - 20)));
-      latGaugeEl.style.width = pct + '%';
-      infraLogEl.textContent = `Features: synonyms=${queryFeatures.synonyms ? 'on' : 'off'}, spellcheck=${queryFeatures.spellcheck ? 'on' : 'off'}, personalization=${queryFeatures.personalization ? 'on' : 'off'}. Estimated average latency: ${avg} ms.`;
-      if (avg <= 80 && uniq.length >= 3) {
-        infraLogEl.textContent += ' • Mission complete: reasonable latency with a rich candidate set.';
-        infraLogEl.classList.add('success');
-        labsCompleted.infra = true;
-        updateProgress();
-      } else {
-        infraLogEl.classList.remove('success');
-      }
-    }
-
-    document.getElementById('btnRunInfra').addEventListener('click', runInfraQuery);
-
-    function resetInfraLab() {
-      infraDcState = infraDcTemplate.map(dc => ({ ...dc }));
-      renderQueryFeatureToggles();
-      renderDcGrid();
-      queryResultDocsEl.innerHTML = '';
-      infraLogEl.textContent = '';
-      infraLogEl.classList.remove('success');
-      latGaugeEl.style.width = '50%';
-    }
-
-    // Initialise labs
-    resetCrawlLab();
-    resetIndexLab();
-    resetRankLab();
-    resetInfraLab();
-    updateProgress();
-    showPanel('intro');
-  </script>
-  <script src="bhava-responsive.js"></script>
+    // Chapter 20
+    document.getElementById('ch20Interact').onclick = function() {
+      this.style.display = 'none';
+      document.getElementById('certBadgeBox').style.display = 'block';
+      document.getElementById('btnTestCh20').style.display = 'block';
+      updateInspector('SUCCESS: Certification confirmed. Cognitive Assessment data securely transmitted to Medhaa dashboard.');
+    };
+	</script>
 </body>
 </html>

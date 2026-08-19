@@ -41,8 +41,8 @@ export function getPlayedSlugs(): Set<string> {
 }
 
 // Picks one game per domain the student hasn't already seen as "featured".
-// Falls back to the least-recently-seen game if everything has been shown,
-// so the page never breaks even after the catalog is exhausted.
+// Randomized among unseen games each visit; falls back to the full domain
+// pool once everything has been shown, so the page never breaks.
 export function pickFeaturedPerDomain<T extends { slug: string; domain: string }>(
   games: T[]
 ): T[] {
@@ -55,7 +55,8 @@ export function pickFeaturedPerDomain<T extends { slug: string; domain: string }
   const featured: T[] = [];
   Object.values(byDomain).forEach((domainGames) => {
     const unseen = domainGames.filter((g) => !seen.has(g.slug));
-    const pick = unseen.length > 0 ? unseen[0] : domainGames[0];
+    const pool = unseen.length > 0 ? unseen : domainGames;
+    const pick = pool[Math.floor(Math.random() * pool.length)];
     if (pick) featured.push(pick);
   });
   return featured;

@@ -25,6 +25,7 @@ function decodeUserFromToken(token: string | null): AuthUser | null {
   }
 }
 
+
 export function AuthProvider({ children }: { children: ReactNode }) {
   const initialToken = localStorage.getItem('accessToken');
   const [user, setUser] = useState<AuthUser | null>(decodeUserFromToken(initialToken));

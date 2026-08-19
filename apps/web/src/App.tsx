@@ -8,7 +8,6 @@ import ProtectedRoute from './components/ProtectedRoute';
 import { GamesGrid } from './components/GamesGrid';
 import TeacherDashboard from './pages/TeacherDashboard';
 import TeacherLoginPage from './pages/TeacherLoginPage';
-import { GamesDiscovery } from './components/GamesDiscovery';
 import SchoolReport from './pages/SchoolReport';
 import SchoolLoginPage from './pages/SchoolLoginPage';
 import StudentLoginPage from './pages/StudentLoginPage';
@@ -17,6 +16,19 @@ import StudentSignupPage from './pages/StudentSignupPage';
 import ParentSignupPage from './pages/ParentSignupPage';
 import TeacherSignupPage from './pages/TeacherSignupPage';
 import SchoolSignupPage from './pages/SchoolSignupPage';
+import { StudentGamesPage } from './components/StudentGamesPage';
+import { SubscribePage } from './pages/SubscribePage';
+import { SubscribePayPage } from './pages/SubscribePayPage';
+import { AchievementsPage } from './pages/AchievementsPage';
+
+import StudentEnrollment from './pages/StudentEnrollment';
+import BCSLiteIntro from './pages/BCSLiteIntro';
+import LearningReadiness from './pages/LearningReadiness';
+import ParentProgressReport from './pages/ParentProgressReport';
+import SharingPermissions from './pages/SharingPermissions';
+import OurApproach from './components/OurApproach';
+import TeacherWorkspace from './pages/TeacherWorkspace';
+import SchoolWorkspace from './pages/SchoolWorkspace';
 
 
 
@@ -26,8 +38,10 @@ const API_URL = 'http://localhost:4000/api';
 
 
 function StudentDashboard() {
-  return <GamesDiscovery apiUrl={API_URL} />;
+  return <StudentGamesPage apiUrl={API_URL} />;
 }
+
+
 function ParentDashboard() {
   return <div style={{ padding: 40 }}>Parent Dashboard (coming soon)</div>;
 }
@@ -45,55 +59,34 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/parent-demo" element={<ParentDemo />} />
-          <Route path="/teacher-demo" element={<TeacherDashboard />} />
+          <Route path="/parent/preview" element={<ParentDemo />} />
+          <Route path="/teacher/preview" element={<TeacherDashboard />} />
           <Route path="/school-report" element={<SchoolReport />} />
           <Route path="/login/parent" element={<ParentLoginPage />} />
           <Route path="/login/teacher" element={<TeacherLoginPage />} />
-          <Route path="/login/school" element={<SchoolLoginPage />} />
           <Route path="/login/student" element={<StudentLoginPage />} />
-          <Route path="/signup/student" element={<StudentSignupPage />} />
-          <Route path="/signup/parent" element={<ParentSignupPage />} />
-          <Route path="/signup/teacher" element={<TeacherSignupPage />} />
-          <Route path="/signup/school" element={<SchoolSignupPage />} />
+
           <Route path="/signup/student" element={<StudentSignupPage />} />
           <Route path="/signup/parent" element={<ParentSignupPage />} />
           <Route path="/signup/teacher" element={<TeacherSignupPage />} />
           <Route path="/signup/school" element={<SchoolSignupPage />} />
 
-          <Route
-            path="/student"
-            element={
-              <ProtectedRoute role="student">
-                <StudentDashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/parent"
-            element={
-              <ProtectedRoute role="parent">
-                <ParentDashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/teacher"
-            element={
-              <ProtectedRoute role="teacher">
-                <TeacherDashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin"
-            element={
-              <ProtectedRoute role="admin">
-                <AdminDashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="*" element={<HomePage />} />
+          <Route path="/subscribe" element={<SubscribePage apiUrl={API_URL} />} />
+          <Route path="/subscribe/pay" element={<SubscribePayPage apiUrl={API_URL} />} />
+
+          <Route path="/student" element={<StudentDashboard />} />
+          <Route path="/student/preview" element={<StudentDashboard />} />
+          <Route path="/achievements" element={<AchievementsPage />} />
+          <Route path="/parent/enrol-student" element={<StudentEnrollment />} />
+          <Route path="/student/bcs-lite" element={<BCSLiteIntro />} />
+          <Route path="/student/readiness" element={<LearningReadiness />} />
+          <Route path="/parent/progress" element={<ParentProgressReport />} />
+          <Route path="/parent/sharing" element={<SharingPermissions />} />
+          
+          <Route path="/our-approach" element={<OurApproach />} />
+		<Route path="/teacher-workspace" element={<TeacherWorkspace />} />
+		<Route path="/school-workspace" element={<SchoolWorkspace />} />
+		
         </Routes>
       </BrowserRouter>
     </AuthProvider>

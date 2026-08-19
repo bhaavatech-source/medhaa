@@ -9,6 +9,7 @@
   <div id="app">
 
     <!-- START SCREEN -->
+    <!-- START SCREEN -->
     <div id="startScreen" class="screen active">
       <button id="soundToggle" class="sound-btn" title="Toggle Sound">🔊</button>
       <h1 class="pop-in">🎯 Focus Flash</h1>
@@ -19,7 +20,32 @@
         <button class="mode-tab" data-mode="sustained">👁️ Sustained Attention</button>
       </div>
 
-      <p class="instructions" id="modeInstructions">Find and tap the <b>target shape</b> before it disappears. Difficulty adapts to you as you play!</p>
+      <p class="instructions" id="modeInstructions">Find and tap the <b>target</b> before it disappears. Difficulty adapts to you as you play!</p>
+
+      <!-- NEW: Player Customization Panel -->
+      <div id="playerSettings" class="settings-panel">
+        <h3>⚙️ Mission Settings</h3>
+        <div class="settings-grid">
+          <label>Theme:
+            <select id="themeSelect">
+              <option value="shapes">Basic Shapes</option>
+              <option value="space">Space Station</option>
+              <option value="vehicles">Vehicles & Drones</option>
+              <option value="chips">Electronic Chips</option>
+            </select>
+          </label>
+          <label>Target Movement:
+            <input type="checkbox" id="driftingToggle"> Drifting
+          </label>
+          <label>Playstyle:
+            <select id="playstyleSelect">
+              <option value="standard">Standard</option>
+              <option value="sprint">Sprint (Fast)</option>
+              <option value="marathon">Marathon</option>
+            </select>
+          </label>
+        </div>
+      </div>
 
       <div class="level-buttons" id="selectiveLevels">
         <button class="lvl-btn easy" data-mode="selective" data-level="easy">Start Easier 🟢</button>
@@ -28,15 +54,46 @@
       </div>
 
       <div class="level-buttons hidden" id="sustainedLevels">
+        <!-- Sustained buttons remain the same -->
         <button class="lvl-btn easy" data-mode="sustained" data-level="easy">Start Easier 🟢</button>
         <button class="lvl-btn medium" data-mode="sustained" data-level="medium">Start Medium 🟠</button>
         <button class="lvl-btn hard" data-mode="sustained" data-level="hard">Start Harder 🔴</button>
       </div>
 
-      <p class="adaptive-note">🧠 Difficulty auto-adjusts every few trials based on your performance</p>
       <button id="progressBtn" class="secondary-btn">📊 View My Progress</button>
     </div>
 
+    <!-- SELECTIVE ATTENTION GAME SCREEN (Side-by-Side Layout) -->
+    <div id="gameScreen" class="screen">
+      <button id="soundToggleGame" class="sound-btn" title="Toggle Sound">🔊</button>
+      <div class="progress-bar-wrapper"><div id="progressBar"></div></div>
+      
+      <div class="game-layout-split">
+        <!-- Sidebar for HUD and Mascot -->
+        <div class="game-sidebar">
+          <div id="mascotArea">
+  <!-- Adjust this relative path if your index.html is in a different subfolder -->
+  <img src="M_2.png" alt="Medhaa Logo" id="medhaaLogo">
+</div>
+          <div class="hud">
+            <div class="hud-item">Difficulty: <span id="hudDifficulty">1</span>/10</div>
+            <div class="hud-item">Round: <span id="hudRound">0</span>/<span id="hudTotalRounds">0</span></div>
+            <div class="hud-item">Score: <span id="hudScore">0</span></div>
+            <div class="hud-item" id="timeWrapper">Time: <span id="hudTime">0</span>s</div>
+          </div>
+        </div>
+
+        <!-- Main Play Area -->
+        <div class="game-main">
+          <div id="targetBanner"></div>
+          <div id="grid"></div>
+          <div id="feedback"></div>
+          <div id="comboPopup"></div>
+          <div id="milestonePopup"></div>
+          <div id="difficultyPopup"></div>
+        </div>
+      </div>
+    </div>
     <!-- SELECTIVE ATTENTION GAME SCREEN -->
     <div id="gameScreen" class="screen">
       <button id="soundToggleGame" class="sound-btn" title="Toggle Sound">🔊</button>
@@ -103,7 +160,6 @@
   <script src="bhava-bridge.js"></script>
 <script src="bhava-session.js"></script>
 <script src="bhava-game-nav.js"></script>
-<script src="bhava-tech-all.js"></script>
   <script src="bhava-responsive.js"></script>
 
 </body>

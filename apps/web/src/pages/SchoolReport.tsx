@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './SchoolReport.css';
+import SchoolWorkspace from './SchoolWorkspace';
 
 const subtitles: Record<string, string> = {
   dashboard: 'Student Development Overview · Aug 2026',
@@ -24,6 +26,10 @@ export default function SchoolReport() {
         <a className="nav-item" href="/">
           <span className="nav-icon">🏡</span> Home
         </a>
+        <Link to="/school-workspace" className="nav-item workspace-nav-item">
+          <span className="nav-icon">◈</span>
+          <span>School Workspace</span>
+        </Link>
         <button className={`nav-item ${activeTab === 'dashboard' ? 'active' : ''}`} onClick={() => setActiveTab('dashboard')}>
           <span className="nav-icon">🏠</span> Dashboard
         </button>
@@ -63,20 +69,46 @@ export default function SchoolReport() {
 
         {/* TAB 1: DASHBOARD */}
         <div className={`tab-content ${activeTab === 'dashboard' ? 'active' : ''}`}>
-          <div className="stat-row">
-            <div className="stat-card"><div className="stat-num">842</div><div className="stat-lbl">Total Students</div></div>
-            <div className="stat-card"><div className="stat-num">716</div><div className="stat-lbl">Active This Month</div></div>
-            <div className="stat-card"><div className="stat-num">4,382</div><div className="stat-lbl">Play Sessions</div></div>
-            <div className="stat-card"><div className="stat-num">+12.4%</div><div className="stat-lbl">Growth vs Last Term</div></div>
-          </div>
+          <section className="dashboard-orbit" aria-label="School development dashboard">
+            <div className="orbit-ring orbit-ring-outer" />
+            <div className="orbit-ring orbit-ring-middle" />
+            <div className="orbit-ring orbit-ring-inner" />
+            <div className="orbit-glow" />
 
-          <h2 className="sec-title">📊 Development Overview <span className="sec-badge">School-wide average</span></h2>
-          <div className="panel">
-            <div className="dev-row"><div className="dev-label">Focus</div><div className="dev-bar-wrap"><div className="dev-bar-fill" style={{ width: '78%', background: 'var(--teal)' }}></div></div><div className="dev-pct">78%</div></div>
-            <div className="dev-row"><div className="dev-label">Memory</div><div className="dev-bar-wrap"><div className="dev-bar-fill" style={{ width: '71%', background: 'var(--blue)' }}></div></div><div className="dev-pct">71%</div></div>
-            <div className="dev-row"><div className="dev-label">Reasoning</div><div className="dev-bar-wrap"><div className="dev-bar-fill" style={{ width: '76%', background: 'var(--amber)' }}></div></div><div className="dev-pct">76%</div></div>
-            <div className="dev-row"><div className="dev-label">Strategy</div><div className="dev-bar-wrap"><div className="dev-bar-fill" style={{ width: '64%', background: 'var(--purple)' }}></div></div><div className="dev-pct">64%</div></div>
-          </div>
+            <div className="dashboard-core">
+              <span className="core-kicker">MEDHĀ</span>
+              <strong>School<br />Development</strong>
+              <small>Aug 2026 · Overview</small>
+            </div>
+
+            <div className="orbit-stat orbit-stat-students">
+              <span className="orbit-icon">👩‍🎓</span>
+              <strong>842</strong>
+              <small>Total Students</small>
+            </div>
+            <div className="orbit-stat orbit-stat-active">
+              <span className="orbit-icon">⚡</span>
+              <strong>716</strong>
+              <small>Active This Month</small>
+            </div>
+            <div className="orbit-stat orbit-stat-sessions">
+              <span className="orbit-icon">🎮</span>
+              <strong>4,382</strong>
+              <small>Play Sessions</small>
+            </div>
+            <div className="orbit-stat orbit-stat-growth">
+              <span className="orbit-icon">↗</span>
+              <strong>+12.4%</strong>
+              <small>Growth vs Last Term</small>
+            </div>
+
+            <div className="skill-node skill-focus"><span>Focus</span><strong>78%</strong></div>
+            <div className="skill-node skill-memory"><span>Memory</span><strong>71%</strong></div>
+            <div className="skill-node skill-reasoning"><span>Reasoning</span><strong>76%</strong></div>
+            <div className="skill-node skill-strategy"><span>Strategy</span><strong>64%</strong></div>
+          </section>
+
+          <h2 className="sec-title dashboard-section-title">📊 Development Overview <span className="sec-badge">School-wide average</span></h2>
 
           <div className="cta-box">
             <div className="cta-glow"></div>
@@ -233,12 +265,23 @@ export default function SchoolReport() {
   <div style={{ position: 'relative', zIndex: 2 }}>
     <span className="cta-badge">🔐 School Login</span>
     <div className="cta-title">Sign Up and Check Your School Children's Score</div>
-    <a href="/login/school" className="cta-btn">Sign Up / Log In →</a>
+    <a href="/signup/school" className="cta-btn">Sign Up / Log In →</a>
   </div>
 </div>
+
+<Link to="/school-workspace" className="school-workspace-link" aria-label="Open School Workspace">
+  <span className="workspace-link-icon">◈</span>
+  <span>
+    <strong>School Workspace</strong>
+    <small>Manage students, classes &amp; activities</small>
+  </span>
+  <span className="workspace-link-arrow">→</span>
+</Link>
 
         <footer className="report-foot">© 2026 Medhaa · Empowering schools to nurture every child's potential</footer>
       </main>
     </div>
   );
 }
+
+export default function SchoolReport()

@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Medhā — Dual Smartphone Anatomy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Base Styles */
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0b0f19;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+    .app-shell { max-width: 1400px; margin: 0 auto; padding: 20px; }
+    .glass { background: rgba(255, 255, 255, 0.03); border-radius: 15px; padding: 20px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.05); }
+    .hero-copy h2 { text-align: center; }
+    
+    /* Layout for Dual Phones */
+    .dual-view-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      padding: 20px;
+    }
+    .phone-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+    .phone-label {
+      font-family: 'Orbitron', sans-serif;
+      color: #00d2ff;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-size: 1.1rem;
+      text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
+    }
+
+    /* Hide all panels by default */
+    .tab-content { position: relative; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* Custom Cursor Tooltip (HUD) */
+    .hover-tooltip {
+      position: absolute;
+      background: rgba(10, 15, 25, 0.95);
+      color: #00ffcc;
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid #008cff;
+      font-weight: 700;
+      pointer-events: none;
+      display: none;
+      z-index: 1000;
+      box-shadow: 0 4px 15px rgba(0, 140, 255, 0.4);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Animations */
+    @keyframes bounce-fun {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-4px) scale(1.05); }
+    }
+    @keyframes slide-in-magic {
+      0% { opacity: 0; transform: translateX(-30px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes gradient-glow {
+      0% { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
+    @keyframes electric-pulse {
+      0%, 100% { filter: drop-shadow(0 0 15px #00d2ff) brightness(1.5); }
+      50% { filter: drop-shadow(0 0 35px #00d2ff) brightness(2); }
+    }
+
+    /* Turbo Mode Shake & Glow */
+    @keyframes turbo-vibrate {
+      0% { transform: translate(0, 0); }
+      20% { transform: translate(-1px, 1px); filter: drop-shadow(0 0 30px #00ffcc); }
+      40% { transform: translate(-1px, -1px); }
+      60% { transform: translate(1px, 1px); filter: drop-shadow(0 0 40px #008cff); }
+      80% { transform: translate(1px, -1px); }
+      100% { transform: translate(0, 0); filter: drop-shadow(0 0 30px #00ffcc); }
+    }
+    .turbo-mode-active {
+      animation: turbo-vibrate 0.2s infinite;
+    }
+
+    .hero-copy h2 {
+      background: linear-gradient(90deg, #00ffcc, #3333ff, #ff00cc, #00ffcc);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradient-glow 5s linear infinite;
+      font-size: 3.2rem;
+      text-transform: uppercase;
+    }
+
+    /* Tab Layout */
+    .tab-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 30px;
+      padding: 15px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 15px;
+    }
+
+    /* Buttons */
+    .tab-btn {
+      font-size: 0.9rem;
+      border-radius: 20px;
+      padding: 8px 14px;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.03);
+      color: #aaa;
+      cursor: pointer;
+    }
+    .tab-btn:hover {
+      transform: translateY(-2px);
+      border-color: #00d2ff;
+      color: #fff;
+    }
+    .tab-btn.active {
+      animation: bounce-fun 2s infinite;
+      background: linear-gradient(45deg, #008cff, #00d2ff);
+      color: #fff;
+      font-weight: 800;
+      border: 1px solid #fff;
+      box-shadow: 0 0 20px rgba(0, 210, 255, 0.5);
+    }
+    .tab-btn.turbo-tab {
+      background: linear-gradient(45deg, #ff00cc, #3333ff);
+      color: white;
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+
+    /* Info Cards */
+    .info-card {
+      background: rgba(15, 20, 30, 0.9);
+      border: 2px solid #00d2ff;
+      border-radius: 20px;
+      padding: 25px;
+      animation: slide-in-magic 0.4s ease-out forwards;
+      box-shadow: inset 0 0 30px rgba(0, 210, 255, 0.1), 0 10px 30px rgba(0,0,0,0.6);
+    }
+    .info-card h4 {
+      color: #00ffcc;
+      font-size: 2.2rem;
+      text-shadow: 2px 2px 0 #0055ff;
+      letter-spacing: 1px;
+      margin-bottom: 15px;
+      font-family: 'Orbitron', sans-serif;
+    }
+    .info-card p {
+      font-size: 1.15rem;
+      line-height: 1.6;
+      color: #d1d5db;
+    }
+
+    /* Interactive SVG Parts */
+    .anatomy-part {
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" style="font-size: 28px"><text y="24">👆</text></svg>'), pointer;
+      transition: all 0.3s ease;
+      transform-origin: center;
+    }
+    .anatomy-part:hover {
+      filter: drop-shadow(0 0 15px rgba(0,210,255,0.8)) brightness(1.4);
+    }
+    /* The Intense Electric Glow from the Reference Image */
+    .anatomy-part.active-part {
+      animation: electric-pulse 1.5s infinite;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body>
+  <div id="hoverTooltip" class="hover-tooltip"></div>
+
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <h1>Medhā — Dual Smartphone Anatomy</h1>
+      </div>
+    </header>
+
+    <main id="app">
+      <section class="hero card glass">
+        <div class="hero-copy">
+          <h2>How a phone works! 📱✨</h2>
+          <p class="hero-text" style="text-align: center; font-size: 1.2rem;">Hover over any part on the front screen or the internal motherboard to uncover its secrets!</p>
+        </div>
+      </section>
+
+      <section class="anatomy-explorer card glass">
+        <div class="dual-view-container">
+          
+          <!-- LEFT SIDE: FRONT SCREEN ASSEMBLY -->
+          <div class="phone-container">
+            <div class="phone-label">1. Display Assembly</div>
+            <svg class="anatomy-svg" viewBox="0 0 280 540" xmlns="http://www.w3.org/2000/svg" style="height: 450px; width: auto;">
+              <defs>
+                <linearGradient id="screenGrad" x2="0" y2="1">
+                  <stop stop-color="#1e3a8a"/><stop offset="1" stop-color="#0f172a"/>
+                </linearGradient>
+              </defs>
+
+              <!-- Chassis Base -->
+              <g class="anatomy-part" data-part="frontglass" data-tab="tab-frontglass">
+                <rect x="12" y="8" width="256" height="524" rx="35" fill="#101624" stroke="#4a90e2" stroke-width="4"/>
+                <rect x="18" y="14" width="244" height="512" rx="29" fill="#000"/>
+              </g>
+
+              <!-- Screen Panel -->
+              <g class="anatomy-part" data-part="screen" data-tab="tab-screen">
+                <rect x="22" y="18" width="236" height="504" rx="25" fill="url(#screenGrad)"/>
+                <!-- Fake UI Elements to look like a screen -->
+                <rect x="35" y="80" width="100" height="100" rx="15" fill="rgba(255,255,255,0.1)"/>
+                <rect x="145" y="80" width="100" height="100" rx="15" fill="rgba(255,255,255,0.1)"/>
+                <rect x="35" y="195" width="210" height="60" rx="10" fill="rgba(255,255,255,0.05)"/>
+                <circle cx="140" cy="450" r="20" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+              </g>
+
+              <!-- In-Display Fingerprint Scanner -->
+              <g class="anatomy-part" data-part="fingerprint" data-tab="tab-fingerprint">
+                <path d="M130 445 Q 140 435, 150 445 M 128 450 Q 140 440, 152 450 M 132 455 Q 140 448, 148 455" fill="none" stroke="#00ffcc" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="140" cy="450" r="25" fill="rgba(0, 255, 204, 0.1)"/>
+              </g>
+
+              <!-- Dynamic Island / Sensor Notch -->
+              <g class="anatomy-part" data-part="notch" data-tab="tab-notch">
+                <rect x="90" y="25" width="100" height="26" rx="13" fill="#000" stroke="#333" stroke-width="1"/>
+                <circle cx="105" cy="38" r="6" fill="#111" stroke="#4a90e2" stroke-width="1.5"/> <!-- Selfie Cam -->
+                <circle cx="125" cy="38" r="4" fill="#8e44ad"/> <!-- Infrared FaceID -->
+                <circle cx="175" cy="38" r="3" fill="#c0392b"/> <!-- Proximity Sensor -->
+                <rect x="138" y="36" width="25" height="4" rx="2" fill="#333"/> <!-- Earpiece -->
+              </g>
+            </svg>
+          </div>
+
+          <!-- RIGHT SIDE: INTERNAL MOTHERBOARD & BATTERY -->
+          <div class="phone-container">
+            <div class="phone-label">2. Internal Hardware</div>
+            <svg class="anatomy-svg" viewBox="0 0 280 540" xmlns="http://www.w3.org/2000/svg" style="height: 450px; width: auto;">
+              <defs>
+                <linearGradient id="p" x2="0" y2="1"><stop stop-color="#1a2436"/><stop offset="1" stop-color="#0d1421"/></linearGradient>
+                <linearGradient id="b" x2="0" y2="1"><stop stop-color="#3498db"/><stop offset="1" stop-color="#2980b9"/></linearGradient>
+              </defs>
+
+              <!-- Chassis -->
+              <g class="anatomy-part" data-part="chassis" data-tab="tab-chassis">
+                <rect x="12" y="8" width="256" height="524" rx="35" fill="#101624" stroke="#4a90e2" stroke-width="4"/>
+                <rect x="22" y="20" width="236" height="500" rx="27" fill="url(#p)" stroke="#263b55"/>
+                <!-- Detailed Gold Screws around the edge -->
+                <circle cx="40" cy="35" r="2.5" fill="#f1c40f"/><circle cx="240" cy="35" r="2.5" fill="#f1c40f"/>
+                <circle cx="40" cy="505" r="2.5" fill="#f1c40f"/><circle cx="240" cy="505" r="2.5" fill="#f1c40f"/>
+                <circle cx="28" cy="270" r="2.5" fill="#f1c40f"/><circle cx="252" cy="270" r="2.5" fill="#f1c40f"/>
+              </g>
+
+              <!-- Mainboard (Upgraded with high-density details) -->
+              <g class="anatomy-part" data-part="motherboard" data-tab="tab-motherboard">
+                <path d="M104 35 h110 v125 h-30 v25 h-80z" fill="#0b5345" stroke="#1abc9c" stroke-width="2"/>
+                <!-- Tiny silver capacitors/microchips -->
+                <rect x="110" y="45" width="6" height="10" fill="#bdc3c7"/><rect x="120" y="45" width="6" height="10" fill="#bdc3c7"/>
+                <rect x="130" y="45" width="12" height="6" fill="#95a5a6"/><rect x="145" y="45" width="12" height="6" fill="#95a5a6"/>
+                <rect x="110" y="130" width="8" height="8" fill="#7f8c8d"/><rect x="122" y="130" width="8" height="8" fill="#7f8c8d"/>
+                <rect x="185" y="130" width="20" height="15" fill="#bdc3c7"/> <!-- Power Management IC -->
+              </g>
+
+              <!-- SIM Tray & Memory Card Expansion Slot -->
+              <!-- SIM Card -->
+              <g class="anatomy-part" data-part="sim" data-tab="tab-sim">
+                <rect x="22" y="55" width="10" height="25" fill="#7f8c8d"/> <!-- Outer Slot -->
+                <path d="M34 58 h14 l4 4 v15 h-18 z" fill="#f1c40f" stroke="#d35400" stroke-width="1"/> <!-- Gold SIM Chip -->
+                <text x="43" y="72" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="5" fill="#d35400">SIM</text>
+              </g>
+              <!-- MicroSD Card -->
+              <g class="anatomy-part" data-part="microsd" data-tab="tab-microsd">
+                <rect x="22" y="85" width="10" height="28" fill="#7f8c8d"/> <!-- Outer Slot -->
+                <path d="M34 88 h16 v22 h-16 l3 -3 v-16 z" fill="#111" stroke="#fff" stroke-width="0.5"/> <!-- Black SD Card -->
+                <rect x="42" y="90" width="2" height="6" fill="#f1c40f"/><rect x="46" y="90" width="2" height="6" fill="#f1c40f"/>
+                <text x="43" y="104" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="4" fill="#fff">SD</text>
+              </g>
+
+              <!-- Rear Camera Block -->
+              <g class="anatomy-part" data-part="rearcam" data-tab="tab-rearcam">
+                <rect x="28" y="120" width="68" height="35" rx="10" fill="#1c2833" stroke="#7f8c8d" stroke-width="2"/>
+                <circle cx="50" cy="138" r="12" fill="#000" stroke="#3498db" stroke-width="2"/>
+                <circle cx="78" cy="138" r="12" fill="#000" stroke="#3498db" stroke-width="2"/>
+              </g>
+
+              <!-- CPU (Intense glow style) -->
+              <g class="anatomy-part" data-part="cpu" data-tab="tab-cpu">
+                <rect x="120" y="65" width="40" height="38" rx="4" fill="#f39c12" stroke="#fff" stroke-width="2"/>
+                <rect x="124" y="69" width="32" height="30" fill="#d35400"/>
+                <text x="140" y="88" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="9" fill="#fff">CPU</text>
+              </g>
+
+              <!-- RAM & Storage -->
+              <g class="anatomy-part" data-part="ram" data-tab="tab-ram">
+                <rect x="168" y="65" width="32" height="28" rx="2" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2"/>
+                <text x="184" y="82" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="7" fill="#2c3e50">RAM</text>
+              </g>
+              <g class="anatomy-part" data-part="storage" data-tab="tab-storage">
+                <rect x="168" y="98" width="32" height="22" rx="2" fill="#34495e" stroke="#95a5a6" stroke-width="1"/>
+                <text x="184" y="112" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="6" fill="#fff">ROM</text>
+              </g>
+
+              <!-- Battery (Blue energy style) -->
+              <g class="anatomy-part" data-part="battery" data-tab="tab-battery">
+                <rect x="40" y="170" width="200" height="230" rx="10" fill="url(#b)" stroke="#00d2ff" stroke-width="3"/>
+                <!-- Lightning Bolt Icon -->
+                <path d="M145 230 L125 280 L140 280 L135 320 L160 265 L145 265 Z" fill="#fff" opacity="0.9"/>
+                <text x="140" y="345" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#fff">LI-ION CELL</text>
+              </g>
+
+              <!-- Flex Cables -->
+              <g class="anatomy-part" data-part="cables" data-tab="tab-cables">
+                <path d="M140 400 L140 470" fill="none" stroke="#f1c40f" stroke-width="6"/>
+                <path d="M80 160 C 60 200, 35 250, 40 300" fill="none" stroke="#e67e22" stroke-width="5" stroke-dasharray="8,2"/> <!-- Copper Heat Pipe -->
+              </g>
+
+              <!-- Lower Modules (Speaker, USB, Taptic, Headphone) -->
+              <g class="anatomy-part" data-part="speaker" data-tab="tab-speaker">
+                <rect x="94" y="475" width="94" height="22" rx="4" fill="#2c3e50" stroke="#7f8c8d" stroke-width="2"/>
+                <circle cx="110" cy="486" r="3" fill="#fff"/><circle cx="125" cy="486" r="3" fill="#fff"/>
+                <circle cx="140" cy="486" r="3" fill="#fff"/><circle cx="155" cy="486" r="3" fill="#fff"/>
+                <circle cx="170" cy="486" r="3" fill="#fff"/>
+              </g>
+              
+              <g class="anatomy-part" data-part="taptic" data-tab="tab-taptic">
+                <rect x="45" y="420" width="55" height="25" rx="5" fill="#8e44ad" stroke="#d2b4de" stroke-width="2"/>
+                <text x="72" y="435" text-anchor="middle" font-weight="bold" font-family="sans-serif" font-size="7" fill="#fff">TAPTIC</text>
+              </g>
+
+              <g class="anatomy-part" data-part="charging" data-tab="tab-charging">
+                <rect x="112" y="510" width="56" height="10" rx="2" fill="#bdc3c7"/>
+                <rect x="125" y="514" width="30" height="2" fill="#2c3e50"/>
+              </g>
+              
+              <!-- 3.5mm Headphone Jack -->
+              <g class="anatomy-part" data-part="headphone" data-tab="tab-headphone">
+                <rect x="200" y="490" width="16" height="24" rx="3" fill="#34495e" stroke="#7f8c8d" stroke-width="2"/>
+                <circle cx="208" cy="514" r="6" fill="#111" stroke="#bdc3c7" stroke-width="2"/>
+                <circle cx="208" cy="514" r="3" fill="#000"/>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      <section class="anatomy-detail card glass">
+        <div class="section-head" style="text-align: center; margin-bottom: 20px;">
+          <h3 id="detailTitle" style="font-size: 2rem; color: #61dafb;">Select a component 🔍</h3>
+        </div>
+        
+        <div class="anatomy-tabs">
+          <!-- NAVIGATION BUTTONS -->
+          <div class="tab-row">
+            <button class="tab-btn active" data-tab="tab-intro">👋 Welcome</button>
+            <button class="tab-btn turbo-tab" data-tab="tab-turbo">⚡ Overclock Mode!</button>
+            
+            <!-- Front Screen Parts -->
+            <button class="tab-btn" data-tab="tab-screen">📺 OLED Display</button>
+            <button class="tab-btn" data-tab="tab-frontglass">🛡️ Gorilla Glass</button>
+            <button class="tab-btn" data-tab="tab-fingerprint">👆 Fingerprint Scanner</button>
+            <button class="tab-btn" data-tab="tab-notch">👁️ Sensor Notch</button>
+
+            <!-- Internal Parts -->
+            <button class="tab-btn" data-tab="tab-chassis">📱 Metal Chassis</button>
+            <button class="tab-btn" data-tab="tab-motherboard">🧩 Mainboard</button>
+            <button class="tab-btn" data-tab="tab-cpu">🧠 CPU Brain</button>
+            <button class="tab-btn" data-tab="tab-ram">🚀 RAM</button>
+            <button class="tab-btn" data-tab="tab-storage">💾 ROM Storage</button>
+            <button class="tab-btn" data-tab="tab-sim">💳 SIM Card</button>
+            <button class="tab-btn" data-tab="tab-microsd">💽 MicroSD Card</button>
+            <button class="tab-btn" data-tab="tab-battery">🔋 Battery</button>
+            <button class="tab-btn" data-tab="tab-rearcam">📸 Rear Cameras</button>
+            <button class="tab-btn" data-tab="tab-speaker">🔊 Loudspeaker</button>
+            <button class="tab-btn" data-tab="tab-charging">🔌 USB-C Port</button>
+            <button class="tab-btn" data-tab="tab-headphone">🎧 Headphone Jack</button>
+            <button class="tab-btn" data-tab="tab-taptic">📳 Taptic Engine</button>
+            <button class="tab-btn" data-tab="tab-cables">🎗️ Flex Cables</button>
+          </div>
+
+          <div class="tab-content">
+            <!-- CONTENT PANELS -->
+            <div id="tab-intro" class="tab-panel active">
+              <div class="info-card">
+                <h4>👋 Welcome to Dual Phone Anatomy!</h4>
+                <p>We've split the phone in half! On the left is the front glass and screen you touch every day. On the right is the intense, high-tech engine room hiding underneath. Click around!</p>
+              </div>
+            </div>
+            <div id="tab-turbo" class="tab-panel"><div class="info-card"><h4>⚡ OVERCLOCK MODE ACTIVATED!</h4><p>Maximum processing power engaged! The phone is working at lightning speed!</p></div></div>
+            
+            <!-- Front Panels -->
+            <div id="tab-screen" class="tab-panel"><div class="info-card"><h4>📺 OLED Display</h4><p>Millions of microscopic LEDs that light up to show your games and videos. The touch-sensitive layer (digitizer) is glued right to it!</p></div></div>
+            <div id="tab-frontglass" class="tab-panel"><div class="info-card"><h4>🛡️ Gorilla Glass</h4><p>Chemically hardened glass designed to survive drops and prevent scratches from the keys in your pocket.</p></div></div>
+            <div id="tab-fingerprint" class="tab-panel"><div class="info-card"><h4>👆 Under-Display Fingerprint</h4><p>A hidden camera or ultrasonic sensor looking right through the screen to map the microscopic ridges of your thumb!</p></div></div>
+            <div id="tab-notch" class="tab-panel"><div class="info-card"><h4>👁️ Sensor Notch</h4><p>The command center for the front! It hides the selfie camera, the earpiece speaker, and the infrared dot-projector used to unlock the phone with your face.</p></div></div>
+
+            <!-- Internal Panels -->
+            <div id="tab-chassis" class="tab-panel"><div class="info-card"><h4>📱 Chassis & Frame</h4><p>The tough metal skeleton. Notice the tiny gold screws that hold the motherboard down tightly.</p></div></div>
+            <div id="tab-motherboard" class="tab-panel"><div class="info-card"><h4>🧩 Mainboard</h4><p>The electronic puzzle board. It is densely packed with tiny silver capacitors and logic gates to control the electricity.</p></div></div>
+            <div id="tab-cpu" class="tab-panel"><div class="info-card"><h4>🧠 CPU (The Brain)</h4><p>The super-smart brain of the phone. It solves billions of math problems every second to run your intense 3D apps.</p></div></div>
+            <div id="tab-ram" class="tab-panel"><div class="info-card"><h4>🚀 RAM Memory</h4><p>The phone's short-term memory! It holds exactly what you're doing right now so apps open instantly without waiting.</p></div></div>
+            <div id="tab-storage" class="tab-panel"><div class="info-card"><h4>💾 ROM Storage</h4><p>The giant digital backpack. This is where all your apps, operating systems, and permanent files live.</p></div></div>
+            <div id="tab-sim" class="tab-panel"><div class="info-card"><h4>💳 SIM Card</h4><p>The tiny gold chip that holds your secret phone number and securely connects you to the cell towers for calls and 5G internet!</p></div></div>
+            <div id="tab-microsd" class="tab-panel"><div class="info-card"><h4>💽 MicroSD Card</h4><p>An extra tiny, removable memory card you can slide in to store thousands of more photos, videos, and games.</p></div></div>
+            <div id="tab-battery" class="tab-panel"><div class="info-card"><h4>🔋 Li-Ion Battery</h4><p>The giant power plant taking up most of the space inside! It feeds raw electricity to every single part.</p></div></div>
+            <div id="tab-rearcam" class="tab-panel"><div class="info-card"><h4>📸 Rear Cameras</h4><p>Multiple robot eyes! Some see super wide, some zoom in really far, and all work together to take perfect pictures.</p></div></div>
+            <div id="tab-speaker" class="tab-panel"><div class="info-card"><h4>🔊 Loudspeaker</h4><p>A tiny box pushing air super fast to create loud music, funny video sounds, and alarm bells.</p></div></div>
+            <div id="tab-charging" class="tab-panel"><div class="info-card"><h4>🔌 USB-C Port</h4><p>The main gate! Used to blast the battery full of electricity or connect the phone to other computers.</p></div></div>
+            <div id="tab-headphone" class="tab-panel"><div class="info-card"><h4>🎧 Headphone Jack (3.5mm)</h4><p>The classic analog audio port! It lets you plug in wired headphones to listen to music with zero lag and without needing batteries.</p></div></div>
+            <div id="tab-taptic" class="tab-panel"><div class="info-card"><h4>📳 Taptic Engine</h4><p>A little motor with a heavy weight that shakes back and forth really fast to create vibrations and fake button clicks!</p></div></div>
+            <div id="tab-cables" class="tab-panel"><div class="info-card"><h4>🎗️ Flex Cables & Copper</h4><p>Gold ribbons transmit data, while the orange copper heat pipe moves heat away from the CPU so it doesn't melt!</p></div></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Audio Context Setup
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    let audioCtx;
+
+    function initAudio() {
+      if (!audioCtx) audioCtx = new AudioContext();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+    }
+
+    function playPopSound() {
+      initAudio();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain); gain.connect(audioCtx.destination);
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(700, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(1000, audioCtx.currentTime + 0.1);
+      gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+      osc.start(); osc.stop(audioCtx.currentTime + 0.1);
+    }
+
+    function playTurboSound() {
+      initAudio();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain); gain.connect(audioCtx.destination);
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(100, audioCtx.currentTime);
+      osc.frequency.linearRampToValueAtTime(800, audioCtx.currentTime + 0.3);
+      gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+      osc.start(); osc.stop(audioCtx.currentTime + 0.4);
+    }
+
+    // UI Logic & Component Titles
+    const titles = {
+        'tab-intro': '👋 Welcome!',
+        'tab-turbo': '⚡ TURBO UPGRADES!',
+        'tab-screen': '📺 OLED Display',
+        'tab-frontglass': '🛡️ Gorilla Glass',
+        'tab-fingerprint': '👆 Fingerprint Scanner',
+        'tab-notch': '👁️ Sensor Notch',
+        'tab-chassis': '📱 Metal Chassis',
+        'tab-motherboard': '🧩 Mainboard Grid',
+        'tab-cpu': '🧠 The Brain (CPU)',
+        'tab-ram': '🚀 Speedy RAM',
+        'tab-storage': '💾 ROM Storage',
+        'tab-sim': '💳 SIM Card',
+        'tab-microsd': '💽 MicroSD Card',
+        'tab-battery': '🔋 Massive Battery',
+        'tab-rearcam': '📸 Rear Cameras',
+        'tab-speaker': '🔊 Loudspeaker',
+        'tab-charging': '🔌 Charging Port',
+        'tab-headphone': '🎧 Headphone Jack',
+        'tab-taptic': '📳 Taptic Motor',
+        'tab-cables': '🎗️ Flex Cables & Pipes'
+      };
+
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const svgParts = document.querySelectorAll('.anatomy-part');
+    const tooltip = document.getElementById('hoverTooltip');
+
+    // Setup Custom Cursor Tooltip logic
+    svgParts.forEach(part => {
+      part.addEventListener('mousemove', (e) => {
+        const tabId = part.dataset.tab;
+        const rawTitle = titles[tabId].replace(/[^a-zA-Z\s()]/g, '').trim(); 
+        tooltip.textContent = rawTitle;
+        tooltip.style.display = 'block';
+        tooltip.style.left = (e.pageX + 15) + 'px';
+        tooltip.style.top = (e.pageY + 15) + 'px';
+      });
+
+      part.addEventListener('mouseleave', () => {
+        tooltip.style.display = 'none';
+      });
+    });
+
+    function activateSystemUI(tabId) {
+      if (tabId === 'tab-turbo') { playTurboSound(); } else { playPopSound(); }
+
+      tabButtons.forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      svgParts.forEach(p => p.classList.remove('active-part'));
+      
+      const activeBtn = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
+      if (activeBtn) activeBtn.classList.add('active');
+      
+      const activePanel = document.getElementById(tabId);
+      if (activePanel) {
+        activePanel.classList.add('active');
+        const infoCard = activePanel.querySelector('.info-card');
+        if (infoCard) {
+          infoCard.style.animation = 'none';
+          setTimeout(() => infoCard.style.animation = '', 10);
+        }
+      }
+
+      // Highlight in SVG
+      const matchingParts = document.querySelectorAll(`.anatomy-part[data-tab="${tabId}"]`);
+      matchingParts.forEach(part => part.classList.add('active-part'));
+
+      // Update the Detail Title text
+      const titleEl = document.getElementById('detailTitle');
+      if (titleEl) {
+          titleEl.textContent = titles[tabId] || 'Component Details 🔍';
+      }
+    }
+
+    // Attach click events
+    tabButtons.forEach(btn => btn.addEventListener('click', () => activateSystemUI(btn.dataset.tab)));
+    svgParts.forEach(part => part.addEventListener('click', () => {
+      activateSystemUI(part.dataset.tab);
+      tooltip.style.display = 'none'; 
+    }));
+  </script>
+</body>
+</html>

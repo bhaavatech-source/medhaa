@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Medhā — Smartphone Physiology</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+  
+  <style>
+    /* Base Styles */
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0b0f19;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+    .app-shell { max-width: 1200px; margin: 0 auto; padding: 20px; }
+    .glass { background: rgba(255, 255, 255, 0.03); border-radius: 15px; padding: 20px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.05); }
+    
+    .hero-copy h2 {
+      text-align: center;
+      background: linear-gradient(90deg, #ff00cc, #00d2ff, #00ffcc);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradient-glow 5s linear infinite;
+      font-size: 3rem;
+      text-transform: uppercase;
+      font-family: 'Orbitron', sans-serif;
+      margin-bottom: 10px;
+    }
+
+    @keyframes gradient-glow {
+      0% { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
+
+    /* Simulator Layout */
+    .simulator-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+    }
+
+    /* Action Buttons */
+    .action-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      padding: 15px;
+      background: rgba(0,0,0,0.4);
+      border-radius: 20px;
+    }
+    .action-btn {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border-radius: 30px;
+      padding: 12px 24px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .btn-photo { background: linear-gradient(45deg, #e74c3c, #c0392b); color: white; }
+    .btn-call { background: linear-gradient(45deg, #2ecc71, #27ae60); color: white; }
+    .btn-game { background: linear-gradient(45deg, #9b59b6, #8e44ad); color: white; }
+    .action-btn:hover { transform: scale(1.05); box-shadow: 0 5px 20px rgba(255,255,255,0.2); }
+    .action-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    /* The Data Flow SVG */
+    .flow-svg {
+      width: 100%;
+      max-width: 800px;
+      height: auto;
+      background: rgba(0,0,0,0.2);
+      border-radius: 20px;
+      padding: 20px;
+    }
+
+    /* Node & Path Styling */
+    .node-box { fill: #1e293b; stroke: #475569; stroke-width: 3; transition: all 0.3s ease; }
+    .node-text { font-family: 'Orbitron', sans-serif; font-size: 14px; fill: #94a3b8; font-weight: bold; transition: all 0.3s ease; }
+    .flow-path { fill: none; stroke: #334155; stroke-width: 4; stroke-dasharray: 10, 10; transition: stroke 0.3s ease; }
+
+    /* Active States triggered by JS */
+    .node.active .node-box { fill: #0f172a; stroke: #00ffcc; filter: drop-shadow(0 0 15px #00ffcc); }
+    .node.active .node-text { fill: #00ffcc; }
+    
+    .path.active {
+      stroke: #00d2ff;
+      animation: dash-flow 1s linear infinite;
+      filter: drop-shadow(0 0 8px #00d2ff);
+    }
+
+    @keyframes dash-flow {
+      from { stroke-dashoffset: 40; }
+      to { stroke-dashoffset: 0; }
+    }
+
+    /* Dynamic Info Panel */
+    .status-panel {
+      width: 100%;
+      max-width: 800px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 2px solid #3b82f6;
+      border-radius: 15px;
+      padding: 20px;
+      min-height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .status-text {
+      font-size: 1.5rem;
+      color: #60a5fa;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+    .status-highlight {
+      color: #00ffcc;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: bold;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <main id="app">
+      <section class="hero card glass">
+        <div class="hero-copy">
+          <h2>Smartphone Physiology 💭⚡</h2>
+          <p style="text-align: center; font-size: 1.2rem; color: #cbd5e1;">How does a mobile work? Click an action below to watch how data and electricity flow through the components to make things happen!</p>
+        </div>
+      </section>
+
+      <section class="simulator-container card glass">
+        
+        <!-- Action Triggers -->
+        <div class="action-row">
+          <button class="action-btn btn-photo" onclick="triggerSequence('photo')">📸 Take a Photo</button>
+          <button class="action-btn btn-call" onclick="triggerSequence('call')">📞 Make a Call</button>
+          <button class="action-btn btn-game" onclick="triggerSequence('game')">🎮 Play a Game</button>
+          <button class="action-btn" style="background: linear-gradient(45deg, #3498db, #2980b9); color: white;" onclick="triggerSequence('text')">💬 Send Text</button>
+          <button class="action-btn" style="background: linear-gradient(45deg, #f1c40f, #e67e22); color: #000;" onclick="triggerSequence('music')">🎵 Play Audio</button>
+          <button class="action-btn" style="background: linear-gradient(45deg, #95a5a6, #7f8c8d); color: white;" onclick="triggerSequence('calc')">🧮 Calculator</button>
+          <button class="action-btn" style="background: linear-gradient(45deg, #25D366, #128C7E); color: white;" onclick="triggerSequence('whatsapp')">💬 WhatsApp</button>
+          <button class="action-btn" style="background: linear-gradient(45deg, #4285F4, #0F9D58); color: white;" onclick="triggerSequence('maps')">🗺️ Maps</button>
+        </div>
+
+        <!-- Dynamic Data Flow Diagram -->
+        <svg class="flow-svg" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+          <!-- Background Grid for Tech Feel -->
+          <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1" />
+          </pattern>
+          <rect width="100%" height="100%" fill="url(#grid)" />
+
+          <!-- PATHS (Data Highways) -->
+          <g id="paths">
+            <!-- Inputs to CPU -->
+            <path id="path-cam-cpu" class="path" d="M 200 150 L 350 250" />
+            <path id="path-mic-cpu" class="path" d="M 200 350 L 350 250" />
+            <path id="path-ant-cpu" class="path" d="M 400 100 L 400 210" />
+            
+            <!-- CPU to Memory -->
+            <path id="path-cpu-ram" class="path" d="M 450 250 L 600 150" />
+            <path id="path-cpu-rom" class="path" d="M 425 290 L 500 400" />
+            
+            <!-- CPU to Outputs -->
+            <path id="path-cpu-screen" class="path" d="M 450 250 L 600 250" />
+            <path id="path-cpu-speaker" class="path" d="M 450 250 L 600 350" />
+            <path id="path-cpu-taptic" class="path" d="M 400 290 L 400 400" />
+            
+            <!-- Battery to Everywhere (Subtle background paths) -->
+            <path id="path-bat-cpu" class="path" stroke-dasharray="5,5" d="M 200 250 L 350 250" />
+          </g>
+
+          <!-- NODES (Components) -->
+          <!-- Inputs (Left) -->
+          <g id="node-camera" class="node" transform="translate(100, 120)">
+            <rect class="node-box" width="100" height="60" rx="10" />
+            <text class="node-text" x="50" y="35" text-anchor="middle">📸 CAMERA</text>
+          </g>
+          
+          <g id="node-battery" class="node" transform="translate(100, 220)">
+            <rect class="node-box" width="100" height="60" rx="10" />
+            <text class="node-text" x="50" y="35" text-anchor="middle">🔋 BATTERY</text>
+          </g>
+
+          <g id="node-mic" class="node" transform="translate(100, 320)">
+            <rect class="node-box" width="100" height="60" rx="10" />
+            <text class="node-text" x="50" y="35" text-anchor="middle">🎙️ MIC</text>
+          </g>
+
+          <!-- Processing (Center) -->
+          <g id="node-antenna" class="node" transform="translate(350, 40)">
+            <rect class="node-box" width="100" height="60" rx="10" />
+            <text class="node-text" x="50" y="35" text-anchor="middle">📡 ANTENNA</text>
+          </g>
+
+          <g id="node-cpu" class="node" transform="translate(350, 210)">
+            <rect class="node-box" width="100" height="80" rx="15" />
+            <text class="node-text" x="50" y="45" text-anchor="middle">🧠 CPU (Brain)</text>
+          </g>
+
+          <g id="node-taptic" class="node" transform="translate(350, 400)">
+            <rect class="node-box" width="100" height="60" rx="10" />
+            <text class="node-text" x="50" y="35" text-anchor="middle">📳 TAPTIC</text>
+          </g>
+
+          <g id="node-rom" class="node" transform="translate(500, 400)">
+            <rect class="node-box" width="100" height="60" rx="10" />
+            <text class="node-text" x="50" y="35" text-anchor="middle">💾 STORAGE</text>
+          </g>
+
+          <!-- Outputs (Right) -->
+          <g id="node-ram" class="node" transform="translate(600, 120)">
+            <rect class="node-box" width="100" height="60" rx="10" />
+            <text class="node-text" x="50" y="35" text-anchor="middle">🚀 RAM</text>
+          </g>
+
+          <g id="node-screen" class="node" transform="translate(600, 220)">
+            <rect class="node-box" width="120" height="60" rx="10" />
+            <text class="node-text" x="60" y="35" text-anchor="middle">📺 SCREEN</text>
+          </g>
+
+          <g id="node-speaker" class="node" transform="translate(600, 320)">
+            <rect class="node-box" width="120" height="60" rx="10" />
+            <text class="node-text" x="60" y="35" text-anchor="middle">🔊 SPEAKER</text>
+          </g>
+        </svg>
+
+        <!-- Status / Storyboard Panel -->
+        <div class="status-panel">
+          <div id="statusText" class="status-text">
+            Waiting for an action... Press a button above to start the simulator!
+          </div>
+        </div>
+
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // System Physiology Logic
+    
+    // Audio Context Setup for interactive sound effects
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    let audioCtx;
+
+    function initAudio() {
+      if (!audioCtx) audioCtx = new AudioContext();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+    }
+
+    function playBeep(freq = 600, type = 'sine') {
+      initAudio();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain); gain.connect(audioCtx.destination);
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+      gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+      osc.start(); osc.stop(audioCtx.currentTime + 0.1);
+    }
+
+    function resetSimulator() {
+      document.querySelectorAll('.node').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.path').forEach(el => el.classList.remove('active'));
+    }
+
+    // A helper function to trigger a step in the animation sequence
+    function activateStep(nodes, paths, message, delay, soundFreq = 600) {
+      return new Promise(resolve => {
+        setTimeout(() => {
+          // Play sound
+          playBeep(soundFreq);
+          
+          // Light up nodes
+          if (nodes) {
+            nodes.forEach(id => document.getElementById(`node-${id}`).classList.add('active'));
+          }
+          // Light up paths
+          if (paths) {
+            paths.forEach(id => document.getElementById(`path-${id}`).classList.add('active'));
+          }
+          
+          // Update Status Text
+          document.getElementById('statusText').innerHTML = message;
+          
+          resolve();
+        }, delay);
+      });
+    }
+
+    // Sequence Definitions
+    async function triggerSequence(action) {
+      // Disable buttons during animation
+      const buttons = document.querySelectorAll('.action-btn');
+      buttons.forEach(b => b.disabled = true);
+      
+      resetSimulator();
+
+      if (action === 'photo') {
+        document.getElementById('statusText').innerHTML = "Initializing Camera Module...";
+        await activateStep(['battery', 'camera'], ['bat-cpu'], "1. <span class='status-highlight'>BATTERY</span> powers up the <span class='status-highlight'>CAMERA</span> lens to let light in.", 1000, 400);
+        await activateStep(['cpu'], ['cam-cpu'], "2. The Image Sensor converts light into digital data and sends it to the <span class='status-highlight'>CPU</span>.", 1500, 600);
+        await activateStep(['ram'], ['cpu-ram'], "3. The CPU uses fast <span class='status-highlight'>RAM</span> memory as a workbench to edit and process the colors.", 1500, 800);
+        await activateStep(['rom', 'screen'], ['cpu-rom', 'cpu-screen'], "4. DONE! The photo is saved permanently in <span class='status-highlight'>STORAGE</span> and displayed on the <span class='status-highlight'>SCREEN</span>.", 2000, 1200);
+      } 
+      
+      else if (action === 'call') {
+        document.getElementById('statusText').innerHTML = "Establishing Cell Tower Connection...";
+        await activateStep(['mic'], [], "1. You speak! The <span class='status-highlight'>MIC</span> turns your voice soundwaves into electrical signals.", 1000, 300);
+        await activateStep(['cpu'], ['mic-cpu'], "2. The <span class='status-highlight'>CPU</span> translates the electrical signals into digital 1s and 0s (data).", 1500, 500);
+        await activateStep(['antenna'], ['ant-cpu'], "3. The <span class='status-highlight'>ANTENNA</span> blasts your voice data out as invisible radio waves to a cell tower.", 1500, 700);
+        
+        // Simulate receiving the friend's voice
+        document.getElementById('statusText').innerHTML = "Receiving response from friend...";
+        document.getElementById('path-ant-cpu').classList.remove('active');
+        playBeep(400, 'square');
+        
+        await activateStep(['antenna', 'cpu'], ['ant-cpu'], "4. The <span class='status-highlight'>ANTENNA</span> catches your friend's radio waves and sends them to the <span class='status-highlight'>CPU</span>.", 1500, 900);
+        await activateStep(['speaker'], ['cpu-speaker'], "5. The CPU decodes it and forces the <span class='status-highlight'>SPEAKER</span> to vibrate, creating sound you can hear!", 2000, 1100);
+      }
+
+      else if (action === 'game') {
+        document.getElementById('statusText').innerHTML = "Booting up Game Engine...";
+        await activateStep(['rom'], [], "1. The game files are pulled out of deep <span class='status-highlight'>STORAGE</span>.", 1000, 400);
+        await activateStep(['cpu', 'ram'], ['cpu-rom', 'cpu-ram'], "2. The <span class='status-highlight'>CPU</span> loads the heavy game files into the fast <span class='status-highlight'>RAM</span> so there is no lag.", 1500, 600);
+        await activateStep(['screen'], ['cpu-screen'], "3. The CPU rapidly draws 60 pictures every second and pushes them to the <span class='status-highlight'>SCREEN</span>.", 1500, 800);
+        await activateStep(['taptic', 'speaker'], ['cpu-taptic', 'cpu-speaker'], "4. BOOM! You crash a car in the game! The CPU fires the <span class='status-highlight'>SPEAKER</span> for sound and shakes the <span class='status-highlight'>TAPTIC</span> motor so you feel it!", 2000, 1200);
+      }
+      
+      else if (action === 'text') {
+        document.getElementById('statusText').innerHTML = "Typing a message...";
+        await activateStep(['screen'], [], "1. You type on the <span class='status-highlight'>SCREEN</span> keyboard.", 1000, 500);
+        await activateStep(['cpu'], [], "2. The <span class='status-highlight'>CPU</span> processes your screen taps into digital text.", 1500, 600);
+        await activateStep(['antenna'], ['ant-cpu'], "3. The <span class='status-highlight'>ANTENNA</span> broadcasts the text data to the nearest cell tower.", 1500, 700);
+        await activateStep(['taptic'], ['cpu-taptic'], "4. Swoosh! The <span class='status-highlight'>TAPTIC</span> engine gives a tiny vibration to confirm the message was sent.", 1500, 800);
+      }
+      
+      else if (action === 'music') {
+        document.getElementById('statusText').innerHTML = "Loading Music Player...";
+        await activateStep(['rom'], [], "1. The MP3 audio file is located deep inside your <span class='status-highlight'>STORAGE</span>.", 1000, 400);
+        await activateStep(['cpu'], ['cpu-rom'], "2. The <span class='status-highlight'>CPU</span> unzips the digital file and translates it into physical sound waves.", 1500, 500);
+        await activateStep(['speaker'], ['cpu-speaker'], "3. The <span class='status-highlight'>SPEAKER</span> magnets vibrate super fast to play your favorite song!", 1500, 900);
+      }
+      
+      else if (action === 'calc') {
+        document.getElementById('statusText').innerHTML = "Opening Calculator...";
+        await activateStep(['screen'], [], "1. You punch in a math problem on the <span class='status-highlight'>SCREEN</span>.", 1000, 700);
+        await activateStep(['cpu'], [], "2. The <span class='status-highlight'>CPU</span> uses its Arithmetic Logic Unit to solve the complex math instantly.", 1500, 800);
+        await activateStep(['screen'], ['cpu-screen'], "3. The exact answer is blasted right back to the <span class='status-highlight'>SCREEN</span> for you to see.", 1500, 900);
+      }
+      
+      else if (action === 'whatsapp') {
+        document.getElementById('statusText').innerHTML = "Listening for notifications...";
+        await activateStep(['antenna'], ['ant-cpu'], "1. The <span class='status-highlight'>ANTENNA</span> intercepts a fast Wi-Fi or 5G signal carrying a WhatsApp message.", 1000, 400);
+        await activateStep(['cpu'], [], "2. The <span class='status-highlight'>CPU</span> receives the data and rapidly decrypts the secure message.", 1500, 500);
+        await activateStep(['speaker', 'taptic'], ['cpu-speaker', 'cpu-taptic'], "3. DING! The <span class='status-highlight'>SPEAKER</span> chimes and the <span class='status-highlight'>TAPTIC</span> motor buzzes to get your attention.", 1500, 800);
+        await activateStep(['screen'], ['cpu-screen'], "4. The <span class='status-highlight'>SCREEN</span> lights up to show you the new text from your friend!", 1500, 900);
+      }
+      
+      else if (action === 'maps') {
+        document.getElementById('statusText').innerHTML = "Connecting to GPS Satellites in Space...";
+        await activateStep(['antenna'], ['ant-cpu'], "1. The <span class='status-highlight'>ANTENNA</span> locks onto invisible GPS signals falling from satellites in orbit.", 1000, 500);
+        await activateStep(['cpu', 'ram'], ['cpu-ram'], "2. The <span class='status-highlight'>CPU</span> calculates your exact coordinates on Earth and loads the map graphics into <span class='status-highlight'>RAM</span>.", 1500, 600);
+        await activateStep(['screen'], ['cpu-screen'], "3. The <span class='status-highlight'>SCREEN</span> renders the map, showing your little blue dot moving in real-time!", 1500, 700);
+      }
+
+      // Re-enable buttons after a short delay
+      setTimeout(() => {
+        buttons.forEach(b => b.disabled = false);
+      }, 1000);
+    }
+  </script>
+</body>
+</html>

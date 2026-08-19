@@ -15,7 +15,7 @@ function getPlayedGames(): string[] {
 
 function isUserUnlocked(): boolean {
   try {
-    return localStorage.getItem(USER_KEY) === 'true';
+    return !!localStorage.getItem('accessToken');
   } catch {
     return false;
   }

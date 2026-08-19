@@ -1,4 +1,4 @@
-﻿// ── Medhā — Session Tracker + Game Nav v3 ───────────────────────────────
+// ── Medhā — Session Tracker + Game Nav v3 ───────────────────────────────
 // Single unified file. Drop ONE tag before </body> in any game HTML:
 //   <script src="bhava-session.js"></script>
 //
@@ -63,7 +63,7 @@
     }
 
     function isWebLoggedIn() {
-      try { return localStorage.getItem(WEB_USER_KEY) === 'true'; }
+      try { return !!localStorage.getItem('accessToken'); }
       catch (e) { return false; }
     }
 

@@ -38,6 +38,7 @@ export interface CatalogEntry {
   ageMax: number;
   color: string;
   domain: string;
+  kind?: 'game' | 'activity';   // ADD THIS LINE
   emoji: string;
 }
 

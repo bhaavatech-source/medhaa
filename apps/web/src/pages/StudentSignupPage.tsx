@@ -20,10 +20,10 @@ export default function StudentSignupPage() {
             <input id="name" type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Your full name" />
 
             <label htmlFor="email">Email</label>
-            <input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" />
+            <input id="email" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" />
 
             <label htmlFor="password">Password</label>
-            <input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="At least 8 characters" />
+            <input id="password" type="password" autoComplete="new-password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="At least 8 characters" />
 
             <label htmlFor="rollNumber">Roll Number (optional)</label>
             <input id="rollNumber" type="text" value={extraData.rollNumber || ''} onChange={(e) => setExtraData({ ...extraData, rollNumber: e.target.value })} />

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" data-bhava-game="Focus Under Distraction" data-bhava-mobile="nudge">
 <head>
   <meta charset="UTF-8" />
@@ -167,9 +167,10 @@
     h2{margin:0 0 10px;font-size:1rem;font-weight:800;color:var(--text);letter-spacing:-.01em}
     .sub{margin:0;color:var(--muted);line-height:1.5;font-size:.92rem}
     .target-wrap{display:grid;grid-template-columns:1fr;gap:12px}
+    
     .target-card{
       aspect-ratio:1/1;
-      width:min(100%,220px);
+      width:min(100%, 260px); 
       margin:0 auto;
       border-radius:26px;
       border:1.5px solid rgba(255,255,255,.18);
@@ -179,6 +180,7 @@
       box-shadow:inset 0 0 36px rgba(255,255,255,.06),0 16px 46px rgba(0,0,0,.22);
       position:relative;
       overflow:hidden;
+      transition: transform 0.2s ease, opacity 0.2s ease;
     }
     .target-card::before{
       content:"";
@@ -200,11 +202,11 @@
     .meta-item div{font-weight:700;color:var(--text)}
     .meta6{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 
-    .btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .btns{display:flex; gap:10px; flex-wrap: wrap; justify-content: center;}
     button{
       border:0;
       border-radius:16px;
-      padding:14px 14px;
+      padding:14px 18px;
       color:#07121f;
       font-weight:800;
       font-size:.96rem;
@@ -212,6 +214,8 @@
       background:linear-gradient(180deg,#a7d6ff,#74b7ff);
       box-shadow:0 12px 28px rgba(51,140,255,.28);
       transition:transform .15s ease,filter .15s ease,box-shadow .15s ease;
+      flex: 1;
+      min-width: 120px;
     }
     button.secondary{
       background:rgba(255,255,255,.1);
@@ -219,8 +223,55 @@
       box-shadow:none;
       border:1.5px solid rgba(255,255,255,.14)
     }
+    button.danger {
+      background: rgba(255,96,128,0.15);
+      color: var(--bad);
+      border: 1.5px solid var(--bad);
+      box-shadow: 0 8px 24px rgba(255,96,128,0.15);
+    }
     button:active{transform:translateY(1px) scale(.99)}
-    button:hover{filter:brightness(1.06)}
+    button:hover{filter:brightness(1.1)}
+    
+    .btn-help {
+      padding: 10px 16px;
+      font-size: 0.85rem;
+      border-radius: 14px;
+      white-space: nowrap;
+      align-self: center;
+      margin-left: auto;
+      flex: 0 0 auto;
+    }
+
+    /* Grid Toggles for Selection */
+    .dist-toggles {
+      display: grid;
+      gap: 6px;
+    }
+    .toggles-4 { grid-template-columns: repeat(4, 1fr); margin-bottom: 12px; }
+    .toggles-3 { grid-template-columns: repeat(3, 1fr); margin-top: 10px; }
+    
+    .dist-toggle {
+      padding: 10px 0;
+      font-size: 0.76rem;
+      border-radius: 12px;
+      background: rgba(255,255,255,.05);
+      color: var(--text);
+      border: 1.5px solid rgba(255,255,255,.12);
+      box-shadow: none;
+      min-width: 0;
+    }
+    .dist-toggle:hover { filter: brightness(1.2); }
+    .dist-toggle.active {
+      background: var(--accent);
+      color: #000;
+      border-color: var(--accent);
+      box-shadow: 0 4px 12px rgba(95, 184, 255, 0.3);
+    }
+    .dist-toggle.locked {
+      opacity: 0.5;
+      cursor: not-allowed;
+      border-color: rgba(255,255,255,0.05);
+    }
 
     .right{display:flex;flex-direction:column;min-height:auto}
     .hud{
@@ -283,7 +334,7 @@
       overflow:hidden;
       cursor:pointer;
       isolation:isolate;
-      transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease;
+      transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease, opacity .2s ease;
       box-shadow:inset 0 0 20px rgba(255,255,255,.04),0 12px 24px rgba(0,0,0,.16);
     }
     .card:hover{
@@ -313,17 +364,72 @@
       pointer-events:none;
       z-index:2;
     }
+
+    /* --- ACTIVE CARD DISTRACTION MODIFIERS --- */
+    .grid.dist-wiper .card::after, .grid.dist-chaos .card::after,
+    .target-card.dist-wiper::after, .target-card.dist-chaos::after {
+      content: "";
+      position: absolute;
+      inset: -50%;
+      background: linear-gradient(90deg, transparent 30%, rgba(5,13,26,0.96) 50%, transparent 70%);
+      animation: cardWiper 2.8s ease-in-out infinite alternate;
+      pointer-events: none;
+      z-index: 5;
+    }
+    .grid.dist-drift .card, .grid.dist-chaos .card,
+    .target-card.dist-drift, .target-card.dist-chaos {
+      animation: cardDrift 3.5s ease-in-out infinite alternate;
+    }
+    .grid.dist-drift .card:nth-child(even), .grid.dist-chaos .card:nth-child(even) {
+      animation-duration: 4.2s;
+      animation-direction: alternate-reverse;
+    }
+    .grid.dist-blink .card, .target-card.dist-blink, 
+    .grid.dist-chaos .card, .target-card.dist-chaos {
+      animation: cardBlink 4s infinite;
+    }
+    .grid.dist-blink .card:nth-child(even), .grid.dist-chaos .card:nth-child(even) {
+      animation-delay: 0.7s;
+      animation-duration: 3.5s;
+    }
+    .grid.dist-blink .card:nth-child(3n) {
+      animation-delay: 1.5s;
+      animation-duration: 4.5s;
+    }
+    .grid.dist-flip .card, .target-card.dist-flip {
+      animation: cardFlip 5s infinite;
+    }
+    .grid.dist-flip .card:nth-child(even) {
+      animation-delay: 1.2s;
+      animation-duration: 4s;
+    }
+    .grid.dist-flip .card:nth-child(3n) {
+      animation-delay: 2.2s;
+      animation-duration: 6s;
+    }
+    .grid.dist-chaos .card, .target-card.dist-chaos {
+      animation: cardDrift 3.5s ease-in-out infinite alternate, cardBlink 4s infinite;
+    }
+    
+    .grid.dist-drift .card:hover, .grid.dist-chaos .card:hover,
+    .grid.dist-blink .card:hover, .grid.dist-flip .card:hover {
+      animation-play-state: paused !important;
+      opacity: 1 !important;
+      transform: translateY(-3px) scale(1.02) perspective(600px) rotateY(0deg) !important;
+      filter: brightness(1.1) !important;
+    }
+
     .card.correct{animation:pulseGood .55s ease;border-color:var(--good)!important;box-shadow:0 0 32px rgba(77,255,160,.35)!important}
     .card.wrong{animation:shake .38s ease;border-color:var(--bad)!important}
     .card.fade{opacity:.32;transform:scale(.97)}
     .card.lock{pointer-events:none}
 
-    .overlay-msg{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;z-index:10}
+    .overlay-msg{position:absolute;inset:0;display:grid;place-items:center;z-index:10; background: rgba(0,0,0,0.45); backdrop-filter: blur(4px); transition: opacity 0.2s;}
     .center-card{
       width:min(94%,580px);
       padding:26px;
       border-radius:28px;
-      background:rgba(4,10,24,.76);
+      background:rgba(4,10,24,.85);
       border:1.5px solid rgba(255,255,255,.15);
       backdrop-filter:blur(20px);
       text-align:center;
@@ -337,6 +443,7 @@
     .level-pip{height:6px;border-radius:4px;flex:1;background:rgba(255,255,255,.1);transition:background .3s ease}
     .level-pip.active{background:var(--accent)}
     .level-pip.done{background:rgba(77,255,160,.5)}
+    .level-pip.endurance-mode{background:var(--bad); box-shadow: 0 0 8px rgba(255,96,128,0.5);}
 
     .dist{position:absolute;pointer-events:none;user-select:none;opacity:.85;filter:drop-shadow(0 0 14px rgba(255,255,255,.12));animation:floaty linear forwards}
     .dist.text{font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.2)}
@@ -344,6 +451,18 @@
     .dist.spark{width:14px;height:14px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff,rgba(255,255,255,.05) 60%,transparent 62%)}
     .dist.arrow{font-size:22px;color:rgba(255,255,255,.18);font-weight:900}
     .dist.shape-ghost{border-radius:50%;border:2px solid rgba(255,255,255,.1)}
+    
+    .dist.bait {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #ffffff, #ffd36b 40%, #ff8c60 80%);
+      box-shadow: 0 0 20px #ffd36b, inset 0 0 10px #ffffff;
+      cursor: pointer;
+      pointer-events: auto;
+      z-index: 50; 
+      animation: floaty linear forwards, pulseBait 0.6s alternate infinite;
+    }
 
     .toast{
       position:absolute;
@@ -359,13 +478,14 @@
       backdrop-filter:blur(12px);
       font-weight:700;
       font-size:.96rem;
+      z-index: 20;
     }
     .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
     .progress{height:10px;border-radius:999px;overflow:hidden;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.08)}
     .progress > div{height:100%;width:100%;transform-origin:left center;background:linear-gradient(90deg,#7cf3a8,#ffd574,#ff6080);transition:transform .1s linear}
     .foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:.86rem}
-    .hidden{display:none !important}
+    .hidden{display:none !important; opacity:0; pointer-events:none;}
 
     @keyframes drift{from{transform:translate3d(0,0,0)} to{transform:translate3d(-120px,-100px,0)}}
     @keyframes spin{to{transform:rotate(360deg)}}
@@ -373,42 +493,41 @@
     @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-10px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(4px)}}
     @keyframes floaty{0%{transform:translate3d(0,0,0) rotate(0deg);opacity:0}10%{opacity:.85}100%{transform:translate3d(var(--dx),var(--dy),0) rotate(var(--rot));opacity:0}}
     @keyframes flashIn{0%{opacity:0}30%{opacity:.4}100%{opacity:0}}
-
-    @media (max-width:1100px){
-      .grid{grid-template-columns:repeat(4,1fr)}
+    @keyframes pulseBait {
+      0% { transform: scale(1) translate3d(var(--dx), var(--dy), 0); filter: brightness(1); }
+      100% { transform: scale(1.15) translate3d(var(--dx), var(--dy), 0); filter: brightness(1.3); }
     }
 
-    @media (max-width:980px){
-      .game{grid-template-columns:1fr}
-      .left{order:2}
-      .right{order:1}
-      .arena{min-height:500px}
-      .grid{grid-template-columns:repeat(4,1fr)}
+    @keyframes cardWiper { 
+      0% { transform: translateX(-70%) skewX(-15deg); } 
+      100% { transform: translateX(70%) skewX(-15deg); } 
+    }
+    @keyframes cardDrift {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      33% { transform: translate(4px, -3px) rotate(1deg); }
+      66% { transform: translate(-3px, 4px) rotate(-1deg); }
+      100% { transform: translate(2px, 3px) rotate(0deg); }
+    }
+    @keyframes cardBlink {
+      0%, 40%, 60%, 100% { opacity: 1; visibility: visible; }
+      45%, 55% { opacity: 0; visibility: hidden; }
+    }
+    @keyframes cardFlip {
+      0%, 40%, 60%, 100% { transform: perspective(600px) rotateY(0deg); opacity: 1; }
+      45%, 55% { transform: perspective(600px) rotateY(90deg); opacity: 0; }
     }
 
+    @media (max-width:1100px){ .grid{grid-template-columns:repeat(4,1fr)} }
+    @media (max-width:980px){ .game{grid-template-columns:1fr} .left{order:2} .right{order:1} .arena{min-height:500px} .grid{grid-template-columns:repeat(4,1fr)} }
     @media (max-width:760px){
-      body{padding:10px}
-      .shell{min-height:auto}
-      .topbar{grid-template-columns:1fr;}
-      .stats{grid-template-columns:repeat(3,1fr)}
-      .meta6{grid-template-columns:repeat(2,1fr)}
-      .hud{grid-template-columns:1fr}
-      .badges{justify-content:flex-start}
-      .btns{grid-template-columns:1fr}
+      body{padding:10px} .shell{min-height:auto} .topbar{grid-template-columns:1fr;} .stats{grid-template-columns:repeat(3,1fr)}
+      .meta6{grid-template-columns:repeat(2,1fr)} .hud{grid-template-columns:1fr} .badges{justify-content:flex-start}
+      .brand{flex-wrap: wrap;}
     }
-
-    @media (max-width:640px){
-      .game{gap:10px}
-      .grid{grid-template-columns:repeat(3,1fr);gap:8px;padding:8px}
-      .card{min-height:108px}
-      .arena{min-height:360px}
-    }
-
+    @media (max-width:640px){ .game{gap:10px} .grid{grid-template-columns:repeat(3,1fr);gap:8px;padding:8px} .card{min-height:108px} .arena{min-height:360px} }
     @media (max-width:460px){
-      .meta6{grid-template-columns:1fr}
-      .stats{grid-template-columns:repeat(2,1fr)}
-      .brand{padding:12px 14px}
-      .logo{width:48px;height:48px}
+      .meta6{grid-template-columns:1fr} .stats{grid-template-columns:repeat(2,1fr)} .brand{padding:12px 14px}
+      .logo{width:48px;height:48px} .dist-toggles { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
   <link rel="stylesheet" href="bhava-responsive.css">
@@ -418,18 +537,30 @@
   <div class="ui-noise"></div>
   <div class="flash-layer" id="flashLayer"></div>
 
+  <div id="helpModal" class="overlay-msg hidden" style="background: rgba(0,0,0,0.75); z-index: 1000; position: fixed;">
+    <div class="center-card" style="max-width: 450px;">
+      <h3>📖 How to play</h3>
+      <p style="text-align: left; margin-bottom: 16px; color:var(--text);">
+        Keep your eyes calm. Ignore moving flashes, shiny objects, and misleading banners.<br><br>
+        <strong style="color:var(--good)">Only one card exactly matches</strong> all six attributes of the target shown on the left. Others are near-miss distractors designed to trick your brain. Find the exact match before time runs out.
+      </p>
+      <button id="closeHelpBtn" style="width: 100%;">Got it, let's play</button>
+    </div>
+  </div>
+
   <div class="shell">
     <div class="topbar">
       <div class="brand panel">
         <div class="logo"></div>
-        <div>
+        <div style="flex:1;">
           <h1>Focus Under Distraction</h1>
           <p>Ignore noise, motion, and false hints. Tap the one exact match.</p>
         </div>
+        <button id="helpBtn" class="secondary btn-help">❓ How to Play</button>
       </div>
       <div class="stats">
         <div class="pill"><span class="label">Score</span><span class="value" id="scoreEl">0</span></div>
-        <div class="pill"><span class="label">Round</span><span class="value" id="roundEl">0/12</span></div>
+        <div class="pill"><span class="label">Round</span><span class="value" id="roundEl">0/60</span></div>
         <div class="pill"><span class="label">Streak</span><span class="value" id="streakEl">0</span></div>
         <div class="pill"><span class="label">Lives</span><span class="value" id="livesEl">❤❤❤</span></div>
         <div class="pill"><span class="label">Best</span><span class="value" id="bestEl">0</span></div>
@@ -438,8 +569,9 @@
 
     <div class="game">
       <div class="left panel">
-        <div class="section">
-          <h2>🎯 Target to find</h2>
+        
+        <div class="section" style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+          <h2 style="text-align:center;">🎯 Target to find</h2>
           <div class="target-wrap">
             <div class="target-card"><canvas id="targetCanvas" width="300" height="300"></canvas></div>
             <div class="meta6">
@@ -454,24 +586,27 @@
         </div>
 
         <div class="section">
-          <h2>📖 How to play</h2>
-          <p class="sub">Keep eyes calm. Ignore moving flashes and misleading banners. <strong style="color:var(--text)">Only one card exactly matches</strong> all six attributes of the target. Others are near-miss distractors.</p>
-        </div>
-
-        <div class="section">
-          <h2>⚡ Level &amp; Mode</h2>
-          <p class="sub" id="levelDesc">Start a game to begin your training.</p>
-          <div style="margin-top:10px">
-            <div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:.82rem;color:var(--muted)"><span>Calm</span><span>Wave</span><span>Storm</span><span>Chaos</span></div>
-            <div id="levelBar" class="level-bar" style="padding:0;gap:4px"></div>
+          <h2>⚡ Starting Level</h2>
+          <div class="dist-toggles toggles-4" id="levelTogglesContainer">
+            <button class="dist-toggle active" data-lvl="1">Calm</button>
+            <button class="dist-toggle" data-lvl="2">Wave</button>
+            <button class="dist-toggle" data-lvl="3">Storm</button>
+            <button class="dist-toggle" data-lvl="4">Chaos</button>
           </div>
+          <div id="levelBar" class="level-bar" style="padding:0;gap:4px"></div>
         </div>
 
+        <!-- FULL: Card Distraction Controls -->
         <div class="section">
-          <h2>🎮 Controls</h2>
-          <div class="btns">
-            <button id="startBtn">▶ Start Game</button>
-            <button id="practiceBtn" class="secondary">✦ Practice</button>
+          <h2>🌀 Card Distraction Multiplier</h2>
+          <p class="sub" style="font-size:0.8rem">Make the target cards harder to track.</p>
+          <div class="dist-toggles toggles-3" id="distTogglesContainer">
+            <button class="dist-toggle active" data-val="0">Off (1x)</button>
+            <button class="dist-toggle" data-val="wiper">Wiper (2x)</button>
+            <button class="dist-toggle" data-val="drift">Drift (3x)</button>
+            <button class="dist-toggle" data-val="blink">Blink (4x)</button>
+            <button class="dist-toggle" data-val="flip">Flip (5x)</button>
+            <button class="dist-toggle" data-val="chaos">Chaos (6x)</button>
           </div>
         </div>
 
@@ -500,13 +635,21 @@
           <div class="arena" id="arena">
             <div class="toast" id="toast"></div>
             <div class="grid" id="grid"></div>
+            
             <div class="overlay-msg" id="overlay">
               <div class="center-card">
-                <h3>🧠 Train Calm Focus</h3>
-                <p>Each session generates a unique target signature. Near-miss distractors match on most attributes but differ in exactly one — precision attention required.</p>
-                <p class="small" style="margin-top:12px">12 rounds · 4 difficulty tiers · 10–15 cards per round</p>
+                <h3 id="overlayTitle">🧠 Train Calm Focus</h3>
+                <p id="overlayText1">Each session generates a unique target signature. Near-miss distractors match on most attributes but differ in exactly one — precision attention required.</p>
+                <p id="overlayText2" class="small" style="margin-top:12px">60 rounds · 4 difficulty tiers · 6–15 cards per round</p>
+                
+                <div class="btns" style="margin-top: 24px;">
+                  <button id="startBtn">▶ Start Game</button>
+                  <button id="practiceBtn" class="secondary">✦ Practice</button>
+                  <button id="enduranceBtn" class="danger">🔥 Endurance</button>
+                </div>
               </div>
             </div>
+            
           </div>
         </div>
       </div>
@@ -517,6 +660,10 @@
   (() => {
     const grid       = document.getElementById('grid');
     const overlay    = document.getElementById('overlay');
+    const overlayTitle = document.getElementById('overlayTitle');
+    const overlayText1 = document.getElementById('overlayText1');
+    const overlayText2 = document.getElementById('overlayText2');
+    
     const arena      = document.getElementById('arena');
     const toast      = document.getElementById('toast');
     const flashLayer = document.getElementById('flashLayer');
@@ -532,8 +679,11 @@
     const taskText   = document.getElementById('taskText');
     const focusHint  = document.getElementById('focusHint');
     const timeBar    = document.getElementById('timeBar');
-    const startBtn   = document.getElementById('startBtn');
-    const practiceBtn= document.getElementById('practiceBtn');
+    
+    const startBtn     = document.getElementById('startBtn');
+    const practiceBtn  = document.getElementById('practiceBtn');
+    const enduranceBtn = document.getElementById('enduranceBtn');
+    
     const seedEl     = document.getElementById('seedEl');
     const targetCanvas = document.getElementById('targetCanvas');
     const shapeMeta  = document.getElementById('shapeMeta');
@@ -542,11 +692,22 @@
     const ringMeta   = document.getElementById('ringMeta');
     const patternMeta= document.getElementById('patternMeta');
     const rotMeta    = document.getElementById('rotMeta');
-    const levelDesc  = document.getElementById('levelDesc');
     const levelBarEl = document.getElementById('levelBar');
 
-    const SHAPES  = ['circle','triangle','square','diamond','hex','star','pill','arrow','cross','moon'];
-    const MARKS   = ['dot','line','plus','chev','split','triad','diamond','ring','cross','wave'];
+    const helpBtn      = document.getElementById('helpBtn');
+    const helpModal    = document.getElementById('helpModal');
+    const closeHelpBtn = document.getElementById('closeHelpBtn');
+    
+    // Selectors for controls
+    const levelToggles = document.querySelectorAll('#levelTogglesContainer .dist-toggle');
+    const distToggles  = document.querySelectorAll('#distTogglesContainer .dist-toggle');
+    
+    let startingLevel = 1;
+    let currentCardDistraction = '0'; 
+
+    // Enhanced Themes (More Shapes, Colors, Marks)
+    const SHAPES  = ['circle','triangle','square','diamond','hex','star','pill','arrow','cross','moon', 'pentagon', 'octagon'];
+    const MARKS   = ['dot','line','plus','chev','split','triad','diamond','ring','cross','wave', 'hash', 'x'];
     const PATTERN_NAMES = ['H-Lines','V-Lines','Diagonal','Circles','Rays','Checker','Dots','Spiral'];
     const ROT_NAMES = ['0°','45°','90°','135°','180°','225°','270°','315°'];
 
@@ -561,6 +722,10 @@
       {name:'Lime',     fill:'#a0f060', glow:'rgba(160,240,96,.58)'},
       {name:'Peach',    fill:'#ffb870', glow:'rgba(255,184,112,.58)'},
       {name:'Violet',   fill:'#e060ff', glow:'rgba(224,96,255,.58)'},
+      {name:'Crimson',  fill:'#dc143c', glow:'rgba(220,20,60,.6)'},
+      {name:'Cyan',     fill:'#00ffff', glow:'rgba(0,255,255,.6)'},
+      {name:'Indigo',   fill:'#4b0082', glow:'rgba(75,0,130,.6)'},
+      {name:'Emerald',  fill:'#50c878', glow:'rgba(80,200,120,.6)'},
     ];
 
     const BANNERS = [
@@ -569,28 +734,15 @@
       'look left','look right','hurry','miss','wrong','forget','bait'
     ];
 
+    // Expanded to 15 rounds per level, total 60 rounds
     const LEVEL_CONFIG = [
-  null,
-  { modeName:'Calm',  cardCount:6,  timeBase:30.0, questionsPerLevel:7, desc:'Calm start. 6 cards, generous 30s. Find the exact match calmly.' },
-  { modeName:'Wave',  cardCount:8,  timeBase:20.0, questionsPerLevel:7, desc:'More choices, less time. Scan all 6 attributes carefully.' },
-  { modeName:'Storm', cardCount:12, timeBase:10.5, questionsPerLevel:7, desc:'Full challenge. Precision under pressure, as before.' },
-];
-const MAX_LEVEL = LEVEL_CONFIG.length - 1; // = 3
-
-  function computeTotalRounds(mode){
-    if(mode==='practice') return MAX_LEVEL;
-    return LEVEL_CONFIG.slice(1).reduce((s,c)=>s+c.questionsPerLevel,0);
-  }
-
-  function levelForRound(round, mode){
-    if(mode==='practice') return Math.min(MAX_LEVEL, round);
-    let acc=0;
-    for(let lvl=1; lvl<=MAX_LEVEL; lvl++){
-      acc += LEVEL_CONFIG[lvl].questionsPerLevel;
-      if(round<=acc) return lvl;
-    }
-    return MAX_LEVEL;
-  }
+      null,
+      { modeName:'Calm',  cardCount:6,  timeBase:30.0, questionsPerLevel:15, desc:'Calm start. Generous time. Find the exact match.' },
+      { modeName:'Wave',  cardCount:8,  timeBase:20.0, questionsPerLevel:15, desc:'More choices, less time. Scan all attributes.' },
+      { modeName:'Storm', cardCount:12, timeBase:12.5, questionsPerLevel:15, desc:'Full challenge. Precision under pressure.' },
+      { modeName:'Chaos', cardCount:15, timeBase:8.5,  questionsPerLevel:15, desc:'Max overload. Short timers and intense choices.' }
+    ];
+    const MAX_LEVEL = LEVEL_CONFIG.length - 1; 
 
     let state = {};
     let toastTimer = null;
@@ -602,35 +754,57 @@ const MAX_LEVEL = LEVEL_CONFIG.length - 1; // = 3
     const usedTargets = new Set();
     const usedOptions = new Set();
 
-function computeTotalRounds(mode){
-  if(mode==='practice') return MAX_LEVEL; // quick 3-round practice, one per level
-  return LEVEL_CONFIG.slice(1).reduce((s,c)=>s+c.questionsPerLevel,0); // 21 for full game
-}
+    helpBtn.addEventListener('click', () => helpModal.classList.remove('hidden'));
+    closeHelpBtn.addEventListener('click', () => helpModal.classList.add('hidden'));
+    
+    // Starting Level Selection
+    levelToggles.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        levelToggles.forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+        startingLevel = parseInt(e.target.getAttribute('data-lvl'));
+      });
+    });
 
-function levelForRound(round, mode){
-  if(mode==='practice') return Math.min(MAX_LEVEL, round);
-  let acc=0;
-  for(let lvl=1; lvl<=MAX_LEVEL; lvl++){
-    acc += LEVEL_CONFIG[lvl].questionsPerLevel;
-    if(round<=acc) return lvl;
-  }
-  return MAX_LEVEL;
-}
+    distToggles.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        if(state.mode === 'endurance') return; // Locked during endurance
+        distToggles.forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+        currentCardDistraction = e.target.getAttribute('data-val');
+        applyCardDistractionClasses();
+      });
+    });
+    
+    function applyCardDistractionClasses() {
+      const targetCard = document.querySelector('.target-card');
+      const classesToRemove = ['dist-wiper', 'dist-drift', 'dist-blink', 'dist-flip', 'dist-chaos'];
+      
+      grid.classList.remove(...classesToRemove);
+      if(targetCard) targetCard.classList.remove(...classesToRemove);
+      
+      if (currentCardDistraction !== '0') {
+        grid.classList.add('dist-' + currentCardDistraction);
+        if(targetCard) targetCard.classList.add('dist-' + currentCardDistraction);
+      }
+    }
 
-function computeTotalRounds(mode){
-  if(mode==='practice') return MAX_LEVEL; // quick 3-round practice, one per level
-  return LEVEL_CONFIG.slice(1).reduce((s,c)=>s+c.questionsPerLevel,0); // 21 for full game
-}
+    function computeTotalRounds(mode){
+      if(mode==='practice') return MAX_LEVEL; 
+      if(mode==='endurance') return 999; 
+      return LEVEL_CONFIG.slice(1).reduce((s,c)=>s+c.questionsPerLevel,0); 
+    }
 
-function levelForRound(round, mode){
-  if(mode==='practice') return Math.min(MAX_LEVEL, round);
-  let acc=0;
-  for(let lvl=1; lvl<=MAX_LEVEL; lvl++){
-    acc += LEVEL_CONFIG[lvl].questionsPerLevel;
-    if(round<=acc) return lvl;
-  }
-  return MAX_LEVEL;
-}
+    function levelForRound(round, mode){
+      if(mode==='practice') return Math.min(MAX_LEVEL, round);
+      if(mode==='endurance') return MAX_LEVEL; // Always max difficulty
+      let acc=0;
+      for(let lvl=1; lvl<=MAX_LEVEL; lvl++){
+        acc += LEVEL_CONFIG[lvl].questionsPerLevel;
+        if(round<=acc) return lvl;
+      }
+      return MAX_LEVEL;
+    }
 
     function makeRng(seed){
       return function(){
@@ -677,7 +851,7 @@ function levelForRound(round, mode){
     function makeNearMisses(rng, target, count, level){
       const items=[];
       const fields=['shape','mark','color','rings','rot','pattern'];
-      const maxTweaks = level <= 3 ? 2 : level <= 6 ? 3 : 4;
+      const maxTweaks = level <= 2 ? 2 : level <= 3 ? 3 : 4;
       let loops=0;
       while(items.length<count && loops++<2000){
         const c={...target};
@@ -699,26 +873,42 @@ function levelForRound(round, mode){
       return items;
     }
 
-   function start(mode='game'){
-  cancelTimers();
-  usedTargets.clear();
-  usedOptions.clear();
-  const totalRounds = computeTotalRounds(mode);   // changed: was mode==='practice'?4:12
-  state = {
-    mode, round:0, totalRounds,
-    score:0, streak:0,
-    lives: mode==='practice' ? 99 : 3,
-    seed:newSeed(),
-  };
-  state.rng = makeRng(state.seed);
-  overlay.classList.add('hidden');
-  buildLevelBar(totalRounds);
-  updateHUD();
-  nextRound();
-}
-    function buildLevelBar(total){
+    function start(mode='game'){
+      cancelTimers();
+      usedTargets.clear();
+      usedOptions.clear();
+      const totalRounds = computeTotalRounds(mode);
+      
+      let startingLives = 3;
+      let startRound = 0;
+      
+      if (mode === 'practice') {
+          startingLives = 99;
+      } else if (mode === 'endurance') {
+          startingLives = 1;
+      } else {
+          // If a standard game, calculate starting round based on selected level
+          for (let i = 1; i < startingLevel; i++) {
+              startRound += LEVEL_CONFIG[i].questionsPerLevel;
+          }
+      }
+
+      state = {
+        mode, round: startRound, totalRounds,
+        score:0, streak:0,
+        lives: startingLives,
+        seed:newSeed(),
+      };
+      
+      state.rng = makeRng(state.seed);
+      overlay.classList.add('hidden');
+      updateHUD();
+      nextRound();
+    }
+
+    function buildLevelBar(count){
       levelBarEl.innerHTML='';
-      for(let i=1;i<=total;i++){
+      for(let i=1;i<=count;i++){
         const pip=document.createElement('div');
         pip.className='level-pip';
         pip.id='pip'+i;
@@ -727,61 +917,103 @@ function levelForRound(round, mode){
     }
 
     function updateLevelBar(){
-      for(let i=1;i<=state.totalRounds;i++){
-        const pip=document.getElementById('pip'+i);
+      if (state.mode === 'endurance') {
+         // Cap visual pips at 15 for endless loop
+         if (levelBarEl.children.length !== 15) buildLevelBar(15);
+         const pips = document.querySelectorAll('.level-pip');
+         pips.forEach(p => p.className = 'level-pip endurance-mode');
+         return;
+      }
+      
+      const cfg = LEVEL_CONFIG[state.level];
+      if (levelBarEl.children.length !== cfg.questionsPerLevel) {
+          buildLevelBar(cfg.questionsPerLevel);
+      }
+      
+      let levelStartRound = 0;
+      for (let i = 1; i < state.level; i++) {
+          levelStartRound += LEVEL_CONFIG[i].questionsPerLevel;
+      }
+      const currentLevelRound = state.round - levelStartRound;
+      
+      for(let i=1; i<=cfg.questionsPerLevel; i++){
+        const pip = document.getElementById('pip'+i);
         if(!pip) continue;
-        if(i<state.round) pip.className='level-pip done';
-        else if(i===state.round) pip.className='level-pip active';
+        if(i < currentLevelRound) pip.className='level-pip done';
+        else if(i === currentLevelRound) pip.className='level-pip active';
         else pip.className='level-pip';
       }
     }
 
     function nextRound(){
-  cancelTimers();
-  if(state.round>=state.totalRounds||state.lives<=0){ return endGame(); }
-  state.round++;
-  state.level = levelForRound(state.round, state.mode);   // changed: was clamp(state.round,1,12)
-  const cfg = LEVEL_CONFIG[state.level];
-  state.modeName = cfg.modeName;
-  state.cfg = cfg;
+      cancelTimers();
+      if(state.round>=state.totalRounds||state.lives<=0){ return endGame(); }
+      state.round++;
+      state.level = levelForRound(state.round, state.mode); 
+      const cfg = LEVEL_CONFIG[state.level];
+      state.modeName = state.mode === 'endurance' ? 'Endurance' : cfg.modeName;
+      state.cfg = cfg;
 
-  const target = makeTarget(state.rng, state.level);
-  const cardCount = window.innerWidth < 640 ? Math.min(9, cfg.cardCount) : cfg.cardCount;
-  const options = makeNearMisses(state.rng, target, cardCount-1, state.level);
-  const correctIndex = randInt(state.rng, 0, options.length);
-  options.splice(correctIndex, 0, target);
+      const target = makeTarget(state.rng, state.level);
+      const cardCount = window.innerWidth < 640 ? Math.min(9, cfg.cardCount) : cfg.cardCount;
+      const options = makeNearMisses(state.rng, target, cardCount-1, state.level);
+      const correctIndex = randInt(state.rng, 0, options.length);
+      options.splice(correctIndex, 0, target);
 
-  state.target = target;
-  state.options = options;
-  state.correctIndex = correctIndex;
-  state.locked = false;
+      state.target = target;
+      state.options = options;
+      state.correctIndex = correctIndex;
+      state.locked = false;
 
-  totalTime = cfg.timeBase + (state.mode==='practice' ? 3 : 0);
-  timeLeft = totalTime;
+      totalTime = cfg.timeBase + (state.mode==='practice' ? 3 : 0);
+      timeLeft = totalTime;
 
-  renderTarget(target);
-  renderGrid(options);
-  updateLevelBar();
+      renderTarget(target);
+      renderGrid(options);
+      
+      // Force Chaos in Endurance Mode, otherwise use user selection
+      if (state.mode === 'endurance') {
+        currentCardDistraction = 'chaos';
+        distToggles.forEach(b => {
+           b.classList.remove('active');
+           b.classList.add('locked');
+           if(b.getAttribute('data-val') === 'chaos') b.classList.add('active');
+        });
+      } else {
+        distToggles.forEach(b => b.classList.remove('locked'));
+      }
+      
+      applyCardDistractionClasses();
+      updateLevelBar();
+      
+      // Auto-sync UI level toggle for visual feedback
+      if(state.mode !== 'endurance') {
+          levelToggles.forEach(b => b.classList.remove('active'));
+          const currentTog = document.querySelector(`.dist-toggle[data-lvl="${state.level}"]`);
+          if(currentTog) currentTog.classList.add('active');
+      }
 
-  taskTitle.textContent  = `Round ${state.round} · ${cfg.modeName} · Find exact match`;
-  taskText.textContent   = cfg.desc;
-  levelDesc.textContent  = cfg.desc;
-  focusHint.textContent  = `${cardCount} cards · Level ${state.level} of ${MAX_LEVEL}`;   // changed: "of 12" -> "of MAX_LEVEL"
-  modeEl.textContent     = `Mode: ${cfg.modeName}`;
-  levelEl.textContent    = `Level: ${state.level}/${MAX_LEVEL}`;                          // changed: "/12" -> "/MAX_LEVEL"
-  cardsEl.textContent    = `Cards: ${options.length}`;
-  updateHUD();
-  runTimer();
-  runDistractions();
-  softFlash();
-}
+      taskTitle.textContent  = state.mode === 'endurance' ? `Round ${state.round} · Sudden Death` : `Round ${state.round} · ${cfg.modeName} · Find exact match`;
+      taskText.textContent   = state.mode === 'endurance' ? 'One mistake ends the run. No time limit. Max distractions.' : cfg.desc;
+      focusHint.textContent  = state.mode === 'endurance' ? `${cardCount} cards · Infinite Rounds` : `${cardCount} cards · Level ${state.level} of ${MAX_LEVEL}`; 
+      modeEl.textContent     = `Mode: ${state.modeName}`;
+      levelEl.textContent    = `Level: ${state.level}/${MAX_LEVEL}`; 
+      cardsEl.textContent    = `Cards: ${options.length}`;
+      
+      updateHUD();
+      runTimer();
+      runDistractions();
+      softFlash();
+    }
 
     function updateHUD(){
       scoreEl.textContent  = state.score ?? 0;
-      roundEl.textContent  = `${state.round??0}/${state.totalRounds??12}`;
+      roundEl.textContent  = state.mode === 'endurance' ? `${state.round??0}/∞` : `${state.round??0}/${state.totalRounds??60}`;
       streakEl.textContent = state.streak ?? 0;
       if(state.mode==='practice'){
         livesEl.textContent = '∞';
+      } else if (state.mode === 'endurance') {
+        livesEl.textContent = '💀';
       } else {
         livesEl.textContent = '❤'.repeat(Math.max(0, state.lives??3)) || '💀';
       }
@@ -834,11 +1066,21 @@ function levelForRound(round, mode){
       cards.forEach(c=>c.classList.add('lock'));
       const correct = index===state.correctIndex;
       if(correct){
-        const bonus = Math.round(140 + timeLeft*18 + Math.min(5,state.streak)*32 + state.level*12);
-        state.score += bonus;
+        const difficultyBonus = currentCardDistraction === 'chaos' ? 1.6 
+                              : currentCardDistraction === 'flip' ? 1.5 
+                              : currentCardDistraction === 'blink' ? 1.4 
+                              : currentCardDistraction === 'drift' ? 1.2 
+                              : currentCardDistraction === 'wiper' ? 1.1 
+                              : 1.0;
+                              
+        const timeFactor = state.mode === 'endurance' ? 10.5 : timeLeft; 
+        const baseBonus = 140 + timeFactor*18 + Math.min(5,state.streak)*32 + state.level*12;
+        const finalBonus = Math.round(baseBonus * difficultyBonus);
+        
+        state.score += finalBonus;
         state.streak++;
         card.classList.add('correct');
-        showToast('✦ Perfect Focus  +'+bonus, true);
+        showToast('✦ Perfect Focus  +'+finalBonus, true);
         playTone('good');
         cards.forEach((c,idx)=>{ if(idx!==index) c.classList.add('fade'); });
         if((state.score)>bestScore){ bestScore=state.score; bestEl.textContent=bestScore; }
@@ -859,18 +1101,17 @@ function levelForRound(round, mode){
       cancelTimers();
       grid.innerHTML='';
       const s=state.score;
-      const grade = s>=2200?'S+': s>=1800?'S': s>=1400?'A': s>=1000?'B': s>=600?'C':'D';
+      const grade = s>=3000?'S+': s>=2200?'S': s>=1600?'A': s>=1000?'B': s>=500?'C':'D';
       if(s>bestScore){ bestScore=s; bestEl.textContent=bestScore; }
+      
+      overlayTitle.textContent = `Session Complete · Grade ${grade}`;
+      overlayText1.innerHTML = `<span style="font-size:1.2rem;color:var(--good)">Score: ${s}</span><br>Best streak: ${state.streak}. You trained precise focus across ${state.round - 1} rounds.`;
+      overlayText2.innerHTML = `Press <strong style="color:var(--text)">Start Game</strong> for a new seeded session or try <strong style="color:var(--bad)">Endurance</strong> if you dare.`;
+      
       overlay.classList.remove('hidden');
-      overlay.innerHTML=`
-        <div class="center-card">
-          <h3>Session Complete · Grade ${grade}</h3>
-          <p style="font-size:1.2rem;margin-bottom:12px;color:var(--good)">Score: ${s}</p>
-          <p>Best streak: ${state.streak}. You trained calm, precise focus across ${state.totalRounds} rounds of increasing visual distraction.</p>
-          <p class="small" style="margin-top:14px;color:var(--muted)">Press <strong style="color:var(--text)">Start Game</strong> for a new seeded session or <strong style="color:var(--text)">Practice</strong> for a lighter run.</p>
-        </div>`;
+
       taskTitle.textContent='Session complete · '+grade;
-      taskText.textContent='Your focus held under '+(state.level<=3?'calm':state.level<=6?'wave':'storm/chaos')+' conditions.';
+      taskText.textContent='Your focus held under '+(state.level<=2?'calm':state.level<=3?'storm':'chaos')+' conditions.';
       focusHint.textContent='All sessions seeded — no repeats.';
     }
 
@@ -878,6 +1119,14 @@ function levelForRound(round, mode){
       const startAt=performance.now();
       const tick=(now)=>{
         const elapsed=(now-startAt)/1000;
+        
+        if (state.mode === 'endurance') {
+          timeBar.style.transform = `scaleX(1)`;
+          timeBar.style.background = `linear-gradient(90deg, #ff6080, #ffd574, #ff6080)`;
+          raf=requestAnimationFrame(tick);
+          return;
+        }
+
         timeLeft=Math.max(0,totalTime-elapsed);
         timeBar.style.transform=`scaleX(${timeLeft/totalTime})`;
         if(timeLeft<=0){
@@ -918,9 +1167,41 @@ function levelForRound(round, mode){
       let dx= (side<.5 ? rect.width+100 : -(rect.width+100))+'px';
       let dy= ((Math.random()-.5)*rect.height*.65)+'px';
       let dur= clamp(6.2-intensity*.44+Math.random()*1.8, 1.4, 6.5);
+      
       el.className='dist';
 
-      if(typeRoll<.35){
+      if(intensity >= 2 && typeRoll < 0.10) { 
+        el.classList.add('bait');
+        
+        el.addEventListener('click', (e) => {
+          if(state.locked) return;
+          e.stopPropagation(); 
+          
+          if (state.mode === 'endurance') {
+             state.lives = 0; 
+          } else {
+             timeLeft = Math.max(0, timeLeft - 3); 
+          }
+          
+          state.streak = 0; 
+          showToast(state.mode === 'endurance' ? '💀 Focus broken!' : '⚠️ Focus lost! -3 Seconds', false);
+          playTone('bad');
+          
+          const f = document.createElement('div');
+          f.style.cssText = `position:absolute;inset:0;background:rgba(255,96,128,0.2);animation:flashIn 0.4s ease;pointer-events:none;z-index:99;`;
+          flashLayer.appendChild(f);
+          setTimeout(() => f.remove(), 400);
+          
+          el.remove(); 
+          updateHUD();
+          
+          if (state.mode === 'endurance') {
+             state.locked = true;
+             setTimeout(nextRound, 1100);
+          }
+        });
+      } 
+      else if(typeRoll<.35){
         el.classList.add('text');
         el.textContent = BANNERS[(Math.random()*BANNERS.length)|0];
         el.style.fontSize=(tiny?11: big?22: (13+Math.random()*13))+'px';
@@ -997,10 +1278,10 @@ function levelForRound(round, mode){
     }
 
     function labelShape(s){
-      return ({circle:'Circle',triangle:'Triangle',square:'Square',diamond:'Diamond',hex:'Hexagon',star:'Star',pill:'Pill',arrow:'Arrow',cross:'Cross',moon:'Moon'})[s]||s;
+      return ({circle:'Circle',triangle:'Triangle',square:'Square',diamond:'Diamond',hex:'Hexagon',star:'Star',pill:'Pill',arrow:'Arrow',cross:'Cross',moon:'Moon', pentagon:'Pentagon', octagon:'Octagon'})[s]||s;
     }
     function labelMark(s){
-      return ({dot:'Dot',line:'Line',plus:'Plus',chev:'Chevron',split:'Split',triad:'Triad',diamond:'Diamond',ring:'Ring',cross:'Cross',wave:'Wave'})[s]||s;
+      return ({dot:'Dot',line:'Line',plus:'Plus',chev:'Chevron',split:'Split',triad:'Triad',diamond:'Diamond',ring:'Ring',cross:'Cross',wave:'Wave', hash:'Hash', x:'X-Mark'})[s]||s;
     }
 
     function drawSpec(canvas, spec, size, isBig){
@@ -1041,6 +1322,8 @@ function levelForRound(round, mode){
       else if(shape==='square') polygon(ctx,4,r,Math.PI/4);
       else if(shape==='diamond') polygon(ctx,4,r,0);
       else if(shape==='hex') polygon(ctx,6,r,Math.PI/6);
+      else if(shape==='pentagon') polygon(ctx,5,r,-Math.PI/2);
+      else if(shape==='octagon') polygon(ctx,8,r,Math.PI/8);
       else if(shape==='star') star(ctx,5,r*1.06,r*.46,-Math.PI/2);
       else if(shape==='pill') roundedRect(ctx,-r*.96,-r*.62,r*1.92,r*1.24,r*.55);
       else if(shape==='arrow'){
@@ -1134,6 +1417,13 @@ function levelForRound(round, mode){
         ctx.bezierCurveTo(-r*.28,-r*.28, r*.02,r*.28, r*.26,0);
         ctx.bezierCurveTo(r*.5,-r*.28, r*.5,-r*.28, r*.52,0);
         ctx.stroke();
+      } else if(mark==='hash'){
+        const d=r*.25;
+        line(ctx,-r*.4,-d,r*.4,-d); line(ctx,-r*.4,d,r*.4,d);
+        line(ctx,-d,-r*.4,-d,r*.4); line(ctx,d,-r*.4,d,r*.4);
+      } else if(mark==='x'){
+        const d=r*.35;
+        line(ctx,-d,-d,d,d); line(ctx,d,-d,-d,d);
       }
       ctx.restore();
     }
@@ -1167,15 +1457,15 @@ function levelForRound(round, mode){
 
     startBtn.addEventListener('click', ()=>start('game'));
     practiceBtn.addEventListener('click', ()=>start('practice'));
+    enduranceBtn.addEventListener('click', ()=>start('endurance'));
     window.addEventListener('resize', ()=>{ if(state.target&&state.options){ renderGrid(state.options); } });
   })();
   </script>
 
   <script>document.title = "Focus Under Distraction V2";</script>
   <script src="bhava-bridge.js"></script>
-<script src="bhava-session.js"></script>
-<script src="bhava-game-nav.js"></script>
+  <script src="bhava-session.js"></script>
+  <script src="bhava-game-nav.js"></script>
   <script src="bhava-responsive.js"></script>
 </body>
 </html>
-

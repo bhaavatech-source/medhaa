@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -66,6 +66,13 @@ body {
 .mode-card .mode-desc { font-size: 0.75rem; color: var(--text-dim); line-height: 1.4; }
 .mode-card .mode-tag { display: inline-block; margin-top: 6px; padding: 3px 9px; border-radius: 20px; font-size: 0.65rem; font-weight: 600; background: var(--mode-color, var(--primary)); color: #000; }
 .mode-card .diff-badge { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.4); border-radius: 10px; padding: 2px 7px; font-size: 0.62rem; font-weight: 700; color: var(--accent); border: 1px solid var(--card-border); }
+
+/* CUSTOM MODIFIERS */
+.custom-controls { margin: 15px 0; padding: 15px; background: var(--card-bg); border-radius: var(--radius); border: 1px solid var(--card-border); max-width: 900px; width: 100%; backdrop-filter: blur(10px); }
+.custom-controls h3 { font-size: 1rem; color: var(--accent); margin-bottom: 12px; text-align: center; }
+.slider-group { display: flex; gap: 30px; flex-wrap: wrap; justify-content: center; align-items: center; }
+.slider-label { display: flex; flex-direction: column; align-items: center; font-size: 0.85rem; color: var(--text-dim); }
+.slider-label strong { color: var(--text); margin-bottom: 6px; }
 
 .btn { padding: 13px 32px; border: none; border-radius: 30px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: var(--transition); font-family: inherit; letter-spacing: 1px; }
 .btn-primary { background: linear-gradient(135deg, var(--primary), var(--purple)); color: #fff; box-shadow: 0 6px 20px rgba(0,212,255,0.4); }
@@ -207,26 +214,6 @@ body {
 .physical-overlay .po-timer-fill { height: 100%; background: linear-gradient(90deg, var(--green), var(--calm)); border-radius: 10px; transition: width 0.1s linear; width: 100%; }
 .physical-overlay .po-skip-btn { margin-top: 20px; }
 
-/* ====== TRANSFER TASK SCREEN ====== */
-#transferScreen { justify-content: center; }
-.transfer-container { max-width: 650px; width: 90%; }
-.transfer-header { text-align: center; margin-bottom: 20px; }
-.transfer-header h2 { font-size: 1.5rem; font-weight: 700; background: linear-gradient(135deg, var(--accent), var(--orange)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-.transfer-header p { font-size: 0.88rem; color: var(--text-dim); margin-top: 6px; }
-.transfer-card { background: var(--card-bg); border: 2px solid var(--card-border); border-radius: var(--radius); padding: 24px; backdrop-filter: blur(10px); box-shadow: var(--shadow); margin-bottom: 16px; }
-.transfer-task-type { display: inline-block; background: rgba(0,212,255,0.15); border: 1px solid var(--primary); border-radius: 10px; padding: 3px 12px; font-size: 0.75rem; font-weight: 600; color: var(--primary); margin-bottom: 12px; }
-.transfer-passage { font-size: 0.95rem; line-height: 1.8; color: var(--text); margin-bottom: 16px; padding: 16px; background: rgba(0,0,0,0.2); border-radius: 12px; border-left: 3px solid var(--accent); }
-.transfer-question { font-size: 1rem; font-weight: 600; margin-bottom: 14px; color: var(--accent); }
-.transfer-options { display: flex; flex-direction: column; gap: 10px; }
-.transfer-option { padding: 12px 18px; border: 2px solid var(--card-border); border-radius: 12px; background: var(--card-bg); color: var(--text); cursor: pointer; font-size: 0.92rem; transition: var(--transition); font-family: inherit; text-align: left; }
-.transfer-option:hover { border-color: var(--primary); transform: translateX(4px); background: rgba(0,212,255,0.08); }
-.transfer-option.correct { border-color: var(--success); background: rgba(107,207,127,0.15); color: var(--success); }
-.transfer-option.wrong { border-color: var(--danger); background: rgba(255,71,87,0.15); }
-.transfer-result { text-align: center; padding: 20px; }
-.transfer-result .tr-icon { font-size: 3rem; margin-bottom: 8px; }
-.transfer-result .tr-msg { font-size: 1.1rem; font-weight: 600; }
-.transfer-actions { display: flex; gap: 12px; justify-content: center; margin-top: 20px; flex-wrap: wrap; }
-
 /* RESULTS */
 #resultsScreen { justify-content: center; }
 .results-card { background: var(--card-bg); border: 2px solid var(--card-border); border-radius: 20px; padding: 32px; max-width: 500px; width: 90%; text-align: center; backdrop-filter: blur(10px); box-shadow: var(--shadow); }
@@ -243,8 +230,6 @@ body {
 .journey-update .ju-title { color: var(--primary); font-weight: 700; margin-bottom: 4px; }
 .journey-bar { height: 7px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; margin-top: 6px; }
 .journey-bar-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--purple)); border-radius: 10px; transition: width 0.8s ease; }
-.transfer-scores-summary { background: rgba(255,217,61,0.08); border: 1px solid var(--accent); border-radius: 12px; padding: 10px; margin: 10px 0; font-size: 0.85rem; }
-.transfer-scores-summary .tss-title { color: var(--accent); font-weight: 700; margin-bottom: 4px; }
 .results-actions { display: flex; gap: 10px; justify-content: center; margin-top: 18px; flex-wrap: wrap; }
 
 /* PROGRESS DASHBOARD */
@@ -327,10 +312,27 @@ body {
     <div class="age-card" data-age="teen" onclick="selectAge('teen')"><div class="age-icon">🧑</div><div class="age-title">Teens</div><div class="age-range">Ages 13–17</div></div>
   </div>
   <div class="mode-grid" id="modeGrid"></div>
+  
+  <div class="custom-controls">
+    <h3>⚙️ Custom Game Modifiers</h3>
+    <div class="slider-group">
+      <label class="slider-label">
+        <strong>Game Speed</strong>
+        <input type="range" id="speedSlider" min="0.5" max="2.5" step="0.25" value="1.0" onchange="updateModifiers()" style="accent-color: var(--primary);">
+        <span id="speedVal" style="margin-top: 6px; font-weight: 600; color: var(--primary);">1x (Normal)</span>
+      </label>
+      
+      <label class="slider-label">
+        <strong>Time & Rounds</strong>
+        <input type="range" id="timeSlider" min="0.5" max="3" step="0.5" value="1.0" onchange="updateModifiers()" style="accent-color: var(--accent);">
+        <span id="timeVal" style="margin-top: 6px; font-weight: 600; color: var(--accent);">1x (Normal)</span>
+      </label>
+    </div>
+  </div>
+
   <div class="settings-row">
     <div class="toggle-chip active" id="toggleBreathing" onclick="toggleSetting('breathing', this)"><div class="tc-dot"></div>🫁 Breathing Warm-up</div>
     <div class="toggle-chip active" id="togglePhysical" onclick="toggleSetting('physical', this)"><div class="tc-dot"></div>🤸 Physical Breaks</div>
-    <div class="toggle-chip active" id="toggleTransfer" onclick="toggleSetting('transfer', this)"><div class="tc-dot"></div>📖 Classroom Transfer</div>
   </div>
   <div class="home-actions">
     <button class="btn btn-secondary" onclick="showProgress()">📊 My Progress</button>
@@ -379,20 +381,6 @@ body {
   </div>
 </div>
 
-<!-- TRANSFER TASK -->
-<div class="screen" id="transferScreen">
-  <div class="transfer-container">
-    <div class="transfer-header">
-      <h2>📖 Classroom Focus Challenge</h2>
-      <p id="transferIntro">Let's apply your attention to a real-world task!</p>
-    </div>
-    <div class="transfer-card" id="transferCard"></div>
-    <div class="transfer-actions">
-      <button class="btn btn-secondary" onclick="skipTransfer()">Skip</button>
-    </div>
-  </div>
-</div>
-
 <!-- RESULTS -->
 <div class="screen" id="resultsScreen">
   <div class="results-card">
@@ -401,7 +389,6 @@ body {
     <div class="results-score" id="finalScore">0</div>
     <div class="results-breakdown" id="resultsBreakdown"></div>
     <div class="journey-update" id="journeyUpdate"></div>
-    <div class="transfer-scores-summary" id="transferSummary" style="display:none;"></div>
     <div class="results-message" id="resultsMessage"></div>
     <div class="results-actions">
       <button class="btn btn-primary" onclick="replayGame()">🔄 Play Again</button>
@@ -438,7 +425,7 @@ body {
 // Dhāraṇā Arena v3 — Holistic Attention Edition
 // Medhā | Single-file vanilla HTML/CSS/JS
 // Features: 5 game modes + Breathing warm-up + Physical breaks
-//   + Classroom transfer tasks + Adaptive difficulty + Progress tracking
+//   + Adaptive difficulty + Progress tracking + Custom Modifiers
 // ============================================================
 
 const State = {
@@ -446,11 +433,30 @@ const State = {
   streak: 0, maxStreak: 0, correctCount: 0, wrongCount: 0,
   reactionTimes: [], timer: null, roundStartTime: 0, isPlaying: false,
   _keyHandler: null, _currentConfig: null,
-  settings: { breathing: true, physical: true, transfer: true },
+  settings: { breathing: true, physical: true },
   breathingCompleted: false,
   physicalBreakRound: 0,
-  transferScore: 0, transferTotal: 0,
+  customSpeed: 1.0, customTime: 1.0
 };
+
+// CUSTOM MODIFIER LISTENERS
+function updateModifiers() {
+  State.customSpeed = parseFloat(document.getElementById('speedSlider').value);
+  State.customTime = parseFloat(document.getElementById('timeSlider').value);
+  
+  let sText = State.customSpeed + 'x';
+  if (State.customSpeed < 1) sText += ' (Slow)';
+  else if (State.customSpeed > 1) sText += ' (Fast)';
+  else sText += ' (Normal)';
+
+  let tText = State.customTime + 'x';
+  if (State.customTime < 1) tText += ' (Short)';
+  else if (State.customTime > 1) tText += ' (Extended)';
+  else tText += ' (Normal)';
+
+  document.getElementById('speedVal').textContent = sText;
+  document.getElementById('timeVal').textContent = tText;
+}
 
 // PROGRESS SYSTEM
 const STORAGE_KEY = 'dharana_arena_v3_progress';
@@ -458,16 +464,16 @@ const TOTAL_JOURNEY_SESSIONS = 24;
 
 function loadProgress() {
   try { const d = JSON.parse(localStorage.getItem(STORAGE_KEY)); if (d) return d; } catch(e) {}
-  return { sessions: [], dayStreak: 0, lastPlayDate: null, totalSessions: 0, totalPlayTime: 0, bestScores: {}, difficulty: { track: 1, signal: 1, memory: 1, scan: 1, dual: 1 }, journeyCompleted: 0, transferHistory: [], breathingCount: 0, physicalCount: 0 };
+  return { sessions: [], dayStreak: 0, lastPlayDate: null, totalSessions: 0, totalPlayTime: 0, bestScores: {}, difficulty: { track: 1, signal: 1, memory: 1, scan: 1, dual: 1 }, journeyCompleted: 0, breathingCount: 0, physicalCount: 0 };
 }
 function saveProgress(d) { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(d)); } catch(e) {} }
 function getTodayStr() { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); }
 function getDaysBetween(d1, d2) { const a = new Date(d1+'T00:00:00'); const b = new Date(d2+'T00:00:00'); return Math.round((b - a) / 86400000); }
 function updateDayStreak(p) { const today = getTodayStr(); if (p.lastPlayDate === today) return; if (p.lastPlayDate) { const gap = getDaysBetween(p.lastPlayDate, today); if (gap === 1) p.dayStreak++; else if (gap > 1) p.dayStreak = 1; } else p.dayStreak = 1; p.lastPlayDate = today; }
 
-function recordSession(mode, age, score, accuracy, avgRT, maxStreak, transferScore, transferTotal) {
+function recordSession(mode, age, score, accuracy, avgRT, maxStreak) {
   const p = loadProgress(); updateDayStreak(p);
-  const session = { date: getTodayStr(), timestamp: Date.now(), mode, age, score, accuracy, avgRT, maxStreak, difficulty: p.difficulty[mode], transferScore, transferTotal };
+  const session = { date: getTodayStr(), timestamp: Date.now(), mode, age, score, accuracy, avgRT, maxStreak, difficulty: p.difficulty[mode] };
   p.sessions.push(session); p.totalSessions++;
   if (!p.bestScores[mode] || score > p.bestScores[mode]) p.bestScores[mode] = score;
   if (p.journeyCompleted < TOTAL_JOURNEY_SESSIONS) p.journeyCompleted++;
@@ -478,7 +484,6 @@ function recordSession(mode, age, score, accuracy, avgRT, maxStreak, transferSco
   if (accuracy >= 85 && p.difficulty[mode] < 5) { p.difficulty[mode]++; diffChanged = true; diffDirection = 'up'; }
   else if (accuracy < 50 && p.difficulty[mode] > 1) { p.difficulty[mode]--; diffChanged = true; diffDirection = 'down'; }
 
-  if (transferTotal > 0) p.transferHistory.push({ date: getTodayStr(), score: transferScore, total: transferTotal });
   saveProgress(p);
   return { diffChanged, diffDirection, oldDiff, newDiff: p.difficulty[mode], journeyCompleted: p.journeyCompleted };
 }
@@ -497,6 +502,14 @@ function getAdaptiveConfig(mode, age, dl) {
     case 'scan': b.gridSize = Math.min(b.gridSize + Math.floor((dl-1)/2), 10); b.targets = b.targets + (dl-1); b.roundTime = Math.max(6, b.roundTime - (dl-1)*1.2); break;
     case 'dual': b.rounds = b.rounds + (dl-1)*2; b.showTime = Math.max(1200, b.showTime - (dl-1)*150); b.gapTime = Math.max(150, b.gapTime - (dl-1)*40); break;
   }
+  
+  // Apply Custom Modifiers
+  if (b.shuffleSpeed) b.shuffleSpeed = b.shuffleSpeed / State.customSpeed;
+  if (b.showTime) b.showTime = b.showTime / State.customSpeed;
+  if (b.gapTime) b.gapTime = b.gapTime / State.customSpeed;
+  if (b.roundTime) b.roundTime = b.roundTime * State.customTime;
+  if (b.rounds) b.rounds = Math.max(1, Math.floor(b.rounds * State.customTime));
+  
   return b;
 }
 function getCurrentDifficulty(mode) { return loadProgress().difficulty[mode] || 1; }
@@ -556,10 +569,9 @@ function saveSettings() { try { localStorage.setItem('dharana_settings_v3', JSON
 function syncSettingsUI() {
   document.getElementById('toggleBreathing').classList.toggle('active', State.settings.breathing);
   document.getElementById('togglePhysical').classList.toggle('active', State.settings.physical);
-  document.getElementById('toggleTransfer').classList.toggle('active', State.settings.transfer);
 }
 
-// GAME FLOW: Start -> Breathing -> Countdown -> Game (with physical breaks) -> Transfer -> Results
+// GAME FLOW: Start -> Breathing -> Countdown -> Game (with physical breaks) -> Results
 function startGame(mode) {
   initAudio();
   if (!State.age) { State.age = 'junior'; document.querySelector('[data-age="junior"]').classList.add('selected'); }
@@ -567,7 +579,6 @@ function startGame(mode) {
   State.mode = mode; State.score = 0; State.round = 1; State.streak = 0; State.maxStreak = 0;
   State.correctCount = 0; State.wrongCount = 0; State.reactionTimes = [];
   State.breathingCompleted = false; State.physicalBreakRound = 0;
-  State.transferScore = 0; State.transferTotal = 0;
 
   const dl = getCurrentDifficulty(mode);
   const cfg = getAdaptiveConfig(mode, State.age, dl);
@@ -771,102 +782,11 @@ function burstConfetti(n) { const cols=['#00d4ff','#ff6b6b','#ffd93d','#6bcf7f',
 function showDiffUpBanner(mode, nl) { const b=document.createElement('div'); b.className='diff-up-banner'; b.innerHTML=`⚡ Difficulty Up! ${ModeInfo[mode].emoji} ${ModeInfo[mode].name} → Level ${nl}/5`; document.body.appendChild(b); playLevelUp(); burstConfetti(20); setTimeout(()=>b.remove(),3000); }
 function nextRound() { State.round++; if (State.round > State.totalRounds) { endGame(); return; } updateStats(); setTimeout(() => runRound(), 600); }
 
-// END GAME -> TRANSFER -> RESULTS
+// END GAME -> RESULTS
 function endGame() {
   State.isPlaying = false; stopTimer();
   if (State._keyHandler) { document.removeEventListener('keydown', State._keyHandler); State._keyHandler = null; }
   playFinish(); burstConfetti(30);
-
-  if (State.settings.transfer) {
-    startTransferTask();
-  } else {
-    showResults();
-  }
-}
-
-// ====== CLASSROOM TRANSFER TASKS ======
-const TransferTasks = {
-  junior: [
-    { type: 'reading', passage: 'Ravi was walking to school when he saw a red bicycle leaning against a mango tree. The tree had 12 green mangoes. A brown cat was sleeping under the tree. Ravi counted 5 birds on the branches before he continued walking.', question: 'How many mangoes were on the tree?', options: ['5', '8', '12', '15'], answer: 2 },
-    { type: 'reading', passage: 'Priya packed her school bag. She put in 4 notebooks, 2 pencils, 1 eraser, and a blue water bottle. Her mother gave her an apple for lunch. The bus came at 7:30 in the morning.', question: 'What color was Priya\'s water bottle?', options: ['Red', 'Blue', 'Green', 'Yellow'], answer: 1 },
-    { type: 'reading', passage: 'At the market, Arjun saw 3 men selling vegetables, 2 women selling flowers, and 1 child helping his father at the fruit stall. A dog was sitting near the vegetable cart. The sun was very bright.', question: 'How many women were selling flowers?', options: ['1', '2', '3', '4'], answer: 1 },
-    { type: 'detail', passage: 'Scene: A classroom has 5 rows of desks. Each row has 4 desks. The blackboard is green. The teacher\'s desk has a red pen, a blue pen, and a clock. The clock shows 10:15.', question: 'What color is the blackboard?', options: ['Black', 'Green', 'Blue', 'White'], answer: 1 },
-    { type: 'detail', passage: 'Scene: In the library, there are 6 bookshelves. The first shelf has storybooks. The second has science books. A girl in a yellow dress is reading. The librarian has glasses.', question: 'What is on the second bookshelf?', options: ['Storybooks', 'Science books', 'History books', 'Comic books'], answer: 1 },
-    { type: 'reading', passage: 'Kavya went to the park. She saw a swing, a slide, and a seesaw. 3 children were on the swing, 2 on the slide, and 1 on the seesaw. A butterfly with orange wings flew past her.', question: 'How many children were on the slide?', options: ['1', '2', '3', '4'], answer: 1 },
-  ],
-  teen: [
-    { type: 'reading', passage: 'A scientific study tested 48 students divided into two groups. Group A received 8 weeks of attention training. Group B received no training. After 8 weeks, Group A showed 23% improvement in sustained attention tasks and 15% improvement in working memory. Group B showed no significant change. The researchers noted that improvements persisted for 12 months post-training.', question: 'What percentage improvement did Group A show in working memory?', options: ['8%', '15%', '23%', '48%'], answer: 1 },
-    { type: 'reading', passage: 'The human brain processes visual information in approximately 13 milliseconds. Attention acts as a filter, selecting which information enters conscious awareness. Research shows that sustained attention requires the prefrontal cortex to continuously suppress distractions. When attention lapses, even for 2 seconds, critical information can be missed entirely.', question: 'How long does it take the brain to process visual information?', options: ['2 seconds', '13 milliseconds', '8 weeks', '15% of a second'], answer: 1 },
-    { type: 'reading', passage: 'In a classroom experiment, students who practiced mindful breathing for 5 minutes before a test scored 12% higher than those who did not. The breathing group also reported feeling calmer and more focused. Interestingly, students who combined breathing with brief physical movement scored 18% higher than the control group.', question: 'Which group scored 18% higher than the control?', options: ['The breathing-only group', 'The no-training group', 'The breathing + movement group', 'The test group'], answer: 2 },
-    { type: 'detail', passage: 'Scenario: You are reading instructions for an exam. The paper says: "Write your name in the top-right corner. Use only blue or black pen. Answer questions 1-10 in Section A, then 11-15 in Section B. You have 90 minutes. Do not turn the page until told."', question: 'Where should you write your name?', options: ['Top-left corner', 'Top-right corner', 'Bottom of the page', 'Center of the page'], answer: 1 },
-    { type: 'detail', passage: 'Scenario: A laboratory safety manual states: "Wear goggles at all times. No food in the lab. Report spills immediately. Know the location of the fire extinguisher and first aid kit. Never mix chemicals without permission."', question: 'What should you do if there is a spill?', options: ['Clean it up silently', 'Report it immediately', 'Wait for the teacher to notice', 'Leave the lab'], answer: 1 },
-    { type: 'reading', passage: 'Research on attention spans shows that the average teenager can sustain focus on a single task for about 20-30 minutes before performance declines. However, this can be extended to 45+ minutes with training. The key factors are: minimizing distractions, taking short breaks every 20 minutes, and practicing mindfulness techniques regularly.', question: 'How long can an average teenager sustain focus without training?', options: ['10-15 minutes', '20-30 minutes', '45+ minutes', '60+ minutes'], answer: 1 },
-  ],
-};
-
-let transferCurrentTask = null;
-
-function startTransferTask() {
-  const tasks = TransferTasks[State.age] || TransferTasks.junior;
-  transferCurrentTask = tasks[Math.floor(Math.random() * tasks.length)];
-  State.transferTotal = 1;
-  renderTransferTask();
-  document.getElementById('transferIntro').textContent = 'Let\'s apply your attention to a real-world task! This simulates classroom focus.';
-  showScreen('transferScreen');
-}
-
-function renderTransferTask() {
-  const card = document.getElementById('transferCard');
-  const task = transferCurrentTask;
-  const typeLabel = task.type === 'reading' ? '📖 Reading Comprehension' : '👁️ Detail Observation';
-  card.innerHTML = `
-    <div class="transfer-task-type">${typeLabel}</div>
-    <div class="transfer-passage">${task.passage}</div>
-    <div class="transfer-question">${task.question}</div>
-    <div class="transfer-options" id="transferOptions"></div>
-  `;
-  const optsEl = document.getElementById('transferOptions');
-  task.options.forEach((opt, i) => {
-    const btn = document.createElement('button');
-    btn.className = 'transfer-option';
-    btn.textContent = opt;
-    btn.onclick = () => answerTransfer(i);
-    optsEl.appendChild(btn);
-  });
-}
-
-function answerTransfer(idx) {
-  const task = transferCurrentTask;
-  const options = document.querySelectorAll('.transfer-option');
-  options.forEach(o => o.style.pointerEvents = 'none');
-
-  if (idx === task.answer) {
-    options[idx].classList.add('correct');
-    State.transferScore = 1;
-    playCorrect();
-    burstConfetti(10);
-  } else {
-    options[idx].classList.add('wrong');
-    options[task.answer].classList.add('correct');
-    State.transferScore = 0;
-    playWrong();
-  }
-
-  const card = document.getElementById('transferCard');
-  const result = document.createElement('div');
-  result.className = 'transfer-result';
-  result.innerHTML = `
-    <div class="tr-icon">${idx === task.answer ? '✅' : '💡'}</div>
-    <div class="tr-msg">${idx === task.answer ? 'Correct! Great attention to detail!' : 'Not quite! The correct answer is highlighted. Keep practicing your focus!'}</div>
-  `;
-  card.appendChild(result);
-
-  setTimeout(() => showResults(), 2500);
-}
-
-function skipTransfer() {
-  State.transferScore = 0;
-  State.transferTotal = 0;
   showResults();
 }
 
@@ -887,7 +807,7 @@ function showResults() {
   else if (accuracy >= 60) message = 'Good effort! You are on the right track. 🎯';
   else message = 'Every champion starts here! Practice regularly and grow. 🌱';
 
-  const result = recordSession(State.mode, State.age, State.score, accuracy, avgRT, State.maxStreak, State.transferScore, State.transferTotal);
+  const result = recordSession(State.mode, State.age, State.score, accuracy, avgRT, State.maxStreak);
 
   document.getElementById('resultsTitle').textContent = ModeInfo[State.mode].name + ' Complete!';
   document.getElementById('ratingStars').textContent = stars;
@@ -905,15 +825,6 @@ function showResults() {
   else { if (accuracy < 85 && accuracy >= 50) jh += `<div style="margin-top:6px;color:var(--text-dim);">Reach 85% accuracy to unlock the next level!</div>`; }
   document.getElementById('journeyUpdate').innerHTML = jh;
 
-  // Transfer summary
-  const ts = document.getElementById('transferSummary');
-  if (State.transferTotal > 0) {
-    ts.style.display = 'block';
-    ts.innerHTML = `<div class="tss-title">📖 Classroom Transfer Task</div>You scored ${State.transferScore}/${State.transferTotal} on the real-world attention task!`;
-  } else {
-    ts.style.display = 'none';
-  }
-
   document.getElementById('resultsMessage').textContent = message;
 
   setTimeout(() => {
@@ -924,7 +835,7 @@ function showResults() {
 
 function replayGame() { startGame(State.mode); }
 
-// ====== GAME MODES (same as v2) ======
+// ====== GAME MODES ======
 function runTrackRound(cfg) {
   const c = document.getElementById('gameContent'); const ti = cfg.gridSize * cfg.gridSize;
   let tIdx = Math.floor(Math.random()*ti);
@@ -1037,7 +948,7 @@ function renderHistory(sessions) {
   const list=document.getElementById('historyList');
   if(sessions.length===0){list.innerHTML='<div class="history-empty">No sessions yet. Play your first game! 🎮</div>';return;}
   const recent=sessions.slice(-20).reverse();
-  list.innerHTML=recent.map(s=>{const info=ModeInfo[s.mode]||{emoji:'🎮',name:s.mode};return `<div class="history-item"><div class="hi-mode">${info.emoji} ${info.name} <span style="color:var(--text-dim);font-size:0.75rem;">(Lv${s.difficulty})</span></div><div class="hi-stats"><span>⭐ ${s.score}</span><span class="hi-acc">${s.accuracy}%</span><span>⚡ ${s.avgRT}s</span>${s.transferTotal>0?`<span>📖 ${s.transferScore}/${s.transferTotal}</span>`:''}<span style="color:var(--text-dim);font-size:0.72rem;">${s.date}</span></div></div>`;}).join('');
+  list.innerHTML=recent.map(s=>{const info=ModeInfo[s.mode]||{emoji:'🎮',name:s.mode};return `<div class="history-item"><div class="hi-mode">${info.emoji} ${info.name} <span style="color:var(--text-dim);font-size:0.75rem;">(Lv${s.difficulty})</span></div><div class="hi-stats"><span>⭐ ${s.score}</span><span class="hi-acc">${s.accuracy}%</span><span>⚡ ${s.avgRT}s</span><span style="color:var(--text-dim);font-size:0.72rem;">${s.date}</span></div></div>`;}).join('');
 }
 function resetProgress() { if(confirm('Delete ALL progress, history, streaks, and difficulty levels? This cannot be undone.')){localStorage.removeItem(STORAGE_KEY);renderProgressDashboard();renderHomeStats();renderModeGrid();alert('All progress data reset. Fresh start! 🌱');} }
 
@@ -1045,13 +956,11 @@ function resetProgress() { if(confirm('Delete ALL progress, history, streaks, an
 loadSettings(); syncSettingsUI(); renderHomeStats(); renderModeGrid();
 </script>
 
-
   <!-- Medhā Session Tracker -->
   <script>document.title = "Memory Match";</script>
   <script src="bhava-bridge.js"></script>
 <script src="bhava-session.js"></script>
 <script src="bhava-game-nav.js"></script>
-<script src="bhava-tech-all.js"></script>
   <script src="bhava-responsive.js"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-import { PrismaClient, Role, SubscriptionPlan, SubscriptionStatus } from '@prisma/client';
+﻿import { PrismaClient, Role, SubscriptionPlan, SubscriptionStatus } from '@prisma/client';
 import bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
@@ -129,17 +129,50 @@ if (!school) {
     { slug: 'grammar-pro', title: 'Grammar Pro', domain: 'language-english', isFreeTier: false, entryPath: 'grammar-pro.html' },
     { slug: 'heart-heroes', title: 'Heart Heroes', domain: 'emotional-intel', isFreeTier: false, entryPath: 'heart-heroes.html' },
     { slug: 'imaginia-quest', title: 'Imaginia Quest', domain: 'creativity', isFreeTier: false, entryPath: 'imaginia-quest.html' },
+    { slug: 'mental-rotation-game', title: 'Mental Rotation Game', domain: 'cognitive-logic', isFreeTier: false, entryPath: 'mental-rotation-game.html' },
+{ slug: 'visual-difference-detector', title: 'Visual Difference Detector', domain: 'cognitive-focus', isFreeTier: false, entryPath: 'visual-difference-detector.html' },
+{ slug: 'good-habits', title: 'Good Habits', domain: 'life-skills', isFreeTier: true, entryPath: 'good-habits.html' },
+{ slug: 'empathy-quest', title: 'Empathy Quest', domain: 'emotional-intel', isFreeTier: false, entryPath: 'empathy-quest.html' },
+{ slug: 'empathy-conversation', title: 'Empathy Conversation', domain: 'emotional-intel', isFreeTier: false, entryPath: 'empathy-conversation.html' },
+{ slug: 'know-maths', title: 'Know Maths', domain: 'cognitive-math', isFreeTier: false, entryPath: 'know-maths/index.html' },
+{ slug: 'hidden-science', title: 'Hidden Science', domain: 'environment', isFreeTier: false, entryPath: 'hidden-science.html' },
+{ slug: 'logic-grid-puzzle', title: 'Logic Grid Puzzle', domain: 'cognitive-logic', isFreeTier: false, entryPath: 'logic-grid-puzzle.html' },
+{ slug: 'bcs-lite-v3', title: 'My Medhā', domain: 'cognitive-assessment', isFreeTier: true, entryPath: 'bcs-lite-v3.html' },
+{ slug: 'bhava-tech-build-your-bike', title: 'Bhava Tech Build Your Bike', domain: 'stem-engineering', isFreeTier: false, entryPath: 'bhava-tech-build-your-bike/index.html' },
+{ slug: 'medha-read-anybook-in-3hrs', title: 'Read Any Book in 3 Hours', domain: 'reading', isFreeTier: true, entryPath: 'medha_read_anybook_in-3hrs.html' },
   ];
 
+  const ACTIVITY_SLUGS = new Set([
+  'bcs-lite-v3',
+  'career-adventure',
+  'finlife-india-quest-enhanced',
+  'medha-read-anybook-in-3hrs',
+  'good-habits',
+  'calm-zone',
+  'iq-test-level-3',
+  'mindspark-iq',
+  'neuro-ascend-iq',
+  'take-test',
+  'nadopaasana',
+  'soccomm-enhanced',
+  'heart-heroes',
+  'empathy-quest',
+  'day-hero-game',
+  'day-super-hero',
+  'ready-for-the-world',
+]);
+
   const createdGames: Record<string, { id: string; slug: string }> = {};
-  for (const game of gamesData) {
-    const created = await prisma.game.upsert({
-      where: { slug: game.slug },
-      update: game,
-      create: game,
-    });
-    createdGames[game.slug] = created;
-  }
+for (const game of gamesData) {
+  const kind = ACTIVITY_SLUGS.has(game.slug) ? 'activity' : 'game';
+  const gameWithKind = { ...game, kind };
+  const created = await prisma.game.upsert({
+    where: { slug: game.slug },
+    update: gameWithKind,
+    create: gameWithKind,
+  });
+  createdGames[game.slug] = created;
+}
 
   const achievement = await prisma.achievement.upsert({
     where: { code: 'FIRST_GAME_COMPLETE' },
@@ -207,3 +240,6 @@ main()
   .finally(async () => {
     await prisma.$disconnect();
   });
+
+
+

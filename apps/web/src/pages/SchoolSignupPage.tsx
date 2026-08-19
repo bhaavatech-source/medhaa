@@ -28,11 +28,11 @@ export default function SchoolSignupPage() {
             </label>
             <label>
               School Admin Email
-              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="admin@yourschool.edu" required />
+              <input type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="admin@yourschool.edu" required />
             </label>
             <label>
               Password
-              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="At least 8 characters" required />
+              <input type="password" autoComplete="new-password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="At least 8 characters" required />
             </label>
             <label>
               School Name (optional)
@@ -44,7 +44,7 @@ export default function SchoolSignupPage() {
             </label>
             <label>
               City (optional)
-              <input type="text" value={extraData.city || ''} onChange={(e) => setExtraData({ ...extraData, city: e.target.value })} placeholder="e.g. Guntur" />
+              <input type="text" value={extraData.city || ''} onChange={(e) => setExtraData({ ...extraData, city: e.target.value })} placeholder="e.g. Vizag" />
             </label>
             <label>
               Approx. Student Count (optional)
