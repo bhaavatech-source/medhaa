@@ -61,7 +61,7 @@ router.post(
       return;
     }
 
-    const game = await prisma.game.findUnique({ where: { slug: req.params.slug } });
+const game = await prisma.game.findUnique({ where: { slug: req.params.slug as string } });
     if (!game) {
       res.status(404).json({ error: 'Game not found' });
       return;
@@ -91,7 +91,7 @@ router.post(
 
     if (data.completionStatus === 'completed') {
       await awardCoins(studentId, 'game_completion');
-      if (previousBest && data.score > previousBest.score) {
+if (previousBest && previousBest.score !== null && data.score > previousBest.score) {
         await awardCoins(studentId, 'score_improvement');
       }
     }
