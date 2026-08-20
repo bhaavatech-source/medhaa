@@ -283,5 +283,3 @@ export default function SchoolReport() {
     </div>
   );
 }
-
-export default function SchoolReport()

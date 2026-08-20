@@ -41,6 +41,7 @@ type Role = {
   description: string;
   route: string;
   variant: 'student' | 'parent' | 'teacher' | 'school';
+  image: string;
 };
 
 type Capability = {
@@ -101,7 +102,7 @@ function SchoolIcon() {
   );
 }
 
-const roles = [
+const roles: Role[] = [
   {
     title: 'For Students',
     subtitle: 'Learn & play smarter',
@@ -116,7 +117,7 @@ const roles = [
     description: 'Understand your child’s strengths and support them with actionable insights.',
     variant: 'parent',
     route: '/parent/preview',
-    image: 'public/images/roles/parent-role.png',
+    image: '/images/roles/parent-role.png',
   },
   {
     title: 'For Teachers',

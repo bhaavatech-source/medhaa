@@ -16,7 +16,7 @@ export function SubscribePayPage({ apiUrl }: { apiUrl: string }) {
   const res = await authFetch(`${apiUrl}/subscriptions/${state.subscriptionId}/submit-reference`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ transactionRef: ref.trim(), notes: secondChildEmail.trim() || undefined }),
+body: JSON.stringify({ transactionRef: ref.trim() }),
   });
   if (res.ok) setStatus('done');
   else { setError('Something went wrong. Please try again.'); setStatus('idle'); }
