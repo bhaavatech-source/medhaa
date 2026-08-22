@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "ignoreDeprecations": "6.0",
     "module": "ESNext",
     "skipLibCheck": true,
     "moduleResolution": "bundler",
@@ -15,5 +14,7 @@
       "@medhaa/ui/*": ["../../packages/ui/src"]
     }
   },
-  "include": ["src", "src/components/GamesDiscovery.tsx", "../api/src/utils/mail.ts"]
+  "include": [
+    "src"
+  ]
 }
