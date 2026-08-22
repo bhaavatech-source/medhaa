@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "tsc",
+    "build": "prisma generate && tsc",
     "start": "node dist/src/index.js"
   },
   "dependencies": {
@@ -13,6 +13,7 @@
     "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "22.10.5",
+    "@types/nodemailer": "^8.0.1",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
@@ -26,7 +27,6 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@types/nodemailer": "^8.0.1",
     "ts-node": "^10.9.2",
     "tsx": "^4.23.10"
   },
