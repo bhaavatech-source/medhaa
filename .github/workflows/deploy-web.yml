@@ -6,11 +6,7 @@
 name: Deploy Web App to medhaa.net
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - "apps/web/**"
-      - "packages/**"
+ workflow_dispatch:
 
 jobs:
   build-and-deploy:
