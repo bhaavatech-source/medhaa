@@ -1,6 +1,7 @@
 ﻿import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import medhaaIcon from '../assets/logo/medhaa-icon.svg';
 
 const API_URL = 'http://localhost:4000/api';
 

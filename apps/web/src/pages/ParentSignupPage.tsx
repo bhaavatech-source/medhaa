@@ -1,5 +1,6 @@
 import { useSignupForm } from './hooks/useSignupForm';
 import '../styles/parent-login.css';
+import medhaaIcon from '../assets/logo/medhaa-icon.svg';
 
 export default function ParentSignupPage() {
   const { name, setName, email, setEmail, password, setPassword, extraData, setExtraData, error, message, loading, handleSubmit } = useSignupForm('parent', '/login/parent');
@@ -13,10 +14,15 @@ export default function ParentSignupPage() {
 
       <div className="parent-login-card">
         <div className="parent-login-brand">
-          <div className="parent-login-logo">👨‍👩‍👧</div>
-          <h1>Parent Sign Up</h1>
-          <p>Track your child's progress and growth</p>
-        </div>
+  <div className="parent-login-logo">
+    <img src={medhaaIcon} alt="Medhā" />
+  </div>
+
+  <div className="parent-login-role">👨‍👩‍👧</div>
+
+  <h1>Parent Portal</h1>
+  <p>Track your child's progress and growth</p>
+</div>
 
         {message ? (
           <p className="parent-login-help">{message}</p>

@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import LoginPage from './pages/LoginPage';
+import ForgotPasswordPage from './pages/ForgotPasswordPage';
+import ResetPasswordPage from './pages/ResetPasswordPage';
 import HomePage from './pages/HomePage';
 import ParentDemo from './pages/ParentDemo';
 import StudentPublic from './pages/StudentPublic';
@@ -25,10 +27,12 @@ import StudentEnrollment from './pages/StudentEnrollment';
 import BCSLiteIntro from './pages/BCSLiteIntro';
 import LearningReadiness from './pages/LearningReadiness';
 import ParentProgressReport from './pages/ParentProgressReport';
+import ParentDashboard from './pages/ParentDashboard';
 import SharingPermissions from './pages/SharingPermissions';
 import OurApproach from './components/OurApproach';
 import TeacherWorkspace from './pages/TeacherWorkspace';
 import SchoolWorkspace from './pages/SchoolWorkspace';
+
 
 
 
@@ -40,11 +44,6 @@ const API_URL =
 
 function StudentDashboard() {
   return <StudentGamesPage apiUrl={API_URL} />;
-}
-
-
-function ParentDashboard() {
-  return <div style={{ padding: 40 }}>Parent Dashboard (coming soon)</div>;
 }
 
 
@@ -60,6 +59,8 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="/reset-password" element={<ResetPasswordPage />} />
           <Route path="/parent/preview" element={<ParentDemo />} />
           <Route path="/teacher/preview" element={<TeacherDashboard />} />
           <Route path="/school-report" element={<SchoolReport />} />
@@ -83,6 +84,7 @@ function App() {
           <Route path="/student/readiness" element={<LearningReadiness />} />
           <Route path="/parent/progress" element={<ParentProgressReport />} />
           <Route path="/parent/sharing" element={<SharingPermissions />} />
+          <Route path="/parent-dashboard" element={<ParentDashboard />} />
           
           <Route path="/our-approach" element={<OurApproach />} />
 		<Route path="/teacher-workspace" element={<TeacherWorkspace />} />

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import '../styles/login-page.css';
+import medhaaIcon from '../assets/logo/medhaa-icon.svg';
 
 const API_URL = 'http://localhost:4000/api';
 
@@ -55,7 +56,9 @@ export function LoginPage({ role: roleProp }: { role?: string }) {
 
       <div className="login-card">
         <div className="login-brand">
-          <div className="login-logo">{config.icon}</div>
+          <div className="login-logo">
+            <img src={medhaaIcon} alt="Medhā" />
+          </div>
           <h1 style={{ background: config.gradient, WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>
             {config.title}
           </h1>
@@ -71,6 +74,24 @@ export function LoginPage({ role: roleProp }: { role?: string }) {
             Password
             <input type="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" required />
           </label>
+
+          <div style={{ textAlign: 'right', marginTop: '-4px', marginBottom: '10px' }}>
+  <button
+    type="button"
+    onClick={() => navigate('/forgot-password')}
+    style={{
+      background: 'none',
+      border: 'none',
+      padding: 0,
+      color: '#2563eb',
+      fontSize: '0.88rem',
+      cursor: 'pointer',
+      textDecoration: 'none',
+    }}
+  >
+    Forgot password?
+  </button>
+</div>
 
           {error && <div className="login-error">{error}</div>}
 

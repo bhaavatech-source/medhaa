@@ -1455,3 +1455,144 @@ html {
     font-size: 19px;
   }
 }
+/* =========================================================
+   MEDHĀ HOMEPAGE — VISIBILITY / LAYERING FIX
+   This section only supports the current HomePage.tsx structure.
+   It does not change the existing homepage content or layout system.
+   ========================================================= */
+
+/* Keep the illustrated world behind all actual page content. */
+.medha-enhanced {
+  position: relative !important;
+  isolation: isolate !important;
+}
+
+.medha-enhanced > .medha-world,
+.medha-enhanced > .floating-orb,
+.medha-enhanced > .orb-a,
+.medha-enhanced > .orb-b,
+.medha-enhanced > .orb-c {
+  z-index: 0 !important;
+  pointer-events: none !important;
+}
+
+/* The current TSX places Journey and Skills after Explore and outside
+   the original z-index rule, so explicitly lift them above the world. */
+.medha-enhanced > .medha-journey,
+.medha-enhanced > .medha-skills,
+.medha-enhanced > .home-footer {
+  position: relative !important;
+  z-index: 6 !important;
+}
+
+/* Make the Journey panel an actual readable surface rather than allowing
+   the illustrated background to dominate through it. */
+.medha-enhanced > .medha-journey {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 251, 235, 0.97),
+    rgba(255, 255, 255, 0.94)
+  ) !important;
+  border: 1px solid rgba(255, 255, 255, 0.98) !important;
+  box-shadow: 0 20px 50px rgba(48, 42, 29, 0.14) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+}
+
+/* Ensure the decorative dashed line stays behind Journey content. */
+.medha-enhanced > .medha-journey::before {
+  z-index: 0 !important;
+  pointer-events: none !important;
+}
+
+.medha-enhanced > .medha-journey > *,
+.medha-enhanced > .medha-skills > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Current TSX uses --world-ink. Keep every Journey text element readable. */
+.medha-enhanced > .medha-journey .journey-kicker,
+.medha-enhanced > .medha-journey .journey-heading h2,
+.medha-enhanced > .medha-journey .journey-heading p,
+.medha-enhanced > .medha-journey .journey-step h3,
+.medha-enhanced > .medha-journey .journey-step p {
+  opacity: 1 !important;
+}
+
+.medha-enhanced > .medha-journey .journey-kicker {
+  color: #52686a !important;
+}
+
+.medha-enhanced > .medha-journey .journey-heading h2,
+.medha-enhanced > .medha-journey .journey-step h3 {
+  color: #183638 !important;
+}
+
+.medha-enhanced > .medha-journey .journey-heading p,
+.medha-enhanced > .medha-journey .journey-step p {
+  color: #536a6c !important;
+}
+
+.medha-enhanced > .medha-journey .journey-icon {
+  opacity: 1 !important;
+  color: #ffffff !important;
+}
+
+/* Skills section: keep the heading readable and give each tile a solid,
+   lightly translucent surface without changing its existing design. */
+.medha-enhanced > .medha-skills .journey-kicker,
+.medha-enhanced > .medha-skills .skills-heading h2,
+.medha-enhanced > .medha-skills .skills-heading p,
+.medha-enhanced > .medha-skills .skill-tile h3,
+.medha-enhanced > .medha-skills .skill-tile p {
+  opacity: 1 !important;
+}
+
+.medha-enhanced > .medha-skills .journey-kicker {
+  color: #52686a !important;
+}
+
+.medha-enhanced > .medha-skills .skills-heading h2,
+.medha-enhanced > .medha-skills .skill-tile h3 {
+  color: #183638 !important;
+}
+
+.medha-enhanced > .medha-skills .skills-heading p,
+.medha-enhanced > .medha-skills .skill-tile p {
+  color: #536a6c !important;
+}
+
+.medha-enhanced > .medha-skills .skill-tile {
+  background: rgba(255, 253, 243, 0.96) !important;
+  border-color: rgba(255, 255, 255, 0.98) !important;
+  box-shadow: 0 12px 25px rgba(63, 48, 27, 0.09) !important;
+}
+
+.medha-enhanced > .medha-skills .skill-icon {
+  opacity: 1 !important;
+  color: #ffffff !important;
+}
+
+/* The decorative foreground ridge belongs to the world only and must never
+   cover Journey/Skills content. */
+.medha-enhanced .world-wood-ridge {
+  z-index: 1 !important;
+}
+
+/* Keep the actual page sections above every world decoration on small screens. */
+@media (max-width: 720px) {
+  .medha-enhanced > .medha-journey,
+  .medha-enhanced > .medha-skills,
+  .medha-enhanced > .home-footer {
+    z-index: 6 !important;
+  }
+
+  .medha-enhanced > .medha-journey {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 251, 235, 0.98),
+      rgba(255, 255, 255, 0.96)
+    ) !important;
+  }
+}

@@ -1,5 +1,6 @@
 import { useSignupForm } from './hooks/useSignupForm';
 import '../styles/school-login.css';
+import medhaaIcon from '../assets/logo/medhaa-icon.svg';
 
 export default function SchoolSignupPage() {
   const { name, setName, email, setEmail, password, setPassword, extraData, setExtraData, error, message, loading, handleSubmit } = useSignupForm('school', '/login/school');
@@ -13,10 +14,15 @@ export default function SchoolSignupPage() {
 
       <div className="school-login-card">
         <div className="school-brand">
-          <div className="school-logo">🏫</div>
-          <h1>School Sign Up</h1>
-          <p>Register your school and manage student growth</p>
-        </div>
+  <div className="school-logo">
+    <img src={medhaaIcon} alt="Medhā" />
+  </div>
+
+  <div className="school-role">🏫</div>
+
+  <h1>School Sign In</h1>
+  <p>Check your children's scores and manage your school</p>
+</div>
 
         {message ? (
           <p className="school-login-back">{message}</p>

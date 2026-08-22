@@ -58,3 +58,15 @@
 @media (max-width: 480px) {
   .parent-login-card { width: 90%; padding: 36px 24px; }
 }
+
+.parent-login-logo img {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  display: block;
+}
+
+.parent-login-role {
+  font-size: 28px;
+  margin-top: 8px;
+}

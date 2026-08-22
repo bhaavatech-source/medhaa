@@ -68,6 +68,7 @@ model User {
   subscription Subscription?
   auditLogs AuditLog[]
   cognitiveCheckIns CognitiveCheckIn[]
+  passwordResetTokens PasswordResetToken[]
 }
 
 model Student {
@@ -213,4 +214,18 @@ model AuditLog {
   action    String
   metadata  Json?
   createdAt DateTime @default(now())
+}
+
+
+model PasswordResetToken {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash String   @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([expiresAt])
 }

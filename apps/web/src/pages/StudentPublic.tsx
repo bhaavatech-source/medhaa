@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { GamesGrid } from '../components/GamesGrid';
 import '../styles/student-public.css';
 
+
 const API_URL = 'http://localhost:4000/api';
 const AGE_STORAGE_KEY = 'medhaa_student_age_group';
 

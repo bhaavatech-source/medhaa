@@ -150,3 +150,11 @@
   color: #ccc;
   margin-top: 16px;
 }
+
+
+.student-login-logo img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  display: block;
+}

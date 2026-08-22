@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { authFetch } from '../utils/authFetch';
 
+
 export function SubscribePayPage({ apiUrl }: { apiUrl: string }) {
   const { state } = useLocation() as { state: { subscriptionId: string; amount: number; plan: string; upiId: string } };
   const [ref, setRef] = useState('');

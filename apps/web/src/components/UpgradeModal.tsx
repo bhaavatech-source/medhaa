@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import qrImage from '../assets/BT_QR.jpeg';
 import '../styles/upgrade-modal.css';
+import { authFetch } from '../utils/authFetch';
 
 interface Plan {
   id: string;
@@ -33,35 +34,47 @@ export function UpgradeModal({ apiUrl, gameTitle, onClose }: UpgradeModalProps) 
   }, [apiUrl]);
 
   async function handleSelectPlan(plan: Plan) {
-    setSelectedPlan(plan);
-    const token = localStorage.getItem('accessToken');
-    const res = await fetch(`${apiUrl}/subscriptions/initiate`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-      body: JSON.stringify({ planId: plan.id }),
-    });
-    const data = await res.json();
-    setSubscriptionId(data.subscriptionId);
-    setStep('payment');
-  }
+  setSelectedPlan(plan);
+
+  const res = await authFetch(`${apiUrl}/subscriptions/initiate`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ planId: plan.id }),
+  });
+
+  const data = await res.json();
+  setSubscriptionId(data.subscriptionId);
+  setStep('payment');
+}
 
   async function handleSubmitReference() {
-    if (!subscriptionId) return;
-    if (!refId.trim() || refId.trim().length < 4) {
-      setError('Please enter a valid transaction reference ID');
-      return;
-    }
-    setError('');
-    setStep('submitting');
-    const token = localStorage.getItem('accessToken');
-    await fetch(`${apiUrl}/subscriptions/${subscriptionId}/submit-reference`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-      body: JSON.stringify({ transactionRef: refId.trim() }),
-    });
-    setStep('submitted');
+  if (!subscriptionId) return;
+
+  if (!refId.trim() || refId.trim().length < 4) {
+    setError('Please enter a valid transaction reference ID');
+    return;
   }
 
+  setError('');
+  setStep('submitting');
+
+  const res = await authFetch(
+    `${apiUrl}/subscriptions/${subscriptionId}/submit-reference`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ transactionRef: refId.trim() }),
+    }
+  );
+
+  if (!res.ok) {
+    setError('Could not submit the reference. Please try again.');
+    setStep('payment');
+    return;
+  }
+
+  setStep('submitted');
+}
   return (
     <div className="upgrade-backdrop" onClick={onClose}>
       <div className="upgrade-modal" onClick={(e) => e.stopPropagation()}>

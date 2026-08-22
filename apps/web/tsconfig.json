@@ -15,5 +15,5 @@
       "@medhaa/ui/*": ["../../packages/ui/src"]
     }
   },
-  "include": ["src", "src/components/GamesDiscovery.tsx"]
+  "include": ["src", "src/components/GamesDiscovery.tsx", "../api/src/utils/mail.ts"]
 }

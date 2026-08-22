@@ -1,4 +1,4 @@
-import * as React from 'react';
+﻿import * as React from 'react';
 import { useNavigate } from "react-router-dom";
 import {
   Compass,
@@ -1748,73 +1748,222 @@ export default function HomePage() {
       </button>
     ))}
   </div>
+</section>
 
-  <div className="medha-trust-strip" aria-label="Medhā platform qualities">
-    <span className="medha-trust-item"><Sparkle size={13} /> Joyful engagement</span>
-    <span className="medha-trust-item"><BarChart3 size={13} /> Meaningful insights</span>
-    <span className="medha-trust-item"><Heart size={13} /> Learner-centred design</span>
+<section
+  className="medha-skills"
+  aria-labelledby="skills-title"
+  style={{
+    position: 'relative',
+    zIndex: 5,
+    paddingTop: '48px',
+    paddingBottom: '56px',
+  }}
+>
+  <div
+    className="skills-heading"
+    style={{
+      position: 'relative',
+      zIndex: 20,
+      width: 'min(900px, calc(100% - 40px))',
+      margin: '0 auto 38px',
+      padding: '28px 36px 30px',
+      textAlign: 'center',
+      background: 'rgba(255, 251, 239, 0.94)',
+      border: '1px solid rgba(255, 255, 255, 0.75)',
+      borderRadius: '24px',
+      boxShadow: '0 14px 40px rgba(55, 72, 50, 0.10)',
+      backdropFilter: 'blur(8px)',
+      WebkitBackdropFilter: 'blur(8px)',
+      boxSizing: 'border-box',
+      opacity: 1,
+    }}
+  >
+    <span
+      className="journey-kicker"
+      style={{
+        display: 'block',
+        marginBottom: '9px',
+        color: '#315c5c',
+        fontSize: '0.75rem',
+        fontWeight: 800,
+        letterSpacing: '0.17em',
+        lineHeight: 1.3,
+        textTransform: 'uppercase',
+        opacity: 1,
+      }}
+    >
+      Inside the world of Medhā
+    </span>
+
+    <h2
+      id="skills-title"
+      style={{
+        margin: '0 0 12px',
+        color: '#183638',
+        fontSize: 'clamp(2rem, 4vw, 3rem)',
+        fontWeight: 800,
+        lineHeight: 1.12,
+        letterSpacing: '-0.035em',
+        opacity: 1,
+      }}
+    >
+      Build the skills behind better learning.
+    </h2>
+
+    <p
+      style={{
+        maxWidth: '720px',
+        margin: '0 auto',
+        color: '#536a6c',
+        fontSize: '1rem',
+        fontWeight: 500,
+        lineHeight: 1.65,
+        opacity: 1,
+      }}
+    >
+      A playful environment can still be purposeful — each experience can
+      help learners explore the cognitive skills that support everyday
+      learning.
+    </p>
+
+    <div
+      aria-label="Medhā platform qualities"
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+        gap: '9px 14px',
+        marginTop: '22px',
+      }}
+    >
+      <span
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '7px',
+          padding: '7px 13px',
+          borderRadius: '999px',
+          background: 'rgba(255,255,255,0.78)',
+          border: '1px solid rgba(49,92,92,0.10)',
+          color: '#315c5c',
+          fontSize: '0.78rem',
+          fontWeight: 700,
+          whiteSpace: 'nowrap',
+        }}
+      >
+        <Sparkle size={14} />
+        Joyful engagement
+      </span>
+
+      <span
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '7px',
+          padding: '7px 13px',
+          borderRadius: '999px',
+          background: 'rgba(255,255,255,0.78)',
+          border: '1px solid rgba(49,92,92,0.10)',
+          color: '#315c5c',
+          fontSize: '0.78rem',
+          fontWeight: 700,
+          whiteSpace: 'nowrap',
+        }}
+      >
+        <BarChart3 size={14} />
+        Meaningful insights
+      </span>
+
+      <span
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '7px',
+          padding: '7px 13px',
+          borderRadius: '999px',
+          background: 'rgba(255,255,255,0.78)',
+          border: '1px solid rgba(49,92,92,0.10)',
+          color: '#315c5c',
+          fontSize: '0.78rem',
+          fontWeight: 700,
+          whiteSpace: 'nowrap',
+        }}
+      >
+        <Heart size={14} />
+        Learner-centred design
+      </span>
+    </div>
+  </div>
+
+  <div
+    className="skills-grid"
+    style={{
+      position: 'relative',
+      zIndex: 10,
+    }}
+  >
+    {cognitiveSkills.map((skill) => {
+      const Icon = skill.icon;
+
+      return (
+        <article
+          className="skill-tile"
+          key={skill.title}
+          style={{
+            position: 'relative',
+            zIndex: 10,
+            opacity: 1,
+          }}
+        >
+          <span
+            className="skill-icon"
+            aria-hidden="true"
+            style={{
+              opacity: 1,
+            }}
+          >
+            <Icon size={21} strokeWidth={1.9} />
+          </span>
+
+          <h3
+            style={{
+              color: '#183638',
+              opacity: 1,
+            }}
+          >
+            {skill.title}
+          </h3>
+
+          <p
+            style={{
+              color: '#536a6c',
+              opacity: 1,
+            }}
+          >
+            {skill.text}
+          </p>
+        </article>
+      );
+    })}
   </div>
 </section>
 
-      <section className="medha-journey" aria-labelledby="journey-title">
-        <div className="journey-heading">
-          <span className="journey-kicker">The Medhā journey</span>
-          <h2 id="journey-title">Play → Understand → Grow</h2>
-          <p>Meaningful experiences become useful insights, then become opportunities to grow.</p>
-        </div>
+<footer className="home-footer">
+  <div className="footer-brand">
+    <span className="footer-logo-wrap" aria-hidden="true">
+      <img className="footer-logo-image" src={medhaIcon} alt="" />
+    </span>
+    <strong>Medhā</strong>
+  </div>
 
-        <div className="journey-grid">
-          {medhaJourney.map((step) => {
-            const Icon = step.icon;
-            return (
-              <article className="journey-step" key={step.title}>
-                <span className="journey-icon" aria-hidden="true">
-                  <Icon size={23} strokeWidth={1.9} />
-                </span>
-                <h3>{step.title}</h3>
-                <p>{step.text}</p>
-              </article>
-            );
-          })}
-        </div>
-      </section>
+  <span>© 2026 Medhā · Designed for curious minds</span>
 
-      <section className="medha-skills" aria-labelledby="skills-title">
-        <div className="skills-heading">
-          <span className="journey-kicker">Inside the world of Medhā</span>
-          <h2 id="skills-title">Build the skills behind better learning.</h2>
-          <p>
-            A playful environment can still be purposeful — each experience can help learners
-            explore the cognitive skills that support everyday learning.
-          </p>
-        </div>
-
-        <div className="skills-grid">
-          {cognitiveSkills.map((skill) => {
-            const Icon = skill.icon;
-            return (
-              <article className="skill-tile" key={skill.title}>
-                <span className="skill-icon" aria-hidden="true">
-                  <Icon size={21} strokeWidth={1.9} />
-                </span>
-                <h3>{skill.title}</h3>
-                <p>{skill.text}</p>
-              </article>
-            );
-          })}
-        </div>
-      </section>
-
-      <footer className="home-footer">
-        <div className="footer-brand">
-          <span className="footer-logo-wrap" aria-hidden="true">
-            <img className="footer-logo-image" src={medhaIcon} alt="" />
-          </span>
-          <strong>Medhā</strong>
-        </div>
-        <span>© 2026 Medhā · Designed for curious minds</span>
-        <span className="footer-note">A Bhāva Tech product</span>
-      </footer>
+  <span className="footer-note">
+    A Bhāva Tech product
+  </span>
+</footer>
     </main>
   );
 }

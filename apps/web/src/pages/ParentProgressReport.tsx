@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import medhaaIcon from '../assets/logo/medhaa-icon.svg';
 
 const observations = [
   {
@@ -23,7 +24,7 @@ export default function ParentProgressReport() {
       <section style={styles.card}>
         <div style={styles.topRow}>
           <img
-            src="/images/logo/medhaa-icon.svg"
+            src={medhaaIcon}
             alt="Medhaa"
             style={styles.logo}
           />

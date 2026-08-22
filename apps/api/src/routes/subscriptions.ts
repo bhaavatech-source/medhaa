@@ -53,6 +53,20 @@ router.get('/plans', (_req, res: Response) => {
 });
 
 router.post('/initiate', authenticate, async (req: AuthenticatedRequest, res: Response) => {
+  // Individual subscriptions are available only to
+  // Student and Parent accounts.
+  // Teacher and School accounts use institutional plans.
+  const role = String(req.user?.role || '').toUpperCase();
+
+  if (role !== 'STUDENT' && role !== 'PARENT') {
+    res.status(403).json({
+      error:
+        'Individual subscriptions are available for Student and Parent accounts. Teacher and School accounts require an institutional plan.',
+      code: 'INSTITUTIONAL_PLAN_REQUIRED',
+    });
+    return;
+  }
+
   const { planId } = req.body as { planId: string };
   const plan = planId as PlanId;
 
