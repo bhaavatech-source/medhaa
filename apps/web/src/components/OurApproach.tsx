@@ -12,6 +12,35 @@ function SparkIcon() {
   return <span className="spark-icon" aria-hidden="true">✦</span>;
 }
 
+// --- NEW VISION DATA ---
+const visionData = [
+  { 
+    id: 'ai-era', 
+    icon: '🤖', 
+    title: 'The AI Era Advantage', 
+    text: 'In the era of AI, children need to be smarter and more adaptable. We make relevant efforts to prepare them, paving the way so that all doors remain open to all knowledge systems.' 
+  },
+  { 
+    id: 'training-360', 
+    icon: '🔄', 
+    title: '360° Training', 
+    text: 'During this era, regular classes and standard exams are simply not enough. We train kids in 360 degrees through our expansive interactive games and activities.' 
+  },
+  { 
+    id: 'replace-noise', 
+    icon: '🛡️', 
+    title: 'Replacing the Noise', 
+    text: 'We replace unwanted and unnecessary social platforms with our various games across multiple domains, offering a healthy, enriching environment for active minds.' 
+  },
+  { 
+    id: 'values', 
+    icon: '🌱', 
+    title: 'Values & Harmony', 
+    text: 'Our games are based not only on IQ, Memory, and Engineering, but also deeply rooted in Empathy, Social Harmony, and spiritual and moral values.' 
+  },
+];
+
+// --- EXISTING DATA ---
 const foundationCards = [
   { icon: '🎯', title: 'Focus & Attention', text: 'Practise staying with a task, noticing relevant information and working through distractions.' },
   { icon: '🧠', title: 'Memory', text: 'Practise remembering, recalling and connecting information during interactive challenges.' },
@@ -60,6 +89,7 @@ const benefitCards = [
 export function OurApproach() {
   const navigate = useNavigate();
   const [activeFoundation, setActiveFoundation] = useState<number | null>(null);
+  const [activeVision, setActiveVision] = useState<number>(0); // Drives the new interactive section
 
   const toggleFoundation = (index: number) => {
     setActiveFoundation(activeFoundation === index ? null : index);
@@ -81,7 +111,7 @@ export function OurApproach() {
         </div>
       </header>
 
-      <section className="hero-shell approach-hero">
+      <section className="hero-shell approach-hero fade-in-up">
         <div className="hero-copy">
           <span className="eyebrow"><SparkIcon /> OUR APPROACH</span>
           <h1>More than games.<br /><span>A platform for exploring, practising and building.</span></h1>
@@ -106,6 +136,46 @@ export function OurApproach() {
           <div className="float-chip chip-engineering">⚙️ Engineering</div>
           <div className="float-chip chip-creativity">💡 Creativity</div>
           <div className="float-chip chip-tech">🤖 Technology</div>
+        </div>
+      </section>
+
+      {/* --- NEW VISION 360 SECTION --- */}
+      <section className="vision-360-section page-section">
+        <div className="section-intro centered">
+          <span className="eyebrow dark"><SparkIcon /> BEYOND THE CLASSROOM</span>
+          <h2>Prepared for the AI Era. Grounded in Values.</h2>
+          <p>We connect kids with the latest technology while nurturing moral and spiritual foundations.</p>
+        </div>
+        
+        <div className="vision-interactive-container">
+          <div className="vision-sidebar">
+            {visionData.map((item, index) => (
+              <button 
+                key={item.id}
+                className={`vision-trigger ${activeVision === index ? 'active' : ''}`}
+                onClick={() => setActiveVision(index)}
+                type="button"
+              >
+                <span className="vision-icon">{item.icon}</span>
+                <span className="vision-title">{item.title}</span>
+              </button>
+            ))}
+          </div>
+          
+          <div className="vision-display-area">
+             {visionData.map((item, index) => (
+                <div 
+                  key={`display-${item.id}`} 
+                  className={`vision-content ${activeVision === index ? 'visible' : 'hidden'}`}
+                >
+                  <div className="vision-content-inner">
+                    <span className="vision-display-icon">{item.icon}</span>
+                    <h3>{item.title}</h3>
+                    <p>{item.text}</p>
+                  </div>
+                </div>
+             ))}
+          </div>
         </div>
       </section>
 
@@ -137,7 +207,7 @@ export function OurApproach() {
           <span className="eyebrow dark"><SparkIcon /> FOUNDATIONS OF LEARNING</span>
           <h2 id="foundations-heading">Build the abilities children use to learn.</h2>
           <p>Medhā experiences are built around specific thinking processes and learning opportunities—not around empty screen time.</p>
-          <small className="interaction-hint">Tap a foundation to explore it.</small>
+          <small className="interaction-hint">Select a foundation below to see how it works.</small>
         </div>
 
         <div className="foundation-grid">
