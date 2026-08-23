@@ -13,17 +13,52 @@ function SparkIcon() {
 }
 
 const foundationCards = [
-  { icon: '🎯', title: 'Focus & Attention', text: 'Practice staying with a task, noticing relevant information and working through distractions.' }, //[cite: 3]
-  { icon: '🧠', title: 'Memory', text: 'Practice remembering, recalling and connecting information during interactive challenges.' }, //[cite: 3]
-  { icon: '🔍', title: 'Critical Thinking', text: 'Question, compare, reason from evidence and make decisions instead of simply accepting an answer.' }, //[cite: 3]
-  { icon: '💡', title: 'Creativity & Imagination', text: 'Explore possibilities, generate ideas and approach problems from different directions.' }, //[cite: 3]
-  { icon: '🧩', title: 'Logic & Problem Solving', text: 'Recognise patterns, break problems into parts and test possible solutions.' }, //[cite: 3]
-  { icon: '⚙️', title: 'Systems & Engineering Thinking', text: 'Understand components, constraints, cause and effect, trade-offs, testing and debugging.' }, //[cite: 3]
+  { icon: '🎯', title: 'Focus & Attention', text: 'Practise staying with a task, noticing relevant information and working through distractions.' },
+  { icon: '🧠', title: 'Memory', text: 'Practise remembering, recalling and connecting information during interactive challenges.' },
+  { icon: '🔍', title: 'Critical Thinking', text: 'Question, compare, reason from evidence and make decisions instead of simply accepting an answer.' },
+  { icon: '💡', title: 'Creativity & Imagination', text: 'Explore possibilities, generate ideas and approach problems from different directions.' },
+  { icon: '🧩', title: 'Logic & Problem Solving', text: 'Recognise patterns, break problems into parts and test possible solutions.' },
+  { icon: '⚙️', title: 'Systems & Engineering Thinking', text: 'Understand components, constraints, cause and effect, trade-offs, testing and debugging.' },
+];
+
+const approachStages = [
+  { number: '01', title: 'EXPLORE', words: 'Discover · Imagine · Question', text: 'Find ideas, domains, games and possibilities.' },
+  { number: '02', title: 'PRACTICE', words: 'Think · Remember · Focus', text: 'Work with ideas through active, repeated experiences.' },
+  { number: '03', title: 'APPLY', words: 'Use · Connect · Experiment', text: 'Carry learning into another challenge, context or situation.' },
+  { number: '04', title: 'BUILD', words: 'Solve · Create · Innovate', text: 'Gradually build capability through continued experience.' },
+];
+
+const medhaaParts = [
+  { icon: '🎮', title: 'Play', text: 'Interactive games and challenges across many areas.' },
+  { icon: '🧭', title: 'Explore', text: 'Discover ideas beyond a single subject or syllabus.' },
+  { icon: '📝', title: 'Check', text: 'Use questions, feedback and My Medhā check-ins.' },
+  { icon: '📈', title: 'Progress', text: 'See activity and developing strengths over time.' },
+  { icon: '🔁', title: 'Return', text: 'Come back, practise again and keep building experience.' },
+  { icon: '✨', title: 'Build', text: 'Turn repeated experiences into a richer learning journey.' },
+];
+
+const domains = [
+  ['Cognitive Skills', 'Focus · Memory · Reasoning'],
+  ['Engineering & Technology', 'Systems · Design · Build'],
+  ['Science', 'Observe · Question · Discover'],
+  ['Mathematics', 'Patterns · Numbers · Real life'],
+  ['Digital Literacy', 'Search · Evaluate · Create'],
+  ['Financial Literacy', 'Money · Choices · Planning'],
+  ['Life Skills', 'Decide · Communicate · Adapt'],
+  ['Emotional & Social Learning', 'Understand · Connect · Respond'],
+  ['Music & Language', 'Listen · Express · Create'],
+  ['Society & Civics', 'People · Community · Responsibility'],
+  ['Creativity', 'Imagine · Make · Experiment'],
+  ['Future Skills', 'Explore · Solve · Build'],
+];
+
+const benefitCards = [
+  { icon: '🌱', title: 'For children', items: ['Active learning instead of passive screen time', 'Many ways to explore and practise', 'Choice, challenge and discovery', 'A personal journey that grows with use'] },
+  { icon: '👨‍👩‍👧', title: 'For parents', items: ['A clearer view of what a child explores', 'Structured My Medhā check-ins', 'Activity and progress information', 'A way to notice developing strengths over time'] },
 ];
 
 export function OurApproach() {
   const navigate = useNavigate();
-  // State to manage the visibility of foundation texts. Null means all are hidden by default.
   const [activeFoundation, setActiveFoundation] = useState<number | null>(null);
 
   const toggleFoundation = (index: number) => {
@@ -42,26 +77,25 @@ export function OurApproach() {
           <img src={medhaaLogo} className="brand-logo" alt="Medhā" />
         </button>
         <div className="nav-actions">
-          <button type="button" className="nav-signup" onClick={() => navigate('/signup/parent')}>Sign up <ArrowIcon /></button>
+          <button type="button" className="nav-signup" onClick={() => navigate('/signup/parent')}>Get Started <ArrowIcon /></button>
         </div>
       </header>
 
-      <section className="hero-shell">
+      <section className="hero-shell approach-hero">
         <div className="hero-copy">
-          <span className="eyebrow"><SparkIcon /> MEDHĀ FOR FAMILIES</span>
-          <h1>More than games.<br /><span>A gateway to learning.</span></h1>
+          <span className="eyebrow"><SparkIcon /> OUR APPROACH</span>
+          <h1>More than games.<br /><span>A platform for exploring, practising and building.</span></h1>
           <p className="hero-lead">
-            Children learn more effectively when they can focus, pay attention, remember, imagine, reason and solve problems. Medhā gives them interactive opportunities to practise these foundations while exploring technology, science, mathematics, engineering, creativity and life skills. 
-          </p> 
-          {/*[cite: 3] */}
+            Medhā brings together interactive games, activities, short check-ins and progress experiences so children can explore many domains, practise important abilities and use what they learn in new situations.
+          </p>
           <div className="hero-actions">
-            <button type="button" className="primary-hero" onClick={() => document.getElementById('method-heading')?.scrollIntoView({ behavior: 'smooth' })}>See our engine <ArrowIcon /></button>
+            <button type="button" className="primary-hero" onClick={() => document.getElementById('medhaa-method')?.scrollIntoView({ behavior: 'smooth' })}>Explore the approach <ArrowIcon /></button>
             <button type="button" className="secondary-hero" onClick={() => navigate('/signup/parent')}>Start 15 days free</button>
           </div>
           <div className="hero-trust">
-            <span>✓ Interactive learning</span>
-            <span>✓ Hands-on exploration</span>
-            <span>✓ Short quizzes & challenges</span>
+            <span>✓ Games & challenges</span>
+            <span>✓ My Medhā check-ins</span>
+            <span>✓ Activity & progress</span>
           </div>
         </div>
         <div className="hero-visual" aria-hidden="true">
@@ -75,27 +109,54 @@ export function OurApproach() {
         </div>
       </section>
 
+      <section className="method-summary page-section" id="medhaa-method" aria-labelledby="method-summary-heading">
+        <div className="section-intro centered">
+          <span className="eyebrow dark"><SparkIcon /> THE MEDHĀ METHOD</span>
+          <h2 id="method-summary-heading">Explore. Practice. Apply. Build.</h2>
+          <p>Four simple ideas. One continuous learning journey.</p>
+        </div>
+
+        <div className="approach-flow">
+          {approachStages.map((stage, index) => (
+            <div className="approach-stage-wrap" key={stage.title}>
+              <article className={`approach-stage approach-stage-${index + 1}`}>
+                <span className="stage-number">{stage.number}</span>
+                <div className="stage-icon" aria-hidden="true">{['🌟', '🎯', '🔗', '🚀'][index]}</div>
+                <h3>{stage.title}</h3>
+                <strong>{stage.words}</strong>
+                <p>{stage.text}</p>
+              </article>
+              {index < approachStages.length - 1 && <span className="approach-arrow" aria-hidden="true">→</span>}
+            </div>
+          ))}
+        </div>
+      </section>
+
       <section className="foundation-section page-section" aria-labelledby="foundations-heading">
         <div className="section-intro">
           <span className="eyebrow dark"><SparkIcon /> FOUNDATIONS OF LEARNING</span>
           <h2 id="foundations-heading">Build the abilities children use to learn.</h2>
-          <p>Medhā games are built around specific thinking processes and learning experiences—not around empty screen time.</p> 
-          {/*[cite: 3] */}
-          <small className="interaction-hint">Click on a concept below to reveal how we measure it.</small>
+          <p>Medhā experiences are built around specific thinking processes and learning opportunities—not around empty screen time.</p>
+          <small className="interaction-hint">Tap a foundation to explore it.</small>
         </div>
-        
+
         <div className="foundation-grid">
           {foundationCards.map((card, index) => (
-            <article 
-              className={`foundation-card interactive-card ${activeFoundation === index ? 'active' : ''}`} 
+            <article
+              className={`foundation-card interactive-card ${activeFoundation === index ? 'active' : ''}`}
               key={card.title}
               onClick={() => toggleFoundation(index)}
               role="button"
               tabIndex={0}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault();
+                  toggleFoundation(index);
+                }
+              }}
             >
               <div className="foundation-icon">{card.icon}</div>
               <h3>{card.title}</h3>
-              {/* Text is hidden by default, appears only when clicked, hiding others */}
               <div className={`foundation-text-wrapper ${activeFoundation === index ? 'open' : ''}`}>
                 <p>{card.text}</p>
               </div>
@@ -104,71 +165,133 @@ export function OurApproach() {
         </div>
       </section>
 
-      <section className="learning-method page-section" aria-labelledby="method-heading">
-        {/* Side-by-Side Layout implemented for internal process vs external visualization */}
-        <div className="method-panel side-by-side-container">
-          <div className="internal-view">
-            <span className="eyebrow"><SparkIcon /> HOW MEDHĀ WORKS</span>
-            <h2 id="method-heading">Explore. Try. Check. Repeat. Apply.</h2> 
-            {/*[cite: 3] */}
-            <p>Children are not limited to watching an explanation. Interactive experiences let them make choices, see consequences, solve problems and revisit ideas through short questions and challenges.</p>
-            {/*[cite: 3] */}
-            <div className="method-steps">
-              {[
-                ['01', 'Explore', 'Meet an idea, system or challenge.'], //[cite: 3]
-                ['02', 'Try', 'Make a choice, build, solve or experiment.'], //[cite: 3]
-                ['03', 'Check', 'Use quizzes and feedback to revisit concepts.'], //[cite: 3]
-                ['04', 'Apply', 'Connect learning with another situation.'], //[cite: 3]
-              ].map(([number, title, text]) => (
-                <div className="method-step" key={number}>
-                  <span>{number}</span>
-                  <div>
-                    <strong>{title}</strong>
-                    <p>{text}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          
-          <div className="external-view" aria-hidden="true">
-            <div className="engine-visualization">
-              <div className="node node-1">Input</div>
-              <div className="node-connection"></div>
-              <div className="node node-center">Medhā Engine</div>
-              <div className="node-connection"></div>
-              <div className="node node-3">Insight</div>
-              <div className="pulse-ring"></div>
-            </div>
-          </div>
+      <section className="medhaa-system-section page-section" aria-labelledby="system-heading">
+        <div className="section-intro centered">
+          <span className="eyebrow dark"><SparkIcon /> MORE THAN A GAME LIBRARY</span>
+          <h2 id="system-heading">One experience. Many ways to learn.</h2>
+          <p>Medhā connects play, exploration, check-ins and progress into one child-friendly journey.</p>
+        </div>
+
+        <div className="medhaa-system-grid">
+          {medhaaParts.map((part) => (
+            <article className="medhaa-system-card" key={part.title}>
+              <div className="medhaa-system-icon">{part.icon}</div>
+              <div>
+                <span>{part.title}</span>
+                <p>{part.text}</p>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 
       <section className="wide-domains page-section" aria-labelledby="domains-heading">
         <div className="section-intro centered">
           <span className="eyebrow dark"><SparkIcon /> BEYOND ONE SUBJECT</span>
-          <h2 id="domains-heading">Give children a wider window into the world.</h2>
-          <p>Children may choose different paths after school. Broad exposure can help them encounter ideas before they have to choose a domain.</p>
-          {/*[cite: 3] */}
+          <h2 id="domains-heading">One child. Many directions.</h2>
+          <p>Children can meet ideas from different fields before they have to decide where their interests will take them.</p>
         </div>
-        <div className="domain-pills">
-          {['Cognitive Skills', 'Engineering & Technology', 'Science', 'Mathematics', 'Digital Literacy', 'Financial Literacy', 'Life Skills', 'Emotional & Social Learning', 'Music', 'Language', 'Creativity', 'Society & Civics', 'Future Skills'].map((item) => <span key={item}>{item}</span>)}
+        <div className="domain-card-grid">
+          {domains.map(([title, subtitle]) => (
+            <article className="domain-card" key={title}>
+              <strong>{title}</strong>
+              <span>{subtitle}</span>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="benefits-section page-section" aria-labelledby="benefits-heading">
+        <div className="section-intro centered">
+          <span className="eyebrow dark"><SparkIcon /> WHAT THE JOURNEY OFFERS</span>
+          <h2 id="benefits-heading">Useful for children. Meaningful for families.</h2>
+          <p>The aim is to create opportunities for children to practise and explore—and to give families a clearer view of the journey.</p>
+        </div>
+        <div className="benefits-grid">
+          {benefitCards.map((card) => (
+            <article className="benefit-card" key={card.title}>
+              <div className="benefit-icon">{card.icon}</div>
+              <h3>{card.title}</h3>
+              <ul>
+                {card.items.map((item) => <li key={item}>✓ {item}</li>)}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="results-section page-section" aria-labelledby="results-heading">
+        <div className="results-panel">
+          <div className="results-copy">
+            <span className="eyebrow"><SparkIcon /> RESULTS</span>
+            <h2 id="results-heading">See what is developing.</h2>
+            <p>
+              Medhā can bring together recorded activity and structured My Medhā check-ins to help families see what a child has explored, where evidence is developing and how the journey changes over time.
+            </p>
+            <div className="results-tags">
+              <span>Activity</span>
+              <span>Strengths</span>
+              <span>Progress</span>
+              <span>Insights</span>
+            </div>
+          </div>
+          <div className="results-visual" aria-hidden="true">
+            <div className="results-ring ring-one"><span>ACTIVITY</span></div>
+            <div className="results-ring ring-two"><span>PROGRESS</span></div>
+            <div className="results-core"><span>My Medhā</span><strong>↗</strong></div>
+          </div>
+        </div>
+      </section>
+
+      <section className="difference-section page-section" aria-labelledby="difference-heading">
+        <div className="section-intro centered">
+          <span className="eyebrow dark"><SparkIcon /> WHAT MAKES MEDHĀ DIFFERENT</span>
+          <h2 id="difference-heading">Not just one thing.</h2>
+        </div>
+        <div className="difference-grid">
+          <article><strong>Not just content.</strong><span>Experience.</span></article>
+          <article><strong>Not just play.</strong><span>Practice.</span></article>
+          <article><strong>Not just one subject.</strong><span>Many domains.</span></article>
+          <article><strong>Not just one session.</strong><span>A journey.</span></article>
         </div>
       </section>
 
       <section className="credibility page-section" aria-labelledby="credibility-heading">
         <div className="credibility-card">
-          <div><span className="eyebrow dark"><SparkIcon /> A NOTE FOR PARENTS</span><h2 id="credibility-heading">What we mean by “benefits”</h2></div>
-          <p>We describe the skills and learning experiences a game gives children opportunities to practise. We do not use a game alone as proof of a child’s ability, academic performance or future career success. Individual outcomes vary, and meaningful progress should be understood from actual activity and learning over time.</p>
-          {/*[cite: 3] */}
+          <div>
+            <span className="eyebrow dark"><SparkIcon /> A NOTE FOR FAMILIES</span>
+            <h2 id="credibility-heading">Built for learning. Designed with care.</h2>
+          </div>
+          <div className="credibility-copy">
+            <p>
+              Medhā is an educational platform designed to give children opportunities to explore, practise and apply skills through interactive experiences. Its scores and insights are platform-derived indicators based on recorded activity and check-ins, not medical diagnoses or standardized psychometric assessments.
+            </p>
+            <p>
+              We describe the skills and learning experiences a child gets opportunities to practise. We do not use a single game or session as proof of a child’s ability, academic performance or future success.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="approach-cta page-section">
+        <div className="approach-cta-card">
+          <div>
+            <span className="eyebrow dark"><SparkIcon /> READY TO EXPLORE?</span>
+            <h2>Give children room to discover, practise and build.</h2>
+            <p>Start with the games. Return to My Medhā. Let the journey grow with the child.</p>
+          </div>
+          <div className="cta-actions">
+            <button type="button" className="primary-hero" onClick={() => navigate('/signup/parent')}>Start 15 days free <ArrowIcon /></button>
+            <button type="button" className="secondary-hero" onClick={() => navigate('/')}>Back to Medhā <ArrowIcon /></button>
+          </div>
         </div>
       </section>
 
       <footer className="parent-footer">
-        <div className="footer-brand"><img src={medhaaIcon} alt="" /><span>Medhā</span><small>Learn beyond limits, domains and enrich life.</small></div> 
-        {/*[cite: 3] */}
+        <div className="footer-brand"><img src={medhaaIcon} alt="" /><span>Medhā</span><small>Learn beyond limits, domains and enrich life.</small></div>
         <div className="footer-actions">
-          <button type="button" className="footer-link" onClick={() => navigate('/signup/parent')}>Sign up</button>
+          <button type="button" className="footer-link" onClick={() => navigate('/our-approach')}>Our Approach</button>
+          <button type="button" className="footer-link" onClick={() => navigate('/signup/parent')}>Get Started</button>
           <button type="button" className="footer-link" onClick={() => navigate('/')}>Home</button>
         </div>
       </footer>

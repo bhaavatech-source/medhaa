@@ -21,10 +21,10 @@ export default function LearningReadiness({
 
   const message = useMemo(() => {
     if (ready) {
-      return 'Your personalised progress insights are ready to explore.';
+      return 'There is enough activity to make your progress picture more useful.';
     }
 
-    return 'Try different kinds of games to help Medhaa build a fuller picture of your learning journey.';
+    return 'Keep exploring different kinds of Medhā activities so your progress picture can become richer over time.';
   }, [ready]);
 
   return (
@@ -38,7 +38,7 @@ export default function LearningReadiness({
 
         <span style={styles.kicker}>YOUR LEARNING JOURNEY</span>
         <h1 style={styles.heading}>
-          {ready ? 'Your insights are ready' : 'Discovering your strengths'}
+          {ready ? 'Your activity picture is growing' : 'Building your activity picture'}
         </h1>
 
         <p style={styles.copy}>{message}</p>
@@ -64,16 +64,15 @@ export default function LearningReadiness({
         </div>
 
         <p style={styles.note}>
-          Medhaa uses completed activity, varied skill areas, engagement, and
-          active play time to make guidance more useful over time.
+          Medhā uses completed activity, varied skill areas, engagement, and active play time to make progress guidance more useful over time. This is an evidence-readiness indicator, not a final capability assessment.
         </p>
 
         <button
           type="button"
           style={styles.primaryButton}
-          onClick={() => navigate(ready ? '/student/progress' : '/student/games')}
+          onClick={() => navigate('/student')}
         >
-          {ready ? 'View My Progress' : 'Explore Recommended Games'}
+          {ready ? 'Return to My Medhā' : 'Keep Exploring Medhā'}
         </button>
       </section>
     </main>

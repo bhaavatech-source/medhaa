@@ -453,9 +453,9 @@ const medhaHeroStyles = `
   }
 
   .medha-enhanced > .home-nav {
-    background: rgba(255,255,255,.90);
-    backdrop-filter: blur(12px);
-  }
+  background: transparent;
+  backdrop-filter: none;
+}
 
   .medha-enhanced > .explore-section {
     background: transparent;
@@ -1022,7 +1022,7 @@ const medhaHeroStyles = `
 }
 
 
-/* --- Medhā World 2.0: depth, journey, cognitive skills and micro-interactions --- */
+/* ---   World 2.0: depth, journey, cognitive skills and micro-interactions --- */
 
 .medha-enhanced {
   --world-ink: #193536;
@@ -1554,11 +1554,6 @@ const medhaHeroStyles = `
   border-color: rgba(255,255,255,.95) !important;
 }
 
-.nav-subscribe-button {
-  color: #fff !important;
-  box-shadow: 0 8px 20px rgba(95,66,190,.20) !important;
-}
-
 /* Use the real logo subtly in the hero without competing with the headline. */
 @keyframes heroEmblemFloat {
   0%,100% { transform: translateY(0) rotate(0deg); }
@@ -1571,6 +1566,23 @@ const medhaHeroStyles = `
     radial-gradient(circle at 18% 30%, rgba(255,255,224,.13), transparent 22%),
     radial-gradient(circle at 78% 38%, rgba(30,94,78,.06), transparent 26%) !important;
   mix-blend-mode: normal !important;
+}
+
+.medha-enhanced > .home-nav {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.medha-enhanced > .home-nav::before,
+.medha-enhanced > .home-nav::after {
+  content: none !important;
+  display: none !important;
+}
+
+.medha-enhanced > .explore-section::before,
+.medha-enhanced > .explore-section::after {
+  content: none !important;
+  display: none !important;
 }
 
 /* Mobile: keep the framing elements away from text/cards. */
@@ -1658,20 +1670,35 @@ export default function HomePage() {
           </span>
           <span className="brand-name">Medhā</span>
         </button>
+      
 
-        <div className="nav-actions">
-          <button
-            className="nav-subscribe-button"
-            onClick={() => go("/subscribe")}
-          >
-            <Crown size={17} fill="currentColor" aria-hidden="true" />
-            <span>Subscribe</span>
-          </button>
-        </div>
 
         <button className="mobile-menu-button" aria-label="Open navigation menu">
           <Menu size={23} aria-hidden="true" />
         </button>
+
+        <header className="homepage-header">
+  <button
+    type="button"
+    className="homepage-brand"
+    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+    aria-label="Medhā home"
+  >
+  </button>
+
+  <nav className="homepage-header-actions" aria-label="Homepage navigation">
+    <button
+      type="button"
+      className="homepage-nav-link homepage-nav-link--approach"
+      onClick={() => {
+        navigate('/our-approach');
+      }}
+    >
+      Our Approach
+      <span aria-hidden="true"></span>
+    </button>
+  </nav>
+</header>
       </header>
       <section className="section explore-section" id="explore">
   <div className="medha-intro">
@@ -1684,7 +1711,7 @@ export default function HomePage() {
     </span>
 
     <h1>
-      One platform for <span className="gradient-word">every mind.</span>
+      One platform for <span className="gradient-word"> every student.</span>
     </h1>
 
     <p>
@@ -1702,10 +1729,6 @@ export default function HomePage() {
   <div className="section-heading-wrap" style={{ display: 'none' }}>
     <span className="section-kicker">Explore Medhā</span>
     <h2>One platform For all.</h2>
-    <p>
-      The experience changes with the person using it — joyful learning for children,
-      peaceful play for adults.
-    </p>
   </div>
 
   <div className="role-grid enhanced-role-grid">

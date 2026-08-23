@@ -21,15 +21,15 @@ export function BrainScoreNudge({ lastCheckInAt, onOpenAssessment }: BrainScoreN
   if (!shouldShow) return null;
 
   const message = daysSince === null
-    ? "Let's check your Brain Score for the first time!"
-    : `It's been ${daysSince} days since your last Brain Score check-in.`;
+    ? "Let’s check your Medhā Score for the first time!"
+    : `It's been ${daysSince} days since your last Medhā Score check-in.`;
 
   return (
     <div className="brain-nudge-card" role="status">
-      <div className="brain-nudge-icon">🧠</div>
+      <div className="brain-nudge-icon">✦</div>
       <div className="brain-nudge-body">
         <p className="brain-nudge-title">{message}</p>
-        <p className="brain-nudge-sub">Takes 5 minutes. See how your IQ, EQ, and SQ are growing.</p>
+        <p className="brain-nudge-sub">Takes 5 minutes. See how your Medhā activity and capability profile are developing over time.</p>
       </div>
       <div className="brain-nudge-actions">
         <button className="brain-nudge-primary" onClick={onOpenAssessment}>

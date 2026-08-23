@@ -39,7 +39,15 @@ router.get('/public', async (req, res) => {
 });
 
 router.get('/with-access', authenticate, async (req: AuthenticatedRequest, res: Response) => {
-  const student = await prisma.user.findUnique({ where: { id: req.user!.id } });
+  const student = await prisma.user.findUnique({
+    where: { id: req.user!.id },
+    include: {
+      student: {
+        include: { school: true },
+      },
+    },
+  });
+
   if (!student) {
     res.status(404).json({ error: 'Student not found' });
     return;
@@ -61,6 +69,9 @@ router.get('/with-access', authenticate, async (req: AuthenticatedRequest, res: 
 
   res.json({
     games: gamesWithAccess,
+    studentName: student.student?.fullName ?? null,
+    gradeLevel: student.student?.gradeLevel ?? null,
+    schoolName: student.student?.school?.name ?? null,
     lastCheckInAt: lastCheckIn?.completedAt ?? null,
     subscription: subscription
       ? { status: subscription.status, plan: subscription.plan, trialEndsAt: subscription.trialEndsAt }

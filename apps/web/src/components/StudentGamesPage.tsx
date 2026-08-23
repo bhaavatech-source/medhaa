@@ -5,7 +5,7 @@
 // - dedicated Medhā for Aspirants (18+) pathway with exam-focus hub
 // - age-specific CSS/SVG-generated visual worlds
 // - student navigation
-// - games-first experience, followed by Homework, Time, Math Lab, Daily Challenge, Study Planner,
+// - My Medhā check-in first, followed by the game collection and supporting tools,
 //   Real Life Lab, Create Lab and My Journey entry points
 // - Medhaa branding from src/assets/logo
 //
@@ -43,7 +43,7 @@ interface StudentGamesPageProps {
   apiUrl: string;
 }
 
-type AgeGroup = '5-9' | '10-13' | '14-17' | 'aspirants';
+type AgeAccent = 'sunny' | 'explorer' | 'future' | 'aspirants';
 
 interface AgeProfile {
   label: string;
@@ -51,10 +51,12 @@ interface AgeProfile {
   title: string;
   subtitle: string;
   greeting: string;
-  accent: string;
+  accent: AgeAccent;
   icon: string;
 }
 
+
+type AgeGroup = '5-9' | '10-13' | '14-17' | 'aspirants';
 const AGE_PROFILES: Record<AgeGroup, AgeProfile> = {
   '5-9': {
     label: '5–9 years',
@@ -373,8 +375,15 @@ const FEATURE_META: Record<FeatureKey, {
   aspirant: { icon: '🎯', title: 'Aspirant Hub', subtitle: 'A focused space for students 18+ preparing for demanding examinations.', tone: 'navy' },
 };
 
-function AgeWorldArt({ accent }: { accent: AgeProfile['accent'] }) {
-  const art = {
+function AgeWorldArt({ accent }: { accent: AgeAccent }) {
+  const artMap: Record<
+    AgeAccent,
+    {
+      title: string;
+      emojis: string[];
+      svg: React.ReactNode;
+    }
+  > = {
     sunny: {
       title: 'Playful discovery',
       emojis: ['🌈', '🦋', '⭐', '🎈'],
@@ -441,18 +450,31 @@ function AgeWorldArt({ accent }: { accent: AgeProfile['accent'] }) {
         </svg>
       ),
     },
-  }[accent];
-  if (!art) return null;
+  };
+
+  const art = artMap[accent];
 
   return (
-  <div className={`age-world-art age-world-art--${accent}`} aria-hidden="true">
-    {art.svg}
-    <span className="age-world-art__label">{art.title}</span>
-    {art.emojis.map((emoji, index) => (
-      <span key={emoji} className={`age-world-art__emoji age-world-art__emoji--${index + 1}`}>{emoji}</span>
-    ))}
-  </div>
-);
+    <div
+      className={`age-world-art age-world-art--${accent}`}
+      aria-hidden="true"
+    >
+      {art.svg}
+
+      <span className="age-world-art__label">
+        {art.title}
+      </span>
+
+      {art.emojis.map((emoji, index) => (
+        <span
+          key={emoji}
+          className={`age-world-art__emoji age-world-art__emoji--${index + 1}`}
+        >
+          {emoji}
+        </span>
+      ))}
+    </div>
+  );
 }
 
 function StudentFeaturePage({
@@ -486,7 +508,6 @@ function StudentFeaturePage({
   const [planText, setPlanText] = useState('');
   const [examTrack, setExamTrack] = useState('JEE');
   const [sessionLength, setSessionLength] = useState('10');
-  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     if (!timerRunning) return;
@@ -788,6 +809,7 @@ function StudentFeaturePage({
 
 export function StudentGamesPage({ apiUrl }: StudentGamesPageProps) {
   const [games, setGames] = useState<GameWithAccess[]>([]);
+  const [studentName, setStudentName] = useState<string | null>(null);
   const [lastCheckInAt, setLastCheckInAt] = useState<string | null>(null);
   const [subscription, setSubscription] = useState<{ status: string; plan: string; trialEndsAt: string | null } | null>(null);
   const [loading, setLoading] = useState(true);
@@ -832,7 +854,16 @@ export function StudentGamesPage({ apiUrl }: StudentGamesPageProps) {
         const data = await res.json();
         const allGames: GameWithAccess[] = data.games ?? [];
         setGames(allGames);
+        setStudentName(data.studentName ?? null);
         setLastCheckInAt(data.lastCheckInAt ?? null);
+
+        if (data.studentName) {
+          const existing = JSON.parse(localStorage.getItem('bhava_current_student') || '{}');
+          localStorage.setItem(
+            'bhava_current_student',
+            JSON.stringify({ ...existing, name: data.studentName, grade: data.gradeLevel ?? existing.grade, school: data.schoolName ?? existing.school })
+          );
+        }
         setSubscription(data.subscription ?? null);
       } catch (error) {
         console.error('Failed to load student games:', error);
@@ -880,7 +911,7 @@ export function StudentGamesPage({ apiUrl }: StudentGamesPageProps) {
   }
 
   function openAssessment() {
-    handlePlay('My Medhā Assessment');
+    handlePlay('bcs-lite-v3');
   }
 
   function handleLogout() {
@@ -902,7 +933,6 @@ export function StudentGamesPage({ apiUrl }: StudentGamesPageProps) {
     setShowAgePicker(true);
   }
 
-
   function openFeature(feature: FeatureKey) {
     playClick();
     setActiveFeature(feature);
@@ -912,32 +942,71 @@ export function StudentGamesPage({ apiUrl }: StudentGamesPageProps) {
     }
   }
 
-  const [searchQuery, setSearchQuery] = useState('');
-  
-  const filteredGames = useMemo(() => {
-  if (!searchQuery.trim()) return games;
-  const q = searchQuery.toLowerCase();
-  return games.filter((game) => {
-    const cat = getCatalogEntry(game.slug);
-    return (
-      game.title.toLowerCase().includes(q) ||
-      game.domain.toLowerCase().includes(q) ||
-      game.slug.toLowerCase().includes(q) ||
-      game.skills.some((s) => s.toLowerCase().includes(q)) ||
-      (cat?.title?.toLowerCase().includes(q) ?? false)
-    );
-  });
-}, [games, searchQuery]);
-
-const grouped = useMemo(() => filteredGames.reduce<Record<string, GameWithAccess[]>>((acc, game) => {
-  (acc[game.domain] ??= []).push(game);
-  return acc;
-}, {}), [filteredGames]);
+  const grouped = useMemo(() => games.reduce<Record<string, GameWithAccess[]>>((acc, game) => {
+    (acc[game.domain] ??= []).push(game);
+    return acc;
+  }, {}), [games]);
 
   const visibleFeatureItems = useMemo(
     () => FEATURE_ITEMS.filter((item) => item.key !== 'aspirant' || ageGroup === 'aspirants'),
     [ageGroup],
   );
+
+
+  const myMedhaaStatus = useMemo(() => {
+    if (!lastCheckInAt) {
+      return {
+        state: 'baseline' as const,
+        title: 'Start your Medhā baseline',
+        message: 'Complete your first My Medhā check-in early so your journey has a meaningful starting point.',
+        detail: '',
+        nextLabel: '',
+        daysSince: null as number | null,
+      };
+    }
+
+    const completedAt = new Date(lastCheckInAt);
+    const daysSince = Math.max(0, Math.floor((Date.now() - completedAt.getTime()) / (1000 * 60 * 60 * 24)));
+    const daysUntilNext = Math.max(0, 30 - daysSince);
+
+    return {
+      state: daysUntilNext === 0 ? 'ready' as const : 'tracking' as const,
+      title: daysUntilNext === 0 ? 'Your next My Medhā check-in is ready' : 'Your Medhā journey is being tracked',
+      message: daysUntilNext === 0
+        ? 'A new structured check-in can help you compare your current position with your earlier one.'
+        : 'Keep exploring varied Medhā activities. Your next recommended structured check-in is approaching.',
+      detail: `Last check-in · ${completedAt.toLocaleDateString()}`,
+      nextLabel: daysUntilNext === 0 ? '30-day check-in' : `Next check-in in ${daysUntilNext} day${daysUntilNext === 1 ? '' : 's'}`,
+      daysSince,
+    };
+  }, [lastCheckInAt]);
+
+  const myMedhaaCheckpoints = [
+    { key: 'baseline', label: 'Baseline' },
+    { key: '30', label: '30 days' },
+    { key: '90', label: '90 days' },
+    { key: '180', label: '180 days' },
+    { key: '365', label: '1 year' },
+  ];
+
+  
+const disclaimerBanner = (
+  <div
+    className="student-disclaimer-banner"
+    role="note"
+    aria-label="Important information about Medhā results"
+  >
+    <span>
+      <strong>Important:</strong> Medhā is an educational platform designed for
+      learning, practice and progress tracking. Its activities, scores and
+      insights are based on recorded activity and platform methods. They are
+      indicative learning insights, not medical diagnoses, clinical assessments,
+      or standardized psychological or psychometric tests, and should not be
+      used alone to make medical, psychological, educational or career decisions.
+    </span>
+  </div>
+);
+
 
   const benefitsBanner = subscription ? (
     <div className="student-trial-banner student-trial-banner--active">
@@ -961,11 +1030,56 @@ const grouped = useMemo(() => filteredGames.reduce<Record<string, GameWithAccess
       </button>
 
       <nav className="student-header__nav" aria-label="Student navigation">
-        <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}><span>⌂</span> Home</button>
-        <button type="button" onClick={() => document.getElementById('student-games')?.scrollIntoView({ behavior: 'smooth' })}><span>🎮</span> Play</button>
-<button type="button" onClick={() => document.getElementById('student-tools')?.scrollIntoView({ behavior: 'smooth' })}><span>🧰</span> Tools</button>
-        <button type="button" onClick={changeAge}><span>{profile.icon}</span> Age & Theme</button>
-      </nav>
+  <button
+    type="button"
+    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+  >
+    <span>⌂</span> Home
+  </button>
+
+  <button
+    type="button"
+    onClick={() =>
+      document.getElementById('student-games')?.scrollIntoView({
+        behavior: 'smooth',
+      })
+    }
+  >
+    <span>🎮</span> Play
+  </button>
+
+  <button
+    type="button"
+    onClick={() =>
+      document.getElementById('student-tools')?.scrollIntoView({
+        behavior: 'smooth',
+      })
+    }
+  >
+    <span>🧰</span> Tools
+  </button>
+
+  <button type="button" onClick={changeAge}>
+    <span>{profile.icon}</span> Age &amp; Theme
+  </button>
+
+  {subscription?.status === 'ACTIVE' ? (
+    <span className="student-header__subscribed">
+      ✓ Subscribed
+    </span>
+  ) : (
+    <button
+      type="button"
+      className="student-header__subscribe"
+      onClick={() => {
+        playClick();
+        navigate('/subscribe');
+      }}
+    >
+      ✨ Subscribe
+    </button>
+  )}
+</nav>
 
       <div className="student-header__account">
         {isLoggedIn ? (
@@ -986,7 +1100,7 @@ const grouped = useMemo(() => filteredGames.reduce<Record<string, GameWithAccess
   if (activeFeature) {
     return (
       <div className={`student-page student-page--${profile.accent}`}>
-
+        {disclaimerBanner}
         {header}
         {benefitsBanner}
         <main className="student-main">
@@ -1030,10 +1144,84 @@ const grouped = useMemo(() => filteredGames.reduce<Record<string, GameWithAccess
         <div className="world-shape world-shape--one" /><div className="world-shape world-shape--two" />
       </div>
 
+      {disclaimerBanner}
       {header}
       {benefitsBanner}
 
       <main className="student-main">
+
+        {studentName && (
+          <div className="student-welcome-line">
+            <span className="student-section-kicker">WELCOME BACK</span>
+            <strong>{studentName}</strong>
+          </div>
+        )}
+
+        <section className="student-my-medhaa" aria-labelledby="my-medhaa-title">
+          <div className="student-my-medhaa__topline">
+            <div className="student-my-medhaa__icon" aria-hidden="true">✦</div>
+            <div className="student-my-medhaa__eyebrow-wrap">
+              <span className="student-section-kicker">MY MEDHĀ</span>
+              {studentName && <span className="student-my-medhaa__student-name">{studentName}'s journey</span>}
+            </div>
+          </div>
+
+          <div className="student-my-medhaa__main">
+            <div className="student-my-medhaa__content">
+              <h2 id="my-medhaa-title">
+                {myMedhaaStatus.state === 'baseline'
+                  ? 'Track your progress with My Medhā'
+                  : myMedhaaStatus.state === 'ready'
+                    ? 'Check My Medhā again'
+                    : 'Keep your Medhā journey going'}
+              </h2>
+              <p>
+                {myMedhaaStatus.state === 'baseline'
+                  ? ''
+                  : myMedhaaStatus.state === 'ready'
+                    ? 'It is a good time for another free check-in. Repeating it helps you follow your journey over time.'
+                    : `Last check-in ${myMedhaaStatus.daysSince} day${myMedhaaStatus.daysSince === 1 ? '' : 's'} ago. Keep exploring, and check in again when your next milestone arrives.`}
+              </p>
+              <div className="student-my-medhaa__meta">
+                <span>{myMedhaaStatus.detail}</span>
+                <span>{myMedhaaStatus.nextLabel}</span>
+              </div>
+            </div>
+
+            <div className="student-my-medhaa__timeline" aria-label="My Medhā recommended checkpoints">
+              {myMedhaaCheckpoints.map((checkpoint, index) => (
+                <React.Fragment key={checkpoint.key}>
+                  <div
+                    className={`student-my-medhaa__checkpoint ${
+                      checkpoint.key === 'baseline' && lastCheckInAt ? 'is-complete' : ''
+                    } ${
+                      checkpoint.key === 'baseline' && myMedhaaStatus.state === 'baseline' ? 'is-current' : checkpoint.key === '30' && myMedhaaStatus.state === 'ready' ? 'is-current' : ''
+                    }`}
+                  >
+                    <span className="student-my-medhaa__checkpoint-dot" />
+                    <span>{checkpoint.label}</span>
+                  </div>
+                  {index < myMedhaaCheckpoints.length - 1 && <span className="student-my-medhaa__connector" aria-hidden="true" />}
+                </React.Fragment>
+              ))}
+            </div>
+
+            <div className="student-my-medhaa__actions">
+              <button
+                type="button"
+                className="student-my-medhaa__button"
+                onClick={() => {
+                  playClick();
+                  navigate('/student/bcs-lite');
+                }}
+              >
+                {myMedhaaStatus.state === 'baseline' ? 'Check My Medhā ' : 'Check My Medhā →'}
+              </button>
+              <span className="student-my-medhaa__free-note">Free check-in </span>
+            </div>
+          </div>
+
+        </section>
 
 <section className={`student-section student-games-section ${expanded ? 'student-games-section--expanded' : ''}`} id="student-games">
   <AgeWorldArt accent={profile.accent} />
@@ -1063,10 +1251,18 @@ const grouped = useMemo(() => filteredGames.reduce<Record<string, GameWithAccess
             <span>Selected from the catalogue using the age range defined for this Medhā pathway.</span>
           </div>
         </div>
-        <div className="games-grid">
+        <div className="student-library-toolbar" aria-label="Recommended game collection">
+          <div className="student-library-toolbar__copy">
+            <span className="student-library-toolbar__eyebrow">Your starting collection</span>
+            <strong>{recommendedGames.length} games selected for this pathway</strong>
+          </div>
+          <span className="student-library-toolbar__hint">Choose a game to begin</span>
+        </div>
+
+        <div className="games-grid games-grid--recommended">
           {recommendedGames.map((game) => {
             const cat = getCatalogEntry(game.slug);
-            return <GameCard key={game.slug} {...game} emoji={cat?.emoji} onPlay={handlePlay} apiUrl={apiUrl} />;
+            return <GameCard key={game.slug} {...game} emoji={cat?.emoji} kind={cat?.kind} onPlay={handlePlay} apiUrl={apiUrl} />;
           })}
         </div>
         <button
@@ -1078,27 +1274,7 @@ const grouped = useMemo(() => filteredGames.reduce<Record<string, GameWithAccess
         </button>
       </>
     ) : (
-  <>
-    <div className="games-search-bar">
-      <input
-        type="text"
-        placeholder="Search games by name, subject, or skill..."
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        className="games-search-input"
-      />
-      {searchQuery && (
-        <button
-          type="button"
-          className="games-search-clear"
-          onClick={() => setSearchQuery('')}
-          aria-label="Clear search"
-        >
-          ✕
-        </button>
-      )}
-    </div>
-      
+      <>
         {(Object.entries(grouped) as [string, GameWithAccess[]][]).map(([domain, domainGames]) => (
           <section key={domain} className="domain-section">
             <div className="domain-section__heading">
@@ -1108,10 +1284,10 @@ const grouped = useMemo(() => filteredGames.reduce<Record<string, GameWithAccess
               </div>
               <span className="domain-section__count">{domainGames.length}</span>
             </div>
-            <div className="games-grid">
+            <div className="games-grid games-grid--library">
               {domainGames.map((game) => {
                 const cat = getCatalogEntry(game.slug);
-                return <GameCard key={game.slug} {...game} emoji={cat?.emoji} onPlay={handlePlay} apiUrl={apiUrl} />;
+                return <GameCard key={game.slug} {...game} emoji={cat?.emoji} kind={cat?.kind} onPlay={handlePlay} apiUrl={apiUrl} />;
               })}
             </div>
           </section>
@@ -1165,8 +1341,14 @@ const grouped = useMemo(() => filteredGames.reduce<Record<string, GameWithAccess
         </section>
 
         <section className="student-progress-strip">
-          <div><span className="student-section-kicker">YOUR JOURNEY</span><h2>Small steps become a bigger story.</h2><p>Your activity history can bring games, study, focus and achievements together in one place.</p></div>
-          <button type="button" onClick={() => openFeature('journey')}>View My Journey →</button>
+          <div>
+            <span className="student-section-kicker">KEEP GOING</span>
+            <h2>Play, explore, then check in again.</h2>
+            <p>Your activities build the journey; My Medhā gives you a simple checkpoint to see how you're progressing.</p>
+          </div>
+          <button type="button" onClick={() => { playClick(); navigate('/student/bcs-lite'); }}>
+            Check My Medhā →
+          </button>
         </section>
       </main>
 
@@ -1208,4 +1390,3 @@ const grouped = useMemo(() => filteredGames.reduce<Record<string, GameWithAccess
     </div>
   );
 }
-
