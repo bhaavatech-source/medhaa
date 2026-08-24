@@ -8,7 +8,7 @@ import gamesWithAccessRoutes from './routes/gamesWithAccess';
 import subscriptionsRoutes from './routes/subscriptions';
 
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = Number(process.env.PORT) || 4000;
 
 app.use(cors({
   origin: [
@@ -31,6 +31,6 @@ app.use('/api/games', gamesRoutes);
 app.use('/api/games-with-access', gamesWithAccessRoutes);
 app.use('/api/subscriptions', subscriptionsRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Medhaa API server running on http://localhost:${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Medhaa API server running on http://0.0.0.0:${PORT}`);
 });
