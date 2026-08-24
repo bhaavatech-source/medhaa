@@ -4,7 +4,7 @@ import { GamesGrid } from '../components/GamesGrid';
 import '../styles/student-public.css';
 
 
-const API_URL = 'http://localhost:4000/api';
+const API_URL = 'https://medhaa-tni1.onrender.com/api';
 const AGE_STORAGE_KEY = 'medhaa_student_age_group';
 
 type AgeGroup = '5-9' | '10-13' | '14-17';

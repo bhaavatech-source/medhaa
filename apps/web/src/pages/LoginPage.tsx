@@ -4,7 +4,7 @@ import { useAuth } from '../contexts/AuthContext';
 import '../styles/login-page.css';
 import medhaaIcon from '../assets/logo/medhaa-icon.svg';
 
-const API_URL = 'http://localhost:4000/api';
+const API_URL = 'https://medhaa-tni1.onrender.com/api';
 
 const roleConfig: Record<string, { title: string; subtitle: string; icon: string; gradient: string }> = {
   admin: { title: 'Admin Portal', subtitle: 'Manage schools, teachers & data', icon: '🛠️', gradient: 'linear-gradient(135deg, #dc2626, #ea580c)' },

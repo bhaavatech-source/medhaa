@@ -3,7 +3,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import medhaaLogo from '../assets/logo/M_2.png';
 
 const API_URL =
-  import.meta.env.VITE_API_URL || 'http://localhost:4000/api';
+  import.meta.env.VITE_API_URL || 'https://medhaa-tni1.onrender.com/api';
 
 export default function ResetPasswordPage() {
   const navigate = useNavigate();
