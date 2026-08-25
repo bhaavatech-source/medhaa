@@ -937,9 +937,6 @@ export function StudentGamesPage({ apiUrl }: StudentGamesPageProps) {
     playClick();
     setActiveFeature(feature);
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    if (feature === 'daily' && recommendedGames.length) {
-      setRandomGame(recommendedGames[Math.floor(Math.random() * recommendedGames.length)]);
-    }
   }
 
   const grouped = useMemo(() => games.reduce<Record<string, GameWithAccess[]>>((acc, game) => {
@@ -1244,20 +1241,16 @@ const disclaimerBanner = (
   <div className="games-grid-wrap student-games-wrap">
     {!expanded ? (
       <>
-        <div className="student-recommendation-note">
-          <span className="student-recommendation-note__icon">{profile.icon}</span>
-          <div>
-            <strong>Start with these</strong>
-            <span>Selected from the catalogue using the age range defined for this Medhā pathway.</span>
-          </div>
-        </div>
-        <div className="student-library-toolbar" aria-label="Recommended game collection">
-          <div className="student-library-toolbar__copy">
-            <span className="student-library-toolbar__eyebrow">Your starting collection</span>
-            <strong>{recommendedGames.length} games selected for this pathway</strong>
-          </div>
-          <span className="student-library-toolbar__hint">Choose a game to begin</span>
-        </div>
+        <div className="student-recommendation-note student-recommendation-note--merged">
+  <span className="student-recommendation-note__icon">{profile.icon}</span>
+  <div className="student-recommendation-note__body">
+    <strong>Start with these — your first {recommendedGames.length} games</strong>
+    <span>
+      Handpicked from the full catalogue using the age range set for this Medhā pathway.
+      Pick any game below to begin.
+    </span>
+  </div>
+</div>
 
         <div className="games-grid games-grid--recommended">
           {recommendedGames.map((game) => {

@@ -119,16 +119,13 @@ router.post('/refresh', async (req: Request, res: Response) => {
   }
 });
 
-// POST /auth/forgot-password — creates a short-lived password reset token.
 router.post('/forgot-password', async (req: Request, res: Response) => {
   const email = z.string().email().safeParse(req.body?.email);
-
-  // Always return the same response so we do not reveal
-  // whether an email address is registered.
   const genericMessage =
     'If an account exists for this email, password reset instructions have been sent.';
 
   if (!email.success) {
+    console.log('[FORGOT] Invalid email format submitted.');
     res.json({ message: genericMessage });
     return;
   }
@@ -138,73 +135,43 @@ router.post('/forgot-password', async (req: Request, res: Response) => {
       where: { email: email.data.toLowerCase().trim() },
     });
 
-    // Do not reveal whether the account exists.
     if (!user) {
+      console.log('[FORGOT] No account found for this email.');
       res.json({ message: genericMessage });
       return;
     }
 
-    // Remove previous unused reset tokens for this user.
     await prisma.passwordResetToken.deleteMany({
-      where: {
-        userId: user.id,
-        usedAt: null,
-      },
+      where: { userId: user.id, usedAt: null },
     });
 
-    // Generate a cryptographically secure random token.
     const crypto = await import('crypto');
-
     const rawToken = crypto.randomBytes(32).toString('hex');
-
-const tokenHash = crypto
-  .createHash('sha256')
-  .update(rawToken)
-  .digest('hex');
-
-console.log('RESET DEBUG: CREATED TOKEN');
-console.log('Token length:', rawToken.length);
-console.log('Token hash prefix:', tokenHash.substring(0, 12));
-
-    // Token expires after 30 minutes.
+    const tokenHash = crypto.createHash('sha256').update(rawToken).digest('hex');
     const expiresAt = new Date(Date.now() + 30 * 60 * 1000);
 
     await prisma.passwordResetToken.create({
-      data: {
-        userId: user.id,
-        tokenHash,
-        expiresAt,
-      },
+      data: { userId: user.id, tokenHash, expiresAt },
     });
 
-    const webBaseUrl =
-      process.env.WEB_APP_URL || 'http://localhost:5173';
+    const webBaseUrl = process.env.WEB_APP_URL || 'http://localhost:5173';
+    const resetUrl = `${webBaseUrl}/reset-password?token=${encodeURIComponent(rawToken)}`;
 
-    const resetUrl =
-      `${webBaseUrl}/reset-password?token=${encodeURIComponent(rawToken)}`;
+    const result = await sendPasswordResetEmail({ to: user.email, resetUrl });
 
-    // DEVELOPMENT ONLY:
-    // We will replace this with ZeptoMail after the reset flow
-    // has been tested successfully.
-    await sendPasswordResetEmail({
-  to: user.email,
-  resetUrl,
-});
+    if (!result.success) {
+      console.error('[FORGOT] Email send FAILED for user:', user.email, '| Reason:', result.error);
+    } else {
+      console.log('[FORGOT] Email send SUCCESS for user:', user.email);
+    }
 
-console.log('Password reset email successfully sent.');
-console.log('Recipient:', user.email);
-console.log('Expires:', expiresAt.toISOString());
-
-res.json({ message: genericMessage });
-  } catch (error) {
-    console.error('Forgot password error:', error);
-
-    // Do not expose internal errors to the user.
+    res.json({ message: genericMessage });
+  } catch (error: any) {
+    console.error('[FORGOT] Unexpected error:', error.message);
     res.json({ message: genericMessage });
   }
 });
 
-// POST /auth/reset-password — validates a reset token and changes the password.
 router.post('/reset-password', async (req: Request, res: Response) => {
   const resetSchema = z.object({
     token: z.string().min(1),
@@ -212,11 +179,9 @@ router.post('/reset-password', async (req: Request, res: Response) => {
   });
 
   const parsed = resetSchema.safeParse(req.body);
-
   if (!parsed.success) {
-    res.status(400).json({
-      error: 'Invalid reset request',
-    });
+    console.log('[RESET] Invalid request body.');
+    res.status(400).json({ error: 'Invalid reset request' });
     return;
   }
 
@@ -224,87 +189,42 @@ router.post('/reset-password', async (req: Request, res: Response) => {
 
   try {
     const crypto = await import('crypto');
+    const tokenHash = crypto.createHash('sha256').update(token).digest('hex');
 
-    const tokenHash = crypto
-  .createHash('sha256')
-  .update(token)
-  .digest('hex');
-
-console.log('RESET DEBUG: RECEIVED TOKEN');
-console.log('Token length:', token.length);
-console.log('Token hash prefix:', tokenHash.substring(0, 12));
-
-const resetToken = await prisma.passwordResetToken.findUnique({
-  where: { tokenHash },
-});
+    const resetToken = await prisma.passwordResetToken.findUnique({ where: { tokenHash } });
 
     if (!resetToken) {
-  console.log('RESET DEBUG: TOKEN NOT FOUND IN DATABASE');
-
-  res.status(400).json({
-    error: 'This password reset link is invalid or has expired.',
-  });
-  return;
-}
-
-if (resetToken.usedAt) {
-  console.log('RESET DEBUG: TOKEN ALREADY USED');
-  console.log('Used at:', resetToken.usedAt.toISOString());
-
-  res.status(400).json({
-    error: 'This password reset link is invalid or has expired.',
-  });
-  return;
-}
-
-if (resetToken.expiresAt.getTime() <= Date.now()) {
-  console.log('RESET DEBUG: TOKEN EXPIRED');
-  console.log('Expires:', resetToken.expiresAt.toISOString());
-  console.log('Current:', new Date().toISOString());
-
-  res.status(400).json({
-    error: 'This password reset link is invalid or has expired.',
-  });
-  return;
-}
-
-console.log('RESET DEBUG: TOKEN VALID');
-console.log('Expires:', resetToken.expiresAt.toISOString());
+      console.log('[RESET] Token not found.');
+      res.status(400).json({ error: 'This password reset link is invalid or has expired.' });
+      return;
+    }
+    if (resetToken.usedAt) {
+      console.log('[RESET] Token already used.');
+      res.status(400).json({ error: 'This password reset link is invalid or has expired.' });
+      return;
+    }
+    if (resetToken.expiresAt.getTime() <= Date.now()) {
+      console.log('[RESET] Token expired.');
+      res.status(400).json({ error: 'This password reset link is invalid or has expired.' });
+      return;
+    }
 
     const passwordHash = await bcrypt.hash(password, 12);
 
     await prisma.$transaction([
-      prisma.user.update({
-        where: { id: resetToken.userId },
-        data: { passwordHash },
-      }),
-
-      prisma.passwordResetToken.update({
-        where: { id: resetToken.id },
-        data: { usedAt: new Date() },
-      }),
+      prisma.user.update({ where: { id: resetToken.userId }, data: { passwordHash } }),
+      prisma.passwordResetToken.update({ where: { id: resetToken.id }, data: { usedAt: new Date() } }),
     ]);
 
-    // Remove any other unused reset tokens belonging to this user.
     await prisma.passwordResetToken.deleteMany({
-      where: {
-        userId: resetToken.userId,
-        usedAt: null,
-        id: {
-          not: resetToken.id,
-        },
-      },
+      where: { userId: resetToken.userId, usedAt: null, id: { not: resetToken.id } },
     });
 
-    res.json({
-      message: 'Password has been reset successfully.',
-    });
-  } catch (error) {
-    console.error('Reset password error:', error);
-
-    res.status(500).json({
-      error: 'Unable to reset password. Please try again.',
-    });
+    console.log('[RESET] Password reset SUCCESS for user:', resetToken.userId);
+    res.json({ message: 'Password has been reset successfully.' });
+  } catch (error: any) {
+    console.error('[RESET] Unexpected error:', error.message);
+    res.status(500).json({ error: 'Unable to reset password. Please try again.' });
   }
 });
 

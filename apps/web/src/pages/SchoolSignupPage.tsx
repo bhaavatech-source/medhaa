@@ -2,6 +2,63 @@ import { useSignupForm } from './hooks/useSignupForm';
 import '../styles/school-login.css';
 import medhaaIcon from '../assets/logo/medhaa-icon.svg';
 
+import { useState } from 'react';
+
+function PasswordInput({
+  value,
+  onChange,
+  placeholder,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+  placeholder: string;
+}) {
+  const [visible, setVisible] = useState(false);
+
+  return (
+    <div style={{ position: 'relative' }}>
+      <input
+        type={visible ? 'text' : 'password'}
+        autoComplete="new-password"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+        required
+        style={{
+          width: '100%',
+          height: '48px',
+          boxSizing: 'border-box',
+          border: '1px solid #ccd8da',
+          borderRadius: '10px',
+          padding: '0 48px 0 14px',
+          fontSize: '15px',
+          color: '#20383b',
+          outline: 'none',
+        }}
+      />
+      <button
+        type="button"
+        onClick={() => setVisible((v) => !v)}
+        aria-label={visible ? 'Hide password' : 'Show password'}
+        style={{
+          position: 'absolute',
+          right: '10px',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          border: 0,
+          background: 'transparent',
+          color: '#087f83',
+          cursor: 'pointer',
+          fontSize: '13px',
+          fontWeight: 700,
+        }}
+      >
+        {visible ? 'Hide' : 'Show'}
+      </button>
+    </div>
+  );
+}
+
 export default function SchoolSignupPage() {
   const { name, setName, email, setEmail, password, setPassword, extraData, setExtraData, error, message, loading, handleSubmit } = useSignupForm('school', '/login/school');
 
@@ -14,15 +71,15 @@ export default function SchoolSignupPage() {
 
       <div className="school-login-card">
         <div className="school-brand">
-  <div className="school-logo">
-    <img src={medhaaIcon} alt="Medhā" />
-  </div>
+          <div className="school-logo">
+            <img src={medhaaIcon} alt="Medhā" />
+          </div>
 
-  <div className="school-role">🏫</div>
+          <div className="school-role">🏫</div>
 
-  <h1>School Sign In</h1>
-  <p>Check your children's scores and manage your school</p>
-</div>
+          <h1>School Sign In</h1>
+          <p>Check your children's scores and manage your school</p>
+        </div>
 
         {message ? (
           <p className="school-login-back">{message}</p>
@@ -38,7 +95,11 @@ export default function SchoolSignupPage() {
             </label>
             <label>
               Password
-              <input type="password" autoComplete="new-password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="At least 8 characters" required />
+              <PasswordInput
+                value={password}
+                onChange={setPassword}
+                placeholder="At least 8 characters"
+              />
             </label>
             <label>
               School Name (optional)

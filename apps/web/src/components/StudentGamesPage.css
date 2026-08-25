@@ -2218,3 +2218,23 @@
   color: #087f83;
   border: 1px solid rgba(16, 185, 129, 0.22);
 }
+
+.student-recommendation-note--merged {
+  animation: student-note-fade-in 0.5s ease-out;
+}
+
+@keyframes student-note-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.student-recommendation-note__body strong {
+  display: block;
+  margin-bottom: 4px;
+}

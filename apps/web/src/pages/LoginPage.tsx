@@ -13,6 +13,63 @@ const roleConfig: Record<string, { title: string; subtitle: string; icon: string
   student: { title: 'Student Login', subtitle: 'Continue your learning journey', icon: '🎮', gradient: 'linear-gradient(135deg, #10b981, #06b6d4)' },
 };
 
+function PasswordInput({
+  value,
+  onChange,
+  placeholder,
+  autoComplete,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+  placeholder: string;
+  autoComplete?: string;
+}) {
+  const [visible, setVisible] = useState(false);
+
+  return (
+    <div style={{ position: 'relative' }}>
+      <input
+        type={visible ? 'text' : 'password'}
+        autoComplete={autoComplete}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+        required
+        style={{
+          width: '100%',
+          height: '48px',
+          boxSizing: 'border-box',
+          border: '1px solid #ccd8da',
+          borderRadius: '10px',
+          padding: '0 48px 0 14px',
+          fontSize: '15px',
+          color: '#20383b',
+          outline: 'none',
+        }}
+      />
+      <button
+        type="button"
+        onClick={() => setVisible((v) => !v)}
+        aria-label={visible ? 'Hide password' : 'Show password'}
+        style={{
+          position: 'absolute',
+          right: '10px',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          border: 0,
+          background: 'transparent',
+          color: '#087f83',
+          cursor: 'pointer',
+          fontSize: '13px',
+          fontWeight: 700,
+        }}
+      >
+        {visible ? 'Hide' : 'Show'}
+      </button>
+    </div>
+  );
+}
+
 export function LoginPage({ role: roleProp }: { role?: string }) {
   const { role: roleParam } = useParams();
   const role = roleProp || roleParam || 'teacher';
@@ -72,26 +129,31 @@ export function LoginPage({ role: roleProp }: { role?: string }) {
           </label>
           <label>
             Password
-            <input type="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" required />
+            <PasswordInput
+              value={password}
+              onChange={setPassword}
+              placeholder="••••••••"
+              autoComplete="current-password"
+            />
           </label>
 
           <div style={{ textAlign: 'right', marginTop: '-4px', marginBottom: '10px' }}>
-  <button
-    type="button"
-    onClick={() => navigate('/forgot-password')}
-    style={{
-      background: 'none',
-      border: 'none',
-      padding: 0,
-      color: '#2563eb',
-      fontSize: '0.88rem',
-      cursor: 'pointer',
-      textDecoration: 'none',
-    }}
-  >
-    Forgot password?
-  </button>
-</div>
+            <button
+              type="button"
+              onClick={() => navigate('/forgot-password')}
+              style={{
+                background: 'none',
+                border: 'none',
+                padding: 0,
+                color: '#2563eb',
+                fontSize: '0.88rem',
+                cursor: 'pointer',
+                textDecoration: 'none',
+              }}
+            >
+              Forgot password?
+            </button>
+          </div>
 
           {error && <div className="login-error">{error}</div>}
 

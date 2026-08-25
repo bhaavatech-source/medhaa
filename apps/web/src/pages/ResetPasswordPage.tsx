@@ -1,502 +1,172 @@
-import { FormEvent, useMemo, useState } from 'react';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import medhaaLogo from '../assets/logo/M_2.png';
+import { useState, useEffect } from 'react';
+import { useNavigate, useSearchParams, Link } from 'react-router-dom';
+import { Eye, EyeOff } from 'lucide-react';
+import medhaaIcon from '../assets/logo/medhaa-icon.svg';
 
-const API_URL =
-  import.meta.env.VITE_API_URL || 'https://medhaa-tni1.onrender.com/api';
+const API_URL = import.meta.env.VITE_API_URL || 'https://medhaa-tni1.onrender.com/api';
+
+function PasswordField({
+  value,
+  onChange,
+  placeholder,
+  autoFocus,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+  placeholder: string;
+  autoFocus?: boolean;
+}) {
+  const [visible, setVisible] = useState(false);
+
+  return (
+    <div className="relative">
+      <input
+        type={visible ? 'text' : 'password'}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+        autoFocus={autoFocus}
+        className="w-full pr-10 border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+      />
+      <button
+        type="button"
+        onClick={() => setVisible((v) => !v)}
+        className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+        tabIndex={-1}
+        aria-label={visible ? 'Hide password' : 'Show password'}
+      >
+        {visible ? <EyeOff size={18} /> : <Eye size={18} />}
+      </button>
+    </div>
+  );
+}
 
 export default function ResetPasswordPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-
-  const token = useMemo(
-    () => searchParams.get('token') || '',
-    [searchParams]
-  );
+  const token = searchParams.get('token') || '';
 
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const passwordValid = password.length >= 8;
-  const passwordsMatch =
-    password.length > 0 &&
-    confirmPassword.length > 0 &&
-    password === confirmPassword;
+  useEffect(() => {
+    if (!token) {
+      setError('This password reset link is invalid or missing a token.');
+    }
+  }, [token]);
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
     setError('');
 
-    if (!token) {
-      setError(
-        'This password reset link is invalid or incomplete. Please request a new reset link.'
-      );
-      return;
-    }
-
-    if (!passwordValid) {
+    if (!password || password.length < 8) {
       setError('Password must be at least 8 characters.');
       return;
     }
-
-    if (!passwordsMatch) {
-      setError('The passwords do not match.');
+    if (password !== confirmPassword) {
+      setError('Passwords do not match.');
       return;
     }
 
     setLoading(true);
-
     try {
-      const response = await fetch(`${API_URL}/auth/reset-password`, {
+      const res = await fetch(`${API_URL}/auth/reset-password`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          token,
-          password,
-        }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token, password }),
       });
 
-      const data = await response.json().catch(() => ({}));
+      const data = await res.json();
 
-      if (!response.ok) {
-        throw new Error(
-          data?.error ||
-            'Unable to reset your password. Please request a new reset link.'
-        );
+      if (!res.ok) {
+        throw new Error(data.error || 'Unable to reset password.');
       }
 
       setSuccess(true);
-      setPassword('');
-      setConfirmPassword('');
-    } catch (err) {
-      setError(
-        err instanceof Error
-          ? err.message
-          : 'Unable to reset your password. Please try again.'
-      );
+    } catch (err: any) {
+      setError(err.message || 'Unable to reset password. Please try again.');
     } finally {
       setLoading(false);
     }
-  };
+  }
+
+  if (success) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+        <div className="max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center">
+          <img src={medhaaIcon} alt="Medhā" className="h-12 mx-auto mb-4" />
+          <h1 className="text-xl font-semibold mb-2">Password reset successfully</h1>
+          <p className="text-gray-600 mb-6">
+            Your Medhā password has been changed. You can now sign in using your new password.
+          </p>
+          <button
+            onClick={() => navigate('/login')}
+            className="w-full bg-indigo-600 text-white rounded-md py-2 font-medium hover:bg-indigo-700"
+          >
+            Go to Sign In
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <main
-      style={{
-        minHeight: '100vh',
-        width: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '40px 20px',
-        boxSizing: 'border-box',
-        background:
-          'radial-gradient(circle at 18% 22%, rgba(58, 119, 239, 0.28), transparent 32%), linear-gradient(135deg, #142c38 0%, #0f2631 48%, #17465a 100%)',
-        fontFamily: 'Inter, Segoe UI, Arial, sans-serif',
-      }}
-    >
-      <section
-        aria-labelledby="reset-password-title"
-        style={{
-          width: '100%',
-          maxWidth: '440px',
-          background: '#ffffff',
-          borderRadius: '24px',
-          padding: '42px 40px 38px',
-          boxSizing: 'border-box',
-          boxShadow: '0 24px 70px rgba(0, 0, 0, 0.22)',
-        }}
-      >
-        {/* Brand */}
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            marginBottom: '26px',
-          }}
-        >
-          <img
-  src={medhaaLogo}
-  alt="Medhā"
-  style={{
-    width: '76px',
-    height: '76px',
-    objectFit: 'contain',
-    display: 'block',
-    marginBottom: '8px',
-  }}
-/>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+      <div className="max-w-md w-full bg-white rounded-lg shadow-md p-8">
+        <img src={medhaaIcon} alt="Medhā" className="h-12 mx-auto mb-4" />
+        <h1 className="text-xl font-semibold mb-2 text-center">Create a new password</h1>
+        <p className="text-gray-600 mb-6 text-center">
+          Choose a new password for your Medhā account.
+        </p>
 
-          <div
-            style={{
-              fontSize: '28px',
-              fontWeight: 800,
-              color: '#087f83',
-              letterSpacing: '-0.03em',
-            }}
-          >
-          </div>
-        </div>
-
-        {!success ? (
-          <>
-            <div style={{ textAlign: 'center', marginBottom: '28px' }}>
-              <h1
-                id="reset-password-title"
-                style={{
-                  margin: 0,
-                  color: '#087f83',
-                  fontSize: '28px',
-                  lineHeight: 1.2,
-                  fontWeight: 800,
-                  letterSpacing: '-0.02em',
-                }}
-              >
-                Create a new password
-              </h1>
-
-              <p
-                style={{
-                  margin: '12px auto 0',
-                  maxWidth: '350px',
-                  color: '#607174',
-                  fontSize: '15px',
-                  lineHeight: 1.6,
-                }}
-              >
-                Choose a new password for your Medhā account.
-              </p>
-            </div>
-
-            {error && (
-              <div
-                role="alert"
-                style={{
-                  marginBottom: '20px',
-                  padding: '14px 15px',
-                  borderRadius: '12px',
-                  background: '#fff1f1',
-                  border: '1px solid #f1b7b7',
-                  color: '#a33a3a',
-                  fontSize: '14px',
-                  lineHeight: 1.5,
-                }}
-              >
-                {error}
-              </div>
-            )}
-
-            <form onSubmit={handleSubmit}>
-              {/* New password */}
-              <label
-                htmlFor="new-password"
-                style={{
-                  display: 'block',
-                  marginBottom: '8px',
-                  color: '#24383c',
-                  fontSize: '14px',
-                  fontWeight: 700,
-                }}
-              >
-                New password
-              </label>
-
-              <div
-                style={{
-                  position: 'relative',
-                  marginBottom: '8px',
-                }}
-              >
-                <input
-                  id="new-password"
-                  type={showPassword ? 'text' : 'password'}
-                  value={password}
-                  onChange={(event) => setPassword(event.target.value)}
-                  placeholder="Enter your new password"
-                  autoComplete="new-password"
-                  disabled={loading}
-                  style={{
-                    width: '100%',
-                    height: '48px',
-                    boxSizing: 'border-box',
-                    border: '1px solid #ccd8da',
-                    borderRadius: '10px',
-                    padding: '0 48px 0 14px',
-                    fontSize: '15px',
-                    color: '#20383b',
-                    outline: 'none',
-                    background: loading ? '#f5f7f7' : '#ffffff',
-                  }}
-                />
-
-                <button
-                  type="button"
-                  onClick={() => setShowPassword((value) => !value)}
-                  disabled={loading}
-                  aria-label={
-                    showPassword ? 'Hide password' : 'Show password'
-                  }
-                  style={{
-                    position: 'absolute',
-                    right: '10px',
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    border: 0,
-                    background: 'transparent',
-                    color: '#087f83',
-                    cursor: 'pointer',
-                    fontSize: '13px',
-                    fontWeight: 700,
-                  }}
-                >
-                  {showPassword ? 'Hide' : 'Show'}
-                </button>
-              </div>
-
-              <div
-                style={{
-                  marginBottom: '20px',
-                  fontSize: '12px',
-                  color: password.length === 0
-                    ? '#708083'
-                    : passwordValid
-                      ? '#39835d'
-                      : '#b05a5a',
-                }}
-              >
-                {password.length === 0
-                  ? 'Use at least 8 characters.'
-                  : passwordValid
-                    ? '✓ Password length is valid.'
-                    : 'Password must contain at least 8 characters.'}
-              </div>
-
-              {/* Confirm password */}
-              <label
-                htmlFor="confirm-password"
-                style={{
-                  display: 'block',
-                  marginBottom: '8px',
-                  color: '#24383c',
-                  fontSize: '14px',
-                  fontWeight: 700,
-                }}
-              >
-                Confirm password
-              </label>
-
-              <div
-                style={{
-                  position: 'relative',
-                  marginBottom: '8px',
-                }}
-              >
-                <input
-                  id="confirm-password"
-                  type={showConfirmPassword ? 'text' : 'password'}
-                  value={confirmPassword}
-                  onChange={(event) =>
-                    setConfirmPassword(event.target.value)
-                  }
-                  placeholder="Enter your password again"
-                  autoComplete="new-password"
-                  disabled={loading}
-                  style={{
-                    width: '100%',
-                    height: '48px',
-                    boxSizing: 'border-box',
-                    border: '1px solid #ccd8da',
-                    borderRadius: '10px',
-                    padding: '0 48px 0 14px',
-                    fontSize: '15px',
-                    color: '#20383b',
-                    outline: 'none',
-                    background: loading ? '#f5f7f7' : '#ffffff',
-                  }}
-                />
-
-                <button
-                  type="button"
-                  onClick={() =>
-                    setShowConfirmPassword((value) => !value)
-                  }
-                  disabled={loading}
-                  aria-label={
-                    showConfirmPassword
-                      ? 'Hide password'
-                      : 'Show password'
-                  }
-                  style={{
-                    position: 'absolute',
-                    right: '10px',
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    border: 0,
-                    background: 'transparent',
-                    color: '#087f83',
-                    cursor: 'pointer',
-                    fontSize: '13px',
-                    fontWeight: 700,
-                  }}
-                >
-                  {showConfirmPassword ? 'Hide' : 'Show'}
-                </button>
-              </div>
-
-              <div
-                style={{
-                  minHeight: '18px',
-                  marginBottom: '22px',
-                  fontSize: '12px',
-                  color:
-                    confirmPassword.length === 0
-                      ? '#708083'
-                      : passwordsMatch
-                        ? '#39835d'
-                        : '#b05a5a',
-                }}
-              >
-                {confirmPassword.length === 0
-                  ? 'Enter the same password again.'
-                  : passwordsMatch
-                    ? '✓ Passwords match.'
-                    : 'Passwords do not match.'}
-              </div>
-
-              <button
-                type="submit"
-                disabled={
-                  loading ||
-                  !passwordValid ||
-                  !passwordsMatch
-                }
-                style={{
-                  width: '100%',
-                  height: '48px',
-                  border: 0,
-                  borderRadius: '10px',
-                  background:
-                    loading ||
-                    !passwordValid ||
-                    !passwordsMatch
-                      ? '#aabfc1'
-                      : 'linear-gradient(90deg, #2869eb, #0db2ca)',
-                  color: '#ffffff',
-                  fontSize: '15px',
-                  fontWeight: 800,
-                  cursor:
-                    loading ||
-                    !passwordValid ||
-                    !passwordsMatch
-                      ? 'not-allowed'
-                      : 'pointer',
-                  boxShadow:
-                    loading ||
-                    !passwordValid ||
-                    !passwordsMatch
-                      ? 'none'
-                      : '0 8px 20px rgba(22, 125, 180, 0.22)',
-                }}
-              >
-                {loading ? 'Resetting password...' : 'Reset Password'}
-              </button>
-            </form>
-
-            <div
-              style={{
-                textAlign: 'center',
-                marginTop: '24px',
-              }}
-            >
-              <Link
-                to="/login"
-                style={{
-                  color: '#2869eb',
-                  fontSize: '14px',
-                  textDecoration: 'none',
-                  fontWeight: 600,
-                }}
-              >
-                ← Back to login
-              </Link>
-            </div>
-          </>
-        ) : (
-          <div style={{ textAlign: 'center' }}>
-            <div
-              aria-hidden="true"
-              style={{
-                width: '64px',
-                height: '64px',
-                margin: '0 auto 20px',
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                background: '#e8f8ef',
-                color: '#258052',
-                fontSize: '30px',
-                fontWeight: 800,
-              }}
-            >
-              ✓
-            </div>
-
-            <h1
-              style={{
-                margin: 0,
-                color: '#087f83',
-                fontSize: '27px',
-                lineHeight: 1.25,
-                fontWeight: 800,
-              }}
-            >
-              Password reset successfully
-            </h1>
-
-            <p
-              style={{
-                margin: '14px auto 26px',
-                color: '#607174',
-                fontSize: '15px',
-                lineHeight: 1.6,
-                maxWidth: '340px',
-              }}
-            >
-              Your Medhā password has been changed. You can now sign in
-              using your new password.
-            </p>
-
-            <button
-              type="button"
-              onClick={() => navigate('/login')}
-              style={{
-                width: '100%',
-                height: '48px',
-                border: 0,
-                borderRadius: '10px',
-                background: 'linear-gradient(90deg, #2869eb, #0db2ca)',
-                color: '#ffffff',
-                fontSize: '15px',
-                fontWeight: 800,
-                cursor: 'pointer',
-              }}
-            >
-              Go to Login
-            </button>
+        {error && (
+          <div className="mb-4 text-sm text-red-600 bg-red-50 border border-red-200 rounded-md px-3 py-2">
+            {error}
           </div>
         )}
-      </section>
-    </main>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              New password
+            </label>
+            <PasswordField
+              value={password}
+              onChange={setPassword}
+              placeholder="Enter new password"
+              autoFocus
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Confirm password
+            </label>
+            <PasswordField
+              value={confirmPassword}
+              onChange={setConfirmPassword}
+              placeholder="Re-enter new password"
+            />
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading || !token}
+            className="w-full bg-indigo-600 text-white rounded-md py-2 font-medium hover:bg-indigo-700 disabled:opacity-50"
+          >
+            {loading ? 'Resetting...' : 'Reset Password'}
+          </button>
+        </form>
+
+        <p className="text-center text-sm text-gray-500 mt-6">
+          <Link to="/login" className="text-indigo-600 hover:underline">
+            Back to Sign In
+          </Link>
+        </p>
+      </div>
+    </div>
   );
 }
