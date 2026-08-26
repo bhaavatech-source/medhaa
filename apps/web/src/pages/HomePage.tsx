@@ -1672,23 +1672,6 @@ export default function HomePage() {
           <span className="brand-name">Medhā</span>
         </button>
       
-
-
-        <button
-  className="mobile-menu-button"
-  aria-label="Open navigation menu"
-  onClick={() => setMobileMenuOpen((v) => !v)}
->
-  <Menu size={23} aria-hidden="true" />
-</button>
-{mobileMenuOpen && (
-  <div style={{ position: 'absolute', top: '64px', right: '16px', background: '#fff', borderRadius: 12, boxShadow: '0 12px 30px rgba(0,0,0,0.15)', padding: 12, display: 'flex', flexDirection: 'column', gap: 8, zIndex: 50 }}>
-    <button onClick={() => { setMobileMenuOpen(false); go('/'); }} style={{ textAlign: 'left', border: 'none', background: 'none', padding: 8, cursor: 'pointer' }}>Home</button>
-    <button onClick={() => { setMobileMenuOpen(false); navigate('/our-approach'); }} style={{ textAlign: 'left', border: 'none', background: 'none', padding: 8, cursor: 'pointer' }}>Our Approach</button>
-    <button onClick={() => { setMobileMenuOpen(false); go('/login/student'); }} style={{ textAlign: 'left', border: 'none', background: 'none', padding: 8, cursor: 'pointer' }}>Login</button>
-    <button onClick={() => { setMobileMenuOpen(false); go('/signup/student'); }} style={{ textAlign: 'left', border: 'none', background: 'none', padding: 8, cursor: 'pointer' }}>Sign Up</button>
-  </div>
-)}
         <header className="homepage-header">
   <button
     type="button"
