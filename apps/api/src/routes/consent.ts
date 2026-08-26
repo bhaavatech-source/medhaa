@@ -4,9 +4,13 @@ import { prisma } from "../lib/prisma";
 const router = Router();
 
 // POST /api/consent - records a parent's consent for processing their child's data
+// TODO: this currently trusts parentId from the request body, or falls back to
+// req.user?.id if your auth middleware attaches the authenticated user there.
+// Confirm this matches your actual middleware/auth.ts implementation and adjust if needed.
 router.post("/", async (req, res) => {
   try {
-    const { parentId, policyVersion } = req.body;
+    const parentId = req.body?.parentId || (req as any).user?.id;
+    const { policyVersion } = req.body;
 
     if (!parentId || !policyVersion) {
       return res.status(400).json({ success: false, error: "parentId and policyVersion are required" });

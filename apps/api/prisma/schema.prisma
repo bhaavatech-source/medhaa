@@ -229,3 +229,13 @@ model PasswordResetToken {
   @@index([userId])
   @@index([expiresAt])
 }
+
+model ParentConsent {
+  id            String   @id @default(uuid())
+  parentId      String
+  policyVersion String
+  consentedAt   DateTime @default(now())
+  ipAddress     String?
+
+  @@index([parentId])
+}
