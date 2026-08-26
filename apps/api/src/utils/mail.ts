@@ -1,47 +1,30 @@
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 
-const SMTP_HOST = process.env.SMTP_HOST || 'smtppro.zoho.com';
-const SMTP_PORT = Number(process.env.SMTP_PORT || 465);
-const SMTP_SECURE = String(process.env.SMTP_SECURE || 'true').toLowerCase() === 'true';
-const SMTP_USER = process.env.SMTP_USER;
-const SMTP_PASSWORD = process.env.SMTP_PASSWORD;
-const SMTP_FROM_EMAIL = process.env.SMTP_FROM_EMAIL || 'support@medhaa.net';
-const SMTP_FROM_NAME = process.env.SMTP_FROM_NAME || 'Medhā';
+const RESEND_API_KEY = process.env.RESEND_API_KEY;
+const FROM_EMAIL = process.env.MAIL_FROM_EMAIL || 'support@medhaa.net';
+const FROM_NAME = process.env.MAIL_FROM_NAME || 'Medhā';
 
-let transporter: nodemailer.Transporter | null = null;
+let resend: Resend | null = null;
 
-if (!SMTP_USER || !SMTP_PASSWORD) {
-  console.error('FATAL: SMTP_USER or SMTP_PASSWORD missing. Emails cannot be sent.');
+if (!RESEND_API_KEY) {
+  console.error('FATAL: RESEND_API_KEY missing. Emails cannot be sent.');
 } else {
-  transporter = nodemailer.createTransport({
-    host: SMTP_HOST,
-    port: SMTP_PORT,
-    secure: SMTP_SECURE,
-    auth: { user: SMTP_USER, pass: SMTP_PASSWORD },
-    connectionTimeout: 10000,
-    greetingTimeout: 10000,
-    socketTimeout: 10000,
-  });
-
-  transporter.verify()
-    .then(() => console.log('[MAIL] SMTP connection verified successfully.'))
-    .catch((err) => {
-      console.error('[MAIL] SMTP VERIFY FAILED:', err.code || 'UNKNOWN', '-', err.message);
-    });
+  resend = new Resend(RESEND_API_KEY);
+  console.log('[MAIL] Resend client initialized successfully.');
 }
 
 export async function sendPasswordResetEmail({
   to,
   resetUrl,
 }: { to: string; resetUrl: string }): Promise<{ success: boolean; error?: string }> {
-  if (!transporter) {
-    console.error('[MAIL] Transporter not initialized. Skipping send.');
-    return { success: false, error: 'SMTP not configured' };
+  if (!resend) {
+    console.error('[MAIL] Resend client not initialized. Skipping send.');
+    return { success: false, error: 'Resend not configured' };
   }
 
   try {
-    const info = await transporter.sendMail({
-      from: { name: SMTP_FROM_NAME, address: SMTP_FROM_EMAIL },
+    const { data, error } = await resend.emails.send({
+      from: `${FROM_NAME} <${FROM_EMAIL}>`,
       to,
       subject: 'Reset your Medhā password',
       text: [
@@ -66,7 +49,13 @@ export async function sendPasswordResetEmail({
         <p>If you did not request this, you can safely ignore this email.</p>
       `,
     });
-    console.log('[MAIL] Sent successfully. MessageId:', info.messageId);
+
+    if (error) {
+      console.error('[MAIL] SEND FAILED:', error.name || 'UNKNOWN', '-', error.message);
+      return { success: false, error: error.message };
+    }
+
+    console.log('[MAIL] Sent successfully. MessageId:', data?.id);
     return { success: true };
   } catch (error: any) {
     console.error('[MAIL] SEND FAILED:', error.code || 'UNKNOWN', '-', error.message);
