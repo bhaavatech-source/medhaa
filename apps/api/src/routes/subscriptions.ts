@@ -53,9 +53,6 @@ router.get('/plans', (_req, res: Response) => {
 });
 
 router.post('/initiate', authenticate, async (req: AuthenticatedRequest, res: Response) => {
-  // Individual subscriptions are available only to
-  // Student and Parent accounts.
-  // Teacher and School accounts use institutional plans.
   const role = String(req.user?.role || '').toUpperCase();
 
   if (role !== 'STUDENT' && role !== 'PARENT') {
@@ -80,15 +77,15 @@ router.post('/initiate', authenticate, async (req: AuthenticatedRequest, res: Re
   const subscription = await prisma.subscription.upsert({
     where: { userId: req.user!.id },
     update: {
-  plan: plan as SubscriptionPlan,
-  status: SubscriptionStatus.PENDING,
+      plan: plan as SubscriptionPlan,
+      status: SubscriptionStatus.PENDING,
       amount: details.amountPaise,
       paymentMethod: 'upi-manual',
     },
     create: {
-  userId: req.user!.id,
-  plan: plan as SubscriptionPlan,
-  status: SubscriptionStatus.PENDING,
+      userId: req.user!.id,
+      plan: plan as SubscriptionPlan,
+      status: SubscriptionStatus.PENDING,
       amount: details.amountPaise,
       paymentMethod: 'upi-manual',
     },
@@ -158,6 +155,49 @@ router.post('/:id/confirm', authenticate, requireRole(['admin']), async (req: Au
   });
 
   res.json({ subscription: updated });
+});
+
+router.post('/:id/reject', authenticate, requireRole(['admin']), async (req: AuthenticatedRequest, res: Response) => {
+  const id = req.params.id as string;
+
+  const subscription = await prisma.subscription.findUnique({ where: { id } });
+  if (!subscription) {
+    res.status(404).json({ error: 'Subscription not found' });
+    return;
+  }
+
+  await prisma.subscription.delete({ where: { id } });
+
+  res.json({ message: 'Subscription request rejected and removed.' });
+});
+
+router.post('/:id/disable', authenticate, requireRole(['admin']), async (req: AuthenticatedRequest, res: Response) => {
+  const id = req.params.id as string;
+
+  const subscription = await prisma.subscription.findUnique({ where: { id } });
+  if (!subscription) {
+    res.status(404).json({ error: 'Subscription not found' });
+    return;
+  }
+
+  const updated = await prisma.subscription.update({
+    where: { id },
+    data: { currentPeriodEnd: new Date() },
+  });
+
+  res.json({ message: 'Subscription disabled.', subscription: updated });
+});
+
+router.get('/', authenticate, requireRole(['admin']), async (_req: AuthenticatedRequest, res: Response) => {
+  const subscriptions = await prisma.subscription.findMany({
+    include: {
+      user: {
+        select: { id: true, email: true, role: true },
+      },
+    },
+  });
+
+  res.json({ subscriptions });
 });
 
 router.get('/me', authenticate, async (req: AuthenticatedRequest, res: Response) => {
