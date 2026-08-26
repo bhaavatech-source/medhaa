@@ -1061,21 +1061,25 @@ const disclaimerBanner = (
   </button>
 
   {subscription?.status === 'ACTIVE' ? (
-    <span className="student-header__subscribed">
-      ✓ Subscribed
-    </span>
-  ) : (
-    <button
-      type="button"
-      className="student-header__subscribe"
-      onClick={() => {
-        playClick();
-        navigate('/subscribe');
-      }}
-    >
-      ✨ Subscribe
-    </button>
-  )}
+  <span className="student-header__subscribed">
+    ✓ Subscribed
+  </span>
+) : subscription?.status === 'PENDING' ? (
+  <span className="student-header__subscribed" style={{ opacity: 0.75 }}>
+    ⏳ Verifying Payment
+  </span>
+) : (
+  <button
+    type="button"
+    className="student-header__subscribe"
+    onClick={() => {
+      playClick();
+      navigate('/subscribe');
+    }}
+  >
+    ✨ Subscribe
+  </button>
+)}
 </nav>
 
       <div className="student-header__account">
