@@ -106,7 +106,7 @@ export default function ResetPasswordPage() {
             onClick={() => navigate('/login')}
             className="w-full bg-indigo-600 text-white rounded-md py-2 font-medium hover:bg-indigo-700"
           >
-            Go to Sign In
+            Go to Login
           </button>
         </div>
       </div>
@@ -163,7 +163,7 @@ export default function ResetPasswordPage() {
 
         <p className="text-center text-sm text-gray-500 mt-6">
           <Link to="/login" className="text-indigo-600 hover:underline">
-            Back to Sign In
+            Back to Login
           </Link>
         </p>
       </div>
