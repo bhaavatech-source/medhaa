@@ -89,7 +89,7 @@ function App() {
           <Route path="/our-approach" element={<OurApproach />} />
 		<Route path="/teacher-workspace" element={<TeacherWorkspace />} />
 		<Route path="/school-workspace" element={<SchoolWorkspace />} />
-		
+		<Route path="/admin/subscriptions" element={<AdminSubscriptionsPage />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
