@@ -32,6 +32,7 @@ import SharingPermissions from './pages/SharingPermissions';
 import OurApproach from './components/OurApproach';
 import TeacherWorkspace from './pages/TeacherWorkspace';
 import SchoolWorkspace from './pages/SchoolWorkspace';
+import AdminSubscriptionsPage from './pages/AdminSubscriptionsPage';
 
 
 
