@@ -22,8 +22,6 @@ const registerSchema = z.object({
   role: z.enum(['STUDENT', 'PARENT', 'TEACHER', 'ADMIN']),
 });
 
-// POST /auth/register — creates a new user, role profile, and starts the
-// 15-day premium trial automatically.
 router.post('/register', async (req: Request, res: Response) => {
   const parsed = registerSchema.safeParse(req.body);
   if (!parsed.success) {
@@ -67,7 +65,6 @@ const loginSchema = z.object({
   password: z.string().min(1),
 });
 
-// POST /auth/login — validates credentials and issues token pair.
 router.post('/login', async (req: Request, res: Response) => {
   const parsed = loginSchema.safeParse(req.body);
   if (!parsed.success) {
@@ -96,7 +93,6 @@ router.post('/login', async (req: Request, res: Response) => {
   res.json({ accessToken, refreshToken });
 });
 
-// POST /auth/refresh — exchanges a valid refresh token for a new access token.
 router.post('/refresh', async (req: Request, res: Response) => {
   const { refreshToken } = req.body;
   if (!refreshToken) {
@@ -226,6 +222,37 @@ router.post('/reset-password', async (req: Request, res: Response) => {
     console.error('[RESET] Unexpected error:', error.message);
     res.status(500).json({ error: 'Unable to reset password. Please try again.' });
   }
+});
+
+router.post('/bootstrap-admin', async (req: Request, res: Response) => {
+  const { email, secret } = req.body as { email?: string; secret?: string };
+  const expected = process.env.ADMIN_BOOTSTRAP_SECRET;
+
+  if (!expected) {
+    res.status(503).json({ error: 'Bootstrap not configured on this server.' });
+    return;
+  }
+  if (!secret || secret !== expected) {
+    res.status(403).json({ error: 'Forbidden' });
+    return;
+  }
+  if (!email) {
+    res.status(400).json({ error: 'email is required' });
+    return;
+  }
+
+  const user = await prisma.user.findUnique({ where: { email: email.toLowerCase().trim() } });
+  if (!user) {
+    res.status(404).json({ error: 'No account found for this email' });
+    return;
+  }
+
+  const updated = await prisma.user.update({
+    where: { id: user.id },
+    data: { role: 'ADMIN' },
+  });
+
+  res.json({ message: 'Account promoted to ADMIN.', email: updated.email });
 });
 
 export default router;
