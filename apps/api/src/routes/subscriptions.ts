@@ -132,7 +132,7 @@ router.post('/:id/submit-reference', authenticate, async (req: AuthenticatedRequ
 
 router.post('/:id/confirm', authenticate, requireRole(['admin']), async (req: AuthenticatedRequest, res: Response) => {
   const id = req.params.id as string;
-  const { transactionRef } = req.body as { transactionRef?: string };
+  const { transactionRef } = (req.body ?? {}) as { transactionRef?: string };
 
   const subscription = await prisma.subscription.findUnique({ where: { id } });
   if (!subscription) {
