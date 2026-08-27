@@ -1,1 +1,246 @@
-SCHEMA_V2
+// apps/api/prisma/schema.prisma
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+enum Role {
+  STUDENT
+  PARENT
+  TEACHER
+  ADMIN
+}
+
+enum SubscriptionPlan {
+  FREE
+  PLUS
+  PREMIUM
+  FAMILY
+  SCHOOL
+  INSTITUTION
+  LIFETIME
+  MONTHLY_1
+  MONTHLY_2
+  YEARLY_1
+  YEARLY_2
+}
+
+enum SubscriptionStatus {
+  PENDING
+  TRIALING
+  ACTIVE
+  EXPIRED
+  CANCELLED
+}
+
+model School {
+  id        String    @id @default(uuid())
+  name      String
+  address   String?
+  createdAt DateTime  @default(now())
+  students  Student[]
+  teachers  Teacher[]
+  admins    Admin[]
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String?
+  googleId     String?  @unique
+  role         Role
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  isBlocked          Boolean  @default(false)
+  blockedAt          DateTime?
+  blockedReason       String?
+  canAccessAllGames  Boolean  @default(false)
+  restrictedFeatures String[] @default([])
+
+  student  Student?
+  parent   Parent?
+  teacher  Teacher?
+  admin    Admin?
+
+  subscription Subscription? @relation("UserSubscription")
+
+  giftedSubscriptions Subscription[] @relation("GiftedSubscription")
+
+  auditLogs          AuditLog[]
+  cognitiveCheckIns  CognitiveCheckIn[]
+  passwordResetTokens PasswordResetToken[]
+}
+
+model Student {
+  id         String    @id @default(uuid())
+  userId     String?   @unique
+  user       User?     @relation(fields: [userId], references: [id])
+  schoolId   String?
+  school     School?   @relation(fields: [schoolId], references: [id])
+  parentId   String?
+  parent     Parent?   @relation(fields: [parentId], references: [id])
+  fullName   String
+  age        Int?
+  gradeLevel Int?
+  coins      Int       @default(0)
+  xp         Int       @default(0)
+  level      Int       @default(1)
+  streakDays Int       @default(0)
+  createdAt  DateTime  @default(now())
+
+  attempts     GameAttempt[]
+  achievements StudentAchievement[]
+  coinLedger   CoinTransaction[]
+}
+
+model Parent {
+  id       String    @id @default(uuid())
+  userId   String    @unique
+  user     User      @relation(fields: [userId], references: [id])
+  fullName String
+  children Student[]
+}
+
+model Teacher {
+  id       String @id @default(uuid())
+  userId   String @unique
+  user     User   @relation(fields: [userId], references: [id])
+  schoolId String
+  school   School @relation(fields: [schoolId], references: [id])
+  fullName String
+}
+
+model Admin {
+  id       String @id @default(uuid())
+  userId   String @unique
+  user     User   @relation(fields: [userId], references: [id])
+  schoolId String
+  school   School @relation(fields: [schoolId], references: [id])
+  fullName String
+}
+
+model Game {
+  id         String        @id @default(uuid())
+  slug       String        @unique
+  title      String
+  domain     String
+  isFreeTier Boolean
+  entryPath  String
+  ageLabel   String?
+  skills     String[]
+  kind       String        @default("game")
+  isActive   Boolean       @default(true)
+  createdAt  DateTime      @default(now())
+  attempts   GameAttempt[]
+}
+
+model GameAttempt {
+  id               String    @id @default(uuid())
+  studentId        String
+  student          Student   @relation(fields: [studentId], references: [id])
+  gameId           String
+  game             Game      @relation(fields: [gameId], references: [id])
+  startTime        DateTime
+  endTime          DateTime?
+  durationMs       Int?
+  score            Float?
+  accuracy         Float?
+  hintsUsed        Int       @default(0)
+  completionStatus String    @default("in_progress")
+  createdAt        DateTime  @default(now())
+}
+
+model Achievement {
+  id          String @id @default(uuid())
+  code        String @unique
+  title       String
+  description String
+  iconUrl     String
+  students    StudentAchievement[]
+}
+
+model StudentAchievement {
+  id            String      @id @default(uuid())
+  studentId     String
+  student       Student     @relation(fields: [studentId], references: [id])
+  achievementId String
+  achievement   Achievement @relation(fields: [achievementId], references: [id])
+  unlockedAt    DateTime    @default(now())
+}
+
+model CoinTransaction {
+  id        String   @id @default(uuid())
+  studentId String
+  student   Student  @relation(fields: [studentId], references: [id])
+  amount    Int
+  reason    String
+  createdAt DateTime @default(now())
+}
+
+model Subscription {
+  id               String             @id @default(uuid())
+  userId           String             @unique
+  user             User               @relation("UserSubscription", fields: [userId], references: [id])
+  plan             SubscriptionPlan   @default(FREE)
+  status           SubscriptionStatus @default(TRIALING)
+  trialEndsAt      DateTime?
+  currentPeriodEnd DateTime?
+  amount           Int?
+  paymentMethod    String?
+  transactionRef   String?
+  createdAt        DateTime           @default(now())
+  notes            String?
+
+  isGift        Boolean @default(false)
+  giftedByUserId String?
+  giftedBy      User?   @relation("GiftedSubscription", fields: [giftedByUserId], references: [id])
+  giftNote      String?
+}
+
+model CognitiveCheckIn {
+  id          String   @id @default(uuid())
+  studentId   String
+  student     User     @relation(fields: [studentId], references: [id])
+  completedAt DateTime @default(now())
+}
+
+model Coupon {
+  id             String    @id @default(uuid())
+  code           String    @unique
+  type           String
+  rewardType     String
+  rewardValue    String
+  maxRedemptions Int?
+  redeemedCount  Int       @default(0)
+  expiresAt      DateTime?
+  createdAt      DateTime  @default(now())
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  action    String
+  metadata  Json?
+  createdAt DateTime @default(now())
+}
+
+model PasswordResetToken {
+  id        String    @id @default(uuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([userId])
+  @@index([expiresAt])
+}
