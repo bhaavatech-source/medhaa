@@ -41,6 +41,7 @@ interface GameWithAccess {
 
 interface StudentGamesPageProps {
   apiUrl: string;
+  childStudentId?: string;
 }
 
 type AgeAccent = 'sunny' | 'explorer' | 'future' | 'aspirants';
@@ -807,7 +808,7 @@ function StudentFeaturePage({
   );
 }
 
-export function StudentGamesPage({ apiUrl }: StudentGamesPageProps) {
+export function StudentGamesPage({ apiUrl, childStudentId }: StudentGamesPageProps) {
   const [games, setGames] = useState<GameWithAccess[]>([]);
   const [studentName, setStudentName] = useState<string | null>(null);
   const [lastCheckInAt, setLastCheckInAt] = useState<string | null>(null);
@@ -841,17 +842,21 @@ export function StudentGamesPage({ apiUrl }: StudentGamesPageProps) {
   const isLoggedIn = !!user;
   const profile = ageGroup ? AGE_PROFILES[ageGroup] : AGE_PROFILES['10-13'];
 
-  useEffect(() => {
+    useEffect(() => {
     async function load() {
       try {
         const token = localStorage.getItem('accessToken');
-        const endpoint = token ? '/games-with-access/with-access' : '/games-with-access/public';
+        const endpoint = childStudentId
+          ? `/games-with-access/child/${childStudentId}`
+          : token
+            ? '/games-with-access/with-access'
+            : '/games-with-access/public';
         const res = token ? await authFetch(`${apiUrl}${endpoint}`) : await fetch(`${apiUrl}${endpoint}`);
         if (!res.ok) {
           setLoading(false);
           return;
         }
-        const data = await res.json();
+        const data = await res.json(); 
         const allGames: GameWithAccess[] = data.games ?? [];
         setGames(allGames);
         setStudentName(data.studentName ?? null);
@@ -872,7 +877,7 @@ export function StudentGamesPage({ apiUrl }: StudentGamesPageProps) {
       }
     }
     load();
-  }, [apiUrl]);
+  }, [apiUrl, childStudentId]);
 
   useEffect(() => {
     localStorage.setItem('medhaa-homework', JSON.stringify(homework));
