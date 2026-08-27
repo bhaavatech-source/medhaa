@@ -1,6 +1,6 @@
 import { Router, Response } from 'express';
 import { PrismaClient } from '@prisma/client';
-import { authenticate, AuthenticatedRequest } from '../middleware/auth';
+import { authenticate, requireRole, AuthenticatedRequest } from '../middleware/auth';
 import { checkGameAccess } from '../services/gameEntitlement';
 
 
@@ -95,6 +95,70 @@ router.get('/with-access', authenticate, async (req: AuthenticatedRequest, res: 
       : null,
   });
 });
+
+
+// GET /api/games-with-access/child/:studentId
+// For parent-managed, no-login child profiles (see routes/students.ts).
+// SECURITY: the parent's own id is derived server-side from req.user!.id and
+// compared against student.parentId. Any mismatch or nonexistent student
+// returns the identical 404, so ownership cannot be probed by ID guessing.
+router.get(
+  '/child/:studentId',
+  authenticate,
+  requireRole(['parent']),
+  async (req: AuthenticatedRequest, res: Response) => {
+    try {
+      const parent = await prisma.parent.findUnique({ where: { userId: req.user!.id } });
+      if (!parent) {
+        res.status(404).json({ error: 'Student not found' });
+        return;
+      }
+
+      const child = await prisma.student.findUnique({
+        where: { id: req.params.studentId },
+        include: { school: true },
+      });
+
+      if (!child || child.parentId !== parent.id) {
+        res.status(404).json({ error: 'Student not found' });
+        return;
+      }
+
+      const games = await prisma.game.findMany();
+      const parentSubscription = await prisma.subscription.findFirst({
+        where: { userId: req.user!.id, status: { in: ['ACTIVE', 'TRIALING'] } },
+      });
+      const parentUser = await prisma.user.findUnique({
+        where: { id: req.user!.id },
+        select: { canAccessAllGames: true },
+      });
+
+      const gamesWithAccess = games
+        .map((game) =>
+          mapGameWithAccess(game, child.createdAt, !!parentSubscription, !!parentUser?.canAccessAllGames)
+        )
+        .filter((g) => g !== null);
+
+      res.json({
+        games: gamesWithAccess,
+        studentName: child.fullName,
+        gradeLevel: child.gradeLevel,
+        schoolName: child.school?.name ?? null,
+        lastCheckInAt: null,
+        subscription: parentSubscription
+          ? {
+              status: parentSubscription.status,
+              plan: parentSubscription.plan,
+              trialEndsAt: parentSubscription.trialEndsAt,
+            }
+          : null,
+      });
+    } catch (err) {
+      console.error('child games-with-access failed', err);
+      res.status(500).json({ error: 'Failed to load games for this profile' });
+    }
+  }
+);
 
 
 export default router;

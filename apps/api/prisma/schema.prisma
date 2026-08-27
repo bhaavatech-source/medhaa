@@ -79,19 +79,21 @@ model User {
 }
 
 model Student {
-  id         String  @id @default(uuid())
-  userId     String  @unique
-  user       User    @relation(fields: [userId], references: [id])
+  id         String    @id @default(uuid())
+  userId     String?   @unique
+  user       User?     @relation(fields: [userId], references: [id])
   schoolId   String?
-  school     School? @relation(fields: [schoolId], references: [id])
+  school     School?   @relation(fields: [schoolId], references: [id])
   parentId   String?
-  parent     Parent? @relation(fields: [parentId], references: [id])
+  parent     Parent?   @relation(fields: [parentId], references: [id])
   fullName   String
+  age        Int?
   gradeLevel Int?
-  coins      Int     @default(0)
-  xp         Int     @default(0)
-  level      Int     @default(1)
-  streakDays Int     @default(0)
+  coins      Int       @default(0)
+  xp         Int       @default(0)
+  level      Int       @default(1)
+  streakDays Int       @default(0)
+  createdAt  DateTime  @default(now())
 
   attempts     GameAttempt[]
   achievements StudentAchievement[]

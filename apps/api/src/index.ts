@@ -8,6 +8,7 @@ import gamesRoutes from './routes/games';
 import gamesWithAccessRoutes from './routes/gamesWithAccess';
 import subscriptionsRoutes from './routes/subscriptions';
 import adminRoutes from './routes/admin';
+import studentsRoutes from './routes/students';
 
 
 const app = express();
@@ -38,6 +39,7 @@ app.use('/api/games', gamesRoutes);
 app.use('/api/games-with-access', gamesWithAccessRoutes);
 app.use('/api/subscriptions', subscriptionsRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/students', studentsRoutes);
 
 
 app.listen(PORT, '0.0.0.0', () => {

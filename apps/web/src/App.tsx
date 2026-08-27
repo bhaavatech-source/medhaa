@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useParams } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import LoginPage from './pages/LoginPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
@@ -49,6 +49,12 @@ function StudentDashboard() {
 }
 
 
+function ChildDashboard() {
+  const { studentId } = useParams<{ studentId: string }>();
+  return <StudentGamesPage apiUrl={API_URL} childStudentId={studentId} />;
+}
+
+
 function AdminDashboard() {
   return <div style={{ padding: 40 }}>Admin Dashboard (coming soon)</div>;
 }
@@ -82,6 +88,7 @@ function App() {
           <Route path="/student/preview" element={<StudentDashboard />} />
           <Route path="/achievements" element={<AchievementsPage />} />
           <Route path="/parent/enrol-student" element={<StudentEnrollment />} />
+          <Route path="/student/play/:studentId" element={<ChildDashboard />} />
           <Route path="/student/bcs-lite" element={<BCSLiteIntro />} />
           <Route path="/student/readiness" element={<LearningReadiness />} />
           <Route path="/parent/progress" element={<ParentProgressReport />} />
