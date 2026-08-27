@@ -1,6 +1,4 @@
 // apps/api/prisma/schema.prisma
-// Core relational schema for MEDHAA. Extend via new game/domain tables
-// without altering these core entities.
 
 datasource db {
   provider = "postgresql"
@@ -33,7 +31,6 @@ enum SubscriptionPlan {
   YEARLY_2
 }
 
-
 enum SubscriptionStatus {
   PENDING
   TRIALING
@@ -43,10 +40,10 @@ enum SubscriptionStatus {
 }
 
 model School {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   name      String
   address   String?
-  createdAt DateTime @default(now())
+  createdAt DateTime  @default(now())
   students  Student[]
   teachers  Teacher[]
   admins    Admin[]
@@ -61,30 +58,40 @@ model User {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
+  isBlocked          Boolean  @default(false)
+  blockedAt          DateTime?
+  blockedReason       String?
+  canAccessAllGames  Boolean  @default(false)
+  restrictedFeatures String[] @default([])
+
   student  Student?
   parent   Parent?
   teacher  Teacher?
   admin    Admin?
-  subscription Subscription?
-  auditLogs AuditLog[]
-  cognitiveCheckIns CognitiveCheckIn[]
+
+  subscription Subscription? @relation("UserSubscription")
+
+  giftedSubscriptions Subscription[] @relation("GiftedSubscription")
+
+  auditLogs          AuditLog[]
+  cognitiveCheckIns  CognitiveCheckIn[]
   passwordResetTokens PasswordResetToken[]
 }
 
 model Student {
-  id        String  @id @default(uuid())
-  userId    String  @unique
-  user      User    @relation(fields: [userId], references: [id])
-  schoolId  String?
-  school    School? @relation(fields: [schoolId], references: [id])
-  parentId  String?
-  parent    Parent? @relation(fields: [parentId], references: [id])
-  fullName  String
+  id         String  @id @default(uuid())
+  userId     String  @unique
+  user       User    @relation(fields: [userId], references: [id])
+  schoolId   String?
+  school     School? @relation(fields: [schoolId], references: [id])
+  parentId   String?
+  parent     Parent? @relation(fields: [parentId], references: [id])
+  fullName   String
   gradeLevel Int?
-  coins     Int     @default(0)
-  xp        Int     @default(0)
-  level     Int     @default(1)
-  streakDays Int    @default(0)
+  coins      Int     @default(0)
+  xp         Int     @default(0)
+  level      Int     @default(1)
+  streakDays Int     @default(0)
 
   attempts     GameAttempt[]
   achievements StudentAchievement[]
@@ -100,50 +107,52 @@ model Parent {
 }
 
 model Teacher {
-  id       String  @id @default(uuid())
-  userId   String  @unique
-  user     User    @relation(fields: [userId], references: [id])
+  id       String @id @default(uuid())
+  userId   String @unique
+  user     User   @relation(fields: [userId], references: [id])
   schoolId String
-  school   School  @relation(fields: [schoolId], references: [id])
+  school   School @relation(fields: [schoolId], references: [id])
   fullName String
 }
 
 model Admin {
-  id       String  @id @default(uuid())
-  userId   String  @unique
-  user     User    @relation(fields: [userId], references: [id])
+  id       String @id @default(uuid())
+  userId   String @unique
+  user     User   @relation(fields: [userId], references: [id])
   schoolId String
-  school   School  @relation(fields: [schoolId], references: [id])
+  school   School @relation(fields: [schoolId], references: [id])
   fullName String
 }
 
 model Game {
-  id          String   @id @default(uuid())
-  slug        String   @unique 
-  title       String
-  domain      String
-  isFreeTier  Boolean
-  entryPath   String
-  ageLabel    String?
-  skills      String[]
-  kind        String   @default("game")
-  attempts    GameAttempt[]
+  id         String        @id @default(uuid())
+  slug       String        @unique
+  title      String
+  domain     String
+  isFreeTier Boolean
+  entryPath  String
+  ageLabel   String?
+  skills     String[]
+  kind       String        @default("game")
+  isActive   Boolean       @default(true)
+  createdAt  DateTime      @default(now())
+  attempts   GameAttempt[]
 }
 
 model GameAttempt {
-  id             String   @id @default(uuid())
-  studentId      String
-  student        Student  @relation(fields: [studentId], references: [id])
-  gameId         String
-  game           Game     @relation(fields: [gameId], references: [id])
-  startTime      DateTime
-  endTime        DateTime?
-  durationMs     Int?
-  score          Float?
-  accuracy       Float?
-  hintsUsed      Int      @default(0)
-  completionStatus String @default("in_progress")
-  createdAt      DateTime @default(now())
+  id               String    @id @default(uuid())
+  studentId        String
+  student          Student   @relation(fields: [studentId], references: [id])
+  gameId           String
+  game             Game      @relation(fields: [gameId], references: [id])
+  startTime        DateTime
+  endTime          DateTime?
+  durationMs       Int?
+  score            Float?
+  accuracy         Float?
+  hintsUsed        Int       @default(0)
+  completionStatus String    @default("in_progress")
+  createdAt        DateTime  @default(now())
 }
 
 model Achievement {
@@ -168,15 +177,15 @@ model CoinTransaction {
   id        String   @id @default(uuid())
   studentId String
   student   Student  @relation(fields: [studentId], references: [id])
-  amount    Int      // positive = earn, negative = spend
-  reason    String   // e.g. "daily_login", "game_completion", "coupon_redeem"
+  amount    Int
+  reason    String
   createdAt DateTime @default(now())
 }
 
 model Subscription {
   id               String             @id @default(uuid())
   userId           String             @unique
-  user             User               @relation(fields: [userId], references: [id])
+  user             User               @relation("UserSubscription", fields: [userId], references: [id])
   plan             SubscriptionPlan   @default(FREE)
   status           SubscriptionStatus @default(TRIALING)
   trialEndsAt      DateTime?
@@ -185,7 +194,12 @@ model Subscription {
   paymentMethod    String?
   transactionRef   String?
   createdAt        DateTime           @default(now())
-  notes String?
+  notes            String?
+
+  isGift        Boolean @default(false)
+  giftedByUserId String?
+  giftedBy      User?   @relation("GiftedSubscription", fields: [giftedByUserId], references: [id])
+  giftNote      String?
 }
 
 model CognitiveCheckIn {
@@ -196,15 +210,15 @@ model CognitiveCheckIn {
 }
 
 model Coupon {
-  id           String    @id @default(uuid())
-  code         String    @unique
-  type         String    // school | festival | referral | teacher | event | birthday
-  rewardType   String    // coins | premium_days | discount_percent | game_pack
-  rewardValue  String    // stored as string, parsed based on rewardType
+  id             String    @id @default(uuid())
+  code           String    @unique
+  type           String
+  rewardType     String
+  rewardValue    String
   maxRedemptions Int?
-  redeemedCount  Int      @default(0)
+  redeemedCount  Int       @default(0)
   expiresAt      DateTime?
-  createdAt      DateTime @default(now())
+  createdAt      DateTime  @default(now())
 }
 
 model AuditLog {
@@ -216,26 +230,15 @@ model AuditLog {
   createdAt DateTime @default(now())
 }
 
-
 model PasswordResetToken {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  tokenHash String   @unique
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash String    @unique
   expiresAt DateTime
   usedAt    DateTime?
-  createdAt DateTime @default(now())
+  createdAt DateTime  @default(now())
 
   @@index([userId])
   @@index([expiresAt])
-}
-
-model ParentConsent {
-  id            String   @id @default(uuid())
-  parentId      String
-  policyVersion String
-  consentedAt   DateTime @default(now())
-  ipAddress     String?
-
-  @@index([parentId])
 }
