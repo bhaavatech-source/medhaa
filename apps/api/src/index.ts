@@ -20,9 +20,11 @@ app.use(cors({
     'http://localhost:5174',
     'https://medhaa.net',
     'https://www.medhaa.net',
+    'https://localhost',
   ],
   credentials: true,
 }));
+
 
 
 app.use(express.json());
