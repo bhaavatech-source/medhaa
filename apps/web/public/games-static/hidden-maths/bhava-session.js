@@ -663,9 +663,7 @@
     if (alreadyLoggedIn) {
       _syncToNav();
       startSession();
-    } else {
-      showLoginModal();
-    }
+    } else { /* login modal disabled — legacy system retired */ }
 
     setTimeout(function () { if (currentStudent) _syncToNav(); }, 300);
     setTimeout(function () { if (currentStudent) _syncToNav(); }, 1200);
