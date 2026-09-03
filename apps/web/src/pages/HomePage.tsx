@@ -1,4 +1,4 @@
-import * as React from 'react';
+﻿import * as React from 'react';
 import { useNavigate } from "react-router-dom";
 import {
   Compass,
@@ -1973,14 +1973,20 @@ export default function HomePage() {
     <span className="footer-logo-wrap" aria-hidden="true">
       <img className="footer-logo-image" src={medhaIcon} alt="" />
     </span>
-    <strong>Medhā</strong>
+    <strong>Medh</strong>
   </div>
 
-  <span>© 2026 Medhā · Designed for curious minds</span>
+  <nav aria-label="Explore game categories" style={{display:"flex",flexWrap:"wrap",gap:"14px",justifyContent:"center",margin:"16px 0"}}>
+    <a href="/games-static/stem-engineering-games.html">STEM & Engineering Games</a>
+    <a href="/games-static/memory-and-logic-games.html">Memory & Logic Games</a>
+    <a href="/games-static/cognitive-focus-attention-games.html">Focus & Attention Games</a>
+    <a href="/games-static/language-and-creativity-games.html">Language & Creativity Games</a>
+    <a href="/games-static/maths-and-science-games.html">Maths & Science Games</a>
+    <a href="/games-static/emotional-intelligence-life-skills-games.html">Emotional Intelligence & Life Skills</a>
+  </nav>
 
-  <span className="footer-note">
-    A Bhāva Tech product
-  </span>
+  <span>© 2026 Medh — Designed for curious minds</span>
+  <span className="footer-note">A Bhva Tech product</span>
 </footer>
     </main>
   );

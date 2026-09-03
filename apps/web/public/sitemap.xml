@@ -56,4 +56,35 @@
   <url><loc>https://medhaa.net/games-static/soccomm-enhanced.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://medhaa.net/games-static/telugu-script-game.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://medhaa.net/games-static/visual-difference-detector.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url>
+  <loc>https://medhaa.net/games-static/stem-engineering-games.html</loc>
+  <changefreq>monthly</changefreq>
+  <priority>0.9</priority>
+</url>
+<url>
+  <loc>https://medhaa.net/games-static/memory-and-logic-games.html</loc>
+  <changefreq>monthly</changefreq>
+  <priority>0.9</priority>
+</url>
+<url>
+  <loc>https://medhaa.net/games-static/cognitive-focus-attention-games.html</loc>
+  <changefreq>monthly</changefreq>
+  <priority>0.9</priority>
+</url>
+<url>
+  <loc>https://medhaa.net/games-static/language-and-creativity-games.html</loc>
+  <changefreq>monthly</changefreq>
+  <priority>0.9</priority>
+</url>
+<url>
+  <loc>https://medhaa.net/games-static/maths-and-science-games.html</loc>
+  <changefreq>monthly</changefreq>
+  <priority>0.9</priority>
+</url>
+<url>
+  <loc>https://medhaa.net/games-static/emotional-intelligence-life-skills-games.html</loc>
+  <changefreq>monthly</changefreq>
+  <priority>0.9</priority>
+</url>
+  
 </urlset>
