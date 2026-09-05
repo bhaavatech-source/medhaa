@@ -1,3 +1,4 @@
+import { useNavigate, Link } from 'react-router-dom';
 import { useSignupForm } from './hooks/useSignupForm';
 import '../styles/parent-login.css';
 import medhaaIcon from '../assets/logo/medhaa-icon.svg';
@@ -60,20 +61,49 @@ function PasswordInput({
 }
 
 export default function ParentSignupPage() {
+  const navigate = useNavigate();
   const { name, setName, email, setEmail, password, setPassword, extraData, setExtraData, error, message, loading, handleSubmit } = useSignupForm('parent', '/login/parent');
+
+  function goBack() {
+    if (window.history.length > 1) {
+      navigate(-1);
+    } else {
+      navigate('/');
+    }
+  }
 
   return (
     <div className="parent-login-page">
-      <div className="parent-login-orbs">
-        <span className="pl-orb pl-orb-1" />
-        <span className="pl-orb pl-orb-2" />
-      </div>
+      <button
+        type="button"
+        onClick={goBack}
+        aria-label="Go back"
+        style={{
+          position: 'absolute',
+          top: '16px',
+          left: '16px',
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '6px',
+          background: 'rgba(255,255,255,0.9)',
+          border: '1px solid #ccd8da',
+          borderRadius: '999px',
+          padding: '8px 14px',
+          fontSize: '14px',
+          fontWeight: 700,
+          color: '#20383b',
+          cursor: 'pointer',
+          zIndex: 5,
+        }}
+      >
+        &#8592; Back
+      </button>
 
       <div className="parent-login-card">
         <div className="parent-login-brand">
-          <div className="parent-login-logo">
+          <Link to="/" aria-label="Go to home" className="parent-login-logo" style={{ textDecoration: 'none', display: 'inline-block' }}>
             <img src={medhaaIcon} alt="Medhā" />
-          </div>
+          </Link>
 
           <div className="parent-login-role">👨‍👩‍👧</div>
 
@@ -87,7 +117,7 @@ export default function ParentSignupPage() {
           <form onSubmit={handleSubmit} className="parent-login-form">
             <label>
               Full Name
-              <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Your full name" required />
+              <input type="text" autoComplete="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Your full name" required />
             </label>
             <label>
               Email
@@ -103,7 +133,7 @@ export default function ParentSignupPage() {
             </label>
             <label>
               Child's Name or Email (optional)
-              <input type="text" value={extraData.childRef || ''} onChange={(e) => setExtraData({ ...extraData, childRef: e.target.value })} placeholder="Helps us link your child's account" />
+              <input type="text" value={extraData.childIdentifier || ''} onChange={(e) => setExtraData({ ...extraData, childIdentifier: e.target.value })} placeholder="Helps us link your child's account" />
             </label>
             <label>
               Relationship (optional)
@@ -112,6 +142,7 @@ export default function ParentSignupPage() {
                 <option value="Mother">Mother</option>
                 <option value="Father">Father</option>
                 <option value="Guardian">Guardian</option>
+                <option value="Other">Other</option>
               </select>
             </label>
             <label>
@@ -122,12 +153,14 @@ export default function ParentSignupPage() {
             {error && <div className="parent-login-error">{error}</div>}
 
             <button type="submit" disabled={loading} className="parent-login-submit">
-              {loading ? 'Submitting…' : 'Sign Up'}
+              {loading ? 'Signing up…' : 'Sign Up'}
             </button>
           </form>
         )}
 
-        <a href="/login/parent" className="parent-login-back">Already have an account? Log in</a>
+        <p className="parent-login-help" style={{ textAlign: 'center', marginTop: '14px' }}>
+          Already have an account? <Link to="/login/parent">Log in</Link>
+        </p>
       </div>
     </div>
   );
