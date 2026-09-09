@@ -247,11 +247,12 @@ function pickTarget(cfg, prevTarget) {
   let shape, color;
   // Get the array of items for whatever theme is currently selected
   const currentShapes = THEMES[themeSelect.value]; 
+  const iconOnly = themeSelect.value !== "shapes";
 
   do {
     shape = currentShapes[Math.floor(Math.random() * currentShapes.length)];
     color = COLORS[Math.floor(Math.random() * COLORS.length)];
-  } while (prevTarget && shape === prevTarget.shape && color === prevTarget.color);
+  } while (prevTarget && (iconOnly ? shape === prevTarget.shape : shape === prevTarget.shape && color === prevTarget.color));
 
   const target = { shape, color };
   let target2 = null;
@@ -261,7 +262,7 @@ function pickTarget(cfg, prevTarget) {
     do {
       shape2 = currentShapes[Math.floor(Math.random() * currentShapes.length)];
       color2 = COLORS[Math.floor(Math.random() * COLORS.length)];
-    } while (shape2 === shape && color2 === color);
+    } while (iconOnly ? shape2 === shape : shape2 === shape && color2 === color);
     target2 = { shape: shape2, color: color2 };
   }
   
@@ -314,15 +315,23 @@ function colorName(hex) {
 
 function renderTargetBanner() {
   const t = state.target;
-  let text = `Tap the <b>${t.shape}</b> in <b style="color:${t.color}">${colorName(t.color)}</b>`;
+  const iconOnly = themeSelect.value !== "shapes";
+  let text = iconOnly
+    ? `Tap every <b>${t.shape}</b>`
+    : `Tap the <b>${t.shape}</b> in <b style="color:${t.color}">${colorName(t.color)}</b>`;
   if (state.target2) {
-    text += ` <br>and the <b>${state.target2.shape}</b> in <b style="color:${state.target2.color}">${colorName(state.target2.color)}</b>`;
+    text += iconOnly
+      ? ` <br>and every <b>${state.target2.shape}</b>`
+      : ` <br>and the <b>${state.target2.shape}</b> in <b style="color:${state.target2.color}">${colorName(state.target2.color)}</b>`;
   }
   targetBanner.innerHTML = text;
 }
 
 function isTargetCell(shape, color) {
   const t1 = state.target, t2 = state.target2;
+  if (themeSelect.value !== "shapes") {
+    return shape === t1.shape || (t2 && shape === t2.shape);
+  }
   if (shape === t1.shape && color === t1.color) return true;
   if (t2 && shape === t2.shape && color === t2.color) return true;
   return false;
@@ -562,7 +571,11 @@ function endSelectiveGame() {
 }
 
 function startSustainedGame(levelName) {
-  const target = { shape: SHAPES[Math.floor(Math.random() * SHAPES.length)], color: COLORS[Math.floor(Math.random() * COLORS.length)] };
+  const currentShapes = THEMES[themeSelect.value];
+  const target = {
+    shape: currentShapes[Math.floor(Math.random() * currentShapes.length)],
+    color: COLORS[Math.floor(Math.random() * COLORS.length)]
+  };
 
   sustainedState = {
     levelName, target,
@@ -587,6 +600,56 @@ function startSustainedGame(levelName) {
 
 function runSustainedTrial() {
   sustainedState.trial++;
+  
+  sustainedState.currentIsTarget = isTarget;
+  const currentShapes = THEMES[themeSelect.value];   // ADD THIS
+  sustainedState.responded = false;
+  let shape, color;
+  if (isTarget) {
+    
+  } else if (cfg.nearMiss && Math.random() < 0.5) {
+    
+    do { shape = currentShapes[Math.floor(Math.random() * currentShapes.length)]; } while (shape === sustainedState.target.shape);
+    
+  } else {
+    do {
+      shape = currentShapes[Math.floor(Math.random() * currentShapes.length)];
+      color = COLORS[Math.floor(Math.random() * COLORS.length)];
+    } while (shape === sustainedState.target.shape && color === sustainedState.target.color);
+  }
+
+  sustainedShapeWrap.innerHTML = "";
+  sustainedShapeWrap.classList.remove("animate-in");
+  const shapeEl = renderShapeEl(shape, color, 90);
+  sustainedShapeWrap.appendChild(shapeEl);
+  void sustainedShapeWrap.offsetWidth;
+  sustainedShapeWrap.classList.add("animate-in");
+
+  sustainedFeedback.textContent = "";
+  sustainedFeedback.className = "";
+  sustainedState.stimulusShownAt = performance.now();
+
+  const hideTimer = setTimeout(() => {
+    sustainedShapeWrap.innerHTML = "";
+    const gap = cfg.minGap + Math.random() * (cfg.maxGap - cfg.minGap);
+    const evalTimer = setTimeout(() => {
+      if (sustainedState.currentIsTarget && !sustainedState.responded) {
+        sustainedState.omissions++;
+        sustainedFeedback.textContent = "Missed it!";
+        sustainedFeedback.className = "wrong";
+        playWrong();
+        sustainedState.perfWindow.push({ correct: false, rt: null });
+        adjustSustainedDifficulty();
+      }
+      runSustainedTrial();
+    }, gap);
+    sustainedState.timers.push(evalTimer);
+  }, cfg.displayDuration);
+  sustainedState.timers.push(hideTimer);
+}
+
+function runSustainedTrial() {
+  sustainedState.trial++;
   if (sustainedState.trial > sustainedState.totalTrials) { endSustainedGame(); return; }
 
   document.getElementById("sHudTrial").textContent = sustainedState.trial;
@@ -597,6 +660,7 @@ function runSustainedTrial() {
 
   const isTarget = Math.random() < cfg.targetRatio;
   sustainedState.currentIsTarget = isTarget;
+  const currentShapes = THEMES[themeSelect.value];
   sustainedState.responded = false;
 
   let shape, color;
@@ -609,11 +673,11 @@ function runSustainedTrial() {
       do { color = COLORS[Math.floor(Math.random() * COLORS.length)]; } while (color === sustainedState.target.color);
     } else {
       color = sustainedState.target.color;
-      do { shape = SHAPES[Math.floor(Math.random() * SHAPES.length)]; } while (shape === sustainedState.target.shape);
+      do { shape = currentShapes[Math.floor(Math.random() * currentShapes.length)]; } while (shape === sustainedState.target.shape);
     }
   } else {
     do {
-      shape = SHAPES[Math.floor(Math.random() * SHAPES.length)];
+      shape = currentShapes[Math.floor(Math.random() * currentShapes.length)];
       color = COLORS[Math.floor(Math.random() * COLORS.length)];
     } while (shape === sustainedState.target.shape && color === sustainedState.target.color);
   }

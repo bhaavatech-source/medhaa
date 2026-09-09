@@ -17,26 +17,26 @@ const visionData = [
   { 
     id: 'ai-era', 
     icon: '🤖', 
-    title: 'The AI Era Advantage', 
-    text: 'In the era of AI, children need to be smarter and more adaptable. We make relevant efforts to prepare them, paving the way so that all doors remain open to all knowledge systems.' 
+    title: 'Learning for a changing world', 
+    text: 'Children need to think clearly, adapt to change and use new tools thoughtfully. Medhā gives them regular opportunities to practise these abilities.' 
   },
   { 
     id: 'training-360', 
     icon: '🔄', 
-    title: '360° Training', 
-    text: 'During this era, regular classes and standard exams are simply not enough. We train kids in 360 degrees through our expansive interactive games and activities.' 
+    title: 'Learn across many areas', 
+    text: 'Learning is broader than one class or exam. Children can explore different subjects and skills through interactive games and activities.' 
   },
   { 
     id: 'replace-noise', 
     icon: '🛡️', 
-    title: 'Replacing the Noise', 
-    text: 'We replace unwanted and unnecessary social platforms with our various games across multiple domains, offering a healthy, enriching environment for active minds.' 
+    title: 'A healthier way to use screen time', 
+    text: 'Medhā turns some screen time into active practice, giving children engaging alternatives to passive scrolling and unstructured browsing.' 
   },
   { 
     id: 'values', 
     icon: '🌱', 
-    title: 'Values & Harmony', 
-    text: 'Our games are based not only on IQ, Memory, and Engineering, but also deeply rooted in Empathy, Social Harmony, and spiritual and moral values.' 
+    title: 'Skills and character', 
+    text: 'Alongside memory, reasoning and engineering, children practise empathy, communication, self-awareness and responsible decision-making.' 
   },
 ];
 
@@ -114,7 +114,7 @@ export function OurApproach() {
       <section className="hero-shell approach-hero fade-in-up">
         <div className="hero-copy">
           <span className="eyebrow"><SparkIcon /> OUR APPROACH</span>
-          <h1>More than games.<br /><span>A platform for exploring, practising and building.</span></h1>
+          <h1>More than games.<br /><span>A place to explore, practise and apply.</span></h1>
           <p className="hero-lead">
             Medhā brings together interactive games, activities, short check-ins and progress experiences so children can explore many domains, practise important abilities and use what they learn in new situations.
           </p>
@@ -143,8 +143,8 @@ export function OurApproach() {
       <section className="vision-360-section page-section">
         <div className="section-intro centered">
           <span className="eyebrow dark"><SparkIcon /> BEYOND THE CLASSROOM</span>
-          <h2>Prepared for the AI Era. Grounded in Values.</h2>
-          <p>We connect kids with the latest technology while nurturing moral and spiritual foundations.</p>
+          <h2>Ready for a changing world. Grounded in care.</h2>
+          <p>We help children build practical skills while learning to think, connect and make thoughtful choices.</p>
         </div>
         
         <div className="vision-interactive-container">
@@ -357,8 +357,23 @@ export function OurApproach() {
         </div>
       </section>
 
+      <section className="support-section page-section" aria-labelledby="support-heading">
+        <div className="support-card">
+          <div>
+            <span className="eyebrow dark"><SparkIcon /> NEED HELP?</span>
+            <h2 id="support-heading">We are here to help.</h2>
+            <p>Questions about Medhā, your account or getting started? Contact our team.</p>
+          </div>
+          <div className="support-actions">
+            <a href="mailto:support@medhaa.net" className="support-action">✉️ support@medhaa.net</a>
+            <a href="tel:+919573057516" className="support-action">☎️ 9573057516</a>
+            <a href="https://wa.me/919573057516" className="support-action support-action--whatsapp" target="_blank" rel="noreferrer">💬 WhatsApp us</a>
+          </div>
+        </div>
+      </section>
+
       <footer className="parent-footer">
-        <div className="footer-brand"><img src={medhaaIcon} alt="" /><span>Medhā</span><small>Learn beyond limits, domains and enrich life.</small></div>
+        <div className="footer-brand"><img src={medhaaIcon} alt="" /><span>Medhā</span><small>Explore many subjects, practise useful skills and grow over time.</small></div>
         <div className="footer-actions">
           <button type="button" className="footer-link" onClick={() => navigate('/our-approach')}>Our Approach</button>
           <button type="button" className="footer-link" onClick={() => navigate('/signup/parent')}>Get Started</button>

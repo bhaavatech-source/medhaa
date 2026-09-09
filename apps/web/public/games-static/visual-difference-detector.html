@@ -147,6 +147,183 @@ button:active{transform:translateY(1px)}
         .option-container, #option-container {
             overflow: visible !important;
         }
+
+        /* Visual Difference Detector mobile layout */
+        @media (max-width: 900px) {
+          html, body {
+            height: auto !important;
+            min-height: 100%;
+            overflow-x: hidden !important;
+            overflow-y: auto !important;
+          }
+
+          #app,
+          .shell {
+            height: auto !important;
+            min-height: 100vh;
+            overflow: visible !important;
+          }
+
+          .topbar {
+            align-items: flex-start;
+            flex-wrap: wrap;
+            padding: 12px;
+          }
+
+          .brand {
+            min-width: 0;
+          }
+
+          .brand p {
+            font-size: .78rem;
+          }
+
+          .stats {
+            width: 100%;
+            justify-content: flex-start;
+          }
+
+          .pill {
+            flex: 1 1 90px;
+            padding: 8px 9px;
+            font-size: .8rem;
+          }
+
+          .main {
+            display: flex !important;
+            flex-direction: column;
+            height: auto !important;
+            min-height: 0;
+            overflow: visible !important;
+            padding: 10px;
+          }
+
+          .sidebar,
+          .sceneWrap {
+            order: initial;
+            width: 100%;
+            height: auto !important;
+            min-height: 0;
+            overflow: visible !important;
+          }
+
+          .sidebar {
+            display: grid;
+            grid-template-columns: 1fr;
+            padding: 12px;
+          }
+
+          .sidebar .card {
+            padding: 14px;
+          }
+
+          .sceneHead {
+            align-items: flex-start;
+            flex-direction: column;
+          }
+
+          .legend {
+            width: 100%;
+            gap: 6px;
+          }
+
+          .tag {
+            flex: 1 1 88px;
+            padding: 7px 8px;
+            font-size: .78rem;
+            text-align: center;
+          }
+
+          .board {
+            display: grid !important;
+            grid-template-columns: 1fr !important;
+            gap: 12px;
+            overflow: visible !important;
+          }
+
+          .sceneCard {
+            height: auto;
+            min-height: 0;
+            padding: 10px;
+            overflow: visible;
+          }
+
+          .scene {
+            width: 100%;
+            height: auto;
+            min-height: 0;
+            aspect-ratio: 4 / 3;
+          }
+
+          .bottom {
+            align-items: stretch;
+            flex-direction: column;
+            gap: 8px;
+            padding-bottom: 12px;
+          }
+
+          .bottom .progress {
+            width: 100%;
+            flex: none;
+          }
+
+          .panel {
+            max-height: calc(100vh - 24px);
+            overflow-y: auto;
+            padding: 18px;
+          }
+
+          .hero {
+            grid-template-columns: 1fr;
+          }
+
+          .hero h2 {
+            font-size: 1.8rem;
+          }
+
+          .heroArt {
+            min-height: 180px;
+          }
+        }
+
+        @media (max-width: 520px) {
+          body {
+            padding: 0 !important;
+          }
+
+          .brand h1 {
+            font-size: 1rem;
+          }
+
+          .brand p {
+            display: none;
+          }
+
+          .logo {
+            width: 42px;
+            height: 42px;
+          }
+
+          .main {
+            padding: 8px;
+          }
+
+          .sidebar {
+            gap: 8px;
+          }
+
+          .sceneLabel {
+            font-size: .9rem;
+          }
+
+          .sceneLabel .small {
+            font-size: .72rem;
+          }
+
+          .scene {
+            aspect-ratio: 1 / 1;
+          }
+        }
         /* ============================================================ */
         </style>
   <link rel="stylesheet" href="bhava-responsive.css">

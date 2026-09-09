@@ -106,32 +106,32 @@ function SchoolIcon() {
 const roles: Role[] = [
   {
     title: 'For Students',
-    subtitle: 'Learn & play smarter',
-    description: 'Brain-strengthening games, reports, and daily challenges tailored for every child.',
+    subtitle: 'Play, learn, and grow',
+    description: 'Fun games and challenges that help children practise focus, memory, creativity, and problem-solving.',
     variant: 'student',
     route: '/student/preview',
     image: '/images/roles/student-role.png',
   },
   {
     title: 'For Parents',
-    subtitle: 'See real progress',
-    description: 'Understand your child’s strengths and support them with actionable insights.',
+    subtitle: 'See your child’s progress',
+    description: 'Follow what your child explores, notice growing strengths, and support learning at home.',
     variant: 'parent',
     route: '/parent/preview',
     image: '/images/roles/parent-role.png',
   },
   {
     title: 'For Teachers',
-    subtitle: 'Track your class',
-    description: 'Monitor cognitive skills across the classroom and guide learning with data.',
+    subtitle: 'Support learning in class',
+    description: 'See how students engage and help them practise important skills through purposeful activities.',
     variant: 'teacher',
     route: '/teacher/preview',
     image: '/images/roles/teacher-role.png',
   },
   {
     title: 'For Schools',
-    subtitle: 'Transform learning',
-    description: 'School-wide cognitive assessment, dashboards, and improvement programs.',
+    subtitle: 'Bring learning into focus',
+    description: 'Give your school a shared view of student activity, skill development, and progress.',
     variant: 'school',
     route: '/school-report',
     image: '/images/roles/school-role.png',
@@ -229,15 +229,15 @@ const medhaHeroStyles = `
     z-index: 0;
     pointer-events: none;
     border-radius: 0 0 42px 42px;
-    background: #dff5f1;
+    background: #cdece8;
   }
 
   .world-sky {
     position: absolute;
     inset: 0 0 40% 0;
     background:
-      radial-gradient(circle at 50% 12%, rgba(255,255,255,.95) 0 7%, transparent 24%),
-      linear-gradient(180deg, #bff0ec 0%, #dff7f0 58%, #d9eee7 100%);
+      radial-gradient(circle at 50% 12%, rgba(255,255,255,.78) 0 7%, transparent 24%),
+      linear-gradient(180deg, #a9e6e2 0%, #ccefe8 58%, #c8e4dc 100%);
   }
 
   .world-sky::after {
@@ -840,35 +840,49 @@ const medhaHeroStyles = `
 
   @media (max-width: 720px) {
     .medha-world {
-      min-height: 1040px;
+      min-height: 820px;
       border-radius: 0 0 26px 26px;
     }
 
-    .world-mountains { top: 19%; height: 30%; }
-    .world-ground { top: 43%; bottom: 10%; }
-    .world-tree { bottom: 39%; }
-    .world-wood-ridge { min-height: 78px; }
+    .world-mountains { top: 20%; height: 26%; }
+    .world-ground { top: 46%; bottom: 8%; }
+    .world-tree { bottom: 34%; }
+    .world-wood-ridge { min-height: 62px; }
 
     .medha-intro {
       padding-inline: 12px;
-      margin-bottom: 24px;
+      margin-bottom: 14px;
     }
 
     .medha-intro h1 {
-      font-size: clamp(2rem, 12vw, 3rem);
+      font-size: clamp(1.85rem, 10.5vw, 2.8rem);
     }
 
     .role-visual-wrap {
-      min-height: 145px;
+      min-height: 120px;
     }
 
     .role-graphic {
-      width: 112px;
-      height: 112px;
+      width: 96px;
+      height: 96px;
     }
 
     .graphic-icon {
-      inset: 35px;
+      inset: 30px;
+    }
+
+    .enhanced-role-card {
+      margin-top: 34px;
+      padding-top: 58px !important;
+    }
+
+    .role-visual-wrap {
+      top: -58px;
+      height: 112px;
+    }
+
+    .role-image img {
+      height: 112px !important;
     }
 
     .medha-trust-strip {
@@ -1613,12 +1627,12 @@ const medhaHeroStyles = `
 
 
 const cognitiveSkills = [
-  { title: "Focus", icon: Eye, text: "Stay with what matters." },
-  { title: "Memory", icon: Brain, text: "Remember, connect, recall." },
-  { title: "Attention", icon: Sparkles, text: "Notice what others miss." },
-  { title: "Creativity", icon: Lightbulb, text: "Imagine new possibilities." },
-  { title: "Empathy", icon: Heart, text: "Understand another mind." },
-  { title: "Imagination", icon: Puzzle, text: "Explore beyond the obvious." },
+  { title: "Focus", icon: Eye, text: "Stay with a task." },
+  { title: "Memory", icon: Brain, text: "Remember and connect ideas." },
+  { title: "Attention", icon: Sparkles, text: "Notice the details that matter." },
+  { title: "Creativity", icon: Lightbulb, text: "Imagine different possibilities." },
+  { title: "Empathy", icon: Heart, text: "Understand how others feel." },
+  { title: "Imagination", icon: Puzzle, text: "Explore what could be." },
 ];
 
 const medhaJourney = [
@@ -1706,13 +1720,9 @@ export default function HomePage() {
     </span>
 
     <h1>
-      One platform for <span className="gradient-word"> every student.</span>
+      A place to <span className="gradient-word">explore, practise, and grow.</span>
     </h1>
 
-    <p>
-      Medhā brings meaningful play, cognitive development, progress insights,
-      and learning support together — with an experience designed for the person using it.
-    </p>
 
     <div className="medha-mini-points" aria-label="Medhā highlights">
       <span className="medha-mini-point"><Brain size={14} /> Build cognitive skills</span>
@@ -1723,7 +1733,7 @@ export default function HomePage() {
 
   <div className="section-heading-wrap" style={{ display: 'none' }}>
     <span className="section-kicker">Explore Medhā</span>
-    <h2>One platform For all.</h2>
+    <h2>A platform for every learner.</h2>
   </div>
 
   <div className="role-grid enhanced-role-grid">
@@ -1811,7 +1821,7 @@ export default function HomePage() {
         opacity: 1,
       }}
     >
-      Inside the world of Medhā
+      How Medhā helps
     </span>
 
     <h2
@@ -1826,7 +1836,7 @@ export default function HomePage() {
         opacity: 1,
       }}
     >
-      Build the skills behind better learning.
+      Play, explore, and build useful skills.
     </h2>
 
     <p
@@ -1840,9 +1850,8 @@ export default function HomePage() {
         opacity: 1,
       }}
     >
-      A playful environment can still be purposeful — each experience can
-      help learners explore the cognitive skills that support everyday
-      learning.
+      Medhā gives children engaging ways to practise focus, memory, creativity,
+      and problem-solving while they learn.
     </p>
 
     <div
@@ -1973,7 +1982,7 @@ export default function HomePage() {
     <span className="footer-logo-wrap" aria-hidden="true">
       <img className="footer-logo-image" src={medhaIcon} alt="" />
     </span>
-    <strong>Medh</strong>
+    <strong>Medhā</strong>
   </div>
 
   <nav aria-label="Explore game categories" style={{display:"flex",flexWrap:"wrap",gap:"14px",justifyContent:"center",margin:"16px 0"}}>
@@ -1985,8 +1994,8 @@ export default function HomePage() {
     <a href="/games-static/emotional-intelligence-life-skills-games.html">Emotional Intelligence & Life Skills</a>
   </nav>
 
-  <span>© 2026 Medh — Designed for curious minds</span>
-  <span className="footer-note">A Bhva Tech product</span>
+  <span>© 2026 Medhā — Designed for curious minds</span>
+  <span className="footer-note">A Bhāva Tech product</span>
 </footer>
     </main>
   );

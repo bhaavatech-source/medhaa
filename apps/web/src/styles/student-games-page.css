@@ -1583,7 +1583,26 @@
   align-items: center;
   gap: 8px;
   margin: 16px 0 24px;
+  width: min(100%, 620px);
+  padding: 8px 12px;
+  border: 1px solid rgba(25,46,82,.12);
+  border-radius: 14px;
+  background: rgba(255,255,255,.82);
+  color: #526078;
+  box-shadow: 0 8px 20px rgba(31,51,92,.06);
+}
+
+.games-search-bar input {
   max-width: 480px;
+  min-width: 0;
+  flex: 1;
+  padding: 8px 4px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #1b2946;
+  font: inherit;
+  font-size: 14px;
 }
 
 .games-search-input {
@@ -1728,4 +1747,50 @@
   .my-medhaa-intro__lead{font-size:14px}
   .my-medhaa-intro__points{display:grid;grid-template-columns:1fr;}
   .my-medhaa-intro__points span{text-align:left}
+}
+
+/* Age picker artwork: stable framing for the four SVG pathways. */
+.age-choice__scene {
+  isolation: isolate;
+  background: linear-gradient(145deg, #eef7fb, #dfeef6);
+}
+
+.age-choice__scene::before,
+.age-choice__scene::after {
+  content: none;
+}
+
+.age-choice--sunny .age-choice__scene { background: linear-gradient(160deg, #b8eee9, #fff0bc 70%, #c8eab4); }
+.age-choice--explorer .age-choice__scene { background: linear-gradient(145deg, #76cdef, #665bdd 78%); }
+.age-choice--future .age-choice__scene { background: linear-gradient(145deg, #263c91, #147e8d); }
+.age-choice--aspirants .age-choice__scene { background: linear-gradient(145deg, #203b70, #087f83); }
+
+.age-picker-art {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 10px 13px;
+  overflow: visible;
+  transform-origin: center;
+  animation: agePickerArtFloat 5s ease-in-out infinite;
+}
+
+.age-choice:nth-child(2) .age-picker-art { animation-delay: -1.2s; }
+.age-choice:nth-child(3) .age-picker-art { animation-delay: -2.4s; }
+.age-choice:nth-child(4) .age-picker-art { animation-delay: -3.6s; }
+
+.age-choice:hover .age-picker-art {
+  animation-play-state: paused;
+  transform: scale(1.04);
+}
+
+@keyframes agePickerArtFloat {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-4px) scale(1.015); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .age-picker-art { animation: none; }
 }

@@ -183,6 +183,36 @@
       background:rgba(255,255,255,.04)
     }
 
+    .settings-section{padding:10px!important}
+    .settings-toggle{
+      width:100%;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:8px 4px;
+      background:transparent;
+      color:var(--text);
+      text-align:left;
+      border-radius:12px;
+      font-size:1rem;
+    }
+    .settings-toggle:hover{background:rgba(255,255,255,.06);transform:none}
+    .settings-toggle__icon{
+      display:grid;
+      place-items:center;
+      width:26px;
+      height:26px;
+      flex:0 0 26px;
+      border-radius:50%;
+      color:var(--accent);
+      background:rgba(95,184,255,.12);
+      font-size:1.2rem;
+      line-height:1;
+    }
+    .settings-toggle[aria-expanded="true"] .settings-toggle__icon{transform:rotate(45deg)}
+    .settings-content{padding-top:10px}
+
     h2{margin:0 0 10px;font-size:1rem;font-weight:800;color:var(--text);letter-spacing:-.01em}
     .sub{margin:0;color:var(--muted);line-height:1.5;font-size:.92rem}
     .target-wrap{display:grid;grid-template-columns:1fr;gap:12px}
@@ -537,16 +567,66 @@
     }
 
     @media (max-width:1100px){ .grid{grid-template-columns:repeat(4,1fr)} }
-    @media (max-width:980px){ .game{grid-template-columns:1fr} .left{order:2} .right{order:1} .arena{min-height:500px} .grid{grid-template-columns:repeat(4,1fr)} }
+    @media (max-width:980px){
+      .game{grid-template-columns:1fr}
+      .left{order:1}
+      .right{order:2}
+      .left .section:first-child{border-color:rgba(95,184,255,.42);box-shadow:0 0 0 2px rgba(95,184,255,.08),0 14px 34px rgba(0,0,0,.16)}
+      .arena{min-height:500px}
+      .grid{grid-template-columns:repeat(4,1fr)}
+    }
     @media (max-width:760px){
       body{padding:10px} .shell{min-height:auto} .topbar{grid-template-columns:1fr;} .stats{grid-template-columns:repeat(3,1fr)}
       .meta6{grid-template-columns:repeat(2,1fr)} .hud{grid-template-columns:1fr} .badges{justify-content:flex-start}
       .brand{flex-wrap: wrap;}
+      .left,.right{padding:10px}
+      .left .section:first-child{padding:12px}
+      .target-card{width:min(100%,220px)}
+      .target-wrap{gap:10px}
+      .right .hud{position:sticky;top:8px;z-index:5;background:rgba(8,18,42,.92);border-radius:18px;padding:12px;backdrop-filter:blur(14px)}
+      .task-title{font-size:1rem}
+      .task-text{font-size:.88rem}
+      .arena{min-height:390px;padding:10px}
     }
     @media (max-width:640px){ .game{gap:10px} .grid{grid-template-columns:repeat(3,1fr);gap:8px;padding:8px} .card{min-height:108px} .arena{min-height:360px} }
     @media (max-width:460px){
       .meta6{grid-template-columns:1fr} .stats{grid-template-columns:repeat(2,1fr)} .brand{padding:12px 14px}
       .logo{width:48px;height:48px} .dist-toggles { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* Keep the target and answer cards in one continuous mobile task. */
+    @media (max-width:980px){
+      .game{display:flex;flex-direction:column;gap:10px}
+      .left{display:contents}
+      .left .section:first-child{
+        order:1;
+        position:sticky;
+        top:8px;
+        z-index:20;
+        display:block!important;
+        margin:0;
+        padding:10px!important;
+        border-radius:20px;
+        background:rgba(8,18,42,.96);
+        backdrop-filter:blur(16px);
+      }
+      .left .section:first-child h2{margin-bottom:6px;font-size:.95rem}
+      .left .section:first-child .target-wrap{grid-template-columns:150px minmax(0,1fr);align-items:center;gap:10px}
+      .left .section:first-child .target-card{width:150px;border-radius:18px}
+      .left .section:first-child .meta6{grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}
+      .left .section:first-child .meta-item{padding:6px 7px;border-radius:10px;font-size:.72rem}
+      .left .section:first-child .meta-item span{font-size:.58rem;margin-bottom:2px}
+      .right{order:2;width:100%}
+      .left .settings-section{order:3;width:100%}
+      .left .section:last-child{order:4;width:100%}
+    }
+
+    @media (max-width:520px){
+      .left .section:first-child .target-wrap{grid-template-columns:118px minmax(0,1fr)}
+      .left .section:first-child .target-card{width:118px}
+      .left .section:first-child .meta-item{font-size:.66rem}
+      .left .section:first-child .meta-item span{font-size:.52rem}
+      .right .hud{top:184px}
     }
   </style>
   <link rel="stylesheet" href="bhava-responsive.css">
@@ -561,7 +641,7 @@
       <h3>📖 How to play</h3>
       <p style="text-align: left; margin-bottom: 16px; color:var(--text);">
         Keep your eyes calm. Ignore moving flashes, shiny objects, and misleading banners.<br><br>
-        <strong style="color:var(--good)">Only one card exactly matches</strong> all six attributes of the target shown on the left. Others are near-miss distractors designed to trick your brain. Find the exact match before time runs out.
+        <strong style="color:var(--good)">Only one card exactly matches</strong> all six attributes of the target shown above. Others are near-miss distractors designed to trick your brain. Find the exact match before time runs out.
       </p>
       <button id="closeHelpBtn" style="width: 100%;">Got it, let's play</button>
     </div>
@@ -604,8 +684,11 @@
           </div>
         </div>
 
-        <div class="section">
-          <h2>⚡ Starting Level</h2>
+        <div class="section settings-section">
+          <button class="settings-toggle" type="button" aria-expanded="false" aria-controls="levelSettings">
+            <span>⚡ Starting Level</span><span class="settings-toggle__icon" aria-hidden="true">+</span>
+          </button>
+          <div class="settings-content" id="levelSettings" hidden>
           <div class="dist-toggles toggles-4" id="levelTogglesContainer">
             <button class="dist-toggle active" data-lvl="1">Calm</button>
             <button class="dist-toggle" data-lvl="2">Wave</button>
@@ -613,11 +696,15 @@
             <button class="dist-toggle" data-lvl="4">Chaos</button>
           </div>
           <div id="levelBar" class="level-bar" style="padding:0;gap:4px"></div>
+          </div>
         </div>
 
         <!-- FULL: Card Distraction Controls -->
-        <div class="section">
-          <h2>🌀 Card Distraction Multiplier</h2>
+        <div class="section settings-section">
+          <button class="settings-toggle" type="button" aria-expanded="false" aria-controls="distractionSettings">
+            <span>🌀 Card Distraction Multiplier</span><span class="settings-toggle__icon" aria-hidden="true">+</span>
+          </button>
+          <div class="settings-content" id="distractionSettings" hidden>
           <p class="sub" style="font-size:0.8rem">Make the target cards harder to track.</p>
           <div class="dist-toggles toggles-3" id="distTogglesContainer">
             <button class="dist-toggle active" data-val="0">Off (1x)</button>
@@ -626,6 +713,7 @@
             <button class="dist-toggle" data-val="blink">Blink (4x)</button>
             <button class="dist-toggle" data-val="flip">Flip (5x)</button>
             <button class="dist-toggle" data-val="chaos">Chaos (6x)</button>
+          </div>
           </div>
         </div>
 
@@ -642,7 +730,7 @@
         <div class="hud">
           <div class="task">
             <div class="task-title" id="taskTitle">Ready your focus</div>
-            <div class="task-text" id="taskText">Memorize the target on the left, then tap the exact match before time runs out.</div>
+            <div class="task-text" id="taskText">Study the target card, then tap the one card below that matches it exactly.</div>
           </div>
           <div class="badges">
             <div class="badge" id="modeEl">Mode: Calm</div>
@@ -705,6 +793,15 @@
     
     const seedEl     = document.getElementById('seedEl');
     const targetCanvas = document.getElementById('targetCanvas');
+
+    document.querySelectorAll('.settings-toggle').forEach(toggle => {
+      toggle.addEventListener('click', () => {
+        const content = document.getElementById(toggle.getAttribute('aria-controls'));
+        const expanded = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', String(!expanded));
+        content.hidden = expanded;
+      });
+    });
     const shapeMeta  = document.getElementById('shapeMeta');
     const markMeta   = document.getElementById('markMeta');
     const colorMeta  = document.getElementById('colorMeta');
@@ -756,10 +853,10 @@
     // Expanded to 15 rounds per level, total 60 rounds
     const LEVEL_CONFIG = [
       null,
-      { modeName:'Calm',  cardCount:6,  timeBase:30.0, questionsPerLevel:15, desc:'Calm start. Generous time. Find the exact match.' },
-      { modeName:'Wave',  cardCount:8,  timeBase:20.0, questionsPerLevel:15, desc:'More choices, less time. Scan all attributes.' },
-      { modeName:'Storm', cardCount:12, timeBase:12.5, questionsPerLevel:15, desc:'Full challenge. Precision under pressure.' },
-      { modeName:'Chaos', cardCount:15, timeBase:8.5,  questionsPerLevel:15, desc:'Max overload. Short timers and intense choices.' }
+      { modeName:'Calm',  cardCount:6,  timeBase:30.0, questionsPerLevel:15, desc:'Study the target above, then tap the one exact match below.' },
+      { modeName:'Wave',  cardCount:8,  timeBase:20.0, questionsPerLevel:15, desc:'Study the target above, then scan the cards below for the exact match.' },
+      { modeName:'Storm', cardCount:12, timeBase:12.5, questionsPerLevel:15, desc:'Study all six target details, then tap the exact match below.' },
+      { modeName:'Chaos', cardCount:15, timeBase:8.5,  questionsPerLevel:15, desc:'Stay precise: compare the target above with every card below.' }
     ];
     const MAX_LEVEL = LEVEL_CONFIG.length - 1; 
 

@@ -72,6 +72,7 @@ class App {
     this.bus.on("nav:changed", ({ target }) => {
       if (target === "build-laptop") this.#switchDeviceType("Laptop");
       if (target === "build-mobile") this.#switchDeviceType("Mobile");
+      if (target === "anatomy") this.#syncAnatomyFrame();
     });
 
     this.ui.toast("Welcome back, Engineer!", "success");
@@ -110,6 +111,7 @@ class App {
     const icon = typeName === "Laptop" ? "💻" : "📱";
     document.getElementById("device-title").textContent = `${icon} New ${typeName} Build`;
     document.getElementById("board-area").classList.toggle("laptop-mode", typeName === "Laptop");
+    this.#syncAnatomyFrame();
     this.#buildSlots();
     this.#updateLevelProgress();
     this.diagnosticsPanel.clear();
@@ -119,6 +121,12 @@ class App {
       this.state.data.seenAnatomyHint = true;
       this.state.persist();
     }
+  }
+
+  #syncAnatomyFrame() {
+    const frame = document.getElementById("new-anatomy-frame");
+    if (!frame) return;
+    frame.src = this.device.typeName === "Laptop" ? "laptop-master.html" : "smartphone-anatomy.html";
   }
 
   #bindBuildLevels() {

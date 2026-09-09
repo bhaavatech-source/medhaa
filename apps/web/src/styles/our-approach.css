@@ -185,6 +185,15 @@
 .footer-link { border:0; background:none; color:var(--teal); font:inherit; font-size:12px; font-weight:900; cursor:pointer; white-space:nowrap; }
 button:focus-visible { outline:3px solid rgba(59,199,212,.55); outline-offset:2px; }
 
+.support-section { padding-top: 18px; padding-bottom: 34px; }
+.support-card { display:flex; align-items:center; justify-content:space-between; gap:24px; padding:28px; border:1px solid rgba(8,127,122,.14); border-radius:24px; background:linear-gradient(135deg,rgba(255,255,255,.86),rgba(235,248,247,.82)); box-shadow:0 16px 40px rgba(18,38,63,.06); }
+.support-card h2 { margin:8px 0; color:var(--navy); font-family:'Nunito',sans-serif; font-size:30px; }
+.support-card p { margin:0; color:var(--muted); font-size:13px; line-height:1.6; }
+.support-actions { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:9px; }
+.support-action { display:inline-flex; align-items:center; min-height:42px; padding:10px 13px; border:1px solid rgba(18,38,63,.10); border-radius:12px; background:rgba(255,255,255,.8); color:var(--navy); font-size:12px; font-weight:800; text-decoration:none; }
+.support-action:hover { transform:translateY(-2px); border-color:var(--teal); }
+.support-action--whatsapp { color:#087f7a; }
+
 @media (max-width: 1000px) {
   .approach-flow { grid-template-columns:repeat(2,1fr); }
   .approach-arrow { display:none; }
@@ -232,6 +241,10 @@ button:focus-visible { outline:3px solid rgba(59,199,212,.55); outline-offset:2p
   .cta-actions .primary-hero, .cta-actions .secondary-hero { width:100%; }
   .parent-footer { padding:25px 17px; align-items:flex-start; flex-direction:column; }
   .footer-actions { gap:12px; }
+  .support-card { align-items:flex-start; flex-direction:column; padding:22px 18px; }
+  .support-card h2 { font-size:27px; }
+  .support-actions { width:100%; justify-content:flex-start; }
+  .support-action { width:100%; }
 }
 
 @media (max-width: 430px) {
@@ -241,6 +254,96 @@ button:focus-visible { outline:3px solid rgba(59,199,212,.55); outline-offset:2p
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; }
+}
+
+/* Mobile vision section: keep the choice and its explanation in one readable flow. */
+@media (max-width: 900px) {
+  .vision-360-section {
+    padding: 42px 14px;
+  }
+
+  .vision-360-section .section-intro h2 {
+    font-size: 29px;
+    line-height: 1.1;
+  }
+
+  .vision-interactive-container {
+    display: block;
+    margin-top: 24px;
+    border-radius: 20px;
+  }
+
+  .vision-sidebar {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    width: 100% !important;
+    flex: none !important;
+    gap: 8px;
+    padding: 10px;
+    overflow: visible;
+    border-bottom: 1px solid rgba(0,0,0,.05);
+  }
+
+  .vision-trigger {
+    width: 100% !important;
+    flex: none !important;
+    min-width: 0;
+    min-height: 64px;
+    padding: 10px 9px;
+    gap: 8px;
+    align-items: center;
+    border-width: 1px;
+    font-size: .78rem;
+    line-height: 1.25;
+  }
+
+  .vision-icon {
+    font-size: 1.25rem;
+  }
+
+  .vision-title {
+    overflow-wrap: anywhere;
+  }
+
+  .vision-display-area {
+    min-height: 300px;
+    padding: 24px 18px;
+    display: block;
+  }
+
+  .vision-content {
+    display: none;
+    position: relative;
+    inset: auto;
+    min-height: 250px;
+    padding: 0;
+    opacity: 1;
+    transform: none;
+  }
+
+  .vision-content.visible {
+    display: flex;
+  }
+
+  .vision-content-inner {
+    width: 100%;
+    max-width: none;
+  }
+
+  .vision-display-icon {
+    margin-bottom: 12px;
+    font-size: 2.5rem;
+  }
+
+  .vision-content h3 {
+    margin-bottom: 10px;
+    font-size: 1.55rem;
+  }
+
+  .vision-content p {
+    font-size: 1rem;
+    line-height: 1.65;
+  }
 }
 /* --- GLOBAL ANIMATIONS ENHANCEMENTS --- */
 .fade-in-up {
@@ -320,7 +423,8 @@ button:focus-visible { outline:3px solid rgba(59,199,212,.55); outline-offset:2p
   cursor: pointer;
   text-align: left;
   transition: all 0.3s ease;
-  white-space: nowrap;
+  min-width: 0;
+  white-space: normal;
   font-weight: 600;
   color: #64748b;
   font-size: 1rem;
@@ -339,7 +443,12 @@ button:focus-visible { outline:3px solid rgba(59,199,212,.55); outline-offset:2p
 }
 
 .vision-icon {
+  flex: 0 0 auto;
   font-size: 1.5rem;
+}
+
+.vision-title {
+  line-height: 1.3;
 }
 
 /* Display Area for Active Text */

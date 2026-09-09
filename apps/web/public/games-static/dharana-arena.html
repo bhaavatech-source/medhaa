@@ -134,18 +134,6 @@ body {
 .countdown-number { font-size: 5.5rem; font-weight: 800; color: var(--primary); animation: countdownPop 1s ease; }
 @keyframes countdownPop { 0% { transform: scale(0); opacity: 0; } 50% { transform: scale(1.3); opacity: 1; } 100% { transform: scale(1); opacity: 0.8; } }
 
-/* TRACK */
-.track-grid { display: grid; gap: 10px; margin: 14px auto; }
-.track-item { width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; cursor: pointer; transition: var(--transition); background: var(--card-bg); border: 2px solid var(--card-border); }
-.track-item.target { background: linear-gradient(135deg, var(--accent), var(--orange)); box-shadow: 0 0 20px rgba(255,217,61,0.6); animation: targetPulse 1s ease; }
-@keyframes targetPulse { 0% { transform: scale(0.5); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
-.track-item.normal { background: var(--card-bg); border-color: var(--card-border); }
-.track-item:hover { transform: scale(1.1); border-color: var(--primary); }
-.track-item.correct { background: var(--success) !important; animation: correctPop 0.5s ease; }
-.track-item.wrong { background: var(--danger) !important; animation: shake 0.5s ease; }
-@keyframes correctPop { 0% { transform: scale(1); } 50% { transform: scale(1.3); } 100% { transform: scale(1); } }
-@keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
-
 /* SIGNAL */
 .signal-display { width: 170px; height: 170px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 4rem; margin: 14px auto; transition: all 0.15s ease; cursor: pointer; border: 4px solid var(--card-border); background: var(--card-bg); }
 .signal-go { background: radial-gradient(circle, var(--success), #2ed573); border-color: var(--success); box-shadow: 0 0 40px rgba(107,207,127,0.5); animation: goPulse 0.3s ease; }
@@ -294,7 +282,6 @@ body {
   .mode-card .mode-icon { font-size: 1.8rem; }
   .mode-card .mode-name { font-size: 0.88rem; }
   .mode-card .mode-desc { font-size: 0.68rem; }
-  .track-item { width: 52px; height: 52px; font-size: 1.4rem; }
   .memory-cell { width: 48px; height: 48px; }
   .scan-item { width: 38px; height: 38px; font-size: 1.1rem; }
   .signal-display { width: 135px; height: 135px; font-size: 3.2rem; }
@@ -383,7 +370,7 @@ body {
     <div class="game-title-bar">
       <button class="btn-icon" onclick="goHome()">⬅️</button>
       <span class="mode-emoji" id="modeEmoji">🎯</span>
-      <h2 id="modeTitle">Spot &amp; Track</h2>
+      <h2 id="modeTitle">Dharana Arena</h2>
       <span class="diff-indicator" id="diffIndicator">Level 1</span>
     </div>
     <div class="stats-bar">
@@ -483,7 +470,7 @@ const TOTAL_JOURNEY_SESSIONS = 24;
 
 function loadProgress() {
   try { const d = JSON.parse(localStorage.getItem(STORAGE_KEY)); if (d) return d; } catch(e) {}
-  return { sessions: [], dayStreak: 0, lastPlayDate: null, totalSessions: 0, totalPlayTime: 0, bestScores: {}, difficulty: { track: 1, signal: 1, memory: 1, scan: 1, dual: 1 }, journeyCompleted: 0, breathingCount: 0, physicalCount: 0 };
+  return { sessions: [], dayStreak: 0, lastPlayDate: null, totalSessions: 0, totalPlayTime: 0, bestScores: {}, difficulty: { signal: 1, memory: 1, scan: 1, dual: 1 }, journeyCompleted: 0, breathingCount: 0, physicalCount: 0 };
 }
 function saveProgress(d) { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(d)); } catch(e) {} }
 function getTodayStr() { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); }
@@ -509,13 +496,12 @@ function recordSession(mode, age, score, accuracy, avgRT, maxStreak) {
 
 // ADAPTIVE DIFFICULTY
 const BaseConfig = {
-  junior: { track: { gridSize: 4, shuffleSpeed: 800, shuffles: 3, rounds: 8, roundTime: 5 }, signal: { rounds: 15, showTime: 1500, gapTime: 500, goRatio: 0.65 }, memory: { gridSize: 3, maxSeq: 5, rounds: 6, showTime: 600 }, scan: { gridSize: 5, targets: 3, rounds: 6, roundTime: 15 }, dual: { rounds: 8, showTime: 2500, gapTime: 500 } },
-  teen: { track: { gridSize: 6, shuffleSpeed: 500, shuffles: 5, rounds: 10, roundTime: 4 }, signal: { rounds: 25, showTime: 1000, gapTime: 300, goRatio: 0.6 }, memory: { gridSize: 4, maxSeq: 8, rounds: 8, showTime: 450 }, scan: { gridSize: 7, targets: 5, rounds: 8, roundTime: 12 }, dual: { rounds: 12, showTime: 1800, gapTime: 300 } },
+  junior: { signal: { rounds: 15, showTime: 1500, gapTime: 500, goRatio: 0.65 }, memory: { gridSize: 3, maxSeq: 5, rounds: 6, showTime: 600 }, scan: { gridSize: 5, targets: 3, rounds: 6, roundTime: 15 }, dual: { rounds: 8, showTime: 2500, gapTime: 500 } },
+  teen: { signal: { rounds: 25, showTime: 1000, gapTime: 300, goRatio: 0.6 }, memory: { gridSize: 4, maxSeq: 8, rounds: 8, showTime: 450 }, scan: { gridSize: 7, targets: 5, rounds: 8, roundTime: 12 }, dual: { rounds: 12, showTime: 1800, gapTime: 300 } },
 };
 function getAdaptiveConfig(mode, age, dl) {
   const b = JSON.parse(JSON.stringify(BaseConfig[age][mode]));
   switch(mode) {
-    case 'track': b.gridSize = Math.min(b.gridSize + Math.floor((dl-1)/2), 8); b.shuffles = b.shuffles + (dl-1); b.shuffleSpeed = Math.max(300, b.shuffleSpeed - (dl-1)*80); b.roundTime = Math.max(2, b.roundTime - (dl-1)*0.4); break;
     case 'signal': b.rounds = b.rounds + (dl-1)*3; b.showTime = Math.max(500, b.showTime - (dl-1)*150); b.gapTime = Math.max(150, b.gapTime - (dl-1)*60); b.goRatio = Math.max(0.45, b.goRatio - (dl-1)*0.04); break;
     case 'memory': b.maxSeq = b.maxSeq + (dl-1); b.showTime = Math.max(250, b.showTime - (dl-1)*60); if (dl >= 4) b.gridSize = b.gridSize + 1; break;
     case 'scan': b.gridSize = Math.min(b.gridSize + Math.floor((dl-1)/2), 10); b.targets = b.targets + (dl-1); b.roundTime = Math.max(6, b.roundTime - (dl-1)*1.2); break;
@@ -558,7 +544,6 @@ function toggleSetting(key, el) { State.settings[key] = !State.settings[key]; el
 
 // HOME RENDERING
 const ModeInfo = {
-  track: { emoji:'🎯', name:'Spot & Track', desc:'Follow a target as it hides among lookalikes. Trains sustained visual attention.', tag:'Sustained Attention', color:'#00d4ff' },
   signal: { emoji:'🚦', name:'Signal Rush', desc:'Tap on green, hold back on red. Builds response control and inhibition.', tag:'Selective Attention', color:'#6bcf7f' },
   memory: { emoji:'🧩', name:'Memory Matrix', desc:'Watch the pattern light up, then repeat it. Strengthens working memory.', tag:'Working Memory', color:'#a55eea' },
   scan: { emoji:'🔍', name:'Scan Quest', desc:'Find all matching items fast. Develops visual scanning speed.', tag:'Visual Scanning', color:'#ffd93d' },
@@ -782,8 +767,7 @@ function runRound() {
 
 function runGameRound() {
   const cfg = State._currentConfig;
-  if (State.mode === 'track') runTrackRound(cfg);
-  else if (State.mode === 'signal') runSignalRound(cfg);
+  if (State.mode === 'signal') runSignalRound(cfg);
   else if (State.mode === 'memory') runMemoryRound(cfg);
   else if (State.mode === 'scan') runScanRound(cfg);
   else if (State.mode === 'dual') runDualRound(cfg);
@@ -855,23 +839,6 @@ function showResults() {
 function replayGame() { startGame(State.mode); }
 
 // ====== GAME MODES ======
-function runTrackRound(cfg) {
-  const c = document.getElementById('gameContent'); const ti = cfg.gridSize * cfg.gridSize;
-  let tIdx = Math.floor(Math.random()*ti);
-  document.getElementById('instructionText').innerHTML = 'Watch the <strong>golden star ⭐</strong>. When items shuffle, click it!';
-  c.innerHTML = ''; const g = document.createElement('div'); g.className='track-grid'; g.style.gridTemplateColumns=`repeat(${cfg.gridSize},1fr)`; g.style.maxWidth=(cfg.gridSize*75)+'px';
-  for (let i=0;i<ti;i++){const it=document.createElement('div');it.className='track-item';if(i===tIdx){it.classList.add('target');it.textContent='⭐';}else{it.classList.add('normal');it.textContent='🌟';}it.dataset.idx=i;g.appendChild(it);}
-  c.appendChild(g);
-  startTimer(cfg.roundTime, ()=>{handleWrong();nextRound();});
-  setTimeout(()=>{
-    document.querySelectorAll('.track-item.target').forEach(e=>{e.classList.remove('target');e.classList.add('normal');e.textContent='🌟';});
-    document.getElementById('instructionText').innerHTML='Now <strong>click the star ⭐</strong> you tracked!';
-    let sc=0;function ds(){if(sc>=cfg.shuffles)return;const items=Array.from(g.children);for(let i=items.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));g.insertBefore(items[j],items[i]);if(j<i)g.insertBefore(items[i],items[j]);}sc++;setTimeout(ds,cfg.shuffleSpeed);}
-    setTimeout(ds,500);
-    g.querySelectorAll('.track-item').forEach(el=>{el.addEventListener('click',function(){if(!State.isPlaying)return;stopTimer();if(parseInt(this.dataset.idx)===tIdx){this.classList.add('correct');handleCorrect(10+State.streak*2);}else{this.classList.add('wrong');handleWrong();}setTimeout(()=>nextRound(),800);});});
-  },2500);
-}
-
 function runSignalRound(cfg) {
   let ss={isGo:false,responded:false,st:null};let sc2=0;
   const c=document.getElementById('gameContent');
@@ -976,7 +943,7 @@ loadSettings(); syncSettingsUI(); renderHomeStats(); renderModeGrid();
 </script>
 
   <!-- Medhā Session Tracker -->
-  <script>document.title = "Memory Match";</script>
+  <script>document.title = "Dhāraṇā Arena | Medhā";</script>
   <script src="bhava-bridge.js"></script>
 <script src="bhava-session.js"></script>
 <script src="bhava-game-nav.js"></script>

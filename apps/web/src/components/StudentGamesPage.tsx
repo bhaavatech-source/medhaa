@@ -61,7 +61,7 @@ type AgeGroup = '5-9' | '10-13' | '14-17' | 'aspirants';
 const AGE_PROFILES: Record<AgeGroup, AgeProfile> = {
   '5-9': {
     label: '5–9 years',
-    shortLabel: 'Little Explorer',
+    shortLabel: 'Play & discover',
     title: 'Play, wonder & discover',
     subtitle: 'Bright little adventures that turn curiosity into learning.',
     greeting: 'Ready for a little adventure?',
@@ -70,7 +70,7 @@ const AGE_PROFILES: Record<AgeGroup, AgeProfile> = {
   },
   '10-13': {
     label: '10–13 years',
-    shortLabel: 'Young Explorer',
+    shortLabel: 'Explore & build',
     title: 'Challenge, build & explore',
     subtitle: 'Quests, puzzles and practical challenges for a growing mind.',
     greeting: 'What will you challenge yourself with today?',
@@ -79,7 +79,7 @@ const AGE_PROFILES: Record<AgeGroup, AgeProfile> = {
   },
   '14-17': {
     label: '14–17 years',
-    shortLabel: 'Future Thinker',
+    shortLabel: 'Think & create',
     title: 'Think deeper. Build your future.',
     subtitle: 'Strategic challenges, useful tools and real-world learning.',
     greeting: 'Choose something that moves you forward.',
@@ -88,7 +88,7 @@ const AGE_PROFILES: Record<AgeGroup, AgeProfile> = {
   },
   aspirants: {
     label: '18+ years',
-    shortLabel: 'Aspirant',
+    shortLabel: 'Focus & prepare',
     title: 'Prepare the mind behind the preparation.',
     subtitle: 'Focused cognitive practice, practical tools and purposeful challenges alongside your exam preparation.',
     greeting: 'Start a focused session.',
@@ -478,6 +478,56 @@ function AgeWorldArt({ accent }: { accent: AgeAccent }) {
   );
 }
 
+function AgePickerArt({ accent }: { accent: AgeAccent }) {
+  if (accent === 'sunny') {
+    return (
+      <svg className="age-picker-art" viewBox="0 0 180 120" role="presentation">
+        <circle cx="143" cy="28" r="17" fill="#ffd86b" opacity=".9" />
+        <path d="M18 74 Q48 35 78 74 T138 74" fill="none" stroke="#f36f93" strokeWidth="8" strokeLinecap="round" opacity=".8" />
+        <path d="M27 78 Q55 45 78 78 T129 78" fill="none" stroke="#ffb43f" strokeWidth="8" strokeLinecap="round" />
+        <path d="M36 82 Q60 55 79 82 T120 82" fill="none" stroke="#7265d9" strokeWidth="7" strokeLinecap="round" />
+        <path d="M0 103 Q48 80 92 99 Q137 116 180 91 V120 H0Z" fill="#65b95b" />
+        <circle cx="28" cy="27" r="3" fill="#fff" /><circle cx="53" cy="18" r="2" fill="#fff" /><circle cx="116" cy="25" r="3" fill="#fff" />
+      </svg>
+    );
+  }
+
+  if (accent === 'explorer') {
+    return (
+      <svg className="age-picker-art" viewBox="0 0 180 120" role="presentation">
+        <ellipse cx="90" cy="61" rx="68" ry="27" fill="none" stroke="#fff" strokeWidth="1.5" opacity=".42" />
+        <ellipse cx="90" cy="61" rx="50" ry="20" fill="none" stroke="#fff" strokeWidth="1.5" opacity=".25" transform="rotate(24 90 61)" />
+        <path d="M82 88 L99 28 L116 88 L99 77Z" fill="#fff" opacity=".88" />
+        <path d="M87 77 L99 42 L111 77" fill="none" stroke="#6359dc" strokeWidth="3" />
+        <circle cx="99" cy="61" r="4" fill="#fff" />
+        <circle cx="35" cy="28" r="4" fill="#fff" opacity=".7" /><circle cx="149" cy="35" r="5" fill="#fff" opacity=".55" />
+      </svg>
+    );
+  }
+
+  if (accent === 'future') {
+    return (
+      <svg className="age-picker-art" viewBox="0 0 180 120" role="presentation">
+        <circle cx="90" cy="61" r="45" fill="none" stroke="#8798ff" strokeWidth="1.5" opacity=".42" />
+        <circle cx="90" cy="61" r="27" fill="none" stroke="#2bbcc0" strokeWidth="2" opacity=".55" />
+        <path d="M18 93 L48 67 L77 78 L111 34 L163 61" fill="none" stroke="#4d73ed" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+        {[18,48,77,111,163].map((cx, index) => <circle key={cx} cx={cx} cy={[93,67,78,34,61][index]} r="5" fill={index % 2 ? '#19b6b2' : '#6376ee'} />)}
+        <path d="M90 20 l5 12 13 2-10 8 3 13-11-7-11 7 3-13-10-8 13-2z" fill="#fff" opacity=".8" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg className="age-picker-art" viewBox="0 0 180 120" role="presentation">
+      <circle cx="90" cy="60" r="43" fill="none" stroke="#fff" strokeWidth="1.5" opacity=".35" />
+      <circle cx="90" cy="60" r="28" fill="none" stroke="#5ed6c9" strokeWidth="2" opacity=".7" />
+      <circle cx="90" cy="60" r="15" fill="#319b9d" opacity=".85" />
+      <path d="M90 23 V97 M53 60 H127 M64 34 L116 86 M116 34 L64 86" stroke="#fff" strokeWidth="1.5" opacity=".3" />
+      <path d="M90 39 l5 15 16 6-16 5-5 16-5-16-16-5 16-6z" fill="#fff" opacity=".78" />
+    </svg>
+  );
+}
+
 function StudentFeaturePage({
   feature,
   onBack,
@@ -815,6 +865,7 @@ export function StudentGamesPage({ apiUrl, childStudentId }: StudentGamesPagePro
   const [subscription, setSubscription] = useState<{ status: string; plan: string; trialEndsAt: string | null } | null>(null);
   const [loading, setLoading] = useState(true);
   const [expanded, setExpanded] = useState(false);
+  const [gameSearch, setGameSearch] = useState('');
   const [showPromo, setShowPromo] = useState(false);
   const [activeFeature, setActiveFeature] = useState<FeatureKey | null>(null);
   const [randomGame, setRandomGame] = useState<GameWithAccess | null>(null);
@@ -944,10 +995,26 @@ export function StudentGamesPage({ apiUrl, childStudentId }: StudentGamesPagePro
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  const grouped = useMemo(() => games.reduce<Record<string, GameWithAccess[]>>((acc, game) => {
+  const filteredGames = useMemo(() => {
+    const query = gameSearch.trim().toLowerCase();
+    if (!query) return games;
+    return games.filter((game) => {
+      const catalog = getCatalogEntry(game.slug);
+      return [
+        game.title,
+        game.domain,
+        game.ageLabel,
+        ...(game.skills || []),
+        ...(catalog?.skillsBuilt || []),
+        catalog?.tagline || '',
+      ].join(' ').toLowerCase().includes(query);
+    });
+  }, [games, gameSearch]);
+
+  const filteredGrouped = useMemo(() => filteredGames.reduce<Record<string, GameWithAccess[]>>((acc, game) => {
     (acc[game.domain] ??= []).push(game);
     return acc;
-  }, {}), [games]);
+  }, {}), [filteredGames]);
 
   const visibleFeatureItems = useMemo(
     () => FEATURE_ITEMS.filter((item) => item.key !== 'aspirant' || ageGroup === 'aspirants'),
@@ -1247,6 +1314,22 @@ const disclaimerBanner = (
     </div>
   </div>
 
+  {expanded && (
+    <div className="games-search-bar" role="search">
+      <span aria-hidden="true">⌕</span>
+      <input
+        type="search"
+        value={gameSearch}
+        onChange={(event) => setGameSearch(event.target.value)}
+        placeholder="Search games, skills or domains"
+        aria-label="Search games, skills or domains"
+      />
+      {gameSearch && (
+        <button type="button" className="games-search-clear" onClick={() => setGameSearch('')} aria-label="Clear game search">×</button>
+      )}
+    </div>
+  )}
+
   <div className="games-grid-wrap student-games-wrap">
     {!expanded ? (
       <>
@@ -1277,7 +1360,7 @@ const disclaimerBanner = (
       </>
     ) : (
       <>
-        {(Object.entries(grouped) as [string, GameWithAccess[]][]).map(([domain, domainGames]) => (
+        {(Object.entries(filteredGrouped) as [string, GameWithAccess[]][]).map(([domain, domainGames]) => (
           <section key={domain} className="domain-section">
             <div className="domain-section__heading">
               <div>
@@ -1294,6 +1377,9 @@ const disclaimerBanner = (
             </div>
           </section>
         ))}
+        {!filteredGames.length && (
+          <div className="games-search-empty">No games match “{gameSearch}”. Try a different title, skill or domain.</div>
+        )}
         <button
           type="button"
           className="student-explore-games student-explore-games--back"
@@ -1362,7 +1448,7 @@ const disclaimerBanner = (
       {showAgePicker && (
         <div className="age-picker-backdrop" role="dialog" aria-modal="true" aria-labelledby="age-picker-title">
           <div className="age-picker">
-            <button type="button" className="age-picker__close" aria-label="Close age selection" onClick={() => { if (ageGroup) { playClick(); setShowAgePicker(false); } }}>×</button>
+            <button type="button" className="age-picker__close" aria-label="Close age selection" onClick={() => { playClick(); navigate('/'); }}>×</button>
             <div className="age-picker__spark">✦</div>
             <span className="student-section-kicker">WELCOME TO MEDHĀ</span>
             <h2 id="age-picker-title">How old are you?</h2>
@@ -1370,7 +1456,7 @@ const disclaimerBanner = (
             <div className="age-choice-grid">
               {(Object.entries(AGE_PROFILES) as [AgeGroup, AgeProfile][]).map(([key, age]) => (
                 <button type="button" key={key} className={`age-choice age-choice--${age.accent}`} onClick={() => selectAge(key)}>
-                  <div className="age-choice__scene" aria-hidden="true"><span>{age.icon}</span><i /><b /></div>
+                  <div className="age-choice__scene" aria-hidden="true"><AgePickerArt accent={age.accent} /></div>
                   <strong>{age.label}</strong><small>{age.shortLabel}</small><em>Choose →</em>
                 </button>
               ))}
