@@ -4,10 +4,13 @@ import { GamesGrid } from '../components/GamesGrid';
 import '../styles/student-public.css';
 
 
+
 const API_URL = 'https://medhaa-tni1.onrender.com/api';
 const AGE_STORAGE_KEY = 'medhaa_student_age_group';
 
+
 type AgeGroup = '5-9' | '10-13' | '14-17';
+
 
 type AgeTheme = {
   id: AgeGroup;
@@ -20,6 +23,7 @@ type AgeTheme = {
   icon: string;
   floating: string[];
 };
+
 
 const ageThemes: AgeTheme[] = [
   {
@@ -57,6 +61,7 @@ const ageThemes: AgeTheme[] = [
   },
 ];
 
+
 interface DomainShowcaseItem {
   key: string;
   title: string;
@@ -66,6 +71,7 @@ interface DomainShowcaseItem {
   desc: string;
   match: string[];
 }
+
 
 const domainShowcase: DomainShowcaseItem[] = [
   {
@@ -151,7 +157,9 @@ const domainShowcase: DomainShowcaseItem[] = [
   },
 ];
 
+
 const allMatchedDomains = domainShowcase.flatMap((d) => d.match);
+
 
 const studentTools = [
   {
@@ -229,6 +237,7 @@ const studentTools = [
 ];
 
 
+
 function AgeScene({ age }: { age: AgeGroup }) {
   if (age === '5-9') {
     return (
@@ -262,6 +271,7 @@ function AgeScene({ age }: { age: AgeGroup }) {
     );
   }
 
+
   if (age === '10-13') {
     return (
       <div className="age-scene-art scene-explorer" aria-hidden="true">
@@ -289,6 +299,7 @@ function AgeScene({ age }: { age: AgeGroup }) {
     );
   }
 
+
   return (
     <div className="age-scene-art scene-future" aria-hidden="true">
       <div className="future-sky" />
@@ -313,9 +324,11 @@ function AgeScene({ age }: { age: AgeGroup }) {
   );
 }
 
+
 function AgeMiniScene({ age }: { age: AgeGroup }) {
   return <div className={`age-mini-scene mini-${age.replace('-', '')}`} aria-hidden="true"><AgeScene age={age} /></div>;
 }
+
 
 export default function StudentPublic() {
   const [showPopup, setShowPopup] = useState(false);
@@ -325,6 +338,7 @@ export default function StudentPublic() {
   const [activeSection, setActiveSection] = useState<'tools' | 'games'>('tools');
   const navigate = useNavigate();
 
+
   useEffect(() => {
     const saved = window.localStorage.getItem(AGE_STORAGE_KEY) as AgeGroup | null;
     if (saved && ageThemes.some((theme) => theme.id === saved)) {
@@ -333,18 +347,22 @@ export default function StudentPublic() {
       setShowAgePicker(true);
     }
 
+
     const timer = window.setTimeout(() => setShowPopup(true), 25000);
     return () => window.clearTimeout(timer);
   }, []);
+
 
   const activeTheme = useMemo(
     () => ageThemes.find((theme) => theme.id === ageGroup) ?? ageThemes[1],
     [ageGroup],
   );
 
+
   const activeItem = domainShowcase.find((d) => d.key === activeDomain) ?? null;
   const domainFilter = activeDomain && activeDomain !== 'other' ? activeItem?.match ?? null : null;
   const excludeDomains = activeDomain === 'other' ? allMatchedDomains : null;
+
 
   const chooseAge = (id: AgeGroup) => {
     setAgeGroup(id);
@@ -352,6 +370,12 @@ export default function StudentPublic() {
     setShowAgePicker(false);
     setActiveDomain(null);
   };
+
+
+  const closeAgePicker = () => {
+    setShowAgePicker(false);
+  };
+
 
   return (
     <div
@@ -364,17 +388,20 @@ export default function StudentPublic() {
           <span className="brand-name">Medhā</span>
         </button>
 
+
         <div className="student-nav-links">
           <button className="nav-link active" onClick={() => setActiveSection('tools')}>✨ Explore</button>
           <button className="nav-link" onClick={() => setActiveSection('games')}>🎮 Games</button>
           <button className="nav-link" onClick={() => setShowAgePicker(true)}>🎨 Age &amp; Theme</button>
         </div>
 
+
         <div className="nav-btn-group">
           <button className="nav-btn nav-btn-login" onClick={() => navigate('/login/student')}>Login</button>
           <button className="nav-btn nav-btn-signup" onClick={() => navigate('/signup/student')}>Start Free</button>
         </div>
       </nav>
+
 
       <section className="student-hero">
         <div className="hero-glow hero-glow-one" />
@@ -384,6 +411,7 @@ export default function StudentPublic() {
             <span key={`${shape}-${index}`} className={`shape shape-${index + 1}`}>{shape}</span>
           ))}
         </div>
+
 
         <div className="hero-copy">
           <span className="age-pill">{activeTheme.icon} {activeTheme.label}</span>
@@ -396,6 +424,7 @@ export default function StudentPublic() {
           </div>
         </div>
 
+
         <div className="hero-scene">
           <div className="scene-orbit scene-orbit-one" />
           <div className="scene-orbit scene-orbit-two" />
@@ -403,6 +432,7 @@ export default function StudentPublic() {
           <div className="scene-sparkles" aria-hidden="true"><span>✦</span><span>✧</span><span>✦</span></div>
         </div>
       </section>
+
 
       <section className="quick-start-section">
         <div className="section-heading compact-heading">
@@ -413,6 +443,7 @@ export default function StudentPublic() {
           </div>
           <button className="age-change-button" onClick={() => setShowAgePicker(true)}>Change age theme</button>
         </div>
+
 
         <div className="quick-action-row">
           <button className="quick-action featured" onClick={() => setActiveSection('games')}>
@@ -430,6 +461,7 @@ export default function StudentPublic() {
         </div>
       </section>
 
+
       {activeSection === 'tools' ? (
         <section className="tools-section">
           <div className="section-heading">
@@ -439,6 +471,7 @@ export default function StudentPublic() {
               <p>Useful spaces you can grow into as your Medhā journey grows.</p>
             </div>
           </div>
+
 
           <div className="tools-grid">
             {studentTools.map((tool, index) => (
@@ -457,6 +490,7 @@ export default function StudentPublic() {
               </button>
             ))}
           </div>
+
 
           <div className="daily-banner">
             <div className="daily-art" aria-hidden="true"><span>✦</span><span>🧩</span><span>✦</span></div>
@@ -479,6 +513,7 @@ export default function StudentPublic() {
             {activeDomain && <button className="clear-filter" onClick={() => setActiveDomain(null)}>Show all</button>}
           </div>
 
+
           <div className="domain-showcase">
             {domainShowcase.map((d, i) => (
               <button
@@ -496,6 +531,7 @@ export default function StudentPublic() {
             ))}
           </div>
 
+
           <div className="student-games-wrap">
             <h3 className="games-section-title">{activeItem ? `${activeItem.title} Games` : 'All Games'}</h3>
             <GamesGrid apiUrl={API_URL} domainFilter={domainFilter} excludeDomains={excludeDomains} />
@@ -503,16 +539,38 @@ export default function StudentPublic() {
         </section>
       )}
 
+
       <footer className="student-footer">
         <div><strong>Medhā</strong><span>Play. Learn. Plan. Create. Grow.</span></div>
         <div className="footer-links"><button onClick={() => navigate('/')}>Home</button><button onClick={() => navigate('/login/student')}>Login</button><button onClick={() => navigate('/signup/student')}>Start Free</button></div>
       </footer>
 
+
       {showAgePicker && (
-        <div className="age-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="age-picker-title">
+        <div
+          className="age-modal-backdrop"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="age-picker-title"
+          onMouseDown={(e) => {
+            if (e.target === e.currentTarget) closeAgePicker();
+          }}
+        >
           <div className="age-modal">
-            <button className="age-modal-close" onClick={() => setShowAgePicker(false)} aria-label="Close">×</button>
-            <span className="age-modal-spark">✦</span>
+            <button
+              type="button"
+              className="age-modal-close"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                closeAgePicker();
+              }}
+              aria-label="Close"
+              style={{ position: 'relative', zIndex: 30, pointerEvents: 'auto', cursor: 'pointer' }}
+            >
+              ×
+            </button>
+            <span className="age-modal-spark" aria-hidden="true" style={{ pointerEvents: 'none' }}>✦</span>
             <p className="section-kicker">PERSONALISE YOUR MEDHĀ</p>
             <h2 id="age-picker-title">How old are you?</h2>
             <p>Choose your age group and we’ll shape the look and experience around you.</p>
@@ -536,9 +594,22 @@ export default function StudentPublic() {
         </div>
       )}
 
+
       {showPopup && (
         <div className="login-popup-anim login-popup">
-          <button className="popup-close" onClick={() => setShowPopup(false)} aria-label="Close">×</button>
+          <button
+            type="button"
+            className="popup-close"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setShowPopup(false);
+            }}
+            aria-label="Close"
+            style={{ position: 'relative', zIndex: 30, pointerEvents: 'auto', cursor: 'pointer' }}
+          >
+            ×
+          </button>
           <span className="popup-icon">✨</span>
           <strong>Want to keep your journey?</strong>
           <p>Sign in to save your activity, progress and achievements.</p>

@@ -32,6 +32,10 @@
     'border-color:rgba(167,139,250,.35);color:#c4b5fd;}',
     '#bhava-game-nav .bgnav-home:hover{background:rgba(109,40,217,.35);',
     'border-color:rgba(167,139,250,.65);color:#e9d5ff;}',
+    '#bhava-game-nav .bgnav-plane{min-width:92px;background:rgba(14,165,233,.24);',
+    'border-color:rgba(56,189,248,.75);color:#e0f2fe;box-shadow:0 0 10px rgba(56,189,248,.18);}',
+    '#bhava-game-nav .bgnav-plane:hover{background:rgba(14,165,233,.4);',
+    'border-color:rgba(125,211,252,.95);}',
 
     '#bhava-game-nav .bgnav-title{font-size:11px;font-weight:600;',
     'color:rgba(255,255,255,.28);letter-spacing:.08em;text-transform:uppercase;',

@@ -71,7 +71,7 @@ export default function StudentSignupPage() {
           <div className="student-login-logo">
             <img src={medhaaIcon} alt="Medhā" />
           </div>
-          <h1>Medhaa Sign Up</h1>
+          <h1>Medhā Sign Up</h1>
         </div>
 
         {message ? (

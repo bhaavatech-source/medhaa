@@ -54,7 +54,7 @@ export const GAMES_CATALOG: Record<string, CatalogEntry> = {
   'iq-test-level-3': {
     slug: 'iq-test-level-3', title: 'IQ Test',
     tagline: 'How sharp is your reasoning today?',
-    description: "The hardest tier in Bhāva's IQ suite — a senior-level, timed set of reasoning puzzles spanning verbal, numerical, and spatial logic. Answers are scored and converted into a percentile against age peers, with a personalised strengths-and-growth summary at the end (15–25 minutes, high difficulty).",
+    description: "The hardest tier in Medhā's IQ suite — a senior-level, timed set of reasoning puzzles spanning verbal, numerical, and spatial logic. Answers are scored and converted into a percentile against age peers, with a personalised strengths-and-growth summary at the end (15–25 minutes, high difficulty).",
     secondary: 'Logic', skillsBuilt: ['Logical Reasoning', 'Mixed Cognitive Domains', 'Self-Awareness'],
     ageMin: 12, ageMax: 17, color: '#0f766e', domain: 'cognitive-logic', emoji: '🔬',
   },
@@ -87,7 +87,7 @@ export const GAMES_CATALOG: Record<string, CatalogEntry> = {
     ageMin: 7, ageMax: 17, color: '#7c3aed', domain: 'cognitive-memory', emoji: '⚡',
   },
   'bhava-smriti': {
-    slug: 'bhava-smriti', title: 'Bhāva-samṛti',
+    slug: 'bhava-smriti', title: 'Medhā-samṛti',
     tagline: 'Match, remember, win',
     description: "A classic card-flip memory match — tap two cards to reveal them, remember what you saw, and find every matching pair before you run out of moves. Grid size and time pressure scale up as visual memory improves.",
     secondary: 'Visual Memory', skillsBuilt: ['Visual Memory', 'Concentration', 'Pattern Recall'],
@@ -152,7 +152,7 @@ export const GAMES_CATALOG: Record<string, CatalogEntry> = {
     ageMin: 14, ageMax: 17, color: '#2c3e6b', domain: 'stem-engineering', emoji: '🚀',
   },
   'bhava-space-academy': {
-    slug: 'bhava-space-academy', title: 'Bhava Space Academy',
+    slug: 'bhava-space-academy', title: 'Medhā Space Academy',
     tagline: 'Explore the ISS in 3D',
     description: "Explore a fully modeled 3D International Space Station module by module, and diagnose real space-station emergencies like gyroscope drift or life-support failures — real space-agency engineering as an explorable 3D world.",
     secondary: 'Systems Thinking', skillsBuilt: ['Scientific Curiosity', 'Systems Diagnosis', 'Real-World Engineering Knowledge'],
@@ -368,7 +368,7 @@ export const GAMES_CATALOG: Record<string, CatalogEntry> = {
   'mindscape-pro': {
     slug: 'mindscape-pro', title: 'MindScape Pro',
     tagline: 'Competitive-level abstract reasoning',
-    description: "Advanced fluid-reasoning assessment using matrix reasoning, abstract analogies, and number series, converting your performance into a percentile score against Bhāva's normative sample.",
+    description: "Advanced fluid-reasoning assessment using matrix reasoning, abstract analogies, and number series, converting your performance into a percentile score against Medhā's normative sample.",
     secondary: 'Abstract Reasoning', skillsBuilt: ['Fluid Reasoning', 'Pattern Recognition', 'Abstract Thinking'],
     ageMin: 12, ageMax: 17, color: '#0f766e', domain: 'cognitive-assessment', emoji: '🧠',
   },
@@ -396,14 +396,14 @@ export const GAMES_CATALOG: Record<string, CatalogEntry> = {
   'take-test': {
     slug: 'take-test', title: 'Take Test',
     tagline: 'Your full Brain Power Test',
-    description: "The comprehensive Bhāva Tech assessment experience — a full 'Brain Power Test' session covering multiple cognitive domains in one structured sitting, distinct from the shorter single-skill games.",
+    description: "The comprehensive Medhā assessment experience — a full 'Brain Power Test' session covering multiple cognitive domains in one structured sitting, distinct from the shorter single-skill games.",
     secondary: 'Comprehensive Assessment', skillsBuilt: ['Mixed Cognitive Domains', 'Sustained Test-Taking Focus', 'Self-Awareness'],
     ageMin: 11, ageMax: 17, color: '#00d4ff', domain: 'cognitive-assessment', emoji: '🧠',
   },
   'bcs-lite-v3': {
     slug: 'bcs-lite-v3', title: 'BCS Lite',
-    tagline: 'A quick Bhāva Cognitive Screen',
-    description: "A lightweight version of Bhāva's cognitive screening — a fast check-in on where you stand, ideal for a quick baseline or repeat check-ins over time without a long session.",
+    tagline: 'A quick Medhā Cognitive Screen',
+    description: "A lightweight version of Medhā's cognitive screening — a fast check-in on where you stand, ideal for a quick baseline or repeat check-ins over time without a long session.",
     secondary: 'Quick Screening', skillsBuilt: ['Self-Awareness', 'Baseline Cognitive Screening'],
     ageMin: 11, ageMax: 17, color: '#0d1f35', domain: 'cognitive-assessment', emoji: '🩺',
   },

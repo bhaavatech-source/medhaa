@@ -91,6 +91,126 @@
     });
   }
 
+  // ── Global layout controls ----------------------------------------------
+  function initLayoutControls() {
+    var root = document.querySelector('.build-layout');
+    var palette = document.querySelector('.palette-panel');
+    var diagnostics = document.querySelector('.diagnostics-panel');
+    if (document.getElementById('bhava-layout-controls')) return;
+
+    var saved = {};
+    try { saved = JSON.parse(localStorage.getItem('bhava-layout-settings') || '{}'); } catch (e) {}
+    function bounded(value, fallback, min, max) {
+      var number = Number(value);
+      return Number.isFinite(number) ? Math.max(min, Math.min(max, number)) : fallback;
+    }
+    var size = bounded(saved.scrollbar, 8, 4, 18);
+    var paletteDefault = (root ? parseInt(getComputedStyle(root).gridTemplateColumns, 10) : 270) || 270;
+    var paletteWidth = bounded(saved.palette, paletteDefault, 210, 420);
+    var diagnosticsWidth = bounded(saved.diagnostics, 280, 190, 420);
+    var workspaceHeight = bounded(saved.workspaceHeight, 540, 320, 720);
+    document.documentElement.style.setProperty('--bhava-scrollbar-size', size + 'px');
+    document.documentElement.style.setProperty('--bhava-palette-width', paletteWidth + 'px');
+    document.documentElement.style.setProperty('--bhava-diagnostics-width', diagnosticsWidth + 'px');
+    document.documentElement.style.setProperty('--bhava-workspace-height', workspaceHeight + 'px');
+
+    function save() {
+      try { localStorage.setItem('bhava-layout-settings', JSON.stringify({ scrollbar: size, palette: paletteWidth, diagnostics: diagnosticsWidth, workspaceHeight: workspaceHeight })); } catch (e) {}
+    }
+
+    function addHandle(panel, side, key, min, max) {
+      var handle = document.createElement('button');
+      handle.type = 'button';
+      handle.className = 'bhava-resize-handle';
+      handle.setAttribute('aria-label', 'Resize ' + key + ' panel');
+      panel.appendChild(handle);
+      var startX = 0;
+      var startWidth = 0;
+      handle.addEventListener('pointerdown', function (event) {
+        event.preventDefault();
+        handle.setPointerCapture(event.pointerId);
+        startX = event.clientX;
+        startWidth = key === 'palette' ? paletteWidth : diagnosticsWidth;
+        document.documentElement.classList.add('bhava-resizing');
+      });
+      handle.addEventListener('pointermove', function (event) {
+        if (!document.documentElement.classList.contains('bhava-resizing')) return;
+        var delta = side === 'right' ? event.clientX - startX : startX - event.clientX;
+        var next = Math.max(min, Math.min(max, startWidth + delta));
+        if (key === 'palette') paletteWidth = next;
+        else diagnosticsWidth = next;
+        document.documentElement.style.setProperty('--bhava-' + key + '-width', next + 'px');
+      });
+      handle.addEventListener('pointerup', function () {
+        document.documentElement.classList.remove('bhava-resizing');
+        save();
+      });
+    }
+
+    if (root && palette && diagnostics) {
+      addHandle(palette, 'right', 'palette', 210, 420);
+      addHandle(diagnostics, 'left', 'diagnostics', 190, 420);
+    }
+
+    var controls = document.createElement('div');
+    controls.id = 'bhava-layout-controls';
+    controls.hidden = true;
+    controls.innerHTML =
+      '<div class="bhava-layout-heading"><strong>Global layout settings</strong><button id="bhava-layout-close" type="button" aria-label="Close layout settings">✕</button></div>' +
+      '<label>Parts tray width <output id="bhava-palette-value">' + paletteWidth + 'px</output><input id="bhava-palette-range" type="range" min="210" max="420" step="5" value="' + paletteWidth + '"></label>' +
+      '<label>Diagnostics width <output id="bhava-diagnostics-value">' + diagnosticsWidth + 'px</output><input id="bhava-diagnostics-range" type="range" min="190" max="420" step="5" value="' + diagnosticsWidth + '"></label>' +
+      '<label>Bike area height <output id="bhava-workspace-value">' + workspaceHeight + 'px</output><input id="bhava-workspace-range" type="range" min="320" max="720" step="10" value="' + workspaceHeight + '"></label>' +
+      '<label>Scrollbars <output id="bhava-scrollbar-value">' + size + 'px</output><input id="bhava-scrollbar-range" type="range" min="4" max="18" step="1" value="' + size + '"></label>' +
+      '<button id="bhava-layout-reset" type="button">Reset panel sizes</button>';
+    document.body.appendChild(controls);
+
+    var toggle = document.createElement('button');
+    toggle.id = 'bhava-layout-toggle';
+    toggle.type = 'button';
+    toggle.title = 'Layout controls';
+    toggle.setAttribute('aria-label', 'Open layout controls');
+    toggle.textContent = '↔';
+    document.body.appendChild(toggle);
+    toggle.addEventListener('click', function () { controls.hidden = !controls.hidden; });
+    document.getElementById('bhava-layout-close').addEventListener('click', function () { controls.hidden = true; });
+
+    function bindSizeRange(id, outputId, property, update) {
+      var input = document.getElementById(id);
+      var output = document.getElementById(outputId);
+      input.addEventListener('input', function () {
+        update(Number(input.value));
+        output.textContent = input.value + 'px';
+        document.documentElement.style.setProperty(property, input.value + 'px');
+        save();
+      });
+    }
+    bindSizeRange('bhava-palette-range', 'bhava-palette-value', '--bhava-palette-width', function (value) { paletteWidth = value; });
+    bindSizeRange('bhava-diagnostics-range', 'bhava-diagnostics-value', '--bhava-diagnostics-width', function (value) { diagnosticsWidth = value; });
+    bindSizeRange('bhava-workspace-range', 'bhava-workspace-value', '--bhava-workspace-height', function (value) { workspaceHeight = value; });
+
+    var range = document.getElementById('bhava-scrollbar-range');
+    var output = document.getElementById('bhava-scrollbar-value');
+    range.addEventListener('input', function () {
+      size = Number(range.value);
+      output.textContent = size + 'px';
+      document.documentElement.style.setProperty('--bhava-scrollbar-size', size + 'px');
+      save();
+    });
+    document.getElementById('bhava-layout-reset').addEventListener('click', function () {
+      paletteWidth = 270; diagnosticsWidth = 280; workspaceHeight = 540;
+      document.documentElement.style.setProperty('--bhava-palette-width', '270px');
+      document.documentElement.style.setProperty('--bhava-diagnostics-width', '280px');
+      document.documentElement.style.setProperty('--bhava-workspace-height', '540px');
+      document.getElementById('bhava-palette-range').value = 270;
+      document.getElementById('bhava-diagnostics-range').value = 280;
+      document.getElementById('bhava-workspace-range').value = 540;
+      document.getElementById('bhava-palette-value').textContent = '270px';
+      document.getElementById('bhava-diagnostics-value').textContent = '280px';
+      document.getElementById('bhava-workspace-value').textContent = '540px';
+      save();
+    });
+  }
+
   // ── Wire it up ───────────────────────────────────────────────────────────
   function update() {
     if (mode === 'nudge') { updateBanner(); }
@@ -105,11 +225,13 @@
   document.addEventListener('DOMContentLoaded', function () {
     update();
     initScrollFades();
+    initLayoutControls();
   });
   // In case the script loads after DOMContentLoaded already fired
   if (document.readyState !== 'loading') {
     update();
     initScrollFades();
+    initLayoutControls();
   }
 
   // ── Public API — for games that want manual control ────────────────────

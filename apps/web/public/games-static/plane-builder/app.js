@@ -309,14 +309,15 @@ function renderDiagnostics(result) {
   setText(el.statusBadge, 'Needs Fixing');
 }
 
+// Icons chosen to represent the real aircraft part, not an unrelated animal/object (e.g. tail is not a bird feather).
 const anatomyIcons = {
-  wing: '🪽', tail: '🪶', fuselage: '✈️', engine: '🚀', propeller: '🚁', spinner: '🌀', nacelle: '🛡️',
-  landing_gear: '🛞', fuel_tank: '⛽', apu: '🔋', battery: '🪫', generator: '⚡', ailerons: '🛫',
-  elevators: '🛬', rudder: '⛵', flaps: '📐', slats: '📏', spoilers: '🛑', horizontal_stabilizer: '⚖️',
-  vertical_stabilizer: '🦈', trim_tabs: '🤏', cockpit: '🧑‍✈️', yoke: '🕹️', rudder_pedals: '🦶',
-  throttle: '🎚️', altimeter: '🏔️', airspeed_indicator: '💨', attitude_indicator: '🧭', pitot_tube: '🌡️',
+  wing: '🪽', tail: '🔻', fuselage: '✈️', engine: '⚙️', propeller: '🔄', spinner: '🌀', nacelle: '🔘',
+  landing_gear: '🛞', fuel_tank: '⛽', apu: '🔋', battery: '🪫', generator: '⚡', ailerons: '↔️',
+  elevators: '↕️', rudder: '↩️', flaps: '📐', slats: '📏', spoilers: '🛑', horizontal_stabilizer: '⚖️',
+  vertical_stabilizer: '🔺', trim_tabs: '🤏', cockpit: '🧑‍✈️', yoke: '🕹️', rudder_pedals: '🦶',
+  throttle: '🎚️', altimeter: '🏔️', airspeed_indicator: '💨', attitude_indicator: '🧭', pitot_tube: '📍',
   static_port: '🕳️', windshield: '🪟', radar: '📡', transponder: '📶', comms_radio: '📻',
-  flight_data_recorder: '📼', cockpit_voice_recorder: '🎙️', radome: '👃', navigation_lights: '🚦',
+  flight_data_recorder: '📼', cockpit_voice_recorder: '🎙️', radome: '🔶', navigation_lights: '🚦',
   beacon_light: '🚨', landing_lights: '🔦', cargo_bay: '📦', passenger_seats: '💺', overhead_bins: '🧳',
   galley: '☕', lavatory: '🚻', oxygen_system: '🫁', pressurization_system: '🎈',
   environmental_control_system: '❄️', fire_extinguishing_system: '🧯', emergency_exits: '🚪'
@@ -376,6 +377,15 @@ function renderAnatomyDetail() {
   if (functionEl) functionEl.textContent = item.function;
   if (missingEl) missingEl.textContent = item.ifMissing;
   if (lessonEl) lessonEl.textContent = item.lesson;
+  if (detailBox.dataset.selectedPart !== item.id) {
+    detailBox.dataset.selectedPart = item.id;
+    const focusDetail = () => {
+      const targetTop = detailBox.getBoundingClientRect().top + window.scrollY - 56;
+      window.scrollTo({ top: Math.max(0, targetTop), behavior: 'smooth' });
+    };
+    requestAnimationFrame(() => requestAnimationFrame(focusDetail));
+    window.setTimeout(focusDetail, 350);
+  }
 }
 
 function renderAll() {

@@ -24,6 +24,10 @@ interface GameCardProps {
 const ROTATING_FREE_UNLOCK_DAY = 31;
 const PREMIUM_TRIAL_DAYS = 10;
 
+function displayGameTitle(title: string) {
+  return title.replace(/bh[aā]va/gi, 'Medhā');
+}
+
 function getBadge(tier: GameTier, access: GameCardProps['access']) {
   if (tier === 'assessment') {
     return { label: 'Assessment', color: 'badge-assessment' };
@@ -147,6 +151,7 @@ export function GameCard({
 }: GameCardProps) {
   const [showUpgrade, setShowUpgrade] = useState(false);
   const badge = getBadge(tier, access);
+  const displayTitle = displayGameTitle(title);
 const playLabel = kind === 'activity' ? 'Start Now' : 'Play Now';
   const visibleSkills = skills.slice(0, 3);
 
@@ -184,7 +189,7 @@ const playLabel = kind === 'activity' ? 'Start Now' : 'Play Now';
             {domain.replace(/-/g, ' ')}
           </div>
 
-          <h3 className="game-card-title">{title}</h3>
+          <h3 className="game-card-title">{displayTitle}</h3>
 
           <div className="game-card-meta">
             <span>{ageLabel}</span>

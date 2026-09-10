@@ -25,7 +25,7 @@ export default function ParentProgressReport() {
         <div style={styles.topRow}>
           <img
             src={medhaaIcon}
-            alt="Medhaa"
+            alt="Medhā"
             style={styles.logo}
           />
           <span style={styles.badge}>PARENT VIEW</span>

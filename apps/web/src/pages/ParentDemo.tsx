@@ -229,7 +229,7 @@ export function ParentDemo() {
         </section>
 
         <p className="summary-note journey-note">
-          This is the kind of insight Medhaa's games reveal — real, age-appropriate growth tracking for your child too.
+          This is the kind of insight Medhā's games reveal — real, age-appropriate growth tracking for your child too.
         </p>
 
         <div className="parent-footer">

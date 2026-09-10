@@ -1678,7 +1678,7 @@ export default function HomePage() {
         <button
           className="brand"
           onClick={() => go("/")}
-          aria-label="Medhaa home"
+          aria-label="Medhā home"
         >
           <span className="brand-logo-wrap" aria-hidden="true">
             <img className="brand-logo-image" src={medhaLogo} alt="" />
@@ -1995,7 +1995,7 @@ export default function HomePage() {
   </nav>
 
   <span>© 2026 Medhā — Designed for curious minds</span>
-  <span className="footer-note">A Bhāva Tech product</span>
+  <span className="footer-note">A Medhā product</span>
 </footer>
     </main>
   );

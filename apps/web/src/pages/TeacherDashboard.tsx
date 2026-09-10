@@ -77,7 +77,7 @@ export function TeacherDashboard() {
           <span className="teacher-logo" aria-hidden="true"><span className="teacher-logo-ring">✦</span><span className="teacher-logo-core">M</span></span>
           <div>
             <h1>Class 4B Dashboard</h1>
-            <p>32 students · Bhāva Tech Academy</p>
+            <p>32 students · Medhā Academy</p>
           </div>
         </div>
         <div className="class-avg-pill">

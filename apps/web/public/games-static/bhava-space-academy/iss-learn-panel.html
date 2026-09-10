@@ -268,10 +268,29 @@
 
     @media (max-width: 960px) {
       .shell { grid-template-columns: 1fr; }
-      .nav { position: relative; top: 0; max-height: auto; }
+      .content { grid-row: 2; }
+      .nav { grid-row: 1; position: relative; top: 0; max-height: none; overflow: visible; }
+      .content, .nav { width: 100%; }
+      #sidebarNav { display: none; gap: 4px; }
+      #sidebarNav.expanded { display: flex; }
+      #lesson-picker-toggle { display: flex; }
+      .cat-title { margin: 10px 0 4px 2px; font-size: 0.68rem; }
+      .nav button { padding: 7px 10px; border-radius: 9px; font-size: 0.8rem; }
       .pedagogy-grid { grid-template-columns: 1fr; }
       .card.full-width { grid-column: span 1; }
       .myth-grid { grid-template-columns: 1fr; }
+    }
+
+    #lesson-picker-toggle { display: none; }
+    @media (max-width: 960px) {
+      #lesson-picker-toggle {
+        display: flex; width: 100%; align-items: center; justify-content: space-between;
+        margin: 12px 0 0; padding: 10px 12px; border-radius: 10px;
+        border: 1px solid rgba(96,165,250,.35); background: #111d35;
+        color: var(--text); font-size: .82rem; font-weight: 700; cursor: pointer;
+      }
+      #lesson-picker-toggle::after { content: '⌄'; font-size: 1.1rem; color: var(--accent); }
+      #lesson-picker-toggle[aria-expanded="true"]::after { content: '⌃'; }
     }
   </style>
 </head>
@@ -314,6 +333,7 @@
           <p id="progressMessage" class="progress-message">35 chapters remaining.</p>
         </div>
 
+        <button id="lesson-picker-toggle" type="button" aria-expanded="false">Choose a lesson</button>
         <!-- Sidebar Category Buttons Container -->
         <div id="sidebarNav"></div>
       </aside>
@@ -1241,6 +1261,12 @@
      * 2. RENDER THE NAVIGATION SIDEBAR
      ************************************************************************/
     const sidebarNavEl = document.getElementById("sidebarNav");
+    const lessonPickerToggle = document.getElementById("lesson-picker-toggle");
+
+    lessonPickerToggle.addEventListener("click", () => {
+      const expanded = sidebarNavEl.classList.toggle("expanded");
+      lessonPickerToggle.setAttribute("aria-expanded", String(expanded));
+    });
 
     function buildSidebar() {
       let currentCat = "";
@@ -1254,7 +1280,7 @@
         }
         const btn = document.createElement("button");
         btn.dataset.id = item.id;
-        btn.innerHTML = `<span>${item.title}</span> <span class="num-badge">#${index + 1}</span>`;
+        btn.innerHTML = `<span>${item.title}</span>`;
         btn.addEventListener("click", () => selectLesson(item.id));
         sidebarNavEl.appendChild(btn);
       });
@@ -1272,6 +1298,9 @@
       document.querySelectorAll("#sidebarNav button").forEach(btn => {
         btn.classList.toggle("active", btn.dataset.id === id);
       });
+      lessonPickerToggle.textContent = data.title;
+      sidebarNavEl.classList.remove("expanded");
+      lessonPickerToggle.setAttribute("aria-expanded", "false");
 
       const pipelineHtml = data.flow.map((step, idx) => {
         const arrow = idx < data.flow.length - 1 ? `<span class="pipe-arrow">→</span>` : "";
@@ -1432,5 +1461,6 @@
     const validId = curriculum.some(item => item.id === initialHash) ? initialHash : "c1";
     selectLesson(validId);
   </script>
+<script src="../bhava-game-nav.js"></script>
 </body>
 </html>

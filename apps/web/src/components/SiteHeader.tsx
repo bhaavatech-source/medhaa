@@ -18,7 +18,7 @@ export function SiteHeader({ mode }: { mode: 'authed' | 'public' }) {
       }}
     >
       <a href="/" style={{ fontWeight: 700, fontSize: 18, textDecoration: 'none', color: '#1e293b' }}>
-        🧠 Medhaa
+        🧠 Medhā
       </a>
       <div style={{ display: 'flex', gap: 8 }}>
         {mode === 'public' ? (

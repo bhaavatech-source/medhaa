@@ -57,7 +57,9 @@ h1,h2,h3,p{margin-top:0} h1{margin-bottom:6px;font-size:2.4rem}
 .gear{position:absolute;width:8px;height:28px;background:#475f79;top:107px}.gear::after{content:'';position:absolute;width:22px;height:22px;left:-7px;bottom:-8px;border-radius:50%;background:#22303d;border:3px solid #91a5b8}.gear.nose{left:246px}.gear.left{left:125px}.gear.right{left:196px}
 .cargo-box{position:absolute;width:42px;height:24px;left:138px;top:74px;background:#d39a4a;border:2px solid #9d6b29;border-radius:6px}
 .radar{position:absolute;width:22px;height:22px;left:208px;top:37px;border-radius:50%;border:3px solid #55d3ff}.radar::after{content:'';position:absolute;left:7px;top:16px;width:4px;height:10px;background:#55d3ff}
-.hidden{display:none}.telemetry{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}.telemetry-card{display:flex;flex-direction:column;gap:4px;text-align:center}.telemetry-card strong{font-size:1.45rem}
+.hidden{display:none}.anatomy-shell.hidden{display:none!important}.telemetry{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}.telemetry-card{display:flex;flex-direction:column;gap:4px;text-align:center}.telemetry-card strong{font-size:1.45rem}
+.diagnostics-panel{display:none!important}
+.detail-box{scroll-margin-top:60px}
 .diagnostics-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:16px}.fault-list{list-style:none;padding:0;margin:0;display:grid;gap:12px}.fault-item{display:flex;flex-direction:column;gap:6px}
 .mentor-box,.mini-lesson{min-height:120px;border:1px solid var(--line);border-radius:18px;padding:16px;background:rgba(255,255,255,.04)}.tip-box{margin-top:12px}
 .anatomy-shell{display:grid;grid-template-columns:.92fr 1.08fr;gap:16px}.anatomy-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}.anatomy-item.active{outline:2px solid var(--accent)}.anatomy-item .anatomy-btn{margin-top:8px;width:100%}.anatomy-detail{border:1px solid var(--line);border-radius:18px;padding:18px;background:rgba(255,255,255,.035)}.filter-chip.active{background:rgba(93,199,255,.14);outline:1px solid var(--accent)}
@@ -441,7 +443,21 @@ h1,h2,h3,p{margin-top:0} h1{margin-bottom:6px;font-size:2.4rem}
 }
 
 @media (max-width: 720px){
-  .parts-grid,.anatomy-list{grid-template-columns:1fr}
+  .app-shell{padding:14px 12px}
+  .panel{padding:14px;border-radius:18px}
+  .topbar{align-items:flex-start}
+  h1{font-size:2rem}
+  .sky-scene{min-height:280px}
+  #plane{left:50%;scale:.64}
+  .parts-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .anatomy-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .part-card{padding:8px;border-radius:11px}
+  .part-card h4{font-size:.78rem;line-height:1.15;margin-bottom:4px}
+  .part-card p{font-size:.68rem;line-height:1.22;margin-bottom:4px}
+  .part-card .part-hint{font-size:.66rem}
+  .part-card .install-btn{margin-top:4px;padding:6px 5px;font-size:.66rem}
+  .filter-row{gap:6px}
+  .filter-chip{padding:6px 8px;font-size:.72rem}
   .telemetry{grid-template-columns:1fr}
   .topbar,.panel-head,.action-row{flex-direction:column;align-items:flex-start}
   .mode-cards{grid-template-columns:1fr}

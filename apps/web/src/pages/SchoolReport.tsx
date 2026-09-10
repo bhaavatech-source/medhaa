@@ -20,7 +20,7 @@ export default function SchoolReport() {
     <div className="layout">
       {/* Sidebar */}
       <aside className="sidebar">
-        <div className="sidebar-brand">Medhaa<span> · School</span></div>
+        <div className="sidebar-brand">Medhā<span> · School</span></div>
         <div className="sidebar-school">Greenwood School</div>
         
         <a className="nav-item" href="/">
@@ -52,7 +52,7 @@ export default function SchoolReport() {
           <span className="nav-icon">⚙️</span> Settings
         </button>
         
-        <div className="sidebar-foot">© 2026 Medhaa Brain Gym<br />School Admin Console</div>
+        <div className="sidebar-foot">© 2026 Medhā Brain Gym<br />School Admin Console</div>
       </aside>
 
       <main className="content">
@@ -278,7 +278,7 @@ export default function SchoolReport() {
   <span className="workspace-link-arrow">→</span>
 </Link>
 
-        <footer className="report-foot">© 2026 Medhaa · Empowering schools to nurture every child's potential</footer>
+        <footer className="report-foot">© 2026 Medhā · Empowering schools to nurture every child's potential</footer>
       </main>
     </div>
   );

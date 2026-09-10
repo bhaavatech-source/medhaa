@@ -154,8 +154,19 @@ export class CelebrationEngine {
         <button class="celebration-close" aria-label="Close celebration">✕</button>
         <div class="confetti-field">${pieces.map((p,i) => `<span style="--i:${i};--x:${(i*37)%96}%">${p}</span>`).join("")}</div>
         <div class="launch-pad">
-          <div class="rocket-flying"><div class="flame"></div><span>🚀</span></div>
-          <div class="smoke-cloud"></div>
+          <div class="launch-vehicle">
+            <div class="rocket-body">
+              <div class="rocket-nose"></div>
+              <div class="rocket-window"></div>
+              <div class="rocket-band"></div>
+              <div class="rocket-fin rocket-fin-left"></div>
+              <div class="rocket-fin rocket-fin-right"></div>
+              <div class="rocket-engine"></div>
+              <div class="flame"></div>
+            </div>
+          </div>
+          <div class="launch-rail"></div>
+          <div class="smoke-cloud"><i></i><i></i><i></i></div>
         </div>
         <p class="celebration-kicker">LAUNCH SUCCESSFUL</p>
         <h2>${rocketType === "Orbital" ? "Orbit Reached!" : "We Have Liftoff!"}</h2>

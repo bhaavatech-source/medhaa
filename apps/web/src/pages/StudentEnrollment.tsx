@@ -25,16 +25,16 @@ export default function StudentEnrollment() {
       <section style={styles.card}>
         <img
           src="/images/logo/medhaa-icon.svg"
-          alt="Medhaa"
+          alt="Medhā"
           style={styles.logo}
         />
 
         <span style={styles.kicker}>STEP 1 OF 2</span>
-        <h1 style={styles.heading}>Add your child to Medhaa</h1>
+        <h1 style={styles.heading}>Add your child to Medhā</h1>
 
         <p style={styles.copy}>
           Create a student learning journey. After student sign-up and
-          subscription, Medhaa will recommend activities and share progress
+          subscription, Medhā will recommend activities and share progress
           with the child and linked parent account.
         </p>
 

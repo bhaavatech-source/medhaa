@@ -102,7 +102,7 @@ export function UpgradeModal({ apiUrl, gameTitle, onClose }: UpgradeModalProps) 
             <h2 className="upgrade-title">Pay ₹{(selectedPlan.amountPaise / 100).toLocaleString('en-IN')}</h2>
             <p className="upgrade-sub">Scan the QR code below using any UPI app, then enter your transaction reference ID.</p>
 
-            <img src={qrImage} alt="BhavaTech UPI QR Code" className="upgrade-qr" />
+            <img src={qrImage} alt="Medhā UPI QR Code" className="upgrade-qr" />
             <p className="upgrade-upi-id">UPI ID: yespay.smessi10194393@yesbankltd</p>
 
             <label className="upgrade-ref-label">

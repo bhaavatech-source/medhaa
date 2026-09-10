@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bhava-mobile="off">
 <head>
 <!-- MEDHAA-SEO-EXTRA-INJECTED -->
 <meta property="og:image" content="https://medhaa.net/medha_logo_transparent.png">
@@ -22,6 +22,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../bhava-responsive.css">
 <title>ISS Anatomy Explorer (JSON-driven) - Medhā Space Academy</title>
 <style>
   :root{
@@ -447,6 +448,25 @@
   overflow-y: auto;
 }
 
+@media (max-width: 700px){
+  html, body{height:auto;min-height:100%;}
+  body{overflow-y:auto;overflow-x:hidden;}
+  #app{display:flex;flex-direction:column;width:100%;height:auto;min-height:calc(100dvh - 44px);overflow:visible;}
+  #stage{flex:0 0 clamp(360px,56dvh,520px);width:100%;height:clamp(360px,56dvh,520px);min-height:360px;overflow:hidden;}
+  #three-canvas{width:100%;height:100%;}
+  #hud{top:14px;left:10px;right:10px;display:flex;flex-wrap:wrap;gap:6px;}
+  .hud-chip{font-size:11px;padding:6px 8px;}
+  #moduleCount{top:auto;bottom:42px;left:10px;font-size:11px;}
+  #moduleCount{top:58px;right:10px;bottom:auto;left:auto;font-size:10px;}
+  #legend{left:10px;right:10px;bottom:34px;max-width:none;justify-content:center;gap:4px;}
+  #legend .legend-chip{min-width:0;min-height:0;padding:3px 7px;font-size:9px;line-height:1.2;}
+  #controlsHint{left:10px;right:10px;bottom:6px;text-align:center;font-size:9px;}
+  .sidebar{width:100%;flex:0 0 auto;height:auto;max-height:none;min-height:0;padding:14px 12px;border-left:0;border-top:1px solid #1c2b4a;overflow:visible;}
+  .sidebar-header h1{font-size:20px;}
+  .sidebar-header p{font-size:12px;}
+  .info-panel{max-height:none;min-height:120px;}
+}
+
 .header-actions{
   display:flex;
   gap:8px;
@@ -477,6 +497,20 @@
   color:#dbeafe;
   border:1px solid rgba(255,255,255,.12);
   box-shadow:none;
+}
+
+#bhava-game-nav .learn-btn{
+  display:inline-flex;
+  align-items:center;
+  min-width:0;
+  min-height:0;
+  padding:5px 13px;
+  border:1px solid rgba(96,165,250,.55);
+  border-radius:999px;
+  background:rgba(37,99,235,.28);
+  color:#dbeafe;
+  box-shadow:none;
+  font:700 12px 'Segoe UI',Arial,sans-serif;
 }
 
   #errorScreen b{ color:var(--warn); }
@@ -1289,8 +1323,20 @@ init();
 
 
 <script src="bhava-bridge.js"></script>
-<script src="bhava-session.js"></script>
-<script src="bhava-game-nav.js"></script>
+<script src="../bhava-session.js"></script>
+<script src="../bhava-game-nav.js"></script>
+<script>
+  (function () {
+    const learnButton = document.querySelector('.learn-btn');
+    const nav = document.getElementById('bhava-game-nav');
+    const homeButton = document.getElementById('bgnav-home');
+    if (learnButton && nav && homeButton) {
+      learnButton.setAttribute('aria-label', 'Learn about the International Space Station');
+      homeButton.insertAdjacentElement('afterend', learnButton);
+    }
+  }());
+</script>
+<script src="../bhava-responsive.js"></script>
 
 
 </body>

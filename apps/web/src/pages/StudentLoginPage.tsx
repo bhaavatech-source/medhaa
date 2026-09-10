@@ -71,7 +71,7 @@ export default function StudentLoginPage() {
           <div className="student-login-logo">
             <img src={medhaaIcon} alt="Medhā" />
           </div>
-          <h1>Medhaa</h1>
+          <h1>Medhā</h1>
         </div>
 
         {gated ? (

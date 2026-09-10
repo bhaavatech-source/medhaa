@@ -18,7 +18,7 @@ import { useNavigate } from 'react-router-dom';
 import { GameCard, GameTier } from './GameCard';
 import { useGameGate } from '../pages/hooks/useGameGate';
 import LoginPricingModal from './LoginPricingModal';
-import { getCatalogEntry } from '../data/gamesCatalog';
+import { GAMES_CATALOG, getCatalogEntry } from '../data/gamesCatalog';
 import { useAuth } from '../contexts/AuthContext';
 import { authFetch } from '../utils/authFetch';
 import { useClickSound } from '../pages/hooks/useClickSound';
@@ -28,6 +28,8 @@ import medhaaIcon from '../assets/logo/medhaa-icon.svg';
 import '../styles/games-grid.css';
 import '../styles/games-grid-enhanced.css';
 import '../styles/student-games-page.css';
+import { SimilarGames } from './SimilarGames';
+import { getLastPlayedSlug, markPlayed } from '../services/gameExposure';
 
 interface GameWithAccess {
   slug: string;
@@ -37,6 +39,10 @@ interface GameWithAccess {
   skills: string[];
   tier: GameTier;
   access: { allowed: boolean; reason: string; daysSinceSignup: number };
+}
+
+function displayGameTitle(title: string) {
+  return title.replace(/bh[aā]va/gi, 'Medhā');
 }
 
 interface StudentGamesPageProps {
@@ -98,6 +104,68 @@ const AGE_PROFILES: Record<AgeGroup, AgeProfile> = {
 };
 
 const AGE_STORAGE_KEY = 'medhaa-student-age-group';
+
+const FALLBACK_PERMANENT_FREE_SLUGS = new Set([
+  'bhava-build-device-engineer',
+  'bhava-smriti',
+  'build-your-car',
+  'focus-flash',
+  'life-strategist-starter',
+  'dharana-arena',
+  'nagarikx-enhanced',
+  'planet-guardians',
+  'soccomm-enhanced',
+  'neuroflash-memory',
+  'calm-zone',
+  'good-habits',
+  'bcs-lite-v3',
+  'medha-read-anybook-in-3hrs',
+]);
+
+const FALLBACK_ROTATING_SLUGS = new Set([
+  'bhava-tech-likhwell',
+  'brain-garden',
+  'brain-quest',
+  'day-hero-game',
+  'day-super-hero',
+  'iq-test-level-3',
+  'logic-game',
+  'math-blitz-example',
+  'math-blitz',
+  'memory-match-puzzle',
+  'memory-match-ultimate',
+  'memory-zoo-puzzle',
+  'mindscape-pro',
+  'mindspark-iq',
+  'neurospark',
+  'percentile-game',
+]);
+
+function buildFallbackGames(): GameWithAccess[] {
+  return Object.values(GAMES_CATALOG).map((game) => {
+    const tier: GameTier = game.slug === 'bcs-lite-v3'
+      ? 'assessment'
+      : FALLBACK_PERMANENT_FREE_SLUGS.has(game.slug)
+        ? 'permanent-free'
+        : FALLBACK_ROTATING_SLUGS.has(game.slug)
+          ? 'rotating-free'
+          : 'premium-only';
+
+    return {
+      slug: game.slug,
+      title: displayGameTitle(game.title),
+      domain: game.domain,
+      ageLabel: `${game.ageMin}-${game.ageMax}`,
+      skills: game.skillsBuilt,
+      tier,
+      access: {
+        allowed: tier === 'assessment' || tier === 'permanent-free',
+        reason: tier === 'rotating-free' ? 'This rotating game is not available today.' : 'Premium game',
+        daysSinceSignup: 0,
+      },
+    };
+  });
+}
 
 /**
  * Curated first-screen collections.
@@ -212,7 +280,8 @@ function isAgeEligible(game: GameWithAccess, ageGroup: Exclude<AgeGroup, 'aspira
 }
 
 function buildRecommendedGames(games: GameWithAccess[], ageGroup: AgeGroup): GameWithAccess[] {
-  const bySlug = new Map(games.map((game) => [game.slug, game]));
+  const recommendationSafeGames = games.filter((game) => game.tier !== 'rotating-free');
+  const bySlug = new Map(recommendationSafeGames.map((game) => [game.slug, game]));
   const orderedSlugs = ageGroup === 'aspirants'
     ? ASPIRANT_GAME_SLUGS
     : CURATED_GAME_SLUGS[ageGroup];
@@ -227,7 +296,7 @@ function buildRecommendedGames(games: GameWithAccess[], ageGroup: AgeGroup): Gam
   // If a backend catalogue is missing one of the curated games, fill the
   // remaining recommendation slots with eligible games, while keeping
   // different domains represented.
-  const fallback = games.filter((game) => {
+  const fallback = recommendationSafeGames.filter((game) => {
     if (curated.some((item) => item.slug === game.slug)) return false;
     if (ageGroup === 'aspirants') {
       return ['cognitive-focus', 'cognitive-memory', 'cognitive-logic', 'cognitive-math', 'cognitive-assessment'].includes(game.domain);
@@ -726,6 +795,7 @@ function StudentFeaturePage({
               <span className="workspace-kicker">TODAY'S RANDOM PICK</span>
               <h2>{randomGame?.title || 'Finding a game…'}</h2>
               <p>{randomGame ? `A game selected from your available Medhā collection. Ready for a quick challenge?` : 'Your game collection is still loading.'}</p>
+                            <p>{randomGame ? `A game selected from your available Medhā collection. Ready for a quick challenge?` : 'Your game collection is still loading.'}</p>
               {randomGame && <small>{formatDomainLabel(randomGame.domain)}</small>}
             </div>
             {randomGame && <button type="button" onClick={() => onPlayGame(randomGame.slug)}>Play this game →</button>}
@@ -796,8 +866,10 @@ function StudentFeaturePage({
             <div className="aspirant-hub-card__glow" aria-hidden="true" />
             <div className="aspirant-hub-card__intro">
               <span className="workspace-kicker">MEDHĀ FOR ASPIRANTS · 18+</span>
+                            <span className="workspace-kicker">MEDHĀ FOR ASPIRANTS · 18+</span>
               <h2>Train the learning habits around your preparation.</h2>
               <p>Medhā is not a replacement for your coaching, textbooks or subject preparation. Use this space for short, purposeful practice in attention, memory, reasoning and thinking alongside your regular study.</p>
+                          <p>Medhā is not a replacement for your coaching, textbooks or subject preparation. Use this space for short, purposeful practice in attention, memory, reasoning and thinking alongside your regular study.</p>
             </div>
             <div className="aspirant-track-grid">
               {[['JEE','⚛️','Engineering entrance preparation'],['NEET','🧬','Medical entrance preparation'],['UPSC / IAS','🏛️','Civil services preparation'],['Other','📚','Another demanding examination']].map(([value,icon,label]) => (
@@ -820,12 +892,15 @@ function StudentFeaturePage({
             </div>
             <div className="aspirant-hub-footer">
               <div><strong>{examTrack}</strong><span>{sessionLength}-minute Medhā practice</span></div>
+                            <div><strong>{examTrack}</strong><span>{sessionLength}-minute Medhā practice</span></div>
               <button type="button" onClick={() => { const candidate = games.find((g) => /focus|memory|logic|reason|pattern|math/i.test(`${g.title} ${g.domain}`)) || randomGame; if (candidate) onPlayGame(candidate.slug); }}>Start a Medhā challenge →</button>
             </div>
           </div>
           <div className="workspace-card aspirant-note-card">
             <span className="workspace-kicker">KEEP THE BOUNDARY CLEAR</span>
             <h2>Medhā works alongside your preparation.</h2>
+                        <h2>Medhā works alongside your preparation.</h2>
+                          Medhā should never invent a performance score.
             <p className="workspace-note">Your exam syllabus, coaching and subject practice remain yours. This space adds short cognitive experiences and practical tools without pretending to be an exam coaching course.</p>
           </div>
         </div>
@@ -850,6 +925,7 @@ function StudentFeaturePage({
             <span className="workspace-kicker">NEXT</span>
             <h2>Keep exploring.</h2>
             <p>As the student uses Medhā, this space can become the single place for activities, achievements, goals and meaningful progress.</p>
+                        <p>As the student uses Medhā, this space can become the single place for activities, achievements, goals and meaningful progress.</p>
             <div className="journey-pill-row"><span>🎮 Games</span><span>📚 Study</span><span>⏱️ Focus</span><span>🏆 Achievements</span></div>
           </div>
         </div>
@@ -894,21 +970,44 @@ export function StudentGamesPage({ apiUrl, childStudentId }: StudentGamesPagePro
   const profile = ageGroup ? AGE_PROFILES[ageGroup] : AGE_PROFILES['10-13'];
 
     useEffect(() => {
+    let cancelled = false;
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), 8000);
+
+    function useFallbackGames() {
+      if (cancelled) return;
+      setGames(buildFallbackGames());
+      setStudentName(null);
+      setLastCheckInAt(null);
+      setSubscription(null);
+    }
+
     async function load() {
       try {
+        if (!childStudentId && window.location.pathname === '/student/preview') {
+          useFallbackGames();
+          return;
+        }
+
         const token = localStorage.getItem('accessToken');
         const endpoint = childStudentId
           ? `/games-with-access/child/${childStudentId}`
           : token
             ? '/games-with-access/with-access'
             : '/games-with-access/public';
-        const res = token ? await authFetch(`${apiUrl}${endpoint}`) : await fetch(`${apiUrl}${endpoint}`);
+        const res = token
+          ? await authFetch(`${apiUrl}${endpoint}`, { signal: controller.signal })
+          : await fetch(`${apiUrl}${endpoint}`, { signal: controller.signal });
         if (!res.ok) {
-          setLoading(false);
+          useFallbackGames();
           return;
         }
         const data = await res.json(); 
-        const allGames: GameWithAccess[] = data.games ?? [];
+        const allGames: GameWithAccess[] = (data.games ?? []).map((game: GameWithAccess) => ({
+          ...game,
+          title: displayGameTitle(game.title),
+        }));
+        if (cancelled) return;
         setGames(allGames);
         setStudentName(data.studentName ?? null);
         setLastCheckInAt(data.lastCheckInAt ?? null);
@@ -922,12 +1021,24 @@ export function StudentGamesPage({ apiUrl, childStudentId }: StudentGamesPagePro
         }
         setSubscription(data.subscription ?? null);
       } catch (error) {
-        console.error('Failed to load student games:', error);
+        if (cancelled) return;
+        if (error instanceof DOMException && error.name === 'AbortError') {
+          console.warn('Student games API timed out; using local catalogue fallback.');
+        } else {
+          console.error('Failed to load student games:', error);
+        }
+        useFallbackGames();
       } finally {
-        setLoading(false);
+        window.clearTimeout(timeout);
+        if (!cancelled) setLoading(false);
       }
     }
     load();
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timeout);
+      controller.abort();
+    };
   }, [apiUrl, childStudentId]);
 
   useEffect(() => {
@@ -962,6 +1073,7 @@ export function StudentGamesPage({ apiUrl, childStudentId }: StudentGamesPagePro
   function handlePlay(slug: string) {
     const loggedInNow = !!localStorage.getItem('accessToken');
     if (!loggedInNow && !tryPlay(slug)) return;
+    markPlayed(slug);
     const path = folderBasedSlugs.has(slug) ? `/games-static/${slug}/index.html` : `/games-static/${slug}.html`;
     window.location.href = path;
   }
@@ -1331,6 +1443,15 @@ const disclaimerBanner = (
   )}
 
   <div className="games-grid-wrap student-games-wrap">
+    {getLastPlayedSlug() && (
+      <SimilarGames
+        games={games}
+        currentSlug={getLastPlayedSlug()!}
+        onPlay={handlePlay}
+        apiUrl={apiUrl}
+      />
+    )}
+
     {!expanded ? (
       <>
         <div className="student-recommendation-note student-recommendation-note--merged">

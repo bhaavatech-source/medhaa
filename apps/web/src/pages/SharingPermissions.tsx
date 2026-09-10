@@ -21,7 +21,7 @@ export default function SharingPermissions() {
       <section style={styles.card}>
         <img
           src="/images/logo/medhaa-icon.svg"
-          alt="Medhaa"
+          alt="Medhā"
           style={styles.logo}
         />
 
