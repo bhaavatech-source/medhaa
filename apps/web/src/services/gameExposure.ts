@@ -6,6 +6,7 @@
 
 const SEEN_KEY = 'medhaa-seen-games';
 const PLAYED_KEY = 'medhaa-played-games';
+const LAST_PLAYED_KEY = 'medhaa-last-played-game';
 
 function readSet(key: string): Set<string> {
   try {
@@ -30,6 +31,7 @@ export function markPlayed(slug: string) {
   const set = readSet(PLAYED_KEY);
   set.add(slug);
   writeSet(PLAYED_KEY, set);
+  localStorage.setItem(LAST_PLAYED_KEY, slug);
 }
 
 export function getSeenSlugs(): Set<string> {
@@ -38,6 +40,10 @@ export function getSeenSlugs(): Set<string> {
 
 export function getPlayedSlugs(): Set<string> {
   return readSet(PLAYED_KEY);
+}
+
+export function getLastPlayedSlug(): string | null {
+  return localStorage.getItem(LAST_PLAYED_KEY);
 }
 
 // Picks one game per domain the student hasn't already seen as "featured".
@@ -64,7 +70,7 @@ export function pickFeaturedPerDomain<T extends { slug: string; domain: string }
 
 // Similar games = same domain, excluding the given slug and anything already
 // played, capped to a small row so it never turns into another long list.
-export function getSimilarGames<T extends { slug: string; domain: string }>(
+export function getSimilarGames<T extends { slug: string; domain: string; tier?: string }>(
   allGames: T[],
   currentSlug: string,
   domain: string,
@@ -72,6 +78,6 @@ export function getSimilarGames<T extends { slug: string; domain: string }>(
 ): T[] {
   const played = getPlayedSlugs();
   return allGames
-    .filter((g) => g.domain === domain && g.slug !== currentSlug && !played.has(g.slug))
+    .filter((g) => g.domain === domain && g.slug !== currentSlug && !played.has(g.slug) && g.tier !== 'rotating-free')
     .slice(0, limit);
 }
