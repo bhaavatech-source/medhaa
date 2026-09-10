@@ -3,10 +3,17 @@ import { PrismaClient } from '@prisma/client';
 import { authenticate, AuthenticatedRequest } from '../middleware/auth';
 import { checkGameAccess } from '../services/gameEntitlement';
 
+
 const prisma = new PrismaClient();
 const router = Router();
 
-function mapGameWithAccess(game: any, accountCreatedAt: Date, isSubscribed: boolean) {
+
+function mapGameWithAccess(
+  game: any,
+  accountCreatedAt: Date,
+  isSubscribed: boolean,
+  overrideAllAccess: boolean = false
+) {
   try {
     const access = checkGameAccess({ gameSlug: game.slug, accountCreatedAt, isSubscribed });
     return {
@@ -17,11 +24,13 @@ function mapGameWithAccess(game: any, accountCreatedAt: Date, isSubscribed: bool
       skills: game.skills,
       kind: game.kind,
       tier: access.tier,
-      access: {
-        allowed: access.allowed,
-        reason: access.reason,
-        daysSinceSignup: access.daysSinceSignup,
-      },
+      access: overrideAllAccess
+        ? { allowed: true, reason: 'admin_override', daysSinceSignup: access.daysSinceSignup }
+        : {
+            allowed: access.allowed,
+            reason: access.reason,
+            daysSinceSignup: access.daysSinceSignup,
+          },
     };
   } catch (err) {
     console.warn(`Skipping game "${game.slug}" — not registered in gameEntitlement.ts`);
@@ -29,14 +38,17 @@ function mapGameWithAccess(game: any, accountCreatedAt: Date, isSubscribed: bool
   }
 }
 
+
 router.get('/public', async (req, res) => {
   const games = await prisma.game.findMany();
   const publicGames = games
     .map((game) => mapGameWithAccess(game, new Date(), false))
     .filter((g) => g !== null);
 
+
   res.json({ games: publicGames, lastCheckInAt: null });
 });
+
 
 router.get('/with-access', authenticate, async (req: AuthenticatedRequest, res: Response) => {
   const student = await prisma.user.findUnique({
@@ -48,24 +60,29 @@ router.get('/with-access', authenticate, async (req: AuthenticatedRequest, res: 
     },
   });
 
+
   if (!student) {
     res.status(404).json({ error: 'Student not found' });
     return;
   }
+
 
   const games = await prisma.game.findMany();
   const subscription = await prisma.subscription.findFirst({
     where: { userId: student.id, status: { in: ['ACTIVE', 'TRIALING'] } },
   });
 
+
   const gamesWithAccess = games
-    .map((game) => mapGameWithAccess(game, student.createdAt, !!subscription))
+    .map((game) => mapGameWithAccess(game, student.createdAt, !!subscription, !!student.canAccessAllGames))
     .filter((g) => g !== null);
+
 
   const lastCheckIn = await prisma.cognitiveCheckIn.findFirst({
     where: { studentId: student.id },
     orderBy: { completedAt: 'desc' },
   });
+
 
   res.json({
     games: gamesWithAccess,
@@ -78,5 +95,6 @@ router.get('/with-access', authenticate, async (req: AuthenticatedRequest, res: 
       : null,
   });
 });
+
 
 export default router;

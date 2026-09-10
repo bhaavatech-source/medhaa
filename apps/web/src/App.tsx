@@ -33,6 +33,7 @@ import OurApproach from './components/OurApproach';
 import TeacherWorkspace from './pages/TeacherWorkspace';
 import SchoolWorkspace from './pages/SchoolWorkspace';
 import AdminSubscriptionsPage from './pages/AdminSubscriptionsPage';
+import AdminControlPanelPage from './pages/AdminControlPanelPage';
 
 
 
@@ -88,9 +89,10 @@ function App() {
           <Route path="/parent-dashboard" element={<ParentDashboard />} />
           
           <Route path="/our-approach" element={<OurApproach />} />
-		<Route path="/teacher-workspace" element={<TeacherWorkspace />} />
-		<Route path="/school-workspace" element={<SchoolWorkspace />} />
-		<Route path="/admin/subscriptions" element={<AdminSubscriptionsPage />} />
+<Route path="/teacher-workspace" element={<TeacherWorkspace />} />
+<Route path="/school-workspace" element={<SchoolWorkspace />} />
+<Route path="/admin/subscriptions" element={<AdminSubscriptionsPage />} />
+<Route path="/admin/control-panel" element={<AdminControlPanelPage />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
