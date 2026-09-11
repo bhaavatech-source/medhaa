@@ -146,7 +146,7 @@ export class CelebrationEngine {
     this.overlay.querySelector(".celebration-done").addEventListener("click", close);
   }
 
-  show(deviceType, score, level) {
+  show(deviceType, score, level, onClose) {
     if (!this.overlay) return;
     const icon = deviceType === "Laptop" ? "💻" : "📱";
     const title = deviceType === "Laptop" ? "Laptop Online!" : "Phone Online!";
@@ -163,7 +163,7 @@ export class CelebrationEngine {
         <button class="btn btn-primary celebration-done">Keep Building</button>
       </div>`;
     this.overlay.classList.add("active");
-    const close = () => { this.overlay.classList.remove("active"); this.overlay.innerHTML = ""; };
+    const close = () => { this.overlay.classList.remove("active"); this.overlay.innerHTML = ""; if (onClose) onClose(); };
     this.overlay.querySelector(".celebration-close").addEventListener("click", close);
     this.overlay.querySelector(".celebration-done").addEventListener("click", close);
   }

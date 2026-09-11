@@ -127,9 +127,9 @@ export class SoundEngine {
 
 export class CelebrationEngine {
   constructor(overlay) { this.overlay = overlay; }
-  showCustom({ title, text, icon = "🚁", scoreLabel = "Great work!", level = 1 }) {
+  showCustom({ title, text, icon = "🚀", scoreLabel = "Great work!", level = 1 }) {
     if (!this.overlay) return;
-    const pieces = ["✨","🏁","⚡","🌟","🟩","🔶","🎊","💫","🟢","🚁","✨","🏁"];
+    const pieces = ["✨","⚡","⚡","🌟","🟩","🔶","🎊","💫","🟢","🚀","✨","⚡"];
     this.overlay.innerHTML = `
       <div class="celebration-card level-${level}">
         <button class="celebration-close" aria-label="Close celebration">✕</button>
@@ -149,7 +149,6 @@ export class CelebrationEngine {
 
   showLaunch(deviceType, score, onComplete) {
     if (!this.overlay) return;
-    const icon = deviceType === "Cinematic" ? "🎥" : "🏁";
 
     // Instead of just static celebration, we'll do an interactive mini-game
     this.overlay.innerHTML = `
@@ -163,8 +162,8 @@ export class CelebrationEngine {
 
         <div class="flight-area" id="flight-area">
            <!-- The Drone Sprite -->
-           <div id="sim-drone" class="sim-drone">
-              <div class="sim-drone-body">${icon}</div>
+           <div id="sim-drone" class="sim-drone ${deviceType === "Cinematic" ? "sim-drone--cinematic" : "sim-drone--racing"}">
+              <div class="sim-drone-body"></div>
               <div class="sim-prop prop-tl"></div>
               <div class="sim-prop prop-tr"></div>
               <div class="sim-prop prop-bl"></div>

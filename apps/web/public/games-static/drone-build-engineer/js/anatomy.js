@@ -11,12 +11,12 @@ export class AnatomyExplorer {
     const profile = this.anatomyData[deviceType];
     this.container.innerHTML = `
       <div class="anatomy-toolbar">
-        <button class="btn ${deviceType === "Racing" ? "btn-primary" : ""}" data-device="Racing">🏁 Racing</button>
+        <button class="btn ${deviceType === "Racing" ? "btn-primary" : ""}" data-device="Racing">⚡ Racing</button>
         <button class="btn ${deviceType === "Cinematic" ? "btn-primary" : ""}" data-device="Cinematic">🎥 Cinematic</button>
         <span class="anatomy-hint">Tap a glowing marker. These are typical drone layouts; builds vary.</span>
       </div>
       <section class="anatomy-minimum" aria-label="Essential parts explanation">
-        <div class="minimum-icon">${deviceType === "Racing" ? "🏁" : "🎥"}</div>
+        <div class="minimum-icon">${deviceType === "Racing" ? "⚡" : "🎥"}</div>
         <div>
           <p class="minimum-eyebrow">LEVEL 1 · ESSENTIAL BUILD</p>
           <h3>What is the minimum needed to build a ${deviceType === "Racing" ? "racing drone" : "cinematic drone"}?</h3>

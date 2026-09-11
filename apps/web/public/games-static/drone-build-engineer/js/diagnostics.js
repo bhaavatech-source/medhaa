@@ -16,7 +16,7 @@ export class DiagnosticsPanel {
       <div class="diag-row"><span>Total Cost</span><span>₹${totalCost}</span></div>
       <div class="diag-row"><span>Compatibility</span><span>${issues.length === 0 ? "✅ OK" : `⚠️ ${issues.length} issue(s)`}</span></div>
       <div class="diag-log" id="diag-log">
-        ${issues.length === 0 ? "> Pre-arm checks passed. Ready to fly."
+        ${issues.length === 0 ? "> Pre-flight checks passed. Ready to fly."
           : issues.map((i) => `> ${i.message} (Hint: ${i.hint || "Check parts."})`).join("<br>")}
       </div>`;
   }
@@ -27,6 +27,6 @@ export class DiagnosticsPanel {
       <div class="diag-bar"><div class="diag-bar-fill ${cls}" style="width:${pct}%"></div></div>`;
   }
   clear() {
-    this.container.innerHTML = `<p class="placeholder-text">Arm the drone to see live telemetry.</p>`;
+    this.container.innerHTML = `<p class="placeholder-text">Launch the drone to see live telemetry.</p>`;
   }
 }

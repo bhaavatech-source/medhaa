@@ -286,9 +286,7 @@ export class UIManager {
     canvasWrap.insertBefore(progressWrap, dropArea);
 
     const inspector = document.getElementById("inspector-panel");
-    inspector.innerHTML = `<h3>\ud83e\udd16 AI Engineering Mentor</h3>
-      <div id="mentor-feed"><div class="mentor-bubble">Drag parts onto the slots. I'll ask you questions as you go!</div></div>
-      <button id="complete-build-btn" style="margin-top:1rem">Complete Build</button>`;
+    inspector.innerHTML = `<button id="complete-build-btn">🚲 Ride Now!</button>`;
     inspector.querySelector("#complete-build-btn").addEventListener("click", () => this._finishBuild(bikeTypeId));
 
     this._updateProgress();
@@ -352,6 +350,11 @@ export class UIManager {
     const usedParts = Object.keys(build.installed);
     const canvasWrap = document.getElementById("bike-canvas-wrap");
     const inspector = document.getElementById("inspector-panel");
+    const tray = document.getElementById("parts-tray");
+
+    // The parts tray is no longer needed once the build is done — give the reveal the full stage.
+    if (tray) tray.style.display = "none";
+    canvasWrap.style.gridColumn = "1 / -1";
 
     // Replace the assembly board with a confident, celebratory completed-bike reveal.
     canvasWrap.innerHTML = `
@@ -367,8 +370,8 @@ export class UIManager {
             <g class="wheel wheel-front"><circle cx="570" cy="260" r="92"/><circle class="hub" cx="570" cy="260" r="7"/><g class="spokes">${Array.from({length:12},(_,i)=>`<line x1="570" y1="260" x2="${570+88*Math.cos(i*Math.PI/6)}" y2="${260+88*Math.sin(i*Math.PI/6)}"/>`).join('')}</g></g>
             <g class="frame-animated"><path d="M210 260 L330 112 L430 260 Z M330 112 L510 115 L430 260 M430 260 L570 260"/><path d="M510 115 L550 260 M505 115 L475 77 M465 75 L540 75"/></g>
             <path class="seat-post" d="M330 112 L312 65"/><path class="seat" d="M275 60 Q312 43 350 61 Q315 75 275 60"/>
-            <g class="chainring"><circle cx="430" cy="260" r="27"/><circle cx="430" cy="260" r="5"/></g><path class="chain-animated" d="M430 260 H210"/>
-            <path class="crank" d="M430 260 L455 292 M430 260 L405 228"/><path class="pedal" d="M447 296 H470 M395 224 H416"/>
+            <path class="chain-animated" d="M430 260 H210"/>
+            <g class="crankset-spin"><g class="chainring"><circle cx="430" cy="260" r="27"/><circle cx="430" cy="260" r="5"/></g><path class="crank" d="M430 260 L455 292 M430 260 L405 228"/><path class="pedal" d="M447 296 H470 M395 224 H416"/></g>
             <path class="handlebar" d="M475 77 L465 35 M430 35 H500"/>
           </svg>
         </div>

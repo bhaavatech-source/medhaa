@@ -856,83 +856,6 @@
             }
         }
 
-        /* Medhā Game Menu - Auto Injected */
-        .bv-menu-btn {
-            position: fixed;
-            top: 14px;
-            right: 16px;
-            z-index: 9999;
-            background: #3b5bdb;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 8px 14px;
-            font-size: 20px;
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .bv-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.45);
-            z-index: 10000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .bv-overlay.active {
-            display: flex;
-        }
-
-        .bv-box {
-            background: white;
-            border-radius: 14px;
-            padding: 24px;
-            width: 270px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-            animation: bvFadeIn 0.2s ease;
-        }
-
-        .bv-box h3 {
-            text-align: center;
-            margin: 0 0 16px;
-            color: #333;
-            font-size: 18px;
-        }
-
-        .bv-box a {
-            display: block;
-            padding: 13px 0;
-            border-bottom: 1px solid #eee;
-            color: #333;
-            text-decoration: none;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        .bv-box a:last-child {
-            border-bottom: none;
-            color: #e53;
-        }
-
-        .bv-box a:hover {
-            color: #3b5bdb;
-        }
-
-        @keyframes bvFadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-        /* End Medhā Game Menu CSS */
-    
         /* ===== Medhā Layout Fix v2 ===================================
            Prevents game buttons/options from being clipped at bottom.
            ============================================================ */
@@ -2324,28 +2247,7 @@
         }
     </script>
 
-    <!-- Shared Medhā menu JS -->
-
-    <!-- Medhā Game Menu - Auto Injected -->
-    <button class="bv-menu-btn" onclick="bvOpenMenu()">☰</button>
-    <div class="bv-overlay" id="bvOverlay" onclick="bvCloseMenu()">
-        <div class="bv-box" onclick="event.stopPropagation()">
-            <h3>Menu</h3>
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="feedback.html">Feedback</a>
-            <a onclick="history.back()">Go Back</a>
-            <a onclick="bvCloseMenu()">Close</a>
-        </div>
-    </div>
     <script>
-        function bvOpenMenu() {
-            document.getElementById("bvOverlay").classList.add("active");
-        }
-        function bvCloseMenu() {
-            document.getElementById("bvOverlay").classList.remove("active");
-        }
-
         // Back button fix for Capacitor Android
         document.addEventListener("DOMContentLoaded", function () {
             if (
@@ -2366,7 +2268,6 @@
             }
         });
     </script>
-    <!-- End Medhā Game Menu -->
 
   <!-- Medhā Session Tracker -->
   <script>document.title = "Grammar Galaxy";</script>
@@ -2392,7 +2293,7 @@ if (!window.BhavaSession) {
 </script>
 <script src="bhava-game-nav.js"></script>
 
-<script src="../bhava-session.js"></script>
+<script src="bhava-session.js"></script>
 <script src="bhava-bridge.js"></script>
   <script src="bhava-responsive.js"></script>
 </body>

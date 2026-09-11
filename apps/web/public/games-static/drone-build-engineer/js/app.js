@@ -103,7 +103,7 @@ class App {
 
   #switchDeviceType(typeName) {
     this.drone = DroneFactory.create(typeName);
-    const icon = typeName === "Cinematic" ? "🎥" : "🏁";
+    const icon = typeName === "Cinematic" ? "🎥" : "⚡";
     document.getElementById("device-title").textContent = `${icon} New ${typeName} Drone`;
 
     const visContainer = document.getElementById("visual-drone-container");
@@ -139,13 +139,19 @@ class App {
     if (!panel) return;
     panel.querySelectorAll(".build-level").forEach((button) => {
       button.addEventListener("click", () => {
+        if (panel.classList.contains("collapsed") && button.classList.contains("active")) {
+          panel.classList.remove("collapsed");
+          return;
+        }
         this.buildLevel = Number(button.dataset.level);
         this.sound.click();
         panel.querySelectorAll(".build-level").forEach((item) => item.classList.toggle("active", item === button));
         this.#updateLevelProgress();
         this.ui.toast(`Level ${this.buildLevel} selected.`, "info");
+        panel.classList.add("collapsed");
       });
     });
+    panel.classList.add("collapsed");
   }
 
   #getLevelStatus() {
@@ -194,6 +200,11 @@ class App {
       this.components.filter((c) => c.type === type).forEach((comp) => {
         const el = this.ui.renderPaletteItem(comp);
         this.dnd.makeDraggable(el, comp);
+        el.addEventListener("click", () => {
+          this.#handleDrop(comp.type, comp);
+          document.querySelectorAll(".palette-item").forEach((p) => p.classList.remove("dragging"));
+          this.dnd.draggedPayload = null;
+        });
         list.appendChild(el);
       });
     };
@@ -218,8 +229,9 @@ class App {
 
   #handleDrop(slotKey, component) {
     if (component.type !== slotKey) { this.sound.error(); this.ui.toast(`Wrong slot for ${component.name}.`, "error"); return; }
-    this.drone.install(slotKey, component);
     const slotEl = document.querySelector(`.slot[data-slot="${slotKey}"]`);
+    if (!slotEl) { this.sound.error(); this.ui.toast(`${component.name} isn't used on this drone.`, "info"); return; }
+    this.drone.install(slotKey, component);
     this.ui.fillSlot(slotEl, component);
     this.ui.toast(`${component.name} installed.`, "success");
     this.sound.place();
@@ -298,7 +310,7 @@ class App {
     document.getElementById("btn-power").addEventListener("click", async () => {
       await this.sound.unlock();
       if (!this.drone.isComplete()) { this.ui.toast("Missing required parts.", "error"); return; }
-      this.ui.toast("Arming drone...", "info");
+      this.ui.toast("Launching drone...", "info");
       this.sound.arming();
       document.getElementById("board-area").classList.add("booting");
 

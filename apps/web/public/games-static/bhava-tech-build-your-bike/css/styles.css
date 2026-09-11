@@ -32,6 +32,9 @@ h2,h3{margin-top:0;}
   display:flex;align-items:center;justify-content:space-between;gap:.5rem;transition:all .2s;font-size:.85rem;}
 .dropzone .slot-label{color:var(--text-1);}
 
+#complete-build-btn{width:100%;font-size:1.15rem;font-weight:800;padding:1.1rem;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#08201d;border:none;}
+
 .level-card{padding:1.4rem;border-radius:1.2rem;text-align:center;}
 .level-badge{display:inline-block;padding:.3rem .9rem;border-radius:2rem;font-weight:bold;color:#fff;margin-bottom:.6rem;}
 

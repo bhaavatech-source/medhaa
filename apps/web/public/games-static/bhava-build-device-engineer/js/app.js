@@ -375,7 +375,15 @@ class App {
         if (issues.length === 0) this.state.unlockAchievement("heat_manager");
         this.#renderProgress();
         this.sound.celebrate();
-        this.celebration.show(this.device.typeName, scoreResult.total, this.buildLevel);
+        this.celebration.show(this.device.typeName, scoreResult.total, this.buildLevel, () => {
+          try {
+            if (window.BhavaSession && typeof window.BhavaSession.end === "function") {
+              window.BhavaSession.end(scoreResult.total);
+            }
+          } catch (error) {
+            console.warn("BhavaSession.end:", error.message);
+          }
+        });
 
         const matchHTML = this.deviceMatch.buildReportHTML(this.device.installed, totalCost);
         this.ui.openModal(`

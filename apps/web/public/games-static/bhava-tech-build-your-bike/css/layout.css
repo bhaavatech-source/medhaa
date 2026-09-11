@@ -15,4 +15,25 @@ html,body{margin:0;height:100%;font-family:'Segoe UI',system-ui,sans-serif;backg
 #bike-canvas-wrap{position:relative;border-radius:1rem;overflow:hidden;background:var(--bg-2);}
 #bike-canvas{width:100%;height:100%;display:block;}
 #parts-tray,#inspector-panel{overflow-y:auto;padding:.8rem;border-radius:1rem;}
-@media (max-width:900px){.build-screen{grid-template-columns:1fr;grid-template-rows:auto 1fr auto;}}
+@media (max-width:900px){
+  .build-screen{
+    grid-template-columns:1fr 1fr;
+    grid-template-rows:auto auto;
+    gap:.5rem;
+    height:auto;
+    min-height:100%;
+  }
+  #parts-tray{grid-column:1;grid-row:1;padding:.5rem;max-height:52vh;overflow-y:auto;}
+  #bike-canvas-wrap{grid-column:2;grid-row:1;height:auto;min-height:0;max-height:52vh;overflow-y:auto;}
+  #bike-canvas{height:auto;min-height:0;}
+  #slot-drop-area{height:auto !important;overflow-y:visible;padding:.5rem !important;}
+  #inspector-panel{grid-column:1 / span 2;grid-row:2;max-height:none;overflow-y:visible;padding:.6rem;}
+
+  /* Compact parts & slots so two columns fit comfortably side by side */
+  #parts-tray .part-card{padding:.45rem;gap:.35rem;margin-bottom:.35rem;border-width:1px;}
+  #parts-tray .part-icon{font-size:1rem;}
+  #parts-tray .part-name{font-size:.72rem;line-height:1.15;overflow-wrap:break-word;}
+  #slot-drop-area h4{font-size:.85rem;margin:0 0 .4rem;}
+  #slot-drop-area .dropzone{min-height:38px;padding:.35rem;margin-bottom:.3rem;font-size:.7rem;gap:.3rem;}
+  #slot-drop-area .slot-label{overflow-wrap:break-word;}
+}
