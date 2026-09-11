@@ -53,7 +53,7 @@ h3 { font-size: var(--text-lg); }
   border-radius: var(--radius-md);
   padding: .8rem 1rem;
 }
-.parts-grid { grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); }
+.parts-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
 .part-card {
   background: var(--color-surface-2);
   border: 1px solid var(--color-border);
@@ -114,6 +114,11 @@ h3 { font-size: var(--text-lg); }
   color: var(--color-text-muted);
 }
 .meter strong { display: block; margin-top: .25rem; }
+.build-mode .vehicle-panel .section-head { margin-bottom: .75rem; }
+.build-mode .vehicle-panel .dash-meters { gap: .5rem; }
+.build-mode .vehicle-panel .meter { padding: .55rem .7rem; }
+.build-mode .vehicle-panel .bar { height: .55rem; margin: .25rem 0; }
+.build-mode .vehicle-panel .telemetry { display: none; }
 .telemetry { margin-top: var(--space-4); display: grid; gap: .75rem; }
 .telemetry-line, .fault-list li {
   background: var(--color-surface-2);
@@ -333,6 +338,7 @@ h3 { font-size: var(--text-lg); }
   max-width: 700px;
   margin: 0 auto;
   height: 280px;
+  min-width: 0;
 }
 .car-replica-svg {
   position: absolute;
@@ -395,6 +401,24 @@ h3 { font-size: var(--text-lg); }
 @media (max-width: 960px) {
   .car-replica-stage { height: 220px; }
   .car-shadow { width: 360px; }
+}
+
+@media (max-width: 600px) {
+  .car-replica-panel { min-height: 0; }
+  .car-replica-stage { height: clamp(170px, 52vw, 220px); }
+  .car-shadow { width: 78%; max-width: 360px; }
+  .part-label { font-size: 10px; padding: 2px 5px; }
+  .parts-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem; }
+  .part-card { padding: .65rem; gap: .5rem; border-radius: var(--radius-md); }
+  .part-card .eyebrow { font-size: 9px; letter-spacing: .06em; margin-bottom: .25rem; }
+  .part-card h4 { font-size: 11px; line-height: 1.2; }
+  .part-meta { display: block; font-size: 10px; line-height: 1.35; }
+  .part-meta span { display: block; }
+  .part-card button { min-height: 36px; padding: .45rem .25rem; font-size: 11px; }
+}
+
+@media (max-width: 360px) {
+  .parts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 .progress-badges {
@@ -1273,6 +1297,29 @@ h3 { font-size: var(--text-lg); }
   border-radius: var(--radius-lg);
   background: rgba(24,37,60,.92);
   border: 1px solid var(--color-border);
+}
+
+@media (max-width: 600px) {
+  .build-mode .track-stage {
+    height: 190px;
+  }
+  .build-mode .track-car {
+    bottom: 20%;
+    transform: scale(.78);
+    transform-origin: left bottom;
+  }
+  .build-mode .track-car.running {
+    animation: bob-mobile .75s ease-in-out infinite;
+  }
+  .build-mode .track-boundary::before {
+    font-size: 9px;
+    padding: .25rem .4rem;
+  }
+}
+
+@keyframes bob-mobile {
+  0%, 100% { transform: scale(.78) translateY(0); }
+  50% { transform: scale(.78) translateY(-2px); }
 }
 
 .fault-item strong {

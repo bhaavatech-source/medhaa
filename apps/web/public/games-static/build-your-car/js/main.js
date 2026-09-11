@@ -119,7 +119,8 @@ document.getElementById('missionStartBtn')?.addEventListener('click', () => {
     updateLevelSwitcherUI(1);
   }
 
-  jumpToSection('learningPanel');
+  setBuildMode(true);
+  jumpToSection('garagePanel');
 });
 
 document.getElementById('simulateBtn')?.addEventListener('click', () => {
@@ -428,6 +429,11 @@ function updateHeroNav(activeId) {
   });
 }
 
+function setBuildMode(active) {
+  document.body.classList.toggle('build-mode', active);
+  if (active) updateHeroNav('garagePanel');
+}
+
 function jumpToSection(sectionId) {
   const el = document.getElementById(sectionId);
   if (!el) return;
@@ -447,7 +453,9 @@ function bindHeroNav() {
       if (typeof soundManager !== 'undefined' && soundManager.click) {
         soundManager.click();
       }
-      jumpToSection(btn.dataset.navTarget);
+      const target = btn.dataset.navTarget;
+      setBuildMode(target === 'garagePanel');
+      jumpToSection(target);
     });
   });
 }

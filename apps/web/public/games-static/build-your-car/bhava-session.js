@@ -23,6 +23,495 @@
 
   var currentStudent   = null;
   var currentSessionId = null;
+  var completionShownAt = 0;
+  var musicSystemStarted = false;
+
+  var RECOMMENDATION_GAMES = [
+    { slug: 'bhava-build-device-engineer', title: 'Device Engineer', domain: 'stem-engineering', path: 'bhava-build-device-engineer/index.html', emoji: 'Phone' },
+    { slug: 'bhava-smriti', title: 'Bhava Smriti', domain: 'cognitive-memory', path: 'bhava-smriti/index.html', emoji: 'Cards' },
+    { slug: 'build-your-car', title: 'Car Designer', domain: 'stem-engineering', path: 'build-your-car/index.html', emoji: 'Car' },
+    { slug: 'focus-flash', title: 'Focus Flash', domain: 'cognitive-focus', path: 'focus-flash/index.html', emoji: 'Bolt' },
+    { slug: 'life-strategist-starter', title: 'Life Strategist', domain: 'life-skills', path: 'life-strategist-starter/index.html', emoji: 'Choice' },
+    { slug: 'dharana-arena', title: 'Dharana Arena', domain: 'cognitive-focus', path: 'dharana-arena.html', emoji: 'Calm' },
+    { slug: 'nagarikx-enhanced', title: 'Future Citizen', domain: 'civics', path: 'nagarikx-enhanced.html', emoji: 'Civic' },
+    { slug: 'planet-guardians', title: 'Planet Guardians', domain: 'environment', path: 'planet-guardians.html', emoji: 'Earth' },
+    { slug: 'soccomm-enhanced', title: 'Me & Society', domain: 'emotional-intel', path: 'soccomm-enhanced.html', emoji: 'Talk' },
+    { slug: 'neuroflash-memory', title: 'Flash Memory', domain: 'cognitive-memory', path: 'neuroflash-memory.html', emoji: 'Flash' },
+    { slug: 'calm-zone', title: 'Calm Zone', domain: 'emotional-intel', path: 'calm-zone.html', emoji: 'Calm' },
+    { slug: 'bhava-tech-likhwell', title: 'Likhwell', domain: 'language-hindi', path: 'bhava_Tech_Likhwell.html', emoji: 'Write' },
+    { slug: 'brain-garden', title: 'Brain Garden', domain: 'cognitive-memory', path: 'brain-garden.html', emoji: 'Memory' },
+    { slug: 'brain-quest', title: 'Brain Quest', domain: 'cognitive-logic', path: 'brain-quest.html', emoji: 'Quest' },
+    { slug: 'day-hero-game', title: 'Day Hero', domain: 'life-skills', path: 'day-hero-game.html', emoji: 'Day' },
+    { slug: 'day-super-hero', title: 'Day Super Hero', domain: 'life-skills', path: 'day-super-hero.html', emoji: 'Hero' },
+    { slug: 'iq-test-level-3', title: 'IQ Test', domain: 'cognitive-assessment', path: 'iq-test-level-3.html', emoji: 'IQ' },
+    { slug: 'logic-game', title: 'Logic Game', domain: 'cognitive-logic', path: 'logic-game.html', emoji: 'Logic' },
+    { slug: 'math-blitz', title: 'Math Blitz', domain: 'cognitive-math', path: 'math-blitz.html', emoji: 'Math' },
+    { slug: 'memory-match-puzzle', title: 'Memory Match Puzzle', domain: 'cognitive-memory', path: 'memory-match-puzzle.html', emoji: 'Match' },
+    { slug: 'memory-match-ultimate', title: 'Memory Match Ultimate', domain: 'cognitive-memory', path: 'memory-match-ultimate.html', emoji: 'Memory' },
+    { slug: 'memory-zoo-puzzle', title: 'Memory Zoo Puzzle', domain: 'cognitive-memory', path: 'memory-zoo-puzzle.html', emoji: 'Zoo' },
+    { slug: 'mindscape-pro', title: 'Mindscape Pro', domain: 'cognitive-logic', path: 'mindscape-pro.html', emoji: 'Mind' },
+    { slug: 'mindspark-iq', title: 'Mindspark IQ', domain: 'cognitive-assessment', path: 'mindspark-iq.html', emoji: 'IQ' },
+    { slug: 'neurospark', title: 'Neurospark', domain: 'cognitive-logic', path: 'neurospark.html', emoji: 'Spark' },
+    { slug: 'percentile-game', title: 'Percentile Game', domain: 'cognitive-math', path: 'percentile-game.html', emoji: 'Score' },
+    { slug: 'nadopaasana', title: 'Nadopaasana', domain: 'music', path: 'nadopaasana/index.html', emoji: 'Music' },
+    { slug: 'career-adventure', title: 'Career Adventure', domain: 'career', path: 'career-adventure.html', emoji: 'Career' },
+    { slug: 'finlife-india-quest-enhanced', title: 'Fin Smart', domain: 'finance', path: 'finlife-india-quest-enhanced.html', emoji: 'Money' },
+    { slug: 'focus-under-distraction', title: 'Focus Master', domain: 'cognitive-focus', path: 'focus-under-distraction.html', emoji: 'Focus' },
+    { slug: 'motorcycle-one-workshop', title: 'Bike Builder', domain: 'stem-engineering', path: 'motorcycle-one-workshop.html', emoji: 'Bike' },
+    { slug: 'neuro-ascend-iq', title: 'Neuro Ascend IQ', domain: 'cognitive-assessment', path: 'neuro-ascend-iq.html', emoji: 'IQ' },
+    { slug: 'number-garden-quest', title: 'Number Garden Quest', domain: 'cognitive-math', path: 'number-garden-quest.html', emoji: 'Number' },
+    { slug: 'telugu-script-game', title: 'Telugu Script Game', domain: 'language-telugu', path: 'telugu-script-game.html', emoji: 'Telugu' },
+    { slug: 'bhava-math-grid', title: 'Apt Number', domain: 'cognitive-math', path: 'bhava-math-grid.html', emoji: 'Grid' },
+    { slug: 'bhava-space-academy', title: 'Space Academy', domain: 'stem-engineering', path: 'bhava-space-academy/index.html', emoji: 'Space' },
+    { slug: 'drone-build-engineer', title: 'Drone Engineer', domain: 'stem-engineering', path: 'drone-build-engineer/index.html', emoji: 'Drone' },
+    { slug: 'hidden-maths', title: 'Hidden Maths', domain: 'cognitive-math', path: 'hidden-maths/index.html', emoji: 'Math' },
+    { slug: 'intelligent-machines', title: 'Intelligent Machines', domain: 'stem-engineering', path: 'intelligent-machines/index.html', emoji: 'Machine' },
+    { slug: 'rocket-build-engineer', title: 'Rocket Engineer', domain: 'stem-engineering', path: 'rocket-build-engineer/index.html', emoji: 'Rocket' },
+    { slug: 'plane-builder', title: 'Plane Builder', domain: 'stem-engineering', path: 'plane-builder/index.html', emoji: 'Plane' },
+    { slug: 'secret-of-silicon-game', title: 'Chip Detective', domain: 'stem-engineering', path: 'secret-of-silicon-game/index.html', emoji: 'Chip' },
+    { slug: 'devanagari-game', title: 'Devanagari Game', domain: 'language-hindi', path: 'devanagari-game/index.html', emoji: 'Hindi' },
+    { slug: 'ready-for-the-world', title: 'Ready For The World', domain: 'life-skills', path: 'ready-for-the-world.html', emoji: 'Ready' },
+    { slug: 'grammar-galaxy', title: 'Grammar Galaxy', domain: 'language-english', path: 'grammar-galaxy.html', emoji: 'Words' },
+    { slug: 'grammar-pro', title: 'Grammar Pro', domain: 'language-english', path: 'Grammar-Pro.html', emoji: 'Grammar' },
+    { slug: 'heart-heroes', title: 'Heart Heroes', domain: 'emotional-intel', path: 'heart-heroes.html', emoji: 'Heart' },
+    { slug: 'imaginia-quest', title: 'Imaginia Quest', domain: 'creativity', path: 'imaginia-quest.html', emoji: 'Create' },
+    { slug: 'mental-rotation-game', title: 'Mind Rotation', domain: 'cognitive-logic', path: 'mental-rotation-game.html', emoji: 'Rotate' },
+    { slug: 'visual-difference-detector', title: 'Focus Flow', domain: 'cognitive-focus', path: 'visual-difference-detector.html', emoji: 'Spot' },
+    { slug: 'good-habits', title: 'Good Habits', domain: 'life-skills', path: 'good-habits.html', emoji: 'Habit' },
+    { slug: 'empathy-quest', title: 'Empathy Quest', domain: 'emotional-intel', path: 'empathy-quest.html', emoji: 'Empathy' },
+    { slug: 'empathy-conversation', title: 'Empathy Conversation', domain: 'emotional-intel', path: 'empathy-conversation.html', emoji: 'Chat' },
+    { slug: 'know-maths', title: 'Know Maths', domain: 'cognitive-math', path: 'know-maths/index.html', emoji: 'Math' },
+    { slug: 'logic-grid-puzzle', title: 'Logic Grid Puzzle', domain: 'cognitive-logic', path: 'logic-grid-puzzle.html', emoji: 'Grid' },
+    { slug: 'bcs-lite-v3', title: 'My Medhaa', domain: 'cognitive-assessment', path: 'bcs-lite-v3.html', emoji: 'Report' },
+    { slug: 'medha-read-anybook-in-3hrs', title: 'Read Any Book in 3 Hours', domain: 'reading', path: 'medha_read_anybook_in-3hrs.html', emoji: 'Read' }
+  ];
+
+  var ROTATING_GAME_SLUGS = {
+    'bhava-tech-likhwell': true,
+    'brain-garden': true,
+    'brain-quest': true,
+    'day-hero-game': true,
+    'day-super-hero': true,
+    'iq-test-level-3': true,
+    'logic-game': true,
+    'math-blitz-example': true,
+    'math-blitz': true,
+    'memory-match-puzzle': true,
+    'memory-match-ultimate': true,
+    'memory-zoo-puzzle': true,
+    'mindscape-pro': true,
+    'mindspark-iq': true,
+    'neurospark': true,
+    'percentile-game': true
+  };
+
+  function _escapeHtml(value) {
+    return String(value == null ? '' : value).replace(/[&<>"']/g, function (ch) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[ch];
+    });
+  }
+
+  function _readJsonList(key) {
+    try {
+      var list = JSON.parse(localStorage.getItem(key) || '[]');
+      return Array.isArray(list) ? list : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function _writeJsonList(key, list) {
+    try { localStorage.setItem(key, JSON.stringify(list)); } catch (e) {}
+  }
+
+  function _readMusicEnabled() {
+    try { return localStorage.getItem('medhaa_global_music_enabled') !== 'false'; }
+    catch (e) { return true; }
+  }
+
+  function _readMusicVolume() {
+    try {
+      var value = parseFloat(localStorage.getItem('medhaa_global_music_volume') || '0.28');
+      return isNaN(value) ? 0.28 : Math.max(0, Math.min(1, value));
+    } catch (e) {
+      return 0.28;
+    }
+  }
+
+  function _initGlobalMusic() {
+    if (musicSystemStarted || window.MedhaaMusic) return;
+    musicSystemStarted = true;
+
+    var AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) return;
+
+    var state = {
+      ctx: null,
+      master: null,
+      filter: null,
+      enabled: _readMusicEnabled(),
+      volume: _readMusicVolume(),
+      running: false,
+      panelOpen: false,
+      scheduler: null,
+      nextNoteAt: 0,
+      step: 0
+    };
+    var scale = [0, 2, 4, 7, 9, 12, 14, 16, 19];
+    var root = 146.83;
+
+    function save() {
+      try {
+        localStorage.setItem('medhaa_global_music_enabled', state.enabled ? 'true' : 'false');
+        localStorage.setItem('medhaa_global_music_volume', String(state.volume));
+      } catch (e) {}
+    }
+
+    function note(semitone, octave) {
+      return root * Math.pow(2, (semitone + (octave || 0) * 12) / 12);
+    }
+
+    function ensureAudio() {
+      if (!state.ctx) {
+        state.ctx = new AudioCtx();
+        state.filter = state.ctx.createBiquadFilter();
+        state.filter.type = 'lowpass';
+        state.filter.frequency.value = 2400;
+        state.filter.Q.value = 0.6;
+        state.master = state.ctx.createGain();
+        state.master.gain.value = 0;
+        state.filter.connect(state.master);
+        state.master.connect(state.ctx.destination);
+      }
+      if (state.ctx.state === 'suspended') state.ctx.resume();
+    }
+
+    function setMasterGain(target) {
+      if (!state.master || !state.ctx) return;
+      var gain = state.enabled ? target * state.volume : 0;
+      state.master.gain.cancelScheduledValues(state.ctx.currentTime);
+      state.master.gain.linearRampToValueAtTime(gain, state.ctx.currentTime + 0.35);
+    }
+
+    function envelope(gain, when, attack, hold, release, peak) {
+      gain.gain.setValueAtTime(0.0001, when);
+      gain.gain.exponentialRampToValueAtTime(peak, when + attack);
+      gain.gain.setValueAtTime(peak, when + attack + hold);
+      gain.gain.exponentialRampToValueAtTime(0.0001, when + attack + hold + release);
+    }
+
+    function connectInstrument(gain) {
+      gain.connect(state.filter);
+    }
+
+    function playDrone(when) {
+      var gain = state.ctx.createGain();
+      connectInstrument(gain);
+      envelope(gain, when, 0.9, 3.6, 1.4, 0.035);
+      [root, root * 1.5].forEach(function (freq, index) {
+        var osc = state.ctx.createOscillator();
+        osc.type = index === 0 ? 'sine' : 'triangle';
+        osc.frequency.setValueAtTime(freq, when);
+        osc.connect(gain);
+        osc.start(when);
+        osc.stop(when + 6.1);
+      });
+    }
+
+    function playFlute(when, freq) {
+      var gain = state.ctx.createGain();
+      var osc = state.ctx.createOscillator();
+      var vibrato = state.ctx.createOscillator();
+      var vibratoGain = state.ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, when);
+      vibrato.type = 'sine';
+      vibrato.frequency.value = 4.5;
+      vibratoGain.gain.value = 2.2;
+      vibrato.connect(vibratoGain);
+      vibratoGain.connect(osc.frequency);
+      osc.connect(gain);
+      connectInstrument(gain);
+      envelope(gain, when, 0.24, 0.45, 0.55, 0.026);
+      vibrato.start(when);
+      osc.start(when);
+      vibrato.stop(when + 1.4);
+      osc.stop(when + 1.4);
+    }
+
+    function playMarimba(when, freq) {
+      var gain = state.ctx.createGain();
+      var osc = state.ctx.createOscillator();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(freq, when);
+      osc.frequency.exponentialRampToValueAtTime(freq * 0.995, when + 0.45);
+      osc.connect(gain);
+      connectInstrument(gain);
+      envelope(gain, when, 0.012, 0.03, 0.42, 0.038);
+      osc.start(when);
+      osc.stop(when + 0.58);
+    }
+
+    function playKalimba(when, freq) {
+      var gain = state.ctx.createGain();
+      var osc = state.ctx.createOscillator();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq * 2, when);
+      osc.connect(gain);
+      connectInstrument(gain);
+      envelope(gain, when, 0.008, 0.02, 0.32, 0.026);
+      osc.start(when);
+      osc.stop(when + 0.42);
+    }
+
+    function playSoftBell(when, freq) {
+      var gain = state.ctx.createGain();
+      [1, 2.01].forEach(function (mul, index) {
+        var osc = state.ctx.createOscillator();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq * mul, when);
+        osc.connect(gain);
+        osc.start(when);
+        osc.stop(when + 1.8 + index * 0.2);
+      });
+      connectInstrument(gain);
+      envelope(gain, when, 0.018, 0.05, 1.45, 0.018);
+    }
+
+    function schedule() {
+      if (!state.running || !state.enabled || !state.ctx) return;
+      var now = state.ctx.currentTime;
+      while (state.nextNoteAt < now + 1.2) {
+        var degree = scale[(state.step * 2 + Math.floor(Math.random() * 3)) % scale.length];
+        if (state.step % 16 === 0) playDrone(state.nextNoteAt);
+        if (state.step % 4 === 1) playMarimba(state.nextNoteAt, note(degree, 1));
+        if (state.step % 8 === 3) playKalimba(state.nextNoteAt + 0.08, note(degree + 7, 1));
+        if (state.step % 12 === 5) playFlute(state.nextNoteAt + 0.12, note(degree, 2));
+        if (state.step % 16 === 10) playSoftBell(state.nextNoteAt, note(degree + 12, 1));
+        state.nextNoteAt += 0.72;
+        state.step += 1;
+      }
+    }
+
+    function start() {
+      if (!state.enabled) return;
+      ensureAudio();
+      state.running = true;
+      state.nextNoteAt = state.ctx.currentTime + 0.12;
+      setMasterGain(0.22);
+      if (!state.scheduler) state.scheduler = window.setInterval(schedule, 220);
+      updateControl();
+    }
+
+    function stop() {
+      state.running = false;
+      setMasterGain(0);
+      if (state.scheduler) {
+        window.clearInterval(state.scheduler);
+        state.scheduler = null;
+      }
+      updateControl();
+    }
+
+    function setEnabled(enabled) {
+      state.enabled = !!enabled;
+      save();
+      state.enabled ? start() : stop();
+      updateControl();
+    }
+
+    function setVolume(volume) {
+      state.volume = Math.max(0, Math.min(1, parseFloat(volume) || 0));
+      save();
+      setMasterGain(0.22);
+      updateControl();
+    }
+
+    function mountControls() {
+      if (document.getElementById('medhaa-music-control')) return;
+      var style = document.createElement('style');
+      style.id = 'medhaa-music-style';
+      style.textContent = '#medhaa-music-control{position:fixed;right:14px;bottom:14px;z-index:10001;font-family:Inter,system-ui,sans-serif;color:#102034}#medhaa-music-toggle{border:1px solid rgba(15,118,110,.22);background:rgba(255,255,255,.9);backdrop-filter:blur(12px);box-shadow:0 12px 30px rgba(2,8,23,.18);border-radius:999px;padding:9px 13px;font-size:12px;font-weight:900;color:#0f766e;cursor:pointer}#medhaa-music-panel{display:none;position:absolute;right:0;bottom:44px;width:230px;padding:13px;border-radius:16px;background:rgba(255,255,255,.96);border:1px solid rgba(15,23,42,.12);box-shadow:0 18px 48px rgba(2,8,23,.22)}#medhaa-music-control.open #medhaa-music-panel{display:block}.mm-head{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:10px}.mm-title{font-size:13px;font-weight:900;color:#172033}.mm-sub{font-size:11px;color:#64748b;margin-top:2px}.mm-power{border:0;border-radius:999px;padding:7px 10px;background:#0f766e;color:#fff;font-size:11px;font-weight:900;cursor:pointer}.mm-power.off{background:#e5e7eb;color:#334155}.mm-row{display:grid;gap:7px}.mm-row label{font-size:11px;font-weight:800;color:#475569}.mm-row input{width:100%;accent-color:#0f766e}.mm-instruments{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}.mm-chip{padding:4px 7px;border-radius:999px;background:#eef7f6;color:#0f766e;font-size:10px;font-weight:800}@media(max-width:720px){#medhaa-music-control{right:10px;bottom:10px}#medhaa-music-panel{width:min(230px,calc(100vw - 24px))}}';
+      document.head.appendChild(style);
+
+      var control = document.createElement('div');
+      control.id = 'medhaa-music-control';
+      control.innerHTML = '<button id="medhaa-music-toggle" type="button" aria-expanded="false">Music</button>' +
+        '<div id="medhaa-music-panel" role="dialog" aria-label="Music settings">' +
+          '<div class="mm-head"><div><div class="mm-title">Ambient music</div><div class="mm-sub">Soft background layer</div></div><button class="mm-power" id="medhaa-music-power" type="button"></button></div>' +
+          '<div class="mm-row"><label for="medhaa-music-volume">Volume</label><input id="medhaa-music-volume" type="range" min="0" max="100" step="1"></div>' +
+          '<div class="mm-instruments"><span class="mm-chip">Drone</span><span class="mm-chip">Flute</span><span class="mm-chip">Marimba</span><span class="mm-chip">Kalimba</span><span class="mm-chip">Bell</span></div>' +
+        '</div>';
+      document.body.appendChild(control);
+
+      document.getElementById('medhaa-music-toggle').addEventListener('click', function () {
+        state.panelOpen = !state.panelOpen;
+        control.classList.toggle('open', state.panelOpen);
+        this.setAttribute('aria-expanded', state.panelOpen ? 'true' : 'false');
+        if (state.enabled) start();
+      });
+      document.getElementById('medhaa-music-power').addEventListener('click', function () {
+        setEnabled(!state.enabled);
+      });
+      document.getElementById('medhaa-music-volume').addEventListener('input', function () {
+        setVolume(Number(this.value) / 100);
+        if (state.enabled) start();
+      });
+      updateControl();
+    }
+
+    function updateControl() {
+      var toggle = document.getElementById('medhaa-music-toggle');
+      var power = document.getElementById('medhaa-music-power');
+      var volume = document.getElementById('medhaa-music-volume');
+      if (toggle) toggle.textContent = state.enabled ? 'Music ' + Math.round(state.volume * 100) + '%' : 'Music off';
+      if (power) {
+        power.textContent = state.enabled ? 'On' : 'Off';
+        power.classList.toggle('off', !state.enabled);
+      }
+      if (volume) volume.value = String(Math.round(state.volume * 100));
+    }
+
+    function startAfterGesture() {
+      if (state.enabled) start();
+    }
+
+    window.MedhaaMusic = {
+      start: start,
+      stop: stop,
+      setEnabled: setEnabled,
+      setVolume: setVolume,
+      getState: function () { return { enabled: state.enabled, volume: state.volume, running: state.running }; }
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', mountControls);
+    } else {
+      mountControls();
+    }
+    window.addEventListener('pointerdown', startAfterGesture, { once: true });
+    window.addEventListener('keydown', startAfterGesture, { once: true });
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) stop();
+      else if (state.enabled) startAfterGesture();
+    });
+  }
+
+  function _inferCurrentGame() {
+    var path = (window.location.pathname || '').toLowerCase();
+    var title = (document.title || '').toLowerCase();
+    var best = null;
+    for (var i = 0; i < RECOMMENDATION_GAMES.length; i++) {
+      var game = RECOMMENDATION_GAMES[i];
+      if (path.indexOf('/' + game.slug.toLowerCase() + '/') !== -1 || path.indexOf('/' + game.slug.toLowerCase() + '.html') !== -1) return game;
+      if (path.indexOf('/' + game.path.toLowerCase()) !== -1) return game;
+      if (!best && title && title.indexOf(game.title.toLowerCase()) !== -1) best = game;
+    }
+    return best;
+  }
+
+  function _pickRecommendations(currentGame, limit) {
+    var played = _readJsonList('medhaa-played-games');
+    var playedMap = {};
+    played.forEach(function (slug) { playedMap[slug] = true; });
+    var suggestableGames = RECOMMENDATION_GAMES.filter(function (game) {
+      return !ROTATING_GAME_SLUGS[game.slug];
+    });
+    var sameDomain = RECOMMENDATION_GAMES.filter(function (game) {
+      return currentGame && game.domain === currentGame.domain && game.slug !== currentGame.slug && !playedMap[game.slug] && !ROTATING_GAME_SLUGS[game.slug];
+    });
+    var sameDomainFallback = suggestableGames.filter(function (game) {
+      return currentGame && game.domain === currentGame.domain && game.slug !== currentGame.slug;
+    });
+    var anyUnplayed = suggestableGames.filter(function (game) {
+      return (!currentGame || game.slug !== currentGame.slug) && !playedMap[game.slug];
+    });
+    var pool = sameDomain.concat(anyUnplayed, sameDomainFallback);
+    var seen = {};
+    return pool.filter(function (game) {
+      if (seen[game.slug]) return false;
+      seen[game.slug] = true;
+      return true;
+    }).slice(0, limit || 3);
+  }
+
+  function _absoluteGameUrl(path) {
+    return '/games-static/' + path.replace(/^\/+/, '');
+  }
+
+  function _showGameRecommendations(rawScore) {
+    var now = Date.now();
+    if (now - completionShownAt < 1200) return;
+    completionShownAt = now;
+
+    var currentGame = _inferCurrentGame();
+    if (currentGame) {
+      var played = _readJsonList('medhaa-played-games');
+      if (played.indexOf(currentGame.slug) === -1) {
+        played.push(currentGame.slug);
+        _writeJsonList('medhaa-played-games', played);
+      }
+      try { localStorage.setItem('medhaa-last-played-game', currentGame.slug); } catch (e) {}
+    }
+
+    var suggestions = _pickRecommendations(currentGame, 3);
+    if (!suggestions.length) return;
+
+    var existing = document.getElementById('medhaa-game-recommendations');
+    if (existing) existing.remove();
+
+    var style = document.getElementById('medhaa-game-recommendations-style');
+    if (!style) {
+      style = document.createElement('style');
+      style.id = 'medhaa-game-recommendations-style';
+      style.textContent = '#medhaa-game-recommendations{position:fixed;inset:0;z-index:1000000;display:flex;align-items:flex-end;justify-content:center;padding:18px;background:linear-gradient(180deg,rgba(6,10,18,.18),rgba(6,10,18,.76));font-family:Inter,system-ui,sans-serif;color:#172033}#medhaa-game-recommendations .mgr-panel{width:min(940px,100%);background:rgba(255,255,255,.96);border:1px solid rgba(15,23,42,.12);border-radius:22px;box-shadow:0 24px 80px rgba(2,8,23,.28);padding:18px}#medhaa-game-recommendations .mgr-head{display:flex;gap:14px;align-items:flex-start;justify-content:space-between;margin-bottom:14px}#medhaa-game-recommendations .mgr-kicker{margin:0 0 4px;font-size:11px;font-weight:900;letter-spacing:.11em;text-transform:uppercase;color:#0f766e}#medhaa-game-recommendations h2{margin:0;color:#172033;font-size:clamp(21px,3vw,31px);line-height:1.1}#medhaa-game-recommendations .mgr-sub{margin:6px 0 0;color:#607089;font-size:14px;line-height:1.45}#medhaa-game-recommendations .mgr-close{border:0;background:#eef2f7;color:#314054;border-radius:999px;width:36px;height:36px;font-size:22px;line-height:1;cursor:pointer}#medhaa-game-recommendations .mgr-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}#medhaa-game-recommendations .mgr-card{display:grid;grid-template-columns:auto 1fr;gap:11px;align-items:center;text-decoration:none;color:inherit;background:#f8fafc;border:1px solid rgba(15,23,42,.1);border-radius:16px;padding:13px;min-height:88px}#medhaa-game-recommendations .mgr-card:hover{border-color:#0f766e;box-shadow:0 10px 26px rgba(15,118,110,.14)}#medhaa-game-recommendations .mgr-icon{display:grid;place-items:center;width:42px;height:42px;border-radius:14px;background:#e0f2f1;color:#0f766e;font-size:12px;font-weight:900;text-align:center}#medhaa-game-recommendations .mgr-title{display:block;font-size:15px;font-weight:900;color:#172033}#medhaa-game-recommendations .mgr-domain{display:block;margin-top:3px;font-size:12px;color:#64748b;text-transform:capitalize}#medhaa-game-recommendations .mgr-actions{display:flex;justify-content:space-between;gap:10px;margin-top:14px;align-items:center}#medhaa-game-recommendations .mgr-home{color:#0f766e;font-weight:800;text-decoration:none;font-size:14px}#medhaa-game-recommendations .mgr-muted{font-size:12px;color:#7b8797}@media(max-width:720px){#medhaa-game-recommendations{align-items:stretch;padding:10px}#medhaa-game-recommendations .mgr-panel{margin-top:auto;border-radius:18px;padding:15px}#medhaa-game-recommendations .mgr-grid{grid-template-columns:1fr}#medhaa-game-recommendations .mgr-actions{align-items:flex-start;flex-direction:column}}';
+      document.head.appendChild(style);
+    }
+
+    var scoreLine = typeof rawScore === 'number' ? ' Score saved: ' + Math.round(rawScore) + '.' : '';
+    var cards = suggestions.map(function (game) {
+      return '<a class="mgr-card" href="' + _absoluteGameUrl(game.path) + '">' +
+        '<span class="mgr-icon">' + _escapeHtml(game.emoji) + '</span>' +
+        '<span><strong class="mgr-title">' + _escapeHtml(game.title) + '</strong>' +
+        '<span class="mgr-domain">' + _escapeHtml(game.domain.replace(/-/g, ' ')) + '</span></span>' +
+      '</a>';
+    }).join('');
+
+    var overlay = document.createElement('div');
+    overlay.id = 'medhaa-game-recommendations';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.innerHTML = '<div class="mgr-panel">' +
+      '<div class="mgr-head"><div><p class="mgr-kicker">Up next</p>' +
+      '<h2>' + (currentGame ? 'More like ' + _escapeHtml(currentGame.title) : 'Recommended games') + '</h2>' +
+      '<p class="mgr-sub">Try another Medhaa activity that builds a connected skill.' + _escapeHtml(scoreLine) + '</p></div>' +
+      '<button class="mgr-close" type="button" aria-label="Close recommendations">&times;</button></div>' +
+      '<div class="mgr-grid">' + cards + '</div>' +
+      '<div class="mgr-actions"><a class="mgr-home" href="/student">Back to all games</a><span class="mgr-muted">Suggestions avoid games already played on this device when possible.</span></div>' +
+      '</div>';
+    document.body.appendChild(overlay);
+    overlay.querySelector('.mgr-close').addEventListener('click', function () { overlay.remove(); });
+    overlay.addEventListener('click', function (event) { if (event.target === overlay) overlay.remove(); });
+    document.addEventListener('keydown', function onKey(event) {
+      if (event.key === 'Escape') {
+        overlay.remove();
+        document.removeEventListener('keydown', onKey);
+      }
+    });
+  }
+
+  function _notifyGameComplete(rawScore) {
+    try {
+      window.dispatchEvent(new CustomEvent('medhaa:game-complete', { detail: { score: rawScore, game: _inferCurrentGame() } }));
+    } catch (e) {}
+    setTimeout(function () { _showGameRecommendations(rawScore); }, 250);
+  }
+
+  window.MedhaaGameRecommendations = {
+    show: _showGameRecommendations,
+    getCurrentGame: _inferCurrentGame,
+    getSuggestions: function () { return _pickRecommendations(_inferCurrentGame(), 3); }
+  };
 
   // ── Environment detection ──────────────────────────────────────────────────
   var isElectron  = (typeof window !== 'undefined') &&
@@ -80,13 +569,14 @@
     }
 
     window.BhavaSession = {
-      end:        function () {},
+      end:        function (rawScore) { _notifyGameComplete(rawScore); },
       getStudent: function () { return null; },
       isLoggedIn: function () { return loggedIn; },
       showLogin:  function () {},
       logout:     function () { try { localStorage.removeItem(WEB_USER_KEY); } catch (e) {} },
       setStudent: function () {},
     };
+    _initGlobalMusic();
     return;
   }
 
@@ -589,6 +1079,7 @@
     end: async function (rawScore) {
       if (!currentStudent || !currentSessionId) {
         console.log('[BhavaSession] Guest mode — score not saved:', rawScore);
+        _notifyGameComplete(rawScore);
         return;
       }
       try {
@@ -621,6 +1112,7 @@
       } catch (e) {
         console.error('[BhavaSession] endSession failed:', e);
       }
+      _notifyGameComplete(rawScore);
     },
 
     getStudent:  function () { return currentStudent; },
@@ -658,6 +1150,7 @@
 
   function init() {
     injectNavBar();
+    _initGlobalMusic();
 
     var alreadyLoggedIn = restoreStudent();
     if (alreadyLoggedIn) {
