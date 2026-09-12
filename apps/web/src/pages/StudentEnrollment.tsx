@@ -1,23 +1,41 @@
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { authFetch } from '../utils/authFetch';
+
+const API_URL = import.meta.env.VITE_API_URL || 'https://medhaa-tni1.onrender.com/api';
 
 export default function StudentEnrollment() {
   const navigate = useNavigate();
   const [childName, setChildName] = useState('');
   const [age, setAge] = useState('');
   const [grade, setGrade] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState('');
 
-  const submit = (event: FormEvent<HTMLFormElement>) => {
+  const submit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
     if (!childName.trim() || !age || !grade.trim()) return;
 
-    sessionStorage.setItem(
-      'medhaa-enrollment',
-      JSON.stringify({ childName: childName.trim(), age, grade: grade.trim() }),
-    );
-
-    navigate('/signup/student');
+    setBusy(true);
+    setError('');
+    try {
+      const res = await authFetch(`${API_URL}/parent/children`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fullName: childName.trim(),
+          age: Number(age),
+          gradeLabel: grade.trim(),
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || 'Could not add your child. Please try again.');
+      navigate('/parent-dashboard');
+    } catch (err: any) {
+      setError(err.message || 'Could not add your child. Please try again.');
+    } finally {
+      setBusy(false);
+    }
   };
 
   return (
@@ -29,18 +47,17 @@ export default function StudentEnrollment() {
           style={styles.logo}
         />
 
-        <span style={styles.kicker}>STEP 1 OF 2</span>
         <h1 style={styles.heading}>Add your child to Medhā</h1>
 
         <p style={styles.copy}>
-          Create a student learning journey. After student sign-up and
-          subscription, Medhā will recommend activities and share progress
-          with the child and linked parent account.
+          Your child doesn't need their own email or password — their
+          profile is created under your account right away, and you can
+          open their games and progress from your Parent Dashboard.
         </p>
 
         <form onSubmit={submit} style={styles.form}>
           <label style={styles.label}>
-            Child’s first name
+            Child's first name
             <input
               value={childName}
               onChange={(event) => setChildName(event.target.value)}
@@ -78,8 +95,10 @@ export default function StudentEnrollment() {
             />
           </label>
 
-          <button type="submit" style={styles.primaryButton}>
-            Continue to Student Sign Up
+          {error && <p style={styles.error}>{error}</p>}
+
+          <button type="submit" style={styles.primaryButton} disabled={busy}>
+            {busy ? 'Adding your child…' : 'Add my child'}
           </button>
         </form>
 
@@ -109,15 +128,7 @@ const styles = {
     boxShadow: '0 20px 60px rgba(8, 127, 131, 0.12)',
   },
   logo: { width: 58, height: 58, objectFit: 'contain' as const },
-  kicker: {
-    display: 'block',
-    marginTop: 22,
-    color: '#087f83',
-    fontSize: 12,
-    fontWeight: 800,
-    letterSpacing: '0.1em',
-  },
-  heading: { margin: '10px 0 12px', color: '#183333', fontSize: 34 },
+  heading: { margin: '22px 0 12px', color: '#183333', fontSize: 34 },
   copy: { margin: 0, color: '#607070', lineHeight: 1.65 },
   form: { display: 'grid', gap: 16, marginTop: 28 },
   label: { display: 'grid', gap: 7, color: '#294747', fontWeight: 700 },
@@ -129,6 +140,7 @@ const styles = {
     borderRadius: 12,
     fontSize: 15,
   },
+  error: { margin: 0, color: '#b91c1c', fontSize: 13, fontWeight: 700 },
   primaryButton: {
     marginTop: 8,
     padding: 14,

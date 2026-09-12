@@ -18,6 +18,17 @@ type Subscription = {
   currentPeriodEnd?: string | null;
 };
 
+type Child = {
+  id: string;
+  fullName: string;
+  age: number | null;
+  gradeLabel: string | null;
+  coins: number;
+  xp: number;
+  level: number;
+  schoolName: string | null;
+};
+
 type Section = 'overview' | 'children' | 'progress' | 'guidance' | 'sharing' | 'subscription';
 
 const dateText = (value?: string | null) => {
@@ -33,11 +44,15 @@ const statusText = (value?: string) =>
 
 export default function ParentDashboard() {
   const navigate = useNavigate();
-  const { user, logout } = useAuth();
+  const { user, logout, enterAsChild } = useAuth();
   const [section, setSection] = useState<Section>('overview');
   const [subscription, setSubscription] = useState<Subscription | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [children, setChildren] = useState<Child[]>([]);
+  const [childrenLoading, setChildrenLoading] = useState(true);
+  const [childrenError, setChildrenError] = useState('');
+  const [enteringId, setEnteringId] = useState<string | null>(null);
 
   async function loadSubscription() {
     setLoading(true);
@@ -55,7 +70,38 @@ export default function ParentDashboard() {
     }
   }
 
-  useEffect(() => { loadSubscription(); }, []);
+  async function loadChildren() {
+    setChildrenLoading(true);
+    setChildrenError('');
+    try {
+      const res = await authFetch(`${API_URL}/parent/children`);
+      if (!res.ok) throw new Error('Could not load children');
+      const data = await res.json();
+      setChildren(data.children ?? []);
+    } catch (err) {
+      console.error(err);
+      setChildrenError('Your children could not be loaded.');
+    } finally {
+      setChildrenLoading(false);
+    }
+  }
+
+  useEffect(() => { loadSubscription(); loadChildren(); }, []);
+
+  async function playAsChild(child: Child) {
+    setEnteringId(child.id);
+    try {
+      const res = await authFetch(`${API_URL}/parent/children/${child.id}/enter`, { method: 'POST' });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || 'Could not start this session');
+      enterAsChild({ id: child.id, email: '', role: 'student' }, data.accessToken, child.fullName);
+      navigate('/student/preview');
+    } catch (err: any) {
+      setChildrenError(err.message || 'Could not start this session');
+    } finally {
+      setEnteringId(null);
+    }
+  }
 
   const goSection = (next: Section) => {
     setSection(next);
@@ -167,9 +213,10 @@ export default function ParentDashboard() {
 
               <div className="pd-stat-grid">
                 <article className="pd-stat pd-child">
-                  <span><Users size={20} /></span><strong>Not connected</strong>
-                  <small>Child profile</small>
-                  <button onClick={() => navigate('/parent/enrol-student')}>Connect a child <ArrowRight size={14} /></button>
+                  <span><Users size={20} /></span>
+                  <strong>{childrenLoading ? 'Checking…' : children.length}</strong>
+                  <small>{children.length === 1 ? 'Child connected' : 'Children connected'}</small>
+                  <button onClick={() => navigate('/parent/enrol-student')}>Add a child <ArrowRight size={14} /></button>
                 </article>
                 <article className="pd-stat pd-progress">
                   <span><BarChart3 size={20} /></span><strong>Ready</strong>
@@ -187,17 +234,37 @@ export default function ParentDashboard() {
               <div className="pd-two">
                 <article className="pd-panel">
                   <div className="pd-panel-head"><div><span>CHILD PROFILE</span><h3>Your child's space</h3></div><Users size={22} /></div>
-                  <div className="pd-empty">
-                    <div className="pd-empty-icon"><Plus size={23} /></div>
-                    <h4>No child connected yet</h4>
-                    <p>
-                      Connect a child profile to bring their Medhā activity and
-                      progress into this family space.
-                    </p>
-                    <button className="pd-primary pd-small" onClick={() => navigate('/parent/enrol-student')}>
-                      Add / Connect Child
-                    </button>
-                  </div>
+                  {childrenLoading ? (
+                    <p>Loading your children…</p>
+                  ) : children.length === 0 ? (
+                    <div className="pd-empty">
+                      <div className="pd-empty-icon"><Plus size={23} /></div>
+                      <h4>No child added yet</h4>
+                      <p>
+                        Add your child's profile directly — no separate email
+                        or sign-up needed for them.
+                      </p>
+                      <button className="pd-primary pd-small" onClick={() => navigate('/parent/enrol-student')}>
+                        Add my child
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="pd-child-list">
+                      {children.map((child) => (
+                        <div className="pd-child-row" key={child.id}>
+                          <div>
+                            <strong>{child.fullName}</strong>
+                            <small>{[child.age ? `${child.age} yrs` : null, child.gradeLabel].filter(Boolean).join(' · ') || 'No details yet'}</small>
+                          </div>
+                          <button className="pd-secondary pd-small" disabled={enteringId === child.id} onClick={() => playAsChild(child)}>
+                            {enteringId === child.id ? 'Opening…' : 'Play as ' + child.fullName.split(' ')[0]}
+                          </button>
+                        </div>
+                      ))}
+                      <button className="pd-secondary pd-full" onClick={() => navigate('/parent/enrol-student')}>Add another child</button>
+                    </div>
+                  )}
+                  {childrenError && <div className="pd-error">{childrenError}</div>}
                 </article>
 
                 <article className="pd-panel">
@@ -234,12 +301,32 @@ export default function ParentDashboard() {
 
           {section === 'children' && (
             <section className="pd-page">
-              <div className="pd-heading"><div><span className="pd-kicker">CHILDREN</span><h2>Manage your child's Medhā connection.</h2><p>Use the existing enrollment flow rather than creating a second child system.</p></div></div>
-              <div className="pd-large-empty">
-                <Users size={34}/><h3>No child profile is connected to this parent account.</h3>
-                <p>Once connected, this space can become the home for activity, progress, achievements and guidance.</p>
-                <button className="pd-primary" onClick={() => navigate('/parent/enrol-student')}>Add / Connect Child <ArrowRight size={17}/></button>
-              </div>
+              <div className="pd-heading"><div><span className="pd-kicker">CHILDREN</span><h2>Manage your child's Medhā connection.</h2><p>Add a child directly — they don't need their own email or password.</p></div></div>
+              {childrenLoading ? (
+                <p>Loading your children…</p>
+              ) : children.length === 0 ? (
+                <div className="pd-large-empty">
+                  <Users size={34}/><h3>No child profile is connected to this parent account.</h3>
+                  <p>Add your child's name, age and grade — Medhā creates their profile right away, ready to play.</p>
+                  <button className="pd-primary" onClick={() => navigate('/parent/enrol-student')}>Add my child <ArrowRight size={17}/></button>
+                </div>
+              ) : (
+                <div className="pd-child-list">
+                  {children.map((child) => (
+                    <div className="pd-child-row" key={child.id}>
+                      <div>
+                        <strong>{child.fullName}</strong>
+                        <small>{[child.age ? `${child.age} yrs` : null, child.gradeLabel, child.schoolName].filter(Boolean).join(' · ') || 'No details yet'}</small>
+                      </div>
+                      <button className="pd-primary pd-small" disabled={enteringId === child.id} onClick={() => playAsChild(child)}>
+                        {enteringId === child.id ? 'Opening…' : 'Play as ' + child.fullName.split(' ')[0]}
+                      </button>
+                    </div>
+                  ))}
+                  <button className="pd-secondary" onClick={() => navigate('/parent/enrol-student')}>Add another child <ArrowRight size={16}/></button>
+                </div>
+              )}
+              {childrenError && <div className="pd-error">{childrenError}</div>}
             </section>
           )}
 

@@ -1,0 +1,38 @@
+/* apps/web/src/styles/child-session-banner.css
+   Persistent top banner shown while a parent is in a supervised
+   "play as child" session (see ChildSessionBanner.tsx). */
+.medhaa-child-session-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 8px 14px;
+  background: #0f766e;
+  color: #ecfeff;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.medhaa-child-session-banner button {
+  border: 1px solid rgba(236, 254, 255, 0.5);
+  background: rgba(255, 255, 255, 0.12);
+  color: #ecfeff;
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  .medhaa-child-session-banner {
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px 10px;
+  }
+}

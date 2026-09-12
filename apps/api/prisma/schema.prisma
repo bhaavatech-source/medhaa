@@ -83,6 +83,8 @@ model Student {
   parent    Parent? @relation(fields: [parentId], references: [id])
   fullName  String
   gradeLevel Int?
+  gradeLabel String?
+  age       Int?
   coins     Int     @default(0)
   xp        Int     @default(0)
   level     Int     @default(1)

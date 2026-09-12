@@ -36,6 +36,7 @@ import AdminConsole from './pages/AdminConsole';
 // 1. Import the new component at the top
 import { SettingsPage } from './pages/SettingsPage';
 import { GlobalMusic } from './components/GlobalMusic';
+import { ChildSessionBanner } from './components/ChildSessionBanner';
 
 
 
@@ -55,6 +56,7 @@ function App() {
     <AuthProvider>
       <BrowserRouter>
         <GlobalMusic />
+        <ChildSessionBanner />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
@@ -80,7 +82,7 @@ function App() {
           <Route path="/student" element={<StudentDashboard />} />
           <Route path="/student/preview" element={<StudentDashboard />} />
           <Route path="/achievements" element={<AchievementsPage />} />
-          <Route path="/parent/enrol-student" element={<StudentEnrollment />} />
+          <Route path="/parent/enrol-student" element={<ProtectedRoute role="parent"><StudentEnrollment /></ProtectedRoute>} />
           <Route path="/student/bcs-lite" element={<BCSLiteIntro />} />
           <Route path="/student/readiness" element={<LearningReadiness />} />
           <Route path="/parent/progress" element={<ParentProgressReport />} />
