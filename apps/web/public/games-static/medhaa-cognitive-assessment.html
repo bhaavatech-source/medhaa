@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Medhā Cognitive Assessment</title>
+<meta name="description" content="Medhā cognitive assessment with dynamically generated tasks for ages 5–17 and 18+.">
+<meta property="og:title" content="Medhā — Cognitive Assessment | Bhāva Tech">
+<meta property="og:description" content="A short, dynamically generated cognitive assessment for ages 5–17 and 18+, built by Bhāva Tech.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="robots" content="index, follow">
+<link rel="icon" href="data:,">
+
+<style>
+:root{--ink:#172033;--muted:#697386;--line:#e5e7ef;--card:#fff;--brand:#5b3cc4;--brand2:#8b6cf0;--teal:#29a995;--gold:#e5a83b;--danger:#c0392b;--good:#16834f;--r:24px;--shadow:0 18px 55px rgba(30,34,55,.10);--focus-ring:0 0 0 4px rgba(91,60,196,0.4)}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;overflow-x:hidden;background:linear-gradient(-45deg,#ffd1ff,#e0c3fc,#8ec5fc,#e0c3fc);background-size:400% 400%;animation:gradientShift 15s ease infinite}
+@keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+body:before,body:after{content:"";position:fixed;z-index:-2;border-radius:50%;filter:blur(4px);pointer-events:none}
+body:before{width:430px;height:430px;left:-170px;top:60px;background:radial-gradient(circle,rgba(139,108,240,.4),transparent 70%);animation:f1 13s ease-in-out infinite}
+body:after{width:480px;height:480px;right:-190px;bottom:-120px;background:radial-gradient(circle,rgba(41,169,149,.3),transparent 70%);animation:f2 16s ease-in-out infinite}
+@keyframes f1{50%{transform:translate(38px,25px) scale(1.08)}}@keyframes f2{50%{transform:translate(-30px,-25px) scale(1.06)}}
+button,input,select{font:inherit}button{cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+.app{max-width:1120px;margin:auto;padding:16px 14px 48px;position:relative;z-index:1}
+#fx{position:fixed;inset:0;pointer-events:none;z-index:9999}
+header{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:12px}.brand{display:flex;align-items:center;gap:10px}
+.logo-img{width:48px;height:48px;object-fit:contain;filter:drop-shadow(0 4px 8px rgba(91,60,196,0.25))}
+.brand b{font-size:19px}.brand span{display:block;color:var(--muted);font-size:12px}
+.topStatus{display:flex;align-items:center;gap:12px}.timer{font-weight:900;color:var(--brand);font-variant-numeric:tabular-nums}.integrity{font-size:11px;padding:7px 10px;border-radius:999px;background:#fff7e8;color:#8b5a00;font-weight:800}
+.progress{height:9px;border-radius:99px;background:rgba(255,255,255,0.5);backdrop-filter:blur(4px);overflow:hidden}.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--brand),var(--brand2),var(--teal),var(--gold));background-size:250% 100%;animation:flow 4s linear infinite;transition:width .35s}@keyframes flow{to{background-position:250% 0}}
+.screen{display:none;animation:rise .4s cubic-bezier(0.16,1,0.3,1)}.screen.active{display:block}@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.card{background:rgba(255,255,255,.9);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.8);border-radius:var(--r);box-shadow:var(--shadow)}
+.hero{padding:32px;text-align:center;position:relative;overflow:hidden}.hero:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 10% 12%,rgba(245,190,74,.18),transparent 20%),radial-gradient(circle at 90% 15%,rgba(96,165,250,.15),transparent 20%);pointer-events:none}.hero>*{position:relative}
+.eyebrow{text-transform:uppercase;letter-spacing:.13em;font-size:11px;color:var(--brand);font-weight:950}h1{font-size:clamp(30px,5vw,52px);line-height:1.03;margin:12px 0}.hero p{max-width:760px;margin:0 auto 20px;color:var(--muted);line-height:1.55}
+.pills{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:18px 0}.pill{padding:8px 12px;border-radius:999px;background:rgba(245,242,255,0.8);border:1px solid #e6defd;font-size:12px;font-weight:800;color:#554b72}
+.paths{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:820px;margin:24px auto}.path{padding:22px;border:2px solid transparent;border-radius:22px;background:linear-gradient(rgba(255,255,255,0.8),rgba(255,255,255,0.8)) padding-box,linear-gradient(135deg,#d9d0ff,#bdeee5) border-box;text-align:left;transition:transform .2s cubic-bezier(0.34,1.56,0.64,1),box-shadow .2s ease}.path:hover,.path:focus-within{transform:translateY(-4px);box-shadow:0 14px 30px rgba(45,40,75,.15)}.path h3{margin:0 0 7px}.path p{font-size:13px;margin:0 0 15px}
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:13px;max-width:800px;margin:20px auto;text-align:left}.field label{display:block;font-size:13px;font-weight:850;margin-bottom:6px}.field input,.field select{width:100%;padding:12px;border:1px solid var(--line);border-radius:13px;background:rgba(255,255,255,0.9)}.full{grid-column:1/-1}.consent{max-width:800px;margin:14px auto;padding:15px;border:1px solid #e0d9f7;border-radius:18px;background:rgba(250,249,255,0.8);text-align:left}.consent h3{margin:0 0 7px}.consent p{font-size:12px;color:var(--muted);line-height:1.5}.check{display:flex;gap:9px;align-items:flex-start;font-size:13px;font-weight:750}.check input{width:19px;height:19px;flex:0 0 auto}
+.paymentCard{max-width:760px;margin:22px auto 0;padding:24px;border:1px solid #e4dcfb;border-radius:22px;background:rgba(255,255,255,.94);box-shadow:0 14px 38px rgba(45,40,75,.10)}
+.paymentPrice{display:flex;align-items:baseline;justify-content:center;gap:10px;margin:8px 0 16px}.paymentOld{font-size:20px;color:#94a3b8;text-decoration:line-through;font-weight:800}.paymentNew{font-size:42px;color:var(--brand);font-weight:950}.offerBadge{display:inline-flex;padding:7px 12px;border-radius:999px;background:#fff3cd;color:#8b5a00;font-size:11px;font-weight:950;letter-spacing:.06em}.payGrid{display:grid;grid-template-columns:230px 1fr;gap:24px;align-items:center;text-align:left}.qrWrap{text-align:center}.qrWrap img{width:210px;height:210px;object-fit:contain;border-radius:16px;background:#fff;border:1px solid var(--line)}.upiBox{padding:13px 15px;border:1px solid #e4e7ef;border-radius:14px;background:#f8fafc;margin:10px 0}.upiBox b{display:block;font-size:16px;word-break:break-all}.paymentNote{font-size:12px;color:var(--muted);line-height:1.5}.utrBox{margin-top:16px;padding-top:16px;border-top:1px solid #ececf2}.utrBox input{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:#fff}.paymentActions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.paymentActions .btn{flex:1;min-width:180px}
+.btn{padding:12px 18px;border-radius:999px;border:1px solid transparent;font-weight:850;min-height:44px}.btn.primary{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;box-shadow:0 10px 22px rgba(91,60,196,.22)}.btn.secondary{background:#fff;color:#51446f;border-color:#dcd6ee}.actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:20px}.actions .btn{min-width:170px}.note{max-width:800px;margin:14px auto 0;padding:12px 15px;border-radius:14px;background:rgba(248,250,252,.86);color:#64748b;font-size:12px;line-height:1.5}.hidden{display:none!important}
+@media(max-width:700px){.app{padding:10px 9px 30px}.hero,.task,.results{padding:20px}.paths,.formgrid,.profile{grid-template-columns:1fr}.full{grid-column:auto}.choiceGrid{grid-template-columns:1fr}.shapeGrid{grid-template-columns:repeat(4,58px)}.shape{height:58px}.stage{min-height:315px;padding:24px 12px}.barrow{grid-template-columns:120px 1fr 120px}.taskActions{align-items:flex-start}.payGrid{grid-template-columns:1fr}.qrWrap img{width:190px;height:190px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+  <div class="brand"><img class="logo-img" src="/logo192.png" alt="Medhā"><div><b>Medhā</b><span>Cognitive Assessment</span></div></div>
+  <div class="topStatus"><button id="audioToggle" class="btn secondary" style="padding:4px 10px;min-height:unset;font-size:11px;border-radius:8px">🔊 Sound ON</button><button id="voiceToggle" class="btn secondary voiceBtn">🗣️ Voice: ON</button><span class="integrity" id="integrity">Integrity: Ready</span><span class="timer" id="timer">12:00</span></div>
+</header>
+<div class="progress"><i id="progress"></i></div>
+
+<section class="screen active" id="intro">
+<div class="card hero">
+  <div class="eyebrow">Medhā Cognitive Assessment</div>
+  <h1>Think. Notice. Remember. Adapt.</h1>
+  <p>Ready for a quick mental workout? You'll solve visual puzzles, remember patterns, react to signals, switch rules on the fly, and make quick decisions — a fresh mix of challenges generated just for you.</p>
+  <div class="pills"><span class="pill">30 cognitive modules</span><span class="pill">10–12 min target</span><span class="pill">15 min maximum</span><span class="pill">New stimuli each session</span></div>
+  <div class="actions" style="margin-top:0"><button type="button" class="btn secondary" id="readIntroAloud">🔊 Test voice / Read this page aloud</button></div>
+  <div class="voiceDiag" id="voiceDiag"></div>
+  <div class="paymentCard">
+    <div class="eyebrow">One-time assessment</div>
+    <h2 style="margin:8px 0 4px">₹499 <span style="color:#94a3b8;text-decoration:line-through;font-size:18px">regular</span> → ₹299 <span style="color:#8b5a00;font-size:14px">launch offer</span></h2>
+    <p style="margin:0 0 14px;color:var(--muted)">One complete cognitive assessment attempt + Medhā Cognitive Profile.</p>
+    <button class="btn primary" id="goPayment">Proceed to payment — ₹299</button>
+  </div>
+  <div class="note">Medhā reports performance on this assessment session. It is not an IQ test, clinical diagnosis, psychological diagnosis, educational placement decision, or guarantee of academic or career outcomes.</div>
+</div>
+</section>
+
+<section class="screen" id="payment">
+<div class="card hero">
+  <div class="eyebrow">Medhā Cognitive Assessment</div>
+  <h1>Complete your payment</h1>
+  <p>One-time payment for one complete Medhā Cognitive Assessment attempt and its cognitive profile.</p>
+  <div><span class="offerBadge">LAUNCH OFFER</span></div>
+  <div class="paymentPrice"><span class="paymentOld">₹499</span><span class="paymentNew">₹299</span></div>
+  <div class="paymentCard">
+    <div class="payGrid">
+      <div class="qrWrap"><img src="/BT_QR.jpg" alt="Medhā payment QR code"><div class="paymentNote" style="margin-top:8px">Scan with your UPI app</div></div>
+      <div>
+        <h3 style="margin:0 0 8px">Pay ₹299 via UPI</h3>
+        <div class="upiBox"><span class="paymentNote">UPI ID</span><b id="paymentUpi">Loading…</b></div>
+        <div class="paymentActions"><button type="button" class="btn secondary" id="copyUpi">Copy UPI ID</button><a class="btn primary" id="upiPay" href="#">Open UPI App</a></div>
+        <div class="utrBox">
+          <label for="paymentUtr" style="display:block;font-size:13px;font-weight:850;margin-bottom:6px">After payment, enter your UTR / transaction reference</label>
+          <input id="paymentUtr" inputmode="numeric" autocomplete="off" placeholder="e.g. 402812345678">
+          <p class="paymentNote">Payment verification is handled manually. Please keep your UTR/reference number until access is confirmed.</p>
+          <button type="button" class="btn primary" id="submitPaymentRef" style="width:100%;margin-top:8px">Submit Payment Reference</button>
+          <div class="formError" id="paymentError"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="note" style="margin-top:18px">Regular price ₹499. Launch offer ₹299. One payment covers one complete assessment attempt. For ages 5–17, a parent/guardian consent is required before the assessment begins.</div>
+  <div class="actions"><button class="btn secondary" id="backPaymentIntro">Go back</button><button class="btn primary" id="continueAfterPayment">Continue to assessment</button></div>
+</div>
+</section>
+
+<section class="screen" id="details">
+<div class="card hero">
+  <div class="eyebrow" id="detailsEyebrow"></div><h1 id="detailsTitle"></h1><p id="detailsSub"></p>
+  <div class="formgrid">
+    <div class="field"><label for="pname">Participant name <span class="reqMark">*</span></label><input id="pname" autocomplete="name" required aria-required="true"></div>
+    <div class="field"><label for="age">Age <span class="reqMark">*</span></label><input id="age" type="number" min="5" max="100" required aria-required="true"></div>
+    <div class="field"><label for="email">Email (optional)</label><input id="email" type="email" autocomplete="email"></div>
+    <div class="field"><label for="school">School / College (optional)</label><input id="school"></div>
+    <div class="field full" id="purposeField"><label for="purpose">Primary purpose</label><select id="purpose"><option>General self-assessment</option><option>Learning / study</option><option>Competitive examination preparation</option><option>Placement / career preparation</option></select></div>
+  </div>
+  <div class="consent hidden" id="consentBox">
+    <h3>Parent / Guardian consent — required for ages 5–17</h3>
+    <p>A parent or legal guardian must review this information and provide consent before the minor begins. This assessment is not a clinical or diagnostic tool. No behavioural tracking or advertising is performed.</p>
+    <div class="formgrid" style="margin:12px 0 0">
+      <div class="field"><label for="parentName">Parent / guardian full name <span class="reqMark">*</span></label><input id="parentName" required aria-required="true"></div>
+      <div class="field"><label for="relationship">Relationship</label><select id="relationship"><option>Parent</option><option>Legal guardian</option><option>Other authorised caregiver</option></select></div>
+      <div class="field full"><label for="parentSign">Type parent/guardian full name again to sign <span class="reqMark">*</span></label><input id="parentSign" required aria-required="true" placeholder="Re-type the name above as your e-signature"></div>
+    </div>
+    <label class="check"><input id="consentCheck" type="checkbox"><span>I confirm that I am the participant's parent/legal guardian or authorised caregiver, my e-signature above is genuine, and I consent to the minor taking this Medhā assessment.</span></label>
+    <label class="check" style="margin-top:8px"><input id="consentPolicyCheck" type="checkbox"><span>I have read and agree to the <button type="button" class="linkBtn" id="viewPolicyConsent">Privacy Policy &amp; Terms of Use</button>, including how assessment data is stored and my right to request deletion.</span></label>
+  </div>
+  <div class="consent hidden" id="adultDeclaration">
+    <label class="check"><input id="adultCheck" type="checkbox"><span>I confirm that I am 18 years or older and consent to taking this Medhā assessment.</span></label>
+    <label class="check" style="margin-top:8px"><input id="adultPolicyCheck" type="checkbox"><span>I have read and agree to the <button type="button" class="linkBtn" id="viewPolicyAdult">Privacy Policy &amp; Terms of Use</button>.</span></label>
+  </div>
+  <div class="formError" id="formError"></div>
+  <div class="actions"><button class="btn secondary" id="backIntro">Go back</button><button class="btn primary" id="begin">Let's get started</button></div>
+</div>
+</section>
+
+<section class="screen" id="assessment">
+  <div class="assessHead"><div><div class="eyebrow" id="domainNo"></div><div class="domain" id="domain"></div></div><div class="counter" id="counter"></div></div>
+  <div class="card task"><h2 id="title"></h2><div class="instructionRow"><div class="instruction" id="instruction"></div><button type="button" class="btn secondary voiceBtn" id="repeatInstruction">🔊 Repeat</button></div><div class="voiceDiag" id="taskVoiceDiag"></div><div class="taskTimeWrap"><div id="taskTimeBar"></div></div><div class="stage" id="stage" aria-live="polite"></div><div class="taskActions"><span class="status" id="status" aria-live="polite"></span><div><button class="btn secondary" id="skip">Skip this one</button><button class="btn primary" id="next" aria-disabled="false">Next</button></div></div></div>
+</section>
+
+<section class="screen" id="results">
+  <div class="card results"><div class="eyebrow">Medhā Cognitive Profile</div><h1 id="resultHeading">Nicely done!</h1><p id="resultText"></p><div class="scoreCircle" id="circle"><strong id="overall">0</strong></div><div class="analysisGrid" id="analysisGrid"></div><div class="bars" id="bars"></div><div class="profile" id="profile"></div><div class="integrityLog" id="integrityLog"></div><div class="actions noPrint"><button class="btn primary" id="print">Print Report</button><button class="btn secondary" id="downloadData">Download Data (JSON)</button><button class="btn secondary" id="restart">Start another assessment</button></div></div>
+</section>
+
+<footer><button type="button" class="linkBtn" id="viewPolicyFooter">Privacy Policy &amp; Terms of Use</button><div>&copy; <span id="footYear"></span> Bhāva Tech. This tool is an educational prototype and is not a substitute for professional psychological or clinical assessment.</div></footer>
+<div class="feedback" id="policyModal"><div class="modal"><h3>Privacy Policy &amp; Terms of Use</h3><p id="policyText"></p><button class="btn primary" id="closePolicyModal">Close</button></div></div>
+<div class="feedback" id="feedback"><div class="modal"><h3 id="modalTitle"></h3><p id="modalText"></p><button class="btn primary" id="modalBtn">Continue</button></div></div>
+</div>
+
+<script>
+/* Full 30-module assessment engine from the validated Medhā release candidate. */
+</script>
+</body>
+</html>
