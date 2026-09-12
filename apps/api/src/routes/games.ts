@@ -67,7 +67,12 @@ const game = await prisma.game.findUnique({ where: { slug: req.params.slug as st
       return;
     }
 
-    const studentId = req.user!.id;
+    const student = await prisma.student.findUnique({ where: { userId: req.user!.id } });
+    if (!student) {
+      res.status(404).json({ error: 'Student profile not found for this account' });
+      return;
+    }
+    const studentId = student.id;
     const data = parsed.data;
 
     const previousBest = await prisma.gameAttempt.findFirst({
@@ -99,5 +104,48 @@ if (previousBest && previousBest.score !== null && data.score > previousBest.sco
     res.status(201).json({ attempt });
   }
 );
+
+// GET /games/history — recent attempts + a simple real-data summary for the
+// in-game "My Report" panel (bhava-session.js), replacing the old
+// bhava-cloud IQ/EQ/SQ mock with actual GameAttempt data from this student.
+router.get('/history', authenticate, requireRole(['student']), async (req: AuthenticatedRequest, res: Response) => {
+  const student = await prisma.student.findUnique({ where: { userId: req.user!.id } });
+  if (!student) {
+    res.status(404).json({ error: 'Student profile not found for this account' });
+    return;
+  }
+  const studentId = student.id;
+  const limit = Math.min(20, Math.max(1, Number(req.query.limit) || 5));
+
+  const [attempts, aggregate] = await Promise.all([
+    prisma.gameAttempt.findMany({
+      where: { studentId },
+      orderBy: { createdAt: 'desc' },
+      take: limit,
+      include: { game: { select: { title: true, domain: true } } },
+    }),
+    prisma.gameAttempt.aggregate({
+      where: { studentId, completionStatus: 'completed' },
+      _count: { _all: true },
+      _avg: { score: true },
+      _max: { score: true },
+    }),
+  ]);
+
+  res.json({
+    summary: {
+      gamesCompleted: aggregate._count._all,
+      averageScore: aggregate._avg.score != null ? Math.round(aggregate._avg.score) : null,
+      bestScore: aggregate._max.score != null ? Math.round(aggregate._max.score) : null,
+    },
+    sessions: attempts.map((a) => ({
+      gameName: a.game.title,
+      domain: a.game.domain,
+      score: a.score,
+      completed: a.completionStatus === 'completed',
+      startedAt: a.startTime,
+    })),
+  });
+});
 
 export default router;
