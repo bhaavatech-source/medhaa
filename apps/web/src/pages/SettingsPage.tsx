@@ -128,7 +128,7 @@ export function SettingsPage() {
               Manage {user.role === 'parent' ? 'your children\'s' : 'your students\''} accounts and enrollment details.
             </p>
             <button 
-              onClick={() => navigate('/enrollment')} 
+              onClick={() => navigate('/parent/enrol-student')} 
               style={secondaryButtonStyle}
             >
               Manage Enrollment
@@ -173,7 +173,7 @@ export function SettingsPage() {
               />
             </label>
             <button 
-              onClick={() => navigate('/permissions')} 
+              onClick={() => navigate('/parent/sharing')} 
               style={{ ...secondaryButtonStyle, marginTop: 8 }}
             >
               Data Sharing Permissions

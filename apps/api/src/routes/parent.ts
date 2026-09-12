@@ -121,11 +121,11 @@ router.post('/children/:id/enter', async (req: AuthenticatedRequest, res: Respon
 
   // Short supervised session only — no refresh token, so it naturally expires
   // and never becomes an independent long-lived login for the child.
-  const accessToken = jwt.sign({ id: child.user.id, role: 'student' }, ACCESS_SECRET, {
+  const accessToken = jwt.sign({ id: child.user.id, email: child.user.email, role: 'student' }, ACCESS_SECRET, {
     expiresIn: '2h',
   });
 
-  res.json({ accessToken, child: { id: child.id, fullName: child.fullName } });
+  res.json({ accessToken, child: { id: child.id, fullName: child.fullName, email: child.user.email } });
 });
 
 export default router;

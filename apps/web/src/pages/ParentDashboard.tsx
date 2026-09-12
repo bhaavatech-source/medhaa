@@ -94,7 +94,7 @@ export default function ParentDashboard() {
       const res = await authFetch(`${API_URL}/parent/children/${child.id}/enter`, { method: 'POST' });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data.error || 'Could not start this session');
-      enterAsChild({ id: child.id, email: '', role: 'student' }, data.accessToken, child.fullName);
+      enterAsChild({ id: child.id, email: data.child?.email || '', role: 'student' }, data.accessToken, child.fullName);
       navigate('/student/preview');
     } catch (err: any) {
       setChildrenError(err.message || 'Could not start this session');

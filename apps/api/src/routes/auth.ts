@@ -52,7 +52,7 @@ router.post('/register', async (req: Request, res: Response) => {
     },
   });
 
-  const accessToken = jwt.sign({ id: user.id, role: user.role.toLowerCase() }, ACCESS_SECRET, {
+  const accessToken = jwt.sign({ id: user.id, email: user.email, role: user.role.toLowerCase() }, ACCESS_SECRET, {
     expiresIn: '15m',
   });
   const refreshToken = jwt.sign({ id: user.id }, REFRESH_SECRET, { expiresIn: '30d' });
@@ -125,7 +125,7 @@ router.post('/login', async (req: Request, res: Response) => {
 
   await prisma.user.update({ where: { id: user.id }, data: { lastLoginAt: new Date() } });
 
-  const accessToken = jwt.sign({ id: user.id, role: role.toLowerCase() }, ACCESS_SECRET, {
+  const accessToken = jwt.sign({ id: user.id, email: user.email, role: role.toLowerCase() }, ACCESS_SECRET, {
     expiresIn: '15m',
   });
   const refreshToken = jwt.sign({ id: user.id }, REFRESH_SECRET, { expiresIn: '30d' });
@@ -150,7 +150,7 @@ router.post('/refresh', async (req: Request, res: Response) => {
       res.status(403).json({ error: 'This account has been disabled.' });
       return;
     }
-    const accessToken = jwt.sign({ id: user.id, role: user.role.toLowerCase() }, ACCESS_SECRET, {
+    const accessToken = jwt.sign({ id: user.id, email: user.email, role: user.role.toLowerCase() }, ACCESS_SECRET, {
       expiresIn: '15m',
     });
     res.json({ accessToken });
