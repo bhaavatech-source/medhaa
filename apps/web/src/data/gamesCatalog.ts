@@ -87,7 +87,7 @@ export const GAMES_CATALOG: Record<string, CatalogEntry> = {
     ageMin: 7, ageMax: 17, color: '#7c3aed', domain: 'cognitive-memory', emoji: '⚡',
   },
   'bhava-smriti': {
-    slug: 'bhava-smriti', title: 'Medhā-samṛti',
+    slug: 'bhava-smriti', title: 'Medhā-smṛti',
     tagline: 'Match, remember, win',
     description: "A classic card-flip memory match — tap two cards to reveal them, remember what you saw, and find every matching pair before you run out of moves. Grid size and time pressure scale up as visual memory improves.",
     secondary: 'Visual Memory', skillsBuilt: ['Visual Memory', 'Concentration', 'Pattern Recall'],
