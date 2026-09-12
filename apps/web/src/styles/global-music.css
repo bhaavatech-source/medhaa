@@ -1,0 +1,37 @@
+/* apps/web/src/styles/global-music.css
+   Site-wide ambient background music toggle (Home, dashboards, admin, etc).
+   Positioned higher than bottom-right corners already used by
+   .student-back-to-top (bottom-left) and .student-promo (bottom-right,
+   z-index 900) on the Student Games page, so it never overlaps them. */
+.medhaa-site-music-toggle {
+  position: fixed;
+  right: 14px;
+  bottom: 90px;
+  z-index: 950;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(15, 118, 110, 0.28);
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 12px 30px rgba(2, 8, 23, 0.18);
+  border-radius: 50%;
+  padding: 0;
+  font-size: 20px;
+  line-height: 1;
+  color: #0f766e;
+  cursor: pointer;
+}
+
+.medhaa-site-music-toggle.off {
+  color: #64748b;
+  border-color: rgba(100, 116, 139, 0.24);
+}
+
+@media (max-width: 720px) {
+  .medhaa-site-music-toggle {
+    right: 10px;
+    bottom: 80px;
+  }
+}

@@ -35,6 +35,7 @@ import SchoolWorkspace from './pages/SchoolWorkspace';
 import AdminConsole from './pages/AdminConsole';
 // 1. Import the new component at the top
 import { SettingsPage } from './pages/SettingsPage';
+import { GlobalMusic } from './components/GlobalMusic';
 
 
 
@@ -53,6 +54,7 @@ function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
+        <GlobalMusic />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
