@@ -87,12 +87,12 @@ function App() {
           <Route path="/student/readiness" element={<LearningReadiness />} />
           <Route path="/parent/progress" element={<ParentProgressReport />} />
           <Route path="/parent/sharing" element={<SharingPermissions />} />
-          <Route path="/parent-dashboard" element={<ParentDashboard />} />
+          <Route path="/parent-dashboard" element={<ProtectedRoute role="parent"><ParentDashboard /></ProtectedRoute>} />
           
           
           <Route path="/our-approach" element={<OurApproach />} />
-		<Route path="/teacher-workspace" element={<TeacherWorkspace />} />
-		<Route path="/school-workspace" element={<SchoolWorkspace />} />
+		<Route path="/teacher-workspace" element={<ProtectedRoute role="teacher"><TeacherWorkspace /></ProtectedRoute>} />
+		<Route path="/school-workspace" element={<ProtectedRoute role="admin"><SchoolWorkspace /></ProtectedRoute>} />
 		<Route path="/admin" element={<ProtectedRoute role="admin"><AdminConsole /></ProtectedRoute>} />
           <Route path="/settings" element={<SettingsPage />} />
         </Routes>

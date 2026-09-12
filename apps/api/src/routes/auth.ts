@@ -63,7 +63,21 @@ router.post('/register', async (req: Request, res: Response) => {
 const loginSchema = z.object({
   email: z.string().email(),
   password: z.string().min(1),
+  // Optional: which portal the user is logging in through (student/parent/
+  // teacher/school/admin). When present, the account's actual role must
+  // match — a student account can't sign in through the parent portal, etc.
+  role: z.string().optional(),
 });
+
+// The "school" portal isn't a real Role enum value — school accounts are
+// ADMIN users with an Admin.schoolId, so it maps to ADMIN for this check.
+const PORTAL_TO_ROLE: Record<string, string> = {
+  student: 'STUDENT',
+  parent: 'PARENT',
+  teacher: 'TEACHER',
+  admin: 'ADMIN',
+  school: 'ADMIN',
+};
 
 router.post('/login', async (req: Request, res: Response) => {
   const parsed = loginSchema.safeParse(req.body);
@@ -96,6 +110,17 @@ router.post('/login', async (req: Request, res: Response) => {
   if (user.email.toLowerCase() === SUPER_ADMIN_EMAIL && role !== 'ADMIN') {
     const promoted = await prisma.user.update({ where: { id: user.id }, data: { role: 'ADMIN' } });
     role = promoted.role;
+  }
+
+  if (parsed.data.role) {
+    const expectedRole = PORTAL_TO_ROLE[parsed.data.role.toLowerCase()];
+    if (expectedRole && role !== expectedRole) {
+      res.status(403).json({
+        error: `This account is registered as a ${role.toLowerCase()}. Please use the ${role.toLowerCase()} login instead.`,
+        actualRole: role.toLowerCase(),
+      });
+      return;
+    }
   }
 
   await prisma.user.update({ where: { id: user.id }, data: { lastLoginAt: new Date() } });

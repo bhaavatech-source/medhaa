@@ -43,6 +43,7 @@ export function useLoginForm(
           body: JSON.stringify({
             email,
             password,
+            role,
           }),
         }
       );
