@@ -13,6 +13,20 @@ const router = Router();
 
 const FREE_TIER_GAME_LIMIT = 10;
 
+// Returns this user's own Student profile row (the one GameAttempt/coin
+// records are actually keyed on), creating a lightweight one on first use
+// if this account has never had one (e.g. an admin/parent/teacher playing
+// a game directly rather than through the normal student sign-up flow).
+async function getOrCreateOwnStudentProfile(userId: string) {
+  const existing = await prisma.student.findUnique({ where: { userId } });
+  if (existing) return existing;
+
+  const user = await prisma.user.findUnique({ where: { id: userId } });
+  return prisma.student.create({
+    data: { userId, fullName: user?.email?.split('@')[0] || 'Player' },
+  });
+}
+
 // GET /games — returns full catalog, flagging which games this student
 // can currently play based on trial/subscription/free-tier status.
 router.get('/', authenticate, requireRole(['student']), async (req: AuthenticatedRequest, res: Response) => {
@@ -49,11 +63,12 @@ const attemptSchema = z.object({
 });
 
 // POST /games/:slug/attempts — records a completed session and awards
-// coins deterministically based on completion + score improvement.
+// coins deterministically based on completion + score improvement. Any
+// logged-in role can play and track their own results, not just students
+// (e.g. an admin or parent testing a game directly).
 router.post(
   '/:slug/attempts',
   authenticate,
-  requireRole(['student']),
   async (req: AuthenticatedRequest, res: Response) => {
     const parsed = attemptSchema.safeParse(req.body);
     if (!parsed.success) {
@@ -67,11 +82,7 @@ const game = await prisma.game.findUnique({ where: { slug: req.params.slug as st
       return;
     }
 
-    const student = await prisma.student.findUnique({ where: { userId: req.user!.id } });
-    if (!student) {
-      res.status(404).json({ error: 'Student profile not found for this account' });
-      return;
-    }
+    const student = await getOrCreateOwnStudentProfile(req.user!.id);
     const studentId = student.id;
     const data = parsed.data;
 
@@ -108,12 +119,9 @@ if (previousBest && previousBest.score !== null && data.score > previousBest.sco
 // GET /games/history — recent attempts + a simple real-data summary for the
 // in-game "My Report" panel (bhava-session.js), replacing the old
 // bhava-cloud IQ/EQ/SQ mock with actual GameAttempt data from this student.
-router.get('/history', authenticate, requireRole(['student']), async (req: AuthenticatedRequest, res: Response) => {
-  const student = await prisma.student.findUnique({ where: { userId: req.user!.id } });
-  if (!student) {
-    res.status(404).json({ error: 'Student profile not found for this account' });
-    return;
-  }
+// Any logged-in role sees only their OWN results here, never anyone else's.
+router.get('/history', authenticate, async (req: AuthenticatedRequest, res: Response) => {
+  const student = await getOrCreateOwnStudentProfile(req.user!.id);
   const studentId = student.id;
   const limit = Math.min(20, Math.max(1, Number(req.query.limit) || 5));
 
