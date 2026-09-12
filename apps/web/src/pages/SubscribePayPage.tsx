@@ -7,6 +7,7 @@ import { authFetch } from '../utils/authFetch';
 export function SubscribePayPage({ apiUrl }: { apiUrl: string }) {
   const { state } = useLocation() as { state: { subscriptionId: string; amount: number; plan: string; upiId: string } };
   const [ref, setRef] = useState('');
+  const [notes, setNotes] = useState('');
   const [status, setStatus] = useState<'idle' | 'submitting' | 'done'>('idle');
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ export function SubscribePayPage({ apiUrl }: { apiUrl: string }) {
   const res = await authFetch(`${apiUrl}/subscriptions/${state.subscriptionId}/submit-reference`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-body: JSON.stringify({ transactionRef: ref.trim() }),
+body: JSON.stringify({ transactionRef: ref.trim(), notes: notes.trim() || undefined }),
   });
   if (res.ok) setStatus('done');
   else { setError('Something went wrong. Please try again.'); setStatus('idle'); }
@@ -57,6 +58,16 @@ body: JSON.stringify({ transactionRef: ref.trim() }),
           onChange={(e) => setRef(e.target.value)}
           placeholder="e.g. 402812345678"
           style={{ width: '100%', padding: 10, borderRadius: 8, border: '1.5px solid #ddd', marginBottom: 8, boxSizing: 'border-box' }}
+        />
+        <p style={{ fontSize: 12, color: '#888', margin: '0 0 6px', textAlign: 'left' }}>
+          Optional: bank/UPI app used, sender name, or account (last 4 digits) — helps us verify faster.
+        </p>
+        <textarea
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}
+          placeholder="e.g. Paid via GPay from Ramesh Kumar, HDFC a/c ending 4521"
+          rows={2}
+          style={{ width: '100%', padding: 10, borderRadius: 8, border: '1.5px solid #ddd', marginBottom: 8, boxSizing: 'border-box', fontFamily: 'inherit', resize: 'vertical' }}
         />
         {error && <p style={{ color: '#dc2626', fontSize: 12, marginBottom: 8 }}>{error}</p>}
         <button

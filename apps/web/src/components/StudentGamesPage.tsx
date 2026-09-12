@@ -994,12 +994,18 @@ export function StudentGamesPage({ apiUrl, childStudentId }: StudentGamesPagePro
 
     async function load() {
       try {
-        if (!childStudentId && window.location.pathname === '/student/preview') {
+        const token = localStorage.getItem('accessToken');
+
+        // "/student/preview" is meant for anonymous/public visitors only — if
+        // there's no logged-in token, show the locked demo catalogue. But if
+        // the user IS logged in (e.g. reached this URL via "Explore games",
+        // "Play as child", etc.) always fetch their real access/trial status
+        // instead of forcing the always-locked fallback.
+        if (!childStudentId && window.location.pathname === '/student/preview' && !token) {
           useFallbackGames();
           return;
         }
 
-        const token = localStorage.getItem('accessToken');
         const endpoint = childStudentId
           ? `/games-with-access/child/${childStudentId}`
           : token

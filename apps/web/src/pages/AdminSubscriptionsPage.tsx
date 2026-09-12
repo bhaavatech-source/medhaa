@@ -215,6 +215,7 @@ export default function AdminSubscriptionsPage() {
                 <th style={thStyle}>Status</th>
                 <th style={thStyle}>Amount</th>
                 <th style={thStyle}>Transaction Ref</th>
+                <th style={thStyle}>Notes</th>
                 <th style={thStyle}>Period Ends</th>
                 <th style={thStyle}>Actions</th>
               </tr>
@@ -233,6 +234,11 @@ export default function AdminSubscriptionsPage() {
                   <td style={tdStyle}>{s.amount ? `₹${(s.amount / 100).toFixed(0)}` : '—'}</td>
                   <td style={tdStyle}>
                     <span style={{ fontFamily: 'monospace', fontSize: 12 }}>{s.transactionRef || '—'}</span>
+                  </td>
+                  <td style={{ ...tdStyle, maxWidth: 220 }}>
+                    <span style={{ fontSize: 12, color: '#4b5563' }} title={s.notes || ''}>
+                      {s.notes ? (s.notes.length > 60 ? `${s.notes.slice(0, 60)}…` : s.notes) : '—'}
+                    </span>
                   </td>
                   <td style={tdStyle}>
                     {s.currentPeriodEnd
