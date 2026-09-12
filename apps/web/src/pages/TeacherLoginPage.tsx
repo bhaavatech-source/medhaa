@@ -60,7 +60,7 @@ function PasswordInput({
 }
 
 export function TeacherLoginPage() {
-  const { email, setEmail, password, setPassword, error, loading, handleSubmit } = useLoginForm('teacher', '/teacher-dashboard');
+  const { email, setEmail, password, setPassword, error, loading, handleSubmit } = useLoginForm('teacher', '/teacher-workspace');
 
   return (
     <div className="teacher-login-page">

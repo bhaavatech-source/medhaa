@@ -32,8 +32,9 @@ import SharingPermissions from './pages/SharingPermissions';
 import OurApproach from './components/OurApproach';
 import TeacherWorkspace from './pages/TeacherWorkspace';
 import SchoolWorkspace from './pages/SchoolWorkspace';
-import AdminSubscriptionsPage from './pages/AdminSubscriptionsPage';
-
+import AdminConsole from './pages/AdminConsole';
+// 1. Import the new component at the top
+import { SettingsPage } from './pages/SettingsPage';
 
 
 
@@ -45,11 +46,6 @@ const API_URL =
 
 function StudentDashboard() {
   return <StudentGamesPage apiUrl={API_URL} />;
-}
-
-
-function AdminDashboard() {
-  return <div style={{ padding: 40 }}>Admin Dashboard (coming soon)</div>;
 }
 
 
@@ -68,6 +64,8 @@ function App() {
           <Route path="/login/parent" element={<ParentLoginPage />} />
           <Route path="/login/teacher" element={<TeacherLoginPage />} />
           <Route path="/login/student" element={<StudentLoginPage />} />
+          <Route path="/login/school" element={<SchoolLoginPage />} />
+          <Route path="/login/admin" element={<LoginPage role="admin" />} />
 
           <Route path="/signup/student" element={<StudentSignupPage />} />
           <Route path="/signup/parent" element={<ParentSignupPage />} />
@@ -87,10 +85,12 @@ function App() {
           <Route path="/parent/sharing" element={<SharingPermissions />} />
           <Route path="/parent-dashboard" element={<ParentDashboard />} />
           
+          
           <Route path="/our-approach" element={<OurApproach />} />
 		<Route path="/teacher-workspace" element={<TeacherWorkspace />} />
 		<Route path="/school-workspace" element={<SchoolWorkspace />} />
-		<Route path="/admin/subscriptions" element={<AdminSubscriptionsPage />} />
+		<Route path="/admin" element={<ProtectedRoute role="admin"><AdminConsole /></ProtectedRoute>} />
+          <Route path="/settings" element={<SettingsPage />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

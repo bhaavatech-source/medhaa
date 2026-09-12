@@ -103,7 +103,7 @@ export function SchoolLoginPage() {
           </Link>
         </div>
 
-        <a href="/school-report" className="school-login-back">Back</a>
+        <a href="/" className="school-login-back">← Back to home</a>
       </div>
     </div>
   );

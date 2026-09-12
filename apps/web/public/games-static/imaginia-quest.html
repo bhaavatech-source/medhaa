@@ -379,7 +379,7 @@ function start(){el('questBar').classList.add('active');unlock();S={i:0,score:0,
 el('playBtn').onclick=openIntro;el('again').onclick=start;el('hintBtn').onclick=()=>{if(S.score>=20){S.score-=20;hint('Clue revealed');pet('💡 Hint used');scr()}};el('skipBtn').onclick=()=>{if(S.score>=30&&!S.lock){S.score-=30;S.combo=0;S.ans++;pet('⏭️ Skipped');scr();next()}};
 </script>
 
-<script src="../bhava-session.js"></script>
+<script src="bhava-session.js"></script>
 <script src="bhava-bridge.js"></script>
 <script src="bhava-game-nav.js"></script>
   <script src="bhava-responsive.js"></script>

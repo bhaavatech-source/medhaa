@@ -62,6 +62,115 @@ html, body {
   max-width: 100vw;
   overflow-x: hidden; /* page itself never scrolls sideways */
 }
+
+/* ── 6b. Global layout controls ------------------------------------------ */
+:root {
+  --bhava-scrollbar-size: 8px;
+  --bhava-palette-width: 270px;
+  --bhava-diagnostics-width: 280px;
+}
+
+/* Games with a palette/workspace/diagnostics shell become user-resizable. */
+.build-layout:has(.palette-panel):has(.diagnostics-panel) {
+  grid-template-columns: var(--bhava-palette-width) minmax(0, 1fr) var(--bhava-diagnostics-width) !important;
+}
+
+.bhava-resize-handle {
+  position: absolute;
+  top: 12px;
+  bottom: 12px;
+  width: 12px;
+  z-index: 20;
+  cursor: col-resize;
+  border: 0;
+  background: transparent;
+}
+
+.bhava-resize-handle::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  width: 2px;
+  height: 44px;
+  border-radius: 2px;
+  background: rgba(255,255,255,.24);
+  transform: translateY(-50%);
+  transition: background .18s, height .18s;
+}
+
+.bhava-resize-handle:hover::after,
+.bhava-resize-handle:focus-visible::after {
+  height: 70px;
+  background: var(--accent-1, #5ad1ff);
+}
+
+.palette-panel, .diagnostics-panel { position: relative; }
+.palette-panel .bhava-resize-handle { right: -6px; }
+.diagnostics-panel .bhava-resize-handle { left: -6px; }
+
+html.bhava-resizing, html.bhava-resizing * { cursor: col-resize !important; user-select: none !important; }
+html.bhava-resizing body { overflow: hidden; }
+
+html, body, * {
+  scrollbar-width: auto;
+}
+html::-webkit-scrollbar, body::-webkit-scrollbar, *::-webkit-scrollbar {
+  width: var(--bhava-scrollbar-size);
+  height: var(--bhava-scrollbar-size);
+}
+html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb, *::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,.28);
+  border-radius: calc(var(--bhava-scrollbar-size) / 2);
+}
+html::-webkit-scrollbar-track, body::-webkit-scrollbar-track, *::-webkit-scrollbar-track {
+  background: rgba(255,255,255,.05);
+}
+
+#bhava-layout-controls {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 10001;
+  width: 218px;
+  padding: 12px;
+  display: grid;
+  gap: 10px;
+  color: var(--text-1, #eef3ff);
+  background: rgba(15, 20, 38, .94);
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 14px;
+  box-shadow: 0 12px 30px rgba(0,0,0,.3);
+  backdrop-filter: blur(14px);
+  font: 12px/1.3 system-ui, sans-serif;
+}
+#bhava-layout-controls[hidden] { display: none; }
+#bhava-layout-controls label { display: grid; gap: 5px; color: var(--text-2, #9aa5c9); }
+#bhava-layout-controls input[type="range"] { width: 100%; accent-color: var(--accent-1, #5ad1ff); }
+#bhava-layout-controls output { float: right; color: var(--text-1, #eef3ff); }
+#bhava-layout-controls button { cursor: pointer; }
+#bhava-layout-toggle {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 10000;
+  min-width: 44px;
+  min-height: 44px;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 50%;
+  color: var(--text-1, #eef3ff);
+  background: rgba(15, 20, 38, .92);
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0,0,0,.25);
+}
+#bhava-layout-controls:not([hidden]) + #bhava-layout-toggle { display: none; }
+
+@media (max-width: 1100px) {
+  .build-layout:has(.palette-panel):has(.diagnostics-panel) {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+  .bhava-resize-handle { display: none; }
+}
 /* Any element explicitly marked as the wide content still scrolls INSIDE
    itself — see .bhava-hscroll below — so this is safe to apply globally. */
 

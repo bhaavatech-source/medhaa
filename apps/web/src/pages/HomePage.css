@@ -1832,6 +1832,16 @@ html {
   background: rgba(255, 255, 255, 0.78);
 }
 
+.homepage-nav-link--admin {
+  color: #fff;
+  background: linear-gradient(135deg, #dc2626, #ea580c);
+  border-color: transparent;
+}
+
+.homepage-nav-link--admin:hover {
+  background: linear-gradient(135deg, #b91c1c, #c2410c);
+}
+
 @media (max-width: 640px) {
   .homepage-header {
     width: calc(100% - 28px);

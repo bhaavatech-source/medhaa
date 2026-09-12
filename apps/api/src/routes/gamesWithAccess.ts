@@ -8,7 +8,13 @@ const router = Router();
 
 function mapGameWithAccess(game: any, accountCreatedAt: Date, isSubscribed: boolean) {
   try {
-    const access = checkGameAccess({ gameSlug: game.slug, accountCreatedAt, isSubscribed });
+    const access = checkGameAccess({
+      gameSlug: game.slug,
+      accountCreatedAt,
+      isSubscribed,
+      dbTier: game.tier,
+      isActive: game.isActive,
+    });
     return {
       slug: game.slug,
       title: game.title,
@@ -30,7 +36,7 @@ function mapGameWithAccess(game: any, accountCreatedAt: Date, isSubscribed: bool
 }
 
 router.get('/public', async (req, res) => {
-  const games = await prisma.game.findMany();
+  const games = await prisma.game.findMany({ where: { isActive: true } });
   const publicGames = games
     .map((game) => mapGameWithAccess(game, new Date(), false))
     .filter((g) => g !== null);
@@ -53,7 +59,7 @@ router.get('/with-access', authenticate, async (req: AuthenticatedRequest, res: 
     return;
   }
 
-  const games = await prisma.game.findMany();
+  const games = await prisma.game.findMany({ where: { isActive: true } });
   const subscription = await prisma.subscription.findFirst({
     where: { userId: student.id, status: { in: ['ACTIVE', 'TRIALING'] } },
   });

@@ -4,9 +4,10 @@ import { useAuth } from '../contexts/AuthContext';
 import '../styles/login-page.css';
 import medhaaIcon from '../assets/logo/medhaa-icon.svg';
 
-const API_URL = 'https://medhaa-tni1.onrender.com/api';
+const API_URL = import.meta.env.VITE_API_URL || 'https://medhaa-tni1.onrender.com/api';
 
 const roleConfig: Record<string, { title: string; subtitle: string; icon: string; gradient: string }> = {
+  default: { title: 'Log In', subtitle: 'Access your Medhā account', icon: '🔑', gradient: 'linear-gradient(135deg, #64748b, #334155)' },
   admin: { title: 'Admin Portal', subtitle: 'Manage schools, teachers & data', icon: '🛠️', gradient: 'linear-gradient(135deg, #dc2626, #ea580c)' },
   teacher: { title: 'Teacher Portal', subtitle: 'Track your class & student growth', icon: '🎓', gradient: 'linear-gradient(135deg, #2563eb, #06b6d4)' },
   parent: { title: 'Parent Login', subtitle: "See your child's real progress", icon: '👨‍👩‍👧', gradient: 'linear-gradient(135deg, #ec4899, #8b5cf6)' },
@@ -72,8 +73,8 @@ function PasswordInput({
 
 export function LoginPage({ role: roleProp }: { role?: string }) {
   const { role: roleParam } = useParams();
-  const role = roleProp || roleParam || 'teacher';
-  const config = roleConfig[role] ?? roleConfig.teacher;
+  const role = roleProp || roleParam || 'default';
+  const config = roleConfig[role] ?? roleConfig.default;
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

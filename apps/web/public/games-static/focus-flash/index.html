@@ -113,40 +113,22 @@
         </div>
       </div>
     </div>
-    <!-- SELECTIVE ATTENTION GAME SCREEN -->
-    <div id="gameScreen" class="screen">
-      <button id="soundToggleGame" class="sound-btn" title="Toggle Sound">🔊</button>
-      <div class="progress-bar-wrapper"><div id="progressBar"></div></div>
-      <div class="hud">
-        <div class="hud-item">Difficulty: <span id="hudDifficulty">1</span>/10</div>
-        <div class="hud-item">Round: <span id="hudRound">0</span>/<span id="hudTotalRounds">0</span></div>
-        <div class="hud-item">Score: <span id="hudScore">0</span></div>
-        <div class="hud-item" id="timeWrapper">Time: <span id="hudTime">0</span>s</div>
-      </div>
-      <div id="targetBanner"></div>
-      <div id="grid"></div>
-      <div id="feedback"></div>
-      <div id="comboPopup"></div>
-      <div id="milestonePopup"></div>
-      <div id="difficultyPopup"></div>
-    </div>
-
     <!-- SUSTAINED ATTENTION (CPT) GAME SCREEN -->
-    <div id="sustainedScreen" class="screen">
-      <button id="soundToggleSustained" class="sound-btn" title="Toggle Sound">🔊</button>
-      <div class="progress-bar-wrapper"><div id="sustainedProgressBar"></div></div>
-      <div class="hud">
-        <div class="hud-item">Difficulty: <span id="sHudDifficulty">1</span>/10</div>
-        <div class="hud-item">Trial: <span id="sHudTrial">0</span>/<span id="sHudTotalTrials">0</span></div>
-        <div class="hud-item">Score: <span id="sHudScore">0</span></div>
-      </div>
-      <div id="sustainedRule"></div>
-      <div id="sustainedStage">
-        <div id="sustainedShapeWrap"></div>
-      </div>
-      <button id="tapTargetBtn">TAP if this is the target!</button>
-      <div id="sustainedFeedback"></div>
-    </div>
+   <div id="sustainedScreen" class="screen">
+  <button id="soundToggleSustained" class="sound-btn" title="Toggle Sound">🔊</button>
+  <div class="progress-bar-wrapper"><div id="sustainedProgressBar"></div></div>
+  <div class="hud">
+    <div class="hud-item">Difficulty <span id="sHudDifficulty">1</span>/10</div>
+    <div class="hud-item">Trial <span id="sHudTrial">0</span>/<span id="sHudTotalTrials">0</span></div>
+    <div class="hud-item">Score <span id="sHudScore">0</span></div>
+  </div>
+  <div id="sustainedRule"></div>
+  <div id="sustainedStage">
+    <div id="sustainedShapeWrap"></div>
+  </div>
+  <button id="tapTargetBtn">TAP if this is the target!</button>
+  <div id="sustainedFeedback"></div>
+</div>
 
     <!-- END SCREEN -->
     <div id="endScreen" class="screen">
@@ -177,8 +159,8 @@
 <script src="script.js"></script>
 
   <script src="bhava-bridge.js"></script>
-<script src="bhava-session.js"></script>
-<script src="bhava-game-nav.js"></script>
+<script src="../bhava-session.js"></script>
+<script src="../bhava-game-nav.js"></script>
   <script src="bhava-responsive.js"></script>
 
 </body>

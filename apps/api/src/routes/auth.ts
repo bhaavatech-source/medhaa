@@ -85,7 +85,22 @@ router.post('/login', async (req: Request, res: Response) => {
     return;
   }
 
-  const accessToken = jwt.sign({ id: user.id, role: user.role.toLowerCase() }, ACCESS_SECRET, {
+  if (!user.isActive) {
+    res.status(403).json({ error: 'This account has been disabled. Contact support for help.' });
+    return;
+  }
+
+  // Designated permanent super-admin account — always ensured ADMIN on login, on any device.
+  const SUPER_ADMIN_EMAIL = 'bhaavatech@gmail.com';
+  let role = user.role;
+  if (user.email.toLowerCase() === SUPER_ADMIN_EMAIL && role !== 'ADMIN') {
+    const promoted = await prisma.user.update({ where: { id: user.id }, data: { role: 'ADMIN' } });
+    role = promoted.role;
+  }
+
+  await prisma.user.update({ where: { id: user.id }, data: { lastLoginAt: new Date() } });
+
+  const accessToken = jwt.sign({ id: user.id, role: role.toLowerCase() }, ACCESS_SECRET, {
     expiresIn: '15m',
   });
   const refreshToken = jwt.sign({ id: user.id }, REFRESH_SECRET, { expiresIn: '30d' });
@@ -104,6 +119,10 @@ router.post('/refresh', async (req: Request, res: Response) => {
     const user = await prisma.user.findUnique({ where: { id: decoded.id } });
     if (!user) {
       res.status(401).json({ error: 'User no longer exists' });
+      return;
+    }
+    if (!user.isActive) {
+      res.status(403).json({ error: 'This account has been disabled.' });
       return;
     }
     const accessToken = jwt.sign({ id: user.id, role: user.role.toLowerCase() }, ACCESS_SECRET, {

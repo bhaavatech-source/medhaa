@@ -132,7 +132,7 @@
   document.body.appendChild(modal);
 
   // ── Actions ────────────────────────────────────────────────────────────────
-  function goHome() { window.location.href = 'index.html'; }
+  function goHome() { window.location.href = '/student'; }
   function goBack() { window.history.length > 1 ? window.history.back() : goHome(); }
 
   document.getElementById('bgnav-back').addEventListener('click', goBack);

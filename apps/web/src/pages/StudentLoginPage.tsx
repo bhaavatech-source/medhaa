@@ -106,6 +106,9 @@ export default function StudentLoginPage() {
         <p className="student-login-help">
           Don't have an account? <a href="/signup/student">Sign up</a>
         </p>
+        <p className="student-login-help">
+          <a href="/">← Back to home</a>
+        </p>
       </div>
     </div>
   );

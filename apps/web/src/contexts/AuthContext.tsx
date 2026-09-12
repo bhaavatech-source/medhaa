@@ -19,12 +19,13 @@ function decodeUserFromToken(token: string | null): AuthUser | null {
   if (!token) return null;
   try {
     const payload = JSON.parse(atob(token.split('.')[1]));
-    return { id: payload.id, email: '', role: payload.role };
+    // Fetch email from payload if it exists, otherwise check localStorage
+    const savedEmail = localStorage.getItem('userEmail') || '';
+    return { id: payload.id, email: payload.email || savedEmail, role: payload.role };
   } catch {
     return null;
   }
 }
-
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const initialToken = localStorage.getItem('accessToken');
@@ -35,12 +36,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(u);
     setAccessToken(token);
     localStorage.setItem('accessToken', token);
+    localStorage.setItem('userEmail', u.email); // Persist the email
   };
 
   const logout = () => {
     setUser(null);
     setAccessToken(null);
     localStorage.removeItem('accessToken');
+    localStorage.removeItem('userEmail'); // Clean up the email
     localStorage.removeItem('bhava_web_user');
     localStorage.removeItem('bhava_web_plays');
   };

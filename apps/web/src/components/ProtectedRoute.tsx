@@ -10,8 +10,8 @@ export default function ProtectedRoute({
 }) {
   const { accessToken, user } = useAuth();
 
-  if (!accessToken) return <Navigate to="/login" replace />;
-  if (user && user.role !== role) return <Navigate to={`/${user.role}`} replace />;
+  if (!accessToken) return <Navigate to={`/login/${role}`} replace />;
+  if (user && user.role !== role) return <Navigate to="/" replace />;
 
   return children;
 }

@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import medhaaIcon from '../assets/logo/medhaa-icon.svg';
+import { markPlayed } from '../services/gameExposure';
 
 export default function BCSLiteIntro() {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ export default function BCSLiteIntro() {
           <button
             type="button"
             className="my-medhaa-intro__primary"
-            onClick={() => { window.location.href = '/games-static/bcs-lite-v3.html'; }}
+            onClick={() => { markPlayed('bcs-lite-v3'); window.location.href = '/games-static/bcs-lite-v3.html'; }}
           >
             Start My Medhā →
           </button>

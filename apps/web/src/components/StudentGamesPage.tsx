@@ -961,6 +961,7 @@ export function StudentGamesPage({ apiUrl, childStudentId }: StudentGamesPagePro
     const saved = localStorage.getItem(AGE_STORAGE_KEY);
     return saved !== '5-9' && saved !== '10-13' && saved !== '14-17' && saved !== 'aspirants';
   });
+  const [showBackToTop, setShowBackToTop] = useState(false);
 
   const { showGate, setShowGate, tryPlay } = useGameGate();
   const { user, logout } = useAuth();
@@ -968,6 +969,15 @@ export function StudentGamesPage({ apiUrl, childStudentId }: StudentGamesPagePro
   const { playClick } = useClickSound();
   const isLoggedIn = !!user;
   const profile = ageGroup ? AGE_PROFILES[ageGroup] : AGE_PROFILES['10-13'];
+
+  useEffect(() => {
+    function onScroll() {
+      setShowBackToTop(window.scrollY > 480);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
     useEffect(() => {
     let cancelled = false;
@@ -1269,6 +1279,7 @@ const disclaimerBanner = (
       <div className="student-header__account">
         {isLoggedIn ? (
           <>
+            <button type="button" className="student-header__ghost" onClick={() => { playClick(); navigate('/settings'); }}>⚙️ Settings</button>
             <button type="button" className="student-header__ghost" onClick={() => { playClick(); handleLogout(); }}>Logout</button>
             <button type="button" className="student-header__achievement" onClick={() => { playClick(); navigate('/achievements'); }}>🏆 Achievements</button>
           </>
@@ -1596,6 +1607,18 @@ const disclaimerBanner = (
           <button type="button" onClick={() => navigate('/subscribe')}>See plans →</button>
         </div>
       )}
+
+      <button
+        type="button"
+        className={`student-back-to-top ${showBackToTop ? 'is-visible' : ''}`}
+        onClick={() => { playClick(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+        aria-label="Back to top"
+        aria-hidden={!showBackToTop}
+        tabIndex={showBackToTop ? 0 : -1}
+      >
+        <span className="student-back-to-top__arrow">↑</span>
+        <span className="student-back-to-top__ring" aria-hidden="true" />
+      </button>
     </div>
   );
 }

@@ -58,8 +58,10 @@ model User {
   passwordHash String?
   googleId     String?  @unique
   role         Role
+  isActive     Boolean  @default(true)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+  lastLoginAt  DateTime?
 
   student  Student?
   parent   Parent?
@@ -127,6 +129,8 @@ model Game {
   ageLabel    String?
   skills      String[]
   kind        String   @default("game")
+  tier        String?
+  isActive    Boolean  @default(true)
   attempts    GameAttempt[]
 }
 

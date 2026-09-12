@@ -29,6 +29,7 @@ import schoolImg from '../assets/roles/school.png';
 import medhaLogo from '../assets/logo/M_2.png';
 import medhaIcon from '../assets/logo/medhaa-icon.svg';
 import { useState } from 'react'; 
+import { useAuth } from '../contexts/AuthContext';
 
 declare global {
   namespace JSX {
@@ -1665,6 +1666,7 @@ function WorldMarker({ type }: { type: "student" | "parent" | "teacher" | "schoo
 export default function HomePage() {
 
   const navigate = useNavigate();
+  const { user } = useAuth();
   const go = (route: string) => navigate(route);
 
   return (
@@ -1706,6 +1708,15 @@ export default function HomePage() {
       Our Approach
       <span aria-hidden="true"></span>
     </button>
+    {user?.role === 'admin' && (
+      <button
+        type="button"
+        className="homepage-nav-link homepage-nav-link--admin"
+        onClick={() => navigate('/admin')}
+      >
+        Admin
+      </button>
+    )}
   </nav>
 </header>
       </header>

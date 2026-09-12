@@ -5,6 +5,24 @@ import medhaaIcon from '../assets/logo/medhaa-icon.svg';
 
 const API_URL = import.meta.env.VITE_API_URL || 'https://medhaa-tni1.onrender.com/api';
 
+const inputStyle: React.CSSProperties = {
+  width: '100%',
+  boxSizing: 'border-box',
+  padding: '13px 44px 13px 14px',
+  border: '1px solid #cbd5e1',
+  borderRadius: '10px',
+  outline: 'none',
+  fontSize: '0.95rem',
+};
+
+const labelStyle: React.CSSProperties = {
+  display: 'block',
+  marginBottom: '7px',
+  color: '#334155',
+  fontSize: '0.9rem',
+  fontWeight: 600,
+};
+
 function PasswordField({
   value,
   onChange,
@@ -19,21 +37,31 @@ function PasswordField({
   const [visible, setVisible] = useState(false);
 
   return (
-    <div className="relative">
+    <div style={{ position: 'relative' }}>
       <input
         type={visible ? 'text' : 'password'}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         autoFocus={autoFocus}
-        className="w-full pr-10 border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        style={inputStyle}
       />
       <button
         type="button"
         onClick={() => setVisible((v) => !v)}
-        className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
-        tabIndex={-1}
         aria-label={visible ? 'Hide password' : 'Show password'}
+        style={{
+          position: 'absolute',
+          right: '10px',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          border: 0,
+          background: 'transparent',
+          color: '#087f83',
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+        }}
       >
         {visible ? <EyeOff size={18} /> : <Eye size={18} />}
       </button>
@@ -93,77 +121,126 @@ export default function ResetPasswordPage() {
     }
   }
 
+  const pageStyle: React.CSSProperties = {
+    minHeight: '100vh',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '24px',
+    background:
+      'radial-gradient(circle at 20% 20%, rgba(37, 99, 235, 0.35), transparent 30%), linear-gradient(135deg, #101322, #183d46)',
+    boxSizing: 'border-box',
+  };
+
+  const cardStyle: React.CSSProperties = {
+    width: '100%',
+    maxWidth: '380px',
+    background: '#ffffff',
+    borderRadius: '20px',
+    padding: '36px 34px',
+    boxSizing: 'border-box',
+    boxShadow: '0 20px 60px rgba(0, 0, 0, 0.20)',
+  };
+
   if (success) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-        <div className="max-w-md w-full bg-white rounded-lg shadow-md p-8 text-center">
-          <img src={medhaaIcon} alt="Medhā" className="h-12 mx-auto mb-4" />
-          <h1 className="text-xl font-semibold mb-2">Password reset successfully</h1>
-          <p className="text-gray-600 mb-6">
+      <div style={pageStyle}>
+        <div style={{ ...cardStyle, textAlign: 'center' }}>
+          <img src={medhaaIcon} alt="Medhā" style={{ width: '58px', height: '58px', objectFit: 'contain', margin: '0 auto 12px' }} />
+          <h1 style={{ margin: '0 0 8px', fontSize: '1.3rem', fontWeight: 800, color: '#087f83' }}>Password reset successfully</h1>
+          <p style={{ margin: '0 0 24px', color: '#64748b', fontSize: '0.94rem', lineHeight: 1.55 }}>
             Your Medhā password has been changed. You can now sign in using your new password.
           </p>
           <button
             onClick={() => navigate('/login')}
-            className="w-full bg-indigo-600 text-white rounded-md py-2 font-medium hover:bg-indigo-700"
+            style={{
+              width: '100%',
+              border: 'none',
+              borderRadius: '10px',
+              padding: '13px 16px',
+              background: 'linear-gradient(135deg, #2563eb, #06b6d4)',
+              color: '#ffffff',
+              fontSize: '0.95rem',
+              fontWeight: 700,
+              cursor: 'pointer',
+            }}
           >
             Go to Login
           </button>
+          <Link to="/" style={{ display: 'block', marginTop: '16px', color: '#64748b', fontSize: '0.85rem', textDecoration: 'none' }}>
+            Back to home
+          </Link>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-      <div className="max-w-md w-full bg-white rounded-lg shadow-md p-8">
-        <img src={medhaaIcon} alt="Medhā" className="h-12 mx-auto mb-4" />
-        <h1 className="text-xl font-semibold mb-2 text-center">Create a new password</h1>
-        <p className="text-gray-600 mb-6 text-center">
-          Choose a new password for your Medhā account.
-        </p>
+    <div style={pageStyle}>
+      <div style={cardStyle}>
+        <div style={{ textAlign: 'center', marginBottom: '28px' }}>
+          <img src={medhaaIcon} alt="Medhā" style={{ width: '58px', height: '58px', objectFit: 'contain', margin: '0 auto 12px' }} />
+          <h1 style={{ margin: '0 0 8px', fontSize: '1.4rem', fontWeight: 800, color: '#087f83' }}>Create a new password</h1>
+          <p style={{ margin: 0, color: '#64748b', fontSize: '0.94rem', lineHeight: 1.55 }}>
+            Choose a new password for your Medhā account.
+          </p>
+        </div>
 
         {error && (
-          <div className="mb-4 text-sm text-red-600 bg-red-50 border border-red-200 rounded-md px-3 py-2">
+          <div
+            style={{
+              color: '#b91c1c',
+              background: '#fef2f2',
+              border: '1px solid #fecaca',
+              borderRadius: '10px',
+              padding: '10px 12px',
+              fontSize: '0.88rem',
+              lineHeight: 1.45,
+              marginBottom: '16px',
+            }}
+          >
             {error}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              New password
-            </label>
-            <PasswordField
-              value={password}
-              onChange={setPassword}
-              placeholder="Enter new password"
-              autoFocus
-            />
+        <form onSubmit={handleSubmit}>
+          <label style={labelStyle}>New password</label>
+          <div style={{ marginBottom: '14px' }}>
+            <PasswordField value={password} onChange={setPassword} placeholder="Enter new password" autoFocus />
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Confirm password
-            </label>
-            <PasswordField
-              value={confirmPassword}
-              onChange={setConfirmPassword}
-              placeholder="Re-enter new password"
-            />
+          <label style={labelStyle}>Confirm password</label>
+          <div style={{ marginBottom: '18px' }}>
+            <PasswordField value={confirmPassword} onChange={setConfirmPassword} placeholder="Re-enter new password" />
           </div>
 
           <button
             type="submit"
             disabled={loading || !token}
-            className="w-full bg-indigo-600 text-white rounded-md py-2 font-medium hover:bg-indigo-700 disabled:opacity-50"
+            style={{
+              width: '100%',
+              border: 'none',
+              borderRadius: '10px',
+              padding: '13px 16px',
+              background: 'linear-gradient(135deg, #2563eb, #06b6d4)',
+              color: '#ffffff',
+              fontSize: '0.95rem',
+              fontWeight: 700,
+              cursor: loading || !token ? 'not-allowed' : 'pointer',
+              opacity: loading || !token ? 0.7 : 1,
+            }}
           >
-            {loading ? 'Resetting...' : 'Reset Password'}
+            {loading ? 'Resetting…' : 'Reset Password'}
           </button>
         </form>
 
-        <p className="text-center text-sm text-gray-500 mt-6">
-          <Link to="/login" className="text-indigo-600 hover:underline">
+        <p style={{ textAlign: 'center', marginTop: '20px', fontSize: '0.85rem', color: '#64748b' }}>
+          <Link to="/login" style={{ color: '#2563eb', textDecoration: 'none', fontWeight: 600 }}>
             Back to Login
+          </Link>
+          {' · '}
+          <Link to="/" style={{ color: '#2563eb', textDecoration: 'none', fontWeight: 600 }}>
+            Home
           </Link>
         </p>
       </div>

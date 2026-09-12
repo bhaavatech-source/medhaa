@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import {
   ArrowRight, BarChart3, BookOpen, CheckCircle2, ChevronRight,
   Crown, Gamepad2, Heart, Home, LogOut, Plus, RefreshCw,
-  ShieldCheck, Sparkles, Users
+  ShieldCheck, Sparkles, Users, Settings
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { authFetch } from '../utils/authFetch';
@@ -99,6 +99,7 @@ export default function ParentDashboard() {
           <button onClick={() => navigate('/student/preview')}><Gamepad2 size={16} /> Games</button>
           <button onClick={() => navigate('/subscribe')}><Crown size={16} /> Plans</button>
           <button onClick={() => { logout(); navigate('/'); }}><LogOut size={16} /> Logout</button>
+          <button onClick={() => navigate('/settings')}><Settings size={16} /> Settings</button>
         </nav>
       </header>
 

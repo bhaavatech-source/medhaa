@@ -3,6 +3,8 @@ import { GameCard, GameTier } from './GameCard';
 import { BrainScoreNudge } from './BrainScoreNudge';
 import { useGameGate } from '../pages/hooks/useGameGate';
 import LoginPricingModal from './LoginPricingModal';
+import { SimilarGames } from './SimilarGames';
+import { getLastPlayedSlug, markPlayed } from '../services/gameExposure';
 import '../styles/games-grid.css';
 import '../styles/games-grid-enhanced.css';
 
@@ -89,6 +91,7 @@ export function GamesGrid({ apiUrl, domainFilter = null, excludeDomains = null }
 
   function handlePlay(slug: string) {
     if (!tryPlay(slug)) return;
+    markPlayed(slug);
     const path = folderBasedSlugs.has(slug)
       ? `/games-static/${slug}/index.html`
       : `/games-static/${slug}.html`;
@@ -112,6 +115,15 @@ export function GamesGrid({ apiUrl, domainFilter = null, excludeDomains = null }
   return (
     <div className="games-grid-wrap">
       <BrainScoreNudge lastCheckInAt={lastCheckInAt} onOpenAssessment={openAssessment} />
+
+      {getLastPlayedSlug() && (
+        <SimilarGames
+          games={games}
+          currentSlug={getLastPlayedSlug()!}
+          onPlay={handlePlay}
+          apiUrl={apiUrl}
+        />
+      )}
 
       {Object.entries(grouped).map(([domain, domainGames]) => (
         <section key={domain} className="domain-section">

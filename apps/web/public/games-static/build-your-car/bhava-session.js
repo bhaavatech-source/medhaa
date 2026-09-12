@@ -149,9 +149,16 @@
       ctx: null,
       master: null,
       filter: null,
+      compressor: null,
+      reverb: null,
+      reverbGain: null,
+      trackAudio: null,
+      usingTrack: false,
+      trackFailed: false,
       enabled: _readMusicEnabled(),
       volume: _readMusicVolume(),
       running: false,
+      unavailable: false,
       panelOpen: false,
       scheduler: null,
       nextNoteAt: 0,
@@ -159,6 +166,14 @@
     };
     var scale = [0, 2, 4, 7, 9, 12, 14, 16, 19];
     var root = 146.83;
+    var phrase = [0, 4, 7, 4, 2, 5, 9, 5, 0, 4, 7, 11, 9, 7, 4, 2];
+    var progression = [[0, 4, 7], [5, 9, 12], [2, 5, 9], [7, 11, 14]];
+    var tracks = [
+      '/audio/background/audio1.mpeg',
+      '/audio/background/audio2.mpeg',
+      '/audio/background/audio3.mpeg',
+      '/audio/background/audio4.mpeg'
+    ];
 
     function save() {
       try {
@@ -171,19 +186,67 @@
       return root * Math.pow(2, (semitone + (octave || 0) * 12) / 12);
     }
 
+    function startTrack() {
+      if (state.trackFailed) return Promise.reject(new Error('Background tracks unavailable'));
+      if (!state.trackAudio) {
+        state.trackAudio = document.createElement('audio');
+        state.trackAudio.preload = 'none';
+        state.trackAudio.loop = true;
+        state.trackAudio.setAttribute('aria-hidden', 'true');
+        state.trackAudio.style.display = 'none';
+        state.trackAudio.src = tracks[Math.floor(Math.random() * tracks.length)];
+        document.body.appendChild(state.trackAudio);
+        state.trackAudio.addEventListener('error', function () {
+          state.trackFailed = true;
+          state.usingTrack = false;
+        });
+      }
+      state.trackAudio.volume = Math.min(1, state.volume * 0.72);
+      return state.trackAudio.play().then(function () {
+        state.usingTrack = true;
+      });
+    }
+
     function ensureAudio() {
       if (!state.ctx) {
         state.ctx = new AudioCtx();
         state.filter = state.ctx.createBiquadFilter();
         state.filter.type = 'lowpass';
-        state.filter.frequency.value = 2400;
+        state.filter.frequency.value = 4200;
         state.filter.Q.value = 0.6;
+        state.compressor = state.ctx.createDynamicsCompressor();
+        state.compressor.threshold.value = -24;
+        state.compressor.knee.value = 18;
+        state.compressor.ratio.value = 4;
+        state.compressor.attack.value = 0.02;
+        state.compressor.release.value = 0.35;
+        state.reverb = state.ctx.createConvolver();
+        state.reverb.buffer = createReverbImpulse(2.4, 2.2);
+        state.reverbGain = state.ctx.createGain();
+        state.reverbGain.gain.value = 0.18;
         state.master = state.ctx.createGain();
         state.master.gain.value = 0;
-        state.filter.connect(state.master);
+        state.filter.connect(state.compressor);
+        state.filter.connect(state.reverb);
+        state.reverb.connect(state.reverbGain);
+        state.reverbGain.connect(state.compressor);
+        state.compressor.connect(state.master);
         state.master.connect(state.ctx.destination);
       }
-      if (state.ctx.state === 'suspended') state.ctx.resume();
+      if (state.ctx.state === 'suspended') return state.ctx.resume();
+      return Promise.resolve();
+    }
+
+    function createReverbImpulse(seconds, decay) {
+      var length = Math.floor(state.ctx.sampleRate * seconds);
+      var impulse = state.ctx.createBuffer(2, length, state.ctx.sampleRate);
+      for (var channel = 0; channel < impulse.numberOfChannels; channel++) {
+        var data = impulse.getChannelData(channel);
+        for (var index = 0; index < length; index++) {
+          data[index] = (Math.random() * 2 - 1) * Math.pow(1 - index / length, decay);
+        }
+      }
+      return impulse;
     }
 
     function setMasterGain(target) {
@@ -207,7 +270,7 @@
     function playDrone(when) {
       var gain = state.ctx.createGain();
       connectInstrument(gain);
-      envelope(gain, when, 0.9, 3.6, 1.4, 0.035);
+      envelope(gain, when, 0.9, 3.6, 1.4, 0.08);
       [root, root * 1.5].forEach(function (freq, index) {
         var osc = state.ctx.createOscillator();
         osc.type = index === 0 ? 'sine' : 'triangle';
@@ -218,94 +281,194 @@
       });
     }
 
-    function playFlute(when, freq) {
+    function playPad(when, chord) {
+      var gain = state.ctx.createGain();
+      connectInstrument(gain);
+      envelope(gain, when, 0.8, 5.4, 1.3, 0.042);
+      chord.forEach(function (degree, index) {
+        var osc = state.ctx.createOscillator();
+        osc.type = index === 1 ? 'triangle' : 'sine';
+        osc.frequency.setValueAtTime(note(degree, 0), when);
+        osc.detune.value = index === 0 ? -5 : (index === 2 ? 5 : 0);
+        osc.connect(gain);
+        osc.start(when);
+        osc.stop(when + 7.7);
+      });
+    }
+
+    function playBass(when, freq) {
       var gain = state.ctx.createGain();
       var osc = state.ctx.createOscillator();
-      var vibrato = state.ctx.createOscillator();
-      var vibratoGain = state.ctx.createGain();
+      var overtone = state.ctx.createOscillator();
+      var overtoneGain = state.ctx.createGain();
       osc.type = 'sine';
       osc.frequency.setValueAtTime(freq, when);
+      overtone.type = 'triangle';
+      overtone.frequency.setValueAtTime(freq * 2, when);
+      overtoneGain.gain.value = 0.13;
+      osc.connect(gain);
+      overtone.connect(overtoneGain);
+      overtoneGain.connect(gain);
+      connectInstrument(gain);
+      envelope(gain, when, 0.025, 0.14, 0.32, 0.075);
+      osc.start(when);
+      overtone.start(when);
+      osc.stop(when + 0.52);
+      overtone.stop(when + 0.52);
+    }
+
+    function playFlute(when, freq) {
+      var gain = state.ctx.createGain();
+      var vibrato = state.ctx.createOscillator();
+      var vibratoGain = state.ctx.createGain();
       vibrato.type = 'sine';
       vibrato.frequency.value = 4.5;
-      vibratoGain.gain.value = 2.2;
+      vibratoGain.gain.value = 3;
       vibrato.connect(vibratoGain);
-      vibratoGain.connect(osc.frequency);
-      osc.connect(gain);
+      [
+        { multiple: 1, type: 'sine', level: 1 },
+        { multiple: 2, type: 'sine', level: 0.14 },
+        { multiple: 3, type: 'sine', level: 0.06 }
+      ].forEach(function (partial) {
+        var osc = state.ctx.createOscillator();
+        var partialGain = state.ctx.createGain();
+        osc.type = partial.type;
+        osc.frequency.setValueAtTime(freq * partial.multiple, when);
+        partialGain.gain.value = partial.level;
+        vibratoGain.connect(osc.frequency);
+        osc.connect(partialGain);
+        partialGain.connect(gain);
+        osc.start(when);
+        osc.stop(when + 1.55);
+      });
       connectInstrument(gain);
-      envelope(gain, when, 0.24, 0.45, 0.55, 0.026);
+      envelope(gain, when, 0.18, 0.55, 0.7, 0.06);
       vibrato.start(when);
-      osc.start(when);
-      vibrato.stop(when + 1.4);
-      osc.stop(when + 1.4);
+      vibrato.stop(when + 1.55);
     }
 
     function playMarimba(when, freq) {
       var gain = state.ctx.createGain();
-      var osc = state.ctx.createOscillator();
-      osc.type = 'triangle';
-      osc.frequency.setValueAtTime(freq, when);
-      osc.frequency.exponentialRampToValueAtTime(freq * 0.995, when + 0.45);
-      osc.connect(gain);
       connectInstrument(gain);
-      envelope(gain, when, 0.012, 0.03, 0.42, 0.038);
-      osc.start(when);
-      osc.stop(when + 0.58);
+      [
+        { multiple: 1, level: 1, decay: 0.52 },
+        { multiple: 3.02, level: 0.34, decay: 0.22 },
+        { multiple: 6.08, level: 0.12, decay: 0.12 }
+      ].forEach(function (partial) {
+        var osc = state.ctx.createOscillator();
+        var partialGain = state.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq * partial.multiple, when);
+        osc.connect(partialGain);
+        partialGain.connect(gain);
+        envelope(partialGain, when, 0.006, 0.012, partial.decay, 0.055 * partial.level);
+        osc.start(when);
+        osc.stop(when + partial.decay + 0.12);
+      });
     }
 
     function playKalimba(when, freq) {
       var gain = state.ctx.createGain();
-      var osc = state.ctx.createOscillator();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(freq * 2, when);
-      osc.connect(gain);
       connectInstrument(gain);
-      envelope(gain, when, 0.008, 0.02, 0.32, 0.026);
-      osc.start(when);
-      osc.stop(when + 0.42);
+      [
+        { multiple: 1, type: 'triangle', level: 1, decay: 0.42 },
+        { multiple: 2.76, type: 'sine', level: 0.23, decay: 0.18 }
+      ].forEach(function (partial) {
+        var osc = state.ctx.createOscillator();
+        var partialGain = state.ctx.createGain();
+        osc.type = partial.type;
+        osc.frequency.setValueAtTime(freq * partial.multiple, when);
+        osc.connect(partialGain);
+        partialGain.connect(gain);
+        envelope(partialGain, when, 0.004, 0.012, partial.decay, 0.052 * partial.level);
+        osc.start(when);
+        osc.stop(when + partial.decay + 0.1);
+      });
     }
 
     function playSoftBell(when, freq) {
       var gain = state.ctx.createGain();
-      [1, 2.01].forEach(function (mul, index) {
+      [
+        { multiple: 1, level: 1, decay: 1.7 },
+        { multiple: 2.01, level: 0.4, decay: 1.25 },
+        { multiple: 2.68, level: 0.2, decay: 0.9 },
+        { multiple: 4.07, level: 0.1, decay: 0.55 }
+      ].forEach(function (partial) {
         var osc = state.ctx.createOscillator();
+        var partialGain = state.ctx.createGain();
         osc.type = 'sine';
-        osc.frequency.setValueAtTime(freq * mul, when);
-        osc.connect(gain);
+        osc.frequency.setValueAtTime(freq * partial.multiple, when);
+        osc.connect(partialGain);
+        partialGain.connect(gain);
+        envelope(partialGain, when, 0.012, 0.03, partial.decay, 0.045 * partial.level);
         osc.start(when);
-        osc.stop(when + 1.8 + index * 0.2);
+        osc.stop(when + partial.decay + 0.08);
       });
       connectInstrument(gain);
-      envelope(gain, when, 0.018, 0.05, 1.45, 0.018);
     }
 
     function schedule() {
       if (!state.running || !state.enabled || !state.ctx) return;
       var now = state.ctx.currentTime;
       while (state.nextNoteAt < now + 1.2) {
-        var degree = scale[(state.step * 2 + Math.floor(Math.random() * 3)) % scale.length];
-        if (state.step % 16 === 0) playDrone(state.nextNoteAt);
-        if (state.step % 4 === 1) playMarimba(state.nextNoteAt, note(degree, 1));
-        if (state.step % 8 === 3) playKalimba(state.nextNoteAt + 0.08, note(degree + 7, 1));
-        if (state.step % 12 === 5) playFlute(state.nextNoteAt + 0.12, note(degree, 2));
-        if (state.step % 16 === 10) playSoftBell(state.nextNoteAt, note(degree + 12, 1));
-        state.nextNoteAt += 0.72;
+        var beat = state.step % phrase.length;
+        var degree = phrase[beat];
+        var chord = progression[Math.floor(state.step / phrase.length) % progression.length];
+        if (beat === 0) {
+          playDrone(state.nextNoteAt);
+          playPad(state.nextNoteAt, chord);
+        }
+        if (beat === 0 || beat === 4 || beat === 8 || beat === 12) playBass(state.nextNoteAt, note(chord[0], -1));
+        if (beat === 0 || beat === 4 || beat === 8 || beat === 12) playMarimba(state.nextNoteAt, note(degree, 1));
+        if (beat === 2 || beat === 6 || beat === 10 || beat === 14) playKalimba(state.nextNoteAt, note(degree + 7, 1));
+        if (beat === 7 || beat === 15) playFlute(state.nextNoteAt, note(degree, 2));
+        if (beat === 12) playSoftBell(state.nextNoteAt, note(degree + 12, 1));
+        state.nextNoteAt += 0.48;
         state.step += 1;
       }
     }
 
     function start() {
       if (!state.enabled) return;
-      ensureAudio();
-      state.running = true;
-      state.nextNoteAt = state.ctx.currentTime + 0.12;
-      setMasterGain(0.22);
-      if (!state.scheduler) state.scheduler = window.setInterval(schedule, 220);
-      updateControl();
+      startTrack().then(function () {
+        state.unavailable = false;
+        state.running = true;
+        updateControl();
+      }).catch(function () {
+        state.usingTrack = false;
+        startSynth();
+      });
+    }
+
+    function startSynth() {
+      ensureAudio().then(function () {
+        if (!state.enabled || !state.ctx || state.ctx.state !== 'running') return;
+        state.unavailable = false;
+        state.running = true;
+        state.nextNoteAt = state.ctx.currentTime + 0.12;
+        setMasterGain(0.42);
+        schedule();
+        if (!state.scheduler) state.scheduler = window.setInterval(schedule, 220);
+        updateControl();
+      }).catch(function () {
+        state.running = false;
+        state.unavailable = true;
+        updateControl();
+      });
     }
 
     function stop() {
       state.running = false;
-      setMasterGain(0);
+      state.usingTrack = false;
+      if (state.trackAudio) {
+        state.trackAudio.pause();
+        state.trackAudio.currentTime = 0;
+      }
+      if (state.master && state.ctx) {
+        state.master.gain.cancelScheduledValues(state.ctx.currentTime);
+        state.master.gain.setValueAtTime(0, state.ctx.currentTime);
+      }
+      state.nextNoteAt = 0;
       if (state.scheduler) {
         window.clearInterval(state.scheduler);
         state.scheduler = null;
@@ -323,7 +486,8 @@
     function setVolume(volume) {
       state.volume = Math.max(0, Math.min(1, parseFloat(volume) || 0));
       save();
-      setMasterGain(0.22);
+      if (state.trackAudio) state.trackAudio.volume = Math.min(1, state.volume * 0.72);
+      setMasterGain(0.42);
       updateControl();
     }
 
@@ -331,45 +495,29 @@
       if (document.getElementById('medhaa-music-control')) return;
       var style = document.createElement('style');
       style.id = 'medhaa-music-style';
-      style.textContent = '#medhaa-music-control{position:fixed;right:14px;bottom:14px;z-index:10001;font-family:Inter,system-ui,sans-serif;color:#102034}#medhaa-music-toggle{border:1px solid rgba(15,118,110,.22);background:rgba(255,255,255,.9);backdrop-filter:blur(12px);box-shadow:0 12px 30px rgba(2,8,23,.18);border-radius:999px;padding:9px 13px;font-size:12px;font-weight:900;color:#0f766e;cursor:pointer}#medhaa-music-panel{display:none;position:absolute;right:0;bottom:44px;width:230px;padding:13px;border-radius:16px;background:rgba(255,255,255,.96);border:1px solid rgba(15,23,42,.12);box-shadow:0 18px 48px rgba(2,8,23,.22)}#medhaa-music-control.open #medhaa-music-panel{display:block}.mm-head{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:10px}.mm-title{font-size:13px;font-weight:900;color:#172033}.mm-sub{font-size:11px;color:#64748b;margin-top:2px}.mm-power{border:0;border-radius:999px;padding:7px 10px;background:#0f766e;color:#fff;font-size:11px;font-weight:900;cursor:pointer}.mm-power.off{background:#e5e7eb;color:#334155}.mm-row{display:grid;gap:7px}.mm-row label{font-size:11px;font-weight:800;color:#475569}.mm-row input{width:100%;accent-color:#0f766e}.mm-instruments{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}.mm-chip{padding:4px 7px;border-radius:999px;background:#eef7f6;color:#0f766e;font-size:10px;font-weight:800}@media(max-width:720px){#medhaa-music-control{right:10px;bottom:10px}#medhaa-music-panel{width:min(230px,calc(100vw - 24px))}}';
+      style.textContent = '#medhaa-music-control{position:fixed;right:14px;bottom:14px;z-index:10001}#medhaa-music-toggle{display:grid;place-items:center;width:44px;height:44px;border:1px solid rgba(15,118,110,.28);background:rgba(255,255,255,.94);backdrop-filter:blur(12px);box-shadow:0 12px 30px rgba(2,8,23,.18);border-radius:50%;padding:0;font-size:20px;line-height:1;color:#0f766e;cursor:pointer}#medhaa-music-toggle.off{color:#64748b;border-color:rgba(100,116,139,.24)}@media(max-width:720px){#medhaa-music-control{right:10px;bottom:10px}}';
       document.head.appendChild(style);
 
       var control = document.createElement('div');
       control.id = 'medhaa-music-control';
-      control.innerHTML = '<button id="medhaa-music-toggle" type="button" aria-expanded="false">Music</button>' +
-        '<div id="medhaa-music-panel" role="dialog" aria-label="Music settings">' +
-          '<div class="mm-head"><div><div class="mm-title">Ambient music</div><div class="mm-sub">Soft background layer</div></div><button class="mm-power" id="medhaa-music-power" type="button"></button></div>' +
-          '<div class="mm-row"><label for="medhaa-music-volume">Volume</label><input id="medhaa-music-volume" type="range" min="0" max="100" step="1"></div>' +
-          '<div class="mm-instruments"><span class="mm-chip">Drone</span><span class="mm-chip">Flute</span><span class="mm-chip">Marimba</span><span class="mm-chip">Kalimba</span><span class="mm-chip">Bell</span></div>' +
-        '</div>';
+      control.innerHTML = '<button id="medhaa-music-toggle" type="button" aria-label="Turn music off" title="Turn music off">&#9835;</button>';
       document.body.appendChild(control);
 
       document.getElementById('medhaa-music-toggle').addEventListener('click', function () {
-        state.panelOpen = !state.panelOpen;
-        control.classList.toggle('open', state.panelOpen);
-        this.setAttribute('aria-expanded', state.panelOpen ? 'true' : 'false');
-        if (state.enabled) start();
-      });
-      document.getElementById('medhaa-music-power').addEventListener('click', function () {
         setEnabled(!state.enabled);
-      });
-      document.getElementById('medhaa-music-volume').addEventListener('input', function () {
-        setVolume(Number(this.value) / 100);
-        if (state.enabled) start();
       });
       updateControl();
     }
 
     function updateControl() {
       var toggle = document.getElementById('medhaa-music-toggle');
-      var power = document.getElementById('medhaa-music-power');
-      var volume = document.getElementById('medhaa-music-volume');
-      if (toggle) toggle.textContent = state.enabled ? 'Music ' + Math.round(state.volume * 100) + '%' : 'Music off';
-      if (power) {
-        power.textContent = state.enabled ? 'On' : 'Off';
-        power.classList.toggle('off', !state.enabled);
+      if (toggle) {
+        var label = state.unavailable ? 'Music unavailable' : (state.enabled ? 'Turn music off' : 'Turn music on');
+        toggle.innerHTML = state.enabled ? '&#9835;' : '&#9836;';
+        toggle.setAttribute('aria-label', label);
+        toggle.title = label;
+        toggle.classList.toggle('off', !state.enabled);
       }
-      if (volume) volume.value = String(Math.round(state.volume * 100));
     }
 
     function startAfterGesture() {
@@ -381,7 +529,7 @@
       stop: stop,
       setEnabled: setEnabled,
       setVolume: setVolume,
-      getState: function () { return { enabled: state.enabled, volume: state.volume, running: state.running }; }
+      getState: function () { return { enabled: state.enabled, volume: state.volume, running: state.running, source: state.usingTrack ? 'track' : 'synth' }; }
     };
 
     if (document.readyState === 'loading') {
@@ -390,6 +538,7 @@
       mountControls();
     }
     window.addEventListener('pointerdown', startAfterGesture, { once: true });
+    window.addEventListener('touchstart', startAfterGesture, { once: true, passive: true });
     window.addEventListener('keydown', startAfterGesture, { once: true });
     document.addEventListener('visibilitychange', function () {
       if (document.hidden) stop();

@@ -243,6 +243,24 @@ export default function ForgotPasswordPage() {
         >
           ← Back to login
         </button>
+
+        <button
+          type="button"
+          onClick={() => navigate('/')}
+          style={{
+            display: 'block',
+            width: '100%',
+            marginTop: '4px',
+            padding: '8px',
+            border: 'none',
+            background: 'transparent',
+            color: '#64748b',
+            fontSize: '0.85rem',
+            cursor: 'pointer',
+          }}
+        >
+          Back to home
+        </button>
       </div>
     </div>
   );

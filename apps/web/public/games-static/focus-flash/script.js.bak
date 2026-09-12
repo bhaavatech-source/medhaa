@@ -460,37 +460,51 @@ function handleTap(cellEl, cellData, event) {
   if (cellEl.dataset.done) return;
   cellEl.dataset.done = "1";
   const rt = performance.now() - state.roundStartTime;
+  
+  const logoEl = document.getElementById("medhaaLogo");
+  
+  // Reset logo animation state
+  logoEl.className = "";
+  void logoEl.offsetWidth; // Trigger reflow to restart animations
 
   if (cellData.isTarget) {
     state.hits++;
     comboStreak++;
     let points = 10;
-    mascotArea.textContent = "😎"; // Mascot happy
     
     if (comboStreak >= 5) { 
         points = 20; 
         playCombo(); 
         showCombo("🔥 Combo x" + comboStreak + "!");
-        // NEW: Trigger particle effect on the click location
+        
         const rect = cellEl.getBoundingClientRect();
         createParticles(rect.left + rect.width / 2, rect.top + rect.height / 2);
-        mascotArea.textContent = "🤩"; // Mascot amazed
+        
+        // Super bounce for combos
+        logoEl.classList.add("logo-combo"); 
     }
-    else playCorrect();
-    // ... [Keep rest of the existing hit logic]
+    else {
+        playCorrect();
+        // Happy bounce for regular correct taps
+        logoEl.classList.add("logo-happy");
+    }
+    
+    state.score += points;
+    state.reactionTimes.push(rt);
+    state.remainingTargets--;
+    cellEl.classList.add("correct-hit");
+    cellEl.style.opacity = "0.15";
+    feedback.textContent = comboStreak >= 5 ? `Correct! 🔥 x${comboStreak}` : "Correct!";
+    feedback.className = "correct";
+    state.perfWindow.push({ correct: true, rt });
+    
   } else {
     state.wrongTaps++;
     comboStreak = 0;
-    mascotArea.textContent = "😵‍💫"; // Mascot confused
-    state.score = Math.max(0, state.score - 5);
-    cellEl.classList.add("wrong-hit");
-    cellEl.style.opacity = "0.15";
-    feedback.textContent = "Oops, wrong shape!";
-    feedback.className = "wrong";
-    playWrong();
-    state.perfWindow.push({ correct: false, rt: null });
-    state.wrongTaps++;
-    comboStreak = 0;
+    
+    // Shake animation for wrong taps
+    logoEl.classList.add("logo-wrong");
+    
     state.score = Math.max(0, state.score - 5);
     cellEl.classList.add("wrong-hit");
     cellEl.style.opacity = "0.15";
@@ -499,6 +513,7 @@ function handleTap(cellEl, cellData, event) {
     playWrong();
     state.perfWindow.push({ correct: false, rt: null });
   }
+  
   document.getElementById("hudScore").textContent = state.score;
   adjustDifficultyIfNeeded(document.getElementById("hudDifficulty"));
 
@@ -547,7 +562,11 @@ function endSelectiveGame() {
 }
 
 function startSustainedGame(levelName) {
-  const target = { shape: SHAPES[Math.floor(Math.random() * SHAPES.length)], color: COLORS[Math.floor(Math.random() * COLORS.length)] };
+  const currentShapes = THEMES[themeSelect.value];
+  const target = {
+    shape: currentShapes[Math.floor(Math.random() * currentShapes.length)],
+    color: COLORS[Math.floor(Math.random() * COLORS.length)]
+  };
 
   sustainedState = {
     levelName, target,
@@ -572,6 +591,56 @@ function startSustainedGame(levelName) {
 
 function runSustainedTrial() {
   sustainedState.trial++;
+  
+  sustainedState.currentIsTarget = isTarget;
+  const currentShapes = THEMES[themeSelect.value];   // ADD THIS
+  sustainedState.responded = false;
+  let shape, color;
+  if (isTarget) {
+    
+  } else if (cfg.nearMiss && Math.random() < 0.5) {
+    
+    do { shape = currentShapes[Math.floor(Math.random() * currentShapes.length)]; } while (shape === sustainedState.target.shape);
+    
+  } else {
+    do {
+      shape = currentShapes[Math.floor(Math.random() * currentShapes.length)];
+      color = COLORS[Math.floor(Math.random() * COLORS.length)];
+    } while (shape === sustainedState.target.shape && color === sustainedState.target.color);
+  }
+
+  sustainedShapeWrap.innerHTML = "";
+  sustainedShapeWrap.classList.remove("animate-in");
+  const shapeEl = renderShapeEl(shape, color, 90);
+  sustainedShapeWrap.appendChild(shapeEl);
+  void sustainedShapeWrap.offsetWidth;
+  sustainedShapeWrap.classList.add("animate-in");
+
+  sustainedFeedback.textContent = "";
+  sustainedFeedback.className = "";
+  sustainedState.stimulusShownAt = performance.now();
+
+  const hideTimer = setTimeout(() => {
+    sustainedShapeWrap.innerHTML = "";
+    const gap = cfg.minGap + Math.random() * (cfg.maxGap - cfg.minGap);
+    const evalTimer = setTimeout(() => {
+      if (sustainedState.currentIsTarget && !sustainedState.responded) {
+        sustainedState.omissions++;
+        sustainedFeedback.textContent = "Missed it!";
+        sustainedFeedback.className = "wrong";
+        playWrong();
+        sustainedState.perfWindow.push({ correct: false, rt: null });
+        adjustSustainedDifficulty();
+      }
+      runSustainedTrial();
+    }, gap);
+    sustainedState.timers.push(evalTimer);
+  }, cfg.displayDuration);
+  sustainedState.timers.push(hideTimer);
+}
+
+function runSustainedTrial() {
+  sustainedState.trial++;
   if (sustainedState.trial > sustainedState.totalTrials) { endSustainedGame(); return; }
 
   document.getElementById("sHudTrial").textContent = sustainedState.trial;
@@ -582,6 +651,7 @@ function runSustainedTrial() {
 
   const isTarget = Math.random() < cfg.targetRatio;
   sustainedState.currentIsTarget = isTarget;
+  const currentShapes = THEMES[themeSelect.value];
   sustainedState.responded = false;
 
   let shape, color;
@@ -594,11 +664,11 @@ function runSustainedTrial() {
       do { color = COLORS[Math.floor(Math.random() * COLORS.length)]; } while (color === sustainedState.target.color);
     } else {
       color = sustainedState.target.color;
-      do { shape = SHAPES[Math.floor(Math.random() * SHAPES.length)]; } while (shape === sustainedState.target.shape);
+      do { shape = currentShapes[Math.floor(Math.random() * currentShapes.length)]; } while (shape === sustainedState.target.shape);
     }
   } else {
     do {
-      shape = SHAPES[Math.floor(Math.random() * SHAPES.length)];
+      shape = currentShapes[Math.floor(Math.random() * currentShapes.length)];
       color = COLORS[Math.floor(Math.random() * COLORS.length)];
     } while (shape === sustainedState.target.shape && color === sustainedState.target.color);
   }
@@ -645,32 +715,6 @@ function adjustSustainedDifficulty() {
     sustainedState.perfWindow = [];
   }
 }
-
-tapTargetBtn.addEventListener("click", () => {
-  if (!sustainedScreen.classList.contains("active")) return;
-  if (sustainedState.responded) return;
-  sustainedState.responded = true;
-  const rt = performance.now() - sustainedState.stimulusShownAt;
-
-  if (sustainedState.currentIsTarget) {
-    sustainedState.hits++;
-    sustainedState.reactionTimes.push(rt);
-    sustainedState.score += 10;
-    sustainedFeedback.textContent = "Correct! ✅";
-    sustainedFeedback.className = "correct";
-    playCorrect();
-    sustainedState.perfWindow.push({ correct: true, rt });
-  } else {
-    sustainedState.falseAlarms++;
-    sustainedState.score = Math.max(0, sustainedState.score - 8);
-    sustainedFeedback.textContent = "Not the target! ❌";
-    sustainedFeedback.className = "wrong";
-    playWrong();
-    sustainedState.perfWindow.push({ correct: false, rt: null });
-  }
-  document.getElementById("sHudScore").textContent = sustainedState.score;
-  adjustSustainedDifficulty();
-});
 
 function endSustainedGame() {
   sustainedProgressBar.style.width = "100%";

@@ -758,11 +758,14 @@
 @media (max-width: 768px) {
   .parent-demo { padding: 20px 15px; }
   .parent-demo-card { padding: 30px 25px; border-radius: 24px; }
-  .journey-card { grid-template-columns: 1fr; padding: 30px 25px; }
-  .journey-visual { min-height: 200px; order: 2; }
+  /* minmax(0, 1fr) lets the track shrink below .parent-cta's min-width, avoiding grid blowout/clipping */
+  .journey-card { grid-template-columns: minmax(0, 1fr); padding: 30px 25px; }
+  .journey-visual { min-height: 260px; order: 2; }
   .journey-content { order: 1; }
   .journey-action { order: 3; }
   .trial-points { flex-direction: column; }
+  .parent-cta { min-width: 0; width: 100%; }
+  .free-pill { right: 4px; bottom: 4px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

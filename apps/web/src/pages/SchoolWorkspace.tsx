@@ -331,6 +331,10 @@ export default function SchoolWorkspace() {
           </div>
           <div className="topbar-actions">
             <span className="academic-pill"><Icon name="clock" size={16} /> {academicYear}</span>
+            <Link className="profile-pill" to="/settings" title="Account Settings">
+              <span className="profile-avatar"><Icon name="settings" size={16} /></span>
+              <span>Account</span>
+            </Link>
             <button className="profile-pill" type="button" onClick={() => go('settings')}>
               <span className="profile-avatar"><img src={MedhaaIcon} alt="" /></span>
               <span>Admin</span>

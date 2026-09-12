@@ -159,6 +159,20 @@
           });
         }
       });
+
+      document.addEventListener('click', function (event) {
+        const button = event.target && event.target.closest ? event.target.closest('button') : null;
+        if (!button || !/stop\s+session/i.test(button.textContent || '')) return;
+        window.setTimeout(function () {
+          try {
+            if (window.BhavaSession && typeof window.BhavaSession.end === 'function') {
+              window.BhavaSession.end();
+            }
+          } catch (error) {
+            console.warn('BhavaSession.end:', error.message);
+          }
+        }, 200);
+      });
     </script>
     <script src="bhava-responsive.js"></script>
 </body>

@@ -1,6 +1,7 @@
 import { Router, Response } from 'express';
 import { PrismaClient, SubscriptionStatus, SubscriptionPlan } from '@prisma/client';
 import { authenticate, requireRole, AuthenticatedRequest } from '../middleware/auth';
+import { logAudit } from '../services/auditLog';
 
 const prisma = new PrismaClient();
 const router = Router();
@@ -154,6 +155,8 @@ router.post('/:id/confirm', authenticate, requireRole(['admin']), async (req: Au
     },
   });
 
+  await logAudit(req.user!.id, 'subscription.confirm', { subscriptionId: id });
+
   res.json({ subscription: updated });
 });
 
@@ -167,6 +170,8 @@ router.post('/:id/reject', authenticate, requireRole(['admin']), async (req: Aut
   }
 
   await prisma.subscription.delete({ where: { id } });
+
+  await logAudit(req.user!.id, 'subscription.reject', { subscriptionId: id });
 
   res.json({ message: 'Subscription request rejected and removed.' });
 });
@@ -184,6 +189,8 @@ router.post('/:id/disable', authenticate, requireRole(['admin']), async (req: Au
     where: { id },
     data: { currentPeriodEnd: new Date() },
   });
+
+  await logAudit(req.user!.id, 'subscription.disable', { subscriptionId: id });
 
   res.json({ message: 'Subscription disabled.', subscription: updated });
 });

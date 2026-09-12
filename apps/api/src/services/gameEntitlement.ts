@@ -104,10 +104,23 @@ export function getGameTier(slug: string): GameTier {
   throw new Error(`Unknown game slug: ${slug}. Add it to gameEntitlement.ts before deploying.`);
 }
 
+const VALID_TIERS: GameTier[] = ['assessment', 'permanent-free', 'rotating-free', 'premium-only'];
+
+// Admin-set `Game.tier` (from the database) takes precedence over the
+// hardcoded lists above, so admins can override access without a deploy.
+function resolveGameTier(slug: string, dbTier?: string | null): GameTier {
+  if (dbTier && (VALID_TIERS as string[]).includes(dbTier)) {
+    return dbTier as GameTier;
+  }
+  return getGameTier(slug);
+}
+
 interface CheckGameAccessInput {
   gameSlug: string;
   accountCreatedAt: Date;
   isSubscribed: boolean;
+  dbTier?: string | null;
+  isActive?: boolean;
 }
 
 interface CheckGameAccessResult {
@@ -121,11 +134,17 @@ export function checkGameAccess({
   gameSlug,
   accountCreatedAt,
   isSubscribed,
+  dbTier,
+  isActive = true,
 }: CheckGameAccessInput): CheckGameAccessResult {
-  const tier = getGameTier(gameSlug);
+  const tier = resolveGameTier(gameSlug, dbTier);
   const daysSinceSignup = Math.floor(
     (Date.now() - accountCreatedAt.getTime()) / (1000 * 60 * 60 * 24)
   );
+
+  if (!isActive) {
+    return { tier, allowed: false, reason: 'disabled by admin', daysSinceSignup };
+  }
 
   if (tier === 'assessment') {
     return { tier, allowed: true, reason: 'assessment tool', daysSinceSignup };

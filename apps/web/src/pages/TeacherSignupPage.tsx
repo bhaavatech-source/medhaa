@@ -120,6 +120,7 @@ export default function TeacherSignupPage() {
         )}
 
         <a href="/login/teacher" className="teacher-login-back">Already have an account? Log in</a>
+        <a href="/" className="teacher-login-back">← Back to home</a>
       </div>
     </div>
   );

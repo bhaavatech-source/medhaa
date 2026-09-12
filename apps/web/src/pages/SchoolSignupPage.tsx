@@ -136,6 +136,7 @@ export default function SchoolSignupPage() {
         )}
 
         <a href="/login/school" className="school-login-back">Already have an account? Log in</a>
+        <a href="/" className="school-login-back">← Back to home</a>
       </div>
     </div>
   );

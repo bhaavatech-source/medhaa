@@ -1,6 +1,25 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- MEDHAA-SEO-EXTRA-INJECTED -->
+<meta property="og:image" content="https://medhaa.net/medha_logo_transparent.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://medhaa.net/medha_logo_transparent.png">
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What age group is Focus Flash designed for?", "acceptedAnswer": {"@type": "Answer", "text": "Focus Flash is designed for children aged 5 to 17 and focuses on Attention Span, Reaction Speed, Impulse Control."}}, {"@type": "Question", "name": "Is Focus Flash free to play?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, Focus Flash is free to play on Medhaa as part of the Cognitive Focus game collection."}}, {"@type": "Question", "name": "What skills does Focus Flash help build?", "acceptedAnswer": {"@type": "Answer", "text": "Focus Flash helps build Attention Span, Reaction Speed, Impulse Control through interactive, game-based practice."}}]}
+</script>
+
+<!-- MEDHAA-SEO-INJECTED -->
+<title>Focus Flash – Cognitive Focus Game for Kids | Medhaa</title>
+<meta name="description" content="A shape appears and you must tap it before it vanishes, but only when it matches the current rule. Free game for ages 5-17 on Medhaa.">
+<meta property="og:title" content="Focus Flash – Cognitive Focus Game for Kids | Medhaa">
+<meta property="og:description" content="A shape appears and you must tap it before it vanishes, but only when it matches the current rule. Free game for ages 5-17 on Medhaa.">
+<meta property="og:url" content="https://medhaa.net/games-static/focus-flash/index.html">
+<link rel="canonical" href="https://medhaa.net/games-static/focus-flash/index.html">
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "LearningResource", "name": "Focus Flash", "description": "A shape appears and you must tap it before it vanishes, but only when it matches the current rule.", "url": "https://medhaa.net/games-static/focus-flash/index.html", "learningResourceType": "Educational Game", "teaches": ["Attention Span", "Reaction Speed", "Impulse Control"], "typicalAgeRange": "5-17", "isAccessibleForFree": true, "provider": {"@type": "Organization", "name": "Bhava Tech", "url": "https://medhaa.net"}}
+</script>
+
 <meta charset="UTF-8">
 <title>Focus Flash - Attention Trainer</title>
 <link rel="stylesheet" href="style.css">
@@ -73,7 +92,7 @@
         <div class="game-sidebar">
           <div id="mascotArea">
   <!-- Adjust this relative path if your index.html is in a different subfolder -->
-  <img src="/src/assets/logo/M_2.png" alt="Medhaa Logo" id="medhaaLogo">
+  <img src="M_2.png" alt="Medhaa Logo" id="medhaaLogo">
 </div>
           <div class="hud">
             <div class="hud-item">Difficulty: <span id="hudDifficulty">1</span>/10</div>
@@ -94,24 +113,6 @@
         </div>
       </div>
     </div>
-    <!-- SELECTIVE ATTENTION GAME SCREEN -->
-    <div id="gameScreen" class="screen">
-      <button id="soundToggleGame" class="sound-btn" title="Toggle Sound">🔊</button>
-      <div class="progress-bar-wrapper"><div id="progressBar"></div></div>
-      <div class="hud">
-        <div class="hud-item">Difficulty: <span id="hudDifficulty">1</span>/10</div>
-        <div class="hud-item">Round: <span id="hudRound">0</span>/<span id="hudTotalRounds">0</span></div>
-        <div class="hud-item">Score: <span id="hudScore">0</span></div>
-        <div class="hud-item" id="timeWrapper">Time: <span id="hudTime">0</span>s</div>
-      </div>
-      <div id="targetBanner"></div>
-      <div id="grid"></div>
-      <div id="feedback"></div>
-      <div id="comboPopup"></div>
-      <div id="milestonePopup"></div>
-      <div id="difficultyPopup"></div>
-    </div>
-
     <!-- SUSTAINED ATTENTION (CPT) GAME SCREEN -->
     <div id="sustainedScreen" class="screen">
       <button id="soundToggleSustained" class="sound-btn" title="Toggle Sound">🔊</button>

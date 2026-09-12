@@ -2,12 +2,12 @@
 // Capacitor config wrapping the MEDHAA web build into a native Android
 // shell. Uses the same React build as Web/PWA — single codebase.
 
-import { CapacitorConfig } from '@capacitor/cli';
+import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.bhavatech.medhaa',
+  appId: 'com.bhaavajaalam.medhaa',
   appName: 'MEDHAA',
-  webDir: 'build',
+  webDir: '../web/dist',
   bundledWebRuntime: false,
   server: {
     androidScheme: 'https',

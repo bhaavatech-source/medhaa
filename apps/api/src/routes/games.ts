@@ -19,7 +19,7 @@ router.get('/', authenticate, requireRole(['student']), async (req: Authenticate
   const studentId = req.user!.id;
 
   const [games, subscription] = await Promise.all([
-    prisma.game.findMany({ orderBy: { domain: 'asc' } }),
+    prisma.game.findMany({ where: { isActive: true }, orderBy: { domain: 'asc' } }),
     prisma.subscription.findUnique({ where: { userId: studentId } }),
   ]);
 
