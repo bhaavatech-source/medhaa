@@ -3,10 +3,11 @@
 //   <script src="bhava-session.js"></script>
 //
 // Behaviour:
-//   Browser / website  → completely silent (public access, no tracking)
-//   Electron + guest   → login modal shown, student chooses Login or Guest
-//   Electron + login   → full session tracking + nav bar with My Report page
-//   Android/Capacitor  → login via cloud lookup, session posted to cloud on end
+//   Web / Android (Capacitor)  → uses the existing Medhā login (JWT in
+//                                 localStorage); scores are saved to the
+//                                 Medhā API (https://medhaa-tni1.onrender.com)
+//                                 when logged in, otherwise fully anonymous
+//   Electron + native login    → legacy roll-number/IPC path (unchanged)
 //
 // Call from game score logic:
 //   BhavaSession.end(myScore);   // score: 0–100
@@ -663,14 +664,14 @@
   };
 
   // ── Environment detection ──────────────────────────────────────────────────
+  // Only the real Electron desktop app (window.bhava set by preload.js) uses
+  // the legacy roll-number/native-IPC path below. Web AND the Android/Capacitor
+  // app both share the same Medhā login (JWT in localStorage) and go through
+  // the simplified branch above instead — no roll-number login modal for either.
   var isElectron  = (typeof window !== 'undefined') &&
                   (typeof window.bhava !== 'undefined') &&
                   (window.bhava._isElectron !== false);
-  var isCapacitor = !isElectron && (typeof window !== 'undefined') && (
-      window.location.protocol === 'capacitor:' ||
-      (typeof navigator !== 'undefined' && /wv/i.test(navigator.userAgent))
-  );
-  var isActive = isElectron || isCapacitor;
+  var isActive = isElectron;
 
   if (!isActive) {
     var WEB_PLAYS_KEY  = 'bhava_web_plays';
@@ -717,9 +718,54 @@
       try { localStorage.setItem(WEB_PLAYS_KEY, JSON.stringify(played)); } catch (e) {}
     }
 
+    // Score/session tracking now talks directly to the current Medhā backend
+    // (the old bhava-cloud roll-number system is fully bypassed here).
+    var MEDHAA_API_URL = 'https://medhaa-tni1.onrender.com/api';
+    var sessionStartedAt = Date.now();
+
+    function _medhaaToken() {
+      try { return localStorage.getItem('accessToken'); } catch (e) { return null; }
+    }
+
+    function _medhaaStudentId() {
+      var token = _medhaaToken();
+      if (!token) return null;
+      try {
+        var payload = JSON.parse(atob(token.split('.')[1]));
+        return payload && payload.id ? payload.id : null;
+      } catch (e) { return null; }
+    }
+
+    // Bridge the logged-in Medhā student id to bhava-game-nav.js's "My Report".
+    var medhaaStudentId = _medhaaStudentId();
+    if (medhaaStudentId) {
+      window._bhavaStudentId = medhaaStudentId;
+      try { sessionStorage.setItem('bhavaStudentId', medhaaStudentId); } catch (e) {}
+    }
+
+    function _saveScoreToMedhaa(rawScore) {
+      var token = _medhaaToken();
+      var game = _inferCurrentGame();
+      if (!token || !game) return;
+      var durationMs = Math.max(1000, Date.now() - sessionStartedAt);
+      var accuracy = Math.max(0, Math.min(1, (Number(rawScore) || 0) / 100));
+      fetch(MEDHAA_API_URL + '/games/' + game.slug + '/attempts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+        body: JSON.stringify({
+          endTime: new Date().toISOString(),
+          durationMs: durationMs,
+          score: Number(rawScore) || 0,
+          accuracy: accuracy,
+          hintsUsed: 0,
+          completionStatus: 'completed',
+        }),
+      }).catch(function (e) { console.warn('[BhavaSession] Could not save score to Medh\u0101:', e); });
+    }
+
     window.BhavaSession = {
-      end:        function (rawScore) { _notifyGameComplete(rawScore); },
-      getStudent: function () { return null; },
+      end:        function (rawScore) { if (loggedIn) _saveScoreToMedhaa(rawScore); _notifyGameComplete(rawScore); },
+      getStudent: function () { return medhaaStudentId ? { id: medhaaStudentId } : null; },
       isLoggedIn: function () { return loggedIn; },
       showLogin:  function () {},
       logout:     function () { try { localStorage.removeItem(WEB_USER_KEY); } catch (e) {} },

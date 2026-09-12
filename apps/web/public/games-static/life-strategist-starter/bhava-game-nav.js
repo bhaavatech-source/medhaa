@@ -132,7 +132,7 @@
   document.body.appendChild(modal);
 
   // ── Actions ────────────────────────────────────────────────────────────────
-  function goHome() { window.location.href = 'index.html'; }
+  function goHome() { window.location.href = '/student'; }
   function goBack() { window.history.length > 1 ? window.history.back() : goHome(); }
 
   document.getElementById('bgnav-back').addEventListener('click', goBack);
@@ -163,14 +163,62 @@
   }
 
   // ── Report fetch ───────────────────────────────────────────────────────────
+  var MEDHAA_API_URL = 'https://medhaa-tni1.onrender.com/api';
+
+  function medhaaToken() {
+    try { return localStorage.getItem('accessToken'); } catch (e) { return null; }
+  }
+
+  async function openReportFromMedhaa(body, sub) {
+    sub.textContent = 'Your Medhā activity';
+    try {
+      var res = await fetch(MEDHAA_API_URL + '/games/history?limit=5', {
+        headers: { 'Authorization': 'Bearer ' + medhaaToken() }
+      });
+      if (!res.ok) throw new Error('Request failed (' + res.status + ')');
+      var data = await res.json();
+      var s = data.summary || {};
+
+      var sessH = !data.sessions || data.sessions.length === 0
+        ? '<div class="bgnav-info">No sessions yet. Start playing!</div>'
+        : data.sessions.map(function (sess) {
+            var d = sess.startedAt
+              ? new Date(sess.startedAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })
+              : '';
+            return '<div class="bgnav-si">'
+              + '<span class="sg">' + (sess.gameName || 'Game') + '</span>'
+              + '<span class="ss">' + (sess.score ?? '—') + ' pts</span>'
+              + '<span>' + d + '</span>'
+              + '</div>';
+          }).join('');
+
+      body.innerHTML =
+        '<div class="bgnav-srow">'
+          + '<div class="bgnav-sc iq"><div class="sl">Played</div><div class="sv">' + (s.gamesCompleted ?? 0) + '</div></div>'
+          + '<div class="bgnav-sc eq"><div class="sl">Avg Score</div><div class="sv">' + (s.averageScore ?? '—') + '</div></div>'
+          + '<div class="bgnav-sc sq"><div class="sl">Best Score</div><div class="sv">' + (s.bestScore ?? '—') + '</div></div>'
+        + '</div>'
+        + '<div class="bgnav-slbl">Recent Sessions</div>'
+        + sessH;
+    } catch (err) {
+      body.innerHTML = '<div class="bgnav-info">Error: ' + err.message + '</div>';
+    }
+  }
+
   async function openReport() {
     modal.classList.add('bgnav-open');
     var body = document.getElementById('bgnav-mbody');
     var sub  = document.getElementById('bgnav-msub');
-    body.innerHTML = '<div class="bgnav-loading">Fetching scores from Medhā DB…</div>';
+    body.innerHTML = '<div class="bgnav-loading">Fetching scores from Medhā…</div>';
+
+    // Prefer the current Medhā login (web + Android) over the legacy Electron IPC path.
+    if (medhaaToken()) {
+      await openReportFromMedhaa(body, sub);
+      return;
+    }
 
     if (!window.bhava) {
-      body.innerHTML = '<div class="bgnav-info">Medhā IPC not available.<br>Launch from the Electron app.</div>';
+      body.innerHTML = '<div class="bgnav-info">Not logged in.<br>Please log in from Home first.</div>';
       return;
     }
 
@@ -227,8 +275,12 @@
 
   document.getElementById('bgnav-report').addEventListener('click', openReport);
 
-  // ── Show Report button once logged in (poll for IPC + student) ────────────
+  // ── Show Report button once logged in (Medhā web/Android, or Electron IPC) ──
   function checkReady() {
+    if (medhaaToken()) {
+      document.getElementById('bgnav-report').classList.remove('bgnav-hidden');
+      return true;
+    }
     if (!window.bhava) return false;
     var sid = resolveStudentId();
     if (sid) {
