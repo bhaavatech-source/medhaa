@@ -1,42 +1,42 @@
+import { Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import LoginPage from './pages/LoginPage';
-import ForgotPasswordPage from './pages/ForgotPasswordPage';
-import ResetPasswordPage from './pages/ResetPasswordPage';
 import HomePage from './pages/HomePage';
-import ParentDemo from './pages/ParentDemo';
-import StudentPublic from './pages/StudentPublic';
 import ProtectedRoute from './components/ProtectedRoute';
-import { GamesGrid } from './components/GamesGrid';
-import TeacherDashboard from './pages/TeacherDashboard';
-import TeacherLoginPage from './pages/TeacherLoginPage';
-import SchoolReport from './pages/SchoolReport';
-import SchoolLoginPage from './pages/SchoolLoginPage';
-import StudentLoginPage from './pages/StudentLoginPage';
-import ParentLoginPage from './pages/ParentLoginPage';
-import StudentSignupPage from './pages/StudentSignupPage';
-import ParentSignupPage from './pages/ParentSignupPage';
-import TeacherSignupPage from './pages/TeacherSignupPage';
-import SchoolSignupPage from './pages/SchoolSignupPage';
-import { StudentGamesPage } from './components/StudentGamesPage';
-import { SubscribePage } from './pages/SubscribePage';
-import { SubscribePayPage } from './pages/SubscribePayPage';
-import { AchievementsPage } from './pages/AchievementsPage';
-
-import StudentEnrollment from './pages/StudentEnrollment';
-import BCSLiteIntro from './pages/BCSLiteIntro';
-import LearningReadiness from './pages/LearningReadiness';
-import ParentProgressReport from './pages/ParentProgressReport';
-import ParentDashboard from './pages/ParentDashboard';
-import SharingPermissions from './pages/SharingPermissions';
-import OurApproach from './components/OurApproach';
-import TeacherWorkspace from './pages/TeacherWorkspace';
-import SchoolWorkspace from './pages/SchoolWorkspace';
-import AdminConsole from './pages/AdminConsole';
-// 1. Import the new component at the top
-import { SettingsPage } from './pages/SettingsPage';
 import { GlobalMusic } from './components/GlobalMusic';
 import { ChildSessionBanner } from './components/ChildSessionBanner';
+
+// Everything below is loaded on demand (route-based code splitting) so the
+// initial bundle only ships Home + Login instead of the whole app at once.
+const ForgotPasswordPage = lazy(() => import('./pages/ForgotPasswordPage'));
+const ResetPasswordPage = lazy(() => import('./pages/ResetPasswordPage'));
+const ParentDemo = lazy(() => import('./pages/ParentDemo'));
+const TeacherDashboard = lazy(() => import('./pages/TeacherDashboard'));
+const TeacherLoginPage = lazy(() => import('./pages/TeacherLoginPage'));
+const SchoolReport = lazy(() => import('./pages/SchoolReport'));
+const SchoolLoginPage = lazy(() => import('./pages/SchoolLoginPage'));
+const StudentLoginPage = lazy(() => import('./pages/StudentLoginPage'));
+const ParentLoginPage = lazy(() => import('./pages/ParentLoginPage'));
+const StudentSignupPage = lazy(() => import('./pages/StudentSignupPage'));
+const ParentSignupPage = lazy(() => import('./pages/ParentSignupPage'));
+const TeacherSignupPage = lazy(() => import('./pages/TeacherSignupPage'));
+const SchoolSignupPage = lazy(() => import('./pages/SchoolSignupPage'));
+const StudentGamesPage = lazy(() => import('./components/StudentGamesPage').then((m) => ({ default: m.StudentGamesPage })));
+const SubscribePage = lazy(() => import('./pages/SubscribePage').then((m) => ({ default: m.SubscribePage })));
+const SubscribePayPage = lazy(() => import('./pages/SubscribePayPage').then((m) => ({ default: m.SubscribePayPage })));
+const AchievementsPage = lazy(() => import('./pages/AchievementsPage').then((m) => ({ default: m.AchievementsPage })));
+const StudentEnrollment = lazy(() => import('./pages/StudentEnrollment'));
+const BCSLiteIntro = lazy(() => import('./pages/BCSLiteIntro'));
+const LearningReadiness = lazy(() => import('./pages/LearningReadiness'));
+const ParentProgressReport = lazy(() => import('./pages/ParentProgressReport'));
+const ParentDashboard = lazy(() => import('./pages/ParentDashboard'));
+const SharingPermissions = lazy(() => import('./pages/SharingPermissions'));
+const OurApproach = lazy(() => import('./components/OurApproach'));
+const TeacherWorkspace = lazy(() => import('./pages/TeacherWorkspace'));
+const SchoolWorkspace = lazy(() => import('./pages/SchoolWorkspace'));
+const AdminConsole = lazy(() => import('./pages/AdminConsole'));
+const SettingsPage = lazy(() => import('./pages/SettingsPage').then((m) => ({ default: m.SettingsPage })));
 
 
 
@@ -57,6 +57,7 @@ function App() {
       <BrowserRouter>
         <GlobalMusic />
         <ChildSessionBanner />
+        <Suspense fallback={<div style={{ padding: 40, textAlign: 'center', color: '#64748b' }}>Loading…</div>}>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
@@ -96,6 +97,7 @@ function App() {
 		<Route path="/admin" element={<ProtectedRoute role="admin"><AdminConsole /></ProtectedRoute>} />
           <Route path="/settings" element={<SettingsPage />} />
         </Routes>
+        </Suspense>
       </BrowserRouter>
     </AuthProvider>
   );
