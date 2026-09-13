@@ -558,6 +558,27 @@ const medhaHeroStyles = `
     font-weight: 650;
   }
 
+  .medha-assessment-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    padding: 12px 22px;
+    border-radius: 999px;
+    background: linear-gradient(110deg, #6d4cff, #9b67ff 42%, #20b8a2);
+    color: #fff;
+    font-weight: 800;
+    font-size: .92rem;
+    text-decoration: none;
+    box-shadow: 0 10px 26px rgba(109,76,255,.28);
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+
+  .medha-assessment-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 32px rgba(109,76,255,.35);
+  }
+
   .floating-orb {
     position: absolute;
     z-index: 4;
@@ -1525,6 +1546,10 @@ const medhaHeroStyles = `
   box-shadow: 0 4px 12px rgba(32,51,55,.05);
 }
 
+.medha-assessment-cta {
+  color: #fff !important;
+}
+
 .role-card {
   color: #183638 !important;
 }
@@ -1731,7 +1756,7 @@ export default function HomePage() {
     </span>
 
     <h1>
-      A place to <span className="gradient-word">explore, practise, and grow.</span>
+      A PLACE TO <span className="gradient-word">EXPLORE, PRACTISE, AND GROW.</span>
     </h1>
 
 
@@ -1740,6 +1765,10 @@ export default function HomePage() {
       <span className="medha-mini-point"><BarChart3 size={14} /> Understand progress</span>
       <span className="medha-mini-point"><Heart size={14} /> Support every learner</span>
     </div>
+
+    <a className="medha-assessment-cta" href="/games-static/medhaa-cognitive-assessment.html">
+      <Sparkles size={15} aria-hidden="true" /> Take the free Medhā Cognitive Assessment
+    </a>
   </div>
 
   <div className="section-heading-wrap" style={{ display: 'none' }}>
@@ -2006,7 +2035,7 @@ export default function HomePage() {
   </nav>
 
   <span>© 2026 Medhā — Designed for curious minds</span>
-  <span className="footer-note">A Medhā product</span>
+  <span className="footer-note">A Bhāva Tech Product.</span>
 </footer>
     </main>
   );

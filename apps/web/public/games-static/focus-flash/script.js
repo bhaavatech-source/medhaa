@@ -181,7 +181,9 @@ function selectiveParamsFromDifficulty(level) {
   return {
     totalItems: 20,
     cols: 5,
-    roundTime: Math.max(3, 9 - level * 0.5),
+    // Calibrated so the 3 starting tiers (easy=2, medium=5, hard=8) get
+    // 20s / 15s / 10s respectively, scaling smoothly in between.
+    roundTime: Math.max(5, (70 - level * 5) / 3),
     distractorRatio: Math.min(0.75, 0.25 + level * 0.05),
     
     // This ensures the target shape/color changes EVERY single round

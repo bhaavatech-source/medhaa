@@ -384,7 +384,7 @@ export default function ParentDashboard() {
 
       <footer className="pd-footer">
         <div><strong>Medhā</strong><span>Play → Understand → Grow</span></div>
-        <span>© 2026 Medhā · A Medhā product</span>
+        <span>© 2026 Medhā · A Bhāva Tech Product.</span>
       </footer>
     </main>
   );
