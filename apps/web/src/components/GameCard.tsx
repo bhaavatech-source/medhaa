@@ -100,7 +100,7 @@ function GameCardMedia({
       <>
         <img
           className="game-card-image"
-          src={`/game-previews/${slug}.png`}
+          src={`/game-previews/${slug}.jpg`}
           alt=""
           loading="lazy"
           decoding="async"
@@ -119,7 +119,7 @@ function GameCardMedia({
       <video
         className="game-card-video"
         src={`/game-previews/${slug}.mp4`}
-        poster={`/game-previews/${slug}.png`}
+        poster={`/game-previews/${slug}.jpg`}
         autoPlay
         muted
         loop
