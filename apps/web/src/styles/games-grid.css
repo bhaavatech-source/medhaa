@@ -268,6 +268,54 @@
   background: linear-gradient(135deg, #5b3aa0, #7c3aed);
 }
 
+.tier-badge--pushed {
+  top: 36px;
+}
+
+.badge-onetime {
+  background: rgba(217,70,160,.94);
+}
+
+.game-card-new-ribbon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 6;
+  overflow: hidden;
+  padding: 5px 0;
+  background: linear-gradient(90deg, #d946a0, #7c3aed);
+  box-shadow: 0 4px 12px rgba(124,58,237,.25);
+}
+
+.game-card-new-ribbon-track {
+  display: flex;
+  width: max-content;
+  gap: 48px;
+  padding-left: 24px;
+  animation: gameCardNewScroll 14s linear infinite;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: .05em;
+  white-space: nowrap;
+}
+
+.game-card-new-ribbon-track > span {
+  padding-right: 48px;
+}
+
+@keyframes gameCardNewScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game-card-new-ribbon-track {
+    animation: none;
+  }
+}
+
 /* =========================================================
    LOCKED STATE
    ========================================================= */

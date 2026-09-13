@@ -39,6 +39,7 @@ interface GameWithAccess {
   skills: string[];
   tier: GameTier;
   access: { allowed: boolean; reason: string; daysSinceSignup: number };
+  entryPath?: string;
 }
 
 function displayGameTitle(title: string) {
@@ -338,6 +339,7 @@ const folderBasedSlugs = new Set([
 function formatDomainLabel(domain: string): string {
   const map: Record<string, string> = {
     'cognitive-assessment': 'IQ Assessment',
+    'cognitive-assessment-onetime': 'Cognitive Assessment',
     'cognitive-focus': 'Focus & Attention',
     'cognitive-logic': 'Logic & Reasoning',
     'cognitive-math': 'Math Skills',
@@ -943,6 +945,7 @@ export function StudentGamesPage({ apiUrl, childStudentId }: StudentGamesPagePro
   const [expanded, setExpanded] = useState(false);
   const [gameSearch, setGameSearch] = useState('');
   const [showPromo, setShowPromo] = useState(false);
+  const [showAssessmentPromo, setShowAssessmentPromo] = useState(false);
   const [activeFeature, setActiveFeature] = useState<FeatureKey | null>(null);
   const [randomGame, setRandomGame] = useState<GameWithAccess | null>(null);
   const [homework, setHomework] = useState<HomeworkItem[]>(() => {
@@ -1086,11 +1089,32 @@ export function StudentGamesPage({ apiUrl, childStudentId }: StudentGamesPagePro
     return () => window.clearTimeout(timer);
   }, [subscription]);
 
+  // Gentle recurring reminder for the one-time paid Cognitive Assessment —
+  // distinct from the subscribe promo above, and from the in-game 10-min
+  // break-reminder toast. Stops once the assessment has actually been taken.
+  const ASSESSMENT_PROMO_INTERVAL_MS = 15 * 60 * 1000;
+  useEffect(() => {
+    function maybeShow() {
+      if (localStorage.getItem('medhaa_assessment_taken') === '1') return;
+      if (showPromo) return;
+      setShowAssessmentPromo(true);
+    }
+    const first = window.setTimeout(maybeShow, 60000);
+    const recurring = window.setInterval(maybeShow, ASSESSMENT_PROMO_INTERVAL_MS);
+    return () => {
+      window.clearTimeout(first);
+      window.clearInterval(recurring);
+    };
+  }, [showPromo]);
+
   function handlePlay(slug: string) {
     const loggedInNow = !!localStorage.getItem('accessToken');
     if (!loggedInNow && !tryPlay(slug)) return;
     markPlayed(slug);
-    const path = folderBasedSlugs.has(slug) ? `/games-static/${slug}/index.html` : `/games-static/${slug}.html`;
+    const entryPath = games.find((g) => g.slug === slug)?.entryPath;
+    const path = entryPath
+      ? `/games-static/${entryPath}`
+      : folderBasedSlugs.has(slug) ? `/games-static/${slug}/index.html` : `/games-static/${slug}.html`;
     window.location.href = path;
   }
 
@@ -1611,6 +1635,15 @@ const disclaimerBanner = (
           <div className="student-promo__icon">✨</div><strong>Make your Medhā journey bigger.</strong>
           <p>Continue learning, playing and building your own activity history.</p>
           <button type="button" onClick={() => navigate('/subscribe')}>See plans →</button>
+        </div>
+      )}
+
+      {showAssessmentPromo && !showPromo && (
+        <div className="student-promo student-assessment-promo">
+          <button type="button" className="student-promo__close" aria-label="Close" onClick={() => setShowAssessmentPromo(false)}>×</button>
+          <div className="student-promo__icon">🧠</div><strong>New: Medhā Cognitive Assessment</strong>
+          <p>A one-time, personalised cognitive report — just ₹99 to unlock your full results.</p>
+          <button type="button" onClick={() => { setShowAssessmentPromo(false); window.location.href = '/games-static/medhaa-cognitive-assessment.html'; }}>Take it now →</button>
         </div>
       )}
 

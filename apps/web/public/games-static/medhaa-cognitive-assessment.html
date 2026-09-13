@@ -1311,6 +1311,7 @@ function finish(timeExpired=false,integrityStop=false){
  show("unlock");
  voice.speak("Assessment completed. Your Medhā Cognitive Profile is ready. Choose a result option to continue.");
  submitResults(buildExportPayload());
+ try{ localStorage.setItem("medhaa_assessment_taken","1"); }catch(e){}
 }
 
 function buildExportPayload(){
