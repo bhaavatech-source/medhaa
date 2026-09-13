@@ -10,6 +10,7 @@ import subscriptionsRoutes from './routes/subscriptions';
 import consentRoutes from './routes/consent';
 import adminRoutes from './routes/admin';
 import parentRoutes from './routes/parent';
+import assessmentsRoutes from './routes/assessments';
 
 
 const app = express();
@@ -44,6 +45,7 @@ app.use('/api/subscriptions', subscriptionsRoutes);
 app.use('/api/consent', consentRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/parent', parentRoutes);
+app.use('/api/assessments', assessmentsRoutes);
 
 
 app.listen(PORT, '0.0.0.0', () => {

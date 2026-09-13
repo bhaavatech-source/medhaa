@@ -413,6 +413,25 @@ router.get('/audit-logs', async (req: AuthenticatedRequest, res: Response) => {
 });
 
 // ---------------------------------------------------------------------------
+// Cognitive Assessment submissions (medhaa-cognitive-assessment.html)
+// ---------------------------------------------------------------------------
+
+router.get('/assessments', async (req: AuthenticatedRequest, res: Response) => {
+  const { page, pageSize, skip, take } = paginate(req);
+
+  const [items, total] = await Promise.all([
+    prisma.cognitiveAssessmentResult.findMany({
+      skip,
+      take,
+      orderBy: { createdAt: 'desc' },
+    }),
+    prisma.cognitiveAssessmentResult.count(),
+  ]);
+
+  res.json({ items, total, page, pageSize });
+});
+
+// ---------------------------------------------------------------------------
 // Games catalog
 // ---------------------------------------------------------------------------
 

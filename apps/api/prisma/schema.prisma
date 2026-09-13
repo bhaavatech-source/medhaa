@@ -245,3 +245,30 @@ model ParentConsent {
 
   @@index([parentId])
 }
+
+// Standalone public submissions from medhaa-cognitive-assessment.html — this
+// tool collects its own participant details and does not require a Medhā
+// login, so results aren't tied to a User/Student row.
+model CognitiveAssessmentResult {
+  id                String   @id @default(uuid())
+  appVersion        String?
+  status            String
+  participantName   String
+  participantAge    Int?
+  participantEmail  String?
+  participantSchool String?
+  purpose           String?
+  parentName        String?
+  relationship      String?
+  consentRecord     Json?
+  domainScores      Json?
+  rawModuleData     Json?
+  overallScore      Int?
+  resultLevel       String?
+  paymentReference  Json?
+  integrityEvents   Json?
+  ipAddress         String?
+  createdAt         DateTime @default(now())
+
+  @@index([createdAt])
+}
