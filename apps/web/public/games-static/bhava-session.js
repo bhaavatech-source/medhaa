@@ -723,6 +723,30 @@
     var MEDHAA_API_URL = 'https://medhaa-tni1.onrender.com/api';
     var sessionStartedAt = Date.now();
 
+    // Gentle wellbeing nudge — a small, dismissible bottom toast (not a
+    // blocking modal) shown once after 10 continuous minutes on a game page.
+    var BREAK_REMINDER_MS = 10 * 60 * 1000;
+    var breakReminderShown = false;
+    function _showBreakReminder() {
+      if (breakReminderShown) return;
+      breakReminderShown = true;
+      var style = document.createElement('style');
+      style.textContent = '#medhaa-break-reminder{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:999998;display:flex;align-items:center;gap:12px;max-width:min(420px,92vw);background:rgba(255,255,255,.97);border:1px solid rgba(15,23,42,.1);border-radius:18px;box-shadow:0 18px 46px rgba(2,8,23,.22);padding:14px 16px;font-family:Inter,system-ui,sans-serif;color:#172033;animation:medhaaBreakIn .35s ease}#medhaa-break-reminder .mbr-icon{font-size:22px;line-height:1}#medhaa-break-reminder .mbr-text{flex:1;font-size:13px;line-height:1.4}#medhaa-break-reminder .mbr-text strong{display:block;font-size:13.5px;margin-bottom:2px}#medhaa-break-reminder button{border:0;background:#eef2f7;color:#314054;border-radius:999px;padding:7px 13px;font-size:12px;font-weight:800;cursor:pointer;white-space:nowrap}#medhaa-break-reminder button:hover{background:#e2e8f0}@keyframes medhaaBreakIn{from{opacity:0;transform:translate(-50%,14px)}to{opacity:1;transform:translate(-50%,0)}}@media(prefers-reduced-motion:reduce){#medhaa-break-reminder{animation:none!important}}';
+      document.head.appendChild(style);
+
+      var toast = document.createElement('div');
+      toast.id = 'medhaa-break-reminder';
+      toast.setAttribute('role', 'status');
+      toast.innerHTML = '<span class="mbr-icon" aria-hidden="true">\uD83C\uDF3F</span>' +
+        '<span class="mbr-text"><strong>You\u2019ve been playing for a while!</strong>Maybe stretch, sip some water, or rest your eyes for a bit.</span>' +
+        '<button type="button">Got it</button>';
+      document.body.appendChild(toast);
+      var dismiss = function () { toast.remove(); style.remove(); };
+      toast.querySelector('button').addEventListener('click', dismiss);
+      setTimeout(dismiss, 15000);
+    }
+    var breakReminderTimer = setTimeout(_showBreakReminder, BREAK_REMINDER_MS);
+
     function _medhaaToken() {
       try { return localStorage.getItem('accessToken'); } catch (e) { return null; }
     }
@@ -764,7 +788,7 @@
     }
 
     window.BhavaSession = {
-      end:        function (rawScore) { if (loggedIn) _saveScoreToMedhaa(rawScore); _notifyGameComplete(rawScore); },
+      end:        function (rawScore) { clearTimeout(breakReminderTimer); if (loggedIn) _saveScoreToMedhaa(rawScore); _notifyGameComplete(rawScore); },
       getStudent: function () { return medhaaStudentId ? { id: medhaaStudentId } : null; },
       isLoggedIn: function () { return loggedIn; },
       showLogin:  function () {},
