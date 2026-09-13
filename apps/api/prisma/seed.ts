@@ -140,7 +140,6 @@ if (!school) {
 { slug: 'bcs-lite-v3', title: 'My Medhā', domain: 'cognitive-assessment', isFreeTier: true, entryPath: 'bcs-lite-v3.html' },
 { slug: 'bhava-tech-build-your-bike', title: 'Bhava Tech Build Your Bike', domain: 'stem-engineering', isFreeTier: false, entryPath: 'bhava-tech-build-your-bike/index.html' },
 { slug: 'medha-read-anybook-in-3hrs', title: 'Read Any Book in 3 Hours', domain: 'reading', isFreeTier: true, entryPath: 'medha_read_anybook_in-3hrs.html' },
-{ slug: 'medhaa-cognitive-assessment', title: 'Medhā Cognitive Assessment', domain: 'cognitive-assessment-onetime', isFreeTier: true, entryPath: 'medhaa-cognitive-assessment.html' },
   ];
 
   const ACTIVITY_SLUGS = new Set([
@@ -161,7 +160,6 @@ if (!school) {
   'day-hero-game',
   'day-super-hero',
   'ready-for-the-world',
-  'medhaa-cognitive-assessment',
 ]);
 
   const createdGames: Record<string, { id: string; slug: string }> = {};

@@ -150,10 +150,7 @@ export function GameCard({
   kind = 'game',
 }: GameCardProps) {
   const [showUpgrade, setShowUpgrade] = useState(false);
-  const isOneTimeAssessment = slug === 'medhaa-cognitive-assessment';
-  const badge = isOneTimeAssessment
-    ? { label: 'One-time · ₹99', color: 'badge-onetime' }
-    : getBadge(tier, access);
+  const badge = getBadge(tier, access);
   const displayTitle = displayGameTitle(title);
 const playLabel = kind === 'activity' ? 'Start Now' : 'Play Now';
   const visibleSkills = skills.slice(0, 3);
@@ -173,16 +170,7 @@ const playLabel = kind === 'activity' ? 'Start Now' : 'Play Now';
         <div className="game-card-banner">
           <GameCardMedia slug={slug} emoji={emoji} />
 
-          {isOneTimeAssessment && (
-            <span className="game-card-new-ribbon" aria-hidden="true">
-              <span className="game-card-new-ribbon-track">
-                <span>✨ NEW · ONE-TIME COGNITIVE ASSESSMENT ✨</span>
-                <span>✨ NEW · ONE-TIME COGNITIVE ASSESSMENT ✨</span>
-              </span>
-            </span>
-          )}
-
-          <span className={`tier-badge ${badge.color} ${isOneTimeAssessment ? 'tier-badge--pushed' : ''}`}>
+          <span className={`tier-badge ${badge.color}`}>
             {badge.label}
           </span>
 

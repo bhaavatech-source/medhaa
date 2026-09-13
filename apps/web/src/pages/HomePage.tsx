@@ -29,6 +29,7 @@ import schoolImg from '../assets/roles/school.png';
 import medhaLogo from '../assets/logo/M_2.png';
 import medhaIcon from '../assets/logo/medhaa-icon.svg';
 import { useState } from 'react'; 
+import { useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 
 declare global {
@@ -1550,6 +1551,96 @@ const medhaHeroStyles = `
   color: #fff !important;
 }
 
+.home-scroll-banner {
+  position: relative;
+  z-index: 20;
+  width: 100%;
+  overflow: hidden;
+  cursor: pointer;
+  background: linear-gradient(90deg, #d946a0, #7c3aed);
+  box-shadow: 0 3px 12px rgba(124,58,237,.25);
+}
+
+.home-scroll-banner__track {
+  display: flex;
+  width: max-content;
+  gap: 60px;
+  padding: 9px 0;
+  animation: homeScrollBanner 20s linear infinite;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.home-scroll-banner__track > span {
+  padding-right: 60px;
+}
+
+@keyframes homeScrollBanner {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.home-assessment-promo {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 900;
+  width: min(340px, calc(100% - 28px));
+  padding: 20px;
+  border: 1px solid rgba(255,255,255,.95);
+  border-radius: 20px;
+  background: rgba(255,255,255,.97);
+  box-shadow: 0 20px 50px rgba(24,38,73,.22);
+  backdrop-filter: blur(18px);
+  color: #1b2946;
+}
+
+.home-assessment-promo__close {
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  border: 0;
+  background: transparent;
+  color: #738097;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.home-assessment-promo__icon {
+  font-size: 28px;
+}
+
+.home-assessment-promo strong {
+  display: block;
+  margin-top: 4px;
+}
+
+.home-assessment-promo p {
+  margin: 6px 0 13px;
+  color: #69758b;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.home-assessment-promo > button:last-child {
+  width: 100%;
+  padding: 10px;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #d946a0, #7c3aed);
+  color: #fff;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-scroll-banner__track {
+    animation: none;
+  }
+}
+
 .role-card {
   color: #183638 !important;
 }
@@ -1694,6 +1785,24 @@ export default function HomePage() {
   const { user } = useAuth();
   const go = (route: string) => navigate(route);
 
+  const [showAssessmentPromo, setShowAssessmentPromo] = useState(false);
+
+  // Gentle recurring nudge toward the one-time paid Cognitive Assessment —
+  // only while the visitor hasn't actually taken it yet.
+  useEffect(() => {
+    const ASSESSMENT_PROMO_INTERVAL_MS = 15 * 60 * 1000;
+    function maybeShow() {
+      if (localStorage.getItem('medhaa_assessment_taken') === '1') return;
+      setShowAssessmentPromo(true);
+    }
+    const first = window.setTimeout(maybeShow, 60000);
+    const recurring = window.setInterval(maybeShow, ASSESSMENT_PROMO_INTERVAL_MS);
+    return () => {
+      window.clearTimeout(first);
+      window.clearInterval(recurring);
+    };
+  }, []);
+
   return (
     <main className="home-wrap medha-enhanced">
       <style>{medhaHeroStyles}</style>
@@ -1701,6 +1810,19 @@ export default function HomePage() {
       <FloatingOrb className="orb-a" />
       <FloatingOrb className="orb-b" />
       <FloatingOrb className="orb-c" />
+
+      {localStorage.getItem('medhaa_assessment_taken') !== '1' && (
+        <div className="home-scroll-banner" role="button" tabIndex={0}
+          onClick={() => { window.location.href = '/games-static/medhaa-cognitive-assessment.html'; }}
+          onKeyDown={(e) => { if (e.key === 'Enter') window.location.href = '/games-static/medhaa-cognitive-assessment.html'; }}
+        >
+          <div className="home-scroll-banner__track">
+            <span>✨ NEW: Take the Medhā Cognitive Assessment — a one-time personalised report for just ₹99 →</span>
+            <span>✨ NEW: Take the Medhā Cognitive Assessment — a one-time personalised report for just ₹99 →</span>
+          </div>
+        </div>
+      )}
+
       <header className="home-nav">
         <button
           className="brand"
@@ -2037,6 +2159,16 @@ export default function HomePage() {
   <span>© 2026 Medhā — Designed for curious minds</span>
   <span className="footer-note">A Bhāva Tech Product.</span>
 </footer>
+
+      {showAssessmentPromo && (
+        <div className="home-assessment-promo">
+          <button type="button" className="home-assessment-promo__close" aria-label="Close" onClick={() => setShowAssessmentPromo(false)}>×</button>
+          <div className="home-assessment-promo__icon">🧠</div>
+          <strong>New: Medhā Cognitive Assessment</strong>
+          <p>A one-time, personalised cognitive report — just ₹99 to unlock your full results.</p>
+          <button type="button" onClick={() => { setShowAssessmentPromo(false); window.location.href = '/games-static/medhaa-cognitive-assessment.html'; }}>Take it now →</button>
+        </div>
+      )}
     </main>
   );
 }

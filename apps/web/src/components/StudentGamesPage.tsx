@@ -339,7 +339,6 @@ const folderBasedSlugs = new Set([
 function formatDomainLabel(domain: string): string {
   const map: Record<string, string> = {
     'cognitive-assessment': 'IQ Assessment',
-    'cognitive-assessment-onetime': 'Cognitive Assessment',
     'cognitive-focus': 'Focus & Attention',
     'cognitive-logic': 'Logic & Reasoning',
     'cognitive-math': 'Math Skills',
@@ -945,7 +944,7 @@ export function StudentGamesPage({ apiUrl, childStudentId }: StudentGamesPagePro
   const [expanded, setExpanded] = useState(false);
   const [gameSearch, setGameSearch] = useState('');
   const [showPromo, setShowPromo] = useState(false);
-  const [showAssessmentPromo, setShowAssessmentPromo] = useState(false);
+  const [showMyMedhaPromo, setShowMyMedhaPromo] = useState(false);
   const [activeFeature, setActiveFeature] = useState<FeatureKey | null>(null);
   const [randomGame, setRandomGame] = useState<GameWithAccess | null>(null);
   const [homework, setHomework] = useState<HomeworkItem[]>(() => {
@@ -1089,23 +1088,26 @@ export function StudentGamesPage({ apiUrl, childStudentId }: StudentGamesPagePro
     return () => window.clearTimeout(timer);
   }, [subscription]);
 
-  // Gentle recurring reminder for the one-time paid Cognitive Assessment —
-  // distinct from the subscribe promo above, and from the in-game 10-min
-  // break-reminder toast. Stops once the assessment has actually been taken.
-  const ASSESSMENT_PROMO_INTERVAL_MS = 15 * 60 * 1000;
+  // Gentle reminder to check in on "My Medhā" (the ongoing progress
+  // tracker, not the one-time paid assessment) — nudges every ~1.5 days,
+  // and definitely once it's been 10+ days since their last real check-in.
+  const MY_MEDHA_MIN_GAP_MS = 36 * 60 * 60 * 1000;
+  const MY_MEDHA_STALE_MS = 10 * 24 * 60 * 60 * 1000;
   useEffect(() => {
-    function maybeShow() {
-      if (localStorage.getItem('medhaa_assessment_taken') === '1') return;
-      if (showPromo) return;
-      setShowAssessmentPromo(true);
-    }
-    const first = window.setTimeout(maybeShow, 60000);
-    const recurring = window.setInterval(maybeShow, ASSESSMENT_PROMO_INTERVAL_MS);
-    return () => {
-      window.clearTimeout(first);
-      window.clearInterval(recurring);
-    };
-  }, [showPromo]);
+    if (!isLoggedIn) return;
+    const now = Date.now();
+    const lastShown = Number(localStorage.getItem('medhaa_my_medha_promo_last_shown') || 0);
+    const lastCheckin = lastCheckInAt ? new Date(lastCheckInAt).getTime() : 0;
+    const sinceCheckin = lastCheckin ? now - lastCheckin : Infinity;
+    const stale = sinceCheckin >= MY_MEDHA_STALE_MS;
+    const dueForRegularNudge = now - lastShown >= MY_MEDHA_MIN_GAP_MS && sinceCheckin >= MY_MEDHA_MIN_GAP_MS;
+    if (!stale && !dueForRegularNudge) return;
+    const timer = window.setTimeout(() => {
+      setShowMyMedhaPromo(true);
+      localStorage.setItem('medhaa_my_medha_promo_last_shown', String(now));
+    }, 45000);
+    return () => window.clearTimeout(timer);
+  }, [isLoggedIn, lastCheckInAt]);
 
   function handlePlay(slug: string) {
     const loggedInNow = !!localStorage.getItem('accessToken');
@@ -1374,6 +1376,13 @@ const disclaimerBanner = (
       {header}
       {benefitsBanner}
 
+      <div className="student-scroll-banner" role="button" tabIndex={0} onClick={() => { playClick(); openAssessment(); }} onKeyDown={(e) => { if (e.key === 'Enter') openAssessment(); }}>
+        <div className="student-scroll-banner__track">
+          <span>📊 My Medhā — check in on your progress and scores anytime, free for subscribed students →</span>
+          <span>📊 My Medhā — check in on your progress and scores anytime, free for subscribed students →</span>
+        </div>
+      </div>
+
       <main className="student-main">
 
         {studentName && (
@@ -1638,12 +1647,12 @@ const disclaimerBanner = (
         </div>
       )}
 
-      {showAssessmentPromo && !showPromo && (
-        <div className="student-promo student-assessment-promo">
-          <button type="button" className="student-promo__close" aria-label="Close" onClick={() => setShowAssessmentPromo(false)}>×</button>
-          <div className="student-promo__icon">🧠</div><strong>New: Medhā Cognitive Assessment</strong>
-          <p>A one-time, personalised cognitive report — just ₹99 to unlock your full results.</p>
-          <button type="button" onClick={() => { setShowAssessmentPromo(false); window.location.href = '/games-static/medhaa-cognitive-assessment.html'; }}>Take it now →</button>
+      {showMyMedhaPromo && !showPromo && (
+        <div className="student-promo student-mymedha-promo">
+          <button type="button" className="student-promo__close" aria-label="Close" onClick={() => setShowMyMedhaPromo(false)}>×</button>
+          <div className="student-promo__icon">📊</div><strong>Time for a My Medhā check-in?</strong>
+          <p>See how your scores and progress have been trending lately.</p>
+          <button type="button" onClick={() => { setShowMyMedhaPromo(false); openAssessment(); }}>Open My Medhā →</button>
         </div>
       )}
 
