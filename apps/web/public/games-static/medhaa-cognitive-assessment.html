@@ -6,7 +6,7 @@
 <title>Medhā Cognitive Assessment</title>
 <meta name="description" content="Medhā cognitive assessment with dynamically generated tasks for ages 5–17 and 18+.">
 <meta property="og:title" content="Medhā — Cognitive Assessment | Bhāva Tech">
-<meta property="og:description" content="A short, dynamically generated interactive cognitive assessment for ages 5–17 and 18+, built by Bhāva Tech.">
+<meta property="og:description" content="A short, dynamically generated cognitive assessment for ages 5–17 and 18+, built by Bhāva Tech.">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary">
 <meta name="robots" content="index, follow">
@@ -35,6 +35,8 @@ header{display:flex;align-items:center;justify-content:space-between;gap:15px;ma
 .hero{padding:32px;text-align:center;position:relative;overflow:hidden}.hero:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 10% 12%,rgba(245,190,74,.18),transparent 20%),radial-gradient(circle at 90% 15%,rgba(96,165,250,.15),transparent 20%);pointer-events:none}.hero>*{position:relative}
 .eyebrow{text-transform:uppercase;letter-spacing:.13em;font-size:11px;color:var(--brand);font-weight:950}h1{font-size:clamp(30px,5vw,52px);line-height:1.03;margin:12px 0}.hero p{max-width:760px;margin:0 auto 20px;color:var(--muted);line-height:1.55}
 .pills{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:18px 0}.pill{padding:8px 12px;border-radius:999px;background:rgba(245,242,255,0.8);border:1px solid #e6defd;font-size:12px;font-weight:800;color:#554b72}
+
+.modeGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:1000px;margin:26px auto 16px;text-align:left}.modeCard{position:relative;padding:22px;border:2px solid transparent;border-radius:22px;background:linear-gradient(#fff,#fff) padding-box,linear-gradient(135deg,#d9d0ff,#bdeee5) border-box;text-align:left;transition:.2s;min-height:220px;color:var(--ink)}.modeCard:hover,.modeCard:focus-visible{transform:translateY(-4px);box-shadow:0 14px 30px rgba(45,40,75,.10);outline:none}.modeCard.featured{background:linear-gradient(#fff,#fff) padding-box,linear-gradient(135deg,#bca9fa,#72d8c7,#f0c76d) border-box}.modeCard h3{margin:5px 0 8px;font-size:18px}.modeCard p{font-size:13px;line-height:1.5;color:var(--muted);margin:0 0 14px}.modeIcon{font-size:28px}.modeMeta{display:block;font-size:11px;font-weight:850;color:#665b82;margin-bottom:14px}.modeCard strong{color:var(--brand);font-size:12px}.modeSelected{max-width:820px;margin:16px auto;padding:13px 15px;border-radius:16px;background:#f7f5ff;border:1px solid #e4dcfb;display:flex;justify-content:space-between;align-items:center;gap:12px;text-align:left}.modeSelected b{display:block}.modeSelected span{display:block;color:var(--muted);font-size:12px;margin-top:3px}.ageChooser{max-width:1000px;margin:18px auto 0}.ageChooser>h3{margin:0 0 8px}.ageChooser .paths{margin:14px auto}.hidden{display:none!important}
 .paths{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:820px;margin:24px auto}.path{padding:22px;border:2px solid transparent;border-radius:22px;background:linear-gradient(rgba(255,255,255,0.8),rgba(255,255,255,0.8)) padding-box,linear-gradient(135deg,#d9d0ff,#bdeee5) border-box;text-align:left;transition:transform .2s cubic-bezier(0.34,1.56,0.64,1),box-shadow .2s ease}.path:hover,.path:focus-within{transform:translateY(-4px);box-shadow:0 14px 30px rgba(45,40,75,.15)}.path h3{margin:0 0 7px}.path p{font-size:13px;margin:0 0 15px}
 .formgrid{display:grid;grid-template-columns:1fr 1fr;gap:13px;max-width:800px;margin:20px auto;text-align:left}.field label{display:block;font-size:13px;font-weight:850;margin-bottom:6px}.field input,.field select{width:100%;padding:12px;border:1px solid var(--line);border-radius:13px;background:rgba(255,255,255,0.9)}.full{grid-column:1/-1}.consent{max-width:800px;margin:14px auto;padding:15px;border:1px solid #e0d9f7;border-radius:18px;background:rgba(250,249,255,0.8);text-align:left}.consent h3{margin:0 0 7px}.consent p{font-size:12px;color:var(--muted);line-height:1.5}.check{display:flex;gap:9px;align-items:flex-start;font-size:13px;font-weight:750}.check input{width:19px;height:19px;flex:0 0 auto}
 .btn{border:0;border-radius:14px;padding:13px 18px;min-height:46px;font-weight:900;transition:transform .2s cubic-bezier(0.34,1.56,0.64,1),box-shadow .2s ease}.primary{background:linear-gradient(135deg,var(--brand),#7d5de1);color:#fff;box-shadow:0 9px 20px rgba(91,60,196,.22)}.secondary{background:rgba(238,240,245,0.8);color:var(--ink)}.btn:hover,.btn:focus-visible{transform:translateY(-2px)}.btn:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none;pointer-events:none}.actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:18px}
@@ -49,7 +51,7 @@ header{display:flex;align-items:center;justify-content:space-between;gap:15px;ma
 .choiceGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;width:min(800px,100%);position:relative;z-index:2}.choice{border:2px solid var(--line);background:rgba(255,255,255,0.9);border-radius:18px;padding:16px;min-height:70px;font-weight:900;color:var(--ink);transition:transform .2s cubic-bezier(0.34,1.56,0.64,1),box-shadow .2s ease,border-color .2s}.choice:hover,.choice:focus-visible{border-color:#bca9fa;transform:translateY(-3px);box-shadow:0 12px 24px rgba(91,60,196,.15)}.choice.selected{border-color:var(--brand);background:#f5f1ff;box-shadow:0 9px 20px rgba(91,60,196,.10)}
 .big,.visual,.numberDisplay{color:#2d244f;text-shadow:0 3px 10px rgba(91,60,196,0.15);position:relative;z-index:2}
 .big{font-size:72px;font-weight:950}.visual{font-size:48px;letter-spacing:6px;text-align:center}.smallHint{font-size:12px;color:var(--muted);text-align:center;margin-top:8px;position:relative;z-index:2}
-.board{width:min(820px,100%);height:315px;border:1px solid var(--line);border-radius:22px;background:radial-gradient(circle at 20% 20%,rgba(241,237,255,0.7),transparent 34%),rgba(250,251,254,0.8);position:relative;overflow:hidden;z-index:2}.dot{position:absolute;width:46px;height:46px;border:0;border-radius:50%;font-weight:950;box-shadow:0 5px 12px rgba(20,30,50,.12);transition:transform .2s cubic-bezier(0.34,1.56,0.64,1),opacity .15s}.dot:hover,.dot:focus-visible{transform:scale(1.15)}.dot.good{background:#c9f0dc;color:#11683f}.dot.bad{background:#edf0f4;color:#6b7280}.dot.hit{transform:scale(1.2);opacity:.45}
+.board{width:min(820px,100%);height:315px;border:1px solid var(--line);border-radius:22px;background:radial-gradient(circle at 20% 20%,rgba(241,237,255,0.7),transparent 34%),rgba(250,251,254,0.8);position:relative;overflow:hidden;z-index:2}.dot{position:absolute;z-index:3;width:46px;height:46px;border:0;border-radius:50%;font-weight:950;box-shadow:0 5px 12px rgba(20,30,50,.12);transition:transform .2s cubic-bezier(0.34,1.56,0.64,1),opacity .15s}.dot:hover,.dot:focus-visible{transform:scale(1.15)}.dot.good{background:#c9f0dc;color:#11683f}.dot.bad{background:#edf0f4;color:#6b7280}.dot.hit{transform:scale(1.2);opacity:.45}
 .tiles{display:flex;flex-wrap:wrap;justify-content:center;gap:9px;max-width:850px;position:relative;z-index:2}.tile{min-width:70px;min-height:62px;padding:10px 14px;border:2px solid var(--line);border-radius:16px;background:rgba(255,255,255,0.9);font-weight:900;color:var(--ink);transition:transform .2s,box-shadow .2s}.tile:hover,.tile:focus-visible{transform:translateY(-2px);box-shadow:0 8px 16px rgba(0,0,0,.1)}.tile.used{opacity:.35;transform:none;box-shadow:none}
 .sequenceSlots{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:18px;position:relative;z-index:2}.slot{width:70px;height:58px;border:2px dashed #cbd0da;border-radius:14px;display:grid;place-items:center;font-weight:950;background:rgba(250,251,252,0.8)}
 .shapeGrid{display:grid;grid-template-columns:repeat(4,72px);gap:10px;justify-content:center;position:relative;z-index:2}.shape{height:72px;border:2px solid var(--line);border-radius:18px;background:rgba(255,255,255,0.9);display:grid;place-items:center;font-size:34px;font-weight:950;cursor:pointer;transition:transform .2s}.shape:focus-visible{box-shadow:var(--focus-ring)}.shape.selected{border-color:var(--brand);background:#f4f0ff}
@@ -143,20 +145,7 @@ h1{letter-spacing:-0.02em}
 .band-below{background:#ffece0;color:#b5480a}
 .band-attention{background:#fde3e3;color:#b91c1c}
 @media(max-width:700px){.analysisGrid{grid-template-columns:1fr 1fr}}
-
-.unlockGrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:900px;margin:22px auto;text-align:left}
-.unlockCard{padding:22px;border:1px solid #e2e5ee;border-radius:22px;background:rgba(255,255,255,.94);box-shadow:0 12px 32px rgba(30,34,55,.07)}
-.unlockCard.featured{border:2px solid #8b6cf0;box-shadow:0 15px 38px rgba(91,60,196,.14)}
-.unlockCard h2{margin:10px 0 4px}.unlockCard ul{margin:14px 0 20px;padding-left:20px;color:#566074;line-height:1.8;font-size:13px}
-.offerBadge{display:inline-flex;padding:7px 12px;border-radius:999px;background:#fff3cd;color:#8b5a00;font-size:11px;font-weight:950;letter-spacing:.06em}
-.paymentPrice{display:flex;align-items:baseline;justify-content:center;gap:10px;margin:8px 0 16px}.paymentOld{font-size:20px;color:#94a3b8;text-decoration:line-through;font-weight:800}.paymentNew{font-size:42px;color:var(--brand);font-weight:950}
-.paymentCard{max-width:760px;margin:22px auto 0;padding:24px;border:1px solid #e4dcfb;border-radius:22px;background:rgba(255,255,255,.96);box-shadow:0 14px 38px rgba(45,40,75,.10)}
-.payGrid{display:grid;grid-template-columns:230px 1fr;gap:24px;align-items:center;text-align:left}.qrWrap{text-align:center}.qrWrap img{width:210px;height:210px;object-fit:contain;border-radius:16px;background:#fff;border:1px solid var(--line)}
-.upiBox{padding:13px 15px;border:1px solid #e4e7ef;border-radius:14px;background:#f8fafc;margin:10px 0}.upiBox b{display:block;font-size:16px;word-break:break-all}.paymentNote{font-size:12px;color:var(--muted);line-height:1.5}
-.utrBox{margin-top:16px;padding-top:16px;border-top:1px solid #ececf2}.utrBox input{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:#fff}.paymentActions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.paymentActions .btn{flex:1;min-width:150px}
-@media(max-width:700px){.unlockGrid{grid-template-columns:1fr}.payGrid{grid-template-columns:1fr}.qrWrap img{width:190px;height:190px}}
-
-</style>
+.paymentCard{max-width:760px;margin:22px auto 0;padding:24px;border:1px solid #e4dcfb;border-radius:22px;background:rgba(255,255,255,.94);box-shadow:0 14px 38px rgba(45,40,75,.10)}.paymentPrice{display:flex;align-items:baseline;justify-content:center;gap:10px;margin:8px 0 16px}.paymentOld{font-size:20px;color:#94a3b8;text-decoration:line-through;font-weight:800}.paymentNew{font-size:42px;color:var(--brand);font-weight:950}.offerBadge{display:inline-flex;padding:7px 12px;border-radius:999px;background:#fff3cd;color:#8b5a00;font-size:11px;font-weight:950;letter-spacing:.06em}.payGrid{display:grid;grid-template-columns:230px 1fr;gap:24px;align-items:center;text-align:left}.qrWrap{text-align:center}.qrWrap img{width:210px;height:210px;object-fit:contain;border-radius:16px;background:#fff;border:1px solid var(--line)}.upiBox{padding:13px 15px;border:1px solid #e4e7ef;border-radius:14px;background:#f8fafc;margin:10px 0}.upiBox b{display:block;font-size:16px;word-break:break-all}.paymentNote{font-size:12px;color:var(--muted);line-height:1.5}.utrBox{margin-top:16px;padding-top:16px;border-top:1px solid #ececf2}.utrBox input{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:#fff}.paymentActions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.paymentActions .btn{flex:1;min-width:180px}.paymentState{margin-top:12px;padding:11px 13px;border-radius:12px;font-size:12px;line-height:1.45;background:#f0fdf4;color:#166534;display:none}.paymentState.show{display:block}@media(max-width:700px){.modeGrid{grid-template-columns:1fr}.modeCard{min-height:auto}.payGrid{grid-template-columns:1fr}.qrWrap img{width:190px;height:190px}}</style>
 </head>
 <body>
 <canvas id="fx"></canvas>
@@ -179,17 +168,31 @@ h1{letter-spacing:-0.02em}
 <div class="card hero">
   <div class="eyebrow">Medhā Cognitive Assessment</div>
   <h1>Think. Notice. Remember. Adapt.</h1>
-  <p>Ready for a quick mental workout? You'll solve visual puzzles, remember patterns, react to signals, switch rules on the fly, and make quick decisions — a fresh mix of challenges generated just for you.</p>
-  <div class="pills"><span class="pill">30 cognitive modules</span><span class="pill">10–12 min target</span><span class="pill">15 min maximum</span><span class="pill">New stimuli each session</span></div>
-  <div class="actions" style="margin-top:0"><button type="button" class="btn secondary" id="readIntroAloud">🔊 Test voice / Read this page aloud</button></div>
+  <p>Choose a short check for a quick snapshot, or take the detailed assessment for a deeper profile. Medhā uses randomized task variants, timing, response patterns and persistent browser-level item and content history to reduce repeat exposure. Payment is requested only after the assessment is completed.</p>
+  <div class="pills"><span class="pill">Choose your assessment</span><span class="pill">Short tests: ~5 min</span><span class="pill">Detailed test: 10–15 min</span><span class="pill">Novel stimuli each session</span></div>
+  <div class="actions" style="margin-top:0"><button type="button" class="btn secondary" id="readIntroAloud">🔊 Read this page aloud</button></div>
   <div class="voiceDiag" id="voiceDiag"></div>
-  <div class="paths">
-    <button class="path" id="childPath"><h3>🧒 Ages 5–17</h3><p>Fun, age-appropriate challenges for growing minds. A parent or guardian will need to give the go-ahead first.</p></button>
-    <button class="path" id="adultPath"><h3>🎓 Age 18+</h3><p>A quick, engaging set of brain challenges for students, professionals, and curious minds alike.</p></button>
+  <div class="modeGrid" id="modeGrid">
+    <button class="modeCard" data-mode="quick"><span class="modeIcon">⚡</span><h3>Quick Cognitive Check</h3><p>About 5 minutes. A fast snapshot of attention, memory, reasoning, speed, visual thinking and number skills.</p><span class="modeMeta">~5 min · Voice off</span><strong>Choose Quick Check →</strong></button>
+    <button class="modeCard" data-mode="focus"><span class="modeIcon">🎯</span><h3>Focus &amp; Thinking Check</h3><p>About 5 minutes. More emphasis on focus, distraction control, memory, switching and visual reasoning.</p><span class="modeMeta">~5 min · Voice off</span><strong>Choose Focus Check →</strong></button>
+    <button class="modeCard featured" data-mode="detailed"><span class="modeIcon">🧠</span><h3>Detailed Cognitive Assessment</h3><p>The comprehensive Medhā assessment using the full set of cognitive modules and a deeper session profile.</p><span class="modeMeta">10–15 min · Detailed</span><strong>Choose Detailed Assessment →</strong></button>
+  </div>
+  <div class="modeSelected hidden" id="modeSelected">
+    <div><b id="selectedModeTitle">Assessment selected</b><span id="selectedModeText"></span></div>
+    <button type="button" class="btn secondary" id="changeMode">Change</button>
+  </div>
+  <div class="ageChooser hidden" id="ageChooser">
+    <h3>Next, choose the participant age group</h3>
+    <div class="paths">
+      <button class="path" id="childPath"><h3>🧒 Ages 5–17</h3><p>Age-adjusted challenges. A parent or guardian will need to give the go-ahead first.</p></button>
+      <button class="path" id="adultPath"><h3>🎓 Age 18+</h3><p>Interactive cognitive challenges for adults, students and curious minds.</p></button>
+    </div>
   </div>
   <div class="note">Medhā reports performance on this assessment session. It is not an IQ test, clinical diagnosis, psychological diagnosis, educational placement decision, or guarantee of academic or career outcomes.</div>
 </div>
 </section>
+
+<section class="screen" id="payment"><div class="card hero"><div class="eyebrow">Assessment Complete</div><h1>Your assessment is complete</h1><p id="paymentIntroText">Your cognitive tasks are finished. Complete the payment below to unlock and publish your Medhā Cognitive Profile.</p><div><span class="offerBadge">LAUNCH OFFER</span></div><div class="paymentPrice"><span class="paymentOld">₹499</span><span class="paymentNew">₹299</span></div><div class="paymentCard"><div class="payGrid"><div class="qrWrap"><img src="/BT_QR.jpg" alt="Bhāva Tech UPI payment QR code"><div class="paymentNote" style="margin-top:8px">Scan with your UPI app</div></div><div><h3 style="margin:0 0 8px">Pay ₹299 via UPI</h3><div class="upiBox"><span class="paymentNote">UPI ID</span><b id="paymentUpi">yespay.smessi10194393@yesbankltd</b></div><div class="paymentActions"><button type="button" class="btn secondary" id="copyUpi">Copy UPI ID</button><a class="btn primary" id="upiPay" href="upi://pay?pa=yespay.smessi10194393@yesbankltd&amp;pn=Bhava%20Tech&amp;am=299.00&amp;cu=INR">Open UPI App</a></div><div class="utrBox"><label for="paymentUtr" style="display:block;font-size:13px;font-weight:850;margin-bottom:6px">After payment, enter your UTR / transaction reference</label><input id="paymentUtr" inputmode="numeric" autocomplete="off" placeholder="e.g. 402812345678"><p class="paymentNote">Keep your UTR/reference number. This standalone page records it in this browser; server-side payment verification still needs to be connected for production.</p><div class="paymentState" id="paymentState"></div><button type="button" class="btn primary" id="continueAfterPayment" style="width:100%;margin-top:8px">I have paid — view my profile</button></div></div></div></div><div class="note" style="margin-top:18px">Regular price ₹499. Launch offer ₹299. One payment covers one complete assessment attempt. Ages 5–17 require parent/guardian consent.</div><div class="actions"><button class="btn secondary" id="backPaymentIntro" style="display:none">Go back</button></div></div></section>
 
 <section class="screen" id="details">
 <div class="card hero">
@@ -232,76 +235,9 @@ h1{letter-spacing:-0.02em}
   </div>
 </section>
 
-
-<section class="screen" id="unlock">
-<div class="card hero">
-  <div class="eyebrow">Assessment completed</div>
-  <h1>Your Medhā Cognitive Profile is ready.</h1>
-  <p id="unlockIntro">You have completed the assessment. Choose the result level you want to unlock.</p>
-  <div class="pills"><span class="pill">10 cognitive domains</span><span class="pill">Detailed performance analysis</span><span class="pill">Development insights</span></div>
-
-  <div class="unlockGrid">
-    <div class="unlockCard featured">
-      <span class="offerBadge">LAUNCH OFFER</span>
-      <h2>Full Medhā Cognitive Profile</h2>
-      <div class="paymentPrice"><span class="paymentOld">₹499</span><span class="paymentNew">₹299</span></div>
-      <ul>
-        <li>All 10 cognitive domains</li>
-        <li>Detailed strengths and areas for development</li>
-        <li>Domain-by-domain performance summary</li>
-        <li>Personalized development recommendations</li>
-        <li>Printable/downloadable report</li>
-      </ul>
-      <button class="btn primary" id="chooseFull">Unlock Full Profile — ₹299</button>
-    </div>
-    <div class="unlockCard">
-      <span class="offerBadge" style="background:#eef2ff;color:#4f46e5">QUICK OPTION</span>
-      <h2>Quick Result Summary</h2>
-      <div class="paymentPrice"><span class="paymentNew" style="font-size:36px">₹99</span></div>
-      <ul>
-        <li>Overall assessment score</li>
-        <li>Top strengths</li>
-        <li>Areas for development</li>
-        <li>Concise result summary</li>
-      </ul>
-      <button class="btn secondary" id="chooseQuick">Get Quick Summary — ₹99</button>
-    </div>
-  </div>
-
-  <div class="paymentCard hidden" id="paymentBox">
-    <div class="eyebrow">Secure your result access</div>
-    <h2 id="payTitle" style="margin:8px 0 0"></h2>
-    <p id="payDescription" class="paymentNote"></p>
-    <div class="paymentPrice"><span id="payOld" class="paymentOld"></span><span id="payAmount" class="paymentNew"></span></div>
-    <div class="payGrid">
-      <div class="qrWrap">
-        <img src="/BT_QR.jpg" alt="Bhāva Tech UPI payment QR code">
-        <div class="paymentNote" style="margin-top:8px">Scan with your UPI app</div>
-      </div>
-      <div>
-        <h3>Pay by UPI</h3>
-        <div class="upiBox"><span class="paymentNote">UPI ID</span><b id="upiId">yespay.smessi10194393@yesbankltd</b></div>
-        <div class="paymentActions">
-          <button type="button" class="btn secondary" id="copyUpi">Copy UPI ID</button>
-          <a class="btn primary" id="openUpi" href="#">Open UPI App</a>
-        </div>
-        <div class="utrBox">
-          <label for="utr" style="display:block;font-size:13px;font-weight:850;margin-bottom:6px">After payment, enter your UTR / transaction reference</label>
-          <input id="utr" inputmode="numeric" autocomplete="off" placeholder="e.g. 402812345678">
-          <p class="paymentNote">Please keep the payment confirmation. Payment references are reviewed manually by Bhāva Tech.</p>
-          <button type="button" class="btn primary" id="submitUtr" style="width:100%;margin-top:8px">Submit Reference &amp; View Result</button>
-          <div class="formError" id="paymentError"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="note">The assessment is free to complete. Payment is requested only to unlock the selected result. ₹299 is the launch offer for the full profile; ₹99 is a separate quick-summary option.</div>
-</div>
-</section>
-
 <section class="screen" id="results">
 <div class="card results">
-  <div class="eyebrow">Medhā Cognitive Profile</div><h1 id="resultHeading">Nicely done!</h1><p id="resultText"></p>
+  <div class="eyebrow">Medhā Cognitive Profile • Assessment Engine V1.3</div><h1 id="resultHeading">Nicely done!</h1><p id="resultText"></p>
   <div class="scoreCircle" id="circle"><strong id="overall">0</strong></div>
   <div class="analysisGrid" id="analysisGrid"></div>
   <div class="bars" id="bars"></div>
@@ -319,7 +255,7 @@ h1{letter-spacing:-0.02em}
     <span>&middot;</span>
     <a href="mailto:contact@bhavatech.in">contact@bhavatech.in</a>
     <span>&middot;</span>
-    <span>Medhā Audit V2 &middot; Bhāva Tech, Rasapūdipalem, Andhra Pradesh, India</span>
+    <span>Medhā Assessment Engine V1.4 &middot; Bhāva Tech, Rasapūdipalem, Andhra Pradesh, India</span>
   </div>
   <div>&copy; <span id="footYear"></span> Bhāva Tech. This tool is an educational prototype and is not a substitute for professional psychological or clinical assessment.</div>
 </footer>
@@ -328,10 +264,10 @@ h1{letter-spacing:-0.02em}
 <div class="feedback" id="policyModal">
   <div class="modal" style="max-width:640px;text-align:left;max-height:80vh;overflow:auto">
     <h3>Privacy Policy &amp; Terms of Use — Medhā (Bhāva Tech)</h3>
-    <p><strong>What we collect:</strong> participant name, age, optional email/school, and (for minors) parent/guardian name and relationship, entered directly into this form. We also record in-session responses, timings, and page-visibility (integrity) events for scoring purposes only.</p>
-    <p><strong>Where your data goes:</strong> this assessment runs entirely in your browser. Your responses are not sent to Bhāva Tech's servers unless you explicitly click "Download Data" and share that file with us yourself, or unless this deployment has been configured with an active submission endpoint (if so, it is disclosed to you before you begin).</p>
+    <p><strong>What we collect:</strong> participant name, age, optional email/school, and (for minors) parent/guardian name and relationship, entered directly into this form. The assessment also stores a random browser-level assessment key and anonymous item-variant history locally to reduce repeated assessment items. We also record in-session responses, timings, and page-visibility (integrity) events for scoring purposes only.</p>
+    <p><strong>Where your data goes:</strong> this assessment runs in your browser and, when online, submits the assessment record to Bhāva Tech's Medhā API for result records and payment-reference processing. The assessment uses the participant details entered on the page, responses, timings and integrity events for this purpose.</p>
     <p><strong>Children's data:</strong> for participants aged 5–17, we require a parent/legal guardian to provide their name as an e-signature and to confirm their relationship to the child before any activity begins, in line with Section 9 of India's Digital Personal Data Protection Act, 2023. We do not use children's data for behavioural tracking, profiling, or targeted advertising.</p>
-    <p><strong>Retention &amp; deletion:</strong> if no submission endpoint is configured, no copy of your data is retained by Bhāva Tech at all — it exists only on your device. If you have shared a downloaded report or JSON file with us directly, you may request its deletion at any time by emailing contact@bhavatech.in.</p>
+    <p><strong>Retention &amp; deletion:</strong> assessment records submitted to Bhāva Tech are stored in the Medhā assessment system. You may request deletion of your assessment record or any copy you shared with us by emailing contact@bhavatech.in.</p>
     <p><strong>Not a clinical tool:</strong> Medhā is an educational prototype. Scores reflect relative in-session performance only and are not a validated IQ test, clinical diagnosis, or educational placement decision.</p>
     <p><strong>Contact:</strong> Bhāva Tech, Rasapūdipalem, Andhra Pradesh, India — contact@bhavatech.in</p>
     <button class="btn primary" id="closePolicyModal">Close</button>
@@ -346,7 +282,9 @@ const $=id=>document.getElementById(id);
 const state={
  path:null,age:0,participant:{},tasks:[],idx:0,taskStart:0,overallStart:0,
  score:{},raw:[],seed:0,integrityEvents:[],hiddenCount:0,status:"Ready",finished:false,
- taskTimer:null,softLimit:12*60*1000,hardLimit:15*60*1000
+ mode:"detailed", modeLabel:"Detailed Cognitive Assessment", taskLimit:30000, taskTimer:null,
+ softLimit:12*60*1000,hardLimit:15*60*1000,
+ userKey:"",usedItemKeys:[],sessionItemKeys:[],usedContentKeys:[],sessionContentKeys:[],currentItemKey:"",currentVariantKey:"",currentContentKey:"",currentInstructionText:""
 };
 
 // Web Audio API Synthesizer
@@ -373,35 +311,56 @@ const audio = (() => {
 })();
 $("audioToggle").onclick = audio.toggle;
 
-const SUBMIT_ENDPOINT = ""; // e.g. "https://script.google.com/macros/s/XXXX/exec"
-const APP_VERSION = "AUDIT-V2";
-
+const SUBMIT_ENDPOINT = "";
 const MEDHAA_API_URL = "https://medhaa-tni1.onrender.com/api";
+const APP_VERSION = "1.4.0-post-assessment-payment-stability";
+
 let medhaaAssessmentId = null;
+let pendingPaymentPatch = null;
 
 function submitResults(payload){
-  if(!SUBMIT_ENDPOINT) return;
-  try{
-    fetch(SUBMIT_ENDPOINT, { method: "POST", mode: "no-cors", headers: {"Content-Type":"application/json"}, body: JSON.stringify(payload) }).catch(()=>{});
-  }catch(e){}
-  try{
-    fetch(MEDHAA_API_URL + "/assessments/cognitive", {
-      method: "POST",
-      headers: {"Content-Type":"application/json"},
-      body: JSON.stringify(payload)
-    }).then(r=>r.ok?r.json():null).then(data=>{ if(data && data.id) medhaaAssessmentId = data.id; }).catch(()=>{});
-  }catch(e){}
+  const send = async () => {
+    if(SUBMIT_ENDPOINT){
+      try{
+        await fetch(SUBMIT_ENDPOINT, {
+          method:"POST", mode:"no-cors",
+          headers:{"Content-Type":"application/json"},
+          body:JSON.stringify(payload)
+        });
+      }catch(e){}
+    }
+    try{
+      const response = await fetch(MEDHAA_API_URL + "/assessments/cognitive", {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify(payload)
+      });
+      if(response.ok){
+        const data = await response.json().catch(()=>null);
+        if(data && data.id){
+          medhaaAssessmentId = data.id;
+          if(pendingPaymentPatch) submitPaymentReferenceToMedhaa(pendingPaymentPatch);
+        }
+      }
+    }catch(e){
+      console.warn("[Medhā] Assessment submission failed:", e);
+    }
+  };
+  send();
 }
 
-function submitPaymentReferenceToMedhaa(){
+function submitPaymentReferenceToMedhaa(paymentReference){
+  if(!paymentReference) return;
+  pendingPaymentPatch = paymentReference;
   if(!medhaaAssessmentId) return;
-  try{
-    fetch(MEDHAA_API_URL + "/assessments/cognitive/" + medhaaAssessmentId, {
-      method: "PATCH",
-      headers: {"Content-Type":"application/json"},
-      body: JSON.stringify({ paymentReference: state.paymentReference, resultLevel: state.resultLevel })
-    }).catch(()=>{});
-  }catch(e){}
+  fetch(MEDHAA_API_URL + "/assessments/cognitive/" + encodeURIComponent(medhaaAssessmentId), {
+    method:"PATCH",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({
+      paymentReference,
+      resultLevel:"full"
+    })
+  }).catch(e=>console.warn("[Medhā] Payment reference update failed:", e));
 }
 
 const voice = (() => {
@@ -589,14 +548,88 @@ const h = (tag, props = {}, children = []) => {
 function rng(seed){let t=seed>>>0;return()=>{t+=0x6D2B79F5;let r=Math.imul(t^t>>>15,1|t);r^=r+Math.imul(r^r>>>7,61|r);return((r^r>>>14)>>>0)/4294967296}}
 function shuffle(a,r){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 function pick(a,r){return a[Math.floor(r()*a.length)]}
+function hashText(text){let h=2166136261;for(let i=0;i<String(text).length;i++){h^=String(text).charCodeAt(i);h=Math.imul(h,16777619)}return (h>>>0).toString(36)}
+function normalizeFingerprint(text){
+  return String(text||"").toLowerCase()
+    .replace(/round\s+\d+\s+of\s+\d+/g,"")
+    .replace(/problem\s+\d+\s+of\s+\d+/g,"")
+    .replace(/pattern\s+\d+\s+of\s+\d+/g,"")
+    .replace(/module\s+\d+\s*\/\s*\d+/g,"")
+    .replace(/\s+/g," ").trim();
+}
+function contentKey(text){return `content|${hashText(normalizeFingerprint(text))}`}
+function novelPick(taskName,items,r,keyFn=v=>v){
+  const candidates=items.map(v=>({v,key:`variant|${taskName}|${hashText(keyFn(v))}`}));
+  const fresh=candidates.filter(x=>!state.usedItemKeys.includes(x.key));
+  const contentFresh=fresh.filter(x=>!state.usedContentKeys.includes(contentKey(keyFn(x.v))));
+  const pool=contentFresh.length?contentFresh:(fresh.length?fresh:candidates);
+  const chosen=pick(pool,r).v;
+  state.currentVariantKey=`variant|${taskName}|${hashText(keyFn(chosen))}`;
+  state.currentContentKey=contentKey(keyFn(chosen));
+  return chosen;
+}
+function saveNoveltyHistory(){
+  try{
+    localStorage.setItem("medhaa_item_history_v2_"+state.userKey,JSON.stringify(state.usedItemKeys.slice(-800)));
+    localStorage.setItem("medhaa_content_history_v3_"+state.userKey,JSON.stringify(state.usedContentKeys.slice(-800)));
+  }catch(e){}
+}
+function loadNoveltyHistory(){
+  state.userKey=getUserKey();
+  try{
+    state.usedItemKeys=JSON.parse(localStorage.getItem("medhaa_item_history_v2_"+state.userKey)||"[]");
+    if(!Array.isArray(state.usedItemKeys)) state.usedItemKeys=[];
+  }catch(e){state.usedItemKeys=[];}
+  try{
+    state.usedContentKeys=JSON.parse(localStorage.getItem("medhaa_content_history_v3_"+state.userKey)||"[]");
+    if(!Array.isArray(state.usedContentKeys)) state.usedContentKeys=[];
+  }catch(e){state.usedContentKeys=[];}
+}
+function claimContentKey(text){
+  const key=contentKey(text);
+  state.currentContentKey=key;
+  if(!state.sessionContentKeys.includes(key)) state.sessionContentKeys.push(key);
+  return key;
+}
 function difficulty(age){return age<8?1:age<11?2:age<14?3:age<18?4:5}
 function show(id){document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));$(id).classList.add("active");window.scrollTo({top:0,behavior:"smooth"})}
 
+const QUICK_MODES={
+  quick:{label:"Quick Cognitive Check",description:"A fast ~5-minute cognitive snapshot.",tasks:["Visual Target Hunt","Symbol Recall","Number Hold","Same or Different","Pattern Builder","Go / No-Go","Shape Rotation","Quantity Logic"]},
+  focus:{label:"Focus & Thinking Check",description:"A focused ~5-minute check of attention, memory, switching and visual reasoning.",tasks:["Rapid Scan","Rule Filter","Spatial Recall","Delayed Recall","Visual Update","Impulse Guard","Rule Switch","Category Builder"]},
+  detailed:{label:"Detailed Cognitive Assessment",description:"The full Medhā assessment with all 30 cognitive modules.",tasks:[]}
+};
+
+function getUserKey(){
+  let key=localStorage.getItem("medhaa_assessment_user_key");
+  if(!key){ key=(crypto.randomUUID?crypto.randomUUID():"u_"+Date.now().toString(36)+"_"+Math.random().toString(36).slice(2)); localStorage.setItem("medhaa_assessment_user_key",key); }
+  return key;
+}
+function itemKey(taskName,seed,mode){ return `${mode}|${taskName}|${seed>>>0}`; }
+function uniqueSeed(taskName,r,mode){
+  let seed=0,key="",tries=0;
+  do{ seed=Math.floor(r()*0xffffffff)>>>0; key=itemKey(taskName,seed,mode); tries++; }while(state.usedItemKeys.includes(key)&&tries<40);
+  state.currentItemKey=key; state.sessionItemKeys.push(key);
+  return seed;
+}
+function setMode(mode){
+  state.mode=mode; state.modeLabel=QUICK_MODES[mode].label;
+  document.querySelectorAll(".modeCard").forEach(c=>c.classList.toggle("selected",c.dataset.mode===mode));
+  $("modeSelected").classList.remove("hidden"); $("ageChooser").classList.remove("hidden"); $("modeGrid").classList.add("hidden");
+  $("selectedModeTitle").textContent=QUICK_MODES[mode].label; $("selectedModeText").textContent=QUICK_MODES[mode].description;
+  $("readIntroAloud").textContent="🔊 Read this page aloud";
+}
+function resetModeChoice(){ $("modeSelected").classList.add("hidden"); $("ageChooser").classList.add("hidden"); $("modeGrid").classList.remove("hidden"); state.mode=null; }
+document.querySelectorAll(".modeCard").forEach(c=>c.addEventListener("click",()=>setMode(c.dataset.mode)));
+$("changeMode").onclick=resetModeChoice;
+
 function setPath(p){
-  state.path=p;show("details");
+  if(!state.mode) return;
+  state.path=p;
+  show("details");
   $("detailsEyebrow").textContent=p==="child"?"5–17 YEARS":"18+ YEARS";
   $("detailsTitle").textContent=p==="child"?"Children’s Cognitive Assessment":"Adult Cognitive Assessment";
-  $("detailsSub").textContent=p==="child"?"Age-adjusted interactive challenges. Parent/guardian consent is required.":"Interactive cognitive challenges for adults, students and aspirants."; 
+  $("detailsSub").textContent=p==="child"?"Age-adjusted cognitive challenges. Parent/guardian consent is required.":"Cognitive challenges for adults, students and aspirants.";
   $("consentBox").classList.toggle("hidden",p!=="child");
   $("adultDeclaration").classList.toggle("hidden",p!=="adult");
   $("purposeField").classList.toggle("hidden",p!=="adult");
@@ -605,6 +638,29 @@ function setPath(p){
 $("childPath").onclick=()=>setPath("child");
 $("adultPath").onclick=()=>setPath("adult");
 $("backIntro").onclick=()=>show("intro");
+// Payment is intentionally shown only after the assessment has finished.
+$("backPaymentIntro").onclick=()=>{};
+$("copyUpi").onclick=async()=>{try{await navigator.clipboard.writeText("yespay.smessi10194393@yesbankltd");$("paymentState").textContent="UPI ID copied. Complete the ₹299 payment and then enter your UTR/reference below.";}catch(e){$("paymentState").textContent="UPI ID: yespay.smessi10194393@yesbankltd";}$("paymentState").classList.add("show");};
+$("continueAfterPayment").onclick=()=>{
+  const r=$("paymentUtr").value.trim();
+  if(r.length<4){
+    $("paymentState").textContent="Please enter the UTR / transaction reference after completing the ₹299 payment.";
+    $("paymentState").classList.add("show");
+    return;
+  }
+  state.paymentRef=r;
+  try{ localStorage.setItem("medhaa_cognitive_payment_ref_"+state.userKey,r); }catch(e){}
+  const paymentReference={
+    level:"full",
+    transactionRef:r,
+    submittedAt:new Date().toISOString(),
+    amount:299
+  };
+  submitPaymentReferenceToMedhaa(paymentReference);
+  $("paymentState").textContent="Payment reference recorded. Your Medhā Cognitive Profile is now ready to view.";
+  $("paymentState").classList.add("show");
+  setTimeout(()=>publishResults(),350);
+};
 
 const defs=[
 ["Attention","Visual Target Hunt", "Look at the target shown above the board, then tap every matching item you can find. Try to avoid tapping the wrong ones."],["Attention","Rapid Scan", "Tap every item that matches the one shown at the top, as quickly and accurately as you can."],["Attention","Rule Filter", "A shape will appear with a rule above it. Read the rule each time, then tap the shape it asks for — the rule can change every round."],
@@ -618,10 +674,14 @@ const defs=[
 ["Language & Verbal","Word Relationship", "Work out how the first pair of words are related, then tap the word that completes the second pair the same way."],["Language & Verbal","Category Builder", "Look at the group of words shown, then tap the word that belongs to the same category."],
 ["Numerical","Number Pattern", "Look at the number sequence shown. Work out the pattern, then tap the number that should come next."],["Numerical","Quantity Logic", "Work out the sum shown, then tap the correct answer."]
 ];
+QUICK_MODES.detailed.tasks=defs.map(x=>x[1]);
 
 function makeTasks(age){
  const r=rng(state.seed), d=difficulty(age);
- return shuffle(defs,r).map((x,i)=>({id:i+1,domain:x[0],name:x[1],hint:x[2],rseed:Math.floor(r()*1e9),level:d}));
+ const wanted=QUICK_MODES[state.mode||"detailed"].tasks;
+ const byName=new Map(defs.map(x=>[x[1],x]));
+ const base=wanted.map(name=>byName.get(name)).filter(Boolean);
+ return shuffle(base,r).map((x,i)=>({id:i+1,domain:x[0],name:x[1],hint:x[2],rseed:uniqueSeed(x[1],r,state.mode||"detailed"),level:d}));
 }
 function updateProgress(){$("progress").style.width=(state.idx/state.tasks.length*100)+"%"}
 
@@ -633,12 +693,38 @@ function setReady(ok,msg,meta={}){
   state.currentMeta = meta;
 }
 
+function arrTextSafe(items){return items.map(x=>String(x)).sort().join("|")}
+function makeFallbackChoices(correct, count, r, multi){
+  const target = Array.isArray(correct) ? correct.map(String) : [String(correct)];
+  const out = target.slice();
+  const symbols=["◆","●","■","▲","★","✚","⬟","▼","◇","○"];
+  const numeric = target.length===1 && /^-?\d+(?:\.\d+)?$/.test(target[0]);
+  let n=1;
+  while(out.length<count){
+    let candidate;
+    if(numeric){
+      const base=Number(target[0]);
+      const delta=Math.ceil(n/2)*(n%2?1:-1);
+      candidate=String(base+delta);
+    }else if(target.length===1 && target[0].length<=3 && /[^a-z0-9 ]/i.test(target[0])){
+      candidate=pick(symbols,r);
+    }else if(multi){
+      candidate=`Choice ${String.fromCharCode(65+((out.length-target.length)%26))}`;
+    }else{
+      candidate=`Option ${out.length+1}`;
+    }
+    if(!out.includes(candidate)) out.push(candidate);
+    n++;
+  }
+  return out;
+}
 function simpleChoices(items, correct, r, multi=false){
   const seen = new Set();
-  const deduped = items.filter(x => { const k = String(x); if(seen.has(k)) return false; seen.add(k); return true; });
-  if (deduped.length < 2) { console.warn("simpleChoices: fewer than 2 unique options after dedup", items); }
+  let deduped = items.filter(x => { const k = String(x); if(seen.has(k)) return false; seen.add(k); return true; });
+  if(deduped.length < 4) deduped = makeFallbackChoices(correct, 4, r, multi);
   const box = h("div", {className: "choiceGrid"});
   const arr = shuffle(deduped, r);
+  claimContentKey(`${$("title").textContent}|${$("instruction").textContent}|${arrTextSafe(deduped)}`);
   let selected = [];
   arr.forEach(x => {
     const b = h("button", {
@@ -764,7 +850,7 @@ const TaskRegistry = {
       stage.innerHTML = "";
       const options = [sy.join(" "), sy.slice().reverse().join(" "), rotate(sy,1).join(" "), rotate(sy, Math.max(2, Math.floor(n/2))).join(" ")];
       simpleChoices(options, sy.join(" "), r);
-    }, 1200);
+    }, 1800);
   },
   "Sequence Echo": (l, r, stage) => {
     const sy = shuffle(["▲","●","◆","★","■","✚","⬟"], r).slice(0, 3 + (l > 2 ? 1 : 0));
@@ -784,7 +870,7 @@ const TaskRegistry = {
         box.appendChild(b);
       });
       stage.appendChild(box);
-    }, 1200);
+    }, 1800);
   },
   "Spatial Recall": (l, r, stage) => {
     const grid = Array.from({length: 25}, (_, i) => i), chosen = shuffle(grid, r).slice(0, l > 3 ? 5 : 4);
@@ -802,7 +888,7 @@ const TaskRegistry = {
           setReady(got.length===chosen.length && got.every((v,j)=>v===chosen.slice().sort((a,b)=>a-b)[j]), "Select positions", {chosen});
         };
       });
-    }, 1300);
+    }, 1900);
   },
   "Delayed Recall": (l, r, stage) => {
     const wordPool = l <= 2 ? ["apple","ball","cat","dog","sun","book","tree","fish","car","moon"] : ["apple","river","moon","chair","garden","book","star","cloud","train","orange"];
@@ -814,7 +900,7 @@ const TaskRegistry = {
       stage.innerHTML = "";
       stage.appendChild(h("div", {className: "smallHint", style:{marginBottom:"12px"}}, ["Select all the words you remember."]));
       simpleChoices(shuffle(words.concat(distract), r), words, r, true);
-    }, 1300);
+    }, 2000);
   },
   "Number Hold": (l, r, stage) => {
     const nums = Array.from({length: l <= 2 ? 3 : (l === 3 ? 4 : 5)}, () => 1 + Math.floor(r() * (l <= 2 ? 6 : 9)));
@@ -826,7 +912,7 @@ const TaskRegistry = {
       wrap.append(h("div", {className: "numberDisplay"}, ["?"]), inp);
       stage.appendChild(wrap);
       inp.focus();
-    }, 1100);
+    }, 1600);
   },
   "Visual Update": (l, r, stage) => {
     const seq = shuffle(["▲","●","◆","★","■"], r).slice(0, 4);
@@ -837,7 +923,7 @@ const TaskRegistry = {
       stage.innerHTML = "";
       stage.appendChild(h("div", {}, [h("div", {className: "visual"}, [now.join(" ")]), h("div", {className: "smallHint", style:{marginBottom:"12px"}}, ["Which symbol is new?"])]));
       simpleChoices(shuffle([repl, seq[0], seq[2], seq[3]], r), repl, r);
-    }, 1200);
+    }, 1800);
   },
   "Order Rebuild": (l, r, stage) => {
     const base = l < 3 ? ["Wake","Learn","Practice","Review"] : ["Observe","Analyse","Plan","Execute","Review"];
@@ -863,7 +949,7 @@ const TaskRegistry = {
       wrap.innerHTML=""; wrap.appendChild(h("div",{className:"smallHint"},[`Round ${i+1} of ${rounds}`]));
       wrap.appendChild(h("div",{className:"visual"},[`${a}   ${b}`]));
       const cg=h("div",{className:"choiceGrid"});
-      const answer=(v)=>{ roundTimes.push(Math.round(performance.now()-roundStart)); if(v===same)c++; i++; roundStart=performance.now(); go(); };
+      let answered=false; const answer=(v)=>{ if(answered)return; answered=true; roundTimes.push(Math.round(performance.now()-roundStart)); if(v===same)c++; i++; roundStart=performance.now(); go(); };
       cg.append(h("button",{className:"choice",type:"button",onclick:()=>answer(true)},["SAME"]),h("button",{className:"choice",type:"button",onclick:()=>answer(false)},["DIFFERENT"]));
       wrap.appendChild(cg); $("status").textContent=`Answer this round • ${rounds-i} remaining`;
     } go();
@@ -938,7 +1024,12 @@ const TaskRegistry = {
     simpleChoices(shuffle([...arr, odd], r), odd, r);
   },
   "Sequence Logic": (l, r, stage) => {
-    const base = pick([["Seed","Plant","Flower","Fruit"], ["Question","Explore","Test","Conclusion"], ["Plan","Prepare","Act","Review"]], r);
+    const sequences = [
+      ["Seed","Plant","Flower","Fruit"],["Question","Explore","Test","Conclusion"],["Plan","Prepare","Act","Review"],
+      ["Notice","Compare","Decide","Respond"],["Goal","Plan","Practice","Improve"],["Observe","Sort","Group","Classify"],
+      ["Idea","Design","Build","Test"],["Read","Understand","Apply","Review"],["Start","Continue","Finish","Reflect"]
+    ];
+    const base = novelPick("Sequence Logic", sequences, r, x=>x.join("|"));
     const box = h("div", {className: "tiles"});
     let p = [];
     shuffle(base, r).forEach(x => {
@@ -957,7 +1048,7 @@ const TaskRegistry = {
       ["Fish","Water","Bird","?","Air"], ["Car","Road","Train","?","Track"],
       ["Sun","Day","Moon","?","Night"], ["Fire","Hot","Ice","?","Cold"]
     ];
-    const q = pick(qs, r);
+    const q = novelPick("Analogy Forge", qs, r, x=>x.join("|"));
     stage.appendChild(h("div", {className: "taskQuestion"}, ["Complete the analogy:"]));
     stage.appendChild(h("div", {className: "visual", style: {fontSize: "32px", margin:"15px 0"}}, [`${q[0]} is to ${q[1]} as ${q[2]} is to ?`]));
     const distractors = shuffle(["Home","Move","See","Sky","Run","Fast","Dark"], r).slice(0,3);
@@ -969,17 +1060,20 @@ const TaskRegistry = {
       {set:["Bus","Train","Car"], answer:"Bicycle"}, {set:["Shirt","Pants","Jacket"], answer:"Socks"},
       {set:["Red","Blue","Green"], answer:"Yellow"}, {set:["Piano","Guitar","Flute"], answer:"Violin"}
     ];
-    const g = pick(pools, r);
-    stage.appendChild(h("div", {className: "taskQuestion"}, [`Which word belongs in the same category as: ${g.set.join(", ")}?`]));
-    const distractors = shuffle(["Chair","River","Cloud","Brick","Glass","Paper"], r).slice(0,3);
+    const g = novelPick("Category Builder", pools, r, x=>x.set.join("|")+"|"+x.answer);
+    const distractorPool = ["Chair","River","Cloud","Brick","Glass","Paper","Window","Bottle","Mountain","Pencil","Garden","Road","Ocean","Clock","Table","Banana","Horse","Bus","Violin","Yellow"];
+    const distractors = shuffle(distractorPool.filter(x=>x!==g.answer), r).slice(0,3);
     simpleChoices(shuffle([g.answer, ...distractors], r), g.answer, r);
   },
   "Constraint Puzzle": (l, r, stage) => {
-    const perms=["A-B-C","A-C-B","B-A-C","B-C-A","C-A-B","C-B-A"];
+    const letters=novelPick("Constraint Puzzle",[["A","B","C"],["D","E","F"],["P","Q","R"],["X","Y","Z"]],r,x=>x.join("|"));
+    const perms=[`${letters[0]}-${letters[1]}-${letters[2]}`,`${letters[0]}-${letters[2]}-${letters[1]}`,`${letters[1]}-${letters[0]}-${letters[2]}`,`${letters[1]}-${letters[2]}-${letters[0]}`,`${letters[2]}-${letters[0]}-${letters[1]}`,`${letters[2]}-${letters[1]}-${letters[0]}`];
+    const [A,B,C]=letters;
     const ruleSets=[
-      ["A before B","C last",p=>p.indexOf("A")<p.indexOf("B")&&p[2]==="C"],
-      ["B first","C after A",p=>p[0]==="B"&&p.indexOf("C")>p.indexOf("A")],
-      ["A before C","B last",p=>p.indexOf("A")<p.indexOf("C")&&p[2]==="B"]
+      [`${A} before ${B}`,`${C} last`,p=>p.indexOf(A)<p.indexOf(B)&&p[2]===C],
+      [`${B} first`,`${C} after ${A}`,p=>p[0]===B&&p.indexOf(C)>p.indexOf(A)],
+      [`${A} before ${C}`,`${B} last`,p=>p.indexOf(A)<p.indexOf(C)&&p[2]===B],
+      [`${C} before ${A}`,`${B} first`,p=>p.indexOf(C)<p.indexOf(A)&&p[0]===B]
     ];
     const rs=pick(ruleSets,r), valid=perms.filter(p=>rs[2](p));
     const target=pick(valid,r);
@@ -989,45 +1083,104 @@ const TaskRegistry = {
   },
   "Best Route": (l, r, stage) => {
     const nodes=["A","B","C","D","E","F"];
-    const candidates=[]; const used=new Set();
-    while(candidates.length<4){
-      const mid1=pick(nodes.slice(1,5),r), mid2=pick(nodes.filter(x=>x!==mid1&&x!=="A"&&x!=="F"),r);
-      const route=`A → ${mid1} → ${mid2} → F`;
-      if(used.has(route))continue; used.add(route);
-      const costs=[1+Math.floor(r()*(4+l)),1+Math.floor(r()*(4+l)),1+Math.floor(r()*(4+l))];
-      candidates.push({route,costs,total:costs.reduce((a,b)=>a+b,0)});
+    let candidates=[], best=null;
+    for(let attempt=0;attempt<40;attempt++){
+      candidates=[]; const used=new Set();
+      while(candidates.length<4){
+        const mid1=pick(nodes.slice(1,5),r);
+        const mid2=pick(nodes.filter(x=>x!==mid1&&x!=="A"&&x!=="F"),r);
+        const route=`A → ${mid1} → ${mid2} → F`;
+        if(used.has(route)) continue;
+        used.add(route);
+        const costs=[1+Math.floor(r()*(4+l)),1+Math.floor(r()*(4+l)),1+Math.floor(r()*(4+l))];
+        candidates.push({route,costs,total:costs.reduce((a,b)=>a+b,0)});
+      }
+      const sorted=candidates.slice().sort((a,b)=>a.total-b.total);
+      if(sorted[0].total<sorted[1].total){best=sorted[0];break;}
     }
-    const best=candidates.reduce((a,b)=>a.total<b.total?a:b);
+    if(!best) best=candidates.slice().sort((a,b)=>a.total-b.total)[0];
     stage.appendChild(h("div",{className:"taskQuestion"},["Which route has the lowest TOTAL cost?"]));
-    const board=h("div",{className:"tiles"}); candidates.forEach(x=>board.appendChild(h("button",{className:"tile",onclick:()=>{setReady(x===best, x===best?`Lowest total: ${x.total}`:`That route costs ${x.total}. Choose again.`,{selected:x.route,total:x.total,best:best.total});}},[`${x.route} • ${x.costs.join(" + ")} = ${x.total}`]))); stage.appendChild(board);
+    const board=h("div",{className:"tiles"});
+    candidates.forEach(x=>board.appendChild(h("button",{className:"tile",type:"button",onclick:()=>{
+      if(x===best) setReady(true,`Lowest total: ${x.total}`,{selected:x.route,total:x.total,best:best.total});
+      else setReady(false,`That route costs ${x.total}. Choose again.`,{selected:x.route,total:x.total,best:best.total});
+    }},[`${x.route} • ${x.costs.join(" + ")} = ${x.total}`])));
+    stage.appendChild(board);
   },
   "Resource Choice": (l, r, stage) => {
-    const tasks = l <= 2 ? [
-      {name:"Finish homework",time:4,value:9}, {name:"Play",time:2,value:2}, {name:"Read a book",time:5,value:8}, {name:"Pack bag",time:1,value:1}
+    const nameSets = l <= 2 ? [
+      ["Finish homework","Play","Read a book","Pack bag"],
+      ["Complete worksheet","Draw","Read a story","Prepare school bag"],
+      ["Practice spelling","Play a game","Read a chapter","Organise desk"],
+      ["Solve puzzle","Read notes","Organise books","Take a break"]
     ] : [
-      {name:"Urgent report",time:4,value:9}, {name:"Routine email",time:2,value:2}, {name:"Important project",time:5,value:8}, {name:"Quick check",time:1,value:1}
+      ["Urgent report","Routine email","Important project","Quick check"],
+      ["Client deadline","Social media","Project review","Inbox cleanup"],
+      ["Exam preparation","Casual browsing","Revision task","Desk organisation"],
+      ["Client call","Documentation","Code review","Planning"]
     ];
+    const names=novelPick("Resource Choice",nameSets,r,x=>x.join("|"));
     const budget=7;
-    const options=[
-      [tasks[0],tasks[2]], [tasks[0],tasks[1],tasks[3]], [tasks[2],tasks[1]], [tasks[0],tasks[3],tasks[1]]
-    ].map(set=>({set,time:set.reduce((a,x)=>a+x.time,0),value:set.reduce((a,x)=>a+x.value,0)}));
-    const valid=options.filter(x=>x.time<=budget); const best=valid.reduce((a,b)=>b.value>a.value?b:a);
+    let tasks=[], valid=[], best=null;
+    for(let attempt=0;attempt<40;attempt++){
+      const times=shuffle([1,2,3,4,5],r).slice(0,4);
+      const values=shuffle([2,3,6,8,9],r).slice(0,4);
+      tasks=names.map((name,i)=>({name,time:times[i],value:values[i]}));
+      const options=[
+        [tasks[0],tasks[2]], [tasks[0],tasks[1],tasks[3]],
+        [tasks[2],tasks[1]], [tasks[0],tasks[3]]
+      ].map(set=>({set,time:set.reduce((a,x)=>a+x.time,0),value:set.reduce((a,x)=>a+x.value,0)}));
+      valid=options.filter(x=>x.time<=budget);
+      if(valid.length>=3){
+        const sorted=valid.slice().sort((a,b)=>b.value-a.value);
+        if(sorted[0].value>sorted[1].value){best=sorted[0];break;}
+      }
+    }
+    if(!best){
+      const options=[
+        [tasks[0],tasks[2]], [tasks[0],tasks[1],tasks[3]],
+        [tasks[2],tasks[1]], [tasks[0],tasks[3]]
+      ].map(set=>({set,time:set.reduce((a,x)=>a+x.time,0),value:set.reduce((a,x)=>a+x.value,0)}));
+      valid=options.filter(x=>x.time<=budget);
+      if(valid.length<3) valid=options;
+      valid=valid.slice(0,4);
+      best=valid.slice().sort((a,b)=>b.value-a.value)[0];
+    }
     stage.appendChild(h("div",{className:"taskQuestion"},[`You have ${budget} time units. Choose the plan with the highest total value without exceeding the limit.`]));
-    stage.appendChild(h("div",{className:"smallHint",style:{marginBottom:"12px"},},[tasks.map(t=>`${t.name}: ${t.time} time, ${t.value} value`).join(" • ")]));
-    const opts=valid.map(x=>x.set.map(t=>t.name).join(" + ")); const correct=best.set.map(t=>t.name).join(" + ");
+    stage.appendChild(h("div",{className:"smallHint",style:{marginBottom:"12px"}},[tasks.map(t=>`${t.name}: ${t.time} time, ${t.value} value`).join(" • ")]));
+    const opts=valid.map(x=>x.set.map(t=>t.name).join(" + "));
+    const correct=best.set.map(t=>t.name).join(" + ");
     simpleChoices(opts,correct,r);
   },
   "Go / No-Go": (l, r, stage) => {
-    let i = 0, c = 0; const rounds = 8 + l; const wrap = h("div"); stage.appendChild(wrap);
+    let i=0,c=0; const rounds=8+l; const wrap=h("div"); stage.appendChild(wrap);
+    let roundToken=0, roundTimer=null;
     function go(){
-      if(i === rounds){ setReady(c >= Math.ceil(rounds*0.8), `${c}/${rounds} correct`); return; }
-      const yes = r() > (0.35 - l*0.02);
-      wrap.innerHTML = "";
-      wrap.appendChild(h("div", {className: "big"}, [yes ? "GO" : "STOP"]));
-      let done = false;
-      wrap.appendChild(h("button", {className: "choice", onclick: () => { if(done) return; done=true; if(yes) c++; i++; go(); }}, ["TAP"]));
-      if(!yes) setTimeout(() => { if(!done){ done=true; c++; i++; go(); } }, Math.max(400, 650 - l*30));
-    } go();
+      clearTimeout(roundTimer);
+      if(i>=rounds){setReady(c>=Math.ceil(rounds*.8),`${c}/${rounds} correct`,{correct:c,total:rounds});return;}
+      const token=++roundToken;
+      const yes=r()>.35;
+      wrap.innerHTML="";
+      wrap.appendChild(h("div",{className:"big"},[yes?"GO":"STOP"]));
+      const b=h("button",{className:"choice",type:"button",onclick:()=>{
+        if(token!==roundToken || b.disabled) return;
+        b.disabled=true;
+        if(yes)c++;
+        i++;
+        go();
+      }},["TAP"]);
+      wrap.appendChild(b);
+      if(!yes){
+        roundTimer=setTimeout(()=>{
+          if(token!==roundToken || b.disabled) return;
+          b.disabled=true;
+          c++;
+          i++;
+          go();
+        },Math.max(700,950-l*25));
+      }
+    }
+    go();
   },
   "Rule Switch": (l, r, stage) => {
     let i = 0, c = 0; const wrap = h("div"); stage.appendChild(wrap);
@@ -1089,9 +1242,16 @@ const TaskRegistry = {
       ["Book","Read","Food","Eat",["Cook","Taste","Plate"]],
       ["Fish","Water","Bird","Air",["Swim","Nest","Sky"]],
       ["Car","Road","Train","Track",["Wheel","Station","Drive"]],
-      ["Key","Lock","Password","Account",["Door","Login","Screen"]]
+      ["Key","Lock","Password","Account",["Door","Login","Screen"]],
+      ["Teacher","School","Doctor","Hospital",["Patient","Lesson","Medicine"]],
+      ["Chef","Kitchen","Pilot","Cockpit",["Plane","Recipe","Runway"]],
+      ["Tree","Forest","Star","Sky",["Leaf","Space","Root"]],
+      ["Author","Book","Composer","Song",["Reader","Music","Stage"]],
+      ["Camera","Photo","Microphone","Sound",["Lens","Record","Screen"]],
+      ["Clock","Time","Thermometer","Temperature",["Hour","Heat","Weather"]],
+      ["Pencil","Write","Brush","Paint",["Paper","Colour","Eraser"]]
     ];
-    const q=pick(qs,r); stage.appendChild(h("div",{className:"taskQuestion"},["Complete the relationship"]));
+    const q=novelPick("Word Relationship",qs,r,x=>x.slice(0,4).join("|")+"|"+x[4].join("|")); stage.appendChild(h("div",{className:"taskQuestion"},["Complete the relationship"]));
     stage.appendChild(h("div",{className:"visual",style:{fontSize:"30px"},},[`${q[0]} : ${q[1]}  ::  ${q[2]} : ?`]));
     simpleChoices(shuffle([q[3],...q[4]],r),q[3],r);
   },
@@ -1138,7 +1298,11 @@ function finishTask(){
   state.score[d].earned += ok ? 1 : 0;
   state.score[d].time += elapsed;
   state.score[d].attempts++;
-  state.raw.push({task: state.tasks[state.idx].name, domain: d, correct: ok, responseMs: elapsed, meta: state.currentMeta || {}});
+  state.raw.push({task: state.tasks[state.idx].name, domain: d, correct: ok, responseMs: elapsed, itemKey: state.currentItemKey, meta: state.currentMeta || {}});
+  [state.currentItemKey,state.currentVariantKey].forEach(k=>{if(k && !state.usedItemKeys.includes(k)) state.usedItemKeys.push(k);});
+  if(state.currentContentKey && !state.usedContentKeys.includes(state.currentContentKey)) state.usedContentKeys.push(state.currentContentKey);
+  (state.sessionContentKeys||[]).forEach(k=>{if(k && !state.usedContentKeys.includes(k)) state.usedContentKeys.push(k);});
+  saveNoveltyHistory();
   state.idx++;
   if(state.idx >= state.tasks.length){ finish(false); return; }
   render();
@@ -1147,9 +1311,9 @@ function finishTask(){
 function render(){
   updateProgress();
   const t = state.tasks[state.idx];
-  $("domainNo").textContent = `MODULE ${t.id} / 30`;
+  $("domainNo").textContent = `MODULE ${t.id} / ${state.tasks.length}`;
   $("domain").textContent = t.domain;
-  $("counter").textContent = `Cognitive task ${state.idx+1} of ${state.tasks.length}`;
+  $("counter").textContent = `${state.modeLabel} · Task ${state.idx+1} of ${state.tasks.length}`;
   $("title").textContent = t.name;
   $("instruction").textContent = t.hint;
   state.currentInstructionText = `${t.domain}. ${t.name}. ${t.hint}`;
@@ -1172,15 +1336,27 @@ function render(){
     bar.style.transition = "none";
     bar.style.width = "100%";
     void bar.offsetWidth;
-    bar.style.transition = "width 22s linear";
+    const visualTasks=["Visual Target Hunt","Rapid Scan","Symbol Recall","Sequence Echo","Spatial Recall","Delayed Recall","Visual Update","Same or Different","Symbol Match","Shape Rotation","Spatial Map","Shape Construction"];
+    const baseLimit=state.mode==="detailed"?26000:32000;
+    state.taskLimit=visualTasks.includes(t.name)?baseLimit:Math.max(24000,baseLimit-3000);
+    bar.style.transition = `width ${state.taskLimit/1000}s linear`;
     bar.style.width = "0%";
     state.taskStart = performance.now();
     clearTimeout(state.taskTimer);
-    state.taskTimer = setTimeout(() => { setReady(false, "Time's up, let's move on!"); finishTask(); }, 22000);
+    state.taskTimer = setTimeout(() => { setReady(false, "Time's up, let's move on!"); finishTask(); }, state.taskLimit);
     renderTask(t.name, t.level, rng(t.rseed));
   }
 
-  voice.speak(state.currentInstructionText, msg => { const d=$("taskVoiceDiag"); if(d) d.textContent = msg; }, beginTask);
+  if(state.mode==="quick" || state.mode==="focus") {
+    voice.stop();
+    const vt=$("voiceToggle"); if(vt) vt.style.display="none";
+    const rb=$("repeatInstruction"); if(rb) rb.style.display="none";
+    beginTask();
+  } else {
+    const vt=$("voiceToggle"); if(vt) vt.style.display="";
+    const rb=$("repeatInstruction"); if(rb) rb.style.display="";
+    voice.speak(state.currentInstructionText, msg => { const d=$("taskVoiceDiag"); if(d) d.textContent = msg; }, beginTask);
+  }
 }
 
 $("next").onclick = finishTask;
@@ -1227,7 +1403,17 @@ function init(){
    type:"parent_guardian", parentName:$("parentName").value.trim(), relationship:$("relationship").value,
    eSignature:$("parentSign").value.trim(), policyAccepted:true, consentedAt:new Date().toISOString(), appVersion:APP_VERSION
  } : { type:"self_18plus", policyAccepted:true, consentedAt:new Date().toISOString(), appVersion:APP_VERSION };
- state.seed=(Date.now()^Math.floor(Math.random()*0xffffffff))>>>0;state.tasks=makeTasks(age);state.idx=0;state.score={};state.raw=[];state.hiddenCount=0;state.integrityEvents=[];state.status="Valid";state.finished=false;state.overallStart=performance.now();$("integrity").textContent="Integrity: Active";show("assessment");render();clock()
+ loadNoveltyHistory();
+ state.sessionItemKeys=[]; state.sessionContentKeys=[]; state.currentContentKey=""; state.seed=(Date.now()^Math.floor(Math.random()*0xffffffff)^Math.floor(Math.random()*0xffffffff))>>>0;
+ state.tasks=makeTasks(age);state.idx=0;state.score={};state.raw=[];state.hiddenCount=0;state.integrityEvents=[];state.status="Valid";state.finished=false;state.overallStart=performance.now();
+ state.softLimit=state.mode==="detailed"?12*60*1000:5*60*1000;
+ state.hardLimit=state.mode==="detailed"?15*60*1000:6*60*1000;
+ if(state.mode!=="detailed" && voice.isEnabled()){
+   voice.toggle();
+   const vt=$("voiceToggle"); if(vt) vt.textContent="🔇 Voice: OFF";
+ }
+ $("timer").textContent=state.mode==="detailed"?"12:00":"5:00";
+ $("integrity").textContent="Integrity: Active";show("assessment");render();clock()
 }
 $("begin").onclick=init;
 
@@ -1265,6 +1451,14 @@ function scoreBand(pct){
   return {label:"Needs Attention", cls:"band-attention"};
 }
 
+function publishResults(){
+  if(!state.pendingResults) return;
+  show("results");
+  voice.speak(`${$("resultHeading").textContent}. ${$("resultText").textContent} Overall score: ${state.overall}%`);
+  submitResults(buildExportPayload());
+  state.resultsPublished=true;
+}
+
 function finish(timeExpired=false,integrityStop=false){
  if(state.status==="Finished")return;clearTimeout(state.taskTimer);clearInterval(state.clock);
  if(timeExpired)state.status="Time Expired";else if(integrityStop)state.status="Incomplete";else state.status="Valid";
@@ -1278,7 +1472,7 @@ function finish(timeExpired=false,integrityStop=false){
  const overall=vals.length?Math.round(vals.reduce((a,b)=>a+b.pct,0)/vals.length):0;
  $("overall").textContent=overall;$("circle").style.setProperty("--score",overall+"%");
  $("resultHeading").textContent=state.status==="Valid"?"Nicely done!":state.status==="Incomplete"?"Session paused":"Time's up!";
- $("resultText").textContent=state.participant.name+", "+(state.status==="Valid"?"you just completed your cognitive workout — here's how it went.":state.status==="Incomplete"?"the session was interrupted before we could finish. No worries, you can always try again.":"the maximum assessment time was reached, but here's what we captured.");
+ $("resultText").textContent=state.participant.name+", "+(state.status==="Valid"?"you just completed the cognitive assessment — here's how it went.":state.status==="Incomplete"?"the session was interrupted before we could finish. No worries, you can always try again.":"the maximum assessment time was reached, but here's what we captured.");
 
  const analysisGrid = $("analysisGrid");
  if(analysisGrid && vals.length){
@@ -1304,14 +1498,21 @@ function finish(timeExpired=false,integrityStop=false){
  $("bars").innerHTML=vals.map(v=>{ const b=scoreBand(v.pct); return `<div class="barrow"><b>${v.name}</b><div class="bar"><i style="width:${v.pct}%"></i></div><span>${v.pct}<span class="band ${b.cls}">${b.label}</span></span></div>`; }).join("");
  const strengths=vals.filter(x=>x.pct>=75).map(x=>x.name),develop=vals.filter(x=>x.pct<60).map(x=>x.name);
  $("profile").innerHTML=`<div class="profileBox"><b>Relative strengths</b><span>${strengths.length?strengths.join(", "):"No single area stood out in this session."}</span></div><div class="profileBox"><b>Areas for development</b><span>${develop.length?develop.join(", "):"No domain fell into the development band in this session."}</span></div>`;
- $("integrityLog").textContent=`Assessment status: ${state.status}. Page-leave events recorded: ${state.hiddenCount}. ${state.status==="Valid"?"This audit prototype considers the session eligible for a profile.":"No valid final profile/certificate should be issued for this session."}`;
- state.finalStatus=state.status;
+ $("integrityLog").textContent=`Assessment status: ${state.status}. Page-leave events recorded: ${state.hiddenCount}. ${state.status==="Valid"?"This session is eligible for a profile.":"No valid final profile/certificate should be issued for this session."}`;
+ const finalStatus = state.status;
  state.status="Finished";
- state.computedResults={vals,overall};
- show("unlock");
- voice.speak("Assessment completed. Your Medhā Cognitive Profile is ready. Choose a result option to continue.");
- submitResults(buildExportPayload());
- try{ localStorage.setItem("medhaa_assessment_taken","1"); }catch(e){}
+ state.finalStatus = finalStatus;
+ state.overall = overall;
+ state.pendingResults = { finalStatus, overall, paymentRequired:true };
+ const paymentTitle = $("payment").querySelector("h1");
+ if(paymentTitle) paymentTitle.textContent = finalStatus === "Valid" ? "Your assessment is complete" : "Your assessment session has ended";
+ const paymentIntro = $("paymentIntroText");
+ if(paymentIntro) paymentIntro.textContent = finalStatus === "Valid"
+   ? "You have completed the cognitive assessment. Complete the payment below to unlock and publish your Medhā Cognitive Profile."
+   : "This session has ended. Complete the payment below if you want to view the captured session report.";
+ $("paymentUtr").value = "";
+ $("paymentState").classList.remove("show");
+ show("payment");
 }
 
 function buildExportPayload(){
@@ -1319,61 +1520,11 @@ function buildExportPayload(){
     appVersion: APP_VERSION, timestamp: new Date().toISOString(), status: state.finalStatus || state.status,
     integrity: { events: state.integrityEvents, finalCount: state.hiddenCount },
     participant: state.participant, consentRecord: state.consentRecord || null,
-    overallScore: state.computedResults ? state.computedResults.overall : null,
-    domainScores: state.score, rawModuleData: state.raw, resultUnlock: state.paymentReference || null
+    assessmentMode: state.mode, assessmentModeLabel: state.modeLabel, paymentReference: state.paymentRef || null, novelty: {userKey:state.userKey, sessionItemCount:state.sessionItemKeys.length, contentHistoryCount:state.usedContentKeys.length},
+    resultUnlock: state.paymentRef ? {level:"full", transactionRef:state.paymentRef} : null,
+    domainScores: state.score, rawModuleData: state.raw
   };
 }
-
-/* Result unlock flow: assessment first, payment only after completion. */
-state.resultUnlocked = false;
-state.resultLevel = null;
-const RESULT_OPTIONS = {
-  full: { amount: 299, regular: 499, title: "Full Medhā Cognitive Profile", description: "Unlock the complete 10-domain cognitive profile and detailed development insights." },
-  quick: { amount: 99, regular: 99, title: "Quick Result Summary", description: "Unlock a concise result with your overall score, top strengths and areas for development." }
-};
-
-function preparePayment(level){
-  const opt=RESULT_OPTIONS[level];
-  state.resultLevel=level;
-  $("paymentBox").classList.remove("hidden");
-  $("payTitle").textContent=opt.title;
-  $("payDescription").textContent=opt.description;
-  $("payAmount").textContent=`₹${opt.amount}`;
-  $("payOld").textContent=opt.regular>opt.amount?`₹${opt.regular}`:"";
-  const upi="yespay.smessi10194393@yesbankltd";
-  $("upiId").textContent=upi;
-  $("openUpi").href=`upi://pay?pa=${encodeURIComponent(upi)}&pn=${encodeURIComponent("Bhāva Tech")}&am=${opt.amount}&cu=INR&tn=${encodeURIComponent("Medhā Cognitive Assessment")}`;
-  $("paymentBox").scrollIntoView({behavior:"smooth",block:"center"});
-}
-
-$("chooseFull").onclick=()=>preparePayment("full");
-$("chooseQuick").onclick=()=>preparePayment("quick");
-
-$("copyUpi").onclick=async()=>{
-  const upi=$("upiId").textContent;
-  try{await navigator.clipboard.writeText(upi);$("copyUpi").textContent="Copied ✓";setTimeout(()=>$("copyUpi").textContent="Copy UPI ID",1600)}
-  catch{$("paymentError").textContent="Could not copy automatically. Please copy the UPI ID manually."}
-};
-
-$("submitUtr").onclick=()=>{
-  const ref=$("utr").value.trim();
-  if(ref.length<4){$("paymentError").textContent="Please enter a valid UTR / transaction reference.";return;}
-  $("paymentError").textContent="";
-  state.paymentReference={level:state.resultLevel,transactionRef:ref,submittedAt:new Date().toISOString(),amount:RESULT_OPTIONS[state.resultLevel].amount};
-  state.resultUnlocked=true;
-  submitPaymentReferenceToMedhaa();
-  show("results");
-  if(state.resultLevel==="quick"){
-    $("analysisGrid").classList.add("hidden");
-    $("bars").classList.add("hidden");
-    $("profile").innerHTML=`<div class="profileBox"><b>Quick Result Summary</b><span>${$("resultText").textContent}</span></div><div class="profileBox"><b>Top strengths</b><span>${state.computedResults.vals.slice().sort((a,b)=>b.pct-a.pct).slice(0,2).map(x=>`${x.name} (${x.pct})`).join(", ")||"Not available"}</span></div><div class="profileBox"><b>Areas for development</b><span>${state.computedResults.vals.slice().sort((a,b)=>a.pct-b.pct).slice(0,2).map(x=>`${x.name} (${x.pct})`).join(", ")||"Not available"}</span></div>`;
-  }else{
-    $("analysisGrid").classList.remove("hidden");$("bars").classList.remove("hidden");
-  }
-  $("integrityLog").textContent=`Assessment status: ${state.finalStatus||state.status}. Result option selected: ${RESULT_OPTIONS[state.resultLevel].title}. Payment reference submitted for manual verification.`;
-  voice.speak("Your result is now available.");
-};
-
 $("downloadData").onclick = () => {
   const payload = buildExportPayload();
   const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
