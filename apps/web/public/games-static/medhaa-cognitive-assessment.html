@@ -57,6 +57,14 @@ header{display:flex;align-items:center;justify-content:space-between;gap:15px;ma
 .shapeGrid{display:grid;grid-template-columns:repeat(4,72px);gap:10px;justify-content:center;position:relative;z-index:2}.shape{height:72px;border:2px solid var(--line);border-radius:18px;background:rgba(255,255,255,0.9);display:grid;place-items:center;font-size:34px;font-weight:950;cursor:pointer;transition:transform .2s}.shape:focus-visible{box-shadow:var(--focus-ring)}.shape.selected{border-color:var(--brand);background:#f4f0ff}
 .sliderWrap{width:min(700px,100%);text-align:center;position:relative;z-index:2}.sliderWrap input{width:100%;padding:10px;border-radius:12px;border:2px solid var(--line);text-align:center;font-size:20px;color:var(--ink)}.numberDisplay{font-size:64px;font-weight:950;margin-bottom:16px;letter-spacing:2px}
 .feedback{position:fixed;inset:0;background:rgba(20,24,38,.5);backdrop-filter:blur(6px);display:none;place-items:center;z-index:20;padding:20px}.feedback.show{display:grid}.modal{max-width:470px;background:#fff;border-radius:22px;padding:24px;box-shadow:0 25px 70px rgba(0,0,0,.25);text-align:center}.modal h3{margin:0 0 8px}.modal p{color:var(--muted);line-height:1.5;font-size:13px}
+
+.resultLockPanel{max-width:820px;margin:24px auto 0;padding:24px;border:1px solid #e4dcfb;border-radius:22px;background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(249,247,255,.98));box-shadow:0 12px 30px rgba(45,40,75,.08);text-align:left}
+.resultLockPanel h3{margin:0 0 7px;text-align:center}.resultLockPanel>p{text-align:center;color:var(--muted);font-size:13px;line-height:1.55;margin:0 auto 16px;max-width:650px}
+.lockBadge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:#f2edff;color:#5b3cc4;font-size:11px;font-weight:900}
+.lockedValue{filter:blur(7px);user-select:none;pointer-events:none}.lockedSub{filter:blur(4px);user-select:none}.lockedBar i{width:52%!important;filter:blur(5px)}
+.resultUnlockGrid{display:grid;grid-template-columns:190px 1fr;gap:20px;align-items:center}.resultQr{text-align:center}.resultQr img{width:175px;height:175px;object-fit:contain;border-radius:14px;background:#fff;border:1px solid var(--line)}.resultUpi{padding:12px 14px;border:1px solid #e5e7eb;border-radius:12px;background:#fff;margin:10px 0}.resultUpi b{display:block;word-break:break-all;font-size:15px}.resultActions{display:flex;gap:9px;flex-wrap:wrap}.resultActions .btn{flex:1;min-width:170px}.resultUtr input{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:#fff}.resultPaymentState{display:none;margin-top:10px;padding:11px 13px;border-radius:12px;font-size:12px;line-height:1.45;background:#fff7e8;color:#795400;border:1px solid #f1dfb0}.resultPaymentState.show{display:block}
+.fullUnlocked .lockedValue,.fullUnlocked .lockedSub{filter:none}.fullUnlocked .lockedBar i{filter:none}
+@media(max-width:700px){.resultUnlockGrid{grid-template-columns:1fr}.resultQr img{width:190px;height:190px}}
 .results{padding:30px;text-align:center}.scoreCircle{width:185px;height:185px;border-radius:50%;margin:14px auto 22px;background:conic-gradient(var(--brand) var(--score),#ececf2 0);display:grid;place-items:center;position:relative;box-shadow:0 12px 30px rgba(91,60,196,.15)}.scoreCircle:after{content:"";position:absolute;width:140px;height:140px;border-radius:50%;background:#fff}.scoreCircle strong{z-index:1;font-size:44px}.bars{display:grid;gap:10px;text-align:left;max-width:820px;margin:22px auto}.barrow{display:grid;grid-template-columns:180px 1fr 150px;gap:9px;align-items:center}.bar{height:11px;background:#eceef3;border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--brand),var(--brand2));width:0}.profile{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:820px;margin:20px auto}.profileBox{padding:16px;border:1px solid var(--line);border-radius:17px;text-align:left;background:rgba(255,255,255,0.7)}.profileBox b{display:block;margin-bottom:6px}.note{font-size:11px;color:var(--muted);line-height:1.5;max-width:820px;margin:15px auto}
 .integrityLog{max-width:820px;margin:18px auto;text-align:left;padding:14px;border-radius:16px;background:rgba(255,247,232,0.9);border:1px solid #f2dfb1;font-size:12px;color:#735000}
 .hidden{display:none!important}@media(max-width:700px){.app{padding:10px 9px 30px}.hero,.task,.results{padding:20px}.paths,.formgrid,.profile{grid-template-columns:1fr}.full{grid-column:auto}.choiceGrid{grid-template-columns:1fr}.shapeGrid{grid-template-columns:repeat(4,58px)}.shape{height:58px}.stage{min-height:315px;padding:24px 12px;}.barrow{grid-template-columns:120px 1fr 120px}.taskActions{align-items:flex-start}}
@@ -148,6 +156,7 @@ h1{letter-spacing:-0.02em}
 .paymentCard{max-width:760px;margin:22px auto 0;padding:24px;border:1px solid #e4dcfb;border-radius:22px;background:rgba(255,255,255,.94);box-shadow:0 14px 38px rgba(45,40,75,.10)}.paymentPrice{display:flex;align-items:baseline;justify-content:center;gap:10px;margin:8px 0 16px}.paymentOld{font-size:20px;color:#94a3b8;text-decoration:line-through;font-weight:800}.paymentNew{font-size:42px;color:var(--brand);font-weight:950}.offerBadge{display:inline-flex;padding:7px 12px;border-radius:999px;background:#fff3cd;color:#8b5a00;font-size:11px;font-weight:950;letter-spacing:.06em}.payGrid{display:grid;grid-template-columns:230px 1fr;gap:24px;align-items:center;text-align:left}.qrWrap{text-align:center}.qrWrap img{width:210px;height:210px;object-fit:contain;border-radius:16px;background:#fff;border:1px solid var(--line)}.upiBox{padding:13px 15px;border:1px solid #e4e7ef;border-radius:14px;background:#f8fafc;margin:10px 0}.upiBox b{display:block;font-size:16px;word-break:break-all}.paymentNote{font-size:12px;color:var(--muted);line-height:1.5}.utrBox{margin-top:16px;padding-top:16px;border-top:1px solid #ececf2}.utrBox input{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:#fff}.paymentActions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.paymentActions .btn{flex:1;min-width:180px}.paymentState{margin-top:12px;padding:11px 13px;border-radius:12px;font-size:12px;line-height:1.45;background:#f0fdf4;color:#166534;display:none}.paymentState.show{display:block}@media(max-width:700px){.modeGrid{grid-template-columns:1fr}.modeCard{min-height:auto}.payGrid{grid-template-columns:1fr}.qrWrap img{width:190px;height:190px}}</style>
 </head>
 <body>
+<!-- Medhā standalone assessment: no legacy Bhāva/Bhaavajaalam login/session/navigation bridge. -->
 <canvas id="fx"></canvas>
 <div class="app">
 <header>
@@ -156,43 +165,42 @@ h1{letter-spacing:-0.02em}
     <div><b>Medhā</b><span>Cognitive Assessment</span></div>
   </div>
   <div class="topStatus">
-    <button id="audioToggle" class="btn secondary" style="padding: 4px 10px; min-height: unset; font-size: 11px; border-radius: 8px;">🔊 Sound ON</button>
-    <button id="voiceToggle" class="btn secondary voiceBtn">🗣️ Voice: ON</button>
-    <span class="integrity" id="integrity">Integrity: Ready</span>
-    <span class="timer" id="timer">12:00</span>
+    <button id="audioToggle" class="btn secondary" style="padding: 4px 10px; min-height: unset; font-size: 11px; border-radius: 8px;">🔊 Sound</button>
+    <button id="voiceToggle" class="btn secondary voiceBtn">🗣️ Voice</button>
+    <span class="integrity" id="integrity" aria-hidden="true" style="display:none"></span>
+    <span class="timer" id="timer" style="display:none">12:00</span>
   </div>
 </header>
 <div class="progress"><i id="progress"></i></div>
 
 <section class="screen active" id="intro">
 <div class="card hero">
-  <div class="eyebrow">Medhā Cognitive Assessment</div>
+  <div class="eyebrow">MEDHĀ COGNITIVE ASSESSMENT</div>
   <h1>Think. Notice. Remember. Adapt.</h1>
-  <p>Choose a short check for a quick snapshot, or take the detailed assessment for a deeper profile. Medhā uses randomized task variants, timing, response patterns and persistent browser-level item and content history to reduce repeat exposure. Payment is requested only after the assessment is completed.</p>
-  <div class="pills"><span class="pill">Choose your assessment</span><span class="pill">Short tests: ~5 min</span><span class="pill">Detailed test: 10–15 min</span><span class="pill">Novel stimuli each session</span></div>
-  <div class="actions" style="margin-top:0"><button type="button" class="btn secondary" id="readIntroAloud">🔊 Read this page aloud</button></div>
-  <div class="voiceDiag" id="voiceDiag"></div>
+  <p id="introLead">Every mind is unique. Explore your strengths through a simple, engaging assessment designed to help you understand how you think, focus and solve problems.</p>
+  <div class="pills"><span class="pill">⚡ 5–15 minutes</span><span class="pill">🧠 Personalized</span><span class="pill">📊 Your results</span></div>
+  <div class="voiceDiag" id="voiceDiag" style="display:none"></div>
   <div class="modeGrid" id="modeGrid">
-    <button class="modeCard" data-mode="quick"><span class="modeIcon">⚡</span><h3>Quick Cognitive Check</h3><p>About 5 minutes. A fast snapshot of attention, memory, reasoning, speed, visual thinking and number skills.</p><span class="modeMeta">~5 min · Voice off</span><strong>Choose Quick Check →</strong></button>
-    <button class="modeCard" data-mode="focus"><span class="modeIcon">🎯</span><h3>Focus &amp; Thinking Check</h3><p>About 5 minutes. More emphasis on focus, distraction control, memory, switching and visual reasoning.</p><span class="modeMeta">~5 min · Voice off</span><strong>Choose Focus Check →</strong></button>
-    <button class="modeCard featured" data-mode="detailed"><span class="modeIcon">🧠</span><h3>Detailed Cognitive Assessment</h3><p>The comprehensive Medhā assessment using the full set of cognitive modules and a deeper session profile.</p><span class="modeMeta">10–15 min · Detailed</span><strong>Choose Detailed Assessment →</strong></button>
+    <button class="modeCard" data-mode="quick"><span class="modeIcon">⚡</span><h3>Quick Cognitive Check</h3><p>Discover your strengths in memory, focus and thinking with a quick five-minute challenge.</p><span class="modeMeta">5 minutes · Your results</span><strong>Start Quick Check →</strong></button>
+    <button class="modeCard" data-mode="focus"><span class="modeIcon">🎯</span><h3>Focus &amp; Thinking Check</h3><p>Test your attention, memory and decision-making through engaging interactive challenges.</p><span class="modeMeta">5 minutes · Your results</span><strong>Start Focus Check →</strong></button>
+    <button class="modeCard featured" data-mode="detailed"><span class="modeIcon">🧠</span><h3>Detailed Cognitive Assessment</h3><p>Take a deeper look at your cognitive strengths through a broader set of interactive challenges.</p><span class="modeMeta">10–15 minutes · Complete profile</span><strong>Start Detailed Assessment →</strong></button>
   </div>
   <div class="modeSelected hidden" id="modeSelected">
     <div><b id="selectedModeTitle">Assessment selected</b><span id="selectedModeText"></span></div>
-    <button type="button" class="btn secondary" id="changeMode">Change</button>
+    <button type="button" class="btn secondary" id="changeMode">Choose another</button>
   </div>
   <div class="ageChooser hidden" id="ageChooser">
-    <h3>Next, choose the participant age group</h3>
+    <h3>Who is taking the assessment?</h3>
     <div class="paths">
-      <button class="path" id="childPath"><h3>🧒 Ages 5–17</h3><p>Age-adjusted challenges. A parent or guardian will need to give the go-ahead first.</p></button>
-      <button class="path" id="adultPath"><h3>🎓 Age 18+</h3><p>Interactive cognitive challenges for adults, students and curious minds.</p></button>
+      <button class="path" id="childPath"><h3>🧒 Ages 5–17</h3><p>Age-appropriate challenges. A parent or guardian will provide consent before you begin.</p></button>
+      <button class="path" id="adultPath"><h3>🎓 Age 18+</h3><p>A thoughtful set of interactive challenges for adults, students and curious minds.</p></button>
     </div>
   </div>
-  <div class="note">Medhā reports performance on this assessment session. It is not an IQ test, clinical diagnosis, psychological diagnosis, educational placement decision, or guarantee of academic or career outcomes.</div>
+  <div class="note">Your results describe how you performed in this assessment session. Medhā is not an IQ test or a clinical diagnosis.</div>
 </div>
 </section>
 
-<section class="screen" id="payment"><div class="card hero"><div class="eyebrow">Assessment Complete</div><h1>Your assessment is complete</h1><p id="paymentIntroText">Your cognitive tasks are finished. Complete the payment below to unlock and publish your Medhā Cognitive Profile.</p><div><span class="offerBadge">LAUNCH OFFER</span></div><div class="paymentPrice"><span class="paymentOld">₹499</span><span class="paymentNew">₹299</span></div><div class="paymentCard"><div class="payGrid"><div class="qrWrap"><img src="/BT_QR.jpg" alt="Bhāva Tech UPI payment QR code"><div class="paymentNote" style="margin-top:8px">Scan with your UPI app</div></div><div><h3 style="margin:0 0 8px">Pay ₹299 via UPI</h3><div class="upiBox"><span class="paymentNote">UPI ID</span><b id="paymentUpi">yespay.smessi10194393@yesbankltd</b></div><div class="paymentActions"><button type="button" class="btn secondary" id="copyUpi">Copy UPI ID</button><a class="btn primary" id="upiPay" href="upi://pay?pa=yespay.smessi10194393@yesbankltd&amp;pn=Bhava%20Tech&amp;am=299.00&amp;cu=INR">Open UPI App</a></div><div class="utrBox"><label for="paymentUtr" style="display:block;font-size:13px;font-weight:850;margin-bottom:6px">After payment, enter your UTR / transaction reference</label><input id="paymentUtr" inputmode="numeric" autocomplete="off" placeholder="e.g. 402812345678"><p class="paymentNote">Keep your UTR/reference number. This standalone page records it in this browser; server-side payment verification still needs to be connected for production.</p><div class="paymentState" id="paymentState"></div><button type="button" class="btn primary" id="continueAfterPayment" style="width:100%;margin-top:8px">I have paid — view my profile</button></div></div></div></div><div class="note" style="margin-top:18px">Regular price ₹499. Launch offer ₹299. One payment covers one complete assessment attempt. Ages 5–17 require parent/guardian consent.</div><div class="actions"><button class="btn secondary" id="backPaymentIntro" style="display:none">Go back</button></div></div></section>
+<section class="screen" id="payment"><div class="card hero"><div class="eyebrow">Assessment Complete</div><h1>Your assessment is complete</h1><p id="paymentIntroText">You've completed the assessment. Complete the payment below to view your Medhā Cognitive Profile.</p><div><span class="offerBadge">LAUNCH OFFER</span></div><div class="paymentPrice"><span class="paymentOld">₹499</span><span class="paymentNew">₹299</span></div><div class="paymentCard"><div class="payGrid"><div class="qrWrap"><img src="/BT_QR.jpg" alt="Bhāva Tech UPI payment QR code"><div class="paymentNote" style="margin-top:8px">Scan with your UPI app</div></div><div><h3 style="margin:0 0 8px">Pay ₹299 via UPI</h3><div class="upiBox"><span class="paymentNote">UPI ID</span><b id="paymentUpi">yespay.smessi10194393@yesbankltd</b></div><div class="paymentActions"><button type="button" class="btn secondary" id="copyUpi">Copy UPI ID</button><a class="btn primary" id="upiPay" href="upi://pay?pa=yespay.smessi10194393@yesbankltd&amp;pn=Bhava%20Tech&amp;am=299.00&amp;cu=INR">Open UPI App</a></div><div class="utrBox"><label for="paymentUtr" style="display:block;font-size:13px;font-weight:850;margin-bottom:6px">After payment, enter your transaction reference</label><input id="paymentUtr" inputmode="numeric" autocomplete="off" placeholder="Enter the reference shown by your UPI app"><p class="paymentNote">You can find this reference in your UPI payment confirmation.</p><div class="paymentState" id="paymentState"></div><button type="button" class="btn primary" id="continueAfterPayment" style="width:100%;margin-top:8px">Continue to My Profile</button></div></div></div></div><div class="note" style="margin-top:18px">Launch offer ₹299. One payment covers one complete assessment attempt. Ages 5–17 require parent/guardian consent.</div><div class="actions"><button class="btn secondary" id="backPaymentIntro" style="display:none">Go back</button></div></div></section>
 
 <section class="screen" id="details">
 <div class="card hero">
@@ -202,17 +210,17 @@ h1{letter-spacing:-0.02em}
     <div class="field"><label for="age">Age <span class="reqMark">*</span></label><input id="age" type="number" min="5" max="100" required aria-required="true"></div>
     <div class="field"><label for="email">Email (optional)</label><input id="email" type="email" autocomplete="email"></div>
     <div class="field"><label for="school">School / College (optional)</label><input id="school"></div>
-    <div class="field full" id="purposeField"><label for="purpose">Primary purpose</label><select id="purpose"><option>General self-assessment</option><option>Learning / study</option><option>Competitive examination preparation</option><option>Placement / career preparation</option></select></div>
+    <div class="field full" id="purposeField"><label for="purpose">What brings you here?</label><select id="purpose"><option>Curious to learn more about myself</option><option>Learning / study</option><option>Competitive examination preparation</option><option>Placement / career preparation</option></select></div>
   </div>
   <div class="consent hidden" id="consentBox">
-    <h3>Parent / Guardian consent — required for ages 5–17</h3>
-    <p>A parent or legal guardian must review this information and provide consent before the minor begins. This assessment is not a clinical or diagnostic tool. No behavioural tracking or advertising is performed.</p>
+    <h3>A parent or guardian needs to give consent</h3>
+    <p>For participants aged 5–17, a parent or legal guardian must review the information below and give consent before the assessment begins.</p>
     <div class="formgrid" style="margin:12px 0 0">
       <div class="field"><label for="parentName">Parent / guardian full name <span class="reqMark">*</span></label><input id="parentName" required aria-required="true"></div>
       <div class="field"><label for="relationship">Relationship</label><select id="relationship"><option>Parent</option><option>Legal guardian</option><option>Other authorised caregiver</option></select></div>
-      <div class="field full"><label for="parentSign">Type parent/guardian full name again to sign <span class="reqMark">*</span></label><input id="parentSign" required aria-required="true" placeholder="Re-type the name above as your e-signature"></div>
+      <div class="field full"><label for="parentSign">Parent / guardian e-signature <span class="reqMark">*</span></label><input id="parentSign" required aria-required="true" placeholder="Type the same name as your e-signature"></div>
     </div>
-    <label class="check"><input id="consentCheck" type="checkbox"><span>I confirm that I am the participant's parent/legal guardian or authorised caregiver, my e-signature above is genuine, and I consent to the minor taking this Medhā assessment.</span></label>
+    <label class="check"><input id="consentCheck" type="checkbox"><span>I confirm that I am the participant's parent, legal guardian or authorised caregiver, and I give permission for the participant to take this Medhā assessment.</span></label>
     <label class="check" style="margin-top:8px"><input id="consentPolicyCheck" type="checkbox"><span>I have read and agree to the <button type="button" class="linkBtn" id="viewPolicyConsent">Privacy Policy &amp; Terms of Use</button>, including how assessment data is stored and my right to request deletion.</span></label>
   </div>
   <div class="consent hidden" id="adultDeclaration">
@@ -231,21 +239,47 @@ h1{letter-spacing:-0.02em}
     <div class="voiceDiag" id="taskVoiceDiag"></div>
     <div class="taskTimeWrap"><div id="taskTimeBar"></div></div>
     <div class="stage" id="stage" aria-live="polite"></div>
-    <div class="taskActions"><span class="status" id="status" aria-live="polite"></span><div><button class="btn secondary" id="skip">Skip this one</button><button class="btn primary" id="next" aria-disabled="false">Next</button></div></div>
+    <div class="taskActions"><span class="status" id="status" aria-live="polite"></span><div><button class="btn secondary" id="skip">Skip</button><button class="btn primary" id="next" aria-disabled="false">Next</button></div></div>
   </div>
 </section>
 
 <section class="screen" id="results">
 <div class="card results">
-  <div class="eyebrow">Medhā Cognitive Profile • Assessment Engine V1.3</div><h1 id="resultHeading">Nicely done!</h1><p id="resultText"></p>
+  <div class="eyebrow">YOUR MEDHĀ COGNITIVE PROFILE</div><h1 id="resultHeading">Nicely done!</h1><p id="resultText"></p>
   <div class="scoreCircle" id="circle"><strong id="overall">0</strong></div>
   <div class="analysisGrid" id="analysisGrid"></div>
   <div class="bars" id="bars"></div>
   <div class="profile" id="profile"></div>
-  <div class="note" style="text-align:center">Bands (Excellent / Good / Average / Below Average / Needs Attention) describe this session's scores only. They are fixed descriptive cut-offs, not clinically validated norms or a comparison to other people.</div>
-  <div class="integrityLog" id="integrityLog"></div>
-  <div class="note">This audit prototype report describes relative performance within this Medhā assessment session. It should not be interpreted as a clinical diagnosis, IQ score, or norm-referenced psychological result.</div>
-  <div class="actions noPrint"><button class="btn primary" id="print">Print Report</button><button class="btn secondary" id="downloadData">Download Data (JSON)</button><button class="btn secondary" id="restart">Start another assessment</button></div>
+  <div class="note" style="text-align:center">These descriptions reflect your performance in this session. They are not clinical or norm-referenced scores.</div>
+  <div class="integrityLog" id="integrityLog" style="display:none"></div>
+  <div class="resultLockPanel" id="resultLockPanel">
+    <div style="text-align:center;margin-bottom:10px"><span class="lockBadge" id="resultLockBadge">🔒 Detailed profile ready</span></div>
+    <h3 id="resultLockTitle">See your complete cognitive profile</h3>
+    <p id="resultLockText">Your assessment is complete. Your detailed scores are shown below, with the score values gently protected until your profile is unlocked.</p>
+    <div class="resultUnlockGrid">
+      <div class="resultQr">
+        <img src="/BT_QR.jpg" alt="UPI payment QR code">
+        <div class="paymentNote" style="margin-top:8px">Scan to pay ₹299</div>
+      </div>
+      <div>
+        <div class="resultUpi"><span class="paymentNote">UPI ID</span><b>yespay.smessi10194393@yesbankltd</b></div>
+        <div class="resultActions">
+          <button type="button" class="btn secondary" id="copyResultUpi">Copy UPI ID</button>
+          <a class="btn primary" href="upi://pay?pa=yespay.smessi10194393@yesbankltd&amp;pn=Bhava%20Tech&amp;am=299.00&amp;cu=INR">Open UPI App</a>
+        </div>
+        <div class="resultUtr" style="margin-top:14px;padding-top:14px;border-top:1px solid #ececf2">
+          <label for="resultPaymentUtr" style="display:block;font-size:13px;font-weight:850;margin-bottom:6px">After payment, enter your transaction reference</label>
+          <input id="resultPaymentUtr" inputmode="numeric" autocomplete="off" placeholder="Enter the reference from your UPI receipt">
+          <p class="paymentNote" style="margin:7px 0 0">Your reference will be sent for payment verification. The detailed profile will unlock only after the payment is confirmed.</p>
+          <div class="resultPaymentState" id="resultPaymentState"></div>
+          <button type="button" class="btn primary" id="submitResultPayment" style="width:100%;margin-top:9px">Submit Payment Reference</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note">Your profile is a snapshot of this assessment session. It is not an IQ score, clinical diagnosis, or substitute for professional assessment.</div>
+  <div class="actions noPrint"><button class="btn primary" id="print">Print Report</button><button class="btn secondary" id="downloadData">Save My Data</button><button class="btn secondary" id="restart">Start another assessment</button></div>
 </div>
 </section>
 
@@ -253,22 +287,22 @@ h1{letter-spacing:-0.02em}
   <div class="footRow">
     <button type="button" class="linkBtn" id="viewPolicyFooter">Privacy Policy &amp; Terms of Use</button>
     <span>&middot;</span>
-    <a href="mailto:contact@bhavatech.in">contact@bhavatech.in</a>
+    <a href="mailto:support@medhaa.net">support@medhaa.net</a>
     <span>&middot;</span>
-    <span>Medhā Assessment Engine V1.4 &middot; Bhāva Tech, Rasapūdipalem, Andhra Pradesh, India</span>
+    <span>Medhā by Bhāva Tech</span>
   </div>
-  <div>&copy; <span id="footYear"></span> Bhāva Tech. This tool is an educational prototype and is not a substitute for professional psychological or clinical assessment.</div>
+  <div>&copy; <span id="footYear"></span> Bhāva Tech. Medhā is an educational assessment tool and is not a substitute for professional psychological or clinical assessment.</div>
 </footer>
 </div>
 
 <div class="feedback" id="policyModal">
   <div class="modal" style="max-width:640px;text-align:left;max-height:80vh;overflow:auto">
     <h3>Privacy Policy &amp; Terms of Use — Medhā (Bhāva Tech)</h3>
-    <p><strong>What we collect:</strong> participant name, age, optional email/school, and (for minors) parent/guardian name and relationship, entered directly into this form. The assessment also stores a random browser-level assessment key and anonymous item-variant history locally to reduce repeated assessment items. We also record in-session responses, timings, and page-visibility (integrity) events for scoring purposes only.</p>
-    <p><strong>Where your data goes:</strong> this assessment runs in your browser and, when online, submits the assessment record to Bhāva Tech's Medhā API for result records and payment-reference processing. The assessment uses the participant details entered on the page, responses, timings and integrity events for this purpose.</p>
+    <p><strong>What we collect:</strong> participant name, age, optional email/school, and (for minors) parent/guardian name and relationship, entered directly into this form. The assessment also uses a random session key and stores limited anonymous item history in this browser to help reduce repeated questions. We record responses and timings needed to calculate your results.</p>
+    <p><strong>Where your data goes:</strong> this assessment runs in your browser and, when online, submits the assessment record to Bhāva Tech's Medhā API for result records and payment-reference processing. The assessment uses the participant details entered on the page, responses and timings for this purpose.</p>
     <p><strong>Children's data:</strong> for participants aged 5–17, we require a parent/legal guardian to provide their name as an e-signature and to confirm their relationship to the child before any activity begins, in line with Section 9 of India's Digital Personal Data Protection Act, 2023. We do not use children's data for behavioural tracking, profiling, or targeted advertising.</p>
     <p><strong>Retention &amp; deletion:</strong> assessment records submitted to Bhāva Tech are stored in the Medhā assessment system. You may request deletion of your assessment record or any copy you shared with us by emailing contact@bhavatech.in.</p>
-    <p><strong>Not a clinical tool:</strong> Medhā is an educational prototype. Scores reflect relative in-session performance only and are not a validated IQ test, clinical diagnosis, or educational placement decision.</p>
+    <p><strong>Not a clinical tool:</strong> Medhā is an educational assessment tool. Scores reflect performance in this session and are not a validated IQ test, clinical diagnosis, or educational placement decision.</p>
     <p><strong>Contact:</strong> Bhāva Tech, Rasapūdipalem, Andhra Pradesh, India — contact@bhavatech.in</p>
     <button class="btn primary" id="closePolicyModal">Close</button>
   </div>
@@ -302,7 +336,7 @@ const audio = (() => {
   };
   return {
     init,
-    toggle: () => { muted = !muted; $("audioToggle").textContent = muted ? "🔈 Sound OFF" : "🔊 Sound ON"; return muted; },
+    toggle: () => { muted = !muted; $("audioToggle").textContent = muted ? "🔈 Sound off" : "🔊 Sound"; return muted; },
     success: () => { play(600, 'sine', 0.1, 0.1); setTimeout(() => play(800, 'sine', 0.15, 0.1), 100); },
     error: () => play(200, 'triangle', 0.2, 0.1),
     warn: () => { play(300, 'square', 0.3, 0.05); setTimeout(() => play(300, 'square', 0.3, 0.05), 400); },
@@ -313,7 +347,7 @@ $("audioToggle").onclick = audio.toggle;
 
 const SUBMIT_ENDPOINT = "";
 const MEDHAA_API_URL = "https://medhaa-tni1.onrender.com/api";
-const APP_VERSION = "1.4.0-post-assessment-payment-stability";
+const APP_VERSION = "1.9.1-locked-profile-server-verification";
 
 let medhaaAssessmentId = null;
 let pendingPaymentPatch = null;
@@ -340,6 +374,7 @@ function submitResults(payload){
         if(data && data.id){
           medhaaAssessmentId = data.id;
           if(pendingPaymentPatch) submitPaymentReferenceToMedhaa(pendingPaymentPatch);
+          if(state.paymentStatus === "PENDING") startPaymentStatusPolling();
         }
       }
     }catch(e){
@@ -358,9 +393,54 @@ function submitPaymentReferenceToMedhaa(paymentReference){
     headers:{"Content-Type":"application/json"},
     body:JSON.stringify({
       paymentReference,
-      resultLevel:"full"
+      resultLevel:"pending"
     })
-  }).catch(e=>console.warn("[Medhā] Payment reference update failed:", e));
+  }).then(()=>startPaymentStatusPolling()).catch(e=>console.warn("[Medhā] Payment reference update failed:", e));
+}
+
+let paymentStatusTimer = null;
+let paymentStatusBusy = false;
+function unlockFullProfileUI(){
+  state.profileUnlocked = true;
+  state.paymentStatus = "VERIFIED";
+  const panel = $("resultLockPanel");
+  if(panel){
+    panel.classList.add("fullUnlocked");
+    $("resultLockBadge").textContent = "✓ Profile unlocked";
+    $("resultLockTitle").textContent = "Your complete cognitive profile";
+    $("resultLockText").textContent = "Your payment has been confirmed. Your detailed scores are now available.";
+  }
+  const msg = $("resultPaymentState");
+  if(msg){
+    msg.textContent = "Payment confirmed. Your complete cognitive profile is now unlocked.";
+    msg.classList.add("show");
+    msg.style.background = "#eefaf3"; msg.style.color = "#12653e"; msg.style.borderColor = "#bfe8d0";
+  }
+  const btn = $("submitResultPayment");
+  if(btn){ btn.disabled = true; btn.textContent = "Payment verified"; }
+  if(paymentStatusTimer){ clearInterval(paymentStatusTimer); paymentStatusTimer = null; }
+}
+async function checkPaymentVerification(){
+  if(!medhaaAssessmentId || paymentStatusBusy || state.profileUnlocked) return;
+  paymentStatusBusy = true;
+  try{
+    const response = await fetch(MEDHAA_API_URL + "/assessments/cognitive/" + encodeURIComponent(medhaaAssessmentId) + "/access", {cache:"no-store"});
+    if(!response.ok) return;
+    const data = await response.json().catch(()=>null);
+    if(data && (data.paymentStatus === "VERIFIED" || data.resultLevel === "full")){ unlockFullProfileUI(); }
+    else if(data && data.paymentStatus === "REJECTED"){
+      state.paymentStatus = "REJECTED";
+      const msg=$("resultPaymentState");
+      if(msg){ msg.textContent="We could not confirm this payment reference. Please check the reference and submit it again, or contact us if you believe there is an error."; msg.classList.add("show"); }
+      const btn=$("submitResultPayment"); if(btn){btn.disabled=false;btn.textContent="Submit Payment Reference Again";}
+    }
+  }catch(e){}
+  finally{ paymentStatusBusy=false; }
+}
+function startPaymentStatusPolling(){
+  if(paymentStatusTimer) clearInterval(paymentStatusTimer);
+  checkPaymentVerification();
+  paymentStatusTimer=setInterval(checkPaymentVerification,5000);
 }
 
 const voice = (() => {
@@ -464,21 +544,13 @@ const voice = (() => {
   const vt = $("voiceToggle");
   if(!vt) return;
   if(!voice.supported){ vt.style.display = "none"; return; }
-  vt.textContent = voice.isEnabled() ? "🗣️ Voice: ON" : "🔇 Voice: OFF";
+  vt.textContent = voice.isEnabled() ? "🗣️ Voice on" : "🔇 Voice off";
   vt.onclick = () => {
     const on = voice.toggle();
-    vt.textContent = on ? "🗣️ Voice: ON" : "🔇 Voice: OFF";
+    vt.textContent = on ? "🗣️ Voice on" : "🔇 Voice off";
     if(on) voice.speak("Voice is now on. You should hear this clearly.", msg => { const d=$("voiceDiag"); if(d) d.textContent = msg; });
   };
 })();
-
-const readIntroBtn = $("readIntroAloud");
-if(readIntroBtn) readIntroBtn.onclick = () => {
-  const heroText = document.querySelector("#intro .hero").innerText;
-  const diag = $("voiceDiag");
-  if(diag) diag.textContent = "Attempting to speak…";
-  voice.speak(heroText, msg => { if(diag) diag.textContent = msg; });
-};
 
 const repeatBtn = $("repeatInstruction");
 if(repeatBtn) repeatBtn.onclick = () => {
@@ -592,12 +664,12 @@ function claimContentKey(text){
   return key;
 }
 function difficulty(age){return age<8?1:age<11?2:age<14?3:age<18?4:5}
-function show(id){document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));$(id).classList.add("active");window.scrollTo({top:0,behavior:"smooth"})}
+function show(id){document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));$(id).classList.add("active");const tm=$("timer");if(tm)tm.style.display=id==="assessment"?"inline":"none";window.scrollTo({top:0,behavior:"smooth"})}
 
 const QUICK_MODES={
-  quick:{label:"Quick Cognitive Check",description:"A fast ~5-minute cognitive snapshot.",tasks:["Visual Target Hunt","Symbol Recall","Number Hold","Same or Different","Pattern Builder","Go / No-Go","Shape Rotation","Quantity Logic"]},
-  focus:{label:"Focus & Thinking Check",description:"A focused ~5-minute check of attention, memory, switching and visual reasoning.",tasks:["Rapid Scan","Rule Filter","Spatial Recall","Delayed Recall","Visual Update","Impulse Guard","Rule Switch","Category Builder"]},
-  detailed:{label:"Detailed Cognitive Assessment",description:"The full Medhā assessment with all 30 cognitive modules.",tasks:[]}
+  quick:{label:"Quick Cognitive Check",description:"A friendly five-minute snapshot of memory, focus and thinking.",tasks:["Visual Target Hunt","Symbol Recall","Pattern Builder","Go / No-Go","Shape Rotation","Quantity Logic"]},
+  focus:{label:"Focus & Thinking Check",description:"A five-minute challenge focused on attention, memory and flexible thinking.",tasks:["Rapid Scan","Rule Filter","Spatial Recall","Visual Update","Rule Switch","Category Builder"]},
+  detailed:{label:"Detailed Cognitive Assessment",description:"A deeper assessment covering a broader range of thinking skills.",tasks:[]}
 };
 
 function getUserKey(){
@@ -617,11 +689,21 @@ function setMode(mode){
   document.querySelectorAll(".modeCard").forEach(c=>c.classList.toggle("selected",c.dataset.mode===mode));
   $("modeSelected").classList.remove("hidden"); $("ageChooser").classList.remove("hidden"); $("modeGrid").classList.add("hidden");
   $("selectedModeTitle").textContent=QUICK_MODES[mode].label; $("selectedModeText").textContent=QUICK_MODES[mode].description;
-  $("readIntroAloud").textContent="🔊 Read this page aloud";
+
 }
 function resetModeChoice(){ $("modeSelected").classList.add("hidden"); $("ageChooser").classList.add("hidden"); $("modeGrid").classList.remove("hidden"); state.mode=null; }
 document.querySelectorAll(".modeCard").forEach(c=>c.addEventListener("click",()=>setMode(c.dataset.mode)));
 $("changeMode").onclick=resetModeChoice;
+
+// Optional direct-entry links for QR codes / campaigns.
+// Examples: ?mode=quick, ?mode=focus, ?mode=detailed
+const directMode = new URLSearchParams(window.location.search).get("mode");
+if (Object.prototype.hasOwnProperty.call(QUICK_MODES, directMode)) {
+  setMode(directMode);
+  const lead = $("introLead");
+  if (lead) lead.textContent = `${QUICK_MODES[directMode].label} is ready. Choose the age group below, complete the short introduction, and we'll get started.`;
+}
+
 
 function setPath(p){
   if(!state.mode) return;
@@ -719,9 +801,54 @@ function makeFallbackChoices(correct, count, r, multi){
   return out;
 }
 function simpleChoices(items, correct, r, multi=false){
+  const target = Array.isArray(correct) ? correct.map(String) : [String(correct)];
   const seen = new Set();
-  let deduped = items.filter(x => { const k = String(x); if(seen.has(k)) return false; seen.add(k); return true; });
-  if(deduped.length < 4) deduped = makeFallbackChoices(correct, 4, r, multi);
+  let deduped = items.map(x=>String(x)).filter(x=>{
+    if(seen.has(x)) return false;
+    seen.add(x);
+    return true;
+  });
+
+  // Single-answer tasks must always present four genuinely different choices.
+  // Multi-select tasks keep all correct answers and add enough distractors.
+  if(!multi){
+    deduped = deduped.filter(x => x !== "");
+    const correctText = target[0];
+    if(!deduped.includes(correctText)) deduped.unshift(correctText);
+    const numeric = /^-?\d+(?:\.\d+)?$/.test(correctText);
+    const base = numeric ? Number(correctText) : null;
+    const candidates = [];
+
+    if(numeric){
+      // Plausible numeric distractors first; then wider offsets.
+      [1,-1,2,-2,3,-3,4,-4,5,-5,7,-7,10,-10,12,-12,15,-15,20,-20].forEach(d=>{
+        if(base + d !== base) candidates.push(String(base+d));
+      });
+    } else {
+      ["Option A","Option B","Option C","Option D","Option E","Option F"].forEach(x=>candidates.push(x));
+    }
+
+    for(const x of candidates){
+      if(deduped.length>=4) break;
+      if(!deduped.includes(x)) deduped.push(x);
+    }
+
+    // Absolute safety net: never render fewer than four buttons.
+    let n=1;
+    while(deduped.length<4){
+      const x=`Choice ${n++}`;
+      if(!deduped.includes(x)) deduped.push(x);
+    }
+    // For single-answer questions, show exactly four options.
+    deduped = deduped.slice(0,4);
+  }else{
+    // Multi-select: retain every correct answer and guarantee at least four choices.
+    if(deduped.length < Math.max(4,target.length)) {
+      const fallback = makeFallbackChoices(target, Math.max(4,target.length), r, true);
+      fallback.forEach(x=>{ if(!deduped.includes(String(x))) deduped.push(String(x)); });
+    }
+  }
+
   const box = h("div", {className: "choiceGrid"});
   const arr = shuffle(deduped, r);
   claimContentKey(`${$("title").textContent}|${$("instruction").textContent}|${arrTextSafe(deduped)}`);
@@ -733,13 +860,13 @@ function simpleChoices(items, correct, r, multi=false){
         if(multi){
           b.classList.toggle("selected");
           selected = Array.from(box.querySelectorAll(".selected")).map(q => q.dataset.v);
-          const target = Array.isArray(correct) ? correct : [correct];
-          const good = selected.length === target.length && target.every(v => selected.includes(v));
-          setReady(good, "Got it — noted!", {selected, target});
+          const targetVals = Array.isArray(correct) ? correct.map(String) : [String(correct)];
+          const good = selected.length === targetVals.length && targetVals.every(v => selected.includes(v));
+          setReady(good, "Nice work — noted!", {selected, target:targetVals});
         } else {
           box.querySelectorAll(".choice").forEach(q => q.classList.remove("selected"));
           b.classList.add("selected");
-          setReady(x === correct, "Nice, that's in!", {answer: x, correct});
+          setReady(x === String(correct), "Nice choice!", {answer: x, correct:String(correct)});
         }
       }
     }, [x]);
@@ -984,21 +1111,98 @@ const TaskRegistry = {
     } go();
   },
   "Pattern Builder": (l, r, stage) => {
-    let i=0,c=0; const rounds=5+Math.min(2,l); const wrap=h("div"); stage.appendChild(wrap);
+    let i=0,c=0; const rounds=5+Math.min(2,l); const wrap=h("div",{className:"mathTaskWrap"}); stage.appendChild(wrap);
+
     function make(){
-      const type=Math.floor(r()*4), start=2+Math.floor(r()*(4+l)); let arr,correct;
-      if(type===0){const step=1+Math.floor(r()*(2+l));arr=[start,start+step,start+2*step,start+3*step];correct=start+4*step;}
-      else if(type===1){const step=2+Math.floor(r()*(2+l));arr=[start,start+step,start+2*step,start+3*step];correct=start+4*step;}
-      else if(type===2){const mul=2+Math.floor(r()*2);arr=[start,start*mul,start*mul*mul];correct=start*mul*mul*mul;}
-      else {const step=1+Math.floor(r()*(2+l));arr=[start+3*step,start+2*step,start+step,start];correct=start-step;}
-      const ds=new Set([correct+1,correct-1,correct+2,correct*2,correct+3,correct+4].filter(v=>v>0&&v!==correct));
-      const opts=shuffle([correct,...shuffle([...ds],r).slice(0,3)],r); return {arr,correct,opts};
+      const types = l<=2 ? 4 : (l===3 ? 5 : 6);
+      const type=Math.floor(r()*types);
+      let arr=[],correct,explanation="";
+
+      if(type===0){
+        // Increasing arithmetic progression.
+        const start=4+Math.floor(r()*(8+l*3));
+        const step=3+Math.floor(r()*(3+l));
+        arr=[start,start+step,start+2*step,start+3*step,start+4*step];
+        correct=start+5*step;
+        explanation=`Add ${step} each time`;
+      }else if(type===1){
+        // Alternating increments.
+        const start=5+Math.floor(r()*(6+l*2));
+        const a=2+Math.floor(r()*(2+l));
+        const b=a+2+Math.floor(r()*(2+l));
+        arr=[start,start+a,start+a+b,start+2*a+b,start+2*a+2*b];
+        correct=start+3*a+2*b;
+        explanation=`Add ${a}, then ${b}, repeatedly`;
+      }else if(type===2){
+        // Multiply then add: more demanding than a simple multiplication table.
+        const start=2+Math.floor(r()*(4+l));
+        const mul=l>=4 ? (r()<.5?2:3) : 2;
+        const add=1+Math.floor(r()*(2+l));
+        arr=[start];
+        for(let k=1;k<5;k++) arr.push(arr[k-1]*mul+add);
+        correct=arr[4]*mul+add;
+        explanation=`Multiply by ${mul}, then add ${add}`;
+      }else if(type===3){
+        // Increasing differences.
+        const start=3+Math.floor(r()*(7+l));
+        const first=2+Math.floor(r()*(3+l));
+        const inc=1+Math.floor(r()*(2+Math.floor(l/2)));
+        arr=[start];
+        let diff=first;
+        for(let k=1;k<5;k++){ arr.push(arr[k-1]+diff); diff+=inc; }
+        correct=arr[4]+diff;
+        explanation=`The gaps increase by ${inc}`;
+      }else if(type===4){
+        // Alternating operations.
+        const start=3+Math.floor(r()*(4+l));
+        const mul=2;
+        const add=2+Math.floor(r()*(3+l));
+        arr=[start,start*mul+add];
+        for(let k=2;k<5;k++) arr.push(k%2===0 ? arr[k-1]+add : arr[k-1]*mul+add);
+        correct=arr[4]+add;
+        explanation=`Alternate ×${mul}+${add} and +${add}`;
+      }else{
+        // Offset square sequence for higher levels.
+        const n=2+Math.floor(r()*(3+Math.min(3,l-3)));
+        const offset=1+Math.floor(r()*(3+l));
+        arr=[n*n+offset,(n+1)*(n+1)+offset,(n+2)*(n+2)+offset,(n+3)*(n+3)+offset,(n+4)*(n+4)+offset];
+        correct=(n+5)*(n+5)+offset;
+        explanation=`Consecutive squares + ${offset}`;
+      }
+
+      const ds=new Set();
+      const offsets=[1,-1,2,-2,3,-3,5,-5,7,-7,10,-10,12,-12];
+      offsets.forEach(d=>{ if(correct+d>0 && correct+d!==correct) ds.add(correct+d); });
+      // Include a couple of pattern-specific wrong continuations.
+      if(arr.length>=2){
+        ds.add(arr[4] + (arr[4]-arr[3]));
+        ds.add(arr[4] * 2);
+      }
+      ds.delete(correct);
+      const opts=shuffle([String(correct),...shuffle([...ds].map(String),r).slice(0,3)],r);
+      return {arr,correct:String(correct),opts,explanation};
     }
+
     function go(){
-      if(i===rounds){setReady(c>=Math.ceil(rounds*.8),`${c}/${rounds} correct`,{correct:c,total:rounds});return;}
-      const q=make(); wrap.innerHTML=""; wrap.appendChild(h("div",{className:"smallHint"},[`Pattern ${i+1} of ${rounds}`])); wrap.appendChild(h("div",{className:"numberDisplay"},[q.arr.join("   ")+"   ?"]));
-      const cg=h("div",{className:"choiceGrid"}); q.opts.forEach(x=>cg.appendChild(h("button",{className:"choice",onclick:()=>{if(x===q.correct)c++;i++;go();}},[String(x)]))); wrap.appendChild(cg);
-    } go();
+      if(i===rounds){
+        setReady(c>=Math.ceil(rounds*.8),`${c}/${rounds} correct`,{correct:c,total:rounds});
+        return;
+      }
+      const q=make();
+      wrap.innerHTML="";
+      wrap.appendChild(h("div",{className:"smallHint"},[`Pattern ${i+1} of ${rounds}`]));
+      wrap.appendChild(h("div",{className:"numberDisplay"},[q.arr.join("   ")+"   ?"]));
+      const cg=h("div",{className:"choiceGrid"});
+      q.opts.forEach(x=>cg.appendChild(h("button",{className:"choice",type:"button",onclick:()=>{
+        if(cg.dataset.answered) return;
+        cg.dataset.answered="1";
+        if(x===q.correct)c++;
+        i++;
+        setTimeout(go,180);
+      }},[x])));
+      wrap.appendChild(cg);
+    }
+    go();
   },
   "Odd Rule": (l, r, stage) => {
     const type = Math.floor(r() * 3);
@@ -1256,23 +1460,113 @@ const TaskRegistry = {
     simpleChoices(shuffle([q[3],...q[4]],r),q[3],r);
   },
   "Number Pattern": (l, r, stage) => {
-    const start = 3 + Math.floor(r() * 5), mul = 2 + Math.floor(r() * 2), arr = [start, start*mul, start*mul*mul];
-    const correct = arr[2]*mul;
-    const distractorPool = [arr[2]+mul, arr[2]-mul, arr[2]+1, arr[2]-1, correct+mul, correct-1]
-      .filter(v => v !== correct && v > 0);
-    const distractors = shuffle([...new Set(distractorPool)], r).slice(0, 3);
-    stage.appendChild(h("div", {className: "numberDisplay"}, [`${arr.join(", ")} ... ?`]));
-    simpleChoices([correct, ...distractors].map(String), String(correct), r);
+    const type = l<=2 ? Math.floor(r()*3) : (l===3 ? Math.floor(r()*5) : Math.floor(r()*7));
+    let arr=[],correct,ruleText="";
+
+    if(type===0){
+      const start=7+Math.floor(r()*(10+l*3)), step=3+Math.floor(r()*(4+l));
+      arr=[start,start+step,start+2*step,start+3*step,start+4*step];
+      correct=start+5*step; ruleText="constant increase";
+    }else if(type===1){
+      const start=3+Math.floor(r()*(5+l)), mul=l>=4?(r()<.5?2:3):2, add=1+Math.floor(r()*(2+l));
+      arr=[start];
+      for(let i=1;i<5;i++) arr.push(arr[i-1]*mul+add);
+      correct=arr[4]*mul+add; ruleText=`×${mul}, then +${add}`;
+    }else if(type===2){
+      const start=4+Math.floor(r()*(5+l)), a=2+Math.floor(r()*(2+l)), b=a+2+Math.floor(r()*(2+l));
+      arr=[start,start+a,start+a+b,start+2*a+b,start+2*a+2*b];
+      correct=start+3*a+2*b; ruleText=`+${a}, +${b} alternating`;
+    }else if(type===3){
+      const start=4+Math.floor(r()*(6+l)), first=2+Math.floor(r()*(3+l)), inc=1+Math.floor(r()*(2+Math.floor(l/2)));
+      arr=[start]; let diff=first;
+      for(let i=1;i<5;i++){arr.push(arr[i-1]+diff);diff+=inc;}
+      correct=arr[4]+diff; ruleText=`gaps increase by ${inc}`;
+    }else if(type===4){
+      const start=2+Math.floor(r()*(3+Math.min(l,3))), offset=1+Math.floor(r()*(2+l));
+      arr=[start*start+offset,(start+1)**2+offset,(start+2)**2+offset,(start+3)**2+offset,(start+4)**2+offset];
+      correct=(start+5)**2+offset; ruleText=`consecutive squares + ${offset}`;
+    }else if(type===5){
+      const start=5+Math.floor(r()*(5+l)), mul=2, add1=2+Math.floor(r()*(2+l)), add2=add1+1+Math.floor(r()*(2+l));
+      arr=[start,start*mul+add1];
+      arr.push(arr[1]*mul+add2);
+      arr.push(arr[2]*mul+add1);
+      arr.push(arr[3]*mul+add2);
+      correct=arr[4]*mul+add1; ruleText=`alternate ×${mul}+${add1} and ×${mul}+${add2}`;
+    }else{
+      // Cubic growth for older learners/adults.
+      const n=1+Math.floor(r()*3), offset=1+Math.floor(r()*(3+l));
+      arr=[n**3+offset,(n+1)**3+offset,(n+2)**3+offset,(n+3)**3+offset];
+      correct=(n+4)**3+offset; ruleText=`consecutive cubes + ${offset}`;
+    }
+
+    const ds=new Set();
+    [1,-1,2,-2,3,-3,5,-5,7,-7,10,-10,12,-12,15,-15].forEach(d=>{
+      if(correct+d>0 && correct+d!==correct) ds.add(correct+d);
+    });
+    // Pattern-aware distractors: common wrong continuation choices.
+    if(arr.length>=2){
+      ds.add(arr[arr.length-1] + (arr[arr.length-1]-arr[arr.length-2]));
+      ds.add(arr[arr.length-1] * 2);
+    }
+    ds.delete(correct);
+    const opts=shuffle([String(correct),...shuffle([...ds].map(String),r).slice(0,3)],r);
+
+    stage.appendChild(h("div",{className:"smallHint"},["Find the rule that connects the numbers."]));
+    stage.appendChild(h("div",{className:"numberDisplay"},[`${arr.join("   ")}   ?`]));
+    simpleChoices(opts,String(correct),r);
   },
   "Quantity Logic": (l, r, stage) => {
     let i=0,c=0; const rounds=5+Math.min(2,l); const wrap=h("div"); stage.appendChild(wrap);
+
+    function make(){
+      let question,correct;
+      if(l<=2){
+        const a=5+Math.floor(r()*10), b=2+Math.floor(r()*8), op=r()<.5?"+":"−";
+        correct=op==="+"?a+b:a-b;
+        question=`${a} ${op} ${b} = ?`;
+      }else if(l===3){
+        const a=4+Math.floor(r()*8), b=2+Math.floor(r()*6), c2=2+Math.floor(r()*5);
+        correct=a*b-c2;
+        question=`${a} × ${b} − ${c2} = ?`;
+      }else if(l===4){
+        const a=6+Math.floor(r()*9), b=3+Math.floor(r()*7), c2=2+Math.floor(r()*6);
+        correct=(a+b)*c2;
+        question=`(${a} + ${b}) × ${c2} = ?`;
+      }else{
+        const a=8+Math.floor(r()*13), b=3+Math.floor(r()*9), c2=2+Math.floor(r()*8), d2=2+Math.floor(r()*6);
+        const type=Math.floor(r()*3);
+        if(type===0){ correct=a*b+c2-d2; question=`${a} × ${b} + ${c2} − ${d2} = ?`; }
+        else if(type===1){ correct=(a+b)*(c2-d2); question=`(${a} + ${b}) × (${c2} − ${d2}) = ?`; }
+        else { correct=a*(b+c2)-d2; question=`${a} × (${b} + ${c2}) − ${d2} = ?`; }
+      }
+      return {question,correct};
+    }
+
     function go(){
-      if(i===rounds){setReady(c>=Math.ceil(rounds*.8),`${c}/${rounds} correct`,{correct:c,total:rounds});return;}
-      const a=2+Math.floor(r()*(5+l*2)), b=2+Math.floor(r()*(5+l*2)), op=r()<.5?"+":"−", correct=op==="+"?a+b:a-b;
-      const ds=[correct+1,correct-1,correct+2,correct-2].filter(x=>x>=0&&x!==correct); const opts=shuffle([correct,...ds.slice(0,3)],r);
-      wrap.innerHTML="";wrap.appendChild(h("div",{className:"smallHint"},[`Problem ${i+1} of ${rounds}`]));wrap.appendChild(h("div",{className:"numberDisplay"},[`${a} ${op} ${b} = ?`]));
-      const cg=h("div",{className:"choiceGrid"});opts.forEach(x=>cg.appendChild(h("button",{className:"choice",onclick:()=>{if(x===correct)c++;i++;go();}},[String(x)])));wrap.appendChild(cg);
-    }go();
+      if(i===rounds){
+        setReady(c>=Math.ceil(rounds*.8),`${c}/${rounds} correct`,{correct:c,total:rounds});
+        return;
+      }
+      const q=make();
+      const ds=new Set();
+      [1,-1,2,-2,3,-3,5,-5,7,-7,10,-10,12,-12,15,-15,20,-20].forEach(d=>{
+        if(q.correct+d>=0 && q.correct+d!==q.correct) ds.add(q.correct+d);
+      });
+      const opts=shuffle([String(q.correct),...shuffle([...ds].map(String),r).slice(0,3)],r);
+      wrap.innerHTML="";
+      wrap.appendChild(h("div",{className:"smallHint"},[`Problem ${i+1} of ${rounds}`]));
+      wrap.appendChild(h("div",{className:"numberDisplay"},[q.question]));
+      const cg=h("div",{className:"choiceGrid"});
+      opts.forEach(x=>cg.appendChild(h("button",{className:"choice",type:"button",onclick:()=>{
+        if(cg.dataset.answered)return;
+        cg.dataset.answered="1";
+        if(x===String(q.correct))c++;
+        i++;
+        setTimeout(go,180);
+      }},[x])));
+      wrap.appendChild(cg);
+    }
+    go();
   }
 };
 
@@ -1294,8 +1588,9 @@ function finishTask(){
 
   const d = state.tasks[state.idx].domain;
   if(!state.score[d]) state.score[d] = {earned:0, possible:0, time:0, attempts:0};
-  state.score[d].possible++;
-  state.score[d].earned += ok ? 1 : 0;
+  const taskPoints = 10;
+  state.score[d].possible += taskPoints;
+  state.score[d].earned += ok ? taskPoints : 0;
   state.score[d].time += elapsed;
   state.score[d].attempts++;
   state.raw.push({task: state.tasks[state.idx].name, domain: d, correct: ok, responseMs: elapsed, itemKey: state.currentItemKey, meta: state.currentMeta || {}});
@@ -1313,7 +1608,7 @@ function render(){
   const t = state.tasks[state.idx];
   $("domainNo").textContent = `MODULE ${t.id} / ${state.tasks.length}`;
   $("domain").textContent = t.domain;
-  $("counter").textContent = `${state.modeLabel} · Task ${state.idx+1} of ${state.tasks.length}`;
+  $("counter").textContent = `Challenge ${state.idx+1} of ${state.tasks.length} · 10 points`;
   $("title").textContent = t.name;
   $("instruction").textContent = t.hint;
   state.currentInstructionText = `${t.domain}. ${t.name}. ${t.hint}`;
@@ -1331,14 +1626,14 @@ function render(){
   function beginTask(){
     if(state.idx !== myIdx) return;
     $("stage").innerHTML = "";
-    $("status").textContent = "Give it your best shot!";
+    $("status").textContent = "Take your time and do your best!";
     const bar = $("taskTimeBar");
     bar.style.transition = "none";
     bar.style.width = "100%";
     void bar.offsetWidth;
     const visualTasks=["Visual Target Hunt","Rapid Scan","Symbol Recall","Sequence Echo","Spatial Recall","Delayed Recall","Visual Update","Same or Different","Symbol Match","Shape Rotation","Spatial Map","Shape Construction"];
-    const baseLimit=state.mode==="detailed"?26000:32000;
-    state.taskLimit=visualTasks.includes(t.name)?baseLimit:Math.max(24000,baseLimit-3000);
+    const baseLimit=state.mode==="detailed"?26000:42000;
+    state.taskLimit=visualTasks.includes(t.name)?(state.mode==="detailed"?baseLimit:48000):Math.max(38000,baseLimit-4000);
     bar.style.transition = `width ${state.taskLimit/1000}s linear`;
     bar.style.width = "0%";
     state.taskStart = performance.now();
@@ -1410,10 +1705,10 @@ function init(){
  state.hardLimit=state.mode==="detailed"?15*60*1000:6*60*1000;
  if(state.mode!=="detailed" && voice.isEnabled()){
    voice.toggle();
-   const vt=$("voiceToggle"); if(vt) vt.textContent="🔇 Voice: OFF";
+   const vt=$("voiceToggle"); if(vt) vt.textContent="🔇 Voice off";
  }
  $("timer").textContent=state.mode==="detailed"?"12:00":"5:00";
- $("integrity").textContent="Integrity: Active";show("assessment");render();clock()
+ show("assessment");render();clock()
 }
 $("begin").onclick=init;
 
@@ -1444,11 +1739,11 @@ function modal(title,text,btn){$("modalTitle").textContent=title;$("modalText").
 $("modalBtn").onclick=()=>{$("feedback").classList.remove("show")};
 
 function scoreBand(pct){
-  if(pct>=85) return {label:"Excellent", cls:"band-excellent"};
-  if(pct>=70) return {label:"Good", cls:"band-good"};
-  if(pct>=55) return {label:"Average", cls:"band-average"};
-  if(pct>=40) return {label:"Below Average", cls:"band-below"};
-  return {label:"Needs Attention", cls:"band-attention"};
+  if(pct>=85) return {label:"Strong", cls:"band-excellent"};
+  if(pct>=70) return {label:"Good Progress", cls:"band-good"};
+  if(pct>=55) return {label:"Developing", cls:"band-average"};
+  if(pct>=40) return {label:"Emerging", cls:"band-below"};
+  return {label:"Room to Grow", cls:"band-attention"};
 }
 
 function publishResults(){
@@ -1472,47 +1767,53 @@ function finish(timeExpired=false,integrityStop=false){
  const overall=vals.length?Math.round(vals.reduce((a,b)=>a+b.pct,0)/vals.length):0;
  $("overall").textContent=overall;$("circle").style.setProperty("--score",overall+"%");
  $("resultHeading").textContent=state.status==="Valid"?"Nicely done!":state.status==="Incomplete"?"Session paused":"Time's up!";
- $("resultText").textContent=state.participant.name+", "+(state.status==="Valid"?"you just completed the cognitive assessment — here's how it went.":state.status==="Incomplete"?"the session was interrupted before we could finish. No worries, you can always try again.":"the maximum assessment time was reached, but here's what we captured.");
+ $("resultText").textContent=state.participant.name+", "+(state.status==="Valid"?"you just completed the assessment — here’s a gentle snapshot of how you performed today.":state.status==="Incomplete"?"the session was interrupted before we could finish. No worries, you can always try again.":"the maximum assessment time was reached. We’ve captured the work completed so far.");
 
  const analysisGrid = $("analysisGrid");
+ let sorted=[], best=null, worst=null, median=overall, stddev=0, strengths=[], develop=[];
  if(analysisGrid && vals.length){
-   const sorted = vals.slice().sort((a,b)=>a.pct-b.pct);
-   const best = sorted[sorted.length-1];
-   const worst = sorted[0];
+   sorted = vals.slice().sort((a,b)=>a.pct-b.pct);
+   best = sorted[sorted.length-1];
+   worst = sorted[0];
    const mid = Math.floor(sorted.length/2);
-   const median = sorted.length % 2 ? sorted[mid].pct : Math.round((sorted[mid-1].pct + sorted[mid].pct)/2);
+   median = sorted.length % 2 ? sorted[mid].pct : Math.round((sorted[mid-1].pct + sorted[mid].pct)/2);
    const mean = overall;
    const variance = vals.reduce((a,v)=>a+Math.pow(v.pct-mean,2),0)/vals.length;
-   const stddev = Math.round(Math.sqrt(variance));
+   stddev = Math.round(Math.sqrt(variance));
    const bestBand = scoreBand(best.pct), worstBand = scoreBand(worst.pct), meanBand = scoreBand(mean);
    analysisGrid.innerHTML = `
-     <div class="analysisBox"><div class="label">Best domain</div><div class="value">${best.pct}</div><div class="sub">${best.name}<br><span class="band ${bestBand.cls}">${bestBand.label}</span></div></div>
-     <div class="analysisBox"><div class="label">Average (all domains)</div><div class="value">${mean}</div><div class="sub">Median: ${median}<br><span class="band ${meanBand.cls}">${meanBand.label}</span></div></div>
-     <div class="analysisBox"><div class="label">Weakest domain</div><div class="value">${worst.pct}</div><div class="sub">${worst.name}<br><span class="band ${worstBand.cls}">${worstBand.label}</span></div></div>
-     <div class="analysisBox"><div class="label">Spread (std. dev.)</div><div class="value">${stddev}</div><div class="sub">${stddev<=10?"Fairly even across domains":stddev<=20?"Some variation across domains":"Wide variation across domains"}</div></div>
+     <div class="analysisBox"><div class="label">Strongest area</div><div class="value lockedValue">${best.pct}</div><div class="sub lockedSub">${best.name}<br><span class="band ${bestBand.cls}">${bestBand.label}</span></div></div>
+     <div class="analysisBox"><div class="label">Overall snapshot</div><div class="value">${mean}</div><div class="sub">Your Medhā score</div></div>
+     <div class="analysisBox"><div class="label">Room to grow</div><div class="value lockedValue">${worst.pct}</div><div class="sub lockedSub">${worst.name}<br><span class="band ${worstBand.cls}">${worstBand.label}</span></div></div>
+     <div class="analysisBox"><div class="label">Profile variation</div><div class="value lockedValue">${stddev}</div><div class="sub">How much the areas differ</div></div>
    `;
- } else if(analysisGrid) {
-   analysisGrid.innerHTML = "";
- }
+ } else if(analysisGrid) analysisGrid.innerHTML = "";
 
- $("bars").innerHTML=vals.map(v=>{ const b=scoreBand(v.pct); return `<div class="barrow"><b>${v.name}</b><div class="bar"><i style="width:${v.pct}%"></i></div><span>${v.pct}<span class="band ${b.cls}">${b.label}</span></span></div>`; }).join("");
- const strengths=vals.filter(x=>x.pct>=75).map(x=>x.name),develop=vals.filter(x=>x.pct<60).map(x=>x.name);
- $("profile").innerHTML=`<div class="profileBox"><b>Relative strengths</b><span>${strengths.length?strengths.join(", "):"No single area stood out in this session."}</span></div><div class="profileBox"><b>Areas for development</b><span>${develop.length?develop.join(", "):"No domain fell into the development band in this session."}</span></div>`;
- $("integrityLog").textContent=`Assessment status: ${state.status}. Page-leave events recorded: ${state.hiddenCount}. ${state.status==="Valid"?"This session is eligible for a profile.":"No valid final profile/certificate should be issued for this session."}`;
+ $("bars").innerHTML=vals.map(v=>{
+   const b=scoreBand(v.pct);
+   return `<div class="barrow"><b>${v.name}</b><div class="bar lockedBar" aria-label="${v.name} score is locked"><i style="width:52%"></i></div><span class="lockedValue">${v.pct}<span class="band ${b.cls}">${b.label}</span></span></div>`;
+ }).join("");
+ strengths=vals.filter(x=>x.pct>=75).map(x=>x.name);
+ develop=vals.filter(x=>x.pct<60).map(x=>x.name);
+ $("profile").innerHTML=`<div class="profileBox"><b>Your strengths today</b><span class="lockedSub">${strengths.length?strengths.join(", "):"Your performance was fairly balanced across the areas we explored."}</span></div><div class="profileBox"><b>Good areas to keep building</b><span class="lockedSub">${develop.length?develop.join(", "):"You showed a solid balance across the areas we explored."}</span></div>`;
  const finalStatus = state.status;
  state.status="Finished";
  state.finalStatus = finalStatus;
  state.overall = overall;
  state.pendingResults = { finalStatus, overall, paymentRequired:true };
- const paymentTitle = $("payment").querySelector("h1");
- if(paymentTitle) paymentTitle.textContent = finalStatus === "Valid" ? "Your assessment is complete" : "Your assessment session has ended";
- const paymentIntro = $("paymentIntroText");
- if(paymentIntro) paymentIntro.textContent = finalStatus === "Valid"
-   ? "You have completed the cognitive assessment. Complete the payment below to unlock and publish your Medhā Cognitive Profile."
-   : "This session has ended. Complete the payment below if you want to view the captured session report.";
- $("paymentUtr").value = "";
- $("paymentState").classList.remove("show");
- show("payment");
+ state.profileUnlocked = false;
+ state.paymentStatus = "NOT_VERIFIED";
+ $("resultLockPanel").classList.remove("hidden");
+ $("resultLockPanel").classList.remove("fullUnlocked");
+ $("resultLockBadge").textContent = "🔒 Detailed profile ready";
+ $("resultLockTitle").textContent = "See your complete cognitive profile";
+ $("resultLockText").textContent = finalStatus === "Valid"
+   ? "Your assessment is complete. Your Medhā score is shown above. Your detailed scores are ready and gently protected until payment is confirmed."
+   : "Your assessment session has ended. The detailed profile remains protected until the assessment is completed and payment is confirmed.";
+ $("resultPaymentUtr").value = "";
+ $("resultPaymentState").classList.remove("show");
+ show("results");
+ voice.speak(`${$("resultHeading").textContent}. Your Medhā score is ${overall}.`);
 }
 
 function buildExportPayload(){
@@ -1521,10 +1822,46 @@ function buildExportPayload(){
     integrity: { events: state.integrityEvents, finalCount: state.hiddenCount },
     participant: state.participant, consentRecord: state.consentRecord || null,
     assessmentMode: state.mode, assessmentModeLabel: state.modeLabel, paymentReference: state.paymentRef || null, novelty: {userKey:state.userKey, sessionItemCount:state.sessionItemKeys.length, contentHistoryCount:state.usedContentKeys.length},
-    resultUnlock: state.paymentRef ? {level:"full", transactionRef:state.paymentRef} : null,
+    resultUnlock: state.paymentRef ? {level:"pending", transactionRef:state.paymentRef, paymentStatus:state.paymentStatus||"PENDING"} : null,
     domainScores: state.score, rawModuleData: state.raw
   };
 }
+
+$("copyResultUpi").onclick=async()=>{
+  const msg=$("resultPaymentState");
+  try{
+    await navigator.clipboard.writeText("yespay.smessi10194393@yesbankltd");
+    msg.textContent="UPI ID copied. Complete the ₹299 payment, then enter your transaction reference.";
+  }catch(e){
+    msg.textContent="UPI ID: yespay.smessi10194393@yesbankltd";
+  }
+  msg.classList.add("show");
+};
+$("submitResultPayment").onclick=()=>{
+  const r=$("resultPaymentUtr").value.trim();
+  const msg=$("resultPaymentState");
+  if(r.length<4){
+    msg.textContent="Please enter the transaction reference after completing the ₹299 payment.";
+    msg.classList.add("show");
+    return;
+  }
+  state.paymentRef=r;
+  state.paymentStatus="PENDING";
+  try{ localStorage.setItem("medhaa_cognitive_payment_ref_"+state.userKey,r); }catch(e){}
+  const paymentReference={
+    status:"PENDING",
+    transactionRef:r,
+    submittedAt:new Date().toISOString(),
+    amount:299
+  };
+  submitPaymentReferenceToMedhaa(paymentReference);
+  msg.textContent="Thank you. Your payment reference has been submitted for verification. Your detailed scores will appear here after the payment is confirmed.";
+  msg.classList.add("show");
+  $("submitResultPayment").disabled=true;
+  $("submitResultPayment").textContent="Awaiting payment verification";
+  startPaymentStatusPolling();
+};
+
 $("downloadData").onclick = () => {
   const payload = buildExportPayload();
   const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
@@ -1537,9 +1874,5 @@ $("downloadData").onclick = () => {
 $("print").onclick=()=>window.print();$("restart").onclick=()=>location.reload();
 })();
 </script>
-<script src="bhava-bridge.js"></script>
-<script src="bhava-session.js"></script>
-<script src="bhava-game-nav.js"></script>
-<script src="bhava-responsive.js"></script>
 </body>
 </html>
