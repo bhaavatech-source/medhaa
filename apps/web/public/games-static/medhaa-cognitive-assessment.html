@@ -25,7 +25,7 @@ button,input,select{font:inherit}button{cursor:pointer}
 button:focus-visible,input:focus-visible,select:focus-visible{outline:none;box-shadow:var(--focus-ring)}
 .app{max-width:1120px;margin:auto;padding:16px 14px 48px;position:relative;z-index:1}
 #fx{position:fixed;inset:0;pointer-events:none;z-index:9999;}
-header{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:12px}.brand{display:flex;align-items:center;gap:10px}
+header{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:12px;flex-wrap:wrap}.brand{display:flex;align-items:center;gap:10px}
 .logo-img{width:48px;height:48px;object-fit:contain;filter:drop-shadow(0 4px 8px rgba(91,60,196,0.25))}
 .brand b{font-size:19px}.brand span{display:block;color:var(--muted);font-size:12px}
 .topStatus{display:flex;align-items:center;gap:12px}.timer{font-weight:900;color:var(--brand);font-variant-numeric:tabular-nums}.integrity{font-size:11px;padding:7px 10px;border-radius:999px;background:#fff7e8;color:#8b5a00;font-weight:800}
@@ -160,6 +160,10 @@ h1{letter-spacing:-0.02em}
 <canvas id="fx"></canvas>
 <div class="app">
 <header>
+  <div class="navRow" style="display:flex;gap:8px">
+    <button id="navBack" class="btn secondary" style="padding:8px 12px;min-height:36px;font-size:12px;border-radius:10px" aria-label="Go back" title="Go back">&larr; Back</button>
+    <button id="navHome" class="btn secondary" style="padding:8px 12px;min-height:36px;font-size:12px;border-radius:10px" aria-label="Go to home page" title="Go to home page">&#127968; Home</button>
+  </div>
   <div class="brand">
     <img src="medha_logo_transparent.png" alt="Medhā Logo" class="logo-img">
     <div><b>Medhā</b><span>Cognitive Assessment</span></div>
@@ -344,6 +348,19 @@ const audio = (() => {
   };
 })();
 $("audioToggle").onclick = audio.toggle;
+
+function goHome(){ window.location.href = "/"; }
+function goBack(){
+  const inAssessment = $("assessment") && $("assessment").classList.contains("active");
+  if(inAssessment && !window.confirm("Leaving now will end this assessment attempt. Are you sure you want to go back?")) return;
+  if(window.history.length > 1) window.history.back(); else goHome();
+}
+$("navBack").onclick = goBack;
+$("navHome").onclick = ()=>{
+  const inAssessment = $("assessment") && $("assessment").classList.contains("active");
+  if(inAssessment && !window.confirm("Leaving now will end this assessment attempt. Are you sure you want to go home?")) return;
+  goHome();
+};
 
 const SUBMIT_ENDPOINT = "";
 const MEDHAA_API_URL = "https://medhaa-tni1.onrender.com/api";

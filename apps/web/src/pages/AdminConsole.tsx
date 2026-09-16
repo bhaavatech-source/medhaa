@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { authFetch } from '../utils/authFetch';
 import AdminSubscriptionsPage from './AdminSubscriptionsPage';
 import '../styles/admin-console.css';
+import AdminAssessmentPaymentsPanel from './AdminAssessmentPaymentsPanel';
 
 const API_URL = import.meta.env.VITE_API_URL || 'https://medhaa-tni1.onrender.com/api';
 
@@ -654,61 +655,7 @@ function GamesTab() {
 // ---------------------------------------------------------------------------
 
 function AssessmentsTab() {
-  const [items, setItems] = useState<any[]>([]);
-  const [total, setTotal] = useState(0);
-  const [page, setPage] = useState(1);
-  const [error, setError] = useState('');
-  const pageSize = 25;
-
-  const load = useCallback(async () => {
-    try {
-      const params = new URLSearchParams({ page: String(page), pageSize: String(pageSize) });
-      const data = await jsonFetch(`/assessments?${params.toString()}`);
-      setItems(data.items);
-      setTotal(data.total);
-    } catch (e: any) {
-      setError(e.message);
-    }
-  }, [page]);
-
-  useEffect(() => { load(); }, [load]);
-
-  const totalPages = Math.max(1, Math.ceil(total / pageSize));
-
-  return (
-    <div>
-      <h2 className="admin-section-title">Cognitive Assessment submissions</h2>
-      {error && <div className="admin-error">{error}</div>}
-
-      <div className="admin-table-wrap">
-        <table className="admin-table">
-          <thead>
-            <tr><th>When</th><th>Participant</th><th>Age</th><th>Contact</th><th>Status</th><th>Score</th><th>Result unlocked</th></tr>
-          </thead>
-          <tbody>
-            {items.map((a) => (
-              <tr key={a.id}>
-                <td>{new Date(a.createdAt).toLocaleString()}</td>
-                <td>{a.participantName}{a.parentName ? ` (guardian: ${a.parentName})` : ''}</td>
-                <td>{a.participantAge ?? '—'}</td>
-                <td>{a.participantEmail || '—'}</td>
-                <td><span className="admin-badge">{a.status}</span></td>
-                <td>{a.overallScore ?? '—'}</td>
-                <td>{a.paymentReference ? (a.resultLevel || 'yes') : 'no'}</td>
-              </tr>
-            ))}
-            {items.length === 0 && <tr><td colSpan={7} className="admin-empty-row">No assessment submissions yet.</td></tr>}
-          </tbody>
-        </table>
-      </div>
-
-      <div className="admin-pagination">
-        <button type="button" disabled={page <= 1} onClick={() => setPage((p) => p - 1)}>← Prev</button>
-        <span>Page {page} of {totalPages} · {total} entries</span>
-        <button type="button" disabled={page >= totalPages} onClick={() => setPage((p) => p + 1)}>Next →</button>
-      </div>
-    </div>
-  );
+   return <AdminAssessmentPaymentsPanel />;
 }
 
 function AuditLogsTab() {

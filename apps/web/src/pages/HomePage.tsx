@@ -1609,7 +1609,14 @@ const medhaHeroStyles = `
 }
 
 .home-assessment-promo__icon {
-  font-size: 28px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #d946a0, #7c3aed);
+  color: #fff;
+  box-shadow: 0 10px 22px rgba(124, 58, 237, 0.32);
 }
 
 .home-assessment-promo strong {
@@ -2163,7 +2170,7 @@ export default function HomePage() {
       {showAssessmentPromo && (
         <div className="home-assessment-promo">
           <button type="button" className="home-assessment-promo__close" aria-label="Close" onClick={() => setShowAssessmentPromo(false)}>×</button>
-          <div className="home-assessment-promo__icon">🧠</div>
+          <div className="home-assessment-promo__icon"><Sparkles size={22} aria-hidden="true" /></div>
           <strong>New: Medhā Cognitive Assessment</strong>
           <p>A one-time, personalised cognitive report — just ₹99 to unlock your full results.</p>
           <button type="button" onClick={() => { setShowAssessmentPromo(false); window.location.href = '/games-static/medhaa-cognitive-assessment.html'; }}>Take it now →</button>
