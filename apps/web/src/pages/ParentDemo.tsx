@@ -27,7 +27,7 @@ const domainScores: {
   band: Band;
   desc: string;
 }[] = [
-  { key: 'cognitive', label: 'Thinking & Focus', icon: '🧠', band: 'Blossoming', desc: 'Solves puzzles and stays focused well for her age.' },
+  { key: 'cognitive', label: 'Thinking & Focus', icon: '🎯', band: 'Blossoming', desc: 'Solves puzzles and stays focused well for her age.' },
   { key: 'emotional', label: 'Feelings & Friendships', icon: '💛', band: 'Growing Well', desc: "Understands others' feelings, still building confidence." },
   { key: 'social', label: 'Teamwork & Leading', icon: '🤝', band: 'Blossoming', desc: 'Works well with classmates and takes initiative.' },
   { key: 'engineering', label: 'Builder & Maker Skills', icon: '⚙️', band: 'Just Starting', desc: 'Enjoys building but is still learning to plan before building.' },

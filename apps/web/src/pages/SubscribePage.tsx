@@ -32,7 +32,7 @@ type InstitutionalProfile = {
 
 const BENEFIT_ICONS: Record<string, string> = {
   'Unlimited access to every game, no daily play limit': '🎮',
-  'Full IQ, EQ & SQ progress reports after every session': '🧠',
+  'Full IQ, EQ & SQ progress reports after every session': '📊',
   'Weekly Medhā Score tracking and trend charts': '📈',
   'Priority access to new games as they launch': '🚀',
   'Downloadable report cards for school submission': '📄',

@@ -43,7 +43,7 @@ const visionData = [
 // --- EXISTING DATA ---
 const foundationCards = [
   { icon: '🎯', title: 'Focus & Attention', text: 'Practise staying with a task, noticing relevant information and working through distractions.' },
-  { icon: '🧠', title: 'Memory', text: 'Practise remembering, recalling and connecting information during interactive challenges.' },
+  { icon: '💭', title: 'Memory', text: 'Practise remembering, recalling and connecting information during interactive challenges.' },
   { icon: '🔍', title: 'Critical Thinking', text: 'Question, compare, reason from evidence and make decisions instead of simply accepting an answer.' },
   { icon: '💡', title: 'Creativity & Imagination', text: 'Explore possibilities, generate ideas and approach problems from different directions.' },
   { icon: '🧩', title: 'Logic & Problem Solving', text: 'Recognise patterns, break problems into parts and test possible solutions.' },
@@ -132,7 +132,7 @@ export function OurApproach() {
           <div className="orbit orbit-a" />
           <div className="orbit orbit-b" />
           <div className="hero-core"><img src={medhaaIcon} alt="" /></div>
-          <div className="float-chip chip-memory">🧠 Memory</div>
+          <div className="float-chip chip-memory">💭 Memory</div>
           <div className="float-chip chip-engineering">⚙️ Engineering</div>
           <div className="float-chip chip-creativity">💡 Creativity</div>
           <div className="float-chip chip-tech">🤖 Technology</div>

@@ -370,7 +370,7 @@ export const GAMES_CATALOG: Record<string, CatalogEntry> = {
     tagline: 'Competitive-level abstract reasoning',
     description: "Advanced fluid-reasoning assessment using matrix reasoning, abstract analogies, and number series, converting your performance into a percentile score against Medhā's normative sample.",
     secondary: 'Abstract Reasoning', skillsBuilt: ['Fluid Reasoning', 'Pattern Recognition', 'Abstract Thinking'],
-    ageMin: 12, ageMax: 17, color: '#0f766e', domain: 'cognitive-assessment', emoji: '🧠',
+    ageMin: 12, ageMax: 17, color: '#0f766e', domain: 'cognitive-assessment', emoji: '�',
   },
   'mindspark-iq': {
     slug: 'mindspark-iq', title: 'MindSpark IQ',
@@ -398,7 +398,7 @@ export const GAMES_CATALOG: Record<string, CatalogEntry> = {
     tagline: 'Your full Brain Power Test',
     description: "The comprehensive Medhā assessment experience — a full 'Brain Power Test' session covering multiple cognitive domains in one structured sitting, distinct from the shorter single-skill games.",
     secondary: 'Comprehensive Assessment', skillsBuilt: ['Mixed Cognitive Domains', 'Sustained Test-Taking Focus', 'Self-Awareness'],
-    ageMin: 11, ageMax: 17, color: '#00d4ff', domain: 'cognitive-assessment', emoji: '🧠',
+    ageMin: 11, ageMax: 17, color: '#00d4ff', domain: 'cognitive-assessment', emoji: '🔬',
   },
   'bcs-lite-v3': {
     slug: 'bcs-lite-v3', title: 'BCS Lite',

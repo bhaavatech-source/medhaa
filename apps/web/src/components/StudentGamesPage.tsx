@@ -507,7 +507,7 @@ function AgeWorldArt({ accent }: { accent: AgeAccent }) {
     },
     aspirants: {
       title: 'Focused preparation',
-      emojis: ['🎯', '🧠', '⚡', '📚'],
+      emojis: ['🎯', '🎓', '⚡', '📚'],
       svg: (
         <svg className="age-world-art__svg" viewBox="0 0 440 280" role="presentation">
           <defs><linearGradient id="aspirantCore" x1="0" x2="1" y1="0" y2="1"><stop offset="0%" stopColor="#52d7c7"/><stop offset="100%" stopColor="#31579a"/></linearGradient></defs>
@@ -887,7 +887,7 @@ function StudentFeaturePage({
             </div>
             <div className="aspirant-practice-grid">
               <article><span>🎯</span><strong>Focus</strong><small>Sustain attention on one task.</small></article>
-              <article><span>🧠</span><strong>Memory</strong><small>Practise recall and working memory.</small></article>
+              <article><span>💭</span><strong>Memory</strong><small>Practise recall and working memory.</small></article>
               <article><span>🧩</span><strong>Reasoning</strong><small>Work through unfamiliar problems.</small></article>
               <article><span>⚡</span><strong>Thinking under time</strong><small>Practise staying deliberate when time matters.</small></article>
             </div>
