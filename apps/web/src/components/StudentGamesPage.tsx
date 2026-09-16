@@ -1255,55 +1255,59 @@ const disclaimerBanner = (
       <nav className="student-header__nav" aria-label="Student navigation">
   <button
     type="button"
+    aria-label="Home"
     onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
   >
-    <span>⌂</span> Home
+    <span>⌂</span> <span className="student-header__nav-label">Home</span>
   </button>
 
   <button
     type="button"
+    aria-label="Play"
     onClick={() =>
       document.getElementById('student-games')?.scrollIntoView({
         behavior: 'smooth',
       })
     }
   >
-    <span>🎮</span> Play
+    <span>🎮</span> <span className="student-header__nav-label">Play</span>
   </button>
 
   <button
     type="button"
+    aria-label="Tools"
     onClick={() =>
       document.getElementById('student-tools')?.scrollIntoView({
         behavior: 'smooth',
       })
     }
   >
-    <span>🧰</span> Tools
+    <span>🧰</span> <span className="student-header__nav-label">Tools</span>
   </button>
 
-  <button type="button" onClick={changeAge}>
-    <span>{profile.icon}</span> Age &amp; Theme
+  <button type="button" aria-label="Age & Theme" onClick={changeAge}>
+    <span>{profile.icon}</span> <span className="student-header__nav-label">Age &amp; Theme</span>
   </button>
 
   {subscription?.status === 'ACTIVE' ? (
   <span className="student-header__subscribed">
-    ✓ Subscribed
+    ✓ <span className="student-header__nav-label">Subscribed</span>
   </span>
 ) : subscription?.status === 'PENDING' ? (
   <span className="student-header__subscribed" style={{ opacity: 0.75 }}>
-    ⏳ Verifying Payment
+    ⏳ <span className="student-header__nav-label">Verifying Payment</span>
   </span>
 ) : (
   <button
     type="button"
     className="student-header__subscribe"
+    aria-label="Subscribe"
     onClick={() => {
       playClick();
       navigate('/subscribe');
     }}
   >
-    ✨ Subscribe
+    ✨ <span className="student-header__nav-label">Subscribe</span>
   </button>
 )}
 </nav>
