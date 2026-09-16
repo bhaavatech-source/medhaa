@@ -742,7 +742,7 @@ export default function AdminConsole() {
               onClick={() => setTab(t.id)}
             >
               <span className="admin-nav-icon">{t.icon}</span>
-              {t.label}
+              <span className="admin-nav-label">{t.label}</span>
             </button>
           ))}
         </nav>

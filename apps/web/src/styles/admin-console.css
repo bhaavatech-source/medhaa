@@ -294,6 +294,6 @@
   .admin-sidebar { flex-direction: row; overflow-x: auto; align-items: center; }
   .admin-brand { border-bottom: 0; padding: 0 8px 0 0; }
   .admin-nav { flex-direction: row; }
-  .admin-nav-item span:not(.admin-nav-icon) { display: none; }
+  .admin-nav-label { display: none; }
   .admin-nav-item--home { margin-bottom: 0; }
 }
