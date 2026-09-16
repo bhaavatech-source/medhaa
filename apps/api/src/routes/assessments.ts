@@ -32,7 +32,8 @@ const submitSchema = z.object({
 });
 
 // POST /assessments/cognitive — records one completed/aborted assessment
-// session. Best-effort from the page's point of view (fire-and-forget).
+// session. Payment access always starts as pending; the participant cannot
+// unlock the detailed result by supplying a resultLevel in the request.
 router.post('/cognitive', rateLimiter, async (req: Request, res: Response) => {
   const parsed = submitSchema.safeParse(req.body);
   if (!parsed.success) {
@@ -40,6 +41,10 @@ router.post('/cognitive', rateLimiter, async (req: Request, res: Response) => {
     return;
   }
   const data = parsed.data;
+
+  const submittedPayment = data.resultUnlock && typeof data.resultUnlock === 'object'
+    ? data.resultUnlock as Record<string, unknown>
+    : {};
 
   const record = await prisma.cognitiveAssessmentResult.create({
     data: {
@@ -57,7 +62,10 @@ router.post('/cognitive', rateLimiter, async (req: Request, res: Response) => {
       domainScores: data.domainScores ?? undefined,
       rawModuleData: data.rawModuleData ?? undefined,
       integrityEvents: data.integrity ?? undefined,
-      paymentReference: data.resultUnlock ?? undefined,
+      paymentReference: Object.keys(submittedPayment).length > 0
+        ? { ...submittedPayment, status: 'PENDING', submittedAt: new Date().toISOString() }
+        : undefined,
+      resultLevel: 'pending',
       ipAddress: req.ip,
     },
   });
@@ -67,11 +75,11 @@ router.post('/cognitive', rateLimiter, async (req: Request, res: Response) => {
 
 const patchSchema = z.object({
   paymentReference: z.any().optional(),
-  resultLevel: z.string().optional(),
 });
 
-// PATCH /assessments/cognitive/:id — attaches the payment/result-unlock
-// reference submitted after the participant has already seen their score.
+// PATCH /assessments/cognitive/:id — records the participant's payment
+// reference. This endpoint deliberately cannot unlock the result. Unlocking
+// is performed only by the protected admin verification endpoint.
 router.patch('/cognitive/:id', rateLimiter, async (req: Request, res: Response) => {
   const parsed = patchSchema.safeParse(req.body);
   if (!parsed.success) {
@@ -79,14 +87,48 @@ router.patch('/cognitive/:id', rateLimiter, async (req: Request, res: Response) 
     return;
   }
   try {
+    const paymentReference = parsed.data.paymentReference;
+    const normalizedReference = paymentReference && typeof paymentReference === 'object'
+      ? { ...(paymentReference as Record<string, unknown>), status: 'PENDING', submittedAt: new Date().toISOString() }
+      : paymentReference;
+
     const record = await prisma.cognitiveAssessmentResult.update({
       where: { id: req.params.id as string },
       data: {
-        paymentReference: parsed.data.paymentReference ?? undefined,
-        resultLevel: parsed.data.resultLevel ?? undefined,
+        paymentReference: normalizedReference ?? undefined,
+        resultLevel: 'pending',
       },
     });
-    res.json({ id: record.id });
+    res.json({ id: record.id, paymentStatus: 'PENDING', resultLevel: 'pending' });
+  } catch {
+    res.status(404).json({ error: 'Assessment record not found' });
+  }
+});
+
+// GET /assessments/cognitive/:id/access — intentionally returns only the
+// payment/access state, not participant data or detailed cognitive results.
+router.get('/cognitive/:id/access', rateLimiter, async (req: Request, res: Response) => {
+  try {
+    const record = await prisma.cognitiveAssessmentResult.findUnique({
+      where: { id: req.params.id as string },
+      select: { resultLevel: true, paymentReference: true },
+    });
+    if (!record) {
+      res.status(404).json({ error: 'Assessment record not found' });
+      return;
+    }
+
+    const payment = record.paymentReference && typeof record.paymentReference === 'object' && !Array.isArray(record.paymentReference)
+      ? record.paymentReference as Record<string, unknown>
+      : {};
+    const status = typeof payment.status === 'string' ? payment.status : null;
+    const verified = status === 'VERIFIED' || record.resultLevel === 'full';
+    const rejected = status === 'REJECTED';
+
+    res.json({
+      paymentStatus: verified ? 'VERIFIED' : rejected ? 'REJECTED' : 'PENDING',
+      resultLevel: verified ? 'full' : 'pending',
+    });
   } catch {
     res.status(404).json({ error: 'Assessment record not found' });
   }
