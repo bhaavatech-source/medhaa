@@ -442,7 +442,8 @@ const State = {
   settings: { breathing: true, physical: true },
   breathingCompleted: false,
   physicalBreakRound: 0,
-  customSpeed: 1.0, customTime: 1.0
+  customSpeed: 1.0, customTime: 1.0,
+  _scanBag: [], _lastScanEmoji: null, _dualBag: [], _lastDualCombo: null, _memSeqSet: null
 };
 
 // CUSTOM MODIFIER LISTENERS
@@ -496,8 +497,8 @@ function recordSession(mode, age, score, accuracy, avgRT, maxStreak) {
 
 // ADAPTIVE DIFFICULTY
 const BaseConfig = {
-  junior: { signal: { rounds: 15, showTime: 1500, gapTime: 500, goRatio: 0.65 }, memory: { gridSize: 3, maxSeq: 5, rounds: 6, showTime: 600 }, scan: { gridSize: 5, targets: 3, rounds: 6, roundTime: 15 }, dual: { rounds: 8, showTime: 2500, gapTime: 500 } },
-  teen: { signal: { rounds: 25, showTime: 1000, gapTime: 300, goRatio: 0.6 }, memory: { gridSize: 4, maxSeq: 8, rounds: 8, showTime: 450 }, scan: { gridSize: 7, targets: 5, rounds: 8, roundTime: 12 }, dual: { rounds: 12, showTime: 1800, gapTime: 300 } },
+  junior: { signal: { rounds: 20, showTime: 1500, gapTime: 500, goRatio: 0.65 }, memory: { gridSize: 3, maxSeq: 5, rounds: 20, showTime: 600 }, scan: { gridSize: 5, targets: 3, rounds: 20, roundTime: 15 }, dual: { rounds: 20, showTime: 2500, gapTime: 500 } },
+  teen: { signal: { rounds: 25, showTime: 1000, gapTime: 300, goRatio: 0.6 }, memory: { gridSize: 4, maxSeq: 8, rounds: 20, showTime: 450 }, scan: { gridSize: 7, targets: 5, rounds: 20, roundTime: 12 }, dual: { rounds: 20, showTime: 1800, gapTime: 300 } },
 };
 function getAdaptiveConfig(mode, age, dl) {
   const b = JSON.parse(JSON.stringify(BaseConfig[age][mode]));
@@ -513,10 +514,13 @@ function getAdaptiveConfig(mode, age, dl) {
   if (b.showTime) b.showTime = b.showTime / State.customSpeed;
   if (b.gapTime) b.gapTime = b.gapTime / State.customSpeed;
   if (b.roundTime) b.roundTime = b.roundTime * State.customTime;
-  if (b.rounds) b.rounds = Math.max(1, Math.floor(b.rounds * State.customTime));
+  if (b.rounds) b.rounds = Math.max(20, Math.floor(b.rounds * State.customTime));
   
   return b;
 }
+
+// Fisher-Yates shuffle used by the anti-repetition bags below
+function shuffleArray(arr) { const a = arr.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
 function getCurrentDifficulty(mode) { return loadProgress().difficulty[mode] || 1; }
 
 // AUDIO ENGINE
@@ -583,6 +587,7 @@ function startGame(mode) {
   State.mode = mode; State.score = 0; State.round = 1; State.streak = 0; State.maxStreak = 0;
   State.correctCount = 0; State.wrongCount = 0; State.reactionTimes = [];
   State.breathingCompleted = false; State.physicalBreakRound = 0;
+  State._scanBag = []; State._lastScanEmoji = null; State._dualBag = []; State._lastDualCombo = null; State._memSeqSet = new Set();
 
   const dl = getCurrentDifficulty(mode);
   const cfg = getAdaptiveConfig(mode, State.age, dl);
@@ -591,6 +596,7 @@ function startGame(mode) {
   document.getElementById('modeEmoji').textContent = info.emoji;
   document.getElementById('modeTitle').textContent = info.name;
   document.getElementById('diffIndicator').textContent = 'Level ' + dl + '/5';
+  document.getElementById('totalRounds').textContent = cfg.rounds;
 
   if (State.settings.breathing) { showScreen('breathingScreen'); startBreathing(); }
   else { enterGame(); }
@@ -854,8 +860,11 @@ function runSignalRound(cfg) {
 }
 
 function runMemoryRound(cfg) {
-  const c=document.getElementById('gameContent');const sl=Math.min(cfg.maxSeq,2+Math.floor(State.round/2));const gs=cfg.gridSize;const tc=gs*gs;const seq=[];
-  for(let i=0;i<sl;i++){let cl;do{cl=Math.floor(Math.random()*tc);}while(seq.includes(cl));seq.push(cl);}
+  const c=document.getElementById('gameContent');const sl=Math.min(cfg.maxSeq,2+Math.floor(State.round/2));const gs=cfg.gridSize;const tc=gs*gs;
+  if(!State._memSeqSet) State._memSeqSet=new Set();
+  let seq,key,attempts=0;
+  do{seq=[];for(let i=0;i<sl;i++){let cl;do{cl=Math.floor(Math.random()*tc);}while(seq.includes(cl));seq.push(cl);}key=seq.join(',');attempts++;}while(State._memSeqSet.has(key)&&attempts<30);
+  State._memSeqSet.add(key);
   document.getElementById('instructionText').innerHTML='Watch the pattern <strong>light up</strong>, then repeat it!';
   c.innerHTML='';const pt=document.createElement('div');pt.className='memory-phase-text';pt.textContent='Memorize...';c.appendChild(pt);
   const g=document.createElement('div');g.className='memory-grid';g.style.gridTemplateColumns=`repeat(${gs},1fr)`;g.style.maxWidth=(gs*68)+'px';
@@ -866,9 +875,22 @@ function runMemoryRound(cfg) {
   setTimeout(ss2,600);
 }
 
+function nextScanEmoji(Emojis) {
+  if (!State._scanBag || State._scanBag.length === 0) {
+    State._scanBag = shuffleArray(Emojis);
+    if (State._lastScanEmoji && State._scanBag[0] === State._lastScanEmoji) {
+      const j = State._scanBag.findIndex(e => e !== State._lastScanEmoji);
+      if (j > 0) [State._scanBag[0], State._scanBag[j]] = [State._scanBag[j], State._scanBag[0]];
+    }
+  }
+  const tE = State._scanBag.shift();
+  State._lastScanEmoji = tE;
+  return tE;
+}
+
 function runScanRound(cfg) {
   const Emojis=['⭐','🌟','💫','✨','🌙','☀️','🔥','💧','🌈','🌸','🍀','🎈','🎀','💎','🔔','🎵'];
-  const c=document.getElementById('gameContent');const tc=cfg.gridSize*cfg.gridSize;const tE=Emojis[Math.floor(Math.random()*Emojis.length)];const dist=Emojis.filter(e=>e!==tE);let tp=[];
+  const c=document.getElementById('gameContent');const tc=cfg.gridSize*cfg.gridSize;const tE=nextScanEmoji(Emojis);const dist=Emojis.filter(e=>e!==tE);let tp=[];
   while(tp.length<cfg.targets){const p=Math.floor(Math.random()*tc);if(!tp.includes(p))tp.push(p);}
   document.getElementById('instructionText').innerHTML=`Find ALL <strong>${tE}</strong> items fast!`;
   c.innerHTML=`<div class="scan-target-display"><span>Find:</span><span class="target-emoji">${tE}</span><span class="found-count"><span id="foundCount">0</span>/${cfg.targets}</span></div>`;
@@ -885,8 +907,11 @@ function runDualRound(cfg) {
   let la=null,ra=null,lA=false,rA=false,tt2=null;
   State.round=1;State.totalRounds=cfg.rounds;document.getElementById('roundVal').textContent='1';document.getElementById('totalRounds').textContent=cfg.rounds;
   function nt(){if(tt>=cfg.rounds){endGame();return;}document.getElementById('roundVal').textContent=tt+1;lA=true;rA=true;
-    const si=Math.floor(Math.random()*2);la=Shapes[si];const ls=document.getElementById('leftShape');ls.className='dual-shape '+la;ls.style.background=ch[Math.floor(Math.random()*4)];ls.textContent='';
-    const ci=Math.floor(Math.random()*4);ra=ci.toString();const rs=document.getElementById('rightShape');rs.style.background=ch[ci];rs.textContent=ce[ci];rs.className='dual-shape circle';
+    let si,ci,combo;let attempts=0;
+    do{si=Math.floor(Math.random()*2);ci=Math.floor(Math.random()*4);combo=si+':'+ci;attempts++;}while(combo===State._lastDualCombo&&attempts<10);
+    State._lastDualCombo=combo;
+    la=Shapes[si];const ls=document.getElementById('leftShape');ls.className='dual-shape '+la;ls.style.background=ch[Math.floor(Math.random()*4)];ls.textContent='';
+    ra=ci.toString();const rs=document.getElementById('rightShape');rs.style.background=ch[ci];rs.textContent=ce[ci];rs.className='dual-shape circle';
     document.getElementById('leftFeedback').textContent='';document.getElementById('leftFeedback').className='dual-feedback';document.getElementById('rightFeedback').textContent='';document.getElementById('rightFeedback').className='dual-feedback';
     State.roundStartTime=Date.now();if(tt2)clearTimeout(tt2);tt2=setTimeout(()=>{if(lA){lA=false;document.getElementById('leftFeedback').textContent='⏰ Too slow!';document.getElementById('leftFeedback').className='dual-feedback wrong';}if(rA){rA=false;document.getElementById('rightFeedback').textContent='⏰ Too slow!';document.getElementById('rightFeedback').className='dual-feedback wrong';}handleWrong();tt++;setTimeout(nt,cfg.gapTime);},cfg.showTime);}
   document.querySelectorAll('.dual-btn').forEach(btn=>{btn.addEventListener('click',function(){const pn=this.dataset.panel;const an=this.dataset.answer;
