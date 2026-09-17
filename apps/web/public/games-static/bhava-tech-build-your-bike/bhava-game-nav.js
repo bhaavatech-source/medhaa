@@ -33,6 +33,13 @@
     '#bhava-game-nav .bgnav-home:hover{background:rgba(109,40,217,.35);',
     'border-color:rgba(167,139,250,.65);color:#e9d5ff;}',
 
+    '#bhava-game-nav .bgnav-next{background:rgba(16,185,129,.15);',
+    'border-color:rgba(52,211,153,.4);color:#6ee7b7;}',
+    '#bhava-game-nav .bgnav-next:hover{background:rgba(16,185,129,.3);',
+    'border-color:rgba(52,211,153,.7);color:#a7f3d0;}',
+    '#bhava-game-nav .bgnav-next.bgnav-disabled{opacity:.35;cursor:not-allowed;',
+    'pointer-events:none;}',
+
     '#bhava-game-nav .bgnav-title{font-size:11px;font-weight:600;',
     'color:rgba(255,255,255,.28);letter-spacing:.08em;text-transform:uppercase;',
     'flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;',
@@ -43,6 +50,7 @@
     '#bhava-game-nav .bgnav-report:hover{background:rgba(1,105,111,.35);',
     'border-color:rgba(79,152,163,.7);color:#a5f3fc;}',
     '#bhava-game-nav .bgnav-report.bgnav-hidden{display:none;}',
+    '#bhava-game-nav .bgnav-next.bgnav-hidden{display:none;}',
 
     // ── No spacer div — use body padding instead to avoid breaking game layouts
     // '#bhava-game-nav-spacer' intentionally removed
@@ -105,6 +113,7 @@
   nav.innerHTML =
     '<button class="bgnav-btn bgnav-back" id="bgnav-back" aria-label="Go back">&#8592; Back</button>' +
     '<button class="bgnav-btn bgnav-home" id="bgnav-home" aria-label="Go home">&#127968; Home</button>' +
+    '<button class="bgnav-btn bgnav-next bgnav-hidden" id="bgnav-next" aria-label="Next">Next &#8594;</button>' +
     '<span class="bgnav-title">' + gameTitle + '</span>' +
     '<button class="bgnav-btn bgnav-report bgnav-hidden" id="bgnav-report" aria-label="My report">&#128202; My Report</button>';
 
@@ -131,9 +140,62 @@
     '</div>';
   document.body.appendChild(modal);
 
+  // ── In-game screen history ──────────────────────────────────────────────────
+  // Many games swap full-screen "pages" in place (e.g. `.screen.active`,
+  // `.level-section.active-level`) without ever touching browser history, so a
+  // real `history.back()` skips straight past all of them to the previous SITE
+  // page. We watch for these class-toggle conventions and let Back step
+  // through them one at a time first, only leaving the game once there are no
+  // more internal screens left to go back to.
+  var _screenStack = [];
+  var _trackedGroups = [];
+  var _restoring = false;
+
+  function trackScreens(selector, activeClass) {
+    _trackedGroups.push({ selector: selector, activeClass: activeClass, lastEl: document.querySelector(selector + '.' + activeClass) });
+  }
+
+  function syncScreenGroups() {
+    if (_restoring) return;
+    _trackedGroups.forEach(function (g) {
+      var current = document.querySelector(g.selector + '.' + g.activeClass);
+      if (current !== g.lastEl) {
+        if (g.lastEl) _screenStack.push({ selector: g.selector, activeClass: g.activeClass, el: g.lastEl });
+        g.lastEl = current;
+      }
+    });
+  }
+
+  // Built-in conventions used across most Medhā/Bhava games — opt-in extra
+  // conventions via `window.BhavaNav.trackScreens(selector, activeClass)`.
+  trackScreens('.screen', 'active');
+  trackScreens('.level-section', 'active-level');
+
+  new MutationObserver(syncScreenGroups).observe(document.body, { attributes: true, attributeFilter: ['class'], subtree: true });
+
+  function internalBack() {
+    syncScreenGroups();
+    if (_screenStack.length === 0) return false;
+    var entry = _screenStack.pop();
+    _restoring = true;
+    document.querySelectorAll(entry.selector + '.' + entry.activeClass).forEach(function (el) { el.classList.remove(entry.activeClass); });
+    entry.el.classList.add(entry.activeClass);
+    _trackedGroups.forEach(function (g) { if (g.selector === entry.selector && g.activeClass === entry.activeClass) g.lastEl = entry.el; });
+    entry.el.dispatchEvent(new CustomEvent('bhava:screen-restored', { bubbles: true, detail: { selector: entry.selector, activeClass: entry.activeClass } }));
+    setTimeout(function () { _restoring = false; }, 0);
+    return true;
+  }
+
   // ── Actions ────────────────────────────────────────────────────────────────
   function goHome() { window.location.href = '/student'; }
-  function goBack() { window.history.length > 1 ? window.history.back() : goHome(); }
+  function goBack() { if (internalBack()) return; window.history.length > 1 ? window.history.back() : goHome(); }
+
+  // ── Opt-in Next button (hidden until a game wires it up) ────────────────────
+  // Deliberately does nothing on its own: a game must call `BhavaNav.setNext(fn)`
+  // to show it, and `BhavaNav.setNextEnabled(bool)` to gate it — so any existing
+  // in-game "Next Level"/completion logic is never bypassed or duplicated.
+  var nextHandler = null;
+  document.getElementById('bgnav-next').addEventListener('click', function () { if (nextHandler) nextHandler(); });
 
   document.getElementById('bgnav-back').addEventListener('click', goBack);
   document.getElementById('bgnav-home').addEventListener('click', goHome);
@@ -305,6 +367,22 @@
     openReport: openReport,
     goHome:     goHome,
     goBack:     goBack,
+    // Register an extra screen-toggle convention for the in-game Back stack
+    // (built-in: '.screen'/'active' and '.level-section'/'active-level').
+    trackScreens: trackScreens,
+    // Opt-in Next button — games own the handler AND the enabled/disabled state,
+    // so their existing next-level/completion gating logic stays in full control.
+    setNext: function (handler) {
+      nextHandler = typeof handler === 'function' ? handler : null;
+      document.getElementById('bgnav-next').classList.toggle('bgnav-hidden', !nextHandler);
+    },
+    setNextEnabled: function (enabled) {
+      document.getElementById('bgnav-next').classList.toggle('bgnav-disabled', !enabled);
+    },
+    clearNext: function () {
+      nextHandler = null;
+      document.getElementById('bgnav-next').classList.add('bgnav-hidden');
+    },
   };
 
 })();
