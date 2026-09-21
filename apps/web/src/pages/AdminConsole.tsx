@@ -4,8 +4,7 @@ import { authFetch } from '../utils/authFetch';
 import AdminSubscriptionsPage from './AdminSubscriptionsPage';
 import '../styles/admin-console.css';
 import AdminAssessmentPaymentsPanel from './AdminAssessmentPaymentsPanel';
-
-const API_URL = import.meta.env.VITE_API_URL || 'https://medhaa-tni1.onrender.com/api';
+import { API_URL } from '../utils/apiConfig';
 
 type Tab = 'overview' | 'users' | 'schools' | 'subscriptions' | 'coupons' | 'games' | 'assessments' | 'audit';
 

@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage';
 import ProtectedRoute from './components/ProtectedRoute';
 import { GlobalMusic } from './components/GlobalMusic';
 import { ChildSessionBanner } from './components/ChildSessionBanner';
+import { API_URL } from './utils/apiConfig';
 
 // Everything below is loaded on demand (route-based code splitting) so the
 // initial bundle only ships Home + Login instead of the whole app at once.
@@ -40,10 +41,6 @@ const SettingsPage = lazy(() => import('./pages/SettingsPage').then((m) => ({ de
 
 
 
-
-
-const API_URL =
-  import.meta.env.VITE_API_URL || 'https://medhaa-tni1.onrender.com/api';
 
 
 function StudentDashboard() {

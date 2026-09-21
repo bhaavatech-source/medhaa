@@ -3,8 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import '../styles/login-page.css';
 import medhaaIcon from '../assets/logo/medhaa-icon.svg';
-
-const API_URL = import.meta.env.VITE_API_URL || 'https://medhaa-tni1.onrender.com/api';
+import { API_URL } from '../utils/apiConfig';
 
 const roleConfig: Record<string, { title: string; subtitle: string; icon: string; gradient: string }> = {
   default: { title: 'Log In', subtitle: 'Access your Medhā account', icon: '🔑', gradient: 'linear-gradient(135deg, #64748b, #334155)' },

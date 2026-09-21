@@ -8,8 +8,7 @@ import {
 import { useAuth } from '../contexts/AuthContext';
 import { authFetch } from '../utils/authFetch';
 import '../styles/parent-dashboard.css';
-
-const API_URL = import.meta.env.VITE_API_URL || 'https://medhaa-tni1.onrender.com/api';
+import { API_URL } from '../utils/apiConfig';
 
 type Subscription = {
   status: string;

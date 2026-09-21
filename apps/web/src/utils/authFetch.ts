@@ -1,5 +1,4 @@
-const API_URL =
-  import.meta.env.VITE_API_URL || 'https://medhaa-tni1.onrender.com/api';
+import { API_URL } from './apiConfig';
 
 async function refreshAccessToken(): Promise<string | null> {
   const refreshToken = localStorage.getItem('refreshToken');

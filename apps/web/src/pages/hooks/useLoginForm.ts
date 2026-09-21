@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
-
-const API_URL =
-  import.meta.env.VITE_API_URL || 'https://medhaa-tni1.onrender.com/api';
+import { API_URL } from '../../utils/apiConfig';
 
 export function useLoginForm(
   role: string,
@@ -80,9 +78,10 @@ export function useLoginForm(
       );
 
       navigate(redirectTo);
-    } catch {
+    } catch (err) {
+      const detail = err instanceof Error ? ` (${err.message})` : '';
       setError(
-        'Login error. Please check your connection and try again.'
+        `Login error. Please check your connection and try again.${detail}`
       );
     } finally {
       setLoading(false);

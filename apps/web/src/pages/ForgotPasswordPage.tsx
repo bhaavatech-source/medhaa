@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import medhaaIcon from '../assets/logo/medhaa-icon.svg';
-
-const API_URL =
-  import.meta.env.VITE_API_URL || 'https://medhaa-tni1.onrender.com/api';
+import { API_URL } from '../utils/apiConfig';
 
 export default function ForgotPasswordPage() {
   const navigate = useNavigate();

@@ -62,7 +62,7 @@ export default function StudentLoginPage() {
   const [searchParams] = useSearchParams();
   const gated = searchParams.get('gate') === '1';
 
-  const { email, setEmail, password, setPassword, error, loading, handleSubmit } = useLoginForm('student', '/student');
+  const { email, setEmail, password, setPassword, error, loading, handleSubmit } = useLoginForm('', '/student/preview');
 
   return (
     <div className="student-login-wrap">

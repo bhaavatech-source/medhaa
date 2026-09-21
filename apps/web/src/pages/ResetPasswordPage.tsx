@@ -2,8 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import { Eye, EyeOff } from 'lucide-react';
 import medhaaIcon from '../assets/logo/medhaa-icon.svg';
-
-const API_URL = import.meta.env.VITE_API_URL || 'https://medhaa-tni1.onrender.com/api';
+import { API_URL } from '../utils/apiConfig';
 
 const inputStyle: React.CSSProperties = {
   width: '100%',
