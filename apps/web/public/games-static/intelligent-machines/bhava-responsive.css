@@ -129,7 +129,7 @@ html::-webkit-scrollbar-track, body::-webkit-scrollbar-track, *::-webkit-scrollb
 
 #bhava-layout-controls {
   position: fixed;
-  right: 16px;
+  left: 16px;
   bottom: 16px;
   z-index: 10001;
   width: 218px;
@@ -145,13 +145,15 @@ html::-webkit-scrollbar-track, body::-webkit-scrollbar-track, *::-webkit-scrollb
   font: 12px/1.3 system-ui, sans-serif;
 }
 #bhava-layout-controls[hidden] { display: none; }
+#bhava-layout-controls .bhava-layout-heading { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+#bhava-layout-controls .bhava-layout-heading button { min-width:28px; min-height:28px; padding:3px 7px; border-radius:7px; }
 #bhava-layout-controls label { display: grid; gap: 5px; color: var(--text-2, #9aa5c9); }
 #bhava-layout-controls input[type="range"] { width: 100%; accent-color: var(--accent-1, #5ad1ff); }
 #bhava-layout-controls output { float: right; color: var(--text-1, #eef3ff); }
 #bhava-layout-controls button { cursor: pointer; }
 #bhava-layout-toggle {
   position: fixed;
-  right: 16px;
+  left: 16px;
   bottom: 16px;
   z-index: 10000;
   min-width: 44px;
@@ -162,6 +164,9 @@ html::-webkit-scrollbar-track, body::-webkit-scrollbar-track, *::-webkit-scrollb
   background: rgba(15, 20, 38, .92);
   cursor: pointer;
   box-shadow: 0 8px 20px rgba(0,0,0,.25);
+}
+@media (max-width: 720px) {
+  #bhava-layout-toggle, #bhava-layout-controls { left: 10px; }
 }
 #bhava-layout-controls:not([hidden]) + #bhava-layout-toggle { display: none; }
 
