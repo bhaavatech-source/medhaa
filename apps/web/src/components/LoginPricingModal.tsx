@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useLoginForm } from '../pages/hooks/useLoginForm';
 import { ConsentCheckbox } from './ConsentCheckbox';
 import '../styles/login-pricing-modal.css';
@@ -10,8 +11,13 @@ interface LoginPricingModalProps {
 
 
 export default function LoginPricingModal({ onClose }: LoginPricingModalProps) {
- const { email, setEmail, password, setPassword, error, loading, handleSubmit } = useLoginForm('student', '/student-demo');
+ const navigate = useNavigate();
+ const { email, setEmail, password, setPassword, error, loading, handleSubmit } = useLoginForm('', '/student/preview');
  const [consentChecked, setConsentChecked] = useState(false);
+ const goSubscribe = () => {
+   onClose();
+   navigate('/subscribe');
+ };
   return (
     <div className="lpm-overlay">
       <div className="lpm-card">
@@ -58,7 +64,7 @@ export default function LoginPricingModal({ onClose }: LoginPricingModalProps) {
               <div className="lpm-plan">
                 <span className="lpm-plan-label">Monthly</span>
                 <div className="lpm-plan-price">₹99<small>/month</small></div>
-                <button className="lpm-plan-btn" disabled={!consentChecked}>Choose Monthly</button>
+                <button type="button" className="lpm-plan-btn" disabled={!consentChecked} onClick={goSubscribe}>Choose Monthly</button>
               </div>
 
 
@@ -66,7 +72,7 @@ export default function LoginPricingModal({ onClose }: LoginPricingModalProps) {
                 <span className="lpm-plan-badge">Save ~40%</span>
                 <span className="lpm-plan-label">Yearly</span>
                 <div className="lpm-plan-price">₹699<small>/year</small></div>
-                <button className="lpm-plan-btn lpm-plan-btn-highlight" disabled={!consentChecked}>Choose Yearly</button>
+                <button type="button" className="lpm-plan-btn lpm-plan-btn-highlight" disabled={!consentChecked} onClick={goSubscribe}>Choose Yearly</button>
               </div>
             </div>
           </div>

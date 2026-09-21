@@ -33,6 +33,12 @@ export function useLoginForm(
     setLoading(true);
 
     try {
+      const body: { email: string; password: string; role?: string } = {
+        email,
+        password,
+      };
+      if (role) body.role = role;
+
       const res = await fetch(
         `${API_URL}/auth/login`,
         {
@@ -40,11 +46,7 @@ export function useLoginForm(
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            email,
-            password,
-            role,
-          }),
+          body: JSON.stringify(body),
         }
       );
 
