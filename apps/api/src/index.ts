@@ -19,16 +19,7 @@ const PORT = Number(process.env.PORT) || 4000;
 
 
 app.use(cors({
-  origin: [
-    'http://localhost:5173',
-    'http://localhost:5174',
-    'https://medhaa.net',
-    'https://www.medhaa.net',
-    'capacitor://localhost',
-    'ionic://localhost',
-    'http://localhost',
-    'https://localhost',
-  ],
+  origin: (origin, callback) => callback(null, origin || true),
   credentials: true,
 }));
 
