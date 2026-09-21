@@ -454,6 +454,101 @@ header {
   .win-actions .btn { width: 100%; }
 }
 
+@media (max-width: 560px) {
+  body.is-playing .wrap {
+    padding: 8px;
+  }
+
+  body.is-playing .main-card {
+    border-radius: 18px;
+  }
+
+  body.is-playing header {
+    padding: 10px 12px 8px;
+    gap: 8px;
+  }
+
+  body.is-playing .brand {
+    gap: 8px;
+    width: 100%;
+  }
+
+  body.is-playing .logo {
+    font-size: 1.35rem;
+  }
+
+  body.is-playing .brand h1 {
+    font-size: 1.15rem;
+    line-height: 1.1;
+  }
+
+  body.is-playing .brand p {
+    display: none;
+  }
+
+  body.is-playing header > .status {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+    width: 100%;
+  }
+
+  body.is-playing header > .status .pill {
+    min-width: 0;
+    padding: 7px 9px;
+    font-size: .78rem;
+    text-align: center;
+  }
+
+  body.is-playing .topbar {
+    display: none;
+  }
+
+  body.is-playing .boardwrap {
+    padding: 0 8px 10px;
+    max-height: none;
+    overflow: visible;
+  }
+
+  body.is-playing .boardhead {
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+
+  body.is-playing .boardhead .status {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 5px;
+    width: 100%;
+  }
+
+  body.is-playing .boardhead .btn {
+    min-width: 0;
+    min-height: 34px;
+    padding: 7px 6px;
+    font-size: .7rem;
+    border-radius: 12px;
+  }
+
+  body.is-playing #goalPill {
+    width: 100%;
+    padding: 7px 10px;
+    font-size: .76rem;
+    text-align: center;
+  }
+
+  body.is-playing .board {
+    gap: 6px;
+    width: 100%;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    min-height: 0;
+  }
+
+  body.is-playing .face {
+    border-radius: 13px;
+  }
+}
+
 .select {
   width: 100%;
   padding: 12px 14px;

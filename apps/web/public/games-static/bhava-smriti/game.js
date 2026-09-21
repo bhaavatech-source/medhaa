@@ -362,6 +362,7 @@ function winGame() {
 }
 
 function showGame(show) {
+  document.body.classList.toggle('is-playing', show);
   els.heroBox.classList.toggle('hidden', show);
   els.worldGrid.classList.toggle('hidden', show);
   els.gameArea.classList.toggle('hidden', !show);
