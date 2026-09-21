@@ -244,13 +244,6 @@ export const GAMES_CATALOG: Record<string, CatalogEntry> = {
     secondary: 'Empathy', skillsBuilt: ['Empathy', 'Social Awareness', 'Emotional Reasoning'],
     ageMin: 8, ageMax: 13, color: '#e11d48', domain: 'emotional-intel', emoji: '💞',
   },
-  'empathy-conversation': {
-    slug: 'empathy-conversation', title: 'Empathy Conversation',
-    tagline: 'Repair a real relationship, one reply at a time',
-    description: "Navigate an emotionally real conversation with a hurt friend — good responses take responsibility and open honest dialogue, visibly repairing the relationship; dismissive ones deepen the hurt.",
-    secondary: 'Communication', skillsBuilt: ['Communication', 'Empathy', 'Conflict Resolution'],
-    ageMin: 11, ageMax: 17, color: '#e11d48', domain: 'emotional-intel', emoji: '💬',
-  },
   'heart-heroes': {
     slug: 'heart-heroes', title: 'Heart Heroes',
     tagline: 'Match kind actions to feelings',
@@ -323,13 +316,6 @@ export const GAMES_CATALOG: Record<string, CatalogEntry> = {
     secondary: 'Attention', skillsBuilt: ['Attention', 'Logical Reasoning', 'Systems Thinking'],
     ageMin: 11, ageMax: 13, color: '#8e6bd8', domain: 'cognitive-math', emoji: '⚙️',
   },
-  'hidden-science': {
-    slug: 'hidden-science', title: 'Hidden Science',
-    tagline: '20 mysteries hiding in plain sight',
-    description: "Investigate 20 real science mysteries — feel materials to learn what conducts electricity, then explore how electrons behave inside atoms. Earn real badges (Lab Master, Master Detective, Atom Explorer) for genuinely completing each experiment.",
-    secondary: 'Scientific Curiosity', skillsBuilt: ['Scientific Observation', 'Hands-On Reasoning', 'Curiosity'],
-    ageMin: 11, ageMax: 15, color: '#0f766e', domain: 'cognitive-math', emoji: '🔬',
-  },
   'math-blitz': {
     slug: 'math-blitz', title: 'Math Blitz',
     tagline: 'Rapid-fire arithmetic under pressure',
@@ -343,13 +329,6 @@ export const GAMES_CATALOG: Record<string, CatalogEntry> = {
     description: "Classic deductive-reasoning puzzles — given a set of clues, figure out who sits where and how everything connects. The same style of logic puzzle used in aptitude and competitive exams.",
     secondary: 'Deductive Reasoning', skillsBuilt: ['Deductive Reasoning', 'Logical Thinking', 'Working Memory'],
     ageMin: 12, ageMax: 17, color: '#2563eb', domain: 'cognitive-logic', emoji: '🧩',
-  },
-  'logic-grid-puzzle': {
-    slug: 'logic-grid-puzzle', title: 'Logic Grid Puzzle',
-    tagline: 'Grids that grow from simple to fiendish',
-    description: "Multi-variable logic grids that scale from a manageable 3×3 up to a genuinely challenging 5×5 — a distinct, harder sibling to Logic Game.",
-    secondary: 'Deductive Reasoning', skillsBuilt: ['Deductive Reasoning', 'Systematic Thinking', 'Patience'],
-    ageMin: 12, ageMax: 17, color: '#4f46e5', domain: 'cognitive-logic', emoji: '📐',
   },
   'brain-garden': {
     slug: 'brain-garden', title: 'Brain Garden',
@@ -392,13 +371,6 @@ export const GAMES_CATALOG: Record<string, CatalogEntry> = {
     description: "High-speed multi-tasking challenges — like sorting shapes by colour while counting sounds — that push executive function and attention-switching, training the dual-task processing behind real academic multitasking.",
     secondary: 'Executive Function', skillsBuilt: ['Cognitive Flexibility', 'Dual-Task Processing', 'Executive Function'],
     ageMin: 12, ageMax: 17, color: '#f59e0b', domain: 'cognitive-focus', emoji: '✨',
-  },
-  'take-test': {
-    slug: 'take-test', title: 'Take Test',
-    tagline: 'Your full Brain Power Test',
-    description: "The comprehensive Medhā assessment experience — a full 'Brain Power Test' session covering multiple cognitive domains in one structured sitting, distinct from the shorter single-skill games.",
-    secondary: 'Comprehensive Assessment', skillsBuilt: ['Mixed Cognitive Domains', 'Sustained Test-Taking Focus', 'Self-Awareness'],
-    ageMin: 11, ageMax: 17, color: '#00d4ff', domain: 'cognitive-assessment', emoji: '🔬',
   },
   'bcs-lite-v3': {
     slug: 'bcs-lite-v3', title: 'BCS Lite',

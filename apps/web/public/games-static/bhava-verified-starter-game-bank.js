@@ -1338,7 +1338,7 @@ window.BHAVA_GAME_BANK = [
     prompt:'Choose the correct homophone: "___ going to the cinema tonight."',
     options:['Their','There','They\'re','Them'], answer:'They\'re',
     explanation:'"They\'re" is the contraction for "They are", which is needed to complete the sentence action.'
-  }
+  },
   /* =========================================================
      5. FOCUS MASTER (10 ITEMS)
      Age: 5–17 | Area: Attention / Focus
