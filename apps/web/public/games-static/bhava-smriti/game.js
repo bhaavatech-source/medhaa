@@ -381,8 +381,9 @@ function showGame(show) {
 function nextWorld() {
   const idx = (WORLD_LIST.findIndex(w => w.id === state.world) + 1) % WORLD_LIST.length;
   state.world = WORLD_LIST[idx].id;
-  els.worldSelect.value = state.world;
+  els.winOverlay.classList.remove('show');
   showGame(true);
+  els.worldSelect.value = state.world;
 }
 
 function resetCurrent() {
