@@ -1648,6 +1648,80 @@ const medhaHeroStyles = `
   }
 }
 
+.footer-download-link {
+  display: inline-block;
+  margin: 6px 0 14px;
+  padding: 9px 18px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #16a34a, #0d9488);
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.home-app-download-promo {
+  position: fixed;
+  left: 18px;
+  bottom: 18px;
+  z-index: 900;
+  width: min(320px, calc(100% - 28px));
+  padding: 20px;
+  border: 1px solid rgba(255,255,255,.95);
+  border-radius: 20px;
+  background: rgba(255,255,255,.97);
+  box-shadow: 0 20px 50px rgba(24,38,73,.22);
+  backdrop-filter: blur(18px);
+  color: #1b2946;
+}
+
+.home-app-download-promo__close {
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  border: 0;
+  background: transparent;
+  color: #738097;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.home-app-download-promo__icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #16a34a, #0d9488);
+  font-size: 20px;
+  box-shadow: 0 10px 22px rgba(13, 148, 136, 0.32);
+}
+
+.home-app-download-promo strong {
+  display: block;
+  margin-top: 4px;
+}
+
+.home-app-download-promo p {
+  margin: 6px 0 13px;
+  color: #69758b;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.home-app-download-promo > a {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #16a34a, #0d9488);
+  color: #fff;
+  font-weight: 900;
+  text-align: center;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
 .role-card {
   color: #183638 !important;
 }
@@ -1793,6 +1867,7 @@ export default function HomePage() {
   const go = (route: string) => navigate(route);
 
   const [showAssessmentPromo, setShowAssessmentPromo] = useState(false);
+  const [showAppDownloadPromo, setShowAppDownloadPromo] = useState(false);
 
   // Gentle recurring nudge toward the one-time paid Cognitive Assessment —
   // only while the visitor hasn't actually taken it yet.
@@ -1808,6 +1883,12 @@ export default function HomePage() {
       window.clearTimeout(first);
       window.clearInterval(recurring);
     };
+  }, []);
+
+  // Nudge visitors to install the Android app after they've been browsing a while.
+  useEffect(() => {
+    const timer = window.setTimeout(() => setShowAppDownloadPromo(true), 10 * 60 * 1000);
+    return () => window.clearTimeout(timer);
   }, []);
 
   return (
@@ -2163,9 +2244,21 @@ export default function HomePage() {
     <a href="/games-static/emotional-intelligence-life-skills-games.html">Emotional Intelligence & Life Skills</a>
   </nav>
 
+  <a href="/downloads/medhaa.apk" download className="footer-download-link">📱 Download the Medhā Android App</a>
+
   <span>© 2026 Medhā — Designed for curious minds</span>
   <span className="footer-note">A Bhāva Tech Product.</span>
 </footer>
+
+      {showAppDownloadPromo && (
+        <div className="home-app-download-promo">
+          <button type="button" className="home-app-download-promo__close" aria-label="Close" onClick={() => setShowAppDownloadPromo(false)}>×</button>
+          <div className="home-app-download-promo__icon" aria-hidden="true">📱</div>
+          <strong>Get the Medhā Android App</strong>
+          <p>Play games and track progress faster with our free Android app.</p>
+          <a href="/downloads/medhaa.apk" download onClick={() => setShowAppDownloadPromo(false)}>Download APK →</a>
+        </div>
+      )}
 
       {showAssessmentPromo && (
         <div className="home-assessment-promo">
