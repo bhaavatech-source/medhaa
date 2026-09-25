@@ -2244,7 +2244,7 @@ export default function HomePage() {
     <a href="/games-static/emotional-intelligence-life-skills-games.html">Emotional Intelligence & Life Skills</a>
   </nav>
 
-  <a href="/downloads/medhaa.apk" download className="footer-download-link">📱 Download the Medhā Android App</a>
+  <a href="https://play.google.com/store/apps/details?id=com.bhaavajaalam.medhaa" target="_blank" rel="noopener noreferrer" className="footer-download-link">📱 Get the Medhā Android App on Google Play</a>
 
   <span>© 2026 Medhā — Designed for curious minds</span>
   <span className="footer-note">A Bhāva Tech Product.</span>
@@ -2256,7 +2256,7 @@ export default function HomePage() {
           <div className="home-app-download-promo__icon" aria-hidden="true">📱</div>
           <strong>Get the Medhā Android App</strong>
           <p>Play games and track progress faster with our free Android app.</p>
-          <a href="/downloads/medhaa.apk" download onClick={() => setShowAppDownloadPromo(false)}>Download APK →</a>
+          <a href="https://play.google.com/store/apps/details?id=com.bhaavajaalam.medhaa" target="_blank" rel="noopener noreferrer" onClick={() => setShowAppDownloadPromo(false)}>Get it on Google Play →</a>
         </div>
       )}
 
