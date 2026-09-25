@@ -1869,6 +1869,19 @@ export default function HomePage() {
   const [showAssessmentPromo, setShowAssessmentPromo] = useState(false);
   const [showAppDownloadPromo, setShowAppDownloadPromo] = useState(false);
 
+  // Inside the installed Android app (Capacitor WebView), a plain https link with
+  // target="_blank" often fails to hand off to the Play Store app — use the
+  // market:// intent scheme there instead, which the WebView forwards to the OS.
+  const openPlayStore = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const isNative = (window as any).Capacitor?.isNativePlatform?.();
+    if (isNative) {
+      window.location.href = 'market://details?id=com.bhaavajaalam.medhaa';
+    } else {
+      window.open('https://play.google.com/store/apps/details?id=com.bhaavajaalam.medhaa', '_blank', 'noopener,noreferrer');
+    }
+  };
+
   // Gentle recurring nudge toward the one-time paid Cognitive Assessment —
   // only while the visitor hasn't actually taken it yet.
   useEffect(() => {
@@ -2244,7 +2257,7 @@ export default function HomePage() {
     <a href="/games-static/emotional-intelligence-life-skills-games.html">Emotional Intelligence & Life Skills</a>
   </nav>
 
-  <a href="https://play.google.com/store/apps/details?id=com.bhaavajaalam.medhaa" target="_blank" rel="noopener noreferrer" className="footer-download-link">📱 Get the Medhā Android App on Google Play</a>
+  <a href="https://play.google.com/store/apps/details?id=com.bhaavajaalam.medhaa" onClick={openPlayStore} className="footer-download-link">📱 Get the Medhā Android App on Google Play</a>
 
   <span>© 2026 Medhā — Designed for curious minds</span>
   <span className="footer-note">A Bhāva Tech Product.</span>
@@ -2256,7 +2269,7 @@ export default function HomePage() {
           <div className="home-app-download-promo__icon" aria-hidden="true">📱</div>
           <strong>Get the Medhā Android App</strong>
           <p>Play games and track progress faster with our free Android app.</p>
-          <a href="https://play.google.com/store/apps/details?id=com.bhaavajaalam.medhaa" target="_blank" rel="noopener noreferrer" onClick={() => setShowAppDownloadPromo(false)}>Get it on Google Play →</a>
+          <a href="https://play.google.com/store/apps/details?id=com.bhaavajaalam.medhaa" onClick={(e) => { openPlayStore(e); setShowAppDownloadPromo(false); }}>Get it on Google Play →</a>
         </div>
       )}
 
