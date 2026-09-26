@@ -34,11 +34,11 @@ export default function LoginPricingModal({ onClose }: LoginPricingModalProps) {
             <form onSubmit={handleSubmit} className="lpm-form">
               <label>
                 Email
-                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" required />
+                <input type="email" name="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" required />
               </label>
               <label>
                 Password
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" required />
+                <input type="password" name="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" required />
               </label>
 
 

@@ -19,6 +19,7 @@ function PasswordInput({
     <div style={{ position: 'relative' }}>
       <input
         type={visible ? 'text' : 'password'}
+        name="password"
         autoComplete="current-password"
         value={value}
         onChange={(e) => onChange(e.target.value)}
@@ -77,7 +78,7 @@ export function ParentLoginPage() {
         <form onSubmit={handleSubmit} className="parent-login-form">
           <label>
             Email
-            <input type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" required />
+            <input type="email" name="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" required />
           </label>
 
           <label>

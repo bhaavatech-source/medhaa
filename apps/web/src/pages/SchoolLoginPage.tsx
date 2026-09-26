@@ -19,6 +19,7 @@ function PasswordInput({
     <div style={{ position: 'relative' }}>
       <input
         type={visible ? 'text' : 'password'}
+        name="password"
         autoComplete="current-password"
         value={value}
         onChange={(e) => onChange(e.target.value)}
@@ -82,7 +83,7 @@ export function SchoolLoginPage() {
         <form onSubmit={handleSubmit} className="school-login-form">
           <label>
             School Admin Email
-            <input type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="admin@yourschool.edu" required />
+            <input type="email" name="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="admin@yourschool.edu" required />
           </label>
 
           <label>
