@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import '../styles/login-page.css';
@@ -82,6 +82,22 @@ export function LoginPage({ role: roleProp }: { role?: string }) {
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
+
+  // Offer any saved credential for this site (e.g. synced via the user's
+  // signed-in Google/Chrome account) via the native account-chooser prompt.
+  useEffect(() => {
+    const nav = navigator as any;
+    if (!nav.credentials?.get) return;
+    nav.credentials
+      .get({ password: true, mediation: 'optional' })
+      .then((cred: any) => {
+        if (cred && cred.type === 'password') {
+          if (cred.id) setEmail(cred.id);
+          if (cred.password) setPassword(cred.password);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();

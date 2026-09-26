@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { API_URL } from '../../utils/apiConfig';
@@ -14,6 +14,23 @@ export function useLoginForm(
 
   const { login } = useAuth();
   const navigate = useNavigate();
+
+  // If the browser already has a saved credential for this site (e.g. synced
+  // from the user's signed-in Google/Chrome account), offer it via the native
+  // account-chooser prompt so the user can tap-to-fill instead of typing.
+  useEffect(() => {
+    const nav = navigator as any;
+    if (!nav.credentials?.get) return;
+    nav.credentials
+      .get({ password: true, mediation: 'optional' })
+      .then((cred: any) => {
+        if (cred && cred.type === 'password') {
+          if (cred.id) setEmail(cred.id);
+          if (cred.password) setPassword(cred.password);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   async function handleSubmit(
     e: React.FormEvent
