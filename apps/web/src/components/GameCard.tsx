@@ -192,14 +192,14 @@ const playLabel = kind === 'activity' ? 'Start Now' : 'Play Now';
           <h3 className="game-card-title">{displayTitle}</h3>
 
           <div className="game-card-meta">
-            <span>{ageLabel}</span>
+            <span>{/^ages?\b/i.test(ageLabel) ? ageLabel : `Ages ${ageLabel}`}</span>
             <span className="meta-dot" aria-hidden="true">•</span>
             <span>{kind === 'activity' ? 'Activity' : 'Game'}</span>
           </div>
 
           {visibleSkills.length > 0 && (
             <div className="game-card-learning">
-              <span className="learning-label">Builds</span>
+              <span className="learning-label">Skills practised</span>
               <div className="game-card-skills">
                 {visibleSkills.map((skill) => (
                   <span className="skill-chip" key={skill}>

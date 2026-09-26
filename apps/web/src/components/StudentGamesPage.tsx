@@ -941,6 +941,8 @@ export function StudentGamesPage({ apiUrl, childStudentId }: StudentGamesPagePro
   const [lastCheckInAt, setLastCheckInAt] = useState<string | null>(null);
   const [subscription, setSubscription] = useState<{ status: string; plan: string; trialEndsAt: string | null } | null>(null);
   const [loading, setLoading] = useState(true);
+  const [catalogError, setCatalogError] = useState('');
+  const [catalogReload, setCatalogReload] = useState(0);
   const [expanded, setExpanded] = useState(false);
   const [gameSearch, setGameSearch] = useState('');
   const [showPromo, setShowPromo] = useState(false);
@@ -981,7 +983,7 @@ export function StudentGamesPage({ apiUrl, childStudentId }: StudentGamesPagePro
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-    useEffect(() => {
+  useEffect(() => {
     let cancelled = false;
     const controller = new AbortController();
     const timeout = window.setTimeout(() => controller.abort(), 8000);
@@ -1017,6 +1019,7 @@ export function StudentGamesPage({ apiUrl, childStudentId }: StudentGamesPagePro
           ? await authFetch(`${apiUrl}${endpoint}`, { signal: controller.signal })
           : await fetch(`${apiUrl}${endpoint}`, { signal: controller.signal });
         if (!res.ok) {
+          setCatalogError('The live game list could not be loaded. You can retry, or explore the basic catalogue for now.');
           useFallbackGames();
           return;
         }
@@ -1042,8 +1045,10 @@ export function StudentGamesPage({ apiUrl, childStudentId }: StudentGamesPagePro
         if (cancelled) return;
         if (error instanceof DOMException && error.name === 'AbortError') {
           console.warn('Student games API timed out; using local catalogue fallback.');
+          setCatalogError('The game list is taking too long to load. Check your connection and try again.');
         } else {
           console.error('Failed to load student games:', error);
+          setCatalogError('The live game list could not be loaded. Check your connection and try again.');
         }
         useFallbackGames();
       } finally {
@@ -1057,7 +1062,13 @@ export function StudentGamesPage({ apiUrl, childStudentId }: StudentGamesPagePro
       window.clearTimeout(timeout);
       controller.abort();
     };
-  }, [apiUrl, childStudentId]);
+  }, [apiUrl, childStudentId, catalogReload]);
+
+  function retryCatalogLoad() {
+    setCatalogError('');
+    setLoading(true);
+    setCatalogReload((value) => value + 1);
+  }
 
   useEffect(() => {
     localStorage.setItem('medhaa-homework', JSON.stringify(homework));
@@ -1379,6 +1390,12 @@ const disclaimerBanner = (
       {disclaimerBanner}
       {header}
       {benefitsBanner}
+      {catalogError && (
+        <div className="student-catalog-error" role="status">
+          <span>{catalogError}</span>
+          <button type="button" onClick={retryCatalogLoad}>Retry</button>
+        </div>
+      )}
 
       <div className="student-scroll-banner" role="button" tabIndex={0} onClick={() => { playClick(); openAssessment(); }} onKeyDown={(e) => { if (e.key === 'Enter') openAssessment(); }}>
         <div className="student-scroll-banner__track">

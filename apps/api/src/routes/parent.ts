@@ -50,6 +50,55 @@ router.get('/children', async (req: AuthenticatedRequest, res: Response) => {
   });
 });
 
+router.get('/children/progress', async (req: AuthenticatedRequest, res: Response) => {
+  const parent = await getParentRecord(req.user!.id);
+  if (!parent) {
+    res.json({ children: [] });
+    return;
+  }
+
+  const children = await prisma.student.findMany({
+    where: { parentId: parent.id },
+    select: { id: true, fullName: true },
+    orderBy: { fullName: 'asc' },
+  });
+
+  const progress = await Promise.all(children.map(async (child) => {
+    const [summary, attempts] = await Promise.all([
+      prisma.gameAttempt.aggregate({
+        where: { studentId: child.id, completionStatus: 'completed' },
+        _count: { _all: true },
+        _avg: { score: true },
+      }),
+      prisma.gameAttempt.findMany({
+        where: { studentId: child.id },
+        orderBy: { createdAt: 'desc' },
+        take: 5,
+        include: { game: { select: { title: true, domain: true } } },
+      }),
+    ]);
+
+    return {
+      studentId: child.id,
+      fullName: child.fullName,
+      summary: {
+        gamesCompleted: summary._count._all,
+        averageScore: summary._avg.score == null ? null : Math.round(summary._avg.score),
+        lastPlayedAt: attempts[0]?.createdAt ?? null,
+      },
+      recentActivities: attempts.map((attempt) => ({
+        gameName: attempt.game.title,
+        domain: attempt.game.domain,
+        score: attempt.score,
+        completed: attempt.completionStatus === 'completed',
+        playedAt: attempt.createdAt,
+      })),
+    };
+  }));
+
+  res.json({ children: progress });
+});
+
 const addChildSchema = z.object({
   fullName: z.string().min(1, 'Child\'s name is required'),
   age: z.number().int().min(3).max(18).optional(),

@@ -28,6 +28,23 @@ type Child = {
   schoolName: string | null;
 };
 
+type ChildProgress = {
+  studentId: string;
+  fullName: string;
+  summary: {
+    gamesCompleted: number;
+    averageScore: number | null;
+    lastPlayedAt: string | null;
+  };
+  recentActivities: Array<{
+    gameName: string;
+    domain: string;
+    score: number | null;
+    completed: boolean;
+    playedAt: string;
+  }>;
+};
+
 type Section = 'overview' | 'children' | 'progress' | 'guidance' | 'sharing' | 'subscription';
 
 const dateText = (value?: string | null) => {
@@ -52,6 +69,9 @@ export default function ParentDashboard() {
   const [childrenLoading, setChildrenLoading] = useState(true);
   const [childrenError, setChildrenError] = useState('');
   const [enteringId, setEnteringId] = useState<string | null>(null);
+  const [childProgress, setChildProgress] = useState<ChildProgress[]>([]);
+  const [progressLoading, setProgressLoading] = useState(true);
+  const [progressError, setProgressError] = useState('');
 
   async function loadSubscription() {
     setLoading(true);
@@ -85,7 +105,23 @@ export default function ParentDashboard() {
     }
   }
 
-  useEffect(() => { loadSubscription(); loadChildren(); }, []);
+  async function loadProgress() {
+    setProgressLoading(true);
+    setProgressError('');
+    try {
+      const res = await authFetch(`${API_URL}/parent/children/progress`);
+      if (!res.ok) throw new Error('Progress request failed');
+      const data = await res.json();
+      setChildProgress(data.children ?? []);
+    } catch (err) {
+      console.error(err);
+      setProgressError('Progress could not be loaded. Check your connection and try again.');
+    } finally {
+      setProgressLoading(false);
+    }
+  }
+
+  useEffect(() => { loadSubscription(); loadChildren(); loadProgress(); }, []);
 
   async function playAsChild(child: Child) {
     setEnteringId(child.id);
@@ -331,8 +367,54 @@ export default function ParentDashboard() {
 
           {section === 'progress' && (
             <section className="pd-page">
-              <div className="pd-heading"><div><span className="pd-kicker">PROGRESS</span><h2>Understand progress, not just scores.</h2><p>Open the existing Medhā parent progress report.</p></div></div>
-              <div className="pd-callout"><BarChart3 size={30}/><div><h3>Parent Progress Report</h3><p>We reuse the existing report instead of creating a second reporting system.</p><button className="pd-primary pd-small" onClick={() => navigate('/parent/progress')}>Open Progress Report <ArrowRight size={16}/></button></div></div>
+              <div className="pd-heading">
+                <div><span className="pd-kicker">PROGRESS</span><h2>Understand progress, not just scores.</h2><p>Recent activity and completed games for each child connected to your account.</p></div>
+                <button className="pd-refresh" onClick={loadProgress} disabled={progressLoading}>
+                  <RefreshCw size={16} className={progressLoading ? 'pd-spin' : ''} /> Refresh
+                </button>
+              </div>
+              {progressLoading ? (
+                <p className="pd-progress-state">Loading children's activity…</p>
+              ) : progressError ? (
+                <div className="pd-progress-error" role="alert">
+                  <span>{progressError}</span>
+                  <button className="pd-secondary pd-small" onClick={loadProgress}>Try again</button>
+                </div>
+              ) : childProgress.length === 0 ? (
+                <div className="pd-large-empty">
+                  <Users size={34}/><h3>No child profiles connected yet.</h3>
+                  <p>Connect a child profile to see their completed games and recent activity here.</p>
+                  <button className="pd-primary" onClick={() => navigate('/parent/enrol-student')}>Connect a child <ArrowRight size={17}/></button>
+                </div>
+              ) : (
+                <div className="pd-progress-list">
+                  {childProgress.map((child) => (
+                    <article className="pd-progress-child" key={child.studentId}>
+                      <div className="pd-progress-child__heading">
+                        <div><h3>{child.fullName}</h3><span>{child.summary.gamesCompleted} completed {child.summary.gamesCompleted === 1 ? 'game' : 'games'}</span></div>
+                        <button className="pd-secondary pd-small" disabled={enteringId === child.studentId} onClick={() => {
+                          const childProfile = children.find((item) => item.id === child.studentId);
+                          if (childProfile) playAsChild(childProfile);
+                        }}>{enteringId === child.studentId ? 'Opening…' : `Play as ${child.fullName.split(' ')[0]}`} <ArrowRight size={15}/></button>
+                      </div>
+                      {child.summary.averageScore !== null && <p className="pd-progress-average">Average game score: <strong>{child.summary.averageScore}</strong></p>}
+                      {child.recentActivities.length ? (
+                        <ul className="pd-progress-activities">
+                          {child.recentActivities.map((activity, index) => (
+                            <li key={`${activity.playedAt}-${index}`}>
+                              <span><strong>{activity.gameName}</strong><small>{dateText(activity.playedAt)} · {activity.completed ? 'Completed' : 'In progress'}</small></span>
+                              {activity.score !== null && <b>{activity.score} pts</b>}
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p className="pd-progress-state">No game activity recorded yet.</p>
+                      )}
+                      <p className="pd-progress-note">Game activity reflects practice, not a diagnosis or fixed measure of ability.</p>
+                    </article>
+                  ))}
+                </div>
+              )}
             </section>
           )}
 
