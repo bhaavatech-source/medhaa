@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore Medhaa's free learning games across engineering, memory, focus, maths, life skills, and language.">
+  <title>All Games | Medhaa</title>
+  <style>
+    :root { color-scheme: dark; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #0b0d17; color: #e8e8f0; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; background: #0b0d17; }
+    main { width: min(1100px, 100%); margin: 0 auto; padding: 40px 20px 64px; }
+    a { color: inherit; }
+    .home { color: #a6b0c8; text-decoration: none; font-size: 14px; }
+    h1 { margin: 28px 0 8px; font-size: 32px; }
+    .intro { max-width: 680px; margin: 0 0 28px; color: #a6b0c8; line-height: 1.6; }
+    .collections { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 14px; }
+    .collection { min-height: 116px; padding: 18px; border: 1px solid #30354a; border-radius: 8px; background: #161a2a; text-decoration: none; transition: border-color .16s, transform .16s; }
+    .collection:hover, .collection:focus-visible { border-color: #55c8c2; transform: translateY(-2px); }
+    .collection h2 { margin: 0 0 8px; font-size: 17px; }
+    .collection p { margin: 0; color: #a6b0c8; font-size: 14px; line-height: 1.5; }
+    @media (prefers-reduced-motion: reduce) { .collection { transition: none; } }
+  </style>
+</head>
+<body>
+  <main>
+    <a class="home" href="/">Medhaa home</a>
+    <h1>All Games</h1>
+    <p class="intro">Choose a collection to explore the games and activities.</p>
+    <nav class="collections" aria-label="Game collections">
+      <a class="collection" href="/games-static/stem-engineering-games.html"><h2>STEM &amp; Engineering</h2><p>Build, design, and diagnose real-world machines.</p></a>
+      <a class="collection" href="/games-static/memory-and-logic-games.html"><h2>Memory &amp; Logic</h2><p>Practice memory, patterns, and problem-solving.</p></a>
+      <a class="collection" href="/games-static/cognitive-focus-attention-games.html"><h2>Focus &amp; Attention</h2><p>Train concentration and attention through play.</p></a>
+      <a class="collection" href="/games-static/maths-and-science-games.html"><h2>Maths &amp; Science</h2><p>Explore numbers, science, and how things work.</p></a>
+      <a class="collection" href="/games-static/emotional-intelligence-life-skills-games.html"><h2>Life Skills</h2><p>Explore emotional intelligence and everyday decisions.</p></a>
+      <a class="collection" href="/games-static/language-and-creativity-games.html"><h2>Language &amp; Creativity</h2><p>Build language skills and creative confidence.</p></a>
+    </nav>
+  </main>
+</body>
+</html>
