@@ -94,6 +94,31 @@
 .admin-stat-card strong { font-size: 26px; color: #4338ca; }
 .admin-stat-card span { font-size: 12px; color: #6b7280; font-weight: 700; }
 
+.admin-notice {
+  margin: 0 0 16px;
+  padding: 12px 14px;
+  border: 1px solid #c7e7e5;
+  border-radius: 8px;
+  background: #effaf9;
+  color: #245b5a;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.admin-notice--muted {
+  margin-top: 16px;
+  border-color: #e4e7ee;
+  background: #fff;
+  color: #596579;
+}
+
+.admin-usage-footnote {
+  margin-top: 14px;
+  color: #6b7280;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
 .admin-toolbar {
   display: flex;
   gap: 10px;

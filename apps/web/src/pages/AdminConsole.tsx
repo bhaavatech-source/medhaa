@@ -6,10 +6,11 @@ import '../styles/admin-console.css';
 import AdminAssessmentPaymentsPanel from './AdminAssessmentPaymentsPanel';
 import { API_URL } from '../utils/apiConfig';
 
-type Tab = 'overview' | 'users' | 'schools' | 'subscriptions' | 'coupons' | 'games' | 'assessments' | 'audit';
+type Tab = 'overview' | 'app-usage' | 'users' | 'schools' | 'subscriptions' | 'coupons' | 'games' | 'assessments' | 'audit';
 
 const TABS: { id: Tab; label: string; icon: string }[] = [
   { id: 'overview', label: 'Overview', icon: '◧' },
+  { id: 'app-usage', label: 'App Usage', icon: '◷' },
   { id: 'users', label: 'Users', icon: '◍' },
   { id: 'schools', label: 'Schools', icon: '⌂' },
   { id: 'subscriptions', label: 'Subscriptions', icon: '✧' },
@@ -111,6 +112,97 @@ function OverviewTab() {
           </tbody>
         </table>
       </div>
+    </div>
+  );
+}
+
+function AppUsageTab() {
+  const [data, setData] = useState<any>(null);
+  const [error, setError] = useState('');
+  const [lastRefreshAt, setLastRefreshAt] = useState<Date | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    const refresh = () => {
+      jsonFetch('/app-usage')
+        .then((nextData) => {
+          if (cancelled) return;
+          setData(nextData);
+          setError('');
+          setLastRefreshAt(new Date());
+        })
+        .catch((e) => {
+          if (!cancelled) setError(e.message);
+        });
+    };
+
+    refresh();
+    const interval = window.setInterval(refresh, 10_000);
+    return () => {
+      cancelled = true;
+      window.clearInterval(interval);
+    };
+  }, []);
+
+  if (error) return <div className="admin-error">{error}</div>;
+  if (!data) return <div className="admin-loading">Loading app usage…</div>;
+
+  const hours30d = (data.usage.foregroundSeconds30d / 3600).toFixed(1);
+  const hours7d = (data.usage.foregroundSeconds7d / 3600).toFixed(1);
+  const cards = [
+    { label: 'Active app sessions now', value: data.activeSessionsNow },
+    { label: 'First opens, all time (estimate)', value: data.firstOpens.allTime },
+    { label: 'First opens, 30 days', value: data.firstOpens.last30Days },
+    { label: 'Foreground sessions, 30 days', value: data.usage.sessions30d },
+    { label: 'Foreground hours, 30 days', value: hours30d },
+    { label: 'Foreground hours, 7 days', value: hours7d },
+  ];
+
+  return (
+    <div>
+      <div className="admin-notice">
+        {lastRefreshAt && <strong>Live · refreshed every 10 seconds · Updated {lastRefreshAt.toLocaleTimeString()}</strong>}
+        {lastRefreshAt && <br />}
+        These are aggregate Android app statistics, collected only after parent/guardian opt-in. No email, account ID,
+        persistent device ID, or individual session history is stored. Live session tokens exist in API memory only and expire
+        after 90 seconds. First opens estimate installs and may count again after a reinstall or app-data reset.
+      </div>
+      <div className="admin-stat-grid">
+        {cards.map((card) => (
+          <div className="admin-stat-card" key={card.label}>
+            <strong>{Number(card.value).toLocaleString()}</strong>
+            <span>{card.label}</span>
+          </div>
+        ))}
+      </div>
+
+      <div className="admin-notice admin-notice--muted">
+        Active sessions are approximate and cover this API instance only; they are not unique devices. Confirmed uninstalls are
+        not measured here. Use Google Play Console for official aggregate install, active-device, and uninstall metrics.
+      </div>
+
+      <h2 className="admin-section-title">Daily totals · Last 30 days</h2>
+      <div className="admin-table-wrap">
+        <table className="admin-table">
+          <thead>
+            <tr><th>Date (UTC)</th><th>First opens</th><th>Foreground sessions</th><th>Foreground time</th></tr>
+          </thead>
+          <tbody>
+            {data.daily.map((day: any) => (
+              <tr key={day.day}>
+                <td>{day.day}</td>
+                <td>{day.firstOpens.toLocaleString()}</td>
+                <td>{day.foregroundSessions.toLocaleString()}</td>
+                <td>{(day.foregroundSeconds / 60).toFixed(0)} min</td>
+              </tr>
+            ))}
+            {data.daily.length === 0 && <tr><td colSpan={4} className="admin-empty-row">No opted-in app reports yet.</td></tr>}
+          </tbody>
+        </table>
+      </div>
+      <p className="admin-usage-footnote">
+        Existing Android installs begin reporting only after installing a release that includes this feature and a guardian opts in.
+      </p>
     </div>
   );
 }
@@ -750,6 +842,7 @@ export default function AdminConsole() {
       <main className="admin-main">
         <h1 className="admin-page-title">{TABS.find((t) => t.id === tab)?.label}</h1>
         {tab === 'overview' && <OverviewTab />}
+        {tab === 'app-usage' && <AppUsageTab />}
         {tab === 'users' && <UsersTab />}
         {tab === 'schools' && <SchoolsTab />}
         {tab === 'subscriptions' && <AdminSubscriptionsPage />}

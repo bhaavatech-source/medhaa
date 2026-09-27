@@ -222,6 +222,13 @@ model AuditLog {
   createdAt DateTime @default(now())
 }
 
+model AppUsageDaily {
+  day                DateTime @id @db.Date
+  firstOpens         Int      @default(0)
+  foregroundSessions Int      @default(0)
+  foregroundSeconds  Int      @default(0)
+  updatedAt          DateTime @updatedAt
+}
 
 model PasswordResetToken {
   id        String   @id @default(uuid())

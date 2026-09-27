@@ -1,6 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import {
+  APP_USAGE_CONSENT_CHANGE_EVENT,
+  getAppUsageConsent,
+  isNativeAndroidApp,
+  requestAppUsageConsentReview,
+  setAppUsageConsent,
+} from '../utils/appUsageConsent';
 
 // Mock API URL - replace with your actual environment variable
 const API_URL = 'https://medhaa-tni1.onrender.com/api';
@@ -24,6 +31,8 @@ export function SettingsPage() {
 
   // State for subscription data (fetched from API)
   const [subData, setSubData] = useState({ tier: 'Loading...', renewal: '...' });
+  const [nativeAndroid, setNativeAndroid] = useState(false);
+  const [analyticsConsent, setAnalyticsConsent] = useState(getAppUsageConsent() === true);
 
   useEffect(() => {
     // Simulated fetch for user details and subscription
@@ -32,6 +41,13 @@ export function SettingsPage() {
       setSubData({ tier: 'Free Tier', renewal: 'N/A' });
     }
   }, [user]);
+
+  useEffect(() => {
+    setNativeAndroid(isNativeAndroidApp());
+    const syncConsent = () => setAnalyticsConsent(getAppUsageConsent() === true);
+    window.addEventListener(APP_USAGE_CONSENT_CHANGE_EVENT, syncConsent);
+    return () => window.removeEventListener(APP_USAGE_CONSENT_CHANGE_EVENT, syncConsent);
+  }, []);
 
   const handleLogout = () => {
     if (logout) logout();
@@ -154,6 +170,25 @@ export function SettingsPage() {
         <section style={cardStyle}>
           <h2 style={sectionTitleStyle}>Preferences & Privacy</h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            {nativeAndroid && user?.role === 'parent' && (
+              <div>
+                <label style={toggleContainerStyle}>
+                  <span style={{ fontWeight: 700 }}>Anonymous app statistics</span>
+                  <input
+                    type="checkbox"
+                    checked={analyticsConsent}
+                    onChange={(event) => {
+                      if (event.target.checked) requestAppUsageConsentReview();
+                      else setAppUsageConsent(false);
+                    }}
+                    style={{ width: 20, height: 20 }}
+                  />
+                </label>
+                <p style={paragraphStyle}>
+                  Daily totals only. No account email, device ID, or individual usage history is sent.
+                </p>
+              </div>
+            )}
             <label style={toggleContainerStyle}>
               <span style={{ fontWeight: 700 }}>Enable Game Audio</span>
               <input 

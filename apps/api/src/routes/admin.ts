@@ -6,6 +6,7 @@ import { Router, Response } from 'express';
 import { PrismaClient, Role } from '@prisma/client';
 import { authenticate, requireRole, AuthenticatedRequest } from '../middleware/auth';
 import { logAudit } from '../services/auditLog';
+import { getLiveAppSessionCount } from '../services/appUsage';
 
 const prisma = new PrismaClient();
 const router = Router();
@@ -84,6 +85,47 @@ router.get('/overview', async (_req: AuthenticatedRequest, res: Response) => {
       activeUsers30d: activeRealUsers30d,
     },
     recentAuditLogs,
+  });
+});
+
+router.get('/app-usage', async (_req: AuthenticatedRequest, res: Response) => {
+  const today = new Date();
+  const todayUtc = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate()));
+  const since7Days = new Date(todayUtc.getTime() - 6 * 24 * 60 * 60 * 1000);
+  const since30Days = new Date(todayUtc.getTime() - 29 * 24 * 60 * 60 * 1000);
+
+  const [allTime, daily] = await Promise.all([
+    prisma.appUsageDaily.aggregate({ _sum: { firstOpens: true } }),
+    prisma.appUsageDaily.findMany({
+      where: { day: { gte: since30Days } },
+      orderBy: { day: 'desc' },
+    }),
+  ]);
+
+  const sum = (rows: typeof daily, field: 'firstOpens' | 'foregroundSessions' | 'foregroundSeconds') =>
+    rows.reduce((total, row) => total + row[field], 0);
+  const last7Days = daily.filter((row) => row.day >= since7Days);
+
+  res.json({
+    activeSessionsNow: getLiveAppSessionCount(),
+    liveSessionUpdatedAt: new Date().toISOString(),
+    firstOpens: {
+      allTime: allTime._sum.firstOpens ?? 0,
+      last7Days: sum(last7Days, 'firstOpens'),
+      last30Days: sum(daily, 'firstOpens'),
+    },
+    usage: {
+      sessions7d: sum(last7Days, 'foregroundSessions'),
+      sessions30d: sum(daily, 'foregroundSessions'),
+      foregroundSeconds7d: sum(last7Days, 'foregroundSeconds'),
+      foregroundSeconds30d: sum(daily, 'foregroundSeconds'),
+    },
+    daily: daily.map((row) => ({
+      day: row.day.toISOString().slice(0, 10),
+      firstOpens: row.firstOpens,
+      foregroundSessions: row.foregroundSessions,
+      foregroundSeconds: row.foregroundSeconds,
+    })),
   });
 });
 

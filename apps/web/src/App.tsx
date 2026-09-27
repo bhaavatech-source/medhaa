@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage';
 import ProtectedRoute from './components/ProtectedRoute';
 import { GlobalMusic } from './components/GlobalMusic';
 import { ChildSessionBanner } from './components/ChildSessionBanner';
+import { AppUsageTelemetry } from './components/AppUsageTelemetry';
 import { API_URL } from './utils/apiConfig';
 
 // Everything below is loaded on demand (route-based code splitting) so the
@@ -38,6 +39,7 @@ const TeacherWorkspace = lazy(() => import('./pages/TeacherWorkspace'));
 const SchoolWorkspace = lazy(() => import('./pages/SchoolWorkspace'));
 const AdminConsole = lazy(() => import('./pages/AdminConsole'));
 const SettingsPage = lazy(() => import('./pages/SettingsPage').then((m) => ({ default: m.SettingsPage })));
+const UsagePolicyPage = lazy(() => import('./pages/UsagePolicyPage'));
 
 
 
@@ -54,6 +56,7 @@ function App() {
       <BrowserRouter>
         <GlobalMusic />
         <ChildSessionBanner />
+        <AppUsageTelemetry />
         <Suspense fallback={<div style={{ padding: 40, textAlign: 'center', color: '#64748b' }}>Loading…</div>}>
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -93,6 +96,7 @@ function App() {
 		<Route path="/school-workspace" element={<ProtectedRoute role="admin"><SchoolWorkspace /></ProtectedRoute>} />
 		<Route path="/admin" element={<ProtectedRoute role="admin"><AdminConsole /></ProtectedRoute>} />
           <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/usage-policy" element={<UsagePolicyPage />} />
         </Routes>
         </Suspense>
       </BrowserRouter>

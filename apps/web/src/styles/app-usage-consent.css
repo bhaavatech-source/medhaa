@@ -1,0 +1,90 @@
+.app-usage-consent-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgb(13 20 31 / 68%);
+}
+
+.app-usage-consent {
+  width: min(100%, 460px);
+  padding: 24px;
+  border: 1px solid #d7e1e8;
+  border-radius: 8px;
+  background: #fff;
+  color: #172033;
+  box-shadow: 0 20px 60px rgb(0 0 0 / 24%);
+}
+
+.app-usage-consent h2 {
+  margin: 0 0 12px;
+  font-size: 20px;
+}
+
+.app-usage-consent p {
+  margin: 0 0 12px;
+  color: #475569;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.app-usage-consent .app-usage-consent-note {
+  color: #64748b;
+  font-size: 12px;
+}
+
+.app-usage-guardian-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 16px 0;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.app-usage-guardian-check input {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+.app-usage-consent-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.app-usage-consent-actions button {
+  min-height: 42px;
+  padding: 0 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background: #fff;
+  color: #334155;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.app-usage-consent-actions .app-usage-accept {
+  border-color: #087f83;
+  background: #087f83;
+  color: #fff;
+}
+
+.app-usage-consent-actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.app-usage-policy-link {
+  display: inline-block;
+  margin-top: 14px;
+  color: #087f83;
+  font-size: 13px;
+  font-weight: 700;
+}
