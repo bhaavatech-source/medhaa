@@ -107,7 +107,7 @@
     .action-btn:hover { transform: scale(1.05) translateY(-2px); box-shadow: 0 8px 25px rgba(255,255,255,0.2); filter: brightness(1.2); }
     .action-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; filter: none; }
 
-    .flow-svg { width: 100%; max-width: 900px; height: auto; background: rgba(0,0,0,0.2); border-radius: 20px; padding: 20px; border: 1px solid rgba(255,255,255,0.05); }
+    .flow-svg { box-sizing: border-box; width: 100%; max-width: 900px; height: auto; background: rgba(0,0,0,0.2); border-radius: 20px; padding: 20px; border: 1px solid rgba(255,255,255,0.05); }
     .node-box { fill: #1e293b; stroke: #475569; stroke-width: 3; transition: all 0.3s ease; }
     .node-text { font-family: 'Orbitron', sans-serif; font-size: 13px; fill: #94a3b8; font-weight: bold; transition: all 0.3s ease; }
     .flow-path { fill: none; stroke: #334155; stroke-width: 4; stroke-dasharray: 10, 10; transition: stroke 0.3s ease; }
@@ -117,9 +117,47 @@
     .path.active { stroke: #00ffcc; animation: dash-flow 1s linear infinite; filter: drop-shadow(0 0 8px #00ffcc); }
     @keyframes dash-flow { from { stroke-dashoffset: 40; } to { stroke-dashoffset: 0; } }
 
-    .status-panel { width: 100%; max-width: 900px; background: rgba(15, 23, 42, 0.9); border: 2px solid #3b82f6; border-radius: 15px; padding: 25px; min-height: 100px; display: flex; align-items: center; justify-content: center; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    .status-panel { box-sizing: border-box; width: 100%; max-width: 900px; background: rgba(15, 23, 42, 0.9); border: 2px solid #3b82f6; border-radius: 15px; padding: 25px; min-height: 100px; display: flex; align-items: center; justify-content: center; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
     .status-text { font-size: 1.4rem; color: #60a5fa; font-weight: 500; line-height: 1.5; }
     .status-highlight { color: #00ffcc; font-family: 'Orbitron', sans-serif; font-weight: bold; }
+    .laptop-overview-mobile { display: none; }
+
+    @media (max-width: 700px) {
+      .app-shell { padding: 10px; }
+      .topbar { gap: 8px; margin-bottom: 10px; }
+      .brand h1 { font-size: 1rem; }
+      .mode-switcher { width: 100%; }
+      .mode-btn { flex: 1; min-width: 0; padding: 8px 6px; font-size: 0.62rem; }
+      .hero-copy h2 { font-size: 1.3rem; text-transform: none; }
+      .hero-copy p { font-size: 0.9rem !important; }
+      .glass { padding: 12px; }
+      .laptop-overview-mobile { display: flex; flex-direction: column; align-items: center; gap: 4px; max-width: 340px; margin: 0 auto 12px; padding: 10px; background: rgba(0, 0, 0, 0.25); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; }
+      .laptop-overview-mobile img { display: block; width: min(100%, 280px); height: auto; max-height: 220px; object-fit: contain; }
+      .laptop-overview-mobile figcaption { color: #cbd5e1; font-size: 0.72rem; line-height: 1.35; text-align: center; }
+      .dual-view-container { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; padding: 10px 0; }
+      .device-container { width: 100%; min-width: 0; }
+      .device-container .anatomy-svg { display: block; width: min(100%, 340px) !important; height: auto !important; margin: 0 auto; }
+      .tab-row { gap: 6px; margin-bottom: 14px; padding: 8px; }
+      .tab-btn { padding: 7px 9px; font-size: 0.72rem; }
+      .info-card { padding: 14px; }
+      .info-card h4 { font-size: 1.35rem; }
+      .info-card p { font-size: 1rem; }
+    }
+    @media (max-width: 700px) {
+      .embedded .brand,
+      .embedded .hero { display: none; }
+      .embedded .topbar { justify-content: center; margin-bottom: 4px; }
+      .embedded .mode-switcher { padding: 2px; }
+      .embedded .mode-btn { padding: 5px 4px; font-size: 0.55rem; line-height: 1; white-space: nowrap; }
+      .embedded .laptop-overview-mobile { margin: 2px auto 6px; padding: 5px; gap: 2px; }
+      .embedded .laptop-overview-mobile img { width: min(100%, 190px); max-height: 176px; }
+      .simulator-container { display: grid; grid-template-areas: "diagram" "actions" "status"; gap: 8px; padding: 8px; }
+      .action-row { grid-area: actions; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; gap: 6px; padding: 7px; border-radius: 12px; }
+      .action-btn { width: 100%; min-width: 0; padding: 7px 4px; border-radius: 10px; font-size: 0.62rem; line-height: 1.15; }
+      .flow-svg { grid-area: diagram; width: 100%; max-width: none; padding: 4px; border-radius: 12px; }
+      .status-panel { grid-area: status; min-height: 64px; padding: 10px; }
+      .status-text { font-size: 0.9rem; }
+    }
   </style>
 </head>
 <body>
@@ -138,6 +176,11 @@
         <button class="mode-btn" onclick="switchMode('physiology')">⚡ PHYSIOLOGY SIMULATOR</button>
       </div>
     </header>
+
+    <figure class="laptop-overview-mobile">
+      <img src="assets/anatomy/laptop-exploded.svg" alt="Open laptop showing its screen, battery, motherboard, processor, memory, and cooling fan" />
+      <figcaption>The screen sits above the base and its internal parts.</figcaption>
+    </figure>
 
     <!-- ==========================================
          VIEW 1: ANATOMY EXPLORER
@@ -514,6 +557,10 @@
       }
     }
 
+    if (new URLSearchParams(window.location.search).get('mode') === 'physiology') {
+      switchMode('physiology');
+    }
+
     // Audio Context Setup
     const AudioContext = window.AudioContext || window.webkitAudioContext;
     let audioCtx;
@@ -711,6 +758,14 @@
       setTimeout(() => { buttons.forEach(b => b.disabled = false); }, 1000);
     }
   </script>
-<script src="../bhava-game-nav.js"></script>
+<script>
+if (window.self === window.top) {
+  const navScript = document.createElement('script');
+  navScript.src = '../bhava-game-nav.js';
+  document.body.appendChild(navScript);
+} else {
+  document.documentElement.classList.add('embedded');
+}
+</script>
 </body>
 </html>

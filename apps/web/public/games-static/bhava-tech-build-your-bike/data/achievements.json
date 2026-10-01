@@ -3,7 +3,7 @@
     {
       "id": "first_build",
       "title": "First Build",
-      "description": "Complete your first bicycle build.",
+      "description": "Complete your first cycle build.",
       "xp": 10
     },
     {
@@ -15,13 +15,13 @@
     {
       "id": "gear_guru",
       "title": "Gear Guru",
-      "description": "Build a bike with every gear system available.",
+      "description": "Build a cycle with every gear system available.",
       "xp": 40
     },
     {
       "id": "eco_engineer",
       "title": "Eco Engineer",
-      "description": "Build a bike using bamboo frame and recyclable parts.",
+      "description": "Build a cycle using bamboo frame and recyclable parts.",
       "xp": 30
     },
     {

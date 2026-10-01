@@ -1,14 +1,6 @@
 // gamesCatalog.ts
-// FINAL MERGED CATALOG — all 60 games across bhaavajaalam.com, verified
-// against live source code in Rajeswarbhandaru/bhaavajaalam via GitHub
-// (Aug 2026 revision, Phases 1-5). Replaces the original 28-entry file.
-//
-// Combines:
-//   Phase 1 — Focus, Memory & IQ (12 games)
-//   Phase 2 — STEM & Engineering (9 games)
-//   Phase 3 — Life Skills, Civics & EQ (13 games)
-//   Phase 4 — Maths, Logic & Science (17 games)
-//   Phase 5 — Language, Arts & Career (9 games)
+// Student-facing metadata for registered games. Keep its slug set in sync
+// with apps/api/prisma/seed.ts; gamesCatalog.test.ts checks catalog parity.
 //
 // OPEN ITEMS TO RESOLVE BEFORE SHIPPING:
 // 1. "focus-under-distraction" marketing title is "Focus Master" but its
@@ -19,10 +11,7 @@
 //    repo code search) — description is a best-effort placeholder.
 // 4. "know-maths" folder contains a stray "grammar" subfolder that looks
 //    misplaced — check with your dev team.
-// 5. "brain-of-all-machines" folder name has literal spaces on disk
-//    ("Brain of All Machines") — recommend renaming to kebab-case to
-//    avoid URL-encoding issues.
-// 6. Five separate IQ/assessment games exist (IQ Test Level 3, MindScape
+// 5. Five separate IQ/assessment games exist (IQ Test Level 3, MindScape
 //    Pro, MindSpark IQ, Neuro Ascend IQ, Take Test, BCS Lite) — make sure
 //    UI copy keeps them clearly distinguishable so users don't think
 //    they're duplicates.
@@ -38,7 +27,7 @@ export interface CatalogEntry {
   ageMax: number;
   color: string;
   domain: string;
-  kind?: 'game' | 'activity';   // ADD THIS LINE
+  kind?: 'game' | 'activity';
   emoji: string;
 }
 
@@ -56,7 +45,7 @@ export const GAMES_CATALOG: Record<string, CatalogEntry> = {
     tagline: 'How sharp is your reasoning today?',
     description: "The hardest tier in Medhā's IQ suite — a senior-level, timed set of reasoning puzzles spanning verbal, numerical, and spatial logic. Answers are scored and converted into a percentile against age peers, with a personalised strengths-and-growth summary at the end (15–25 minutes, high difficulty).",
     secondary: 'Logic', skillsBuilt: ['Logical Reasoning', 'Mixed Cognitive Domains', 'Self-Awareness'],
-    ageMin: 12, ageMax: 17, color: '#0f766e', domain: 'cognitive-logic', emoji: '🔬',
+    ageMin: 12, ageMax: 17, color: '#0f766e', domain: 'cognitive-logic', emoji: '🔬', kind: 'activity',
   },
   'dharana-arena': {
     slug: 'dharana-arena', title: 'Dhāraṇā Arena',
@@ -180,7 +169,7 @@ export const GAMES_CATALOG: Record<string, CatalogEntry> = {
     ageMin: 11, ageMax: 15, color: '#8e6bd8', domain: 'stem-engineering', emoji: '✈️',
   },
   'motorcycle-one-workshop': {
-    slug: 'motorcycle-one-workshop', title: 'Bike Builder',
+    slug: 'motorcycle-one-workshop', title: 'Motorcycle Workshop',
     tagline: 'Explore a real motorcycle, part by part',
     description: "Explore two full motorcycle builds — a Sport bike and a Scooter — labeling and understanding 18 real parts each, right down to the quick-shifter and crash guard.",
     secondary: 'Mechanical Thinking', skillsBuilt: ['Mechanical Thinking', 'Systems Knowledge', 'Attention to Detail'],
@@ -207,21 +196,21 @@ export const GAMES_CATALOG: Record<string, CatalogEntry> = {
     tagline: 'Every choice changes the outcome',
     description: "Navigate branching real-life scenes where every response you choose shifts a visible relationship meter up or down — no single correct path, just how tone and word choice change how people respond to you.",
     secondary: 'Responsibility', skillsBuilt: ['Social Responsibility', 'Communication', 'Negotiation'],
-    ageMin: 11, ageMax: 17, color: '#8e6bd8', domain: 'civics', emoji: '🤝',
+    ageMin: 11, ageMax: 17, color: '#8e6bd8', domain: 'civics', emoji: '🤝', kind: 'activity',
   },
   'good-habits': {
     slug: 'good-habits', title: 'Good Habits',
     tagline: 'Pick the smart choice',
     description: "Quick, playful daily-life scenarios — morning routine, a sudden sneeze, snack time, bedtime — where you pick the smart choice from four options. Built for the youngest learners.",
     secondary: 'Self-Monitoring', skillsBuilt: ['Self-Monitoring', 'Healthy Habits', 'Decision-Making'],
-    ageMin: 5, ageMax: 7, color: '#f0a13c', domain: 'emotional-intel', emoji: '🌱',
+    ageMin: 5, ageMax: 7, color: '#f0a13c', domain: 'emotional-intel', emoji: '🌱', kind: 'activity',
   },
   'calm-zone': {
     slug: 'calm-zone', title: 'Calm Zone',
     tagline: 'Breathe. Reset. Refocus.',
     description: "A guided breathing exercise — inhale over 4 seconds, hold for 4, exhale over 6. No scoring, no pressure — just a calm space to reset before an exam or after a stressful moment.",
     secondary: 'Mindfulness', skillsBuilt: ['Mindfulness', 'Emotional Regulation', 'Stress Management'],
-    ageMin: 5, ageMax: 17, color: '#f0a13c', domain: 'emotional-intel', emoji: '🧘',
+    ageMin: 5, ageMax: 17, color: '#f0a13c', domain: 'emotional-intel', emoji: '🧘', kind: 'activity',
   },
   'life-strategist-starter': {
     slug: 'life-strategist-starter', title: 'Life Strategist',
@@ -235,35 +224,42 @@ export const GAMES_CATALOG: Record<string, CatalogEntry> = {
     tagline: 'Real Indian money traps, real lessons',
     description: "Work through real Indian financial scenarios — surprise health expenses, insurance as a safety net, the EMI trap on buying a phone in installments — with hints and explanations teaching practical money sense.",
     secondary: 'Decision-Making', skillsBuilt: ['Financial Literacy', 'Delayed Gratification', 'Risk Awareness'],
-    ageMin: 14, ageMax: 17, color: '#2c3e6b', domain: 'finance', emoji: '💰',
+    ageMin: 14, ageMax: 17, color: '#2c3e6b', domain: 'finance', emoji: '💰', kind: 'activity',
   },
   'empathy-quest': {
     slug: 'empathy-quest', title: 'Empathy Quest',
     tagline: 'Read the clues, understand the feeling',
     description: "Look at social clues — a quiet body, an empty desk, a classmate not eating — and work out how that person is most likely feeling, then get an empathy lesson explaining the reasoning.",
     secondary: 'Empathy', skillsBuilt: ['Empathy', 'Social Awareness', 'Emotional Reasoning'],
-    ageMin: 8, ageMax: 13, color: '#e11d48', domain: 'emotional-intel', emoji: '💞',
+    ageMin: 8, ageMax: 13, color: '#e11d48', domain: 'emotional-intel', emoji: '💞', kind: 'activity',
   },
   'heart-heroes': {
     slug: 'heart-heroes', title: 'Heart Heroes',
     tagline: 'Match kind actions to feelings',
     description: "Four Heart Hero characters each represent a core value — kindness, courage, honesty, patience — and present challenges where you choose the matching action. Complete all four missions to light up the map.",
     secondary: 'Kindness', skillsBuilt: ['Prosocial Behaviour', 'Values Education', 'Moral Reasoning'],
-    ageMin: 5, ageMax: 8, color: '#e11d48', domain: 'emotional-intel', emoji: '💖',
+    ageMin: 5, ageMax: 8, color: '#e11d48', domain: 'emotional-intel', emoji: '💖', kind: 'activity',
   },
   'ready-for-the-world': {
     slug: 'ready-for-the-world', title: 'Ready for the World',
     tagline: 'A 13-day life-readiness journey',
     description: "Live through 13 real teen scenarios — hosting relatives, running errands, formal dinners, community service — where every choice shifts your discipline, social, organization, and confidence scores.",
     secondary: 'Life Readiness', skillsBuilt: ['Self-Discipline', 'Social Etiquette', 'Practical Responsibility'],
-    ageMin: 11, ageMax: 17, color: '#8e6bd8', domain: 'life-skills', emoji: '🌍',
+    ageMin: 11, ageMax: 17, color: '#8e6bd8', domain: 'life-skills', emoji: '🌍', kind: 'activity',
   },
   'day-hero-game': {
     slug: 'day-hero-game', title: 'Day Hero',
     tagline: 'Plan your hero day',
     description: "Plan out a full day as a young hero — juggling time, tasks, and energy across missions so nothing gets missed and you don't burn out. A playful introduction to time management.",
     secondary: 'Time Management', skillsBuilt: ['Time Management', 'Prioritization', 'Planning'],
-    ageMin: 5, ageMax: 9, color: '#dc2626', domain: 'life-skills', emoji: '🦸',
+    ageMin: 5, ageMax: 9, color: '#dc2626', domain: 'life-skills', emoji: '🦸', kind: 'activity',
+  },
+  'day-super-hero': {
+    slug: 'day-super-hero', title: 'Day Super Hero',
+    tagline: 'Make choices through a superhero day',
+    description: 'Make choices in 15 short, visual everyday situations. Challenges auto-advance and use little reading.',
+    secondary: 'Everyday Decisions', skillsBuilt: ['Decision-Making', 'Planning', 'Responsibility'],
+    ageMin: 7, ageMax: 14, color: '#e49b36', domain: 'life-skills', emoji: '🦸', kind: 'activity',
   },
   'planet-guardians': {
     slug: 'planet-guardians', title: 'Planet Guardians',
@@ -356,14 +352,14 @@ export const GAMES_CATALOG: Record<string, CatalogEntry> = {
     tagline: 'A full IQ-style battery',
     description: "A structured IQ-style assessment covering pattern, spatial, verbal, and numerical reasoning in one sitting — a rounded snapshot of cognitive strengths across four distinct domains.",
     secondary: 'Mixed Reasoning', skillsBuilt: ['Pattern Recognition', 'Spatial Reasoning', 'Verbal & Numerical Reasoning'],
-    ageMin: 12, ageMax: 17, color: '#0e7490', domain: 'cognitive-assessment', emoji: '💡',
+    ageMin: 12, ageMax: 17, color: '#0e7490', domain: 'cognitive-assessment', emoji: '💡', kind: 'activity',
   },
   'neuro-ascend-iq': {
     slug: 'neuro-ascend-iq', title: 'Neuro Ascend IQ',
     tagline: 'Climb from basic to advanced reasoning',
     description: "Ascend through escalating cognitive levels, starting with basic processing and climbing toward advanced reasoning challenges, with difficulty ramping up gradually.",
     secondary: 'Progressive Reasoning', skillsBuilt: ['Cognitive Processing Speed', 'Advanced Reasoning', 'Adaptive Thinking'],
-    ageMin: 12, ageMax: 17, color: '#1d4ed8', domain: 'cognitive-assessment', emoji: '🚀',
+    ageMin: 12, ageMax: 17, color: '#1d4ed8', domain: 'cognitive-assessment', emoji: '🚀', kind: 'activity',
   },
   'neurospark': {
     slug: 'neurospark', title: 'NeuroSpark',
@@ -377,7 +373,7 @@ export const GAMES_CATALOG: Record<string, CatalogEntry> = {
     tagline: 'A quick Medhā Cognitive Screen',
     description: "A lightweight version of Medhā's cognitive screening — a fast check-in on where you stand, ideal for a quick baseline or repeat check-ins over time without a long session.",
     secondary: 'Quick Screening', skillsBuilt: ['Self-Awareness', 'Baseline Cognitive Screening'],
-    ageMin: 11, ageMax: 17, color: '#0d1f35', domain: 'cognitive-assessment', emoji: '🩺',
+    ageMin: 11, ageMax: 17, color: '#0d1f35', domain: 'cognitive-assessment', emoji: '🩺', kind: 'activity',
   },
 
   // ─────────────────────── PHASE 5: LANGUAGE, ARTS & CAREER ───────────────────────
@@ -428,7 +424,7 @@ export const GAMES_CATALOG: Record<string, CatalogEntry> = {
     tagline: 'A devotion to sound and music',
     description: "An all-ages exploration of Nādopāsanā — 'worship through sound' rooted in Indian classical music traditions — introducing musical concepts and listening practice for the whole family.",
     secondary: 'Musical Appreciation', skillsBuilt: ['Musical Ear Training', 'Cultural Literacy', 'Focused Listening'],
-    ageMin: 5, ageMax: 17, color: '#f0a13c', domain: 'music', emoji: '🪕',
+    ageMin: 5, ageMax: 17, color: '#f0a13c', domain: 'music', emoji: '🪕', kind: 'activity',
   },
   'bhava-tech-likhwell': {
     slug: 'bhava-tech-likhwell', title: 'Likhwell',
@@ -437,12 +433,19 @@ export const GAMES_CATALOG: Record<string, CatalogEntry> = {
     secondary: 'Handwriting', skillsBuilt: ['Fine Motor Skills', 'Handwriting Fluency', 'Self-Tracking Progress'],
     ageMin: 5, ageMax: 10, color: '#3fa7d6', domain: 'language-english', emoji: '✍️',
   },
+  'medha-read-anybook-in-3hrs': {
+    slug: 'medha-read-anybook-in-3hrs', title: 'Medhā Reading Quest',
+    tagline: 'Read with purpose. Recall with confidence.',
+    description: 'Map a book or lesson, practise active recall, and build a review plan. Choose a reading mission to fit the material and your available time.',
+    secondary: 'Reading & Recall', skillsBuilt: ['Active Recall', 'Reading Comprehension', 'Planning & Review'],
+    ageMin: 10, ageMax: 17, color: '#0f766e', domain: 'reading', emoji: '📚', kind: 'activity',
+  },
   'career-adventure': {
     slug: 'career-adventure', title: 'Career Adventure',
     tagline: 'Real career decisions, honestly explored',
     description: "Explore three real career decision points with grounded advice: think long-term over marks or prestige, talk to real counselors, and be honest about finances — because no career is worth lifelong debt stress.",
     secondary: 'Career Exploration', skillsBuilt: ['Long-Term Planning', 'Financial Awareness', 'Real-World Decision-Making'],
-    ageMin: 14, ageMax: 17, color: '#2c3e6b', domain: 'career', emoji: '🗺️',
+    ageMin: 14, ageMax: 17, color: '#2c3e6b', domain: 'career', emoji: '🗺️', kind: 'activity',
   },
 };
 

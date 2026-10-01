@@ -55,6 +55,9 @@
 .parent-login-back { display: block; text-align: center; margin-top: 24px; font-size: 13px; color: #6b7280; text-decoration: none; }
 .parent-login-back:hover { color: #f97316; }
 
+.parent-login-divider { display: flex; align-items: center; gap: 10px; margin: 18px 0; color: #6b7280; font-size: 13px; }
+.parent-login-divider::before, .parent-login-divider::after { content: ''; flex: 1; border-top: 1px solid #e2e8e6; }
+
 @media (max-width: 480px) {
   .parent-login-card { width: 90%; padding: 36px 24px; }
 }

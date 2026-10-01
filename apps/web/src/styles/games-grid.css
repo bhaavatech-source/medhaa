@@ -274,24 +274,11 @@
 
 .game-card-locked .game-card-video,
 .game-card-locked .game-card-image {
-  filter: saturate(.72) brightness(.86);
+  filter: none;
 }
 
 .lock-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 6;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-
-  color: #fff;
-  background: rgba(19,28,50,.14);
-  backdrop-filter: blur(1.5px);
-  pointer-events: none;
+  display: none;
 }
 
 .lock-icon {
@@ -613,7 +600,27 @@
 
 @media (max-width: 480px) {
   .game-card {
-    border-radius: 21px;
+    border-radius: 8px;
+  }
+
+  .game-card-body {
+    padding: 12px 14px 4px;
+  }
+
+  .game-card-domain,
+  .game-card-learning .learning-label,
+  .game-card-meta .meta-dot,
+  .game-card-meta span:last-child,
+  .game-card-skills .skill-chip:not(:first-child) {
+    display: none;
+  }
+
+  .game-card-learning {
+    margin-top: 8px;
+  }
+
+  .game-card-footer {
+    padding: 8px 14px 14px;
   }
 
   .game-card-preview-mark {

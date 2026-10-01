@@ -19,13 +19,15 @@ interface SimilarGamesProps {
   currentSlug: string;
   onPlay: (slug: string) => void;
   apiUrl: string;
+  excludeSlugs?: Set<string>;
+  accessPending?: boolean;
 }
 
-export function SimilarGames({ games, currentSlug, onPlay, apiUrl }: SimilarGamesProps) {
+export function SimilarGames({ games, currentSlug, onPlay, apiUrl, excludeSlugs, accessPending }: SimilarGamesProps) {
   const current = games.find((game) => game.slug === currentSlug);
   if (!current) return null;
 
-  const suggestions = getSimilarGames(games, currentSlug, current.domain);
+  const suggestions = getSimilarGames(games.filter((game) => !excludeSlugs?.has(game.slug)), currentSlug, current.domain);
 
   if (!suggestions.length) return null;
 
@@ -35,7 +37,7 @@ export function SimilarGames({ games, currentSlug, onPlay, apiUrl }: SimilarGame
         <div>
           <span className="similar-games__kicker">KEEP EXPLORING</span>
           <h2 id="similar-games-title">More like {current.title}</h2>
-          <p>Try another game that builds the same kind of thinking.</p>
+          <p>Try another {current.kind ?? 'game'} that practises the same kind of thinking.</p>
         </div>
       </div>
       <div className="games-grid similar-games__grid">
@@ -46,9 +48,10 @@ export function SimilarGames({ games, currentSlug, onPlay, apiUrl }: SimilarGame
               key={game.slug}
               {...game}
               emoji={catalog?.emoji}
-              kind={catalog?.kind}
+              kind={game.kind ?? catalog?.kind ?? 'game'}
               onPlay={onPlay}
               apiUrl={apiUrl}
+              accessPending={accessPending}
             />
           );
         })}

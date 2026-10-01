@@ -93,7 +93,6 @@ export const PREMIUM_ONLY_GAMES = [
 
 ];
 
-const PREMIUM_TRIAL_DAYS = 10;
 const ROTATING_FREE_UNLOCK_DAY = 31;
 
 export function getGameTier(slug: string): GameTier {
@@ -155,21 +154,16 @@ export function checkGameAccess({
   }
 
   if (tier === 'rotating-free') {
-  const status = getRotatingFreeStatus(gameSlug, daysSinceSignup);
-  return { tier, allowed: status.allowed, reason: status.reason, daysSinceSignup };
-}
+    if (isSubscribed) {
+      return { tier, allowed: true, reason: 'premium subscriber', daysSinceSignup };
+    }
+    const status = getRotatingFreeStatus(gameSlug, daysSinceSignup);
+    return { tier, allowed: status.allowed, reason: status.reason, daysSinceSignup };
+  }
 
   if (tier === 'premium-only') {
     if (isSubscribed) {
       return { tier, allowed: true, reason: 'premium subscriber', daysSinceSignup };
-    }
-    if (daysSinceSignup <= PREMIUM_TRIAL_DAYS) {
-      return {
-        tier,
-        allowed: true,
-        reason: `trial: ${PREMIUM_TRIAL_DAYS - daysSinceSignup}d left`,
-        daysSinceSignup,
-      };
     }
     return { tier, allowed: false, reason: 'premium subscription required', daysSinceSignup };
   }

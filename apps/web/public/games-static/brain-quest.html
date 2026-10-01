@@ -106,6 +106,12 @@ nav{
 .brand-name{font-family:var(--font-display);font-weight:800;font-size:var(--text-lg);}
 .brand-sub{font-size:var(--text-xs);color:var(--text-muted);}
 .nav-right{display:flex;align-items:center;gap:var(--space-3);}
+@media (max-width:600px){
+  nav{flex-wrap:wrap;gap:8px;padding:10px 12px;}
+  .brand{width:100%;}
+  .nav-right{width:100%;justify-content:space-between;gap:6px;}
+  .nav-right .pill{min-height:40px;padding:7px 10px;}
+}
 .pill{
   display:inline-flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-4);
   border-radius:var(--radius-full);border:1px solid var(--border);

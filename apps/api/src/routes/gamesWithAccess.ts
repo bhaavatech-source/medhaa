@@ -6,7 +6,7 @@ import { checkGameAccess } from '../services/gameEntitlement';
 const prisma = new PrismaClient();
 const router = Router();
 
-function mapGameWithAccess(game: any, accountCreatedAt: Date, isSubscribed: boolean) {
+function mapGameWithAccess(game: any, accountCreatedAt: Date, isSubscribed: boolean, trialEndsAt?: Date | null) {
   try {
     const access = checkGameAccess({
       gameSlug: game.slug,
@@ -27,6 +27,7 @@ function mapGameWithAccess(game: any, accountCreatedAt: Date, isSubscribed: bool
         allowed: access.allowed,
         reason: access.reason,
         daysSinceSignup: access.daysSinceSignup,
+        trialEndsAt: trialEndsAt ?? null,
       },
     };
   } catch (err) {
@@ -49,7 +50,7 @@ router.get('/with-access', authenticate, async (req: AuthenticatedRequest, res: 
     where: { id: req.user!.id },
     include: {
       student: {
-        include: { school: true },
+        include: { school: true, parent: { select: { userId: true } } },
       },
     },
   });
@@ -60,12 +61,15 @@ router.get('/with-access', authenticate, async (req: AuthenticatedRequest, res: 
   }
 
   const games = await prisma.game.findMany({ where: { isActive: true } });
-  const subscription = await prisma.subscription.findFirst({
-    where: { userId: student.id, status: { in: ['ACTIVE', 'TRIALING'] } },
+  const parentUserId = student.student?.parent?.userId;
+  const subscriptions = await prisma.subscription.findMany({
+    where: { userId: { in: [student.id, ...(parentUserId ? [parentUserId] : [])] } },
   });
+  const subscription = subscriptions.find((entry) => entry.status === 'ACTIVE')
+    ?? subscriptions.find((entry) => entry.status === 'TRIALING' && entry.trialEndsAt && entry.trialEndsAt > new Date());
 
   const gamesWithAccess = games
-    .map((game) => mapGameWithAccess(game, student.createdAt, !!subscription))
+    .map((game) => mapGameWithAccess(game, student.createdAt, !!subscription, subscription?.status === 'TRIALING' ? subscription.trialEndsAt : null))
     .filter((g) => g !== null);
 
   const lastCheckIn = await prisma.cognitiveCheckIn.findFirst({

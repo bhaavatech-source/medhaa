@@ -408,17 +408,17 @@ h3 { font-size: var(--text-lg); }
   .car-replica-stage { height: clamp(170px, 52vw, 220px); }
   .car-shadow { width: 78%; max-width: 360px; }
   .part-label { font-size: 10px; padding: 2px 5px; }
-  .parts-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem; }
-  .part-card { padding: .65rem; gap: .5rem; border-radius: var(--radius-md); }
-  .part-card .eyebrow { font-size: 9px; letter-spacing: .06em; margin-bottom: .25rem; }
-  .part-card h4 { font-size: 11px; line-height: 1.2; }
-  .part-meta { display: block; font-size: 10px; line-height: 1.35; }
+  .parts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .65rem; }
+  .part-card { min-width: 0; padding: .75rem; gap: .6rem; border-radius: var(--radius-md); }
+  .part-card .eyebrow { font-size: .625rem; letter-spacing: .04em; margin-bottom: .25rem; }
+  .part-card h4 { font-size: .8125rem; line-height: 1.25; }
+  .part-meta { display: block; font-size: .75rem; line-height: 1.4; }
   .part-meta span { display: block; }
-  .part-card button { min-height: 36px; padding: .45rem .25rem; font-size: 11px; }
+  .part-card button { min-height: 44px; padding: .6rem .4rem; font-size: .8125rem; }
 }
 
 @media (max-width: 360px) {
-  .parts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .parts-grid { grid-template-columns: minmax(0, 1fr); }
 }
 
 .progress-badges {

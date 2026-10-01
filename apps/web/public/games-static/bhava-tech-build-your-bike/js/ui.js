@@ -27,7 +27,7 @@ const MENTOR_QUESTIONS = {
   brake_front: "What happens to your stopping distance if this part is missing?",
   fork_suspension: "How might this part change your ride over bumpy trails?",
   motor: "What do you think powers this part, and where does that power come from?",
-  cassette: "Why might a bike need more than one gear size?"
+  cassette: "Why might a cycle need more than one gear size?"
 };
 
 export class UIManager {
@@ -71,25 +71,7 @@ export class UIManager {
     const tpl = document.getElementById("tpl-home-screen").content.cloneNode(true);
     this.root.innerHTML = "";
     this.root.appendChild(tpl);
-    const bg = document.getElementById("workshop-bg");
-    for (let i = 0; i < 3; i++) {
-      const beam = document.createElement("div");
-      beam.className = "sunbeam";
-      beam.style.left = `${i * 30}%`;
-      beam.style.animationDelay = `${i * 3}s`;
-      bg.appendChild(beam);
-    }
-    for (let i = 0; i < 4; i++) {
-      const wind = document.createElement("div");
-      wind.className = "wind-streak";
-      wind.style.top = `${20 + i * 18}%`;
-      wind.style.width = "120px";
-      wind.style.animationDelay = `${i * 1.2}s`;
-      bg.appendChild(wind);
-    }
-    this.root.querySelectorAll("[data-action]").forEach((btn, i) => {
-      btn.classList.add("bounce-in");
-      btn.style.animationDelay = `${i * 0.04}s`;
+    this.root.querySelectorAll("[data-action]").forEach((btn) => {
       btn.addEventListener("click", () => {
         audioBus.click();
         this._route(btn.dataset.action, btn.dataset.bike);
@@ -132,7 +114,7 @@ export class UIManager {
     wrap.className = "glass-panel fade-in";
     wrap.style.padding = "1.4rem";
     wrap.innerHTML = `
-      <h2>\ud83e\udea8 ${anatomy.intro?.title || "Bike Anatomy"}</h2>
+      <h2>\ud83e\udea8 ${anatomy.intro?.title?.replace(/Bike|Bicycle/g, "Cycle") || "Cycle Anatomy"}</h2>
       <p style="color:var(--text-1)">${anatomy.intro?.subtitle || ""}</p>
       <div class="anatomy-hero">
         <div>
@@ -144,7 +126,7 @@ export class UIManager {
           <div id="max-parts-list"></div>
         </div>
       </div>
-      <h3 style="margin-top:1.5rem">Bike Systems</h3>
+      <h3 style="margin-top:1.5rem">Cycle Systems</h3>
       <div id="systems-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.8rem;"></div>
       <h3 style="margin-top:1.5rem">Three Building Levels</h3>
       <div id="levels-preview" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.8rem;"></div>
@@ -154,8 +136,7 @@ export class UIManager {
     const minList = wrap.querySelector("#min-parts-list");
     (anatomy.intro?.minParts || []).forEach((p, i) => {
       const row = document.createElement("div");
-      row.className = "lesson-card glass-panel slide-in-left";
-      row.style.animationDelay = `${i * 0.05}s`;
+      row.className = "lesson-card glass-panel";
       row.innerHTML = `<strong>${iconFor(p.slot)} ${p.slot.replace(/_/g," ")}</strong><p style="font-size:.82rem;color:var(--text-1)">${p.why}</p>`;
       minList.appendChild(row);
     });
@@ -163,8 +144,7 @@ export class UIManager {
     const maxList = wrap.querySelector("#max-parts-list");
     (anatomy.intro?.maxFeatures || []).forEach((p, i) => {
       const row = document.createElement("div");
-      row.className = "lesson-card glass-panel slide-in-right";
-      row.style.animationDelay = `${i * 0.05}s`;
+      row.className = "lesson-card glass-panel";
       row.innerHTML = `<strong>${iconFor(p.slot)} ${p.slot.replace(/_/g," ")}</strong><p style="font-size:.82rem;color:var(--text-1)">${p.why}</p>`;
       maxList.appendChild(row);
     });
@@ -208,8 +188,7 @@ export class UIManager {
     grid.style.gap = "1rem";
     Object.entries(type.levels).forEach(([lvl, def], i) => {
       const card = document.createElement("div");
-      card.className = "level-card glass-panel bounce-in";
-      card.style.animationDelay = `${i * 0.1}s`;
+      card.className = "level-card glass-panel";
       card.innerHTML = `<span class="level-badge level-badge-${lvl}">Level ${lvl}</span>
         <h3>${def.label.replace(/^Level \d+ . /,"")}</h3>
         <p style="font-size:.85rem;color:var(--text-1)">${def.description}</p>
@@ -358,12 +337,12 @@ export class UIManager {
 
     // Replace the assembly board with a confident, celebratory completed-bike reveal.
     canvasWrap.innerHTML = `
-      <section class="bike-reveal" aria-label="Completed bicycle">
-        <div class="reveal-title">\ud83c\udf89 You built a bicycle!</div>
+      <section class="bike-reveal" aria-label="Completed cycle">
+        <div class="reveal-title">\ud83c\udf89 You built a cycle!</div>
         <p>Your ${build.type.name} is ready to ride.</p>
         <div class="bike-stage">
           <span class="sparkle s1">\u2728</span><span class="sparkle s2">\u2726</span><span class="sparkle s3">\u2728</span>
-          <svg class="completed-bike-svg" viewBox="0 0 760 390" role="img" aria-label="Animated bicycle assembled from selected components">
+          <svg class="completed-bike-svg" viewBox="0 0 760 390" role="img" aria-label="Cycle assembled from selected components">
             <defs><linearGradient id="bikePaint" x1="0" x2="1"><stop stop-color="#4fd1c5"/><stop offset="1" stop-color="#5b8def"/></linearGradient></defs>
             <path class="ground-line" d="M70 325 H700"/>
             <g class="wheel wheel-rear"><circle cx="210" cy="260" r="92"/><circle class="hub" cx="210" cy="260" r="7"/><g class="spokes">${Array.from({length:12},(_,i)=>`<line x1="210" y1="260" x2="${210+88*Math.cos(i*Math.PI/6)}" y2="${260+88*Math.sin(i*Math.PI/6)}"/>`).join('')}</g></g>
@@ -377,13 +356,13 @@ export class UIManager {
         </div>
         <h4>Components you used (${usedParts.length})</h4>
         <div class="used-parts">${usedParts.map(slot => `<span>${iconFor(slot)} ${slot.replace(/_/g," ")}</span>`).join("")}</div>
-        <p class="confidence-message">Every part has a job. Together, they make your bike move. Great engineering! \ud83d\udc4f</p>
+        <p class="confidence-message">Every part has a job. Together, they make your cycle move. Great engineering! \ud83d\udc4f</p>
       </section>`;
 
     inspector.innerHTML = `<h3>\ud83c\udfc6 Engineering Score: ${result.scoreResult.engineeringScore}/10</h3>
       <div class="score-bar"><span style="width:${result.scoreResult.engineeringScore * 10}%"></span></div>
-      <div class="mentor-bubble">You completed the build. Look at your bike, then try another level to discover more features!</div>
-      <button id="rebuild-btn" style="margin-top:1rem">Build Another Bike</button>
+      <div class="mentor-bubble">You completed the build. Look at your cycle, then try another level to discover more features!</div>
+      <button id="rebuild-btn" style="margin-top:1rem">Build Another Cycle</button>
       <button id="back-home2">Back to Workshop</button>`;
     inspector.querySelector("#back-home2").addEventListener("click", () => this.renderHome());
     inspector.querySelector("#rebuild-btn").addEventListener("click", () => this.renderLevelSelect(bikeTypeId));
@@ -398,7 +377,7 @@ export class UIManager {
     const wrap = document.createElement("section");
     wrap.className = "glass-panel fade-in";
     wrap.style.padding = "1.2rem";
-    wrap.innerHTML = "<h2>How Bicycles Work</h2>";
+    wrap.innerHTML = "<h2>How Cycles Work</h2>";
     const grid = document.createElement("div");
     grid.style.display = "grid";
     grid.style.gridTemplateColumns = "repeat(auto-fill,minmax(220px,1fr))";
@@ -530,7 +509,7 @@ export class UIManager {
   renderInvent() {
     this.root.innerHTML = "";
     this.root.appendChild(this._backButton());
-    const ideas = ["Flying Bike","Solar Bike","Moon Bike","Mars Bike","Underwater Bike","Snow Bike","Foldable Bike","Smart AI Bike","Medical Emergency Bike","Disaster Relief Bike"];
+    const ideas = ["Flying Cycle","Solar Cycle","Moon Cycle","Mars Cycle","Underwater Cycle","Snow Cycle","Foldable Cycle","Smart AI Cycle","Medical Emergency Cycle","Disaster Relief Cycle"];
     const wrap = document.createElement("section");
     wrap.className = "glass-panel fade-in";
     wrap.style.padding = "1.2rem";

@@ -386,6 +386,12 @@
       }, 1000);
     }
   </script>
-<script src="../bhava-game-nav.js"></script>
+<script>
+if (window.self === window.top) {
+  const navScript = document.createElement('script');
+  navScript.src = '../bhava-game-nav.js';
+  document.body.appendChild(navScript);
+}
+</script>
 </body>
 </html>

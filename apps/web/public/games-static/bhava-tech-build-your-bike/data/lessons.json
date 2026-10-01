@@ -2,7 +2,7 @@
   "topics": [
     {
       "id": "history",
-      "title": "History of the Bicycle",
+      "title": "History of the Cycle",
       "category": "history"
     },
     {
@@ -12,7 +12,7 @@
     },
     {
       "id": "types_of_bikes",
-      "title": "Types of Bikes",
+      "title": "Types of Cycles",
       "category": "overview"
     },
     {
@@ -242,7 +242,7 @@
     },
     {
       "id": "ebike_motor",
-      "title": "Electric Bike Motor",
+      "title": "Electric Cycle Motor",
       "category": "electric"
     },
     {

@@ -71,6 +71,9 @@ export function TeacherDashboard() {
         <span className="t-orb t-orb-2" />
       </div>
 
+      <aside className="teacher-demo-notice" role="note">
+        <strong>Demonstration only.</strong> The class, learner names, and scores below are fictional sample data, not live Medhā results.
+      </aside>
 
       <header className="teacher-header">
         <div className="teacher-brand">

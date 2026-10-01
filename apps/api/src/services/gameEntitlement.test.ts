@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { getGameTier, checkGameAccess, ASSESSMENT_TOOLS, PERMANENT_FREE_GAMES, PREMIUM_ONLY_GAMES } from './gameEntitlement';
+import { getGameTier, checkGameAccess, ASSESSMENT_TOOLS, PERMANENT_FREE_GAMES, PREMIUM_ONLY_GAMES, ROTATING_FREE_GAMES } from './gameEntitlement';
 
 describe('getGameTier', () => {
   it('classifies an assessment tool', () => {
@@ -62,14 +62,32 @@ describe('checkGameAccess', () => {
     expect(result.reason).toBe('premium subscriber');
   });
 
-  it('allows a premium-only game during the trial window for a non-subscriber', () => {
+  it('allows a rotating game for a subscriber outside its free rotation', () => {
+    const result = checkGameAccess({
+      gameSlug: ROTATING_FREE_GAMES[0],
+      accountCreatedAt: new Date(Date.now() - 45 * dayMs),
+      isSubscribed: true,
+    });
+    expect(result.allowed).toBe(true);
+  });
+
+  it('does not grant premium access based only on account age', () => {
     const result = checkGameAccess({
       gameSlug: PREMIUM_ONLY_GAMES[0],
       accountCreatedAt: new Date(),
       isSubscribed: false,
     });
+    expect(result.allowed).toBe(false);
+    expect(result.reason).toBe('premium subscription required');
+  });
+
+  it('allows premium games through an active 15-day trial subscription', () => {
+    const result = checkGameAccess({
+      gameSlug: PREMIUM_ONLY_GAMES[0],
+      accountCreatedAt: new Date(Date.now() - 12 * dayMs),
+      isSubscribed: true,
+    });
     expect(result.allowed).toBe(true);
-    expect(result.reason).toMatch(/trial/);
   });
 
   it('blocks a premium-only game once the trial has expired for a non-subscriber', () => {

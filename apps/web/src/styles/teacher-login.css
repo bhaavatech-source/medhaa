@@ -22,7 +22,7 @@
   animation: cardEnter 0.6s cubic-bezier(0.16,1,0.3,1);
 }
 
-@keyframes cardEnter { from { opacity: 0; transform: translateY(32px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes cardEnter { from { opacity: 0; transform: translateY(32px); } to  { opacity: 1; transform: translateY(0); } }
 
 .teacher-login-brand { text-align: center; margin-bottom: 32px; }
 .teacher-login-logo { font-size: 44px; }

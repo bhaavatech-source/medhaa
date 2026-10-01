@@ -21,7 +21,7 @@ export default function SchoolReport() {
       {/* Sidebar */}
       <aside className="sidebar">
         <div className="sidebar-brand">Medhā<span> · School</span></div>
-        <div className="sidebar-school">Greenwood School</div>
+        <div className="sidebar-school">Sample School</div>
         
         <a className="nav-item" href="/">
           <span className="nav-icon">🏡</span> Home
@@ -59,13 +59,17 @@ export default function SchoolReport() {
         {/* Universal Header */}
         <header className="topbar">
           <div>
-            <div className="greeting">Good morning, Greenwood School 👋</div>
+            <div className="greeting">Sample School dashboard</div>
             <div className="greeting-sub">{subtitles[activeTab]}</div>
           </div>
           <div className="topbar-right">
             <div className="school-pill">📅 This Academic Year</div>
           </div>
         </header>
+
+        <aside className="demo-data-notice" role="note">
+          <strong>Demonstration only.</strong> The school name, learner records, scores, and charts below are fictional sample data, not live Medhā results.
+        </aside>
 
         {/* TAB 1: DASHBOARD */}
         <div className={`tab-content ${activeTab === 'dashboard' ? 'active' : ''}`}>
@@ -264,8 +268,8 @@ export default function SchoolReport() {
   <div className="cta-glow"></div>
   <div style={{ position: 'relative', zIndex: 2 }}>
     <span className="cta-badge">🔐 School Login</span>
-    <div className="cta-title">Sign Up and Check Your School Children's Score</div>
-    <a href="/signup/school" className="cta-btn">Sign Up / Log In →</a>
+    <div className="cta-title">Have a school account?</div>
+    <a href="/school-workspace" className="cta-btn">Open School Workspace →</a>
   </div>
 </div>
 

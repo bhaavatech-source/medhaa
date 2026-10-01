@@ -77,6 +77,7 @@ if (!school) {
     { slug: 'bhava-build-device-engineer', title: 'Bhava Build Device Engineer', domain: 'stem-engineering', isFreeTier: true, entryPath: 'bhava-build-device-engineer/index.html' },
     { slug: 'bhava-smriti', title: 'Bhava Smriti', domain: 'cognitive-memory', isFreeTier: true, entryPath: 'bhava-smriti/index.html' },
     { slug: 'build-your-car', title: 'Build Your Car', domain: 'stem-engineering', isFreeTier: true, entryPath: 'build-your-car/index.html' },
+    { slug: 'brain-of-all-machines', title: 'Brain of All Machines', domain: 'cognitive-math', isFreeTier: true, entryPath: 'brain-of-all-machines/index.html' },
     { slug: 'focus-flash', title: 'Focus Flash', domain: 'cognitive-focus', isFreeTier: true, entryPath: 'focus-flash/index.html' },
     { slug: 'life-strategist-starter', title: 'Life Strategist Starter', domain: 'life-skills', isFreeTier: true, entryPath: 'life-strategist-starter/index.html' },
     { slug: 'dharana-arena', title: 'Dharana Arena', domain: 'cognitive-focus', isFreeTier: true, entryPath: 'dharana-arena.html' },
@@ -124,7 +125,7 @@ if (!school) {
     { slug: 'ready-for-the-world', title: 'Ready For The World', domain: 'life-skills', isFreeTier: false, entryPath: 'ready-for-the-world.html' },
     { slug: 'google-search-lab-deep-v2', title: 'Google Search Lab Deep v2', domain: 'digital-literacy', isFreeTier: false, entryPath: 'google-search-lab-deep-v2.html' },
     { slug: 'grammar-galaxy', title: 'Grammar Galaxy', domain: 'language-english', isFreeTier: false, entryPath: 'grammar-galaxy.html' },
-    { slug: 'grammar-pro', title: 'Grammar Pro', domain: 'language-english', isFreeTier: false, entryPath: 'Grammar-Pro.html' },
+    { slug: 'grammar-pro', title: 'Grammar Pro', domain: 'language-english', isFreeTier: false, entryPath: 'grammar-pro.html' },
     { slug: 'heart-heroes', title: 'Heart Heroes', domain: 'emotional-intel', isFreeTier: false, entryPath: 'heart-heroes.html' },
     { slug: 'imaginia-quest', title: 'Imaginia Quest', domain: 'creativity', isFreeTier: false, entryPath: 'imaginia-quest.html' },
     { slug: 'mental-rotation-game', title: 'Mental Rotation Game', domain: 'cognitive-logic', isFreeTier: false, entryPath: 'mental-rotation-game.html' },
@@ -134,7 +135,7 @@ if (!school) {
 { slug: 'know-maths', title: 'Know Maths', domain: 'cognitive-math', isFreeTier: false, entryPath: 'know-maths/index.html' },
 { slug: 'bcs-lite-v3', title: 'My Medhā', domain: 'cognitive-assessment', isFreeTier: true, entryPath: 'bcs-lite-v3.html' },
 { slug: 'bhava-tech-build-your-bike', title: 'Bhava Tech Build Your Bike', domain: 'stem-engineering', isFreeTier: false, entryPath: 'bhava-tech-build-your-bike/index.html' },
-{ slug: 'medha-read-anybook-in-3hrs', title: 'Read Any Book in 3 Hours', domain: 'reading', isFreeTier: true, entryPath: 'medha_read_anybook_in-3hrs.html' },
+{ slug: 'medha-read-anybook-in-3hrs', title: 'Medhā Reading Quest', domain: 'reading', isFreeTier: true, entryPath: 'medha_read_anybook_in-3hrs.html' },
   ];
 
   const ACTIVITY_SLUGS = new Set([
@@ -147,7 +148,6 @@ if (!school) {
   'iq-test-level-3',
   'mindspark-iq',
   'neuro-ascend-iq',
-  'take-test',
   'nadopaasana',
   'soccomm-enhanced',
   'heart-heroes',

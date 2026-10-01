@@ -1,7 +1,7 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   font-family: 'Segoe UI', Arial, sans-serif;
-  background: linear-gradient(135deg, #1e1b4b, #312e81);
+  background: linear-gradient(150deg, #142b3b, #264c54 55%, #413956);
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -9,6 +9,15 @@ body {
   color: #f1f5f9;
   overflow-x: hidden;
 }
+body:has(#startScreen.active) {
+  align-items: flex-start;
+  background:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(150deg, #122e32, #225058 55%, #493c48);
+  background-size: 32px 32px, 32px 32px, auto;
+}
+#app:has(#startScreen.active) { padding-top: 30px; }
 #app { width: 100%; max-width: 640px; padding: 20px; position: relative; }
 .screen { display: none; text-align: center; position: relative; }
 .screen.active { display: block; animation: fadeIn 0.4s ease; }
@@ -25,6 +34,22 @@ body {
 }
 .sound-btn:hover { transform: scale(1.1); background: rgba(255,255,255,0.2); }
 .sound-btn.muted { opacity: 0.5; }
+
+#startScreen { max-width: 440px; margin: 0 auto; padding: 16px 0 22px; text-align: left; }
+#startScreen h1 { margin: 0 48px 24px 0; font-family: 'Trebuchet MS', sans-serif; font-size: 1.8rem; color: #fff9e9; }
+#startScreen .sound-btn { top: 12px; background: #17434a; border: 1px solid rgba(148,227,221,.3); }
+#startScreen .mode-tabs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px; padding: 5px; margin: 0 0 16px; border-radius: 12px; background: rgba(255,255,255,.09); }
+#startScreen .mode-tab { min-width: 0; min-height: 44px; padding: 9px 6px; border: 0; border-radius: 8px; font-size: .83rem; line-height: 1.2; }
+#startScreen .mode-tab.active { background: #e0faf4; color: #193744; box-shadow: 0 2px 10px rgba(6,31,33,.18); }
+#startScreen .instructions { margin: 0 0 24px; color: #cbd5e1; }
+.difficulty-picker > span { display: block; margin-bottom: 10px; font-size: .88rem; font-weight: 700; color: #e1eaf0; }
+.difficulty-options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; padding: 4px; border-radius: 10px; background: rgba(255,255,255,.09); }
+.difficulty-choice { min-width: 0; min-height: 44px; border: 0; border-radius: 7px; background: transparent; color: #e1eaf0; font: inherit; font-weight: 700; cursor: pointer; }
+.difficulty-choice.active { background: #ffae8a; color: #302c32; box-shadow: 0 2px 10px rgba(6,31,33,.18); }
+.difficulty-choice:focus-visible, #playBtn:focus-visible, .settings-panel summary:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+#playBtn { display: block; width: 100%; min-height: 52px; margin-top: 18px; border: 0; border-radius: 10px; background: #facc15; color: #22213f; font: inherit; font-size: 1.1rem; font-weight: 800; cursor: pointer; box-shadow: 0 8px 20px rgba(20,24,22,.2); }
+#playBtn:hover { background: #ffe066; }
+#startScreen #progressBtn { display: block; margin: 12px auto 0; padding: 10px; border: 0; background: transparent; box-shadow: none; color: #d5e3ed; font-size: .88rem; }
 
 h1 { font-size: 2rem; margin-bottom: 4px; }
 .subtitle { opacity: 0.8; margin-bottom: 12px; }
@@ -83,7 +108,7 @@ h1 { font-size: 2rem; margin-bottom: 4px; }
   animation: bannerSlide 0.35s ease;
 }
 
-#grid { display: grid; gap: 8px; justify-content: center; margin: 0 auto; }
+#grid { display: grid; gap: 8px; justify-content: center; max-width: 100%; margin: 0 auto; }
 .cell {
   width: 100%; aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center;
   border-radius: 10px; background: rgba(255,255,255,0.06); cursor: pointer; user-select: none;
@@ -231,6 +256,15 @@ table.history-table th { color: #facc15; }
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-width: 0;
+}
+
+@media (max-width: 600px) {
+  #app { padding: 12px; }
+  .game-layout-split { flex-direction: column; align-items: stretch; gap: 10px; }
+  .game-sidebar { width: 100%; min-width: 0; }
+  .game-main { width: 100%; }
+  .game-sidebar .hud { margin-bottom: 0; }
 }
 
 /* Drifting Animation */
@@ -255,32 +289,35 @@ table.history-table th { color: #facc15; }
 
 /* --- ENHANCED MISSION SETTINGS PANEL --- */
 .settings-panel {
-  background: rgba(255, 255, 255, 0.05);
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  padding: 20px;
-  margin: 20px auto;
-  max-width: 450px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  margin: 10px auto 0;
+  text-align: left;
 }
 
-.settings-panel h3 {
-  margin-top: 0;
-  color: #facc15; /* Matches your yellow accents */
-  text-align: center;
-  font-size: 1.4rem;
-  letter-spacing: 1px;
+.settings-panel summary {
+  padding: 10px 0;
+  color: #d5e3ed;
+  font-size: .88rem;
+  cursor: pointer;
+}
+
+.settings-grid {
+  padding: 14px;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 10px;
+  background: rgba(255,255,255,.05);
 }
 
 .settings-grid label {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 90px minmax(0,1fr);
   align-items: center;
-  font-size: 1.1rem;
-  font-weight: bold;
-  margin-bottom: 15px;
+  gap: 8px;
+  font-size: .88rem;
+  font-weight: 700;
+  margin-bottom: 12px;
   color: #e2e8f0;
 }
+.settings-grid label:last-child { margin-bottom: 0; }
 
 /* Custom Game-like Dropdowns */
 .settings-grid select {
@@ -293,7 +330,7 @@ table.history-table th { color: #facc15; }
   font-weight: bold;
   cursor: pointer;
   outline: none;
-  width: 200px;
+  width: 100%;
   transition: all 0.2s;
 }
 
@@ -307,6 +344,7 @@ table.history-table th { color: #facc15; }
   height: 24px;
   cursor: pointer;
   accent-color: #6366f1;
+  justify-self: end;
 }
 
 /* --- ENHANCED PROGRESS TABLE --- */
@@ -351,35 +389,16 @@ table.history-table th { color: #facc15; }
 }
 
 #mascotArea {
-  background: rgba(255, 255, 255, 0.05); /* Slightly darker for a sleeker look */
-  border: 2px solid rgba(255, 255, 255, 0.1); /* Adds a subtle border */
-  border-radius: 12px;
-  padding: 10px; /* Reduced padding to let the logo fill more space */
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 120px; /* Gives the logo plenty of vertical room */
+  width: 100%;
+  margin-bottom: 8px;
 }
 
 #medhaaLogo {
-  max-width: 90px; /* Adjust this number to make the logo larger or smaller */
-  height: auto;
+  width: 52px;
+  height: 64px;
   object-fit: contain;
   transition: transform 0.2s ease;
-}
-
-#mascotArea {
-  background: white; /* Match the logo's background */
-  border-radius: 12px;
-  padding: 0; /* Remove padding so the image touches the edges */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden; /* Clips the corners of the image */
-}
-
-#medhaaLogo {
-  width: 100%; /* Forces the image to fill the box */
-  height: auto;
-  object-fit: cover;
 }

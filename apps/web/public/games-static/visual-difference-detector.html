@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-bhava-game="Visual Difference Detector" data-bhava-mobile="nudge">
+<html lang="en" data-bhava-game="Visual Difference Detector" data-bhava-mobile="off">
 <head>
 <!-- MEDHAA-SEO-EXTRA-INJECTED -->
 <meta property="og:image" content="https://medhaa.net/medha_logo_transparent.png">
@@ -47,7 +47,7 @@ body::after{width:360px;height:360px;right:-100px;bottom:-60px;background:#51ffb
 .particles{position:fixed;inset:0;pointer-events:none;overflow:hidden}
 .particles span{position:absolute;border-radius:50%;background:rgba(255,255,255,.18);animation:floatUp linear infinite}
 @keyframes floatUp{from{transform:translateY(0) scale(1);opacity:0}10%{opacity:.9}to{transform:translateY(-120vh) scale(1.8);opacity:0}}
-.shell{width:100%;height:100vh;border-radius:0;background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.05));backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.14);border-radius:28px;box-shadow:var(--shadow);overflow:hidden;position:relative}
+.shell{width:100%;height:100vh;border-radius:0;background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.05));border:1px solid rgba(255,255,255,.14);border-radius:28px;box-shadow:var(--shadow);overflow:hidden;position:relative}
 .topbar{display:flex;gap:14px;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02))}
 .brand{display:flex;align-items:center;gap:14px}
 .logo{width:54px;height:54px;border-radius:16px;background:conic-gradient(from 180deg,#75f2ff,#86ffd0,#ffd36e,#75f2ff);display:grid;place-items:center;color:#092132;font-weight:900;box-shadow:0 10px 24px rgba(0,0,0,.25)}
@@ -85,16 +85,22 @@ button:active{transform:translateY(1px)}
 .obj.found{animation:foundPulse .8s ease}
 @keyframes foundPulse{0%{transform:scale(1)}30%{transform:scale(1.12)}100%{transform:scale(1)}}
 .hit{position:absolute;border-radius:20px;background:transparent;border:0;z-index:10}
-.hit:hover{box-shadow:0 0 0 2px rgba(255,255,255,.14) inset}
-.ring{position:absolute;border:3px solid rgba(130,247,214,.9);border-radius:20px;box-shadow:0 0 0 6px rgba(130,247,214,.18);pointer-events:none;animation:ring .9s ease}
+@media (hover:hover) and (pointer:fine){.hit:hover{box-shadow:0 0 0 2px rgba(255,255,255,.14) inset}}
+.ring{position:absolute;border:3px solid #8bffda;border-radius:20px;background:rgba(28,113,89,.15);box-shadow:0 0 0 5px rgba(130,247,214,.15);pointer-events:none;z-index:11;animation:ring .9s ease}
+.ring::after{content:'✓';position:absolute;top:-14px;right:-14px;width:26px;height:26px;display:grid;place-items:center;border:2px solid #fff;border-radius:50%;background:#18755c;color:#fff;font-size:16px;font-weight:900;line-height:1}
 @keyframes ring{0%{transform:scale(.65);opacity:0}35%{opacity:1}100%{transform:scale(1);opacity:1}}
 .toast{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);background:rgba(4,16,26,.82);border:1px solid rgba(255,255,255,.14);color:#ecfbff;padding:12px 16px;border-radius:14px;backdrop-filter:blur(10px);opacity:0;pointer-events:none;transition:opacity .25s ease, transform .25s ease}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(-6px)}
 .bottom{display:flex;justify-content:space-between;align-items:center;gap:12px}
 .progress{flex:1;height:14px;background:rgba(255,255,255,.08);border-radius:999px;overflow:hidden;border:1px solid rgba(255,255,255,.08)}
 .bar{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .35s ease}
-.overlay{position:absolute;inset:0;background:radial-gradient(circle at top,rgba(17,53,86,.95),rgba(6,18,31,.96));display:flex;align-items:center;justify-content:center;padding:24px;z-index:40}
+.overlay{position:fixed;inset:0;background:#091e29;display:flex;align-items:center;justify-content:center;padding:24px;z-index:40;overflow-y:auto}
 .panel{width:min(820px,100%);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:28px;padding:26px;box-shadow:var(--shadow)}
+#introOverlay .panel{width:min(430px,100%);background:linear-gradient(155deg,#1b4651,#112b36);border-color:rgba(130,247,214,.25)}
+#introOverlay .hero{display:block}
+#introOverlay .hero h2{font-size:1.75rem;line-height:1.2;margin:0 0 12px}
+#introOverlay .hero p{font-size:1rem;line-height:1.5;margin:0;color:#d4ebfa}
+#introOverlay .grid2{grid-template-columns:1fr;margin-top:22px}
 .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;align-items:center}
 .hero h2{font-size:2.2rem;line-height:1.03;margin:.15rem 0 .6rem}
 .hero p{font-size:1rem;color:#d4ebfa;line-height:1.6}
@@ -309,8 +315,17 @@ button:active{transform:translateY(1px)}
           }
 
           .sidebar {
+            grid-template-columns: repeat(2, minmax(0,1fr));
             gap: 8px;
+            padding: 8px;
           }
+
+          .sidebar .card { min-width: 0; padding: 10px; }
+          .sidebar .card h3 { font-size: .88rem; margin-bottom: 8px; }
+          .sidebar .btns { gap: 6px; }
+          .sidebar .btns button { min-height: 36px; padding: 7px 4px; font-size: .78rem; }
+          .sidebar .levels { gap: 3px; }
+          .sidebar .level { min-width: 0; padding: 9px 1px; font-size: .82rem; }
 
           .sceneLabel {
             font-size: .9rem;
@@ -337,26 +352,22 @@ button:active{transform:translateY(1px)}
         <div class="logo">VD</div>
         <div>
           <h1>Visual Difference Detector</h1>
-          <p>Spot subtle changes • calm focus • fresh every play</p>
         </div>
       </div>
       <div class="stats">
         <div class="pill">Round <span id="roundNow">0</span>/<span id="roundMax">6</span></div>
         <div class="pill">Found <span id="foundNow">0</span>/<span id="foundMax">0</span></div>
         <div class="pill">Score <span id="scoreNow">0</span></div>
-        <div class="pill">Best <span id="bestScore">0</span></div>
       </div>
     </div>
     <div class="main">
       <aside class="sidebar">
         <div class="card">
-          <h2>Play</h2>
-          <div class="muted">Find all differences by tapping either image. Missing a click costs a little time.</div>
-          <div class="btns" style="margin-top:12px">
-            <button class="primary" id="startBtn">Start Session</button>
+          <div class="btns">
             <button class="secondary" id="nextBtn">Next Round</button>
-            <button class="ghost" id="restartBtn">Fresh Session</button>
+            <button class="ghost" id="restartBtn">New Game</button>
           </div>
+          <div class="progress" aria-label="Focus progress" style="margin-top:12px"><div class="bar" id="focusBar"></div></div>
         </div>
         <div class="card">
           <h3>Difficulty</h3>
@@ -365,23 +376,13 @@ button:active{transform:translateY(1px)}
             <button class="level" data-level="steady">Steady</button>
             <button class="level" data-level="expert">Expert</button>
           </div>
-          <div class="muted small" id="levelText" style="margin-top:10px">3 differences, larger hints, slower pace.</div>
-        </div>
-        <div class="card">
-          <h3>Focus meter</h3>
-          <div class="progress"><div class="bar" id="focusBar"></div></div>
-          <div class="muted small" style="margin-top:10px">Smooth spotting builds streak and bonus points.</div>
-        </div>
-        <div class="card">
-          <h3>Why it feels fresh</h3>
-          <div class="muted small">Each round uses a new seed, shuffled themes, new object layouts, fresh difference types, and a session history lock so the same scene pattern does not repeat during the session.</div>
         </div>
       </aside>
       <section class="sceneWrap">
         <div class="sceneHead">
           <div>
             <div class="themeTitle" id="themeTitle">Theme: —</div>
-            <div class="muted">Tap subtle changes before the timer fades.</div>
+            <div class="muted" id="sceneHint" role="status" aria-live="polite">Compare both pictures. Tap what changed; green checks mark finds.</div>
           </div>
           <div class="legend">
             <div class="tag">Time: <span id="timerNow">60</span>s</div>
@@ -391,11 +392,11 @@ button:active{transform:translateY(1px)}
         </div>
         <div class="board">
           <div class="sceneCard">
-            <div class="sceneLabel"><span>Original</span><span class="muted small">Memorize details</span></div>
+            <div class="sceneLabel"><span>Original</span><span class="muted small">Compare</span></div>
             <div class="scene" id="sceneLeft"></div>
           </div>
           <div class="sceneCard">
-            <div class="sceneLabel"><span>Changed</span><span class="muted small">Tap the differences</span></div>
+            <div class="sceneLabel"><span>Changed</span><span class="muted small">Tap a changed object</span></div>
             <div class="scene" id="sceneRight"></div>
           </div>
         </div>
@@ -409,33 +410,20 @@ button:active{transform:translateY(1px)}
       <div class="panel">
         <div class="hero">
           <div>
-            <div class="tag" style="display:inline-flex;margin-bottom:10px">Observation • Calm Focus • Detail Awareness</div>
-            <h2>Train the eye with animated, never-boring difference hunts.</h2>
-            <p>Visual Difference Detector creates a fresh puzzle every round with gentle motion, polished themes, and shuffled change patterns. It is designed to feel relaxing, smart, and replayable.</p>
-            <div class="features">
-              <div class="feature"><strong>Unique session</strong><span class="muted small">No repeated scene signature in the same run.</span></div>
-              <div class="feature"><strong>Subtle changes</strong><span class="muted small">Color, size, position, rotation, missing items, and style tweaks.</span></div>
-              <div class="feature"><strong>User friendly</strong><span class="muted small">Works on touch and mouse with clear highlights.</span></div>
-            </div>
+            <h2>Find what changed</h2>
+            <p>Compare both pictures. Tap the changed objects.</p>
             <div class="grid2">
-              <button class="primary" id="introStart">Begin Calm Play</button>
+              <button class="primary" id="introStart">Play</button>
               <button class="secondary" id="howBtn">How to Play</button>
             </div>
           </div>
-          <div class="heroArt" id="heroArt"></div>
         </div>
       </div>
     </div>
     <div class="overlay hide" id="helpOverlay">
       <div class="panel">
         <h2 style="margin-top:0">How to play</h2>
-        <p class="muted">Compare the two scenes. Tap the changed spots in either image. Find them all before time runs out.</p>
-        <div class="features">
-          <div class="feature"><strong>Calm focus</strong><span class="muted small">Wrong taps reduce time slightly, so accuracy matters more than rushing.</span></div>
-          <div class="feature"><strong>Combo bonus</strong><span class="muted small">Consecutive correct finds increase your streak and score.</span></div>
-          <div class="feature"><strong>Fresh rounds</strong><span class="muted small">Themes, object shapes, palettes, and difference rules are reshuffled every round.</span></div>
-        </div>
-        <p class="muted small">Quick keys: <span class="kbd">N</span> next round, <span class="kbd">R</span> restart, <span class="kbd">Esc</span> close popup.</p>
+        <p class="muted">Compare both pictures. Tap each change in either picture. Green checks show what you found.</p>
         <div class="grid2">
           <button class="primary" id="closeHelp">Got it</button>
           <button class="ghost" id="helpStart">Start Now</button>
@@ -543,7 +531,6 @@ function updateHUD(){
   $('#foundNow').textContent = app.found;
   $('#foundMax').textContent = app.totalDiffs;
   $('#scoreNow').textContent = app.score;
-  $('#bestScore').textContent = app.best;
   $('#timerNow').textContent = Math.max(0,Math.ceil(app.timer));
   $('#streakNow').textContent = app.streak;
   $('#missNow').textContent = app.misses;
@@ -563,20 +550,6 @@ function buildParticles(){
     s.style.animationDuration=`${12 + Math.random()*18}s`;
     s.style.animationDelay=`${-Math.random()*20}s`;
     box.appendChild(s);
-  }
-}
-function buildHeroArt(){
-  const art=$('#heroArt'); art.innerHTML='';
-  for(let i=0;i<18;i++){
-    const b=document.createElement('div');
-    b.className='bubble';
-    const size=40+Math.random()*88;
-    b.style.width=b.style.height=size+'px';
-    b.style.left=Math.random()*90+'%';
-    b.style.top=Math.random()*85+'%';
-    b.style.animationDuration=(5+Math.random()*8)+'s';
-    b.style.animationDelay=(-Math.random()*6)+'s';
-    art.appendChild(b);
   }
 }
 
@@ -753,15 +726,19 @@ function addHitboxes(){
   app.active.diffs.forEach((d, idx)=>{
     ['left','right'].forEach(side=>{
       const box = d[side];
+      const scene = side==='left'?leftScene:rightScene;
+      const target = scene.querySelector(`.obj[data-id="${d.id}"]`);
+      const missing = d.mode==='missing' && side==='right';
       const hit = document.createElement('button');
       hit.className='hit';
-      hit.style.left = (box.x-8)+'px';
-      hit.style.top = (box.y-8)+'px';
-      hit.style.width = (box.w+16)+'px';
-      hit.style.height = (box.h+16)+'px';
-      hit.setAttribute('aria-label','difference '+(idx+1));
+      hit.style.left = missing ? (box.x-8)+'px' : '-8px';
+      hit.style.top = missing ? (box.y-8)+'px' : '-8px';
+      hit.style.width = missing ? (box.w+16)+'px' : 'calc(100% + 16px)';
+      hit.style.height = missing ? (box.h+16)+'px' : 'calc(100% + 16px)';
+      hit.dataset.id = d.id;
+      hit.setAttribute('aria-label',`Difference ${idx+1} in the ${side==='left'?'original':'changed'} picture`);
       hit.addEventListener('click', e=>{e.stopPropagation(); handleCorrect(d.id)});
-      (side==='left'?leftScene:rightScene).appendChild(hit);
+      (missing ? scene : target).appendChild(hit);
     });
   });
 }
@@ -773,11 +750,12 @@ function highlightDiff(diff){
     ring.className='ring';
     ring.style.left=(box.x-8)+'px'; ring.style.top=(box.y-8)+'px';
     ring.style.width=(box.w+16)+'px'; ring.style.height=(box.h+16)+'px';
+    ring.setAttribute('aria-hidden','true');
     (side==='left'?leftScene:rightScene).appendChild(ring);
-    setTimeout(()=>ring.remove(),1100);
     const target = (side==='left'?leftScene:rightScene).querySelector(`.obj[data-id="${diff.id}"]`);
-    if(target) target.classList.add('found');
+    if(target){target.classList.add('found');target.style.animation='none';}
   });
+  [leftScene,rightScene].forEach(scene=>scene.querySelectorAll(`.hit[data-id="${diff.id}"]`).forEach(hit=>hit.remove()));
 }
 
 function handleCorrect(id){
@@ -792,6 +770,7 @@ function handleCorrect(id){
   const bonus = 90 + app.streak*15 + Math.max(0, Math.floor(app.timer));
   app.score += bonus;
   highlightDiff(diff);
+  $('#sceneHint').textContent = `Found ${app.found} of ${app.totalDiffs}. Green checks mark the same spot in both pictures.`;
   showToast(`Found! +${bonus}`, true);
   setStatus(`${app.found} of ${app.totalDiffs} differences found in ${app.active.theme.name}.`);
   updateHUD();
@@ -806,6 +785,7 @@ function wrongTap(){
   app.misses++;
   app.streak = 0;
   app.timer = Math.max(0, app.timer - cfg[app.level].penalty);
+  $('#sceneHint').textContent = 'Not a change. Compare shapes, colors, and positions, then try again.';
   rightScene.classList.add('penalty'); leftScene.classList.add('penalty');
   setTimeout(()=>{rightScene.classList.remove('penalty');leftScene.classList.remove('penalty')},260);
   showToast(`Missed! -${cfg[app.level].penalty}s`, false);
@@ -815,7 +795,11 @@ function wrongTap(){
 
 function bindMissAreas(){
   [leftScene,rightScene].forEach(scene=>{
-    scene.onclick = e => { if(e.target===scene || e.target===scene.firstChild || e.target.classList.contains('obj')) wrongTap(); };
+    scene.onclick = e => {
+      const object = e.target.closest('.obj');
+      if(object?.classList.contains('found')) return;
+      if(e.target===scene || e.target===scene.firstChild || object) wrongTap();
+    };
   });
 }
 
@@ -827,6 +811,7 @@ function startSession(){
   app.streak = 0;
   app.bestStreak = 0;
   app.misses = 0;
+  $('#sceneHint').textContent = 'Compare both pictures. Tap what changed; green checks mark finds.';
   app.totalFoundClicks = 0;
   app.totalWrongClicks = 0;
   app.usedSceneKeys.clear();
@@ -920,17 +905,10 @@ $$('.level').forEach(btn=>btn.addEventListener('click',()=>{
   $$('.level').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   app.level = btn.dataset.level;
-  const text = {
-    gentle:'3 differences, larger hints, slower pace.',
-    steady:'4 differences, balanced subtlety, moderate timer.',
-    expert:'5 differences, finer changes, faster pressure.'
-  };
-  $('#levelText').textContent = text[app.level];
 }));
 
-$('#startBtn').onclick = startSession;
-$('#introStart').onclick = ()=>{introOverlay.classList.add('hide'); startSession();};
-$('#helpStart').onclick = ()=>{helpOverlay.classList.add('hide'); introOverlay.classList.add('hide'); startSession();};
+$('#introStart').onclick = ()=>{introOverlay.classList.add('hide'); window.scrollTo(0,0); startSession();};
+$('#helpStart').onclick = ()=>{helpOverlay.classList.add('hide'); introOverlay.classList.add('hide'); window.scrollTo(0,0); startSession();};
 $('#nextBtn').onclick = ()=> nextRound();
 $('#restartBtn').onclick = ()=> startSession();
 $('#playAgainBtn').onclick = ()=>{resultOverlay.classList.add('hide'); startSession();};
@@ -944,7 +922,6 @@ window.addEventListener('keydown',e=>{
 });
 
 buildParticles();
-buildHeroArt();
 updateHUD();
 setStatus('Choose a difficulty, then start.');
 </script>

@@ -64,33 +64,48 @@
             <div class="step-content">
                 <span class="step-tag">Observation</span>
                 <h2 class="step-title" id="step2-title">Watch the Delivery</h2>
-                <p class="step-desc">The bowler runs in and releases the ball. The batsman stands 20 meters away. Nothing special — until you start counting.</p>
+                <p class="step-desc">Watch the bowler send the ball towards the batter. In our easy example, it travels 20 metres in half a second.</p>
                 <div class="observation-stage" id="observationStage" aria-hidden="true">
                     <div class="obs-track">
-                        <div class="obs-bowler" id="obsBowler"><span class="obs-emoji">🏃</span></div>
+                        <div class="obs-player obs-bowler" id="obsBowler">
+                            <svg class="obs-person" viewBox="0 0 64 64" aria-hidden="true">
+                                <circle cx="37" cy="10" r="6" fill="#70e1ff"/>
+                                <path d="M33 18 25 31l12 5 7-13" fill="none" stroke="#70e1ff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="m33 21 12-7 7 2m-18 2-9-5-7 5m14 18-13 12-8-1m21-10 8 11 12-2" fill="none" stroke="#70e1ff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="53" cy="15" r="3" fill="#ffd166"/>
+                            </svg>
+                            <span class="obs-player-label">Bowler</span>
+                        </div>
                         <div class="obs-ball" id="obsBall"></div>
-                        <div class="obs-batsman"><span class="obs-emoji">🏏</span></div>
+                        <div class="obs-player obs-batsman">
+                            <svg class="obs-person obs-batter-figure" viewBox="0 0 64 64" aria-hidden="true">
+                                <circle cx="29" cy="10" r="6" fill="#ff9f7f"/>
+                                <path d="M28 18 24 35l13 3 4-17" fill="none" stroke="#ff9f7f" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="m27 22-10 4-8-7m19 0 9 8 8-2m-19 12-9 13-9-2m21-10 8 11 11 1" fill="none" stroke="#ff9f7f" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="m12 10 12 10m-13-12 3-3 12 10-3 3zM53 29v16m5-16v16m-11 0h18" fill="none" stroke="#d6dbe8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span class="obs-player-label">Batter</span>
+                        </div>
                         <div class="obs-distance">20 m</div>
                     </div>
                     <div class="obs-timeline" id="obsTimeline">
-                        <span class="time-marker">0.0s</span>
-                        <span class="time-marker">0.2s</span>
-                        <span class="time-marker">0.4s</span>
-                        <span class="time-marker">0.6s</span>
+                        <span class="time-marker">0.0 s</span>
+                        <span class="time-marker">0.25 s</span>
+                        <span class="time-marker">0.5 s</span>
                     </div>
                 </div>
                 <div class="obs-facts" id="obsFacts" style="display:none;">
                     <div class="fact-card glass">
                         <span class="fact-number">20.12 m</span>
-                        <span class="fact-label">Standard pitch length</span>
+                        <span class="fact-label">Full pitch length (the ball's path can differ)</span>
                     </div>
                     <div class="fact-card glass">
-                        <span class="fact-number">0.45 s</span>
-                        <span class="fact-label">Average delivery time</span>
+                        <span class="fact-number">0.5 s</span>
+                        <span class="fact-label">Time in our example</span>
                     </div>
                     <div class="fact-card glass">
                         <span class="fact-number">144 km/h</span>
-                        <span class="fact-label">Fast bowler speed</span>
+                        <span class="fact-label">Speed in our example</span>
                     </div>
                 </div>
             </div>
@@ -100,7 +115,7 @@
             <div class="step-content">
                 <span class="step-tag">Experiment</span>
                 <h2 class="step-title" id="step3-title">Be the Timer</h2>
-                <p class="step-desc">You are the stopwatch. Press <strong>Bowl</strong> when the ball is released. Press <strong>Hit</strong> when it reaches the batsman. We will calculate the speed.</p>
+                <p class="step-desc">Tap <strong>Bowl</strong> to start, then tap <strong>I see it</strong> when the ball reaches the batsman. Your taps include reaction time, so this is only a rough speed estimate.</p>
                 <div class="experiment-stage glass" id="experimentStage">
                     <div class="exp-track">
                         <div class="exp-marker start">Bowler</div>
@@ -110,15 +125,16 @@
                     <div class="exp-readout">
                         <div class="readout-item"><span class="readout-label">Distance</span><span class="readout-value">20 m</span></div>
                         <div class="readout-item"><span class="readout-label">Time</span><span class="readout-value" id="expTime">--.-- s</span></div>
-                        <div class="readout-item"><span class="readout-label">Speed</span><span class="readout-value" id="expSpeed">-- m/s</span></div>
+                        <div class="readout-item"><span class="readout-label">Estimated speed</span><span class="readout-value" id="expSpeed">-- m/s</span></div>
                     </div>
                     <div class="exp-actions">
                         <button class="btn btn-primary" id="btnBowl">Bowl</button>
-                        <button class="btn btn-primary" id="btnHit" disabled>Ball Reaches Batsman</button>
+                        <button class="btn btn-primary" id="btnHit" disabled>I see it</button>
                         <button class="btn btn-secondary" id="btnResetExp">Reset</button>
                     </div>
-                    <p class="exp-instruction" id="expInstruction">Press <strong>Bowl</strong> to start</p>
+                    <p class="exp-instruction" id="expInstruction">Tap Bowl to start</p>
                 </div>
+                <p class="step-hint">This is a reaction-time activity, not a real speed measurement. The example uses an exact 0.5 seconds to show the calculation.</p>
                 <div class="exp-history" id="expHistory"></div>
             </div>
         </section>
@@ -175,26 +191,26 @@
                     <div class="explanation-card glass" id="explCard1">
                         <div class="expl-number">1</div>
                         <h3>The Pitch</h3>
-                        <p>A standard cricket pitch is exactly <strong>20.12 metres</strong> long. This is the distance the ball must travel.</p>
+                        <p>A cricket pitch is <strong>20.12 metres</strong> long. For easy maths, our example uses a ball travelling <strong>20 metres</strong>.</p>
                         <div class="expl-visual pitch-visual"></div>
                     </div>
                     <div class="explanation-card glass" id="explCard2">
                         <div class="expl-number">2</div>
                         <h3>The Time</h3>
-                        <p>From release to batsman, the ball takes roughly <strong>0.45 seconds</strong>. Time it yourself and you will see.</p>
-                        <div class="expl-visual timer-visual"><span class="timer-display" id="explTimer">0.45</span><span class="timer-unit">s</span></div>
+                        <p>In our example, the trip takes <strong>0.5 seconds</strong>. That's half a second.</p>
+                        <div class="expl-visual timer-visual"><span class="timer-display" id="explTimer">0.5</span><span class="timer-unit">s</span></div>
                     </div>
                     <div class="explanation-card glass" id="explCard3">
                         <div class="expl-number">3</div>
                         <h3>Speed in m/s</h3>
-                        <p>Divide distance by time: <strong>20.12 ÷ 0.45 = 44.7 m/s</strong></p>
+                        <p>Divide distance by time: <strong>20 ÷ 0.5 = 40 m/s</strong>. The ball travels 40 metres each second.</p>
                         <div class="expl-visual calc-visual" id="calcVisual"></div>
                     </div>
                     <div class="explanation-card glass" id="explCard4">
                         <div class="expl-number">4</div>
                         <h3>Convert to km/h</h3>
-                        <p>Multiply by 3.6: <strong>44.7 × 3.6 = 161 km/h</strong>. That is why a fast bowler is terrifying.</p>
-                        <div class="expl-visual convert-visual"><span class="convert-result">161 km/h</span></div>
+                        <p>Multiply by 3.6: <strong>40 × 3.6 = 144 km/h</strong>. Real deliveries can be slower or faster.</p>
+                        <div class="expl-visual convert-visual"><span class="convert-result">144 km/h</span></div>
                     </div>
                 </div>
             </div>
@@ -275,7 +291,7 @@
                 <div class="celebration-stats">
                     <div class="cstat glass"><span class="cstat-label">Mystery</span><span class="cstat-value">001</span></div>
                     <div class="cstat glass"><span class="cstat-label">Formula</span><span class="cstat-value">Speed = Distance ÷ Time</span></div>
-                    <div class="cstat glass"><span class="cstat-label">Discovery</span><span class="cstat-value">161 km/h</span></div>
+                    <div class="cstat glass"><span class="cstat-label">Example speed</span><span class="cstat-value">144 km/h</span></div>
                 </div>
                 <div class="celebration-actions">
                     <a href="index.html" class="btn btn-primary">Return to Home</a>

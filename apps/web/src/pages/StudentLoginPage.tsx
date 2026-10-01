@@ -3,6 +3,7 @@ import { useLoginForm } from './hooks/useLoginForm';
 import '../styles/student-login.css';
 import medhaaIcon from '../assets/logo/medhaa-icon.svg';
 import { useState } from 'react';
+import { GoogleSignIn } from '../components/GoogleSignIn';
 
 function PasswordInput({
   value,
@@ -18,6 +19,7 @@ function PasswordInput({
   return (
     <div style={{ position: 'relative' }}>
       <input
+        id="password"
         type={visible ? 'text' : 'password'}
         name="password"
         autoComplete="current-password"
@@ -61,6 +63,7 @@ function PasswordInput({
 
 export default function StudentLoginPage() {
   const [searchParams] = useSearchParams();
+  const [showPassword, setShowPassword] = useState(false);
   const gated = searchParams.get('gate') === '1';
 
   const { email, setEmail, password, setPassword, error, loading, handleSubmit } = useLoginForm('', '/student/preview');
@@ -81,28 +84,42 @@ export default function StudentLoginPage() {
             <p>Log in to keep playing, save your progress, and track your growth.</p>
           </div>
         ) : (
-          <p className="student-login-sub">Log in to save your progress and see your reports.</p>
+          <p className="student-login-sub">Sign in to continue.</p>
         )}
 
-        <form onSubmit={handleSubmit} className="student-login-form">
+        <form onSubmit={(event) => {
+          if (!showPassword) {
+            event.preventDefault();
+            setShowPassword(true);
+          } else {
+            void handleSubmit(event);
+          }
+        }} className="student-login-form">
           <label htmlFor="email">Email</label>
-          <input id="email" name="email" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" />
+          <input id="email" name="email" type="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email" />
 
-          <label htmlFor="password">Password</label>
-          <PasswordInput value={password} onChange={setPassword} placeholder="••••••••" />
+          {showPassword && (
+            <>
+              <label htmlFor="password">Password</label>
+              <PasswordInput value={password} onChange={setPassword} placeholder="Password" />
+            </>
+          )}
 
           {error && <div className="student-login-error">{error}</div>}
 
           <button type="submit" disabled={loading} className="student-login-btn-primary">
-            {loading ? 'Checking…' : 'Login & Play'}
+            {loading ? 'Signing in…' : showPassword ? 'Sign in' : 'Continue with email'}
           </button>
         </form>
 
-        <div style={{ textAlign: 'center', marginTop: '14px' }}>
+        <div className="student-login-forgot">
           <Link to="/forgot-password" style={{ color: '#2869eb', textDecoration: 'none', fontSize: '14px', fontWeight: 600 }}>
             Forgot password?
           </Link>
         </div>
+
+        <div className="student-login-divider"><span>or</span></div>
+        <GoogleSignIn role="student" redirectTo="/student/preview" />
 
         <p className="student-login-help">
           Don't have an account? <a href="/signup/student">Sign up</a>

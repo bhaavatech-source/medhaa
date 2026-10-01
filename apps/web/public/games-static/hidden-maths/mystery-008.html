@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Mystery 008: ATM — Discover the checksum algorithm that protects every card number and the hash that hides your PIN.">
+    <meta name="description" content="Mystery 008: ATM — Discover the checksum that catches card-number mistakes and why a PIN is checked separately.">
     <title>Mystery 008 — ATM | Hidden Maths</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="mystery-008.css">
@@ -37,7 +37,7 @@
             <div class="step-content">
                 <span class="mystery-tag">Mystery 008</span>
                 <h1 class="step-title" id="step1-title">ATM</h1>
-                <p class="step-hook">How does the machine know your card is real — and your PIN is correct — without ever remembering either?</p>
+                <p class="step-hook">How can a machine spot a mistyped card number? And why does it ask for a PIN too?</p>
                 <div class="curiosity-visual" aria-hidden="true">
                     <div class="atm-scene">
                         <div class="atm-machine">
@@ -65,7 +65,7 @@
             <div class="step-content">
                 <span class="step-tag">Observation</span>
                 <h2 class="step-title" id="step2-title">Look at the Card Number</h2>
-                <p class="step-desc">Your card has 16 digits. The last digit is special. It is not random. It is a mathematically calculated guard that catches every typo.</p>
+                <p class="step-desc">Many payment cards have 16 digits. The last digit is a check digit. It helps catch common typing mistakes, but it cannot catch every mistake.</p>
                 <div class="observation-stage" id="observationStage" aria-hidden="true">
                     <div class="card-number">
                         <div class="digit-group"><span class="dig">4</span><span class="dig">5</span><span class="dig">3</span><span class="dig">2</span></div>
@@ -90,7 +90,7 @@
                     </div>
                     <div class="fact-card glass">
                         <span class="fact-number">1</span>
-                        <span class="fact-label">Fake caught instantly</span>
+                        <span class="fact-label">Check digit</span>
                     </div>
                 </div>
             </div>
@@ -100,7 +100,7 @@
             <div class="step-content">
                 <span class="step-tag">Experiment</span>
                 <h2 class="step-title" id="step3-title">Build the Check Digit</h2>
-                <p class="step-desc">Enter 15 digits. The machine will calculate the 16th digit using the same math every ATM uses — the Luhn algorithm.</p>
+                <p class="step-desc">Enter 15 digits. We will calculate a check digit using the Luhn method, a common check for payment-card numbers.</p>
                 <div class="experiment-stage glass" id="experimentStage">
                     <div class="luhn-builder">
                         <div class="luhn-input">
@@ -174,7 +174,7 @@
             <div class="step-content">
                 <span class="step-tag">Discovery</span>
                 <h2 class="step-title" id="step5-title">The Hidden Formula</h2>
-                <p class="step-desc">The Luhn algorithm is not encryption. It is a checksum. It proves the number is structured correctly — but does not prove it is yours.</p>
+                <p class="step-desc">The Luhn algorithm is not encryption. It is a checksum. It catches many typing mistakes — but does not prove the card is real or yours.</p>
                 <div class="discovery-reveal glass" id="discoveryReveal">
                     <div class="reveal-line">
                         <span class="reveal-label">Digits</span>
@@ -197,7 +197,7 @@
                         <span class="formula-unit">mod 10</span>
                     </div>
                 </div>
-                <p class="step-desc">Once the weighted sum is divisible by 10, the card number is valid. The ATM runs this in a thousandth of a second.</p>
+                <p class="step-desc">If the sum is divisible by 10, the number passes this one check. The bank still needs to verify the card and PIN.</p>
             </div>
         </section>
 
@@ -226,9 +226,9 @@
                     </div>
                     <div class="explanation-card glass" id="explCard4">
                         <div class="expl-number">4</div>
-                        <h3>PIN Hash</h3>
-                        <p>The ATM does not store your PIN. It stores a <strong>hash</strong> — a scrambled number that cannot be reversed. Even the bank cannot read your PIN.</p>
-                        <div class="expl-visual calc-visual"><span class="calc-text">PIN → Hash → Compare</span></div>
+                        <h3>Check the PIN</h3>
+                        <p>The ATM does not need to keep your PIN. It sends the PIN securely to be checked by the bank. A checksum alone cannot do that.</p>
+                        <div class="expl-visual calc-visual"><span class="calc-text">PIN → Secure check → Bank</span></div>
                     </div>
                 </div>
             </div>
@@ -240,12 +240,12 @@
                 <h2 class="step-title" id="step7-title">Where Else Is the Check Digit Hiding?</h2>
                 <p class="step-desc">Checksums are everywhere. They protect long numbers from the small errors humans make every day.</p>
                 <div class="apps-grid">
-                    <div class="app-card glass"><div class="app-icon">📦</div><h3>Barcodes</h3><p>Every retail barcode ends with a check digit. The scanner recalculates it from the product code. If the laser misreads, the beep fails.</p></div>
+                    <div class="app-card glass"><div class="app-icon">📦</div><h3>Product Barcodes</h3><p>Many product barcodes have a check digit. The scanner checks it to catch some reading mistakes.</p></div>
                     <div class="app-card glass"><div class="app-icon">📖</div><h3>ISBN Books</h3><p>Every book's ISBN ends with a digit that validates the publisher and title code. It catches ordering errors before the book is shelved.</p></div>
-                    <div class="app-card glass"><div class="app-icon">🏥</div><h3>Medical IDs</h3><p>Hospital patient numbers and medication codes use check digits. A wrong digit prevents a drug from reaching the wrong patient.</p></div>
-                    <div class="app-card glass"><div class="app-icon">✈️</div><h3>Airline Tickets</h3><p>Ticket numbers and boarding pass codes contain checksums. The gate scanner rejects invalid tickets before the plane loads.</p></div>
-                    <div class="app-card glass"><div class="app-icon">📱</div><h3>IMEI Numbers</h3><p>Your phone's IMEI has a check digit. Networks verify it before connecting the device. Stolen phones are blocked by invalidating the checksum.</p></div>
-                    <div class="app-card glass"><div class="app-icon">🌐</div><h3>IP & MAC Addresses</h3><p>Network packets carry checksums. If a wire flips a bit, the receiver detects the error and requests the packet again.</p></div>
+                    <div class="app-card glass"><div class="app-icon">🏥</div><h3>Medical Numbers</h3><p>Some systems add check digits to patient or medicine codes to help catch typing mistakes. Other safety checks are needed too.</p></div>
+                    <div class="app-card glass"><div class="app-icon">✈️</div><h3>Travel Documents</h3><p>Some passport and travel-document numbers include check digits that help spot typing mistakes.</p></div>
+                    <div class="app-card glass"><div class="app-icon">📱</div><h3>Phone IMEI</h3><p>An IMEI identifies a phone and includes a check digit. A valid check digit does not prove a phone is safe or allowed on a network.</p></div>
+                    <div class="app-card glass"><div class="app-icon">🌐</div><h3>Network Data</h3><p>Network protocols use checks to detect some data errors. Depending on the protocol, the data may be discarded or sent again.</p></div>
                 </div>
             </div>
         </section>
@@ -267,17 +267,17 @@
                         <div class="quiz-feedback" id="feedbackQ1"></div>
                     </div>
                     <div class="quiz-question" id="quizQ2">
-                        <p class="quiz-text">What does the ATM store instead of your actual PIN?</p>
+                        <p class="quiz-text">Does passing the Luhn check prove a card number belongs to you?</p>
                         <div class="quiz-options">
-                            <button class="quiz-option glass" data-correct="false">Your PIN in plain text</button>
-                            <button class="quiz-option glass" data-correct="false">A secret code</button>
-                            <button class="quiz-option glass" data-correct="true">A hash (scrambled number)</button>
-                            <button class="quiz-option glass" data-correct="false">Nothing at all</button>
+                            <button class="quiz-option glass" data-correct="false">Yes, it proves ownership</button>
+                            <button class="quiz-option glass" data-correct="false">Yes, it proves the card is real</button>
+                            <button class="quiz-option glass" data-correct="true">No, it only checks the number's pattern</button>
+                            <button class="quiz-option glass" data-correct="false">No, it checks the PIN instead</button>
                         </div>
                         <div class="quiz-feedback" id="feedbackQ2"></div>
                     </div>
                     <div class="quiz-question" id="quizQ3">
-                        <p class="quiz-text">If the weighted sum of all 16 digits is 70, is the card number valid?</p>
+                        <p class="quiz-text">If the Luhn sum of a card number is 70, does it pass the checksum?</p>
                         <div class="quiz-options">
                             <button class="quiz-option glass" data-correct="false">No</button>
                             <button class="quiz-option glass" data-correct="true">Yes</button>

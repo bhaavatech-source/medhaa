@@ -73,7 +73,7 @@
     { slug: 'devanagari-game', title: 'Devanagari Game', domain: 'language-hindi', path: 'devanagari-game/index.html', emoji: 'Hindi' },
     { slug: 'ready-for-the-world', title: 'Ready For The World', domain: 'life-skills', path: 'ready-for-the-world.html', emoji: 'Ready' },
     { slug: 'grammar-galaxy', title: 'Grammar Galaxy', domain: 'language-english', path: 'grammar-galaxy.html', emoji: 'Words' },
-    { slug: 'grammar-pro', title: 'Grammar Pro', domain: 'language-english', path: 'Grammar-Pro.html', emoji: 'Grammar' },
+    { slug: 'grammar-pro', title: 'Grammar Pro', domain: 'language-english', path: 'grammar-pro.html', emoji: 'Grammar' },
     { slug: 'heart-heroes', title: 'Heart Heroes', domain: 'emotional-intel', path: 'heart-heroes.html', emoji: 'Heart' },
     { slug: 'imaginia-quest', title: 'Imaginia Quest', domain: 'creativity', path: 'imaginia-quest.html', emoji: 'Create' },
     { slug: 'mental-rotation-game', title: 'Mind Rotation', domain: 'cognitive-logic', path: 'mental-rotation-game.html', emoji: 'Rotate' },

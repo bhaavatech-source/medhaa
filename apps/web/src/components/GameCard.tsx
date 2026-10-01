@@ -14,15 +14,15 @@ interface GameCardProps {
   ageLabel: string;
   skills: string[];
   tier: GameTier;
-  access: { allowed: boolean; reason: string; daysSinceSignup: number };
+  access: { allowed: boolean; reason: string; daysSinceSignup: number; trialEndsAt?: string | null };
   onPlay: (slug: string) => void;
   apiUrl: string;
   emoji?: string;
   kind?: 'game' | 'activity';
+  accessPending?: boolean;
 }
 
 const ROTATING_FREE_UNLOCK_DAY = 31;
-const PREMIUM_TRIAL_DAYS = 10;
 
 function displayGameTitle(title: string) {
   return title.replace(/bh[aā]va/gi, 'Medhā');
@@ -53,11 +53,9 @@ function getBadge(tier: GameTier, access: GameCardProps['access']) {
     };
   }
 
-  if (access.allowed && access.daysSinceSignup < PREMIUM_TRIAL_DAYS) {
-    return {
-      label: `Trial · ${PREMIUM_TRIAL_DAYS - access.daysSinceSignup}d`,
-      color: 'badge-trial',
-    };
+  if (access.allowed && access.trialEndsAt && new Date(access.trialEndsAt).getTime() > Date.now()) {
+    const daysLeft = Math.ceil((new Date(access.trialEndsAt).getTime() - Date.now()) / (24 * 60 * 60 * 1000));
+    return { label: `Trial · ${daysLeft}d`, color: 'badge-trial' };
   }
 
   if (access.allowed) {
@@ -70,9 +68,11 @@ function getBadge(tier: GameTier, access: GameCardProps['access']) {
 function GameCardMedia({
   slug,
   emoji,
+  previewActive,
 }: {
   slug: string;
   emoji?: string;
+  previewActive: boolean;
 }) {
   const [videoFailed, setVideoFailed] = useState(false);
   const [imageFailed, setImageFailed] = useState(false);
@@ -87,7 +87,7 @@ function GameCardMedia({
     return () => media.removeEventListener?.('change', update);
   }, []);
 
-  if (videoFailed || !pointerPreview) {
+  if (videoFailed || !pointerPreview || !previewActive) {
     if (imageFailed) {
       return (
         <div className="game-card-emoji" aria-hidden="true">
@@ -124,7 +124,7 @@ function GameCardMedia({
         muted
         loop
         playsInline
-        preload="metadata"
+        preload="none"
         onError={() => setVideoFailed(true)}
         aria-hidden="true"
       />
@@ -148,8 +148,10 @@ export function GameCard({
   apiUrl,
   emoji,
   kind = 'game',
+  accessPending = false,
 }: GameCardProps) {
   const [showUpgrade, setShowUpgrade] = useState(false);
+  const [previewActive, setPreviewActive] = useState(false);
   const badge = getBadge(tier, access);
   const displayTitle = displayGameTitle(title);
 const playLabel = kind === 'activity' ? 'Start Now' : 'Play Now';
@@ -167,8 +169,8 @@ const playLabel = kind === 'activity' ? 'Start Now' : 'Play Now';
         className={`game-card ${!access.allowed ? 'game-card-locked' : ''}`}
         data-domain={domain}
       >
-        <div className="game-card-banner">
-          <GameCardMedia slug={slug} emoji={emoji} />
+        <div className="game-card-banner" onMouseEnter={() => setPreviewActive(true)} onMouseLeave={() => setPreviewActive(false)}>
+          <GameCardMedia slug={slug} emoji={emoji} previewActive={previewActive} />
 
           <span className={`tier-badge ${badge.color}`}>
             {badge.label}
@@ -178,7 +180,7 @@ const playLabel = kind === 'activity' ? 'Start Now' : 'Play Now';
             <div className="lock-overlay" aria-hidden="true">
               <span className="lock-icon">🔒</span>
               <span className="lock-copy">
-                {tier === 'premium-only' ? 'Premium game' : 'Not unlocked yet'}
+                {tier === 'premium-only' ? `Premium ${kind}` : 'Not unlocked yet'}
               </span>
             </div>
           )}
@@ -226,6 +228,8 @@ const playLabel = kind === 'activity' ? 'Start Now' : 'Play Now';
               <span>{playLabel}</span>
               <span className="btn-play-arrow" aria-hidden="true">→</span>
             </button>
+          ) : accessPending ? (
+            <button type="button" className="btn-locked" disabled>Checking access…</button>
           ) : (
             <button
               type="button"

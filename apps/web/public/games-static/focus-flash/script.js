@@ -63,6 +63,7 @@ let sustainedState = {};
 let soundOn = true;
 let comboStreak = 0;
 let currentMode = "selective";
+let selectedDifficulty = "easy";
 
 const startScreen = document.getElementById("startScreen");
 const gameScreen = document.getElementById("gameScreen");
@@ -133,6 +134,7 @@ function toggleSound() {
   if (soundOn) getCtx();
   [soundToggle, soundToggleGame, soundToggleSustained].forEach(btn => {
     btn.textContent = soundOn ? "🔊" : "🔇";
+    btn.setAttribute('aria-label', soundOn ? 'Mute game sounds' : 'Unmute game sounds');
     btn.classList.toggle("muted", !soundOn);
   });
 }
@@ -148,22 +150,31 @@ function showScreen(screen) {
 document.querySelectorAll(".mode-tab").forEach(tab => {
   tab.addEventListener("click", () => {
     currentMode = tab.dataset.mode;
-    document.querySelectorAll(".mode-tab").forEach(t => t.classList.remove("active"));
-    tab.classList.add("active");
-    document.getElementById("selectiveLevels").classList.toggle("hidden", currentMode !== "selective");
-    document.getElementById("sustainedLevels").classList.toggle("hidden", currentMode !== "sustained");
-    document.getElementById("modeInstructions").innerHTML = currentMode === "selective"
-      ? "Find and tap the <b>target shape</b> before it disappears. Difficulty adapts to you as you play!"
-      : "Watch closely! Tap the button <b>only</b> when the target shape appears. Difficulty speeds up as you improve!";
+    document.querySelectorAll(".mode-tab").forEach(t => {
+      const selected = t === tab;
+      t.classList.toggle("active", selected);
+      t.setAttribute("aria-pressed", String(selected));
+    });
+    document.getElementById("modeInstructions").textContent = currentMode === "selective"
+      ? "Find the target before time runs out."
+      : "Tap only when the target appears.";
   });
 });
 
-document.querySelectorAll(".lvl-btn").forEach(btn => {
+document.querySelectorAll(".difficulty-choice").forEach(btn => {
   btn.addEventListener("click", () => {
-    getCtx();
-    if (btn.dataset.mode === "selective") startSelectiveGame(btn.dataset.level);
-    else startSustainedGame(btn.dataset.level);
+    selectedDifficulty = btn.dataset.level;
+    document.querySelectorAll(".difficulty-choice").forEach(choice => {
+      const selected = choice === btn;
+      choice.classList.toggle("active", selected);
+      choice.setAttribute("aria-pressed", String(selected));
+    });
   });
+});
+document.getElementById("playBtn").addEventListener("click", () => {
+  getCtx();
+  if (currentMode === "selective") startSelectiveGame(selectedDifficulty);
+  else startSustainedGame(selectedDifficulty);
 });
 document.getElementById("restartBtn").addEventListener("click", () => showScreen(startScreen));
 document.getElementById("progressBtn").addEventListener("click", () => renderProgressScreen());

@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 540" role="img" aria-labelledby="title description">
+  <title id="title">Inside a typical smartphone</title>
+  <desc id="description">A phone cutaway showing the display, cameras, motherboard, processor, memory, battery, antenna, side buttons, SIM tray, and charging port.</desc>
+  <defs>
+    <linearGradient id="frame" x2="0" y2="1"><stop stop-color="#51647c"/><stop offset="1" stop-color="#202b3b"/></linearGradient>
+    <linearGradient id="battery" x2="0" y2="1"><stop stop-color="#50c8a8"/><stop offset="1" stop-color="#166b63"/></linearGradient>
+    <linearGradient id="glass" x2="0" y2="1"><stop stop-color="#19304a"/><stop offset="1" stop-color="#101b2b"/></linearGradient>
+  </defs>
+  <rect x="48" y="10" width="184" height="520" rx="28" fill="url(#frame)" stroke="#a9c6dd" stroke-width="3"/>
+  <rect x="57" y="22" width="166" height="496" rx="21" fill="#0c1421" stroke="#60758a" stroke-width="2"/>
+  <rect x="65" y="44" width="150" height="448" rx="12" fill="url(#glass)" stroke="#4b91b2" stroke-width="2" opacity=".74"/>
+  <path d="M82 76h116M82 86h74" stroke="#8bdcff" stroke-width="3" stroke-linecap="round" opacity=".65"/>
+  <text x="140" y="112" text-anchor="middle" fill="#bddbea" font-family="sans-serif" font-size="10" font-weight="700">DISPLAY</text>
+  <rect x="80" y="126" width="120" height="136" rx="10" fill="#174b43" stroke="#68dcb5" stroke-width="2"/>
+  <path d="M88 141h104M88 248h104M101 132v121M181 132v121" stroke="#68dcb5" stroke-width="1" opacity=".55"/>
+  <text x="140" y="155" text-anchor="middle" fill="#e2fff4" font-family="sans-serif" font-size="9" font-weight="700">MOTHERBOARD</text>
+  <rect x="112" y="166" width="38" height="34" rx="4" fill="#e4b949" stroke="#fff0a8"/>
+  <text x="131" y="187" text-anchor="middle" fill="#29200b" font-family="sans-serif" font-size="8" font-weight="700">CPU</text>
+  <rect x="158" y="168" width="28" height="18" rx="3" fill="#b77bd0"/>
+  <text x="172" y="180" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="6" font-weight="700">RAM</text>
+  <rect x="158" y="193" width="28" height="18" rx="3" fill="#82a9d1"/>
+  <text x="172" y="205" text-anchor="middle" fill="#101b2b" font-family="sans-serif" font-size="5.5" font-weight="700">STORAGE</text>
+  <rect x="77" y="278" width="126" height="164" rx="12" fill="url(#battery)" stroke="#94f4d6" stroke-width="2"/>
+  <path d="M119 278v-7h42v7" fill="none" stroke="#94f4d6" stroke-width="4"/>
+  <text x="140" y="360" text-anchor="middle" fill="#eafff8" font-family="sans-serif" font-size="13" font-weight="700">BATTERY</text>
+  <text x="140" y="378" text-anchor="middle" fill="#c3f6e8" font-family="sans-serif" font-size="8">Rechargeable cell pack</text>
+  <rect x="75" y="55" width="28" height="38" rx="8" fill="#28394c" stroke="#9db3c7" stroke-width="2"/>
+  <circle cx="89" cy="68" r="6" fill="#111927" stroke="#86dfff" stroke-width="2"/>
+  <circle cx="89" cy="84" r="4" fill="#111927" stroke="#86dfff" stroke-width="2"/>
+  <text x="89" y="103" text-anchor="middle" fill="#bddbea" font-family="sans-serif" font-size="6">CAMERAS</text>
+  <circle cx="140" cy="31" r="4" fill="#101827" stroke="#a9c6dd" stroke-width="2"/>
+  <rect x="119" y="30" width="17" height="3" rx="1.5" fill="#a9c6dd"/>
+  <path d="M59 120h-7m7 8h-7m169 100h7m-7 9h7" stroke="#d2e1ed" stroke-width="3" stroke-linecap="round"/>
+  <rect x="52" y="225" width="6" height="26" rx="2" fill="#90abc0"/>
+  <text x="79" y="239" fill="#bddbea" font-family="sans-serif" font-size="6">SIM TRAY</text>
+  <rect x="85" y="454" width="14" height="8" rx="4" fill="#d7a450"/>
+  <text x="108" y="461" fill="#bddbea" font-family="sans-serif" font-size="6">VIBRATION MOTOR</text>
+  <path d="M119 504h42" stroke="#86dfff" stroke-width="3" stroke-linecap="round"/>
+  <rect x="126" y="520" width="28" height="7" rx="3.5" fill="#111927" stroke="#d1e1ed" stroke-width="1.5"/>
+  <text x="140" y="487" text-anchor="middle" fill="#bddbea" font-family="sans-serif" font-size="7">ANTENNA STRIPS · FRAME</text>
+</svg>

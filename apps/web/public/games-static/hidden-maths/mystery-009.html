@@ -95,7 +95,7 @@
             <div class="step-content">
                 <span class="step-tag">Experiment</span>
                 <h2 class="step-title" id="step3-title">Slice the Circle</h2>
-                <p class="step-desc">Pick the number of blades. The fan will recalculate the exact angle between each blade, the arc length at the rim, and the area of every sector.</p>
+                <p class="step-desc">Pick the number of blades. The fan will show the angle between blade positions, plus the arc length and area of one matching circle sector.</p>
                 <div class="experiment-stage glass" id="experimentStage">
                     <div class="fan-preview">
                         <canvas id="fanCanvas" width="400" height="400"></canvas>
@@ -200,7 +200,7 @@
                     <div class="explanation-card glass" id="explCard2">
                         <div class="expl-number">2</div>
                         <h3>The Sector Angle</h3>
-                        <p>Each blade sits in a sector. For 3 blades, the angle is <strong>120°</strong>. For 5 blades, it is <strong>72°</strong>. Smaller sectors mean more blades but less space for each to push air.</p>
+                        <p>With 3 equally spaced blades, the angle between them is <strong>120°</strong>. With 5 blades, it is <strong>72°</strong>. This angle describes spacing; it does not tell us how much air the fan moves.</p>
                         <div class="expl-visual calc-visual"><span class="calc-text">3 blades = 120°</span></div>
                     </div>
                     <div class="explanation-card glass" id="explCard3">
@@ -212,7 +212,7 @@
                     <div class="explanation-card glass" id="explCard4">
                         <div class="expl-number">4</div>
                         <h3>The Sector Area</h3>
-                        <p>Each blade commands a sector of air. The area is <strong>πr² × (θ ÷ 360)</strong>. More blades = smaller sectors = smoother airflow but less power per blade.</p>
+                        <p>A sector is one slice of the circle in our drawing. Its area is <strong>πr² × (θ ÷ 360)</strong>. Real airflow also depends on blade shape, angle, and speed.</p>
                         <div class="expl-visual calc-visual"><span class="calc-text">Area = πr² × θ/360</span></div>
                     </div>
                 </div>
@@ -225,9 +225,9 @@
                 <h2 class="step-title" id="step7-title">Where Else Is the Sector Hiding?</h2>
                 <p class="step-desc">Dividing a circle into equal sectors is one of geometry's oldest jobs. It appears everywhere rotation meets structure.</p>
                 <div class="apps-grid">
-                    <div class="app-card glass"><div class="app-icon">🌻</div><h3>Flower Petals</h3><p>Many flowers arrange seeds in sectors following the golden angle. The pattern is a spiral sector division — same geometry as the fan.</p></div>
+                    <div class="app-card glass"><div class="app-icon">🌻</div><h3>Sunflower Seeds</h3><p>Sunflower seeds often form spiral patterns. Neighbouring seeds are placed at an angle of about 137.5° called the golden angle, not equal sectors.</p></div>
                     <div class="app-card glass"><div class="app-icon">🍕</div><h3>Pizza Slices</h3><p>Cutting a pizza into 8 slices is exactly 360° ÷ 8 = 45° per sector. Every slice is a congruent sector — same math, same formula.</p></div>
-                    <div class="app-card glass"><div class="app-icon">⚙️</div><h3>Gears</h3><p>Gear teeth are spaced in equal sectors around the pitch circle. The tooth spacing angle determines how smoothly the gear meshes.</p></div>
+                    <div class="app-card glass"><div class="app-icon">⚙️</div><h3>Gears</h3><p>Gear teeth repeat evenly around a circle. Their size and spacing must match the gear they connect to so the teeth can mesh.</p></div>
                     <div class="app-card glass"><div class="app-icon">🎡</div><h3>Ferris Wheel</h3><p>Each gondola is spaced at equal sector angles. The arc length between seats is calculated the same way as the fan blade spacing.</p></div>
                     <div class="app-card glass"><div class="app-icon">🕐</div><h3>Clock Face</h3><p>Each hour mark is 30° apart. The clock is a circle divided into 12 equal sectors — 360° ÷ 12 = 30°. Same formula as the fan.</p></div>
                     <div class="app-card glass"><div class="app-icon">🎯</div><h3>Dartboard</h3><p>A dartboard has 20 equal sectors. Each scoring region is 18° wide. The geometry is identical to a 20-blade fan.</p></div>

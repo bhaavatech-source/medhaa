@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useLoginForm } from './hooks/useLoginForm';
+import { GoogleSignIn } from '../components/GoogleSignIn';
 import '../styles/parent-login.css';
 import medhaaIcon from '../assets/logo/medhaa-icon.svg';
 import { useState } from 'react';
@@ -92,6 +93,9 @@ export function ParentLoginPage() {
             {loading ? 'Signing in…' : 'Log In'}
           </button>
         </form>
+
+        <div className="parent-login-divider"><span>or</span></div>
+        <GoogleSignIn role="parent" redirectTo="/parent-dashboard" />
 
         <div style={{ textAlign: 'center', marginTop: '14px' }}>
           <Link to="/forgot-password" style={{ color: '#2869eb', textDecoration: 'none', fontSize: '14px', fontWeight: 600 }}>

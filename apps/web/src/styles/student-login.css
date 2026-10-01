@@ -3,17 +3,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #0f0e1a, #1a1630);
-  font-family: 'Poppins', 'Inter', sans-serif;
-  padding: 20px;
+  background: linear-gradient(150deg, #edf5f3, #f3f6f6 55%, #fff3e9);
+  font-family: 'Trebuchet MS', sans-serif;
+  padding: 24px 16px;
 }
 
 .student-login-card {
   background: #fff;
-  border-radius: 20px;
-  padding: 2.5rem 2rem;
-  width: 380px;
-  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.35);
+  border: 1px solid #d9e7e4;
+  border-radius: 8px;
+  padding: 36px 28px;
+  width: min(420px, 100%);
+  box-shadow: 0 20px 48px rgba(25, 64, 65, .10);
   text-align: center;
 }
 
@@ -21,7 +22,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 .student-login-logo {
@@ -32,7 +33,7 @@
 .student-login-brand h1 {
   margin: 0;
   color: #01696f;
-  font-size: 1.6rem;
+  font-size: 1.75rem;
 }
 
 .student-login-gate-msg {
@@ -47,9 +48,9 @@
 }
 
 .student-login-sub {
-  color: #888;
-  font-size: 0.85rem;
-  margin-bottom: 18px;
+  color: #526c6b;
+  font-size: .94rem;
+  margin-bottom: 24px;
 }
 
 .student-login-form {
@@ -59,21 +60,24 @@
 }
 
 .student-login-form label {
-  font-size: 0.8rem;
+  font-size: .86rem;
   font-weight: 600;
-  color: #333;
-  margin-bottom: 4px;
+  color: #28494a;
+  margin-bottom: 7px;
 }
 
 .student-login-form input,
 .student-login-form select {
-  padding: 10px 12px;
-  border: 1.5px solid #ddd;
-  border-radius: 8px;
-  font-size: 1rem;
-  margin-bottom: 12px;
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 14px;
+  border: 1px solid #cedbd8;
+  border-radius: 6px;
+  font: inherit;
+  margin-bottom: 18px;
   outline: none;
 }
+.student-login-form input:focus-visible { border-color: #157e79; box-shadow: 0 0 0 3px rgba(21,126,121,.14); }
 
 .student-login-error {
   color: #a12c7b;
@@ -82,12 +86,12 @@
 }
 
 .student-login-btn-primary {
-  padding: 12px;
-  background: #01696f;
+  min-height: 48px;
+  background: #087b77;
   color: #fff;
   border: none;
-  border-radius: 8px;
-  font-size: 0.95rem;
+  border-radius: 6px;
+  font: inherit;
   font-weight: 700;
   cursor: pointer;
 }
@@ -101,8 +105,8 @@
   display: flex;
   align-items: center;
   text-align: center;
-  color: #ccc;
-  font-size: 0.75rem;
+  color: #667c7c;
+  font-size: .85rem;
   margin: 18px 0;
 }
 
@@ -110,7 +114,7 @@
 .student-login-divider::after {
   content: '';
   flex: 1;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #dce8e5;
 }
 
 .student-login-divider span {
@@ -146,15 +150,22 @@
 }
 
 .student-login-help {
-  font-size: 0.7rem;
-  color: #ccc;
+  font-size: .83rem;
+  color: #566c6c;
   margin-top: 16px;
 }
+.student-login-help a { color: #087b77; }
+.student-login-forgot { text-align: right; margin-top: 10px; }
+.student-login-forgot a { color: #087b77 !important; }
 
 
 .student-login-logo img {
-  width: 48px;
-  height: 48px;
+  width: 56px;
+  height: 56px;
   object-fit: contain;
   display: block;
+}
+
+@media (max-width: 480px) {
+  .student-login-card { padding: 30px 20px; }
 }

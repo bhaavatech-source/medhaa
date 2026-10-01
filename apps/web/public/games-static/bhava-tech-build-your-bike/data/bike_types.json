@@ -1,10 +1,10 @@
 {
   "single_speed": {
-    "name": "Single Speed Bicycle",
+    "name": "Single Speed Cycle",
     "levels": {
       "1": {
         "label": "Level 1 \u2014 Just Movable",
-        "description": "Minimum parts needed to make the bike roll and move.",
+        "description": "Minimum parts needed to make the cycle roll and move.",
         "requiredSlots": [
           "frame",
           "fork",
@@ -92,11 +92,11 @@
     "difficulty": 1
   },
   "geared": {
-    "name": "Geared Bicycle",
+    "name": "Geared Cycle",
     "levels": {
       "1": {
         "label": "Level 1 \u2014 Just Movable",
-        "description": "Minimum parts for a movable bicycle with basic gearing.",
+        "description": "Minimum parts for a movable cycle with basic gearing.",
         "requiredSlots": [
           "frame",
           "fork",
@@ -113,7 +113,7 @@
       },
       "2": {
         "label": "Level 2 \u2014 Fully Featured",
-        "description": "Complete geared bicycle with shifting and braking systems.",
+        "description": "Complete geared cycle with shifting and braking systems.",
         "requiredSlots": [
           "frame",
           "fork",
@@ -194,11 +194,11 @@
     "difficulty": 2
   },
   "mountain": {
-    "name": "Mountain Bike",
+    "name": "Mountain Cycle",
     "levels": {
       "1": {
         "label": "Level 1 \u2014 Just Movable",
-        "description": "Basic off-road capable bike, minimum parts.",
+        "description": "Basic off-road capable cycle, minimum parts.",
         "requiredSlots": [
           "frame",
           "fork_suspension",
@@ -216,7 +216,7 @@
       },
       "2": {
         "label": "Level 2 \u2014 Fully Featured",
-        "description": "Full trail-ready bike with disc brakes and suspension.",
+        "description": "Full trail-ready cycle with disc brakes and suspension.",
         "requiredSlots": [
           "frame",
           "fork_suspension",
@@ -295,11 +295,11 @@
     "difficulty": 3
   },
   "road": {
-    "name": "Road Bike",
+    "name": "Road Cycle",
     "levels": {
       "1": {
         "label": "Level 1 \u2014 Just Movable",
-        "description": "Lightweight minimum-parts road bike.",
+        "description": "Lightweight minimum-parts road cycle.",
         "requiredSlots": [
           "frame_carbon_ok",
           "fork_rigid",
@@ -316,7 +316,7 @@
       },
       "2": {
         "label": "Level 2 \u2014 Fully Featured",
-        "description": "Complete road bike with drop bars and gearing.",
+        "description": "Complete road cycle with drop bars and gearing.",
         "requiredSlots": [
           "frame_carbon_ok",
           "fork_rigid",
@@ -464,11 +464,11 @@
     "difficulty": 2
   },
   "electric": {
-    "name": "Electric Bike",
+    "name": "Electric Cycle",
     "levels": {
       "1": {
         "label": "Level 1 \u2014 Just Movable",
-        "description": "Minimum electric-assist bike that can move.",
+        "description": "Minimum electric-assist cycle that can move.",
         "requiredSlots": [
           "frame_reinforced",
           "fork",
@@ -487,7 +487,7 @@
       },
       "2": {
         "label": "Level 2 \u2014 Fully Featured",
-        "description": "Full e-bike with gearing, brakes, display.",
+        "description": "Full electric cycle with gearing, brakes, display.",
         "requiredSlots": [
           "frame_reinforced",
           "fork",

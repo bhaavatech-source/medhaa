@@ -6,6 +6,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { z } from 'zod';
 import { PrismaClient } from '@prisma/client';
+import { OAuth2Client } from 'google-auth-library';
 import { sendPasswordResetEmail } from '../utils/mail';
 
 const prisma = new PrismaClient();
@@ -13,6 +14,8 @@ const router = Router();
 
 const ACCESS_SECRET = process.env.JWT_ACCESS_SECRET as string;
 const REFRESH_SECRET = process.env.JWT_REFRESH_SECRET as string;
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+const googleClient = new OAuth2Client();
 const TRIAL_DAYS = 15;
 
 const registerSchema = z.object({
@@ -131,6 +134,69 @@ router.post('/login', async (req: Request, res: Response) => {
   const refreshToken = jwt.sign({ id: user.id }, REFRESH_SECRET, { expiresIn: '30d' });
 
   res.json({ accessToken, refreshToken });
+});
+
+const googleLoginSchema = z.object({
+  credential: z.string().min(1),
+  role: z.enum(['student', 'parent']),
+});
+
+router.post('/google', async (req: Request, res: Response) => {
+  if (!GOOGLE_CLIENT_ID) {
+    res.status(503).json({ error: 'Google sign-in is not configured.' });
+    return;
+  }
+  const parsed = googleLoginSchema.safeParse(req.body);
+  if (!parsed.success) {
+    res.status(400).json({ error: 'Invalid Google sign-in request.' });
+    return;
+  }
+
+  try {
+    const ticket = await googleClient.verifyIdToken({ idToken: parsed.data.credential, audience: GOOGLE_CLIENT_ID });
+    const profile = ticket.getPayload();
+    if (!profile?.sub || !profile.email || profile.email_verified !== true) {
+      res.status(401).json({ error: 'Google could not verify this email address.' });
+      return;
+    }
+
+    const email = profile.email.toLowerCase().trim();
+    const role = parsed.data.role.toUpperCase() as 'STUDENT' | 'PARENT';
+    let user = await prisma.user.findUnique({ where: { googleId: profile.sub } })
+        ?? await prisma.user.findFirst({ where: { email: { equals: email, mode: 'insensitive' } } });
+    if (user) {
+      if (!user.isActive) {
+        res.status(403).json({ error: 'This account has been disabled. Contact support for help.' });
+        return;
+      }
+      if (user.role !== role) {
+        res.status(403).json({ error: `This account is registered as a ${user.role.toLowerCase()}. Please use the ${user.role.toLowerCase()} login instead.` });
+        return;
+      }
+      if (user.googleId && user.googleId !== profile.sub) {
+        res.status(409).json({ error: 'This account is linked to a different Google account.' });
+        return;
+      }
+      user = await prisma.user.update({ where: { id: user.id }, data: { googleId: profile.sub, lastLoginAt: new Date() } });
+    } else {
+      const trialEndsAt = new Date(Date.now() + TRIAL_DAYS * 24 * 60 * 60 * 1000);
+      const fullName = profile.name?.trim() || email.split('@')[0];
+      user = await prisma.user.create({
+        data: {
+          email, googleId: profile.sub, role, passwordHash: null,
+          subscription: { create: { plan: 'PREMIUM', status: 'TRIALING', trialEndsAt } },
+          ...(role === 'STUDENT' ? { student: { create: { fullName } } } : { parent: { create: { fullName } } }),
+        },
+      });
+    }
+
+    const accessToken = jwt.sign({ id: user.id, email: user.email, role: user.role.toLowerCase() }, ACCESS_SECRET, { expiresIn: '15m' });
+    const refreshToken = jwt.sign({ id: user.id }, REFRESH_SECRET, { expiresIn: '30d' });
+    res.json({ accessToken, refreshToken });
+  } catch (error) {
+    console.error('[AUTH] Google sign-in failed:', error);
+    res.status(401).json({ error: 'Google sign-in failed. Please try again.' });
+  }
 });
 
 router.post('/refresh', async (req: Request, res: Response) => {

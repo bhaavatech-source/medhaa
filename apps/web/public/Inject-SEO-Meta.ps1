@@ -383,11 +383,11 @@ $games = @(
         Schema = '{"@context": "https://schema.org", "@type": "LearningResource", "name": "Grammar Galaxy", "description": "A leveled English grammar curriculum wrapped in a space theme.", "url": "https://medhaa.net/games-static/grammar-galaxy.html", "learningResourceType": "Educational Game", "teaches": ["Grammar Fundamentals", "Sentence Construction", "Vocabulary"], "typicalAgeRange": "5-10", "isAccessibleForFree": true, "provider": {"@type": "Organization", "name": "Bhava Tech", "url": "https://medhaa.net"}}'
     },
     @{
-        Path = 'games-static\Grammar-Pro.html'
+        Path = 'games-static\grammar-pro.html'
         Title = "Daily English – Language Learning Game for Kids | Medhaa"
         Desc = "A live, daily English challenge covering everything from basic parts of speech up through advanced grammar. Free game for ages 11-17 on Medhaa."
-        Canonical = 'https://medhaa.net/games-static/Grammar-Pro.html'
-        Schema = '{"@context": "https://schema.org", "@type": "LearningResource", "name": "Daily English", "description": "A live, daily English challenge covering everything from basic parts of speech up through advanced grammar.", "url": "https://medhaa.net/games-static/Grammar-Pro.html", "learningResourceType": "Educational Game", "teaches": ["Grammar Mastery", "Sentence Analysis", "Daily Practice Habit"], "typicalAgeRange": "11-17", "isAccessibleForFree": true, "provider": {"@type": "Organization", "name": "Bhava Tech", "url": "https://medhaa.net"}}'
+        Canonical = 'https://medhaa.net/games-static/grammar-pro.html'
+        Schema = '{"@context": "https://schema.org", "@type": "LearningResource", "name": "Daily English", "description": "A live, daily English challenge covering everything from basic parts of speech up through advanced grammar.", "url": "https://medhaa.net/games-static/grammar-pro.html", "learningResourceType": "Educational Game", "teaches": ["Grammar Mastery", "Sentence Analysis", "Daily Practice Habit"], "typicalAgeRange": "11-17", "isAccessibleForFree": true, "provider": {"@type": "Organization", "name": "Bhava Tech", "url": "https://medhaa.net"}}'
     },
     @{
         Path = 'games-static\google-search-lab-deep-v2.html'

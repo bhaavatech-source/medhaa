@@ -1,23 +1,23 @@
 <!doctype html>
-<html lang="en" data-bhava-mobile="nudge">
+<html lang="en" data-bhava-mobile="off">
 <head>
 <!-- MEDHAA-SEO-EXTRA-INJECTED -->
 <meta property="og:image" content="https://medhaa.net/medha_logo_transparent.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://medhaa.net/medha_logo_transparent.png">
 <script type="application/ld+json">
-{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What age group is Bike Builder designed for?", "acceptedAnswer": {"@type": "Answer", "text": "Bike Builder is designed for children aged 11 to 17 and focuses on Mechanical Thinking, Systems Knowledge, Attention to Detail."}}, {"@type": "Question", "name": "Is Bike Builder free to play?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, Bike Builder is free to play on Medhaa as part of the STEM Engineering game collection."}}, {"@type": "Question", "name": "What skills does Bike Builder help build?", "acceptedAnswer": {"@type": "Answer", "text": "Bike Builder helps build Mechanical Thinking, Systems Knowledge, Attention to Detail through interactive, game-based practice."}}]}
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What age group is Motorcycle Workshop designed for?", "acceptedAnswer": {"@type": "Answer", "text": "Motorcycle Workshop is designed for children aged 11 to 17 and focuses on Mechanical Thinking, Systems Knowledge, Attention to Detail."}}, {"@type": "Question", "name": "Is Motorcycle Workshop free to play?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, Motorcycle Workshop is free to play on Medhaa as part of the STEM Engineering game collection."}}, {"@type": "Question", "name": "What skills does Motorcycle Workshop help build?", "acceptedAnswer": {"@type": "Answer", "text": "Motorcycle Workshop helps build Mechanical Thinking, Systems Knowledge, Attention to Detail through interactive, game-based practice."}}]}
 </script>
 
 <!-- MEDHAA-SEO-INJECTED -->
-<title>Bike Builder – STEM Engineering Game for Kids | Medhaa</title>
+<title>Motorcycle Workshop – STEM Engineering Game for Kids | Medhaa</title>
 <meta name="description" content="Explore two full motorcycle builds, a Sport bike and a Scooter, labeling and understanding 18 real parts each. Free game for ages 11-17 on Medhaa.">
-<meta property="og:title" content="Bike Builder – STEM Engineering Game for Kids | Medhaa">
+<meta property="og:title" content="Motorcycle Workshop – STEM Engineering Game for Kids | Medhaa">
 <meta property="og:description" content="Explore two full motorcycle builds, a Sport bike and a Scooter, labeling and understanding 18 real parts each. Free game for ages 11-17 on Medhaa.">
 <meta property="og:url" content="https://medhaa.net/games-static/motorcycle-one-workshop.html">
 <link rel="canonical" href="https://medhaa.net/games-static/motorcycle-one-workshop.html">
 <script type="application/ld+json">
-{"@context": "https://schema.org", "@type": "LearningResource", "name": "Bike Builder", "description": "Explore two full motorcycle builds, a Sport bike and a Scooter, labeling and understanding 18 real parts each.", "url": "https://medhaa.net/games-static/motorcycle-one-workshop.html", "learningResourceType": "Educational Game", "teaches": ["Mechanical Thinking", "Systems Knowledge", "Attention to Detail"], "typicalAgeRange": "11-17", "isAccessibleForFree": true, "provider": {"@type": "Organization", "name": "Bhava Tech", "url": "https://medhaa.net"}}
+{"@context": "https://schema.org", "@type": "LearningResource", "name": "Motorcycle Workshop", "description": "Explore two full motorcycle builds, a Sport bike and a Scooter, labeling and understanding 18 real parts each.", "url": "https://medhaa.net/games-static/motorcycle-one-workshop.html", "learningResourceType": "Educational Game", "teaches": ["Mechanical Thinking", "Systems Knowledge", "Attention to Detail"], "typicalAgeRange": "11-17", "isAccessibleForFree": true, "provider": {"@type": "Organization", "name": "Bhava Tech", "url": "https://medhaa.net"}}
 </script>
 
 <meta charset="utf-8">
@@ -49,12 +49,17 @@ button:disabled{opacity:0.5;cursor:not-allowed;border-color:var(--line)}
 .panel h2{font-size:18px;margin:0 0 12px}
 .levels button{width:100%;text-align:left;margin-bottom:7px}
 .levels .active{border-color:var(--cyan);background:#17384f}
-.tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
-.tab{font-size:11px;padding:6px}
+.tabs{display:flex;flex-wrap:nowrap;gap:6px;margin:12px 0;overflow-x:auto;scrollbar-width:thin;padding-bottom:6px}
+.tab{flex:0 0 auto;white-space:nowrap;font-size:11px;padding:6px;min-height:36px}
 .tab.active{background:var(--cyan);color:#041019}
-.part{margin:7px 0;padding:10px;border:1px solid var(--line);border-radius:11px;background:#0b1326;cursor:pointer;touch-action:manipulation;position:relative}
+.part{display:block;width:100%;margin:7px 0;padding:10px;border:1px solid var(--line);border-radius:8px;background:#0b1326;color:var(--text);text-align:left;cursor:pointer;touch-action:manipulation;position:relative}
 .part small{display:block;color:var(--muted);margin-top:3px}
 .part.selected{border:2px solid var(--gold);background:#3a2c14;box-shadow:0 0 17px #ffdc6670}
+.part.installed{border-color:var(--green);background:#15392d}
+.part.selected small{color:var(--gold)}
+.part.installed small{color:var(--green)}
+.workshop-options{margin-top:14px;border-top:1px solid var(--line);padding-top:10px}
+.workshop-options summary{cursor:pointer;font-weight:700;color:var(--cyan);padding:9px 0}
 .part.locked{opacity:0.6;filter:grayscale(1)}
 .part.locked::after{content:'🔒 Lvl 3';position:absolute;right:10px;top:10px;font-size:10px;color:var(--red)}
 .style-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;max-height:150px;overflow-y:auto;padding-right:5px;}
@@ -72,11 +77,11 @@ button:disabled{opacity:0.5;cursor:not-allowed;border-color:var(--line)}
 .workhead button{font-size:11px;padding:7px}
 .guide{padding:10px 12px;background:#10304c;border:1px solid var(--cyan);border-radius:10px;color:#e9f8ff;margin-bottom:10px}
 .guide b{color:var(--gold)}
-.bikebox{height:540px;position:relative;overflow:hidden;border-radius:15px;background:linear-gradient(#18304f,#0b1223 55%,#222c36 56%);border:1px solid var(--line)}
+.bikebox{height:540px;position:relative;overflow:hidden;border-radius:8px;background:linear-gradient(180deg,#234660,#182b41 70%,#263b43);border:1px solid var(--line)}
 .workspace-panel .bikebox{height:var(--bhava-workspace-height,540px)}
 .bikebox:after{content:'';position:absolute;bottom:18%;left:0;right:0;height:4px;background:repeating-linear-gradient(90deg,#ffe383 0 34px,transparent 34px 64px);opacity:.6}
 .bike{position:absolute;width:96%;left:2%;top:15%;height:66%;z-index:2}
-.base{opacity:.32}
+.base{opacity:.58}
 .layer{opacity:0;transform:scale(.65);transform-origin:center;}
 .layer.on{animation: popPart 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;}
 @keyframes popPart { 0% { opacity: 0; transform: scale(0.5); } 60% { opacity: 1; transform: scale(1.1); } 100% { opacity: 1; transform: scale(1); } }
@@ -85,6 +90,14 @@ button:disabled{opacity:0.5;cursor:not-allowed;border-color:var(--line)}
 .slot.good{border-style:solid;border-color:var(--green);background:#123c31eF}
 .slot.target{border-color:var(--gold);background:#493b14;box-shadow:0 0 21px #ffdc66aa;animation:pulse .85s infinite}
 .slot.bad{border-color:var(--red);animation:shake .35s}
+.install-targets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}
+.install-target{min-width:0;min-height:58px;padding:8px 10px;text-align:left;border:1px dashed #6d829a;background:#101c30;color:var(--text);overflow-wrap:anywhere}
+.install-target b,.install-target small{display:block}
+.install-target small{margin-top:4px;font-size:11px;color:var(--muted)}
+.install-target.target{border:2px solid var(--gold);background:#483c1b}
+.install-target.target small{color:var(--gold)}
+.install-target.good{border:2px solid var(--green);background:#15392d}
+.install-target.good small{color:var(--green)}
 .hint{position:absolute;top:9px;left:50%;transform:translateX(-50%);z-index:8;white-space:nowrap;max-width:85%;overflow:hidden;text-overflow:ellipsis;background:#071321df;border:1px solid #416c8c;border-radius:16px;padding:6px 11px;font-size:12px}
 @keyframes pulse{50%{transform:scale(1.05)}}
 @keyframes shake{25%{translate:-4px}75%{translate:4px}}
@@ -114,6 +127,7 @@ button:disabled{opacity:0.5;cursor:not-allowed;border-color:var(--line)}
 .dot { position: absolute; width: 20px; height: 20px; border-radius: 50%; background: var(--cyan); color: #020b14; font-size: 10px; font-weight: bold; border: 2px solid #fff; cursor: pointer; transform: translate(-50%, -50%); display: flex; align-items: center; justify-content: center; z-index: 10; box-shadow: 0 0 6px #000a; transition: 0.2s; }
 .dot:hover, .dot.active { background: var(--gold); border-color: var(--cyan); transform: translate(-50%, -50%) scale(1.3); z-index: 15; }
 @media(max-width:1050px){.layout{grid-template-columns:1fr}.layout>aside.panel:last-child{display:none}.bikebox{height:500px}.homegrid{grid-template-columns:repeat(2,1fr)}.anatomy-container{grid-template-columns:1fr}}
+@media(max-width:1050px){.layout>aside.panel:first-child{max-height:310px;overflow-y:auto}}
 @media(max-width:600px){
     header{padding:0 10px;}
     .brand{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:13px;}
@@ -127,7 +141,8 @@ button:disabled{opacity:0.5;cursor:not-allowed;border-color:var(--line)}
     .layout>aside.panel:first-child .levels button{margin:0;padding:8px 10px;font-size:12px;}
     .layout>aside.panel:first-child #parts{max-height:190px;overflow-y:auto;}
     .layout>aside.panel:first-child .part{margin:5px 0;padding:8px;font-size:12px;}
-    .bikebox{height:415px}
+    .bikebox{height:320px}
+    .install-targets{grid-template-columns:repeat(2,minmax(0,1fr));}
     .workhead{align-items:flex-start}
     .workhead>b{flex:1 1 100%;}
     .workhead>span{width:100%;}
@@ -160,19 +175,22 @@ button:disabled{opacity:0.5;cursor:not-allowed;border-color:var(--line)}
     <div class="layout build-layout">
         <aside class="panel palette-panel">
             <h2>Parts Tray</h2>
-            <div class="levels">
-                <button class="active" onclick="setLevel(1,this)">L1 · Essential Build</button>
-                <button onclick="setLevel(2,this)">L2 · Feature Builder</button>
-                <button onclick="setLevel(3,this)">L3 · Smart Mechanic (200 XP)</button>
-            </div>
-            <h3>Choose model</h3><div id="models" class="style-grid"></div>
-            <h3>Paint colour <small id="paintLock" class="muted"></small></h3><div id="paints" class="paints"></div>
             <div id="tabs" class="tabs"></div>
             <div id="parts"></div>
+            <details class="workshop-options">
+                <summary>Model, level &amp; paint</summary>
+                <div class="levels">
+                    <button class="active" onclick="setLevel(1,this)">L1 · Essential Build</button>
+                    <button onclick="setLevel(2,this)">L2 · Feature Builder</button>
+                    <button onclick="setLevel(3,this)">L3 · Smart Mechanic (200 XP)</button>
+                </div>
+                <h3>Choose model</h3><div id="models" class="style-grid"></div>
+                <h3>Paint colour <small id="paintLock" class="muted"></small></h3><div id="paints" class="paints"></div>
+            </details>
         </aside>
         <section class="panel workspace-panel">
             <div class="workhead"><b id="title"></b><span><button onclick="reset()">Reset</button><button onclick="check()">Check</button><button class="primary" onclick="roadTest()">Start Engine</button><button onclick="go('home')">Home</button></span></div>
-            <div class="guide" id="guide">Tap a part, then tap its glowing label directly on the bike.</div>
+            <div class="guide" id="guide">Choose a part, then tap its installation point below the motorcycle.</div>
             
             <div class="bikebox" id="bikebox">
                 <!-- SVG 1: SPORTBIKE -->
@@ -184,6 +202,7 @@ button:disabled{opacity:0.5;cursor:not-allowed;border-color:var(--line)}
                         <path d="M220 120 L150 285" stroke="#3a4b66" stroke-width="16" stroke-linecap="round"/>
                         <path d="M420 200 L465 285" stroke="#3a4b66" stroke-width="14" stroke-linecap="round"/>
                     </g>
+                    <g id="v-Sport-Frame" class="layer"><path d="M220 120 L320 220 L420 200 L450 280 L220 280 Z M220 120 L150 285 M420 200 L465 285" fill="none" stroke="#4ef1bf" stroke-width="14" stroke-linejoin="round" stroke-linecap="round"/></g>
                     <g id="v-Sport-Engine" class="layer">
                         <rect x="250" y="190" width="110" height="85" rx="10" fill="#4a5568" stroke="#a0aec0" stroke-width="3"/>
                         <path d="M250 210 h110 M250 230 h110 M250 250 h110" stroke="#2d3748" stroke-width="4"/>
@@ -234,6 +253,7 @@ button:disabled{opacity:0.5;cursor:not-allowed;border-color:var(--line)}
                         <path d="M190 230 L210 170" stroke="#3a4b66" stroke-width="12"/>
                     </g>
                     
+                    <g id="v-Scooter-Frame" class="layer"><path d="M220 130 L190 230 L220 295 L340 295 L400 230 L450 230 M220 130 L160 295 M190 230 L210 170" fill="none" stroke="#4ef1bf" stroke-width="14" stroke-linejoin="round" stroke-linecap="round"/></g>
                     <g id="v-Scooter-Engine" class="layer">
                         <rect x="360" y="240" width="70" height="50" rx="8" fill="#4a5568" stroke="#a0aec0" stroke-width="3"/>
                         <circle cx="395" cy="265" r="15" fill="#718096"/>
@@ -313,9 +333,8 @@ button:disabled{opacity:0.5;cursor:not-allowed;border-color:var(--line)}
                     <g id="v-Scooter-Indicators" class="layer"><circle cx="178" cy="125" r="6" fill="#ffb347"/><circle cx="225" cy="135" r="6" fill="#ffb347"/></g>
                 </svg>
                 
-                <div id="hint" class="hint">Choose a component card</div>
-                <div id="slots"></div>
             </div>
+            <div id="installTargets" class="install-targets" aria-label="Motorcycle installation points"></div>
         </section>
         <aside class="panel diagnostics-panel">
             <h2>Diagnostics</h2><div id="diag" class="diag"></div><hr><p class="muted">A real engineer checks that engine power, cooling, brakes and transmission work together.</p>
@@ -515,9 +534,6 @@ let currentTab = 'Frame';
 const required=['Frame','Engine','Battery','FuelSystem','Transmission','FinalDrive','Wheels','Brakes','Suspension','Controls','Cooling','Lights','SmartDash','Storage','CrashGuard','Exhaust','Seat','Mirrors','Horn','Indicators'];
 
 // 🌟 NEW: DUAL COORDINATE SYSTEM FOR THE 2 SVGS
-const posSport = {Frame:'10%,46%',Engine:'46%,48%',Battery:'71%,43%',FuelSystem:'46%,18%',Transmission:'64%,58%',FinalDrive:'78%,70%',Wheels:'4%,73%',Brakes:'80%,82%',Suspension:'21%,65%',Controls:'18%,13%',Cooling:'32%,40%',Lights:'13%,10%',SmartDash:'28%,8%',Storage:'74%,25%',QuickShifter:'62%,69%',CrashGuard:'38%,79%',Exhaust:'76%,54%',Seat:'63%,24%',Mirrors:'25%,4%',Horn:'52%,56%',Indicators:'34%,21%'};
-const posScooter = {Frame:'35%,55%',Engine:'62%,64%',Battery:'48%,40%',FuelSystem:'38%,65%',Transmission:'55%,66%',FinalDrive:'73%,75%',Wheels:'10%,75%',Brakes:'75%,82%',Suspension:'25%,60%',Controls:'20%,15%',Cooling:'73%,60%',Lights:'18%,22%',SmartDash:'25%,10%',Storage:'55%,45%',QuickShifter:'-100%,-100%',CrashGuard:'38%,79%',Exhaust:'72%,80%',Seat:'55%,32%',Mirrors:'25%,4%',Horn:'58%,57%',Indicators:'34%,25%'};
-
 function go(id){document.querySelectorAll('.screen').forEach(e=>e.classList.remove('active'));document.getElementById(id).classList.add('active')}
 function start(t){type=t;level=1;model=0;installed={};selected=null;currentTab='Frame';go('build');render()}
 
@@ -534,11 +550,10 @@ function setLevel(n,b){
 }
 
 function available(){let a=parts.filter(p=>p[2]===type||p[2]==='both');if(level===1)a=a.filter(p=>required.includes(p[0]));return a}
+function slotLabel(slot){return slot.replace(/([a-z])([A-Z])/g,'$1 $2')}
 
 function render(){
     let a=available(),groups=[...new Set(a.map(p=>p[0]))],m=models[type][model];
-    let currentPos = (type === 'Sport') ? posSport : posScooter;
-    
     // Toggle active SVG display
     document.getElementById('bike-Sport').style.display = type === 'Sport' ? 'block' : 'none';
     document.getElementById('bike-Scooter').style.display = type === 'Scooter' ? 'block' : 'none';
@@ -558,18 +573,14 @@ function render(){
         return `<button class="paint ${c===paintColor?'active':''} ${locked?'locked':''}" style="background:${c}" onclick="${locked?'playSound(\'error\')':'paintColor=\''+c+'\'; playSound(\'click\'); render()'}"></button>`;
     }).join('');
     
-    document.getElementById('tabs').innerHTML=groups.map(g=>'<button class="tab '+(g===tab?'active':'')+'" onclick="currentTab=\''+g+'\'; selected=null; render()">'+g+'</button>').join('');
+    document.getElementById('tabs').innerHTML=groups.map(g=>'<button class="tab '+(g===tab?'active':'')+'" onclick="currentTab=\''+g+'\'; selected=null; render()">'+slotLabel(g)+'</button>').join('');
     
     let show=a.filter(p=>p[0]===tab);
-    document.getElementById('parts').innerHTML=show.map(p=>'<div class="part '+(p===selected?'selected':'')+'" onclick="choose('+parts.indexOf(p)+')"><b>🧩 '+p[1]+'</b><small>'+p[0]+' component</small></div>').join('');
+    document.getElementById('parts').innerHTML=show.map(p=>'<button type="button" class="part '+(p===selected?'selected':installed[p[0]]===p?'installed':'')+'" onclick="choose('+parts.indexOf(p)+')"><b>'+p[1]+'</b><small>'+(p===selected?'Selected':installed[p[0]]===p?'✓ Installed':'Choose '+slotLabel(p[0]))+'</small></button>').join('');
     
-    document.getElementById('slots').innerHTML=groups.map(k=>{
-        let coord = currentPos[k];
-        if(!coord) return '';
-        let q=coord.split(',');
-        const left = q[0].endsWith('%') ? 'clamp(6px,'+q[0]+',calc(100% - 96px))' : q[0];
-        return '<div class="slot '+(installed[k]?'good':selected?.[0]===k?'target':'')+'" style="left:'+left+';top:'+q[1]+'" onclick="install(\''+k+'\')"><b>'+k+'</b><small>'+(installed[k]?installed[k][1]:selected?.[0]===k?'TAP TO INSTALL':'')+'</small></div>'
-    }).join('');
+    document.getElementById('installTargets').innerHTML=groups.map(k=>
+        '<button type="button" class="install-target '+(installed[k]?'good':selected?.[0]===k?'target':'')+'" onclick="install(\''+k+'\')"><b>'+slotLabel(k)+'</b><small>'+(installed[k]?'✓ Installed: '+installed[k][1]:selected?.[0]===k?'Tap to install':'Not installed')+'</small></button>'
+    ).join('');
     
     document.querySelectorAll('.paintable').forEach(e=>e.setAttribute('fill',paintColor));
     
@@ -582,8 +593,7 @@ function render(){
         if(el) el.classList.add('on');
     });
     
-    document.getElementById('hint').textContent=selected?'Selected: '+selected[1]+' — tap '+selected[0]:'Choose a component card';
-    document.getElementById('guide').innerHTML=selected?'🧩 <b>'+selected[1]+'</b> selected. Now tap the glowing <b>'+selected[0]+'</b> label on the real bike.':'👆 <b>Easy build:</b> Tap a card, then tap its glowing label directly on the bike.';
+    document.getElementById('guide').innerHTML=selected?'<b>'+selected[1]+'</b> selected. Tap the highlighted <b>'+slotLabel(selected[0])+'</b> installation point below.':'Choose a part from the tray, then tap its installation point below the motorcycle.';
     diagnose()
 }
 

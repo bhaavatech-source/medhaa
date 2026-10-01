@@ -6,9 +6,6 @@
 @keyframes shimmerSun{0%{transform:translateX(-10%);}100%{transform:translateX(110%);}}
 @keyframes floatUpDown{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
 @keyframes pulseGlow{0%,100%{box-shadow:0 0 0 rgba(79,209,197,0.0);}50%{box-shadow:0 0 24px rgba(79,209,197,0.55);}}
-@keyframes bounceIn{0%{opacity:0;transform:scale(.6) translateY(20px);}60%{opacity:1;transform:scale(1.05) translateY(-4px);}100%{transform:scale(1) translateY(0);}}
-@keyframes slideInLeft{from{opacity:0;transform:translateX(-24px);}to{opacity:1;transform:translateX(0);}}
-@keyframes slideInRight{from{opacity:0;transform:translateX(24px);}to{opacity:1;transform:translateX(0);}}
 @keyframes wobble{0%,100%{transform:rotate(0);}25%{transform:rotate(-3deg);}75%{transform:rotate(3deg);}}
 @keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-4px);}75%{transform:translateX(4px);}}
 @keyframes gradientShift{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
@@ -24,9 +21,7 @@
 .spoke-blur{animation:spin .6s linear infinite;}
 .float-anim{animation:floatUpDown 3s ease-in-out infinite;}
 .glow-pulse{animation:pulseGlow 2.2s ease-in-out infinite;}
-.bounce-in{animation:bounceIn .5s ease both;}
-.slide-in-left{animation:slideInLeft .4s ease both;}
-.slide-in-right{animation:slideInRight .4s ease both;}
+.bounce-in,.slide-in-left,.slide-in-right{animation:none;}
 .wobble-anim{animation:wobble .5s ease;}
 .shake-anim{animation:shake .35s ease;}
 
@@ -40,7 +35,7 @@
 .particle-dust{position:absolute;width:10px;height:10px;border-radius:50%;background:rgba(180,160,130,.5);animation:dust .8s ease-out forwards;pointer-events:none;}
 .confetti-piece{position:absolute;width:8px;height:8px;animation:confetti 1.4s ease-in forwards;pointer-events:none;}
 .ripple-effect{position:absolute;border-radius:50%;border:2px solid var(--accent);animation:ripple .6s ease-out forwards;pointer-events:none;}
-.fade-in{animation:fadeIn .35s ease both;} @keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+.fade-in{animation:none;}
 
 .drag-ghost{position:fixed;pointer-events:none;z-index:999;opacity:.9;transform:scale(1.05);
   box-shadow:0 12px 30px rgba(0,0,0,0.5);border-radius:.8rem;}
@@ -53,7 +48,7 @@
 .slot-filled.slot-error{animation:none;border-color:var(--success) !important;background:rgba(72,187,120,0.12) !important;}
 
 .level-card{transition:transform .25s, box-shadow .25s;cursor:pointer;}
-.level-card:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 16px 40px rgba(0,0,0,0.5);}
+.level-card:hover{box-shadow:0 16px 40px rgba(0,0,0,0.5);}
 .level-badge-1{background:linear-gradient(135deg,#48bb78,#38a169);}
 .level-badge-2{background:linear-gradient(135deg,#f6ad55,#dd6b20);}
 .level-badge-3{background:linear-gradient(135deg,#f56565,#c53030);}

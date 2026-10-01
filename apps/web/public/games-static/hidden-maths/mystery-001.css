@@ -109,6 +109,12 @@
   transform: translateY(0);
 }
 
+#step-challenge {
+  justify-content: flex-start;
+  padding-top: 4rem;
+  padding-bottom: 12rem;
+}
+
 .step-content {
   max-width: 720px;
   width: 100%;
@@ -313,12 +319,49 @@
   margin-bottom: 1rem;
 }
 
-.obs-bowler, .obs-batsman {
-  font-size: 2rem;
+.obs-player {
   z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
 }
 
-.obs-emoji { display: block; }
+.obs-person {
+  display: block;
+  width: 38px;
+  height: 42px;
+}
+
+.obs-player-label {
+  padding: 0.1rem 0.3rem;
+  border-radius: 3px;
+  background: rgba(12, 18, 38, 0.72);
+  color: var(--text-primary);
+  font-size: 0.65rem;
+  font-weight: 700;
+}
+
+.obs-track::before {
+  content: '';
+  position: absolute;
+  left: 25%;
+  right: 25%;
+  top: 50%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.obs-track::after {
+  content: '';
+  position: absolute;
+  right: 24%;
+  top: calc(50% - 4px);
+  width: 10px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.65);
+  clip-path: polygon(0 0, 100% 50%, 0 100%, 24% 50%);
+}
 
 .obs-ball {
   position: absolute;
@@ -330,12 +373,13 @@
   top: 50%;
   transform: translateY(-50%);
   box-shadow: 0 0 10px rgba(255, 200, 87, 0.5);
-  animation: obsBallMove 2s ease-in-out infinite;
+  z-index: 1;
+  animation: obsBallMove 0.5s linear infinite;
 }
 
 @keyframes obsBallMove {
   0% { left: 15%; opacity: 1; }
-  90% { left: 80%; opacity: 1; }
+  94% { left: 80%; opacity: 1; }
   100% { left: 80%; opacity: 0; }
 }
 

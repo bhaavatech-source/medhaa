@@ -259,9 +259,9 @@
   // QUIZ
   // ============================================
   const quizQuestions = [
-    { id: 'quizQ1', feedback: 'feedbackQ1', correct: 2 },
-    { id: 'quizQ2', feedback: 'feedbackQ2', correct: 2 },
-    { id: 'quizQ3', feedback: 'feedbackQ3', correct: 2 }
+    { id: 'quizQ1', feedback: 'feedbackQ1', reason: 'On our flat map, every point on a circle is the same distance from its center.' },
+    { id: 'quizQ2', feedback: 'feedbackQ2', reason: 'Two distance circles can meet in two places. A third circle picks the one that fits all three.' },
+    { id: 'quizQ3', feedback: 'feedbackQ3', reason: 'Only one of those two points also lies on the third distance circle.' }
   ];
 
   function initQuiz() {
@@ -273,23 +273,21 @@
       options.forEach((opt, optIdx) => {
         opt.addEventListener('click', () => {
           if (opt.classList.contains('disabled')) return;
-          const isCorrect = optIdx === q.correct;
-          options.forEach(o => o.classList.add('disabled'));
+          const correctIndex = [...options].findIndex(option => option.dataset.correct === 'true');
+          const isCorrect = optIdx === correctIndex;
+          options.forEach(o => { o.classList.add('disabled'); o.disabled = true; });
           opt.classList.add(isCorrect ? 'correct' : 'incorrect');
-          AudioEngine.correct();
-          feedback.className = 'quiz-feedback ' + (isCorrect ? 'correct' : 'incorrect');
-          if (!isCorrect) {
-            AudioEngine.incorrect();
-            options[q.correct].classList.add('correct');
-          }
-          feedback.textContent = isCorrect ? 'Correct! Well done.' : 'Not quite. The answer is highlighted.';
+          if (isCorrect) { quizScore++; AudioEngine.correct(); }
+          else { AudioEngine.incorrect(); options[correctIndex].classList.add('correct'); }
+          feedback.textContent = (isCorrect ? 'Correct! ' : 'Not quite. ') + q.reason;
           feedback.className = 'quiz-feedback ' + (isCorrect ? 'correct' : 'incorrect');
           quizAnswered++;
-          if (quizAnswered >= quizQuestions.length) {
-            showScore();
-          } else {
-            setTimeout(() => nextQuizQuestion(idx), 1200);
-          }
+          const continueButton = document.createElement('button');
+          continueButton.className = 'btn btn-secondary';
+          continueButton.textContent = quizAnswered === quizQuestions.length ? 'See score' : 'Next question';
+          continueButton.addEventListener('click', () => quizAnswered === quizQuestions.length ? showScore() : nextQuizQuestion(idx));
+          feedback.append(document.createElement('br'), continueButton);
+          continueButton.scrollIntoView({ block: 'center', behavior: 'smooth' });
         });
       });
     });

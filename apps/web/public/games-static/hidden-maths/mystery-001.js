@@ -157,7 +157,7 @@
     expStartTime = performance.now();
     btnBowl.disabled = true;
     btnHit.disabled = false;
-    expInstruction.textContent = 'Press Ball Reaches Batsman when the ball arrives';
+    expInstruction.textContent = 'Tap I see it when the ball arrives';
     expInstruction.style.color = 'var(--accent-gold)';
     resetExpBall();
     requestAnimationFrame(() => {
@@ -170,8 +170,9 @@
         expRunning = false;
         btnBowl.disabled = false;
         btnHit.disabled = true;
-        recordExperiment(elapsed);
-        expInstruction.textContent = 'Too late! Try again. Press Bowl to restart.';
+        expTime.textContent = '--.-- s';
+        expSpeed.textContent = '-- m/s';
+        expInstruction.textContent = 'Too late! No result was saved. Tap Reset to try again.';
         expInstruction.style.color = 'var(--accent-pink)';
       }
     }, 2500);
@@ -221,9 +222,9 @@
   });
 
   const quizQuestions = [
-    { id: 'quizQ1', feedback: 'feedbackQ1', correct: 2 },
-    { id: 'quizQ2', feedback: 'feedbackQ2', correct: 1 },
-    { id: 'quizQ3', feedback: 'feedbackQ3', correct: 2 }
+    { id: 'quizQ1', feedback: 'feedbackQ1', reason: 'Speed is distance divided by time: 20 ÷ 0.5 = 40 metres per second.' },
+    { id: 'quizQ2', feedback: 'feedbackQ2', reason: 'Time is distance divided by speed: 15 ÷ 30 = 0.5 seconds.' },
+    { id: 'quizQ3', feedback: 'feedbackQ3', reason: 'Multiply by 3.6 to change m/s into km/h: 45 × 3.6 = 162 km/h.' }
   ];
 
   function initQuiz() {
@@ -235,23 +236,21 @@
       options.forEach((opt, optIdx) => {
         opt.addEventListener('click', () => {
           if (opt.classList.contains('disabled')) return;
-          const isCorrect = optIdx === q.correct;
-          options.forEach(o => o.classList.add('disabled'));
+          const correctIndex = [...options].findIndex(option => option.dataset.correct === 'true');
+          const isCorrect = optIdx === correctIndex;
+          options.forEach(o => { o.classList.add('disabled'); o.disabled = true; });
           opt.classList.add(isCorrect ? 'correct' : 'incorrect');
-          AudioEngine.correct();
-          feedback.className = 'quiz-feedback ' + (isCorrect ? 'correct' : 'incorrect');
-          if (!isCorrect) {
-            AudioEngine.incorrect();
-            options[q.correct].classList.add('correct');
-          }
-          feedback.textContent = isCorrect ? 'Correct! Well done.' : 'Not quite. The answer is highlighted.';
+          if (isCorrect) { quizScore++; AudioEngine.correct(); }
+          else { AudioEngine.incorrect(); options[correctIndex].classList.add('correct'); }
+          feedback.textContent = (isCorrect ? 'Correct! ' : 'Not quite. ') + q.reason;
           feedback.className = 'quiz-feedback ' + (isCorrect ? 'correct' : 'incorrect');
           quizAnswered++;
-          if (quizAnswered >= quizQuestions.length) {
-            showScore();
-          } else {
-            setTimeout(() => nextQuizQuestion(idx), 1200);
-          }
+          const continueButton = document.createElement('button');
+          continueButton.className = 'btn btn-secondary';
+          continueButton.textContent = quizAnswered === quizQuestions.length ? 'See score' : 'Next question';
+          continueButton.addEventListener('click', () => quizAnswered === quizQuestions.length ? showScore() : nextQuizQuestion(idx));
+          feedback.append(document.createElement('br'), continueButton);
+          continueButton.scrollIntoView({ block: 'center', behavior: 'smooth' });
         });
       });
     });

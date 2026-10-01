@@ -15,6 +15,7 @@
 
 import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Clock3, Gamepad2, House, Palette, Sparkles, Wrench } from 'lucide-react';
 import { GameCard, GameTier } from './GameCard';
 import { useGameGate } from '../pages/hooks/useGameGate';
 import LoginPricingModal from './LoginPricingModal';
@@ -22,8 +23,6 @@ import { GAMES_CATALOG, getCatalogEntry } from '../data/gamesCatalog';
 import { useAuth } from '../contexts/AuthContext';
 import { authFetch } from '../utils/authFetch';
 import { useClickSound } from '../pages/hooks/useClickSound';
-import { ProgressBar } from '../ui/ProgressBar';
-import medhaaLogo from '../assets/logo/M_2.png';
 import medhaaIcon from '../assets/logo/medhaa-icon.svg';
 import '../styles/games-grid.css';
 import '../styles/games-grid-enhanced.css';
@@ -37,6 +36,7 @@ interface GameWithAccess {
   domain: string;
   ageLabel: string;
   skills: string[];
+  kind: 'game' | 'activity';
   tier: GameTier;
   access: { allowed: boolean; reason: string; daysSinceSignup: number };
   entryPath?: string;
@@ -65,6 +65,12 @@ interface AgeProfile {
 
 
 type AgeGroup = '5-9' | '10-13' | '14-17' | 'aspirants';
+type CatalogKindFilter = 'all' | 'game' | 'activity';
+const CATALOG_KIND_OPTIONS: { value: CatalogKindFilter; label: string }[] = [
+  { value: 'all', label: 'All' },
+  { value: 'game', label: 'Games' },
+  { value: 'activity', label: 'Activities' },
+];
 const AGE_PROFILES: Record<AgeGroup, AgeProfile> = {
   '5-9': {
     label: '5–9 years',
@@ -109,6 +115,7 @@ const AGE_STORAGE_KEY = 'medhaa-student-age-group';
 const FALLBACK_PERMANENT_FREE_SLUGS = new Set([
   'bhava-build-device-engineer',
   'bhava-smriti',
+  'brain-of-all-machines',
   'build-your-car',
   'focus-flash',
   'life-strategist-starter',
@@ -131,7 +138,6 @@ const FALLBACK_ROTATING_SLUGS = new Set([
   'day-super-hero',
   'iq-test-level-3',
   'logic-game',
-  'math-blitz-example',
   'math-blitz',
   'memory-match-puzzle',
   'memory-match-ultimate',
@@ -158,6 +164,7 @@ function buildFallbackGames(): GameWithAccess[] {
       domain: game.domain,
       ageLabel: `${game.ageMin}-${game.ageMax}`,
       skills: game.skillsBuilt,
+      kind: game.kind ?? 'game',
       tier,
       access: {
         allowed: tier === 'assessment' || tier === 'permanent-free',
@@ -190,6 +197,7 @@ const CURATED_GAME_SLUGS: Record<Exclude<AgeGroup, 'aspirants'>, string[]> = {
     'good-habits',
     'calm-zone',
     'day-hero-game',
+    'day-super-hero',
     'number-garden-quest',
     'grammar-galaxy',
     'imaginia-quest',
@@ -203,6 +211,7 @@ const CURATED_GAME_SLUGS: Record<Exclude<AgeGroup, 'aspirants'>, string[]> = {
     'memory-match-puzzle',
     'visual-difference-detector',
     'empathy-quest',
+    'day-super-hero',
     'empathy-conversation',
     'intelligent-machines',
     'brain-of-all-machines',
@@ -212,6 +221,8 @@ const CURATED_GAME_SLUGS: Record<Exclude<AgeGroup, 'aspirants'>, string[]> = {
     'soccomm-enhanced',
     'ready-for-the-world',
     'google-search-lab-deep-v2',
+    'medha-read-anybook-in-3hrs',
+    'day-super-hero',
     'grammar-pro',
     'nadopaasana',
   ],
@@ -236,6 +247,7 @@ const CURATED_GAME_SLUGS: Record<Exclude<AgeGroup, 'aspirants'>, string[]> = {
     'finlife-india-quest-enhanced',
     'career-adventure',
     'google-search-lab-deep-v2',
+    'medha-read-anybook-in-3hrs',
     'grammar-pro',
     'nadopaasana',
   ],
@@ -399,7 +411,7 @@ const FEATURE_ITEMS = [
   },
   {
     key: 'journey', icon: '🏆', title: 'My Journey',
-    description: 'See your activity history, achievements, goals and milestones.',
+    description: 'Review recorded game activity and check-ins where available.',
     tone: 'gold', action: 'View Journey',
   },
   {
@@ -911,16 +923,10 @@ function StudentFeaturePage({
         <div className="feature-workspace">
           <div className="workspace-card">
             <span className="workspace-kicker">MY JOURNEY</span>
-            <h2>Your progress will grow from real activity.</h2>
+            <h2>See activity that Medhā has recorded.</h2>
             <p className="workspace-note">
-              Medhā should never invent a performance score. These bars are ready to show actual activity data when the student completes activities and the backend records it.
+              This overview is not connected to every game yet. Scores and activity appear only when a game or check-in sends a record; they describe practice, not a fixed measure of ability.
             </p>
-            <div className="journey-bars">
-              <ProgressBar value={0} label="Games completed" color="#6366f1" />
-              <ProgressBar value={0} label="Homework completed" color="#0ea5a4" />
-              <ProgressBar value={0} label="Focus sessions" color="#f59e0b" />
-              <ProgressBar value={0} label="Challenges completed" color="#ec4899" />
-            </div>
           </div>
           <div className="workspace-card journey-next">
             <span className="workspace-kicker">NEXT</span>
@@ -941,12 +947,13 @@ export function StudentGamesPage({ apiUrl, childStudentId }: StudentGamesPagePro
   const [lastCheckInAt, setLastCheckInAt] = useState<string | null>(null);
   const [subscription, setSubscription] = useState<{ status: string; plan: string; trialEndsAt: string | null } | null>(null);
   const [loading, setLoading] = useState(true);
+  const [accessPending, setAccessPending] = useState(false);
   const [catalogError, setCatalogError] = useState('');
   const [catalogReload, setCatalogReload] = useState(0);
   const [expanded, setExpanded] = useState(false);
+  const [catalogKindFilter, setCatalogKindFilter] = useState<CatalogKindFilter>('all');
+  const [myMedhaaOpen, setMyMedhaaOpen] = useState(false);
   const [gameSearch, setGameSearch] = useState('');
-  const [showPromo, setShowPromo] = useState(false);
-  const [showMyMedhaPromo, setShowMyMedhaPromo] = useState(false);
   const [activeFeature, setActiveFeature] = useState<FeatureKey | null>(null);
   const [randomGame, setRandomGame] = useState<GameWithAccess | null>(null);
   const [homework, setHomework] = useState<HomeworkItem[]>(() => {
@@ -986,7 +993,7 @@ export function StudentGamesPage({ apiUrl, childStudentId }: StudentGamesPagePro
   useEffect(() => {
     let cancelled = false;
     const controller = new AbortController();
-    const timeout = window.setTimeout(() => controller.abort(), 8000);
+    const timeout = window.setTimeout(() => controller.abort(), 45000);
 
     function useFallbackGames() {
       if (cancelled) return;
@@ -999,6 +1006,10 @@ export function StudentGamesPage({ apiUrl, childStudentId }: StudentGamesPagePro
     async function load() {
       try {
         const token = localStorage.getItem('accessToken');
+
+        setGames(buildFallbackGames());
+        setLoading(false);
+        setAccessPending(!!token);
 
         // "/student/preview" is meant for anonymous/public visitors only — if
         // there's no logged-in token, show the locked demo catalogue. But if
@@ -1026,7 +1037,8 @@ export function StudentGamesPage({ apiUrl, childStudentId }: StudentGamesPagePro
         const data = await res.json(); 
         const allGames: GameWithAccess[] = (data.games ?? []).map((game: GameWithAccess) => ({
           ...game,
-          title: displayGameTitle(game.title),
+          kind: game.kind ?? getCatalogEntry(game.slug)?.kind ?? 'game',
+          title: game.slug === 'bhava-tech-build-your-bike' ? 'Build Cycles' : displayGameTitle(game.title),
         }));
         if (cancelled) return;
         setGames(allGames);
@@ -1053,7 +1065,10 @@ export function StudentGamesPage({ apiUrl, childStudentId }: StudentGamesPagePro
         useFallbackGames();
       } finally {
         window.clearTimeout(timeout);
-        if (!cancelled) setLoading(false);
+        if (!cancelled) {
+          setLoading(false);
+          setAccessPending(false);
+        }
       }
     }
     load();
@@ -1088,44 +1103,14 @@ export function StudentGamesPage({ apiUrl, childStudentId }: StudentGamesPagePro
   }, [recommendedGames]);
 
 
-  useEffect(() => {
-    if (subscription) return;
-    const shownCount = parseInt(sessionStorage.getItem('medhaa-promo-shown') || '0', 10);
-    if (shownCount >= 3) return;
-    const timer = window.setTimeout(() => {
-      setShowPromo(true);
-      sessionStorage.setItem('medhaa-promo-shown', String(shownCount + 1));
-    }, 20000);
-    return () => window.clearTimeout(timer);
-  }, [subscription]);
-
-  // Gentle reminder to check in on "My Medhā" (the ongoing progress
-  // tracker, not the one-time paid assessment) — nudges every ~1.5 days,
-  // and definitely once it's been 10+ days since their last real check-in.
-  const MY_MEDHA_MIN_GAP_MS = 36 * 60 * 60 * 1000;
-  const MY_MEDHA_STALE_MS = 10 * 24 * 60 * 60 * 1000;
-  useEffect(() => {
-    if (!isLoggedIn) return;
-    const now = Date.now();
-    const lastShown = Number(localStorage.getItem('medhaa_my_medha_promo_last_shown') || 0);
-    const lastCheckin = lastCheckInAt ? new Date(lastCheckInAt).getTime() : 0;
-    const sinceCheckin = lastCheckin ? now - lastCheckin : Infinity;
-    const stale = sinceCheckin >= MY_MEDHA_STALE_MS;
-    const dueForRegularNudge = now - lastShown >= MY_MEDHA_MIN_GAP_MS && sinceCheckin >= MY_MEDHA_MIN_GAP_MS;
-    if (!stale && !dueForRegularNudge) return;
-    const timer = window.setTimeout(() => {
-      setShowMyMedhaPromo(true);
-      localStorage.setItem('medhaa_my_medha_promo_last_shown', String(now));
-    }, 45000);
-    return () => window.clearTimeout(timer);
-  }, [isLoggedIn, lastCheckInAt]);
-
   function handlePlay(slug: string) {
     const loggedInNow = !!localStorage.getItem('accessToken');
     if (!loggedInNow && !tryPlay(slug)) return;
     markPlayed(slug);
     const entryPath = games.find((g) => g.slug === slug)?.entryPath;
-    const path = entryPath
+    const path = slug === 'grammar-pro'
+      ? '/games-static/grammar-pro.html'
+      : entryPath
       ? `/games-static/${entryPath}`
       : folderBasedSlugs.has(slug) ? `/games-static/${slug}/index.html` : `/games-static/${slug}.html`;
     window.location.href = path;
@@ -1162,8 +1147,9 @@ export function StudentGamesPage({ apiUrl, childStudentId }: StudentGamesPagePro
 
   const filteredGames = useMemo(() => {
     const query = gameSearch.trim().toLowerCase();
-    if (!query) return games;
     return games.filter((game) => {
+      if (catalogKindFilter !== 'all' && game.kind !== catalogKindFilter) return false;
+      if (!query) return true;
       const catalog = getCatalogEntry(game.slug);
       return [
         game.title,
@@ -1174,7 +1160,12 @@ export function StudentGamesPage({ apiUrl, childStudentId }: StudentGamesPagePro
         catalog?.tagline || '',
       ].join(' ').toLowerCase().includes(query);
     });
-  }, [games, gameSearch]);
+  }, [games, gameSearch, catalogKindFilter]);
+
+  const filteredRecommendedGames = useMemo(
+    () => recommendedGames.filter((game) => catalogKindFilter === 'all' || game.kind === catalogKindFilter),
+    [recommendedGames, catalogKindFilter],
+  );
 
   const filteredGrouped = useMemo(() => filteredGames.reduce<Record<string, GameWithAccess[]>>((acc, game) => {
     (acc[game.domain] ??= []).push(game);
@@ -1252,15 +1243,16 @@ const disclaimerBanner = (
     </div>
   ) : (
     <div className="student-trial-banner">
-      <span>✨ Explore Medhā with games, learning tools and daily challenges.</span>
-      <button type="button" onClick={() => { playClick(); navigate('/subscribe'); }}>Explore Plans</button>
+      <span>Explore more with Medhā</span>
+      <button type="button" onClick={() => { playClick(); navigate('/subscribe'); }}>View plans</button>
     </div>
   );
 
   const header = (
-    <header className="student-header">
+    <header className={`student-header${isLoggedIn ? ' student-header--signed-in' : ''}`}>
       <button type="button" className="student-brand" onClick={() => navigate('/')} aria-label="Go to Medhā home">
-        <img src={medhaaLogo} alt="Medhā" className="student-brand__wordmark" />
+        <img src={medhaaIcon} alt="" className="student-brand__icon" />
+        <span className="student-brand__name">Medhā</span>
       </button>
 
       <nav className="student-header__nav" aria-label="Student navigation">
@@ -1269,7 +1261,7 @@ const disclaimerBanner = (
     aria-label="Home"
     onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
   >
-    <span>⌂</span> <span className="student-header__nav-label">Home</span>
+    <House size={18} aria-hidden="true" /> <span className="student-header__nav-label">Home</span>
   </button>
 
   <button
@@ -1281,7 +1273,7 @@ const disclaimerBanner = (
       })
     }
   >
-    <span>🎮</span> <span className="student-header__nav-label">Play</span>
+    <Gamepad2 size={18} aria-hidden="true" /> <span className="student-header__nav-label">Play</span>
   </button>
 
   <button
@@ -1293,11 +1285,11 @@ const disclaimerBanner = (
       })
     }
   >
-    <span>🧰</span> <span className="student-header__nav-label">Tools</span>
+    <Wrench size={18} aria-hidden="true" /> <span className="student-header__nav-label">Tools</span>
   </button>
 
   <button type="button" aria-label="Age & Theme" onClick={changeAge}>
-    <span>{profile.icon}</span> <span className="student-header__nav-label">Age &amp; Theme</span>
+    <Palette size={18} aria-hidden="true" /> <span className="student-header__nav-label">Age &amp; Theme</span>
   </button>
 
   {subscription?.status === 'ACTIVE' ? (
@@ -1306,7 +1298,7 @@ const disclaimerBanner = (
   </span>
 ) : subscription?.status === 'PENDING' ? (
   <span className="student-header__subscribed" style={{ opacity: 0.75 }}>
-    ⏳ <span className="student-header__nav-label">Verifying Payment</span>
+    <Clock3 size={18} aria-hidden="true" /> <span className="student-header__nav-label">Verifying Payment</span>
   </span>
 ) : (
   <button
@@ -1318,7 +1310,7 @@ const disclaimerBanner = (
       navigate('/subscribe');
     }}
   >
-    ✨ <span className="student-header__nav-label">Subscribe</span>
+    <Sparkles size={18} aria-hidden="true" /> <span className="student-header__nav-label">Subscribe</span>
   </button>
 )}
 </nav>
@@ -1343,7 +1335,6 @@ const disclaimerBanner = (
   if (activeFeature) {
     return (
       <div className={`student-page student-page--${profile.accent}`}>
-        {disclaimerBanner}
         {header}
         {benefitsBanner}
         <main className="student-main">
@@ -1358,6 +1349,7 @@ const disclaimerBanner = (
             setHomework={setHomework}
           />
         </main>
+        {disclaimerBanner}
         {showGate && <LoginPricingModal onClose={() => setShowGate(false)} />}
       </div>
     );
@@ -1387,22 +1379,17 @@ const disclaimerBanner = (
         <div className="world-shape world-shape--one" /><div className="world-shape world-shape--two" />
       </div>
 
-      {disclaimerBanner}
       {header}
       {benefitsBanner}
+      {accessPending && (
+        <div className="student-catalog-error" role="status">Checking your game access and subscription…</div>
+      )}
       {catalogError && (
         <div className="student-catalog-error" role="status">
           <span>{catalogError}</span>
           <button type="button" onClick={retryCatalogLoad}>Retry</button>
         </div>
       )}
-
-      <div className="student-scroll-banner" role="button" tabIndex={0} onClick={() => { playClick(); openAssessment(); }} onKeyDown={(e) => { if (e.key === 'Enter') openAssessment(); }}>
-        <div className="student-scroll-banner__track">
-          <span>📊 My Medhā — check in on your progress and scores anytime, free for subscribed students →</span>
-          <span>📊 My Medhā — check in on your progress and scores anytime, free for subscribed students →</span>
-        </div>
-      </div>
 
       <main className="student-main">
 
@@ -1414,17 +1401,18 @@ const disclaimerBanner = (
         )}
 
         <section className="student-my-medhaa" aria-labelledby="my-medhaa-title">
-          <div className="student-my-medhaa__topline">
+          <button type="button" className="student-my-medhaa__topline" id="my-medhaa-title" aria-expanded={myMedhaaOpen} aria-controls="my-medhaa-details" onClick={() => setMyMedhaaOpen((open) => !open)}>
             <div className="student-my-medhaa__icon" aria-hidden="true">✦</div>
             <div className="student-my-medhaa__eyebrow-wrap">
               <span className="student-section-kicker">MY MEDHĀ</span>
-              {studentName && <span className="student-my-medhaa__student-name">{studentName}'s journey</span>}
             </div>
-          </div>
+            <span className="student-my-medhaa__toggle" aria-hidden="true">{myMedhaaOpen ? '−' : '+'}</span>
+          </button>
 
-          <div className="student-my-medhaa__main">
+          {myMedhaaOpen && <div className="student-my-medhaa__main" id="my-medhaa-details">
             <div className="student-my-medhaa__content">
-              <h2 id="my-medhaa-title">
+              {studentName && <span className="student-my-medhaa__student-name">{studentName}'s journey</span>}
+              <h2>
                 {myMedhaaStatus.state === 'baseline'
                   ? 'Track your progress with My Medhā'
                   : myMedhaaStatus.state === 'ready'
@@ -1475,7 +1463,7 @@ const disclaimerBanner = (
               </button>
               <span className="student-my-medhaa__free-note">Free check-in </span>
             </div>
-          </div>
+          </div>}
 
         </section>
 
@@ -1483,18 +1471,25 @@ const disclaimerBanner = (
   <AgeWorldArt accent={profile.accent} />
   <div className="student-section-heading student-section-heading--games">
     <div>
-      <span className="student-section-kicker">{expanded ? 'COMPLETE LIBRARY' : 'PICKED FOR YOU'}</span>
-      <h2>{expanded ? 'Explore all Medhā games' : 'Games picked for your Medhā world'}</h2>
-      <p>
-        {expanded
-          ? 'Browse the complete game collection. Your age-based recommendations remain the first place to start.'
-          : `A smaller, age-appropriate starting collection for ${profile.label.toLowerCase()}.`}
-      </p>
+      <h2>
+        {catalogKindFilter === 'activity' ? 'Activities' : catalogKindFilter === 'game' ? 'Games' : 'Games & activities'}
+        {expanded ? '' : ' for you'}
+      </h2>
     </div>
-    <div className="student-games-count">
-      <strong>{expanded ? games.length : recommendedGames.length}</strong>
-      <span>{expanded ? 'games in library' : 'recommended for you'}</span>
-    </div>
+  </div>
+
+  <div className="student-catalog-kind-filter" role="group" aria-label="Filter games and activities">
+    {CATALOG_KIND_OPTIONS.map((option) => (
+      <button
+        key={option.value}
+        type="button"
+        className={catalogKindFilter === option.value ? 'is-active' : ''}
+        aria-pressed={catalogKindFilter === option.value}
+        onClick={() => { playClick(); setCatalogKindFilter(option.value); }}
+      >
+        {option.label}
+      </button>
+    ))}
   </div>
 
   {expanded && (
@@ -1504,8 +1499,8 @@ const disclaimerBanner = (
         type="search"
         value={gameSearch}
         onChange={(event) => setGameSearch(event.target.value)}
-        placeholder="Search games, skills or domains"
-        aria-label="Search games, skills or domains"
+        placeholder="Search games, activities, skills or domains"
+        aria-label="Search games, activities, skills or domains"
       />
       {gameSearch && (
         <button type="button" className="games-search-clear" onClick={() => setGameSearch('')} aria-label="Clear game search">×</button>
@@ -1514,40 +1509,34 @@ const disclaimerBanner = (
   )}
 
   <div className="games-grid-wrap student-games-wrap">
-    {getLastPlayedSlug() && (
+    {!expanded && catalogKindFilter === 'all' && getLastPlayedSlug() && (
       <SimilarGames
         games={games}
         currentSlug={getLastPlayedSlug()!}
         onPlay={handlePlay}
         apiUrl={apiUrl}
+        excludeSlugs={new Set(filteredRecommendedGames.map((game) => game.slug))}
+        accessPending={accessPending}
       />
     )}
 
     {!expanded ? (
       <>
-        <div className="student-recommendation-note student-recommendation-note--merged">
-  <span className="student-recommendation-note__icon">{profile.icon}</span>
-  <div className="student-recommendation-note__body">
-    <strong>Start with these — your first {recommendedGames.length} games</strong>
-    <span>
-      Handpicked from the full catalogue using the age range set for this Medhā pathway.
-      Pick any game below to begin.
-    </span>
-  </div>
-</div>
-
         <div className="games-grid games-grid--recommended">
-          {recommendedGames.map((game) => {
+          {filteredRecommendedGames.map((game) => {
             const cat = getCatalogEntry(game.slug);
-            return <GameCard key={game.slug} {...game} emoji={cat?.emoji} kind={cat?.kind} onPlay={handlePlay} apiUrl={apiUrl} />;
+            return <GameCard key={game.slug} {...game} emoji={cat?.emoji} kind={game.kind} onPlay={handlePlay} apiUrl={apiUrl} accessPending={accessPending} />;
           })}
         </div>
+        {!filteredRecommendedGames.length && (
+          <div className="games-search-empty">No {catalogKindFilter === 'activity' ? 'activities' : 'games'} are recommended for this age group yet.</div>
+        )}
         <button
           type="button"
           className="student-explore-games"
           onClick={() => { playClick(); setExpanded(true); window.setTimeout(() => document.getElementById('student-games')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 0); }}
         >
-          Explore all {games.length} games <span>↓</span>
+          Explore the full catalog <span>↓</span>
         </button>
       </>
     ) : (
@@ -1556,7 +1545,6 @@ const disclaimerBanner = (
           <section key={domain} className="domain-section">
             <div className="domain-section__heading">
               <div>
-                <span className="student-section-kicker">GAME DOMAIN</span>
                 <h3 className="domain-title">{formatDomainLabel(domain)}</h3>
               </div>
               <span className="domain-section__count">{domainGames.length}</span>
@@ -1564,13 +1552,13 @@ const disclaimerBanner = (
             <div className="games-grid games-grid--library">
               {domainGames.map((game) => {
                 const cat = getCatalogEntry(game.slug);
-                return <GameCard key={game.slug} {...game} emoji={cat?.emoji} kind={cat?.kind} onPlay={handlePlay} apiUrl={apiUrl} />;
+                return <GameCard key={game.slug} {...game} emoji={cat?.emoji} kind={game.kind} onPlay={handlePlay} apiUrl={apiUrl} accessPending={accessPending} />;
               })}
             </div>
           </section>
         ))}
         {!filteredGames.length && (
-          <div className="games-search-empty">No games match “{gameSearch}”. Try a different title, skill or domain.</div>
+          <div className="games-search-empty">No {catalogKindFilter === 'activity' ? 'activities' : catalogKindFilter === 'game' ? 'games' : 'games or activities'} match “{gameSearch}”. Try a different title, skill or domain.</div>
         )}
         <button
           type="button"
@@ -1587,11 +1575,10 @@ const disclaimerBanner = (
         <section className="student-daily-card student-daily-card--game">
           <div className="daily-card__spark">{randomGame ? (getCatalogEntry(randomGame.slug)?.emoji || '🎮') : '✦'}</div>
           <div>
-            <span className="student-section-kicker">TODAY'S RANDOM PICK</span>
+            <span className="student-section-kicker">TRY SOMETHING NEW</span>
             <h2>{randomGame?.title || 'A Medhā challenge is waiting'}</h2>
-            <p>{randomGame ? `A quick game selected from your available collection · ${formatDomainLabel(randomGame.domain)}` : 'Your available games are loading.'}</p>
           </div>
-          <button type="button" onClick={() => openFeature('daily')}>Open today's pick →</button>
+          <button type="button" disabled={accessPending} onClick={() => openFeature('daily')}>{accessPending ? 'Checking access…' : 'Play →'}</button>
         </section>
 
         <div className={`student-after-games-divider student-after-games-divider--${profile.accent}`} aria-hidden="true">
@@ -1603,7 +1590,7 @@ const disclaimerBanner = (
 
         <section className="student-section student-tools-section" id="student-tools">
           <div className="student-section-heading">
-            <div><span className="student-section-kicker">AFTER YOU PLAY</span><h2>More things to explore</h2><p>Useful tools are here when you need them — your games remain the main Medhā experience.</p></div>
+            <div><h2>Explore tools</h2></div>
             <div className="student-mini-status"><span className="student-mini-status__dot" />{profile.label}</div>
           </div>
 
@@ -1624,7 +1611,7 @@ const disclaimerBanner = (
           <div>
             <span className="student-section-kicker">KEEP GOING</span>
             <h2>Play, explore, then check in again.</h2>
-            <p>Your activities build the journey; My Medhā gives you a simple checkpoint to see how you're progressing.</p>
+            <p>My Medhā offers a separate check-in. Game activity is shown only when a game records it.</p>
           </div>
           <button type="button" onClick={() => { playClick(); navigate('/student/bcs-lite'); }}>
             Check My Medhā →
@@ -1636,6 +1623,7 @@ const disclaimerBanner = (
         <img src={medhaaIcon} alt="" /><span>Medhā · Play. Learn. Plan. Create. Grow.</span>
         <button type="button" onClick={changeAge}>Change age & theme</button>
       </footer>
+      {disclaimerBanner}
 
       {showAgePicker && (
         <div className="age-picker-backdrop" role="dialog" aria-modal="true" aria-labelledby="age-picker-title">
@@ -1658,24 +1646,6 @@ const disclaimerBanner = (
       )}
 
       {showGate && <LoginPricingModal onClose={() => setShowGate(false)} />}
-
-      {showPromo && (
-        <div className="student-promo">
-          <button type="button" className="student-promo__close" aria-label="Close" onClick={() => setShowPromo(false)}>×</button>
-          <div className="student-promo__icon">✨</div><strong>Make your Medhā journey bigger.</strong>
-          <p>Continue learning, playing and building your own activity history.</p>
-          <button type="button" onClick={() => navigate('/subscribe')}>See plans →</button>
-        </div>
-      )}
-
-      {showMyMedhaPromo && !showPromo && (
-        <div className="student-promo student-mymedha-promo">
-          <button type="button" className="student-promo__close" aria-label="Close" onClick={() => setShowMyMedhaPromo(false)}>×</button>
-          <div className="student-promo__icon">📊</div><strong>Time for a My Medhā check-in?</strong>
-          <p>See how your scores and progress have been trending lately.</p>
-          <button type="button" onClick={() => { setShowMyMedhaPromo(false); openAssessment(); }}>Open My Medhā →</button>
-        </div>
-      )}
 
       <button
         type="button"

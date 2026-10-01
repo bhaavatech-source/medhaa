@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bhava-mobile="off">
 <head>
 <!-- MEDHAA-SEO-EXTRA-INJECTED -->
 <meta property="og:image" content="https://medhaa.net/medha_logo_transparent.png">
@@ -21,6 +21,7 @@
 </script>
 
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link rel="stylesheet" href="../bhava-responsive.css">
 <link rel="stylesheet" href="style.css">
@@ -31,20 +32,29 @@
     <!-- START SCREEN -->
     <!-- START SCREEN -->
     <div id="startScreen" class="screen active">
-      <button id="soundToggle" class="sound-btn" title="Toggle Sound">🔊</button>
+      <button id="soundToggle" class="sound-btn" aria-label="Mute game sounds" title="Game sound effects">🔊</button>
       <h1 class="pop-in">🎯 Focus Flash</h1>
-      <p class="subtitle">An Adaptive Attention Training Game</p>
 
       <div class="mode-tabs">
-        <button class="mode-tab active" data-mode="selective">🔎 Selective Attention</button>
-        <button class="mode-tab" data-mode="sustained">👁️ Sustained Attention</button>
+        <button type="button" class="mode-tab active" data-mode="selective" aria-pressed="true">🔎 Find the target</button>
+        <button type="button" class="mode-tab" data-mode="sustained" aria-pressed="false">👁️ Watch and tap</button>
       </div>
 
-      <p class="instructions" id="modeInstructions">Find and tap the <b>target</b> before it disappears. Difficulty adapts to you as you play!</p>
+      <p class="instructions" id="modeInstructions">Find the target before time runs out.</p>
 
-      <!-- NEW: Player Customization Panel -->
-      <div id="playerSettings" class="settings-panel">
-        <h3>⚙️ Mission Settings</h3>
+      <div class="difficulty-picker" role="group" aria-label="Difficulty">
+        <span>Difficulty</span>
+        <div class="difficulty-options">
+          <button type="button" class="difficulty-choice active" data-level="easy" aria-pressed="true">Easy</button>
+          <button type="button" class="difficulty-choice" data-level="medium" aria-pressed="false">Medium</button>
+          <button type="button" class="difficulty-choice" data-level="hard" aria-pressed="false">Hard</button>
+        </div>
+      </div>
+
+      <button type="button" id="playBtn">Play</button>
+
+      <details id="playerSettings" class="settings-panel">
+        <summary>Options</summary>
         <div class="settings-grid">
           <label>Theme:
             <select id="themeSelect">
@@ -54,8 +64,8 @@
               <option value="chips">Electronic Chips</option>
             </select>
           </label>
-          <label>Target Movement:
-            <input type="checkbox" id="driftingToggle"> Drifting
+          <label>Drifting
+            <input type="checkbox" id="driftingToggle">
           </label>
           <label>Playstyle:
             <select id="playstyleSelect">
@@ -65,36 +75,19 @@
             </select>
           </label>
         </div>
-      </div>
-
-      <div class="level-buttons" id="selectiveLevels">
-        <button class="lvl-btn easy" data-mode="selective" data-level="easy">Start Easier 🟢</button>
-        <button class="lvl-btn medium" data-mode="selective" data-level="medium">Start Medium 🟠</button>
-        <button class="lvl-btn hard" data-mode="selective" data-level="hard">Start Harder 🔴</button>
-      </div>
-
-      <div class="level-buttons hidden" id="sustainedLevels">
-        <!-- Sustained buttons remain the same -->
-        <button class="lvl-btn easy" data-mode="sustained" data-level="easy">Start Easier 🟢</button>
-        <button class="lvl-btn medium" data-mode="sustained" data-level="medium">Start Medium 🟠</button>
-        <button class="lvl-btn hard" data-mode="sustained" data-level="hard">Start Harder 🔴</button>
-      </div>
+      </details>
 
       <button id="progressBtn" class="secondary-btn">📊 View My Progress</button>
     </div>
 
     <!-- SELECTIVE ATTENTION GAME SCREEN (Side-by-Side Layout) -->
     <div id="gameScreen" class="screen">
-      <button id="soundToggleGame" class="sound-btn" title="Toggle Sound">🔊</button>
+      <button id="soundToggleGame" class="sound-btn" aria-label="Mute game sounds" title="Game sound effects">🔊</button>
       <div class="progress-bar-wrapper"><div id="progressBar"></div></div>
       
       <div class="game-layout-split">
         <!-- Sidebar for HUD and Mascot -->
         <div class="game-sidebar">
-          <div id="mascotArea">
-  <!-- Adjust this relative path if your index.html is in a different subfolder -->
-  <img src="M_2.png" alt="Medhaa Logo" id="medhaaLogo">
-</div>
           <div class="hud">
             <div class="hud-item">Difficulty: <span id="hudDifficulty">1</span>/10</div>
             <div class="hud-item">Round: <span id="hudRound">0</span>/<span id="hudTotalRounds">0</span></div>
@@ -105,6 +98,7 @@
 
         <!-- Main Play Area -->
         <div class="game-main">
+          <div id="mascotArea"><img src="medha_logo_transparent.png" alt="Medhā" id="medhaaLogo"></div>
           <div id="targetBanner"></div>
           <div id="grid"></div>
           <div id="feedback"></div>
@@ -116,7 +110,7 @@
     </div>
     <!-- SUSTAINED ATTENTION (CPT) GAME SCREEN -->
    <div id="sustainedScreen" class="screen">
-  <button id="soundToggleSustained" class="sound-btn" title="Toggle Sound">🔊</button>
+  <button id="soundToggleSustained" class="sound-btn" aria-label="Mute game sounds" title="Game sound effects">🔊</button>
   <div class="progress-bar-wrapper"><div id="sustainedProgressBar"></div></div>
   <div class="hud">
     <div class="hud-item">Difficulty <span id="sHudDifficulty">1</span>/10</div>

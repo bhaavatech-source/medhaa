@@ -173,12 +173,13 @@ header {
 }
 
 .topbar {
-  display: grid;
-  grid-template-columns: 1fr auto auto;
-  gap: 12px;
-  align-items: center;
-  padding: 0 20px 20px;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 20px 8px;
 }
+
+.topbar .btn { padding: 8px 14px; font-size: .85rem; }
+body:not(.is-playing) .main-card header > .status { display: none; }
 
 .select {
   appearance: none;
@@ -226,13 +227,15 @@ header {
 
 .world {
   padding: 18px;
-  min-height: 146px;
-  cursor: pointer;
+  min-height: 150px;
   position: relative;
   overflow: hidden;
   transition: transform .35s ease, box-shadow .35s ease, outline .2s;
   animation: fadeInUp .6s ease both;
 }
+
+.world-play { display: block; margin-top: 14px; padding: 10px 24px; border-radius: 8px; }
+.world-play:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
 
 .world:nth-child(1) { animation-delay: .05s; }
 .world:nth-child(2) { animation-delay: .10s; }
@@ -258,11 +261,6 @@ header {
 .world:hover {
   transform: translateY(-6px) scale(1.02);
   box-shadow: 0 28px 55px rgba(0,0,0,.22);
-}
-
-.world.active {
-  outline: 3px solid var(--accent);
-  transform: translateY(-3px);
 }
 
 .world h3 {

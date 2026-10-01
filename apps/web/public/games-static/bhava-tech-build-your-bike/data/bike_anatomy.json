@@ -1,7 +1,7 @@
 {
   "intro": {
-    "title": "Bike Anatomy",
-    "subtitle": "Every bicycle is a system of simple machines working together. Learn what each part does, and how few or how many parts a bike really needs.",
+    "title": "Cycle Anatomy",
+    "subtitle": "Every cycle is a system of simple machines working together. Learn what each part does, and how few or how many parts a cycle really needs.",
     "minParts": [
       {
         "slot": "frame",
@@ -91,7 +91,7 @@
         "stem",
         "handlebar"
       ],
-      "explanation": "This system holds the bike together and lets the rider steer by turning the front wheel around the head tube axis."
+      "explanation": "This system holds the cycle together and lets the rider steer by turning the front wheel around the head tube axis."
     },
     {
       "id": "wheel_system",
@@ -140,7 +140,7 @@
         "brake_pads",
         "rim_brake"
       ],
-      "explanation": "Braking converts the bike's motion (kinetic energy) into heat through friction, slowing the bike safely."
+      "explanation": "Braking converts the cycle's motion (kinetic energy) into heat through friction, slowing the cycle safely."
     },
     {
       "id": "suspension_system",
@@ -166,7 +166,7 @@
         "bell",
         "reflectors"
       ],
-      "explanation": "These parts don't move the bike, but they make riding safer, more comfortable, and more convenient."
+      "explanation": "These parts don't move the cycle, but they make riding safer, more comfortable, and more convenient."
     },
     {
       "id": "electric_system",
@@ -186,7 +186,7 @@
   "levels": {
     "1": {
       "title": "Level 1 \u2014 Just Movable",
-      "description": "The absolute minimum parts needed so the bicycle can roll and be pedaled. Great for understanding the core mechanics.",
+      "description": "The absolute minimum parts needed so the cycle can roll and be pedaled. Great for understanding the core mechanics.",
       "focus": [
         "frame",
         "wheels",
@@ -195,18 +195,18 @@
         "chain",
         "seat"
       ],
-      "goal": "Build a bike that moves \u2014 nothing fancy, just working mechanics."
+      "goal": "Build a cycle that moves \u2014 nothing fancy, just working mechanics."
     },
     "2": {
       "title": "Level 2 \u2014 Maximum Needs & Features",
-      "description": "A fully equipped bicycle with gearing, braking systems, and comfort accessories like lights, mudguards, and bottle holders.",
+      "description": "A fully equipped cycle with gearing, braking systems, and comfort accessories like lights, mudguards, and bottle holders.",
       "focus": [
         "gears",
         "brakes",
         "comfort accessories",
         "safety features"
       ],
-      "goal": "Build a complete, real-world-ready bicycle with every standard feature."
+      "goal": "Build a complete, real-world-ready cycle with every standard feature."
     },
     "3": {
       "title": "Level 3 \u2014 Advanced & Inventive",
@@ -217,7 +217,7 @@
         "smart sensors",
         "custom inventions"
       ],
-      "goal": "Design an adventurous, high-performance, or futuristic bicycle."
+      "goal": "Design an adventurous, high-performance, or futuristic cycle."
     }
   }
 }

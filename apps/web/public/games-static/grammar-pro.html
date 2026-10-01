@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en" data-bhava-game="Grammar Pro" data-bhava-mobile="nudge">
+<html lang="en" data-bhava-game="Grammar Pro" data-bhava-mobile="off">
 
 <head>
 <!-- MEDHAA-SEO-EXTRA-INJECTED -->
@@ -16,10 +16,10 @@
 <meta name="description" content="A live, daily English challenge covering everything from basic parts of speech up through advanced grammar. Free game for ages 11-17 on Medhaa.">
 <meta property="og:title" content="Daily English – Language Learning Game for Kids | Medhaa">
 <meta property="og:description" content="A live, daily English challenge covering everything from basic parts of speech up through advanced grammar. Free game for ages 11-17 on Medhaa.">
-<meta property="og:url" content="https://medhaa.net/games-static/Grammar-Pro.html">
-<link rel="canonical" href="https://medhaa.net/games-static/Grammar-Pro.html">
+<meta property="og:url" content="https://medhaa.net/games-static/grammar-pro.html">
+<link rel="canonical" href="https://medhaa.net/games-static/grammar-pro.html">
 <script type="application/ld+json">
-{"@context": "https://schema.org", "@type": "LearningResource", "name": "Daily English", "description": "A live, daily English challenge covering everything from basic parts of speech up through advanced grammar.", "url": "https://medhaa.net/games-static/Grammar-Pro.html", "learningResourceType": "Educational Game", "teaches": ["Grammar Mastery", "Sentence Analysis", "Daily Practice Habit"], "typicalAgeRange": "11-17", "isAccessibleForFree": true, "provider": {"@type": "Organization", "name": "Bhava Tech", "url": "https://medhaa.net"}}
+{"@context": "https://schema.org", "@type": "LearningResource", "name": "Daily English", "description": "A live, daily English challenge covering everything from basic parts of speech up through advanced grammar.", "url": "https://medhaa.net/games-static/grammar-pro.html", "learningResourceType": "Educational Game", "teaches": ["Grammar Mastery", "Sentence Analysis", "Daily Practice Habit"], "typicalAgeRange": "11-17", "isAccessibleForFree": true, "provider": {"@type": "Organization", "name": "Bhava Tech", "url": "https://medhaa.net"}}
 </script>
 
     <meta charset="UTF-8">
@@ -417,7 +417,7 @@
     <div class="container">
         <div class="header">
             <h1>🎮 Grammar Quest Pro</h1>
-            <button class="sound-toggle" id="soundToggle" onclick="toggleSound()" title="Toggle Sound">🔊</button>
+            <button class="sound-toggle" id="soundToggle" onclick="toggleSound()" aria-label="Mute game sounds" title="Game sound effects">🔊</button>
         </div>
 
         <div class="stats">
@@ -437,20 +437,21 @@
 
         <!-- Menu Screen -->
         <div class="game-section active menu-screen" id="menu">
-            <h2 style="margin-bottom: 30px; color: #ffd700;">Choose a Game</h2>
-            <button class="menu-btn grammar-btn" onclick="startGame('grammar')">📝 Grammar Challenge</button>
-            <button class="menu-btn vocab-btn" onclick="startGame('vocab')">📚 Vocabulary Master</button>
-            <p class="info-text">100+ questions • 3 difficulty levels </p>
+            <h2>Choose a challenge</h2>
+            <div class="game-mode-options" role="group" aria-label="Challenge">
+                <button type="button" class="menu-btn grammar-btn active" aria-pressed="true" onclick="selectGameType('grammar', this)">Grammar</button>
+                <button type="button" class="menu-btn vocab-btn" aria-pressed="false" onclick="selectGameType('vocab', this)">Vocabulary</button>
+            </div>
+            <div class="difficulty-selector" role="group" aria-label="Starting difficulty">
+                <button type="button" class="difficulty-btn active" aria-pressed="true" onclick="setStartingDifficulty('easy', this)">Easy</button>
+                <button type="button" class="difficulty-btn" aria-pressed="false" onclick="setStartingDifficulty('medium', this)">Medium</button>
+                <button type="button" class="difficulty-btn" aria-pressed="false" onclick="setStartingDifficulty('hard', this)">Hard</button>
+            </div>
+            <button type="button" class="btn btn-primary menu-play" onclick="startGame(state.gameType || 'grammar')">Play</button>
         </div>
 
         <!-- Game Screen -->
         <div class="game-section" id="gameScreen">
-            <div class="difficulty-selector">
-                <button class="difficulty-btn active" onclick="setDifficulty('easy')">🟢 Easy</button>
-                <button class="difficulty-btn" onclick="setDifficulty('medium')">🟡 Medium</button>
-                <button class="difficulty-btn" onclick="setDifficulty('hard')">🔴 Hard</button>
-            </div>
-
             <div class="progress">
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill" style="width: 0%"></div>
@@ -528,6 +529,7 @@
             soundEnabled = !soundEnabled;
             const btn = document.getElementById('soundToggle');
             btn.textContent = soundEnabled ? '🔊' : '🔇';
+            btn.setAttribute('aria-label', soundEnabled ? 'Mute game sounds' : 'Unmute game sounds');
             btn.classList.toggle('muted', !soundEnabled);
             playSound('click');
         }
@@ -807,25 +809,37 @@
 
         function startGame(type) {
             state.gameType = type;
-            state.difficulty = 'easy';
             state.currentQ = 0;
             state.score = 0;
             state.streak = 0;
             state.totalAnswered = 0;
-            state.questions = gameData[type][state.difficulty];
+            const questions = [...gameData[type][state.difficulty]];
+            for (let index = questions.length - 1; index > 0; index--) {
+                const swapIndex = Math.floor(Math.random() * (index + 1));
+                [questions[index], questions[swapIndex]] = [questions[swapIndex], questions[index]];
+            }
+            state.questions = questions.slice(0, 10);
             loadQuestion();
             showSection('gameScreen');
             playSound('click');
         }
 
-        function setDifficulty(diff) {
+        function selectGameType(type, selectedButton) {
+            state.gameType = type;
+            document.querySelectorAll('#menu .menu-btn').forEach(button => {
+                const selected = button === selectedButton;
+                button.classList.toggle('active', selected);
+                button.setAttribute('aria-pressed', String(selected));
+            });
+        }
+
+        function setStartingDifficulty(diff, selectedButton) {
             state.difficulty = diff;
-            state.currentQ = 0;
-            state.questions = gameData[state.gameType][diff];
-            document.querySelectorAll('.difficulty-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            loadQuestion();
-            playSound('click');
+            document.querySelectorAll('#menu .difficulty-btn').forEach(button => {
+                const selected = button === selectedButton;
+                button.classList.toggle('active', selected);
+                button.setAttribute('aria-pressed', String(selected));
+            });
         }
 
         function loadQuestion() {
@@ -842,8 +856,10 @@
             const optionsDiv = document.getElementById('options');
             optionsDiv.innerHTML = '';
             q.opts.forEach((opt, i) => {
-                const div = document.createElement('div');
+                const div = document.createElement('button');
                 div.className = 'option';
+                div.type = 'button';
+                div.setAttribute('aria-pressed', 'false');
                 div.textContent = opt;
                 div.onclick = () => selectOption(i);
                 optionsDiv.appendChild(div);
@@ -851,15 +867,18 @@
 
             document.getElementById('feedback').classList.remove('show');
             document.getElementById('submitBtn').style.display = 'block';
+            document.getElementById('submitBtn').disabled = true;
             document.getElementById('nextBtn').style.display = 'none';
         }
 
         function selectOption(idx) {
             if (state.answered) return;
             state.selectedAnswer = idx;
+            document.getElementById('submitBtn').disabled = false;
             playSound('click');
             document.querySelectorAll('.option').forEach((opt, i) => {
                 opt.classList.toggle('selected', i === idx);
+                opt.setAttribute('aria-pressed', String(i === idx));
             });
         }
 
@@ -875,7 +894,7 @@
                 } else if (i === state.selectedAnswer && !correct) {
                     opt.classList.add('incorrect');
                 }
-                opt.style.pointerEvents = 'none';
+                opt.disabled = true;
             });
 
             const feedback = document.getElementById('feedback');
@@ -887,7 +906,7 @@
                 playSound('correct');
             } else {
                 state.streak = 0;
-                feedback.textContent = '❌ Incorrect. Try the next one!';
+                feedback.textContent = `Not quite. The answer is ${q.opts[q.ans]}.`;
                 feedback.classList.add('incorrect');
                 playSound('incorrect');
             }
@@ -1117,13 +1136,22 @@
     .emoji-sad { display: inline-block; animation: sorrowSway 1.5s infinite; }
 
     /* 4. LAYOUT ADJUSTMENTS */
-    .container {
-        background: rgba(10, 10, 20, 0.95) !important;
-        border: 3px solid #00f2ff !important;
-        box-shadow: 0 0 30px rgba(0, 242, 255, 0.3) !important;
-    }
+    body { background: linear-gradient(150deg,#142b3b,#264c54 55%,#413956) !important; font-family:'Trebuchet MS',sans-serif; }
+    .container { background:#153842 !important;border:1px solid #5ca99e !important;border-radius:12px !important;box-shadow:0 18px 42px rgba(10,28,39,.24) !important; }
+    .header h1 { color:#e8fff8 !important;text-shadow:none !important; }
+    .stats { background:#214b55 !important;border:1px solid #5a9692 !important;border-radius:8px !important;box-shadow:none !important; }
+    .stat-label { color:#c3e0e0 !important; }
+    .stat-value { color:#facc15 !important;text-shadow:none !important; }
+    .question-text { color:#e8fff8 !important; }
+    .option:focus-visible,.menu-btn:focus-visible,.difficulty-btn:focus-visible { outline:3px solid #facc15;outline-offset:2px; }
 
-    .header h1 { color: #fff !important; text-shadow: 0 0 15px #00f2ff !important; }
+    #menu h2 { color: #e6faf5; font-size: 1.25rem; }
+    #menu .game-mode-options { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:18px 0; }
+    #menu .menu-btn { margin:0;min-height:48px;padding:10px 6px;background:#244453 !important;border:1px solid #4c7078 !important;color:#e6faf5 !important;text-shadow:none !important; }
+    #menu .menu-btn.active { background:#a3f3df !important;border-color:#60c9b0 !important;color:#163735 !important; }
+    #menu .difficulty-selector { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-bottom:8px; }
+    #menu .difficulty-btn { min-width:0;min-height:44px;padding:8px 3px; }
+    #menu .menu-play { width:100%;min-height:48px;margin-top:12px;background:#facc15 !important;border:0 !important;color:#1b3033 !important;text-shadow:none !important; }
     
     .star { position: fixed; background: white; border-radius: 50%; opacity: 0.5; z-index: -1; animation: twinkle 3s infinite; }
     @keyframes twinkle { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.8; } }

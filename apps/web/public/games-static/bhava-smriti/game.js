@@ -70,7 +70,6 @@ const state = {
 const settings = { easy: 8, medium: 10, hard: 12 };
 
 const els = {
-  worldSelect: document.getElementById('worldSelect'),
   worldGrid: document.getElementById('worldGrid'),
   heroBox: document.getElementById('heroBox'),
   gameArea: document.getElementById('gameArea'),
@@ -80,7 +79,6 @@ const els = {
   hudTime: document.getElementById('hudTime'),
   hudScore: document.getElementById('hudScore'),
   goalPill: document.getElementById('goalPill'),
-  startBtn: document.getElementById('startBtn'),
   backBtn: document.getElementById('backBtn'),
   shuffleBtn: document.getElementById('shuffleBtn'),
   easyBtn: document.getElementById('easyBtn'),
@@ -243,27 +241,17 @@ function celebrate() {
 }
 
 function renderWorlds() {
-  els.worldSelect.innerHTML = WORLD_LIST.map(w => `<option value="${w.id}">${w.title}</option>`).join('');
   els.worldGrid.innerHTML = '';
-  WORLD_LIST.forEach((w, i) => {
+  WORLD_LIST.forEach(w => {
     const d = document.createElement('div');
     d.className = 'world glass';
     d.dataset.id = w.id;
-    d.innerHTML = `<div class="icon">${w.icon}</div><h3>${w.title}</h3><p>${w.desc}</p>`;
-    d.addEventListener('click', () => {
+    d.innerHTML = `<div class="icon" aria-hidden="true">${w.icon}</div><h3>${w.title}</h3><button type="button" class="btn primary world-play" aria-label="Play ${w.title}">Play</button>`;
+    d.querySelector('.world-play').addEventListener('click', () => {
       state.world = w.id;
-      els.worldSelect.value = w.id;
-      renderWorlds();
-      showGame(false);
+      showGame(true);
     });
     els.worldGrid.appendChild(d);
-  });
-  highlightWorld();
-}
-
-function highlightWorld() {
-  document.querySelectorAll('.world').forEach(el => {
-    el.classList.toggle('active', el.dataset.id === state.world);
   });
 }
 
@@ -367,8 +355,6 @@ function showGame(show) {
   els.worldGrid.classList.toggle('hidden', show);
   els.gameArea.classList.toggle('hidden', !show);
   if (show) {
-    renderWorlds();
-    highlightWorld();
     updateHud();
     buildBoard();
     startTimer();
@@ -384,7 +370,6 @@ function nextWorld() {
   state.world = WORLD_LIST[idx].id;
   els.winOverlay.classList.remove('show');
   showGame(true);
-  els.worldSelect.value = state.world;
 }
 
 function resetCurrent() {
@@ -399,13 +384,6 @@ function setDifficulty(level) {
   updateHud();
 }
 
-els.worldSelect.addEventListener('change', e => {
-  state.world = e.target.value;
-  renderWorlds();
-  highlightWorld();
-});
-
-els.startBtn.addEventListener('click', () => showGame(true));
 els.backBtn.addEventListener('click', () => showGame(false));
 els.shuffleBtn.addEventListener('click', () => { buildBoard(); startTimer(); });
 els.easyBtn.addEventListener('click', () => setDifficulty('easy'));

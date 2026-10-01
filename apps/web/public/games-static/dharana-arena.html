@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bhava-mobile="off">
 <head>
 <!-- MEDHAA-SEO-EXTRA-INJECTED -->
 <meta property="og:image" content="https://medhaa.net/medha_logo_transparent.png">
@@ -26,8 +26,8 @@
 
 <style>
 :root {
-  --bg-1: #0f0c29; --bg-2: #302b63; --bg-3: #24243e;
-  --primary: #00d4ff; --secondary: #ff6b6b; --accent: #ffd93d;
+  --bg-1: #142b3b; --bg-2: #264c54; --bg-3: #413956;
+  --primary: #66d7c8; --secondary: #ff8f7c; --accent: #facc15;
   --success: #6bcf7f; --danger: #ff4757; --purple: #a55eea;
   --pink: #ff6b9d; --green: #26de81; --orange: #fd9644;
   --calm: #4fd1c5; --breath: #667eea;
@@ -68,7 +68,7 @@ body {
 .home-stat .hs-label { font-size: 0.68rem; color: var(--text-dim); }
 
 .age-select { display: flex; gap: 18px; margin: 16px 0; flex-wrap: wrap; justify-content: center; }
-.age-card { background: var(--card-bg); border: 2px solid var(--card-border); border-radius: var(--radius); padding: 18px 28px; cursor: pointer; text-align: center; transition: var(--transition); backdrop-filter: blur(10px); position: relative; overflow: hidden; }
+.age-card { background: var(--card-bg); border: 2px solid var(--card-border); border-radius: var(--radius); padding: 18px 28px; cursor: pointer; text-align: center; transition: var(--transition); backdrop-filter: blur(10px); position: relative; overflow: hidden; color: inherit; font: inherit; }
 .age-card::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent); transform: rotate(45deg) translateX(-100%); transition: 0.6s; }
 .age-card:hover::before { transform: rotate(45deg) translateX(100%); }
 .age-card:hover { transform: translateY(-5px) scale(1.03); border-color: var(--primary); box-shadow: 0 12px 40px rgba(0,212,255,0.3); }
@@ -78,8 +78,10 @@ body {
 .age-range { font-size: 0.85rem; color: var(--text-dim); margin-top: 4px; }
 
 .mode-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; max-width: 900px; width: 100%; margin: 14px 0; }
-.mode-card { background: var(--card-bg); border: 2px solid var(--card-border); border-radius: var(--radius); padding: 18px 14px; cursor: pointer; text-align: center; transition: var(--transition); backdrop-filter: blur(10px); position: relative; overflow: hidden; }
-.mode-card:hover { transform: translateY(-4px); border-color: var(--mode-color, var(--primary)); box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
+.mode-card { background: var(--card-bg); border: 2px solid var(--card-border); border-radius: var(--radius); padding: 18px 14px; text-align: center; transition: var(--transition); backdrop-filter: blur(10px); position: relative; overflow: hidden; }
+.mode-card:hover { border-color: var(--mode-color, var(--primary)); box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
+.mode-play { margin-top: 12px; padding: 8px 24px; border: 0; border-radius: 8px; background: var(--mode-color, var(--primary)); color: #101426; font: inherit; font-weight: 800; cursor: pointer; }
+.mode-play:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
 .mode-card .mode-icon { font-size: 2.4rem; margin-bottom: 6px; display: block; animation: bounceIcon 2s ease infinite; }
 @keyframes bounceIcon { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 .mode-card .mode-name { font-size: 1.05rem; font-weight: 700; margin-bottom: 4px; }
@@ -107,7 +109,7 @@ body {
 
 /* SETTINGS TOGGLE */
 .settings-row { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; justify-content: center; }
-.toggle-chip { display: flex; align-items: center; gap: 8px; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; padding: 6px 14px; cursor: pointer; font-size: 0.82rem; transition: var(--transition); }
+.toggle-chip { display: flex; align-items: center; gap: 8px; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; padding: 6px 14px; cursor: pointer; font: inherit; font-size: 0.82rem; color: inherit; transition: var(--transition); }
 .toggle-chip:hover { border-color: var(--primary); }
 .toggle-chip.active { border-color: var(--success); background: rgba(107,207,127,0.12); }
 .toggle-chip .tc-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.2); transition: var(--transition); }
@@ -309,19 +311,17 @@ body {
 <div class="screen active" id="homeScreen">
   <div class="logo-container">
     <div class="logo">Dhāraṇā Arena</div>
-    <div class="tagline">Train Your Attention • Sharpen Your Focus</div>
     <div class="brand">⚡ Medhā</div>
-    <div class="version-tag">v3 — Holistic Attention Edition</div>
   </div>
   <div class="home-stats" id="homeStatsBar"></div>
   <div class="age-select">
-    <div class="age-card" data-age="junior" onclick="selectAge('junior')"><div class="age-icon">🧒</div><div class="age-title">Juniors</div><div class="age-range">Ages 7–12</div></div>
-    <div class="age-card" data-age="teen" onclick="selectAge('teen')"><div class="age-icon">🧑</div><div class="age-title">Teens</div><div class="age-range">Ages 13–17</div></div>
+    <button type="button" class="age-card" data-age="junior" aria-pressed="false" onclick="selectAge('junior')"><div class="age-icon">🧒</div><div class="age-title">Juniors</div><div class="age-range">Ages 5–12</div></button>
+    <button type="button" class="age-card" data-age="teen" aria-pressed="false" onclick="selectAge('teen')"><div class="age-icon">🧑</div><div class="age-title">Teens</div><div class="age-range">Ages 13–17</div></button>
   </div>
   <div class="mode-grid" id="modeGrid"></div>
   
   <div class="custom-controls">
-    <h3>⚙️ Custom Game Modifiers</h3>
+    <h3>⚙️ Pace &amp; Length</h3>
     <div class="slider-group">
       <label class="slider-label">
         <strong>Game Speed</strong>
@@ -338,8 +338,8 @@ body {
   </div>
 
   <div class="settings-row">
-    <div class="toggle-chip active" id="toggleBreathing" onclick="toggleSetting('breathing', this)"><div class="tc-dot"></div>🫁 Breathing Warm-up</div>
-    <div class="toggle-chip active" id="togglePhysical" onclick="toggleSetting('physical', this)"><div class="tc-dot"></div>🤸 Physical Breaks</div>
+    <button type="button" class="toggle-chip active" id="toggleBreathing" aria-pressed="true" onclick="toggleSetting('breathing', this)"><span class="tc-dot"></span>🫁 Breathing Warm-up</button>
+    <button type="button" class="toggle-chip active" id="togglePhysical" aria-pressed="true" onclick="toggleSetting('physical', this)"><span class="tc-dot"></span>🤸 Physical Breaks</button>
   </div>
   <div class="home-actions">
     <button class="btn btn-secondary" onclick="showProgress()">📊 My Progress</button>
@@ -498,8 +498,8 @@ function recordSession(mode, age, score, accuracy, avgRT, maxStreak) {
 
 // ADAPTIVE DIFFICULTY
 const BaseConfig = {
-  junior: { signal: { rounds: 20, showTime: 1500, gapTime: 500, goRatio: 0.65 }, memory: { gridSize: 3, maxSeq: 5, rounds: 20, showTime: 600 }, scan: { gridSize: 5, targets: 3, rounds: 20, roundTime: 15 }, dual: { rounds: 20, showTime: 2500, gapTime: 500 } },
-  teen: { signal: { rounds: 25, showTime: 1000, gapTime: 300, goRatio: 0.6 }, memory: { gridSize: 4, maxSeq: 8, rounds: 20, showTime: 450 }, scan: { gridSize: 7, targets: 5, rounds: 20, roundTime: 12 }, dual: { rounds: 20, showTime: 1800, gapTime: 300 } },
+  junior: { signal: { rounds: 12, showTime: 1500, gapTime: 500, goRatio: 0.65 }, memory: { gridSize: 3, maxSeq: 5, rounds: 10, showTime: 600 }, scan: { gridSize: 5, targets: 3, rounds: 10, roundTime: 15 }, dual: { rounds: 12, showTime: 2500, gapTime: 500 } },
+  teen: { signal: { rounds: 14, showTime: 1000, gapTime: 300, goRatio: 0.6 }, memory: { gridSize: 4, maxSeq: 8, rounds: 10, showTime: 450 }, scan: { gridSize: 7, targets: 5, rounds: 10, roundTime: 12 }, dual: { rounds: 12, showTime: 1800, gapTime: 300 } },
 };
 function getAdaptiveConfig(mode, age, dl) {
   const b = JSON.parse(JSON.stringify(BaseConfig[age][mode]));
@@ -515,7 +515,7 @@ function getAdaptiveConfig(mode, age, dl) {
   if (b.showTime) b.showTime = b.showTime / State.customSpeed;
   if (b.gapTime) b.gapTime = b.gapTime / State.customSpeed;
   if (b.roundTime) b.roundTime = b.roundTime * State.customTime;
-  if (b.rounds) b.rounds = Math.max(20, Math.floor(b.rounds * State.customTime));
+  if (b.rounds) b.rounds = Math.max(8, Math.floor(b.rounds * State.customTime));
   
   return b;
 }
@@ -543,16 +543,16 @@ createParticles();
 
 // NAVIGATION
 function showScreen(id) { document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
-function selectAge(age) { initAudio(); State.age = age; document.querySelectorAll('.age-card').forEach(c=>c.classList.remove('selected')); document.querySelector(`[data-age="${age}"]`).classList.add('selected'); playClick(); }
+function selectAge(age) { initAudio(); State.age = age; document.querySelectorAll('.age-card').forEach(c=>{const selected=c.dataset.age===age;c.classList.toggle('selected',selected);c.setAttribute('aria-pressed',String(selected));}); playClick(); }
 function goHome() { if (State.timer) { clearInterval(State.timer); State.timer = null; } if (State._breathTimer) { clearInterval(State._breathTimer); State._breathTimer = null; } if (State._keyHandler) { document.removeEventListener('keydown', State._keyHandler); State._keyHandler = null; } State.isPlaying = false; renderHomeStats(); renderModeGrid(); showScreen('homeScreen'); }
-function toggleSetting(key, el) { State.settings[key] = !State.settings[key]; el.classList.toggle('active'); playClick(); }
+function toggleSetting(key, el) { State.settings[key] = !State.settings[key]; el.classList.toggle('active',State.settings[key]); el.setAttribute('aria-pressed',String(State.settings[key])); playClick(); }
 
 // HOME RENDERING
 const ModeInfo = {
-  signal: { emoji:'🚦', name:'Signal Rush', desc:'Tap on green, hold back on red. Builds response control and inhibition.', tag:'Selective Attention', color:'#6bcf7f' },
-  memory: { emoji:'🧩', name:'Memory Matrix', desc:'Watch the pattern light up, then repeat it. Strengthens working memory.', tag:'Working Memory', color:'#a55eea' },
-  scan: { emoji:'🔍', name:'Scan Quest', desc:'Find all matching items fast. Develops visual scanning speed.', tag:'Visual Scanning', color:'#ffd93d' },
-  dual: { emoji:'⚡', name:'Dual Dash', desc:'Handle two tasks at once! Trains divided attention and multitasking.', tag:'Divided Attention', color:'#ff6b9d' },
+  signal: { emoji:'🚦', name:'Signal Rush', desc:'Tap green. Skip red.', color:'#6bcf7f' },
+  memory: { emoji:'🧩', name:'Memory Matrix', desc:'Watch and repeat the pattern.', color:'#a55eea' },
+  scan: { emoji:'🔍', name:'Scan Quest', desc:'Find every matching symbol.', color:'#ffd93d' },
+  dual: { emoji:'⚡', name:'Dual Dash', desc:'Choose the shape and color.', color:'#ff6b9d' },
 };
 
 function renderHomeStats() {
@@ -564,10 +564,11 @@ function renderHomeStats() {
     <div class="home-stat"><div class="hs-icon">🫁</div><div class="hs-val">${p.breathingCount}</div><div class="hs-label">Breathing</div></div>`;
 }
 function renderModeGrid() {
-  const g = document.getElementById('modeGrid'); const p = loadProgress(); g.innerHTML = '';
-  Object.keys(ModeInfo).forEach(mode => { const info = ModeInfo[mode]; const diff = p.difficulty[mode] || 1;
-    const c = document.createElement('div'); c.className='mode-card'; c.style.setProperty('--mode-color', info.color); c.onclick = () => startGame(mode);
-    c.innerHTML = `<div class="diff-badge">Lv ${diff}/5</div><span class="mode-icon">${info.emoji}</span><div class="mode-name">${info.name}</div><div class="mode-desc">${info.desc}</div><span class="mode-tag">${info.tag}</span>`;
+  const g = document.getElementById('modeGrid'); g.innerHTML = '';
+  Object.keys(ModeInfo).forEach(mode => { const info = ModeInfo[mode];
+    const c = document.createElement('div'); c.className='mode-card'; c.style.setProperty('--mode-color', info.color);
+    c.innerHTML = `<span class="mode-icon">${info.emoji}</span><div class="mode-name">${info.name}</div><div class="mode-desc">${info.desc}</div><button type="button" class="mode-play">Play</button>`;
+    c.querySelector('.mode-play').addEventListener('click', () => startGame(mode));
     g.appendChild(c);
   });
 }
@@ -578,6 +579,8 @@ function saveSettings() { try { localStorage.setItem('dharana_settings_v3', JSON
 function syncSettingsUI() {
   document.getElementById('toggleBreathing').classList.toggle('active', State.settings.breathing);
   document.getElementById('togglePhysical').classList.toggle('active', State.settings.physical);
+  document.getElementById('toggleBreathing').setAttribute('aria-pressed', String(State.settings.breathing));
+  document.getElementById('togglePhysical').setAttribute('aria-pressed', String(State.settings.physical));
 }
 
 // GAME FLOW: Start -> Breathing -> Countdown -> Game (with physical breaks) -> Results
@@ -598,6 +601,8 @@ function startGame(mode) {
   document.getElementById('modeTitle').textContent = info.name;
   document.getElementById('diffIndicator').textContent = 'Level ' + dl + '/5';
   document.getElementById('totalRounds').textContent = cfg.rounds;
+  document.getElementById('timerPill').style.display = mode === 'dual' ? 'none' : '';
+  document.querySelector('.timer-bar-container').style.display = mode === 'dual' ? 'none' : '';
 
   if (State.settings.breathing) { showScreen('breathingScreen'); startBreathing(); }
   else { enterGame(); }
@@ -790,7 +795,7 @@ function handleWrong() { State.streak=0; State.wrongCount++; playWrong(); showFe
 function showFeedback(t,c) { const o=document.getElementById('feedbackOverlay'); const p=document.createElement('div'); p.className='feedback-pop'; p.textContent=t; p.style.color=c; o.appendChild(p); setTimeout(()=>p.remove(),800); }
 function burstConfetti(n) { const cols=['#00d4ff','#ff6b6b','#ffd93d','#6bcf7f','#a55eea','#ff6b9d']; for(let i=0;i<n;i++){const c=document.createElement('div'); c.className='confetti'; c.style.left=(40+Math.random()*20)+'%'; c.style.top=(40+Math.random()*20)+'%'; c.style.background=cols[Math.floor(Math.random()*cols.length)]; c.style.animationDuration=(1+Math.random())+'s'; c.style.animationDelay=(Math.random()*0.3)+'s'; document.body.appendChild(c); setTimeout(()=>c.remove(),2500);} }
 function showDiffUpBanner(mode, nl) { const b=document.createElement('div'); b.className='diff-up-banner'; b.innerHTML=`⚡ Difficulty Up! ${ModeInfo[mode].emoji} ${ModeInfo[mode].name} → Level ${nl}/5`; document.body.appendChild(b); playLevelUp(); burstConfetti(20); setTimeout(()=>b.remove(),3000); }
-function nextRound() { State.round++; if (State.round > State.totalRounds) { endGame(); return; } updateStats(); setTimeout(() => runRound(), 600); }
+function nextRound() { setTimeout(() => { State.round++; if (State.round > State.totalRounds) { endGame(); return; } updateStats(); runRound(); }, 600); }
 
 // END GAME -> RESULTS
 function endGame() {
@@ -852,9 +857,9 @@ function runSignalRound(cfg) {
   c.innerHTML=`<div class="instruction-text">Tap ONLY when <strong>green</strong> ✅. Do NOT tap when <strong style="color:var(--danger)">red</strong> ❌!</div><div class="signal-display" id="signalDisplay">⏳</div><div class="tap-hint">Tap or press SPACEBAR</div>`;
   const d=document.getElementById('signalDisplay');
   State.round=1;State.totalRounds=cfg.rounds;document.getElementById('roundVal').textContent='1';document.getElementById('totalRounds').textContent=cfg.rounds;
-  function sns(){if(sc2>=cfg.rounds){endGame();return;}ss.responded=false;ss.isGo=Math.random()<cfg.goRatio;d.className='signal-display neutral';d.textContent='...';State.roundStartTime=Date.now();document.getElementById('roundVal').textContent=sc2+1;
-    setTimeout(()=>{if(ss.responded)return;if(ss.isGo){d.className='signal-display signal-go';d.textContent='✅';}else{d.className='signal-display signal-nogo';d.textContent='❌';}ss.st=setTimeout(()=>{if(!ss.responded){if(ss.isGo){handleWrong();}else{State.correctCount++;State.score+=5;State.streak++;State.maxStreak=Math.max(State.maxStreak,State.streak);playCorrect();showFeedback('+5','#6bcf7f');updateStats();}sc2++;State.round=sc2+1;setTimeout(sns,cfg.gapTime);}},cfg.showTime);},cfg.gapTime+Math.random()*500);}
-  function hst(){if(ss.responded)return;if(!d.classList.contains('signal-go')&&!d.classList.contains('signal-nogo'))return;ss.responded=true;if(ss.st)clearTimeout(ss.st);if(ss.isGo&&d.classList.contains('signal-go')){recordReactionTime();handleCorrect(10+State.streak*2);d.style.transform='scale(0.9)';setTimeout(()=>d.style.transform='',200);}else{handleWrong();d.style.animation='noGoShake 0.3s ease';setTimeout(()=>d.style.animation='',300);}sc2++;State.round=sc2+1;setTimeout(sns,cfg.gapTime);}
+  function sns(){if(sc2>=cfg.rounds){endGame();return;}State.round=sc2+1;updateStats();ss.responded=false;ss.isGo=Math.random()<cfg.goRatio;d.className='signal-display neutral';d.textContent='...';State.roundStartTime=Date.now();
+    setTimeout(()=>{if(ss.responded)return;if(ss.isGo){d.className='signal-display signal-go';d.textContent='✅';}else{d.className='signal-display signal-nogo';d.textContent='❌';}ss.st=setTimeout(()=>{if(!ss.responded){if(ss.isGo){handleWrong();}else{State.correctCount++;State.score+=5;State.streak++;State.maxStreak=Math.max(State.maxStreak,State.streak);playCorrect();showFeedback('+5','#6bcf7f');updateStats();}sc2++;setTimeout(sns,cfg.gapTime);}},cfg.showTime);},cfg.gapTime+Math.random()*500);}
+  function hst(){if(ss.responded)return;if(!d.classList.contains('signal-go')&&!d.classList.contains('signal-nogo'))return;ss.responded=true;if(ss.st)clearTimeout(ss.st);if(ss.isGo&&d.classList.contains('signal-go')){recordReactionTime();handleCorrect(10+State.streak*2);d.style.transform='scale(0.9)';setTimeout(()=>d.style.transform='',200);}else{handleWrong();d.style.animation='noGoShake 0.3s ease';setTimeout(()=>d.style.animation='',300);}sc2++;setTimeout(sns,cfg.gapTime);}
   d.addEventListener('click',hst);
   const kh=(e)=>{if(e.code==='Space'&&State.isPlaying&&State.mode==='signal'){e.preventDefault();hst();}};
   document.addEventListener('keydown',kh);State._keyHandler=kh;sns();
@@ -902,23 +907,23 @@ function runScanRound(cfg) {
 }
 
 function runDualRound(cfg) {
-  const c=document.getElementById('gameContent');let ps={left:0,right:0};let tt=0;const Shapes=['circle','square'];const ch=['#00d4ff','#ff6b6b','#ffd93d','#6bcf7f'];const ce=['🔵','🔴','🟡','🟢'];
-  document.getElementById('instructionText').innerHTML=`<strong>Left:</strong> Match the SHAPE. <strong>Right:</strong> Match the COLOR.`;
+  const c=document.getElementById('gameContent');let ps={left:0,right:0};let tt=0;const Shapes=['circle','square'];const ch=['#378bff','#ff6b6b','#ffd93d','#6bcf7f'];
+  document.getElementById('instructionText').innerHTML=`Choose the shape on the left and the color on the right.`;
   c.innerHTML=`<div class="dual-container"><div class="dual-panel"><h3>🔹 Shape Match</h3><div class="panel-score" id="leftScore">0</div><div class="dual-shape" id="leftShape">❓</div><div class="dual-shape-btns"><button class="dual-btn" data-panel="left" data-answer="circle">⭕ Circle</button><button class="dual-btn" data-panel="left" data-answer="square">⬜ Square</button></div><div class="dual-feedback" id="leftFeedback"></div></div><div class="dual-panel"><h3>🎨 Color Match</h3><div class="panel-score" id="rightScore">0</div><div class="dual-shape" id="rightShape" style="background:var(--card-bg);">🎨</div><div class="dual-color-btns"><button class="dual-btn" data-panel="right" data-answer="0">🔵 Blue</button><button class="dual-btn" data-panel="right" data-answer="1">🔴 Red</button><button class="dual-btn" data-panel="right" data-answer="2">🟡 Yellow</button><button class="dual-btn" data-panel="right" data-answer="3">🟢 Green</button></div><div class="dual-feedback" id="rightFeedback"></div></div></div>`;
-  let la=null,ra=null,lA=false,rA=false,tt2=null;
+  let la=null,ra=null,lA=false,rA=false;
   State.round=1;State.totalRounds=cfg.rounds;document.getElementById('roundVal').textContent='1';document.getElementById('totalRounds').textContent=cfg.rounds;
-  function nt(){if(tt>=cfg.rounds){endGame();return;}document.getElementById('roundVal').textContent=tt+1;lA=true;rA=true;
+  function nt(){if(tt>=cfg.rounds){endGame();return;}State.round=tt+1;updateStats();lA=true;rA=true;
     let si,ci,combo;let attempts=0;
     do{si=Math.floor(Math.random()*2);ci=Math.floor(Math.random()*4);combo=si+':'+ci;attempts++;}while(combo===State._lastDualCombo&&attempts<10);
     State._lastDualCombo=combo;
     la=Shapes[si];const ls=document.getElementById('leftShape');ls.className='dual-shape '+la;ls.style.background=ch[Math.floor(Math.random()*4)];ls.textContent='';
-    ra=ci.toString();const rs=document.getElementById('rightShape');rs.style.background=ch[ci];rs.textContent=ce[ci];rs.className='dual-shape circle';
+    ra=ci.toString();const rs=document.getElementById('rightShape');rs.style.background=ch[ci];rs.textContent='';rs.className='dual-shape circle';
     document.getElementById('leftFeedback').textContent='';document.getElementById('leftFeedback').className='dual-feedback';document.getElementById('rightFeedback').textContent='';document.getElementById('rightFeedback').className='dual-feedback';
-    State.roundStartTime=Date.now();if(tt2)clearTimeout(tt2);tt2=setTimeout(()=>{if(lA){lA=false;document.getElementById('leftFeedback').textContent='⏰ Too slow!';document.getElementById('leftFeedback').className='dual-feedback wrong';}if(rA){rA=false;document.getElementById('rightFeedback').textContent='⏰ Too slow!';document.getElementById('rightFeedback').className='dual-feedback wrong';}handleWrong();tt++;setTimeout(nt,cfg.gapTime);},cfg.showTime);}
+    State.roundStartTime=Date.now();}
   document.querySelectorAll('.dual-btn').forEach(btn=>{btn.addEventListener('click',function(){const pn=this.dataset.panel;const an=this.dataset.answer;
     if(pn==='left'&&lA){lA=false;const fb=document.getElementById('leftFeedback');if(an===la){ps.left++;document.getElementById('leftScore').textContent=ps.left;fb.textContent='✓';fb.className='dual-feedback correct';playTone(700,0.12);}else{fb.textContent='✗';fb.className='dual-feedback wrong';playWrong();}}
     else if(pn==='right'&&rA){rA=false;const fb=document.getElementById('rightFeedback');if(an===ra){ps.right++;document.getElementById('rightScore').textContent=ps.right;fb.textContent='✓';fb.className='dual-feedback correct';playTone(800,0.12);}else{fb.textContent='✗';fb.className='dual-feedback wrong';playWrong();}}
-    if(!lA&&!rA){if(tt2)clearTimeout(tt2);const bc=document.getElementById('leftFeedback').classList.contains('correct')&&document.getElementById('rightFeedback').classList.contains('correct');if(bc){recordReactionTime();handleCorrect(12+State.streak*3);burstConfetti(8);}else{handleWrong();}tt++;State.round=tt+1;updateStats();setTimeout(nt,cfg.gapTime);}});});
+    if(!lA&&!rA){const bc=document.getElementById('leftFeedback').classList.contains('correct')&&document.getElementById('rightFeedback').classList.contains('correct');if(bc){handleCorrect(12+State.streak*3);burstConfetti(8);}else{handleWrong();}tt++;setTimeout(nt,Math.max(850,cfg.gapTime));}});});
   nt();
 }
 

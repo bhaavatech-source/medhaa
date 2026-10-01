@@ -105,6 +105,12 @@
   transform: translateY(0);
 }
 
+#step-challenge {
+  justify-content: flex-start;
+  padding-top: 4rem;
+  padding-bottom: 12rem;
+}
+
 .step-content {
   max-width: 720px;
   width: 100%;

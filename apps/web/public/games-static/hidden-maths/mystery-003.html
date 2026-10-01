@@ -61,7 +61,7 @@
             <div class="step-content">
                 <span class="step-tag">Observation</span>
                 <h2 class="step-title" id="step2-title">Watch the Temperature</h2>
-                <p class="step-desc">You set the AC to 24°C. The room cools down. But the AC does not stop exactly at 24°C. It stops before.</p>
+                <p class="step-desc">With a 24°C target and a 1°C buffer, the compressor stops cooling at 23°C. It starts again if the room warms to 25°C.</p>
                 <div class="observation-stage" id="observationStage" aria-hidden="true">
                     <div class="temp-timeline">
                         <div class="temp-marker start">30°C</div>
@@ -228,7 +228,7 @@
                     <div class="app-card glass"><div class="app-icon">🧊</div><h3>Refrigerator</h3><p>The fridge stops at 3°C and restarts at 6°C. The dead band keeps your food safe without burning out the motor.</p></div>
                     <div class="app-card glass"><div class="app-icon">🍳</div><h3>Oven</h3><p>An oven overshoots its target by a few degrees, then waits. The average temperature inside is what matters, not the exact moment.</p></div>
                     <div class="app-card glass"><div class="app-icon">🚿</div><h3>Water Heater</h3><p>Your geyser heats to 65°C, then waits until 55°C before reheating. That 10°C buffer saves massive energy.</p></div>
-                    <div class="app-card glass"><div class="app-icon">🌡️</div><h3>Incubator</h3><p>Hospital baby incubators use dead bands as small as 0.1°C. Precision depends on the tolerance the patient can survive.</p></div>
+                    <div class="app-card glass"><div class="app-icon">🌡️</div><h3>Medical Incubators</h3><p>Medical incubators control temperature within a carefully chosen range. The safe settings depend on the patient and the equipment.</p></div>
                     <div class="app-card glass"><div class="app-icon">🧹</div><h3>Electric Iron</h3><p>The thermostat in an iron cycles on and off around the set temperature. The dead band stops the relay from chattering.</p></div>
                     <div class="app-card glass"><div class="app-icon">🌿</div><h3>Greenhouses</h3><p>Climate-controlled farms use the same zone logic. A 2°C buffer prevents heaters and coolers from fighting each other.</p></div>
                 </div>
@@ -252,7 +252,7 @@
                         <div class="quiz-feedback" id="feedbackQ1"></div>
                     </div>
                     <div class="quiz-question" id="quizQ2">
-                        <p class="quiz-text">Room temperature is 23.5°C. Set point is 24°C. Dead band is 1°C. What is the AC doing?</p>
+                        <p class="quiz-text">Room temperature has cooled to 22.5°C. Set point is 24°C. Dead band is 1°C. What is the AC doing?</p>
                         <div class="quiz-options">
                             <button class="quiz-option glass" data-correct="false">Cooling</button>
                             <button class="quiz-option glass" data-correct="true">Off</button>

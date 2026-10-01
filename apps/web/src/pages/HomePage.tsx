@@ -109,31 +109,31 @@ const roles: Role[] = [
   {
     title: 'For Students',
     subtitle: 'Play, learn, and grow',
-    description: 'Fun games and challenges that help children practise focus, memory, creativity, and problem-solving.',
+    description: 'Age-aware games and challenges invite children to practise focus, memory, creativity, and problem-solving.',
     variant: 'student',
     route: '/student/preview',
     image: '/images/roles/student-role.png',
   },
   {
     title: 'For Parents',
-    subtitle: 'See your child’s progress',
-    description: 'Follow what your child explores, notice growing strengths, and support learning at home.',
+    subtitle: 'Review recorded activity',
+    description: 'See completed games and the results connected activities record, then use them to start a low-pressure conversation.',
     variant: 'parent',
     route: '/parent/preview',
     image: '/images/roles/parent-role.png',
   },
   {
     title: 'For Teachers',
-    subtitle: 'Support learning in class',
-    description: 'See how students engage and help them practise important skills through purposeful activities.',
+    subtitle: 'Preview teacher tools',
+    description: 'Explore a sample classroom dashboard. Its learner data is fictional, not live student reporting.',
     variant: 'teacher',
     route: '/teacher/preview',
     image: '/images/roles/teacher-role.png',
   },
   {
     title: 'For Schools',
-    subtitle: 'Bring learning into focus',
-    description: 'Give your school a shared view of student activity, skill development, and progress.',
+    subtitle: 'Preview school tools',
+    description: 'Explore a sample school dashboard. Its school, student, and progress figures are illustrative, not live data.',
     variant: 'school',
     route: '/school-report',
     image: '/images/roles/school-role.png',
@@ -1918,8 +1918,8 @@ export default function HomePage() {
           onKeyDown={(e) => { if (e.key === 'Enter') window.location.href = '/games-static/medhaa-cognitive-assessment.html'; }}
         >
           <div className="home-scroll-banner__track">
-            <span>✨ NEW: Take the Medhā Cognitive Assessment — a one-time personalised report for just ₹99 →</span>
-            <span>✨ NEW: Take the Medhā Cognitive Assessment — a one-time personalised report for just ₹99 →</span>
+            <span>✨ FREE: Take the Medhā Cognitive Assessment. Optional detailed report ₹299 →</span>
+            <span>✨ FREE: Take the Medhā Cognitive Assessment. Optional detailed report ₹299 →</span>
           </div>
         </div>
       )}
@@ -1984,13 +1984,13 @@ export default function HomePage() {
 
 
     <div className="medha-mini-points" aria-label="Medhā highlights">
-      <span className="medha-mini-point"><Brain size={14} /> Build cognitive skills</span>
-      <span className="medha-mini-point"><BarChart3 size={14} /> Understand progress</span>
-      <span className="medha-mini-point"><Heart size={14} /> Support every learner</span>
+      <span className="medha-mini-point"><Brain size={14} /> Practise thinking skills</span>
+      <span className="medha-mini-point"><BarChart3 size={14} /> See recorded activity</span>
+      <span className="medha-mini-point"><Heart size={14} /> Choose by age and interest</span>
     </div>
 
     <a className="medha-assessment-cta" href="/games-static/medhaa-cognitive-assessment.html">
-      <Sparkles size={15} aria-hidden="true" /> Take the free Medhā Cognitive Assessment
+      <Sparkles size={15} aria-hidden="true" /> Start the free assessment · report optional ₹299
     </a>
   </div>
 
@@ -2163,7 +2163,7 @@ export default function HomePage() {
         }}
       >
         <BarChart3 size={14} />
-        Meaningful insights
+        Recorded activity
       </span>
 
       <span
@@ -2278,7 +2278,7 @@ export default function HomePage() {
           <button type="button" className="home-assessment-promo__close" aria-label="Close" onClick={() => setShowAssessmentPromo(false)}>×</button>
           <div className="home-assessment-promo__icon"><Sparkles size={22} aria-hidden="true" /></div>
           <strong>New: Medhā Cognitive Assessment</strong>
-          <p>A one-time, personalised cognitive report — just ₹99 to unlock your full results.</p>
+          <p>The assessment is free. An optional detailed report costs ₹299.</p>
           <button type="button" onClick={() => { setShowAssessmentPromo(false); window.location.href = '/games-static/medhaa-cognitive-assessment.html'; }}>Take it now →</button>
         </div>
       )}
