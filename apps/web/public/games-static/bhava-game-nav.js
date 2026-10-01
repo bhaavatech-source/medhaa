@@ -9,11 +9,12 @@
 
   const style = document.createElement('style');
   style.textContent = [
-    '#bhava-game-nav{position:fixed;top:0;left:0;right:0;z-index:9999;display:flex;',
-    'align-items:center;gap:10px;padding:5px 12px;height:44px;box-sizing:border-box;',
+    '#bhava-game-nav{position:fixed;top:auto;bottom:0;left:0;right:0;z-index:9999;display:flex;',
+    'align-items:center;gap:10px;padding:5px 12px calc(5px + env(safe-area-inset-bottom));',
+    'height:calc(52px + env(safe-area-inset-bottom));box-sizing:border-box;',
     'background:rgba(10,29,36,.96);backdrop-filter:blur(14px);',
     '-webkit-backdrop-filter:blur(14px);',
-    'border-bottom:1px solid rgba(165,221,220,.2);',
+    'border-top:1px solid rgba(165,221,220,.2);',
     "font-family:'Poppins','Inter',sans-serif;}",
 
     '#bhava-game-nav .bgnav-journey{display:inline-flex;align-items:stretch;flex-shrink:0;',
@@ -48,16 +49,6 @@
     '#bhava-game-nav .bgnav-report:hover{background:rgba(111,224,204,.22);color:#c6ffef;}',
     '#bhava-game-nav .bgnav-report.bgnav-hidden{display:none;}',
     '#bhava-game-nav .bgnav-next.bgnav-hidden{display:none;}',
-    'body.bgnav-has-nav{padding-top:calc(44px + var(--bgnav-original-padding,0px)) !important;}',
-    '@media(max-width:600px){#bhava-game-nav{top:auto;bottom:0;height:calc(52px + env(safe-area-inset-bottom));',
-    'padding:5px 12px calc(5px + env(safe-area-inset-bottom));gap:8px;',
-    'border-bottom:0;border-top:1px solid rgba(165,221,220,.2);}',
-    '#bhava-game-nav .bgnav-title{display:none;}',
-    '#bhava-game-nav .bgnav-btn{font-size:12px;padding:5px 12px;}',
-    '#bhava-game-nav .bgnav-back{background:#294454;color:#ffddd2;}',
-    '#bhava-game-nav .bgnav-home{background:#1d574d;color:#e4fff3;}',
-    '#bhava-game-nav .bgnav-report{margin-right:100px;padding:5px 8px;}',
-    '#bhava-game-nav .bgnav-report-label{display:none;}',
     'body.bgnav-has-nav{padding-top:var(--bgnav-original-padding,0px) !important;',
     'padding-bottom:calc(var(--bgnav-original-bottom-padding,0px) + 52px + env(safe-area-inset-bottom)) !important;}',
     '#bhava-layout-toggle{left:auto !important;right:64px !important;',
@@ -68,7 +59,14 @@
     '#medhaa-music-control,.medhaa-site-music-toggle{right:12px !important;',
     'bottom:calc(4px + env(safe-area-inset-bottom)) !important;}',
     '#medhaa-music-toggle,.medhaa-site-music-toggle{background:#d7f5ef !important;',
-    'border-color:#a4e4d9 !important;}}',
+    'border-color:#a4e4d9 !important;}',
+
+    '@media(max-width:600px){#bhava-game-nav .bgnav-title{display:none;}',
+    '#bhava-game-nav .bgnav-btn{font-size:12px;padding:5px 12px;}',
+    '#bhava-game-nav .bgnav-back{background:#294454;color:#ffddd2;}',
+    '#bhava-game-nav .bgnav-home{background:#1d574d;color:#e4fff3;}',
+    '#bhava-game-nav .bgnav-report{margin-right:100px;padding:5px 8px;}',
+    '#bhava-game-nav .bgnav-report-label{display:none;}}',
 
     // ── No spacer div — use body padding instead to avoid breaking game layouts
     // '#bhava-game-nav-spacer' intentionally removed

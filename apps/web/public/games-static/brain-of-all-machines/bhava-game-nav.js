@@ -1,7 +1,7 @@
 ﻿// ─────────────────────────────────────────────────────────────────────────────
 // bhava-game-nav.js  — Universal Game Navigation Bar for Medhā
 // Drop ONE <script src="bhava-game-nav.js"></script> before </body> in any game
-// Provides: ← Back, 🏠 Home, 📊 My Report (IPC-aware with live score modal)
+// Provides: Back, Home, My Report (IPC-aware with live score modal)
 // ─────────────────────────────────────────────────────────────────────────────
 
 (function () {
@@ -9,29 +9,28 @@
 
   const style = document.createElement('style');
   style.textContent = [
-    '#bhava-game-nav{position:fixed;top:0;left:0;right:0;z-index:9999;display:flex;',
-    'align-items:center;gap:8px;padding:6px 14px;height:44px;',
-    'background:rgba(10,8,20,0.85);backdrop-filter:blur(14px);',
+    '#bhava-game-nav{position:fixed;top:auto;bottom:0;left:0;right:0;z-index:9999;display:flex;',
+    'align-items:center;gap:10px;padding:5px 12px calc(5px + env(safe-area-inset-bottom));',
+    'height:calc(52px + env(safe-area-inset-bottom));box-sizing:border-box;',
+    'background:rgba(10,29,36,.96);backdrop-filter:blur(14px);',
     '-webkit-backdrop-filter:blur(14px);',
-    'border-bottom:1px solid rgba(255,255,255,0.08);',
+    'border-top:1px solid rgba(165,221,220,.2);',
     "font-family:'Poppins','Inter',sans-serif;}",
 
+    '#bhava-game-nav .bgnav-journey{display:inline-flex;align-items:stretch;flex-shrink:0;',
+    'border:1px solid rgba(193,226,226,.22);border-radius:9px;overflow:hidden;}',
     '#bhava-game-nav .bgnav-btn{display:inline-flex;align-items:center;gap:5px;',
-    'padding:5px 13px;border-radius:999px;font-size:12px;font-weight:700;',
-    'letter-spacing:.04em;border:1px solid transparent;cursor:pointer;',
-    'transition:background .18s,border-color .18s,transform .15s;',
+    'padding:5px 10px;border-radius:0;font-size:12px;font-weight:700;',
+    'letter-spacing:0;border:0;cursor:pointer;min-height:32px;',
+    'transition:background .18s,color .18s;',
     'white-space:nowrap;font-family:inherit;background:none;}',
-    '#bhava-game-nav .bgnav-btn:active{transform:scale(.95);}',
+    '#bhava-game-nav .bgnav-btn:focus-visible{outline:2px solid #8bf0da;outline-offset:-2px;}',
 
-    '#bhava-game-nav .bgnav-back{background:rgba(255,255,255,.05);',
-    'border-color:rgba(255,255,255,.12);color:#94a3b8;}',
-    '#bhava-game-nav .bgnav-back:hover{background:rgba(255,255,255,.12);',
-    'border-color:rgba(255,255,255,.28);color:#e2e8f0;}',
+    '#bhava-game-nav .bgnav-back{color:#e0eff0;}',
+    '#bhava-game-nav .bgnav-back:hover{background:rgba(255,255,255,.12);color:#fff;}',
 
-    '#bhava-game-nav .bgnav-home{background:rgba(109,40,217,.18);',
-    'border-color:rgba(167,139,250,.35);color:#c4b5fd;}',
-    '#bhava-game-nav .bgnav-home:hover{background:rgba(109,40,217,.35);',
-    'border-color:rgba(167,139,250,.65);color:#e9d5ff;}',
+    '#bhava-game-nav .bgnav-home{border-left:1px solid rgba(193,226,226,.22);color:#e0eff0;}',
+    '#bhava-game-nav .bgnav-home:hover{background:rgba(255,255,255,.12);color:#fff;}',
 
     '#bhava-game-nav .bgnav-next{background:rgba(16,185,129,.15);',
     'border-color:rgba(52,211,153,.4);color:#6ee7b7;}',
@@ -41,16 +40,33 @@
     'pointer-events:none;}',
 
     '#bhava-game-nav .bgnav-title{font-size:11px;font-weight:600;',
-    'color:rgba(255,255,255,.28);letter-spacing:.08em;text-transform:uppercase;',
+    'color:rgba(227,245,245,.7);letter-spacing:0;',
     'flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;',
-    'text-align:center;}',
+    'text-align:left;}',
 
-    '#bhava-game-nav .bgnav-report{background:rgba(1,105,111,.18);',
-    'border-color:rgba(79,152,163,.4);color:#67e8f9;margin-left:auto;}',
-    '#bhava-game-nav .bgnav-report:hover{background:rgba(1,105,111,.35);',
-    'border-color:rgba(79,152,163,.7);color:#a5f3fc;}',
+    '#bhava-game-nav .bgnav-report{border-radius:8px;background:rgba(111,224,204,.12);',
+    'color:#8df2dc;margin-left:auto;}',
+    '#bhava-game-nav .bgnav-report:hover{background:rgba(111,224,204,.22);color:#c6ffef;}',
     '#bhava-game-nav .bgnav-report.bgnav-hidden{display:none;}',
     '#bhava-game-nav .bgnav-next.bgnav-hidden{display:none;}',
+    'body.bgnav-has-nav{padding-top:var(--bgnav-original-padding,0px) !important;',
+    'padding-bottom:calc(var(--bgnav-original-bottom-padding,0px) + 52px + env(safe-area-inset-bottom)) !important;}',
+    '#bhava-layout-toggle{left:auto !important;right:64px !important;',
+    'bottom:calc(4px + env(safe-area-inset-bottom)) !important;',
+    'background:#f6dc83 !important;color:#17323b !important;border-color:#f6dc83 !important;}',
+    '#bhava-layout-controls{left:auto !important;right:12px !important;',
+    'bottom:calc(56px + env(safe-area-inset-bottom)) !important;}',
+    '#medhaa-music-control,.medhaa-site-music-toggle{right:12px !important;',
+    'bottom:calc(4px + env(safe-area-inset-bottom)) !important;}',
+    '#medhaa-music-toggle,.medhaa-site-music-toggle{background:#d7f5ef !important;',
+    'border-color:#a4e4d9 !important;}',
+
+    '@media(max-width:600px){#bhava-game-nav .bgnav-title{display:none;}',
+    '#bhava-game-nav .bgnav-btn{font-size:12px;padding:5px 12px;}',
+    '#bhava-game-nav .bgnav-back{background:#294454;color:#ffddd2;}',
+    '#bhava-game-nav .bgnav-home{background:#1d574d;color:#e4fff3;}',
+    '#bhava-game-nav .bgnav-report{margin-right:100px;padding:5px 8px;}',
+    '#bhava-game-nav .bgnav-report-label{display:none;}}',
 
     // ── No spacer div — use body padding instead to avoid breaking game layouts
     // '#bhava-game-nav-spacer' intentionally removed
@@ -111,17 +127,22 @@
   nav.setAttribute('role', 'navigation');
   nav.setAttribute('aria-label', 'Game navigation');
   nav.innerHTML =
-    '<button class="bgnav-btn bgnav-back" id="bgnav-back" aria-label="Go back">&#8592; Back</button>' +
-    '<button class="bgnav-btn bgnav-home" id="bgnav-home" aria-label="Go home">&#127968; Home</button>' +
+    '<div class="bgnav-journey" role="group" aria-label="Game and site navigation">' +
+      '<button class="bgnav-btn bgnav-back" id="bgnav-back" aria-label="Go back">Back</button>' +
+      '<button class="bgnav-btn bgnav-home" id="bgnav-home" aria-label="Go home">Home</button>' +
+    '</div>' +
     '<button class="bgnav-btn bgnav-next bgnav-hidden" id="bgnav-next" aria-label="Next">Next &#8594;</button>' +
     '<span class="bgnav-title">' + gameTitle + '</span>' +
-    '<button class="bgnav-btn bgnav-report bgnav-hidden" id="bgnav-report" aria-label="My report">&#128202; My Report</button>';
+    '<button class="bgnav-btn bgnav-report bgnav-hidden" id="bgnav-report" aria-label="My report">&#128202;<span class="bgnav-report-label"> My Report</span></button>';
 
   // Insert nav at top — use body padding instead of a spacer div so game
   // layouts using position:fixed / height:100vh are not broken
+  var existingPadding = parseFloat(getComputedStyle(document.body).paddingTop) || 0;
+  var existingBottomPadding = parseFloat(getComputedStyle(document.body).paddingBottom) || 0;
   document.body.insertBefore(nav, document.body.firstChild);
-  var existingPadding = parseFloat(document.body.style.paddingTop) || 0;
-  document.body.style.paddingTop = (existingPadding + 44) + 'px';
+  document.body.style.setProperty('--bgnav-original-padding', existingPadding + 'px');
+  document.body.style.setProperty('--bgnav-original-bottom-padding', existingBottomPadding + 'px');
+  document.body.classList.add('bgnav-has-nav');
 
   // ── Report modal ───────────────────────────────────────────────────────────
   const modal = document.createElement('div');
