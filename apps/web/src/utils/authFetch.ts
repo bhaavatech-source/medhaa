@@ -2,7 +2,10 @@ import { API_URL } from './apiConfig';
 
 async function refreshAccessToken(): Promise<string | null> {
   const refreshToken = localStorage.getItem('refreshToken');
-  if (!refreshToken) return null;
+  if (!refreshToken) {
+    localStorage.removeItem('accessToken');
+    return null;
+  }
 
   const res = await fetch(`${API_URL}/auth/refresh`, {
     method: 'POST',

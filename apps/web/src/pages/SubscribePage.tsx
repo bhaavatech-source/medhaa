@@ -205,11 +205,21 @@ export function SubscribePage({ apiUrl }: { apiUrl: string }) {
     setError('');
 
     // Record parental consent before initiating payment.
-    await authFetch(`${apiUrl}/consent`, {
+    const consentRes = await authFetch(`${apiUrl}/consent`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ policyVersion: USAGE_POLICY_VERSION }),
     });
+
+    if (consentRes.status === 401) {
+      setRoleChoiceOpen(true);
+      return;
+    }
+
+    if (!consentRes.ok) {
+      setError('Could not record consent. Please try again.');
+      return;
+    }
 
     const res = await authFetch(`${apiUrl}/subscriptions/initiate`, {
       method: 'POST',
@@ -217,6 +227,10 @@ export function SubscribePage({ apiUrl }: { apiUrl: string }) {
       body: JSON.stringify({ planId: selectedIndividualPlan.id }),
     });
 
+    if (res.status === 401) {
+      setRoleChoiceOpen(true);
+      return;
+    }
 
     if (res.ok) {
       const data = await res.json();

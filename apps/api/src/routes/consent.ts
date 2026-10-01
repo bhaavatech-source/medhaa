@@ -1,19 +1,17 @@
 import { Router } from "express";
 import { prisma } from "../lib/prisma";
+import { authenticate, AuthenticatedRequest } from "../middleware/auth";
 
 const router = Router();
 
-// POST /api/consent - records a parent's consent for processing their child's data
-// TODO: this currently trusts parentId from the request body, or falls back to
-// req.user?.id if your auth middleware attaches the authenticated user there.
-// Confirm this matches your actual middleware/auth.ts implementation and adjust if needed.
-router.post("/", async (req, res) => {
+// POST /api/consent - records the authenticated user's consent for processing their child's data
+router.post("/", authenticate, async (req: AuthenticatedRequest, res) => {
   try {
-    const parentId = req.body?.parentId || (req as any).user?.id;
+    const parentId = req.user!.id;
     const { policyVersion } = req.body;
 
-    if (!parentId || !policyVersion) {
-      return res.status(400).json({ success: false, error: "parentId and policyVersion are required" });
+    if (!policyVersion) {
+      return res.status(400).json({ success: false, error: "policyVersion is required" });
     }
 
     const record = await prisma.parentConsent.create({
@@ -31,12 +29,11 @@ router.post("/", async (req, res) => {
   }
 });
 
-// GET /api/consent/:parentId - checks whether a parent has an active consent record
-router.get("/:parentId", async (req, res) => {
+// GET /api/consent/me - checks whether the authenticated user has an active consent record
+router.get("/me", authenticate, async (req: AuthenticatedRequest, res) => {
   try {
-    const { parentId } = req.params;
     const record = await prisma.parentConsent.findFirst({
-      where: { parentId },
+      where: { parentId: req.user!.id },
       orderBy: { consentedAt: "desc" },
     });
 
@@ -48,3 +45,4 @@ router.get("/:parentId", async (req, res) => {
 });
 
 export default router;
+
