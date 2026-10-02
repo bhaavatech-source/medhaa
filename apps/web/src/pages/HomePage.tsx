@@ -2240,6 +2240,42 @@ export default function HomePage() {
   </div>
 </section>
 
+<section className="home-help-section" aria-labelledby="home-faq-title">
+  <div className="home-help-heading">
+    <p className="home-help-eyebrow">Helpful answers</p>
+    <h2 id="home-faq-title">Questions parents ask</h2>
+    <p>Quick answers about Medhā, learning and your child’s experience.</p>
+  </div>
+
+  <div className="home-faq-list">
+    <article className="home-faq-item">
+      <h3>What is Medhā?</h3>
+      <p>Medhā offers games and interactive activities where children can practise thinking, learning and problem-solving.</p>
+    </article>
+    <article className="home-faq-item">
+      <h3>Is Medhā only for children who find school difficult?</h3>
+      <p>No. Children with different interests and abilities can explore activities, including children who already do well in school.</p>
+    </article>
+    <article className="home-faq-item">
+      <h3>What skills can children practise?</h3>
+      <p>Depending on the activity, children can practise attention, memory, observation, reasoning, problem-solving, creativity and decision-making.</p>
+    </article>
+    <article className="home-faq-item">
+      <h3>How much time should my child spend on Medhā?</h3>
+      <p>There is no single amount that suits every child. Online activities should be part of a balanced routine with sleep, movement, play, reading and family time.</p>
+    </article>
+    <article className="home-faq-item">
+      <h3>Can a Medhā assessment diagnose a learning or medical problem?</h3>
+      <p>No. A digital assessment is not a clinical diagnosis. If you are concerned about your child, speak with a suitably qualified professional.</p>
+    </article>
+  </div>
+
+  <div className="home-help-actions">
+    <a href="/FAQs.html" className="home-help-link home-help-link--primary">More FAQs <ArrowRight size={16} aria-hidden="true" /></a>
+    <a href="/medhaa-feedback.html" className="home-help-link">Share feedback</a>
+  </div>
+</section>
+
 <footer className="home-footer">
   <div className="footer-brand">
     <span className="footer-logo-wrap" aria-hidden="true">
@@ -2255,6 +2291,8 @@ export default function HomePage() {
     <a href="/games-static/language-and-creativity-games.html">Language & Creativity Games</a>
     <a href="/games-static/maths-and-science-games.html">Maths & Science Games</a>
     <a href="/games-static/emotional-intelligence-life-skills-games.html">Emotional Intelligence & Life Skills</a>
+    <a href="/FAQs.html">FAQs</a>
+    <a href="/medhaa-feedback.html">Share Feedback</a>
   </nav>
 
   <a href="https://play.google.com/store/apps/details?id=com.bhaavajaalam.medhaa" onClick={openPlayStore} className="footer-download-link">📱 Get the Medhā Android App on Google Play</a>

@@ -367,6 +367,116 @@ html {
 .explore-section .section-heading-wrap {
   margin-bottom: 34px;
 }
+
+.home-help-section {
+  width: min(1080px, calc(100% - 48px));
+  margin: 28px auto 58px;
+  padding: 46px clamp(20px, 5vw, 56px);
+  border-top: 1px solid rgba(39, 83, 78, 0.18);
+  border-bottom: 1px solid rgba(39, 83, 78, 0.18);
+  color: #183638;
+}
+
+.home-help-heading {
+  max-width: 680px;
+  margin: 0 auto 22px;
+  text-align: center;
+}
+
+.home-help-eyebrow {
+  margin: 0 0 8px;
+  color: #527d63;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.home-help-heading h2 {
+  margin: 0;
+  font-size: clamp(26px, 3.5vw, 36px);
+  line-height: 1.15;
+}
+
+.home-help-heading > p:last-child {
+  margin: 10px 0 0;
+  color: #536a6c;
+  line-height: 1.65;
+}
+
+.home-faq-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 36px;
+}
+
+.home-faq-item {
+  padding: 18px 0;
+  border-top: 1px solid rgba(39, 83, 78, 0.16);
+}
+
+.home-faq-item h3 {
+  margin: 0 0 7px;
+  color: #183638;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.home-faq-item p {
+  margin: 0;
+  color: #536a6c;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.home-help-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  margin-top: 18px;
+}
+
+.home-help-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  color: #265b50;
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.home-help-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.home-help-link--primary {
+  padding: 0 16px;
+  border-radius: 8px;
+  background: #285c51;
+  color: #fff;
+}
+
+.home-help-link--primary:hover {
+  background: #1d483f;
+  text-decoration: none;
+}
+
+@media (max-width: 640px) {
+  .home-help-section {
+    width: calc(100% - 32px);
+    margin-bottom: 36px;
+    padding: 34px 0;
+  }
+
+  .home-faq-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 .role-grid {
   display: grid;
   grid-template-columns: 1.25fr 1fr 1fr 1fr;
