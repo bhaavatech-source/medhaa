@@ -1,6 +1,7 @@
 // SubscribePayPage.tsx
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { ArrowLeft, House } from 'lucide-react';
 import { authFetch } from '../utils/authFetch';
 
 
@@ -11,6 +12,22 @@ export function SubscribePayPage({ apiUrl }: { apiUrl: string }) {
   const [status, setStatus] = useState<'idle' | 'submitting' | 'done'>('idle');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+
+  function goBack() {
+    if (typeof window !== 'undefined' && window.history.state?.idx > 0) navigate(-1);
+    else navigate('/subscribe');
+  }
+
+  const pageNavigation = (
+    <nav aria-label="Payment navigation" style={{ display: 'flex', justifyContent: 'space-between', gap: 12, marginBottom: 20 }}>
+      <button type="button" onClick={goBack} style={{ display: 'inline-flex', alignItems: 'center', gap: 7, minHeight: 40, padding: '8px 12px', borderRadius: 8, border: '1px solid #d1d5db', background: '#fff', color: '#374151', fontWeight: 700, cursor: 'pointer' }}>
+        <ArrowLeft size={16} aria-hidden="true" /> Back
+      </button>
+      <button type="button" onClick={() => navigate('/')} style={{ display: 'inline-flex', alignItems: 'center', gap: 7, minHeight: 40, padding: '8px 12px', borderRadius: 8, border: '1px solid #d1d5db', background: '#fff', color: '#374151', fontWeight: 700, cursor: 'pointer' }}>
+        <House size={16} aria-hidden="true" /> Home
+      </button>
+    </nav>
+  );
 
   async function submitRef() {
   if (ref.trim().length < 4) { setError('Please enter a valid transaction reference.'); return; }
@@ -27,6 +44,7 @@ body: JSON.stringify({ transactionRef: ref.trim(), notes: notes.trim() || undefi
   if (status === 'done') {
     return (
       <div style={{ maxWidth: 480, margin: '80px auto', textAlign: 'center' }}>
+        {pageNavigation}
         <div style={{ fontSize: 48, marginBottom: 16 }}>✅</div>
         <h2 style={{ fontWeight: 800, marginBottom: 8 }}>Reference Submitted!</h2>
         <p style={{ color: '#666', marginBottom: 24 }}>
@@ -41,6 +59,7 @@ body: JSON.stringify({ transactionRef: ref.trim(), notes: notes.trim() || undefi
 
   return (
     <div style={{ maxWidth: 480, margin: '40px auto', textAlign: 'center', padding: 24 }}>
+      {pageNavigation}
       <h2 style={{ fontWeight: 800, marginBottom: 4 }}>{state.plan}</h2>
       <p style={{ fontSize: 32, fontWeight: 800, color: '#6366f1', marginBottom: 20 }}>₹{state.amount}</p>
 
