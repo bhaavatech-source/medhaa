@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Capacitor } from '@capacitor/core';
+import { SocialLogin } from '@capgo/capacitor-social-login';
 import { useAuth } from '../contexts/AuthContext';
 import { API_URL } from '../utils/apiConfig';
 import '../styles/google-signin.css';
@@ -15,41 +17,68 @@ interface GoogleIdentity {
 
 type GoogleWindow = Window & { google?: GoogleIdentity };
 
+type GoogleSessionUser = { id: string; email: string; role: string };
+
+async function completeGoogleSignIn(
+  credential: string,
+  role: 'student' | 'parent',
+  redirectTo: string,
+  login: (user: GoogleSessionUser, accessToken: string) => void,
+  navigate: (path: string) => void,
+) {
+  const response = await fetch(`${API_URL}/auth/google`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ credential, role }),
+  });
+  const data = await response.json();
+  if (!response.ok) throw new Error(data.error || 'Google sign-in failed.');
+  const payload = JSON.parse(atob(data.accessToken.split('.')[1]));
+  localStorage.setItem('refreshToken', data.refreshToken);
+  login({ id: payload.id, email: payload.email, role: payload.role }, data.accessToken);
+  navigate(redirectTo);
+}
+
 export function GoogleSignIn({ role, redirectTo }: { role: 'student' | 'parent'; redirectTo: string }) {
   const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID as string | undefined;
+  const isNativeAndroid = Capacitor.isNativePlatform() && Capacitor.getPlatform() === 'android';
   const container = useRef<HTMLDivElement>(null);
+  const credentialHandler = useRef<(credential: string) => Promise<void>>(async () => {});
   const [unavailable, setUnavailable] = useState(false);
+  const [nativeReady, setNativeReady] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
 
+  credentialHandler.current = async (credential) => {
+    setLoading(true);
+    setError('');
+    try {
+      await completeGoogleSignIn(credential, role, redirectTo, login, navigate);
+    } catch (failure) {
+      setError(failure instanceof Error ? failure.message : 'Google sign-in failed. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (!clientId) return;
     let cancelled = false;
-    const scriptId = 'medhaa-google-identity-script';
 
-    async function signIn(credential: string) {
-      setLoading(true);
-      setError('');
-      try {
-        const response = await fetch(`${API_URL}/auth/google`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ credential, role }),
+    if (isNativeAndroid) {
+      SocialLogin.initialize({ google: { webClientId: clientId, mode: 'online' } })
+        .then(() => { if (!cancelled) setNativeReady(true); })
+        .catch((failure: unknown) => {
+          if (cancelled) return;
+          setError(failure instanceof Error ? failure.message : 'Native Google sign-in is unavailable.');
+          setUnavailable(true);
         });
-        const data = await response.json();
-        if (!response.ok) throw new Error(data.error || 'Google sign-in failed.');
-        const payload = JSON.parse(atob(data.accessToken.split('.')[1]));
-        localStorage.setItem('refreshToken', data.refreshToken);
-        login({ id: payload.id, email: payload.email, role: payload.role }, data.accessToken);
-        navigate(redirectTo);
-      } catch (failure) {
-        setError(failure instanceof Error ? failure.message : 'Google sign-in failed. Please try again.');
-      } finally {
-        setLoading(false);
-      }
+      return () => { cancelled = true; };
     }
+
+    const scriptId = 'medhaa-google-identity-script';
 
     function mountButton() {
       if (cancelled || !container.current) return;
@@ -61,7 +90,7 @@ export function GoogleSignIn({ role, redirectTo }: { role: 'student' | 'parent';
       container.current.replaceChildren();
       google.accounts.id.initialize({
         client_id: clientId!,
-        callback: ({ credential }) => { if (credential) void signIn(credential); },
+        callback: ({ credential }) => { if (credential) void credentialHandler.current(credential); },
       });
       google.accounts.id.renderButton(container.current, {
         theme: 'outline', size: 'large', type: 'standard', text: 'continue_with',
@@ -92,11 +121,32 @@ export function GoogleSignIn({ role, redirectTo }: { role: 'student' | 'parent';
       googleScript.removeEventListener('load', mountButton);
       googleScript.removeEventListener('error', onError);
     };
-  }, [clientId, role, redirectTo, login, navigate]);
+  }, [clientId, isNativeAndroid]);
+
+  async function handleNativeSignIn() {
+    if (!nativeReady || loading) return;
+    setLoading(true);
+    setError('');
+    try {
+      const result = await SocialLogin.login({ provider: 'google', options: { scopes: ['email', 'profile'] } });
+      const credential = 'idToken' in result.result ? result.result.idToken : null;
+      if (!credential) throw new Error('Google did not return an identity token. Please try again.');
+      await completeGoogleSignIn(credential, role, redirectTo, login, navigate);
+    } catch (failure) {
+      setError(failure instanceof Error ? failure.message : 'Google sign-in failed. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <div className="google-signin">
-      {clientId && !unavailable && <div ref={container} className="google-signin__button" />}
+      {clientId && !unavailable && isNativeAndroid && (
+        <button type="button" className="google-signin__native" onClick={handleNativeSignIn} disabled={!nativeReady || loading}>
+          {loading ? 'Signing in…' : 'Continue with Google'}
+        </button>
+      )}
+      {clientId && !unavailable && !isNativeAndroid && <div ref={container} className="google-signin__button" />}
       {(!clientId || unavailable) && (
         <button type="button" className="google-signin__unavailable" disabled title="Google sign-in is not configured yet">
           Continue with Google

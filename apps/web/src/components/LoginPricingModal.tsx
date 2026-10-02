@@ -1,8 +1,14 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLoginForm } from '../pages/hooks/useLoginForm';
+import { API_URL } from '../utils/apiConfig';
 import { ConsentCheckbox } from './ConsentCheckbox';
 import '../styles/login-pricing-modal.css';
+
+interface SubscriptionPlanPrice {
+  id: string;
+  amountPaise: number;
+}
 
 
 interface LoginPricingModalProps {
@@ -14,9 +20,40 @@ export default function LoginPricingModal({ onClose }: LoginPricingModalProps) {
  const navigate = useNavigate();
  const { email, setEmail, password, setPassword, error, loading, handleSubmit } = useLoginForm('', '/student/preview');
  const [consentChecked, setConsentChecked] = useState(false);
- const goSubscribe = () => {
+ const [plans, setPlans] = useState<SubscriptionPlanPrice[]>([]);
+ const [pricesLoaded, setPricesLoaded] = useState(false);
+
+ useEffect(() => {
+   let active = true;
+   fetch(`${API_URL}/subscriptions/plans`)
+     .then((response) => {
+       if (!response.ok) throw new Error('Could not load subscription prices');
+       return response.json();
+     })
+     .then((data: { plans?: SubscriptionPlanPrice[] }) => {
+       if (active) setPlans(data.plans ?? []);
+     })
+     .catch(() => {
+       if (active) setPlans([]);
+     })
+     .finally(() => {
+       if (active) setPricesLoaded(true);
+     });
+   return () => { active = false; };
+ }, []);
+
+ const monthlyPlan = plans.find((plan) => plan.id === 'MONTHLY_1');
+ const yearlyPlan = plans.find((plan) => plan.id === 'YEARLY_1');
+ const yearlySavings = monthlyPlan && yearlyPlan
+   ? Math.round((1 - yearlyPlan.amountPaise / (monthlyPlan.amountPaise * 12)) * 100)
+   : null;
+ const formatPrice = (plan?: SubscriptionPlanPrice) => plan
+   ? `₹${(plan.amountPaise / 100).toLocaleString('en-IN')}`
+   : pricesLoaded ? 'Price unavailable' : 'Loading price…';
+
+ const goSubscribe = (duration: 'monthly' | 'yearly') => {
    onClose();
-   navigate('/subscribe');
+   navigate('/subscribe', { state: { duration } });
  };
   return (
     <div className="lpm-overlay">
@@ -63,16 +100,16 @@ export default function LoginPricingModal({ onClose }: LoginPricingModalProps) {
             <div className="lpm-plans">
               <div className="lpm-plan">
                 <span className="lpm-plan-label">Monthly</span>
-                <div className="lpm-plan-price">₹99<small>/month</small></div>
-                <button type="button" className="lpm-plan-btn" disabled={!consentChecked} onClick={goSubscribe}>Choose Monthly</button>
+                <div className="lpm-plan-price">{formatPrice(monthlyPlan)}{monthlyPlan && <small>/month</small>}</div>
+                <button type="button" className="lpm-plan-btn" disabled={!consentChecked} onClick={() => goSubscribe('monthly')}>Choose Monthly</button>
               </div>
 
 
               <div className="lpm-plan lpm-plan-highlight">
-                <span className="lpm-plan-badge">Save ~40%</span>
+                {yearlySavings !== null && <span className="lpm-plan-badge">Save {yearlySavings}%</span>}
                 <span className="lpm-plan-label">Yearly</span>
-                <div className="lpm-plan-price">₹699<small>/year</small></div>
-                <button type="button" className="lpm-plan-btn lpm-plan-btn-highlight" disabled={!consentChecked} onClick={goSubscribe}>Choose Yearly</button>
+                <div className="lpm-plan-price">{formatPrice(yearlyPlan)}{yearlyPlan && <small>/year</small>}</div>
+                <button type="button" className="lpm-plan-btn lpm-plan-btn-highlight" disabled={!consentChecked} onClick={() => goSubscribe('yearly')}>Choose Yearly</button>
               </div>
             </div>
           </div>

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState, type Dispatch, type SetStateAction } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { authFetch } from '../utils/authFetch';
 import { ConsentCheckbox } from '../components/ConsentCheckbox';
 import { USAGE_POLICY_VERSION } from '../content/usagePolicy';
@@ -110,13 +110,15 @@ function toggleListValue(current: string[], value: string) {
 
 
 export function SubscribePage({ apiUrl }: { apiUrl: string }) {
+  const location = useLocation();
+  const preferredDuration = (location.state as { duration?: string } | null)?.duration;
   const [plans, setPlans] = useState<Plan[]>([]);
   const [benefits, setBenefits] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [audience, setAudience] = useState<Audience>('individual');
   const [children, setChildren] = useState<IndividualChildCount>(1);
-  const [duration, setDuration] = useState<IndividualDuration>('monthly');
+  const [duration, setDuration] = useState<IndividualDuration>(preferredDuration === 'yearly' ? 'yearly' : 'monthly');
   const [roleChoiceOpen, setRoleChoiceOpen] = useState(false);
   const [consentChecked, setConsentChecked] = useState(false);
   const [selectedInstitutionalPlan, setSelectedInstitutionalPlan] = useState('');

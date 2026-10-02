@@ -18,11 +18,14 @@ const config: CapacitorConfig = {
       smallIcon: 'ic_stat_medhaa',
       iconColor: '#3B82F6',
     },
-    // Google login on Android uses native Sign-In for a smoother UX
-    // than the web OAuth redirect flow.
-    GoogleAuth: {
-      scopes: ['profile', 'email'],
-      serverClientId: process.env.GOOGLE_ANDROID_CLIENT_ID,
+    SocialLogin: {
+      providers: {
+        google: true,
+        facebook: false,
+        apple: false,
+        twitter: false,
+      },
+      logLevel: 1,
     },
   },
 };
