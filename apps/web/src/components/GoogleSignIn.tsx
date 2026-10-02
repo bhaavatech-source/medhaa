@@ -128,7 +128,7 @@ export function GoogleSignIn({ role, redirectTo }: { role: 'student' | 'parent';
     setLoading(true);
     setError('');
     try {
-      const result = await SocialLogin.login({ provider: 'google', options: { scopes: ['email', 'profile'] } });
+      const result = await SocialLogin.login({ provider: 'google', options: {} });
       const credential = 'idToken' in result.result ? result.result.idToken : null;
       if (!credential) throw new Error('Google did not return an identity token. Please try again.');
       await completeGoogleSignIn(credential, role, redirectTo, login, navigate);

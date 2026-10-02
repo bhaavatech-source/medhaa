@@ -98,9 +98,7 @@ describe('GoogleSignIn', () => {
 
     fireEvent.click(button);
     await waitFor(() => expect(mocks.navigate).toHaveBeenCalledWith('/parent-dashboard'));
-    expect(mocks.socialLogin).toHaveBeenCalledWith({
-      provider: 'google', options: { scopes: ['email', 'profile'] },
-    });
+    expect(mocks.socialLogin).toHaveBeenCalledWith({ provider: 'google', options: {} });
     expect(fetchMock).toHaveBeenCalledWith('http://localhost/api/auth/google', expect.objectContaining({
       body: JSON.stringify({ credential: 'native-google-id-token', role: 'parent' }),
     }));
