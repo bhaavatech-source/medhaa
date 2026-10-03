@@ -2041,3 +2041,45 @@ html {
     font-size: 11px;
   }
 }
+
+@media (min-width: 721px) {
+  .home-wrap.medha-enhanced .enhanced-role-grid {
+    width: min(100%, 920px);
+    margin-inline: auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .home-faq-item:last-child {
+    grid-column: 1 / -1;
+    width: calc((100% - 14px) / 2);
+    justify-self: center;
+  }
+}
+
+@media (max-width: 720px) {
+  .home-wrap.medha-enhanced .enhanced-role-grid {
+    width: 100%;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .home-faq-item:last-child {
+    grid-column: auto;
+    width: auto;
+    justify-self: stretch;
+  }
+
+  .home-faq-item {
+    background: rgba(255, 255, 255, 0.96);
+    border-color: rgba(20, 80, 73, 0.22);
+    box-shadow: 0 5px 14px rgba(35, 65, 65, 0.07);
+  }
+
+  .home-faq-item p {
+    color: #405957;
+    font-size: 15px;
+  }
+
+  .home-assessment-promo {
+    display: none;
+  }
+}
