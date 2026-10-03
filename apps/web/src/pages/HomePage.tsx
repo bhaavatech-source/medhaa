@@ -2278,6 +2278,18 @@ export default function HomePage() {
     </nav>
   </div>
 
+  <section className="home-footer__categories" aria-labelledby="home-footer-categories-title">
+    <h2 id="home-footer-categories-title">Browse game categories</h2>
+    <nav className="home-footer__category-links" aria-label="Game categories">
+      <a href="/games-static/stem-engineering-games.html">STEM &amp; Engineering</a>
+      <a href="/games-static/memory-and-logic-games.html">Memory &amp; Logic</a>
+      <a href="/games-static/cognitive-focus-attention-games.html">Focus &amp; Attention</a>
+      <a href="/games-static/language-and-creativity-games.html">Language &amp; Creativity</a>
+      <a href="/games-static/maths-and-science-games.html">Maths &amp; Science</a>
+      <a href="/games-static/emotional-intelligence-life-skills-games.html">Emotional Intelligence &amp; Life Skills</a>
+    </nav>
+  </section>
+
   <a className="home-footer__contact" href="mailto:support@medhaa.net?subject=Schools%20and%20Colleges%20Services%20and%20Pricing">
     <span>
       <strong>Schools &amp; colleges</strong>
