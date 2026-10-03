@@ -122,22 +122,6 @@ const roles: Role[] = [
     route: '/parent/preview',
     image: '/images/roles/parent-role.png',
   },
-  {
-    title: 'For Teachers',
-    subtitle: 'Preview teacher tools',
-    description: 'Explore a sample classroom dashboard. Its learner data is fictional, not live student reporting.',
-    variant: 'teacher',
-    route: '/teacher/preview',
-    image: '/images/roles/teacher-role.png',
-  },
-  {
-    title: 'For Schools',
-    subtitle: 'Preview school tools',
-    description: 'Explore a sample school dashboard. Its school, student, and progress figures are illustrative, not live data.',
-    variant: 'school',
-    route: '/school-report',
-    image: '/images/roles/school-role.png',
-  },
 ];
 
 
@@ -225,8 +209,9 @@ const medhaHeroStyles = `
 
   .medha-world {
     position: absolute;
-    inset: 0;
-    min-height: 900px;
+    inset: 0 0 auto;
+    height: 1900px;
+    min-height: 0;
     overflow: hidden;
     z-index: 0;
     pointer-events: none;
@@ -863,7 +848,7 @@ const medhaHeroStyles = `
 
   @media (max-width: 720px) {
     .medha-world {
-      min-height: 820px;
+      height: 1500px;
       border-radius: 0 0 26px 26px;
     }
 
@@ -2250,23 +2235,23 @@ export default function HomePage() {
   <div className="home-faq-list">
     <article className="home-faq-item">
       <h3>What is Medhā?</h3>
-      <p>Medhā offers games and interactive activities where children can practise thinking, learning and problem-solving.</p>
+      <p>Medhā offers interactive games for practising thinking, learning and problem-solving.</p>
     </article>
     <article className="home-faq-item">
       <h3>Is Medhā only for children who find school difficult?</h3>
-      <p>No. Children with different interests and abilities can explore activities, including children who already do well in school.</p>
+      <p>No. Children with varied interests and abilities can explore at their own pace.</p>
     </article>
     <article className="home-faq-item">
       <h3>What skills can children practise?</h3>
-      <p>Depending on the activity, children can practise attention, memory, observation, reasoning, problem-solving, creativity and decision-making.</p>
+      <p>Activities build attention, memory, reasoning, creativity and decision-making.</p>
     </article>
     <article className="home-faq-item">
       <h3>How much time should my child spend on Medhā?</h3>
-      <p>There is no single amount that suits every child. Online activities should be part of a balanced routine with sleep, movement, play, reading and family time.</p>
+      <p>Keep screen activities balanced with sleep, movement, play, reading and family time.</p>
     </article>
     <article className="home-faq-item">
       <h3>Can a Medhā assessment diagnose a learning or medical problem?</h3>
-      <p>No. A digital assessment is not a clinical diagnosis. If you are concerned about your child, speak with a suitably qualified professional.</p>
+      <p>No. It is not a clinical diagnosis. Speak with a qualified professional about concerns.</p>
     </article>
   </div>
 
@@ -2277,28 +2262,34 @@ export default function HomePage() {
 </section>
 
 <footer className="home-footer">
-  <div className="footer-brand">
-    <span className="footer-logo-wrap" aria-hidden="true">
-      <img className="footer-logo-image" src={medhaIcon} alt="" />
-    </span>
-    <strong>Medhā</strong>
+  <div className="home-footer__main">
+    <div className="footer-brand">
+      <span className="footer-logo-wrap" aria-hidden="true">
+        <img className="footer-logo-image" src={medhaIcon} alt="" />
+      </span>
+      <strong>Medhā</strong>
+    </div>
+
+    <nav className="home-footer__nav" aria-label="Helpful links">
+      <a href="/student/preview">Explore games</a>
+      <a href="/FAQs.html">FAQs</a>
+      <a href="/medhaa-feedback.html">Feedback</a>
+      <a href="https://play.google.com/store/apps/details?id=com.bhaavajaalam.medhaa" onClick={openPlayStore} className="footer-download-link">Android app</a>
+    </nav>
   </div>
 
-  <nav aria-label="Explore game categories" style={{display:"flex",flexWrap:"wrap",gap:"14px",justifyContent:"center",margin:"16px 0"}}>
-    <a href="/games-static/stem-engineering-games.html">STEM & Engineering Games</a>
-    <a href="/games-static/memory-and-logic-games.html">Memory & Logic Games</a>
-    <a href="/games-static/cognitive-focus-attention-games.html">Focus & Attention Games</a>
-    <a href="/games-static/language-and-creativity-games.html">Language & Creativity Games</a>
-    <a href="/games-static/maths-and-science-games.html">Maths & Science Games</a>
-    <a href="/games-static/emotional-intelligence-life-skills-games.html">Emotional Intelligence & Life Skills</a>
-    <a href="/FAQs.html">FAQs</a>
-    <a href="/medhaa-feedback.html">Share Feedback</a>
-  </nav>
+  <a className="home-footer__contact" href="mailto:support@medhaa.net?subject=Schools%20and%20Colleges%20Services%20and%20Pricing">
+    <span>
+      <strong>Schools &amp; colleges</strong>
+      <small>Contact us for tailored services, features &amp; pricing</small>
+    </span>
+    <ArrowRight size={19} aria-hidden="true" />
+  </a>
 
-  <a href="https://play.google.com/store/apps/details?id=com.bhaavajaalam.medhaa" onClick={openPlayStore} className="footer-download-link">📱 Get the Medhā Android App on Google Play</a>
-
-  <span>© 2026 Medhā — Designed for curious minds</span>
-  <span className="footer-note">A Bhāva Tech Product.</span>
+  <div className="home-footer__bottom">
+    <span>© 2026 Medhā</span>
+    <span>By Bhāva Tech</span>
+  </div>
 </footer>
 
       {showAppDownloadPromo && (

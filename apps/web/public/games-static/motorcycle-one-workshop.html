@@ -53,6 +53,9 @@ button:disabled{opacity:0.5;cursor:not-allowed;border-color:var(--line)}
 .tab{flex:0 0 auto;white-space:nowrap;font-size:11px;padding:6px;min-height:36px}
 .tab.active{background:var(--cyan);color:#041019}
 .part{display:block;width:100%;margin:7px 0;padding:10px;border:1px solid var(--line);border-radius:8px;background:#0b1326;color:var(--text);text-align:left;cursor:pointer;touch-action:manipulation;position:relative}
+.part-row{display:flex;align-items:stretch;gap:6px}
+.part-row .part{flex:1;min-width:0}
+.install-part{display:none;flex:0 0 auto;background:#15432f;border-color:var(--green);color:#b9ffdc}
 .part small{display:block;color:var(--muted);margin-top:3px}
 .part.selected{border:2px solid var(--gold);background:#3a2c14;box-shadow:0 0 17px #ffdc6670}
 .part.installed{border-color:var(--green);background:#15392d}
@@ -98,6 +101,7 @@ button:disabled{opacity:0.5;cursor:not-allowed;border-color:var(--line)}
 .install-target.target small{color:var(--gold)}
 .install-target.good{border:2px solid var(--green);background:#15392d}
 .install-target.good small{color:var(--green)}
+.install-target.drag-over{border:2px solid var(--cyan);background:#17384f;box-shadow:0 0 16px #5ad1ff66}
 .hint{position:absolute;top:9px;left:50%;transform:translateX(-50%);z-index:8;white-space:nowrap;max-width:85%;overflow:hidden;text-overflow:ellipsis;background:#071321df;border:1px solid #416c8c;border-radius:16px;padding:6px 11px;font-size:12px}
 @keyframes pulse{50%{transform:scale(1.05)}}
 @keyframes shake{25%{translate:-4px}75%{translate:4px}}
@@ -141,6 +145,7 @@ button:disabled{opacity:0.5;cursor:not-allowed;border-color:var(--line)}
     .layout>aside.panel:first-child .levels button{margin:0;padding:8px 10px;font-size:12px;}
     .layout>aside.panel:first-child #parts{max-height:190px;overflow-y:auto;}
     .layout>aside.panel:first-child .part{margin:5px 0;padding:8px;font-size:12px;}
+    .install-part{display:block;padding:8px 10px;font-size:12px;}
     .bikebox{height:320px}
     .install-targets{grid-template-columns:repeat(2,minmax(0,1fr));}
     .workhead{align-items:flex-start}
@@ -190,7 +195,7 @@ button:disabled{opacity:0.5;cursor:not-allowed;border-color:var(--line)}
         </aside>
         <section class="panel workspace-panel">
             <div class="workhead"><b id="title"></b><span><button onclick="reset()">Reset</button><button onclick="check()">Check</button><button class="primary" onclick="roadTest()">Start Engine</button><button onclick="go('home')">Home</button></span></div>
-            <div class="guide" id="guide">Choose a part, then tap its installation point below the motorcycle.</div>
+            <div class="guide" id="guide">Choose a part from the tray, then tap its matching install tile or drag it onto the tile.</div>
             
             <div class="bikebox" id="bikebox">
                 <!-- SVG 1: SPORTBIKE -->
@@ -576,10 +581,10 @@ function render(){
     document.getElementById('tabs').innerHTML=groups.map(g=>'<button class="tab '+(g===tab?'active':'')+'" onclick="currentTab=\''+g+'\'; selected=null; render()">'+slotLabel(g)+'</button>').join('');
     
     let show=a.filter(p=>p[0]===tab);
-    document.getElementById('parts').innerHTML=show.map(p=>'<button type="button" class="part '+(p===selected?'selected':installed[p[0]]===p?'installed':'')+'" onclick="choose('+parts.indexOf(p)+')"><b>'+p[1]+'</b><small>'+(p===selected?'Selected':installed[p[0]]===p?'✓ Installed':'Choose '+slotLabel(p[0]))+'</small></button>').join('');
+    document.getElementById('parts').innerHTML=show.map(p=>'<div class="part-row"><button type="button" draggable="true" class="part '+(p===selected?'selected':installed[p[0]]===p?'installed':'')+'" onclick="choose('+parts.indexOf(p)+')" ondragstart="dragPart(event,'+parts.indexOf(p)+')"><b>'+p[1]+'</b><small>'+(p===selected?'Selected · tap or drag to install':installed[p[0]]===p?'✓ Installed':'Tap to select · drag to install')+'</small></button><button type="button" class="install-part" onclick="choose('+parts.indexOf(p)+');install(\''+p[0]+'\')">Install</button></div>').join('');
     
     document.getElementById('installTargets').innerHTML=groups.map(k=>
-        '<button type="button" class="install-target '+(installed[k]?'good':selected?.[0]===k?'target':'')+'" onclick="install(\''+k+'\')"><b>'+slotLabel(k)+'</b><small>'+(installed[k]?'✓ Installed: '+installed[k][1]:selected?.[0]===k?'Tap to install':'Not installed')+'</small></button>'
+        '<button type="button" class="install-target '+(installed[k]?'good':selected?.[0]===k?'target':'')+'" onclick="install(\''+k+'\')" ondragover="allowPartDrop(event)" ondragenter="this.classList.add(\'drag-over\')" ondragleave="this.classList.remove(\'drag-over\')" ondrop="dropPart(event,\''+k+'\')"><b>'+(selected?.[0]===k?'Install '+slotLabel(k):slotLabel(k))+'</b><small>'+(installed[k]?'✓ Installed: '+installed[k][1]:selected?.[0]===k?'Tap to install here':'Choose part, then tap here')+'</small></button>'
     ).join('');
     
     document.querySelectorAll('.paintable').forEach(e=>e.setAttribute('fill',paintColor));
@@ -593,8 +598,28 @@ function render(){
         if(el) el.classList.add('on');
     });
     
-    document.getElementById('guide').innerHTML=selected?'<b>'+selected[1]+'</b> selected. Tap the highlighted <b>'+slotLabel(selected[0])+'</b> installation point below.':'Choose a part from the tray, then tap its installation point below the motorcycle.';
+    document.getElementById('guide').innerHTML=selected?'<b>'+selected[1]+'</b> selected. Tap <b>Install '+slotLabel(selected[0])+'</b> below or drag the part onto that tile.':'Choose a part from the tray, then tap its matching install tile or drag it onto the tile.';
     diagnose()
+}
+
+function dragPart(event,index){
+    event.dataTransfer.effectAllowed='copy';
+    event.dataTransfer.setData('text/plain',String(index));
+}
+
+function allowPartDrop(event){
+    event.preventDefault();
+    event.dataTransfer.dropEffect='copy';
+}
+
+function dropPart(event,slot){
+    event.preventDefault();
+    event.currentTarget.classList.remove('drag-over');
+    const index=Number(event.dataTransfer.getData('text/plain'));
+    if(Number.isInteger(index)&&parts[index]){
+        selected=parts[index];
+        install(slot);
+    }
 }
 
 function choose(i){
