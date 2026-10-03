@@ -227,6 +227,17 @@ export function SettingsPage() {
           </button>
         </section>
 
+        {user && (
+          <section style={{ ...cardStyle, border: '1px solid #fecdd3', background: '#fff7f7' }}>
+            <h2 style={{ ...sectionTitleStyle, color: '#be123c' }}>Delete account</h2>
+            <p style={{ ...paragraphStyle, color: '#7f1d1d' }}>
+              Permanently remove your account and its saved data. This cannot be undone.
+            </p>
+            <button type="button" onClick={() => navigate('/delete-account')} style={dangerButtonStyle}>
+              Review account deletion
+            </button>
+          </section>
+        )}
         {/* Danger Zone */}
         <section style={{ ...cardStyle, border: '1px solid #fecdd3', background: '#fff1f2' }}>
           <h2 style={{ ...sectionTitleStyle, color: '#be123c', margin: 0 }}>Danger Zone</h2>

@@ -39,6 +39,7 @@ const TeacherWorkspace = lazy(() => import('./pages/TeacherWorkspace'));
 const SchoolWorkspace = lazy(() => import('./pages/SchoolWorkspace'));
 const AdminConsole = lazy(() => import('./pages/AdminConsole'));
 const SettingsPage = lazy(() => import('./pages/SettingsPage').then((m) => ({ default: m.SettingsPage })));
+const DeleteAccountPage = lazy(() => import('./pages/DeleteAccountPage').then((m) => ({ default: m.DeleteAccountPage })));
 const UsagePolicyPage = lazy(() => import('./pages/UsagePolicyPage'));
 
 
@@ -96,6 +97,7 @@ function App() {
 		<Route path="/school-workspace" element={<ProtectedRoute role="admin"><SchoolWorkspace /></ProtectedRoute>} />
 		<Route path="/admin" element={<ProtectedRoute role="admin"><AdminConsole /></ProtectedRoute>} />
           <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/delete-account" element={<DeleteAccountPage />} />
           <Route path="/usage-policy" element={<UsagePolicyPage />} />
         </Routes>
         </Suspense>

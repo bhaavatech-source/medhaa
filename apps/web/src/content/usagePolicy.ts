@@ -1,4 +1,4 @@
-export const USAGE_POLICY_VERSION = "1.1";
+export const USAGE_POLICY_VERSION = "1.2";
 
 export const USAGE_POLICY_TEXT = `
 Medhā Usage & Data Policy (v1.1)
@@ -17,17 +17,24 @@ Medhā Usage & Data Policy (v1.1)
 
 3. Parental rights
    - Parents/guardians may request a copy of their child's stored data at any time
-   - Parents/guardians may request deletion of their child's data at any time by contacting support
+   - Parents/guardians may delete their account and parent-created child profiles in Settings > Delete account
+   - Independently registered child accounts linked to a deleted parent account are unlinked, not deleted
+   - A user who cannot sign in may request account deletion by emailing support@medhaa.net from the registered address
 
-4. Consent
+4. Account deletion
+   - Account deletion permanently removes the account profile, subscription record, saved game activity, scores, achievements, coin history, and account-linked child profiles created by that parent account
+   - Public cognitive assessment submissions are stored separately from login accounts and are not deleted with an account; request their deletion separately by emailing support@medhaa.net
+   - Anonymous daily app statistics are aggregated and are not linked to an account, so an individual account deletion cannot identify or remove a contribution from those totals
+
+5. Consent
    - By checking the consent box, you confirm you are the parent or legal guardian of the child using this account, and you consent to Medhā processing the data described above for the purpose of providing the learning and gaming service.
 
-5. Optional Android app statistics
+6. Optional Android app statistics
    - A parent/guardian can allow or decline anonymous app statistics in the Android app and change that choice later in Settings
    - A random live-session token is held in API memory only while the app is open and expires after 90 seconds without a heartbeat; it is not saved or linked to an account or device
    - First-open counts are estimates and can count again after reinstalling the app or clearing its data
    - These statistics do not identify unique devices and cannot report confirmed uninstalls; official aggregate install metrics come from Google Play
 
-6. Updates
+7. Updates
    - This policy may be updated from time to time. Material changes will require renewed consent.
 `;

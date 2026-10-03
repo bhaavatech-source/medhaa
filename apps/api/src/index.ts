@@ -13,6 +13,7 @@ import parentRoutes from './routes/parent';
 import assessmentsRoutes from './routes/assessments';
 import adminAssessmentPaymentsRoutes from './routes/adminAssessmentPayments';
 import appUsageRoutes from './routes/appUsage';
+import accountRoutes from './routes/account';
 
 
 const app = express();
@@ -44,6 +45,7 @@ app.use('/api/parent', parentRoutes);
 app.use('/api/assessments', assessmentsRoutes);
 app.use('/api/admin-assessment', adminAssessmentPaymentsRoutes);
 app.use('/api/app-usage', appUsageRoutes);
+app.use('/api/account', accountRoutes);
 
 
 app.listen(PORT, '0.0.0.0', () => {

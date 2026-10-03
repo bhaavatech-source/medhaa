@@ -1571,10 +1571,6 @@ const medhaHeroStyles = `
   box-shadow: 0 4px 12px rgba(32,51,55,.05);
 }
 
-.medha-assessment-cta {
-  color: #fff !important;
-}
-
 .home-scroll-banner {
   position: relative;
   z-index: 20;
@@ -2304,6 +2300,30 @@ export default function HomePage() {
   </div>
 </section>
 
+<section id="contact" className="home-contact-section" aria-labelledby="home-contact-title">
+  <div className="home-contact-inner">
+    <div className="home-contact-copy">
+      <p className="home-help-eyebrow">Get in touch</p>
+      <h2 id="home-contact-title">Contact us</h2>
+      <p>Questions about games, accounts or getting started? We reply within 24 hours.</p>
+      <div className="home-contact-links">
+        <a href="mailto:support@medhaa.net">Email support@medhaa.net</a>
+        <a href="tel:+919573057516">Call 95730 57516</a>
+        <a href="https://wa.me/919573057516" target="_blank" rel="noreferrer">WhatsApp us</a>
+      </div>
+    </div>
+    <div className="home-contact-map">
+      <iframe
+        title="Bhava Tech office location"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3800.3491352011456!2d83.30783551073823!3d17.72818111632194!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a39433258955d9b%3A0xd23df369e5f92ff6!2sBhava%20Tech!5e0!3m2!1sen!2sin!4v1776083669062!5m2!1sen!2sin"
+        loading="lazy"
+        referrerPolicy="no-referrer-when-downgrade"
+        allowFullScreen
+      />
+    </div>
+  </div>
+</section>
+
 <footer className="home-footer">
   <div className="home-footer__main">
     <div className="footer-brand">
@@ -2317,6 +2337,7 @@ export default function HomePage() {
       <a href="/student/preview">Explore games</a>
       <a href="/FAQs.html">FAQs</a>
       <a href="/medhaa-feedback.html">Feedback</a>
+      <a href="#contact">Contact</a>
       <a href="https://play.google.com/store/apps/details?id=com.bhaavajaalam.medhaa" onClick={openPlayStore} className="footer-download-link">Android app</a>
     </nav>
   </div>
