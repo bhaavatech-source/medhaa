@@ -108,16 +108,16 @@ function SchoolIcon() {
 const roles: Role[] = [
   {
     title: 'For Students',
-    subtitle: 'Play, learn, and grow',
-    description: 'Age-aware games and challenges invite children to practise focus, memory, creativity, and problem-solving.',
+    subtitle: 'Play games and learn',
+    description: 'Games for your age and interests help you practise focus, memory, creativity and problem-solving.',
     variant: 'student',
     route: '/student/preview',
     image: '/images/roles/student-role.png',
   },
   {
     title: 'For Parents',
-    subtitle: 'Review recorded activity',
-    description: 'See completed games and the results connected activities record, then use them to start a low-pressure conversation.',
+    subtitle: "Follow your child's progress",
+    description: "See which games your child has finished and how they did.",
     variant: 'parent',
     route: '/parent/preview',
     image: '/images/roles/parent-role.png',
@@ -505,7 +505,7 @@ const medhaHeroStyles = `
     margin: 17px 0 12px;
     font-size: clamp(2.15rem, 5vw, 4.3rem);
     line-height: .98;
-    letter-spacing: -.055em;
+    letter-spacing: 0;
     text-wrap: balance;
   }
 
@@ -544,25 +544,59 @@ const medhaHeroStyles = `
     font-weight: 650;
   }
 
+  .medha-hero-actions {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px 14px;
+    margin-top: 20px;
+  }
+
+  .medha-explore-cta,
   .medha-assessment-cta {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
-    margin-top: 20px;
-    padding: 12px 22px;
-    border-radius: 999px;
-    background: linear-gradient(110deg, #6d4cff, #9b67ff 42%, #20b8a2);
-    color: #fff;
+    min-height: 46px;
+    padding: 11px 18px;
+    border-radius: 12px;
     font-weight: 800;
-    font-size: .92rem;
     text-decoration: none;
-    box-shadow: 0 10px 26px rgba(109,76,255,.28);
+    font-size: .92rem;
     transition: transform .18s ease, box-shadow .18s ease;
   }
 
+  .medha-explore-cta {
+    color: #fff;
+    background: linear-gradient(110deg, #087f83, #08a8b0);
+    box-shadow: 0 10px 26px rgba(8,127,131,.22);
+  }
+
+  .medha-assessment-action {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .medha-assessment-cta {
+    border: 1px solid rgba(8,127,131,.22);
+    color: #24524e;
+    background: rgba(255,255,255,.92);
+  }
+
+  .medha-assessment-action small {
+    color: #536a6c;
+    font-size: .78rem;
+    line-height: 1.35;
+  }
+
+  .medha-explore-cta:hover,
   .medha-assessment-cta:hover {
     transform: translateY(-2px);
-    box-shadow: 0 14px 32px rgba(109,76,255,.35);
+    box-shadow: 0 14px 32px rgba(8,127,131,.2);
   }
 
   .floating-orb {
@@ -865,6 +899,11 @@ const medhaHeroStyles = `
     .medha-intro h1 {
       font-size: clamp(1.85rem, 10.5vw, 2.8rem);
     }
+
+    .medha-hero-actions { flex-direction: column; align-items: stretch; }
+    .medha-explore-cta,
+    .medha-assessment-cta { width: 100%; }
+    .medha-assessment-action { width: 100%; }
 
     .role-visual-wrap {
       min-height: 120px;
@@ -1810,12 +1849,12 @@ const medhaHeroStyles = `
 
 
 const cognitiveSkills = [
-  { title: "Focus", icon: Eye, text: "Stay with a task." },
-  { title: "Memory", icon: Brain, text: "Remember and connect ideas." },
-  { title: "Attention", icon: Sparkles, text: "Notice the details that matter." },
-  { title: "Creativity", icon: Lightbulb, text: "Imagine different possibilities." },
+  { title: "Focus", icon: Eye, text: "Keep working on one thing." },
+  { title: "Memory", icon: Brain, text: "Remember facts and ideas." },
+  { title: "Attention", icon: Sparkles, text: "Notice what's happening." },
+  { title: "Creativity", icon: Lightbulb, text: "Try new ideas." },
   { title: "Empathy", icon: Heart, text: "Understand how others feel." },
-  { title: "Imagination", icon: Puzzle, text: "Explore what could be." },
+  { title: "Imagination", icon: Puzzle, text: "Think of new possibilities." },
 ];
 
 const medhaJourney = [
@@ -1903,8 +1942,8 @@ export default function HomePage() {
           onKeyDown={(e) => { if (e.key === 'Enter') window.location.href = '/games-static/medhaa-cognitive-assessment.html'; }}
         >
           <div className="home-scroll-banner__track">
-            <span>✨ FREE: Take the Medhā Cognitive Assessment. Optional detailed report ₹299 →</span>
-            <span>✨ FREE: Take the Medhā Cognitive Assessment. Optional detailed report ₹299 →</span>
+            <span>✨ Free Medhā assessment · Optional personalized report ₹299 →</span>
+            <span>✨ Free Medhā assessment · Optional personalized report ₹299 →</span>
           </div>
         </div>
       )}
@@ -1938,7 +1977,7 @@ export default function HomePage() {
         navigate('/our-approach');
       }}
     >
-      Our Approach
+      How it works
       <span aria-hidden="true"></span>
     </button>
     {user?.role === 'admin' && (
@@ -1958,25 +1997,25 @@ export default function HomePage() {
     <div className="hero-brand-emblem" aria-hidden="true">
       <img src={medhaIcon} alt="" />
     </div>
-    <span className="medha-eyebrow">
+      <span className="medha-eyebrow">
       <Sparkles size={13} aria-hidden="true" />
-      Explore Medhā
+        Games and activities
     </span>
 
-    <h1>
-      A PLACE TO <span className="gradient-word">EXPLORE, PRACTISE, AND GROW.</span>
-    </h1>
+    <h1>Learning games for children</h1>
+    <p className="medha-intro-copy">Explore science, maths, memory, language and focus games. Choose by age and interest.</p>
 
-
-    <div className="medha-mini-points" aria-label="Medhā highlights">
-      <span className="medha-mini-point"><Brain size={14} /> Practise thinking skills</span>
-      <span className="medha-mini-point"><BarChart3 size={14} /> See recorded activity</span>
-      <span className="medha-mini-point"><Heart size={14} /> Choose by age and interest</span>
+    <div className="medha-hero-actions">
+      <a className="medha-explore-cta" href="/student/preview">
+        <Gamepad2 size={17} aria-hidden="true" /> Explore games
+      </a>
+      <div className="medha-assessment-action">
+        <a className="medha-assessment-cta" href="/games-static/medhaa-cognitive-assessment.html">
+          <Sparkles size={15} aria-hidden="true" /> Take the free assessment
+        </a>
+        <small>Optional personalized report: ₹299</small>
+      </div>
     </div>
-
-    <a className="medha-assessment-cta" href="/games-static/medhaa-cognitive-assessment.html">
-      <Sparkles size={15} aria-hidden="true" /> Start the free assessment · report optional ₹299
-    </a>
   </div>
 
   <div className="section-heading-wrap" style={{ display: 'none' }}>
@@ -2069,7 +2108,7 @@ export default function HomePage() {
         opacity: 1,
       }}
     >
-      How Medhā helps
+      Skills children can practise
     </span>
 
     <h2
@@ -2084,7 +2123,7 @@ export default function HomePage() {
         opacity: 1,
       }}
     >
-      Play, explore, and build useful skills.
+      Practise useful skills through play.
     </h2>
 
     <p
@@ -2098,8 +2137,8 @@ export default function HomePage() {
         opacity: 1,
       }}
     >
-      Medhā gives children engaging ways to practise focus, memory, creativity,
-      and problem-solving while they learn.
+      Games and activities give children a chance to practise focus, memory,
+      attention, creativity, empathy and problem-solving.
     </p>
 
     <div
@@ -2129,7 +2168,7 @@ export default function HomePage() {
         }}
       >
         <Sparkle size={14} />
-        Joyful engagement
+        Fun ways to practise
       </span>
 
       <span
@@ -2148,7 +2187,7 @@ export default function HomePage() {
         }}
       >
         <BarChart3 size={14} />
-        Recorded activity
+        See completed games
       </span>
 
       <span
@@ -2167,7 +2206,7 @@ export default function HomePage() {
         }}
       >
         <Heart size={14} />
-        Learner-centred design
+        Choose by age and interest
       </span>
     </div>
   </div>
@@ -2227,31 +2266,35 @@ export default function HomePage() {
 
 <section className="home-help-section" aria-labelledby="home-faq-title">
   <div className="home-help-heading">
-    <p className="home-help-eyebrow">Helpful answers</p>
+    <p className="home-help-eyebrow">For parents</p>
     <h2 id="home-faq-title">Questions parents ask</h2>
-    <p>Quick answers about Medhā, learning and your child’s experience.</p>
+    <p>Answers about games, progress, screen time and assessments.</p>
   </div>
 
   <div className="home-faq-list">
     <article className="home-faq-item">
+      <h3>What does STEM mean?</h3>
+      <p>STEM is short for science, technology, engineering and maths. Explore these subjects through games.</p>
+    </article>
+    <article className="home-faq-item">
       <h3>What is Medhā?</h3>
-      <p>Medhā offers interactive games for practising thinking, learning and problem-solving.</p>
+      <p>Medhā has games and activities for school subjects and skills like focus, memory and problem-solving.</p>
     </article>
     <article className="home-faq-item">
-      <h3>Is Medhā only for children who find school difficult?</h3>
-      <p>No. Children with varied interests and abilities can explore at their own pace.</p>
+      <h3>Who can use Medhā?</h3>
+      <p>Children with different interests and abilities can choose games that suit their age.</p>
     </article>
     <article className="home-faq-item">
-      <h3>What skills can children practise?</h3>
-      <p>Activities build attention, memory, reasoning, creativity and decision-making.</p>
+      <h3>What can children practise?</h3>
+      <p>Games give children a chance to practise focus, memory, attention, reasoning and creativity.</p>
     </article>
     <article className="home-faq-item">
-      <h3>How much time should my child spend on Medhā?</h3>
-      <p>Keep screen activities balanced with sleep, movement, play, reading and family time.</p>
+      <h3>How much time should my child spend here?</h3>
+      <p>There is no set time. Balance screen time with sleep, movement, play, reading and family time.</p>
     </article>
     <article className="home-faq-item">
-      <h3>Can a Medhā assessment diagnose a learning or medical problem?</h3>
-      <p>No. It is not a clinical diagnosis. Speak with a qualified professional about concerns.</p>
+      <h3>Can the assessment diagnose a health or learning problem?</h3>
+      <p>No. It is not a medical diagnosis. Talk with a qualified professional if you have concerns.</p>
     </article>
   </div>
 
@@ -2279,21 +2322,21 @@ export default function HomePage() {
   </div>
 
   <section className="home-footer__categories" aria-labelledby="home-footer-categories-title">
-    <h2 id="home-footer-categories-title">Browse game categories</h2>
+    <h2 id="home-footer-categories-title">Browse games by type</h2>
     <nav className="home-footer__category-links" aria-label="Game categories">
-      <a href="/games-static/stem-engineering-games.html">STEM &amp; Engineering</a>
-      <a href="/games-static/memory-and-logic-games.html">Memory &amp; Logic</a>
-      <a href="/games-static/cognitive-focus-attention-games.html">Focus &amp; Attention</a>
-      <a href="/games-static/language-and-creativity-games.html">Language &amp; Creativity</a>
-      <a href="/games-static/maths-and-science-games.html">Maths &amp; Science</a>
-      <a href="/games-static/emotional-intelligence-life-skills-games.html">Emotional Intelligence &amp; Life Skills</a>
+      <a href="/games-static/stem-engineering-games.html">Building &amp; science</a>
+      <a href="/games-static/memory-and-logic-games.html">Memory &amp; puzzles</a>
+      <a href="/games-static/cognitive-focus-attention-games.html">Focus &amp; attention</a>
+      <a href="/games-static/language-and-creativity-games.html">Words &amp; creativity</a>
+      <a href="/games-static/maths-and-science-games.html">Maths &amp; science</a>
+      <a href="/games-static/emotional-intelligence-life-skills-games.html">Feelings &amp; life skills</a>
     </nav>
   </section>
 
   <a className="home-footer__contact" href="mailto:support@medhaa.net?subject=Schools%20and%20Colleges%20Services%20and%20Pricing">
     <span>
       <strong>Schools &amp; colleges</strong>
-      <small>Contact us for tailored services, features &amp; pricing</small>
+      <small>Ask us about programs and prices</small>
     </span>
     <ArrowRight size={19} aria-hidden="true" />
   </a>
@@ -2309,8 +2352,8 @@ export default function HomePage() {
           <button type="button" className="home-app-download-promo__close" aria-label="Close" onClick={() => setShowAppDownloadPromo(false)}>×</button>
           <div className="home-app-download-promo__icon" aria-hidden="true">📱</div>
           <strong>Get the Medhā Android App</strong>
-          <p>Play games and track progress faster with our free Android app.</p>
-          <a href="https://play.google.com/store/apps/details?id=com.bhaavajaalam.medhaa" onClick={(e) => { openPlayStore(e); setShowAppDownloadPromo(false); }}>Get it on Google Play →</a>
+          <p>Play games and check your activity in the Medhā Android app.</p>
+          <a href="https://play.google.com/store/apps/details?id=com.bhaavajaalam.medhaa" onClick={(e) => { openPlayStore(e); setShowAppDownloadPromo(false); }}>Get the Android app →</a>
         </div>
       )}
 
@@ -2318,9 +2361,9 @@ export default function HomePage() {
         <div className="home-assessment-promo">
           <button type="button" className="home-assessment-promo__close" aria-label="Close" onClick={() => setShowAssessmentPromo(false)}>×</button>
           <div className="home-assessment-promo__icon"><Sparkles size={22} aria-hidden="true" /></div>
-          <strong>New: Medhā Cognitive Assessment</strong>
-          <p>The assessment is free. An optional detailed report costs ₹299.</p>
-          <button type="button" onClick={() => { setShowAssessmentPromo(false); window.location.href = '/games-static/medhaa-cognitive-assessment.html'; }}>Take it now →</button>
+          <strong>Free Medhā assessment</strong>
+          <p>The assessment is free. An optional personalized report costs ₹299.</p>
+          <button type="button" onClick={() => { setShowAssessmentPromo(false); window.location.href = '/games-static/medhaa-cognitive-assessment.html'; }}>Start assessment →</button>
         </div>
       )}
     </main>
