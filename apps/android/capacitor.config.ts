@@ -6,7 +6,7 @@ import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'com.bhaavajaalam.medhaa',
-  appName: 'MEDHAA',
+  appName: 'Medhā',
   webDir: '../web/dist',
   bundledWebRuntime: false,
   server: {
