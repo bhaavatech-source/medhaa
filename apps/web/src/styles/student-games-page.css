@@ -1744,25 +1744,25 @@
 .student-my-medhaa__toggle{margin-left:auto;color:var(--brand);font-size:26px;line-height:1}
 
 @media(max-width:760px){
-  .student-header{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:8px;align-items:center}
-  .student-brand{min-width:0;justify-self:start;gap:8px;padding:4px 0}
+  .student-header{display:grid;grid-template-columns:minmax(0,1fr);column-gap:8px;align-items:center}
+  .student-brand{min-width:0;justify-self:center;gap:8px;padding:4px 0}
   .student-brand__icon{width:44px;height:44px;flex:0 0 44px}
   .student-brand__name{color:#1b2946;font-family:'Trebuchet MS',sans-serif;font-size:23px;font-weight:800;line-height:1;white-space:nowrap}
-  .student-header__account{grid-column:2;grid-row:1;flex-basis:auto;flex-wrap:nowrap;justify-content:flex-end;gap:4px}
-  .student-header__nav{grid-column:1/-1;grid-row:2;width:100%;min-width:0}
-  .student-header--signed-in .student-header__account{grid-column:1/-1;grid-row:2;justify-content:center;flex-wrap:wrap}
-  .student-header--signed-in .student-header__nav{grid-row:3}
+  .student-header__account{grid-column:1;grid-row:2;flex-basis:auto;flex-wrap:nowrap;justify-content:center;gap:4px}
+  .student-header__nav{grid-column:1;grid-row:3;width:100%;min-width:0}
+  .student-header .student-header__ghost,.student-header .student-header__achievement{padding:7px 9px;font-size:12px;white-space:nowrap;flex-shrink:0}
+  .student-header .student-header__achievement{font-size:10px;padding:7px 8px}
 }
 
 @media(max-width:350px){
-  .student-header__account{grid-column:1/-1;grid-row:2;justify-content:center}
-  .student-header__nav{grid-row:3}
+  .student-header__account{gap:2px}
+  .student-header .student-header__ghost,.student-header .student-header__achievement{padding:6px;font-size:10px;white-space:nowrap}
 }
 
 @media(max-width:480px){
   .student-header__nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));align-items:stretch;overflow:visible;gap:2px}
   .student-header__nav-label{display:inline}
-  .student-header__nav button,.student-header__subscribe,.student-header__subscribed{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:4px;min-width:0;min-height:58px;padding:8px 2px;white-space:normal;text-align:center;font-size:10px;line-height:1.2}
+  .student-header__nav button,.student-header__subscribe,.student-header__subscribed{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:4px;min-width:0;min-height:62px;padding:8px 2px;white-space:normal;text-align:center;font-size:12px;line-height:1.2}
   .student-header__nav svg{flex:0 0 18px}
   .student-header__nav span{margin-right:0}
   .student-my-medhaa{padding:16px}
