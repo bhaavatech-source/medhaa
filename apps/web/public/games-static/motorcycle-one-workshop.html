@@ -11,13 +11,13 @@
 
 <!-- MEDHAA-SEO-INJECTED -->
 <title>Motorcycle Workshop – STEM Engineering Game for Kids | Medhaa</title>
-<meta name="description" content="Explore two full motorcycle builds, a Sport bike and a Scooter, labeling and understanding 18 real parts each. Free game for ages 11-17 on Medhaa.">
+<meta name="description" content="Build and explore petrol motorcycles, scooters, electric motorcycles, and a solar-assisted electric motorcycle. Free game for ages 11-17 on Medhaa.">
 <meta property="og:title" content="Motorcycle Workshop – STEM Engineering Game for Kids | Medhaa">
-<meta property="og:description" content="Explore two full motorcycle builds, a Sport bike and a Scooter, labeling and understanding 18 real parts each. Free game for ages 11-17 on Medhaa.">
+<meta property="og:description" content="Build and explore petrol motorcycles, scooters, electric motorcycles, and a solar-assisted electric motorcycle. Free game for ages 11-17 on Medhaa.">
 <meta property="og:url" content="https://medhaa.net/games-static/motorcycle-one-workshop.html">
 <link rel="canonical" href="https://medhaa.net/games-static/motorcycle-one-workshop.html">
 <script type="application/ld+json">
-{"@context": "https://schema.org", "@type": "LearningResource", "name": "Motorcycle Workshop", "description": "Explore two full motorcycle builds, a Sport bike and a Scooter, labeling and understanding 18 real parts each.", "url": "https://medhaa.net/games-static/motorcycle-one-workshop.html", "learningResourceType": "Educational Game", "teaches": ["Mechanical Thinking", "Systems Knowledge", "Attention to Detail"], "typicalAgeRange": "11-17", "isAccessibleForFree": true, "provider": {"@type": "Organization", "name": "Bhava Tech", "url": "https://medhaa.net"}}
+{"@context": "https://schema.org", "@type": "LearningResource", "name": "Motorcycle Workshop", "description": "Compare petrol, electric, and solar-assisted motorcycles by choosing and installing their main parts.", "url": "https://medhaa.net/games-static/motorcycle-one-workshop.html", "learningResourceType": "Educational Game", "teaches": ["Mechanical Thinking", "Systems Knowledge", "Attention to Detail"], "typicalAgeRange": "11-17", "isAccessibleForFree": true, "provider": {"@type": "Organization", "name": "Bhava Tech", "url": "https://medhaa.net"}}
 </script>
 
 <meta charset="utf-8">
@@ -42,8 +42,12 @@ button:disabled{opacity:0.5;cursor:not-allowed;border-color:var(--line)}
 .hero p,.muted{color:var(--muted)}
 .homegrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .card,.panel{background:#111a30d9;border:1px solid var(--line);border-radius:18px;padding:17px}
-.card{text-align:center;cursor:pointer;min-height:145px}
+.card{text-align:center;cursor:pointer;min-height:145px;transition:transform .18s ease,border-color .18s ease}
 .card:hover{border-color:var(--cyan);transform:translateY(-3px)}
+.homegrid .card{width:100%;font:inherit;color:var(--text)}
+.card b,.card small{display:block;line-height:1.45}
+.card b{font-size:16px}
+.card small{margin-top:6px;color:var(--muted);font-size:12px}
 .card i{display:block;font-style:normal;font-size:38px;margin-bottom:9px}
 .layout{display:grid;grid-template-columns:250px minmax(500px,1fr) 240px;gap:14px}
 .panel h2{font-size:18px;margin:0 0 12px}
@@ -55,7 +59,7 @@ button:disabled{opacity:0.5;cursor:not-allowed;border-color:var(--line)}
 .part{display:block;width:100%;margin:7px 0;padding:10px;border:1px solid var(--line);border-radius:8px;background:#0b1326;color:var(--text);text-align:left;cursor:pointer;touch-action:manipulation;position:relative}
 .part-row{display:flex;align-items:stretch;gap:6px}
 .part-row .part{flex:1;min-width:0}
-.install-part{display:none;flex:0 0 auto;background:#15432f;border-color:var(--green);color:#b9ffdc}
+.install-part{display:block;flex:0 0 auto;min-width:78px;min-height:44px;padding:8px 12px;background:#15432f;border-color:var(--green);color:#b9ffdc}
 .part small{display:block;color:var(--muted);margin-top:3px}
 .part.selected{border:2px solid var(--gold);background:#3a2c14;box-shadow:0 0 17px #ffdc6670}
 .part.installed{border-color:var(--green);background:#15392d}
@@ -68,7 +72,9 @@ button:disabled{opacity:0.5;cursor:not-allowed;border-color:var(--line)}
 .style-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;max-height:150px;overflow-y:auto;padding-right:5px;}
 .style-grid::-webkit-scrollbar{width:6px;}
 .style-grid::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px;}
-.style-grid button{font-size:10px;padding:7px;min-height:40px;}
+.style-grid button{font-size:11px;padding:8px;min-height:54px;text-align:left;}
+.style-grid button b,.style-grid button small{display:block}
+.style-grid button small{margin-top:3px;color:var(--muted);font-size:10px;line-height:1.35}
 .style-grid .active{border-color:var(--gold)}
 .paints{display:flex;flex-wrap:wrap;gap:7px;margin:8px 0}
 .paint{height:24px;width:24px;padding:0;border-radius:50%;border:2px solid #fff5;position:relative}
@@ -93,15 +99,13 @@ button:disabled{opacity:0.5;cursor:not-allowed;border-color:var(--line)}
 .slot.good{border-style:solid;border-color:var(--green);background:#123c31eF}
 .slot.target{border-color:var(--gold);background:#493b14;box-shadow:0 0 21px #ffdc66aa;animation:pulse .85s infinite}
 .slot.bad{border-color:var(--red);animation:shake .35s}
-.install-targets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}
-.install-target{min-width:0;min-height:58px;padding:8px 10px;text-align:left;border:1px dashed #6d829a;background:#101c30;color:var(--text);overflow-wrap:anywhere}
-.install-target b,.install-target small{display:block}
-.install-target small{margin-top:4px;font-size:11px;color:var(--muted)}
-.install-target.target{border:2px solid var(--gold);background:#483c1b}
-.install-target.target small{color:var(--gold)}
-.install-target.good{border:2px solid var(--green);background:#15392d}
-.install-target.good small{color:var(--green)}
-.install-target.drag-over{border:2px solid var(--cyan);background:#17384f;box-shadow:0 0 16px #5ad1ff66}
+.model-profile{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:8px 14px;margin:8px 0 12px;padding:11px 13px;border:1px solid var(--line);border-radius:12px;background:#0d192b}
+.model-profile strong,.model-profile small{display:block}
+.model-profile strong{font-size:14px}
+.model-profile small{margin-top:3px;color:var(--muted);line-height:1.45}
+.model-profile-stats{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px}
+.model-profile-stats span{padding:5px 8px;border-radius:7px;background:#142740;color:#c9e7fa;font-size:11px;font-weight:700}
+.model-profile-note{grid-column:1/-1;color:#8af3c0;font-size:11px;line-height:1.45}
 .hint{position:absolute;top:9px;left:50%;transform:translateX(-50%);z-index:8;white-space:nowrap;max-width:85%;overflow:hidden;text-overflow:ellipsis;background:#071321df;border:1px solid #416c8c;border-radius:16px;padding:6px 11px;font-size:12px}
 @keyframes pulse{50%{transform:scale(1.05)}}
 @keyframes shake{25%{translate:-4px}75%{translate:4px}}
@@ -147,7 +151,6 @@ button:disabled{opacity:0.5;cursor:not-allowed;border-color:var(--line)}
     .layout>aside.panel:first-child .part{margin:5px 0;padding:8px;font-size:12px;}
     .install-part{display:block;padding:8px 10px;font-size:12px;}
     .bikebox{height:320px}
-    .install-targets{grid-template-columns:repeat(2,minmax(0,1fr));}
     .workhead{align-items:flex-start}
     .workhead>b{flex:1 1 100%;}
     .workhead>span{width:100%;}
@@ -167,12 +170,14 @@ button:disabled{opacity:0.5;cursor:not-allowed;border-color:var(--line)}
 </header>
 <main>
 <section id="home" class="screen active">
-    <div class="hero"><h1>Build. Understand. Ride.</h1><p>Build a real-looking motorcycle or scooter, learn its engineering, and take it for a road test.</p></div>
+    <div class="hero"><h1>Choose your bike</h1></div>
     <div class="homegrid">
-        <div class="card" onclick="start('Sport')"><i>🏍️</i><b>Build Sport Motorcycle</b><small>Manual gears · chain drive · performance</small></div>
-        <div class="card" onclick="start('Scooter')"><i>🛵</i><b>Build Smart Scooter</b><small>Automatic CVT · city mobility</small></div>
-        <div class="card" onclick="openAnatomy('Sport')"><i>🔎</i><b>Real Bike Anatomy</b><small>50 components breakdown</small></div>
-        <div class="card" onclick="learn()"><i>🧪</i><b>Mechanic Lab</b><small>Gears, cooling, brakes and power</small></div>
+        <button type="button" class="card" onclick="start('Sport')"><i>🏍️</i><b>Sport motorcycle</b><small>Petrol engine · manual gearbox · chain drive</small></button>
+        <button type="button" class="card" onclick="start('Scooter')"><i>🛵</i><b>City scooter</b><small>Petrol engine · automatic CVT · step-through frame</small></button>
+        <button type="button" class="card" onclick="start('Electric')"><i>⚡</i><b>Electric motorcycle</b><small>Traction battery · motor controller · no tailpipe</small></button>
+        <button type="button" class="card" onclick="start('SolarAssist')"><i>☀️</i><b>Solar-assist motorcycle</b><small>Electric drive · panel adds a slow parked charge</small></button>
+        <button type="button" class="card" onclick="openAnatomy('Sport')"><i>🔎</i><b>Motorcycle anatomy</b><small>Explore labeled motorcycle and scooter parts</small></button>
+        <button type="button" class="card" onclick="learn()"><i>🧪</i><b>Mechanic lab</b><small>Compare gears, electric motors, brakes, and charging</small></button>
     </div>
 </section>
 
@@ -194,8 +199,9 @@ button:disabled{opacity:0.5;cursor:not-allowed;border-color:var(--line)}
             </details>
         </aside>
         <section class="panel workspace-panel">
-            <div class="workhead"><b id="title"></b><span><button onclick="reset()">Reset</button><button onclick="check()">Check</button><button class="primary" onclick="roadTest()">Start Engine</button><button onclick="go('home')">Home</button></span></div>
-            <div class="guide" id="guide">Choose a part from the tray, then tap its matching install tile or drag it onto the tile.</div>
+            <div class="workhead"><b id="title"></b><span><button onclick="reset()">Reset</button><button onclick="check()">Check</button><button class="primary" onclick="roadTest()">Road test</button><button onclick="go('home')">Home</button></span></div>
+            <div class="model-profile" id="modelProfile" aria-live="polite"></div>
+            <div class="guide" id="guide">Choose a part in the tray, then install it beside the part name.</div>
             
             <div class="bikebox" id="bikebox">
                 <!-- SVG 1: SPORTBIKE -->
@@ -337,9 +343,34 @@ button:disabled{opacity:0.5;cursor:not-allowed;border-color:var(--line)}
                     <g id="v-Scooter-Horn" class="layer"><circle cx="280" cy="230" r="12" fill="#d9e2ec" stroke="#4b596c" stroke-width="4"/><path d="M274 230h12" stroke="#ffdc62" stroke-width="3"/></g>
                     <g id="v-Scooter-Indicators" class="layer"><circle cx="178" cy="125" r="6" fill="#ffb347"/><circle cx="225" cy="135" r="6" fill="#ffb347"/></g>
                 </svg>
+
+                <svg id="bike-Electric" class="bike" viewBox="0 0 600 390" style="display:none" role="img" aria-label="Electric motorcycle assembly">
+                    <g class="base">
+                        <circle cx="145" cy="286" r="52" fill="#121b29" stroke="#31435a" stroke-width="12"/>
+                        <circle cx="455" cy="286" r="52" fill="#121b29" stroke="#31435a" stroke-width="12"/>
+                        <path d="M145 286 235 150 330 230 455 286M235 150 190 286" fill="none" stroke="#334760" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+                    </g>
+                    <g id="v-Electric-Frame" class="layer"><path d="M145 286 235 150 330 230 455 286M235 150 190 286" fill="none" stroke="#4ef1bf" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/><path class="paintable" d="M226 151q36-47 103-26l39 37-31 24-84-7z" fill="#df4354" stroke="#b8fff0" stroke-width="4"/></g>
+                    <g id="v-Electric-Motor" class="layer"><circle cx="455" cy="286" r="27" fill="#263b4c" stroke="#58d8ff" stroke-width="7"/><circle cx="455" cy="286" r="11" fill="#92edff"/><path d="M455 265v42m-21-21h42m-36-15 30 30m0-30-30 30" stroke="#d5fbff" stroke-width="3"/></g>
+                    <g id="v-Electric-TractionBattery" class="layer"><rect x="270" y="210" width="105" height="57" rx="9" fill="#173b3a" stroke="#53efb4" stroke-width="4"/><path d="M310 220l-10 20h13l-8 18 25-26h-15l8-12z" fill="#a4ffd6"/><path d="M282 260h82" stroke="#a4ffd6" stroke-width="3"/></g>
+                    <g id="v-Electric-Controller" class="layer"><rect x="345" y="182" width="49" height="31" rx="5" fill="#233a57" stroke="#67d9ff" stroke-width="3"/><path d="M354 191h31m-31 8h22" stroke="#b9f4ff" stroke-width="2"/></g>
+                    <g id="v-Electric-Charging" class="layer"><circle cx="394" cy="184" r="11" fill="#1b293d" stroke="#f4d477" stroke-width="4"/><path d="M392 177l-4 8h6l-2 7 8-10h-6l2-5z" fill="#fff0ad"/></g>
+                    <g id="v-Electric-FinalDrive" class="layer"><path d="M330 251q58 25 101 34" fill="none" stroke="#ffc85e" stroke-width="6" stroke-dasharray="7 5"/></g>
+                    <g id="v-Electric-Wheels" class="layer"><circle cx="145" cy="286" r="39" fill="none" stroke="#b6d5e3" stroke-width="6"/><circle cx="455" cy="286" r="39" fill="none" stroke="#b6d5e3" stroke-width="6"/><path d="M145 247v78m-39-39h78m-27-27 55 55m0-55-55 55M455 247v78m-39-39h78m-27-27 55 55m0-55-55 55" stroke="#79a8bb" stroke-width="3"/></g>
+                    <g id="v-Electric-Brakes" class="layer"><circle cx="145" cy="286" r="21" fill="none" stroke="#ff8b82" stroke-width="5"/><circle cx="455" cy="286" r="21" fill="none" stroke="#ff8b82" stroke-width="5"/></g>
+                    <g id="v-Electric-Suspension" class="layer"><path d="M198 211 155 278m235-48 63 54" stroke="#ffd06b" stroke-width="9" stroke-linecap="round"/></g>
+                    <g id="v-Electric-Controls" class="layer"><path d="m235 150-38-36h-21m21 36 5-37" fill="none" stroke="#e9f6ff" stroke-width="7" stroke-linecap="round"/></g>
+                    <g id="v-Electric-Lights" class="layer"><path d="M171 111h30l-7 15h-18z" fill="#fff3a0" stroke="#fff" stroke-width="3"/></g>
+                    <g id="v-Electric-SmartDash" class="layer"><rect x="206" y="119" width="31" height="19" rx="4" fill="#5ad1ff" stroke="#e6fbff" stroke-width="2"/></g>
+                    <g id="v-Electric-Storage" class="layer"><path d="M377 159h77v33h-77z" fill="#34485b" stroke="#b8d3df" stroke-width="3"/></g>
+                    <g id="v-Electric-Seat" class="layer"><path d="M300 133h89l30 18h-119z" fill="#151d2b" stroke="#b4d4df" stroke-width="3"/></g>
+                    <g id="v-Electric-Mirrors" class="layer"><path d="m205 117-20-30m20 30 24-30" stroke="#e2f3ff" stroke-width="3"/><circle cx="183" cy="83" r="8" fill="#243950" stroke="#e2f3ff" stroke-width="3"/><circle cx="231" cy="83" r="8" fill="#243950" stroke="#e2f3ff" stroke-width="3"/></g>
+                    <g id="v-Electric-Horn" class="layer"><circle cx="277" cy="226" r="11" fill="#d9e2ec" stroke="#4b596c" stroke-width="4"/></g>
+                    <g id="v-Electric-Indicators" class="layer"><circle cx="167" cy="135" r="6" fill="#ffb347"/><circle cx="410" cy="168" r="6" fill="#ffb347"/></g>
+                    <g id="v-Electric-SolarArray" class="layer"><path d="M374 151 448 151 466 164 389 164z" fill="#164b69" stroke="#7be5f3" stroke-width="3"/><path d="m393 153 7 9m15-9 7 9m14-9 7 9m-50-4h74" fill="none" stroke="#a5edff" stroke-width="2"/></g>
+                </svg>
                 
             </div>
-            <div id="installTargets" class="install-targets" aria-label="Motorcycle installation points"></div>
         </section>
         <aside class="panel diagnostics-panel">
             <h2>Diagnostics</h2><div id="diag" class="diag"></div><hr><p class="muted">A real engineer checks that engine power, cooling, brakes and transmission work together.</p>
@@ -499,14 +530,22 @@ updateXPDisplay();
 
 const models={
     Sport:[
-        ['Mini Moto 150','🏍️',15],['Classic Cruiser 350','🏍️',20],['Street Spark 250','🏍️',28],['Retro Scrambler 400','🏍️',40],
-        ['Track Blaze 400','🏍️',46],['Naked Street 500','🏍️',47],['Adventure Tourer 650','🏍️',68],['Hyper-Naked 900','🏍️',119],
-        ['Supersport 600','🏍️',120],['Superbike 1000','🏍️',200]
+        {name:'City Sport 250',icon:'🏍️',frame:'Street Tubular Frame',component:'250cc Liquid-Cooled Engine',output:'18.5 kW',detail:'250 cc single-cylinder · light city and back-road setup'},
+        {name:'Twin Tourer 400',icon:'🏍️',frame:'Touring Steel Frame',component:'400cc Twin-Cylinder Engine',output:'32 kW',detail:'400 cc twin-cylinder · balanced touring setup'},
+        {name:'Track Sport 600',icon:'🏍️',frame:'Twin-Spar Sport Frame',component:'600cc Inline-Four Engine',output:'88 kW',detail:'600 cc inline-four · high-revving track setup'}
     ],
     Scooter:[
-        ['Eco Urban 100','🛵',7],['Retro Classic 110','🛵',8],['City Glide 125','🛵',9],['Hyper Electric 7kW','🛵',9],
-        ['Pro Delivery 150','🛵',11],['Adventure Maxi 160','🛵',14],['Volt Zip Electric','🛵',14],['Sport Maxi 300','🛵',28],
-        ['Touring Scooter 400','🛵',35],['Aero Maxi 500','🛵',45]
+        {name:'Eco City 110',icon:'🛵',frame:'Light Step-Through Frame',component:'110cc Air-Cooled Engine',output:'5.5 kW',detail:'110 cc single-cylinder · light urban errands'},
+        {name:'City Glide 125',icon:'🛵',frame:'Urban Step-Through Frame',component:'125cc Air-Cooled Engine',output:'8 kW',detail:'125 cc single-cylinder · everyday city travel'},
+        {name:'Cargo 150',icon:'🛵',frame:'Reinforced Delivery Frame',component:'150cc Air-Cooled Engine',output:'10 kW',detail:'150 cc single-cylinder · extra load capacity'}
+    ],
+    Electric:[
+        {name:'Metro Electric 4',icon:'⚡',frame:'Compact Electric Frame',component:'4 kW Rear Hub Motor',battery:'3.2 kWh Lithium-Ion Pack',output:'4 kW',detail:'Rear hub motor · 3.2 kWh traction battery'},
+        {name:'City Electric 8',icon:'⚡',frame:'Sport Electric Frame',component:'8 kW Mid-Drive Motor',battery:'5 kWh Lithium-Ion Pack',output:'8 kW',detail:'Mid-drive motor · 5 kWh traction battery'}
+    ],
+    SolarAssist:[
+        {name:'Sunline Solar 6',icon:'☀️',frame:'Solar Touring Frame',component:'6 kW Mid-Drive Motor',battery:'4 kWh Lithium-Ion Pack',solarArray:'150 W Rear-Carrier Solar Panel',output:'6 kW',detail:'Mid-drive motor · 4 kWh traction battery'},
+        {name:'Daybreak Solar Tourer',icon:'☀️',frame:'Solar Touring Frame',component:'8 kW Mid-Drive Motor',battery:'5 kWh Lithium-Ion Pack',solarArray:'200 W Rear-Carrier Solar Panel',output:'8 kW',detail:'Mid-drive motor · 5 kWh traction battery'}
     ]
 };
 
@@ -514,17 +553,24 @@ const colors=['#df4354','#2689ff','#ffe15a','#3ae49d','#9a66e9','#f5f6fa','#ff90
 const premiumColors = ['#9a66e9', '#f5f6fa', '#ff9033', '#20222b'];
 
 const parts=[
-    ['Frame','Aluminium Twin-Spar Frame','Sport'],['Frame','Step-Through Scooter Frame','Scooter'],['Frame','Carbon Fiber Race Frame','Sport'],
+    ['Frame','Street Tubular Frame','Sport'],['Frame','Touring Steel Frame','Sport'],['Frame','Twin-Spar Sport Frame','Sport'],
+    ['Frame','Light Step-Through Frame','Scooter'],['Frame','Urban Step-Through Frame','Scooter'],['Frame','Reinforced Delivery Frame','Scooter'],
+    ['Frame','Compact Electric Frame','EV'],['Frame','Sport Electric Frame','EV'],['Frame','Solar Touring Frame','SolarAssist'],
     ['Engine','250cc Liquid-Cooled Engine','Sport'],['Engine','400cc Twin-Cylinder Engine','Sport'],['Engine','600cc Inline-Four Engine','Sport'],
-    ['Engine','125cc Air-Cooled Engine','Scooter'],['Engine','4kW Electric Hub Motor','Scooter'],
+    ['Engine','110cc Air-Cooled Engine','Scooter'],['Engine','125cc Air-Cooled Engine','Scooter'],['Engine','150cc Air-Cooled Engine','Scooter'],
+    ['Motor','4 kW Rear Hub Motor','EV'],['Motor','6 kW Mid-Drive Motor','EV'],['Motor','8 kW Mid-Drive Motor','EV'],
     ['Battery','12V Starter Battery','both'],['Battery','Lithium-Ion Lightweight Battery','Sport'],
-    ['FuelSystem','12L Fuel Tank & Pump','both'],['FuelSystem','Motor Controller','Scooter'],
+    ['TractionBattery','3.2 kWh Lithium-Ion Pack','EV'],['TractionBattery','4 kWh Lithium-Ion Pack','EV'],['TractionBattery','5 kWh Lithium-Ion Pack','EV'],
+    ['FuelSystem','12L Fuel Tank & Pump','both'],
+    ['Controller','Field-Oriented Motor Controller','EV'],
+    ['Charging','On-Board Charger & Charge Port','EV'],
+    ['SolarArray','150 W Rear-Carrier Solar Panel','SolarAssist'],['SolarArray','200 W Rear-Carrier Solar Panel','SolarAssist'],
     ['Transmission','6-Speed Manual Gearbox','Sport'],['Transmission','Racing Slipper Clutch','Sport'],['Transmission','Automatic CVT','Scooter'],
-    ['FinalDrive','Chain & Sprocket Drive','Sport'],['FinalDrive','Carbon Belt Drive','both'],['FinalDrive','CVT Final Drive','Scooter'],
-    ['Wheels','17-inch Sport Wheels','Sport'],['Wheels','Forged Racing Alloys','Sport'],['Wheels','12-inch City Wheels','Scooter'],
-    ['Brakes','Dual Disc Brakes with ABS','Sport'],['Brakes','Performance Brembo Calipers','Sport'],['Brakes','Combined City Brakes','Scooter'],
-    ['Suspension','Sport Fork & Mono-shock','Sport'],['Suspension','Ohlins Adjustable Suspension','Sport'],['Suspension','Comfort Fork & Twin Shocks','Scooter'],
-    ['Controls','Clutch, Gear Lever & Bars','Sport'],['Controls','Twist-and-Go Controls','Scooter'],
+    ['FinalDrive','Chain & Sprocket Drive','Sport'],['FinalDrive','Carbon Belt Drive','Scooter'],['FinalDrive','CVT Final Drive','Scooter'],['FinalDrive','Electric Reduction Drive','EV'],
+    ['Wheels','17-inch Sport Wheels','Sport'],['Wheels','Forged Racing Alloys','Sport'],['Wheels','12-inch City Wheels','Scooter'],['Wheels','17-inch Electric Road Wheels','EV'],
+    ['Brakes','Dual Disc Brakes with ABS','Sport'],['Brakes','Performance Brake Calipers','Sport'],['Brakes','Combined City Brakes','Scooter'],['Brakes','Hydraulic Disc Brakes with ABS','EV'],
+    ['Suspension','Sport Fork & Mono-shock','Sport'],['Suspension','Adjustable Sport Suspension','Sport'],['Suspension','Comfort Fork & Twin Shocks','Scooter'],['Suspension','Electric Road Fork & Rear Mono-shock','EV'],
+    ['Controls','Clutch, Gear Lever & Bars','Sport'],['Controls','Twist-and-Go Controls','Scooter'],['Controls','Throttle, Brake Levers & Switchgear','EV'],
     ['Cooling','Liquid Radiator & Fan','Sport'],['Cooling','High-Capacity Racing Radiator','Sport'],
     ['Lights','LED Headlamp & Indicators','both'],['SmartDash','Bluetooth Dashboard','both'],['Storage','Under-Seat Storage Box','both'],
     ['QuickShifter','Quick Shifter','Sport'],['CrashGuard','Protective Crash Guard','both'],
@@ -536,11 +582,29 @@ const parts=[
 let type='Sport',level=1,model=0,paintColor=colors[0],selected=null,installed={};
 let currentTab = 'Frame'; 
 
-const required=['Frame','Engine','Battery','FuelSystem','Transmission','FinalDrive','Wheels','Brakes','Suspension','Controls','Cooling','Lights','SmartDash','Storage','CrashGuard','Exhaust','Seat','Mirrors','Horn','Indicators'];
+const requiredByType={
+    Sport:['Frame','Engine','Battery','FuelSystem','Transmission','FinalDrive','Wheels','Brakes','Suspension','Controls','Cooling','Lights','SmartDash','Seat','Mirrors','Horn','Indicators'],
+    Scooter:['Frame','Engine','Battery','FuelSystem','Transmission','FinalDrive','Wheels','Brakes','Suspension','Controls','Lights','Storage','Seat','Mirrors','Horn','Indicators'],
+    Electric:['Frame','Motor','TractionBattery','Controller','Charging','FinalDrive','Wheels','Brakes','Suspension','Controls','Lights','SmartDash','Seat','Mirrors','Horn','Indicators'],
+    SolarAssist:['Frame','Motor','TractionBattery','Controller','Charging','SolarArray','FinalDrive','Wheels','Brakes','Suspension','Controls','Lights','SmartDash','Seat','Mirrors','Horn','Indicators']
+};
+function requiredParts(){return requiredByType[type]}
 
 // 🌟 NEW: DUAL COORDINATE SYSTEM FOR THE 2 SVGS
 function go(id){document.querySelectorAll('.screen').forEach(e=>e.classList.remove('active'));document.getElementById(id).classList.add('active')}
 function start(t){type=t;level=1;model=0;installed={};selected=null;currentTab='Frame';go('build');render()}
+
+function selectModel(index){
+    model=index;
+    const spec=models[type][model],powerSlot=type==='Sport'||type==='Scooter'?'Engine':'Motor';
+    if(installed.Frame?.[1]!==spec.frame)delete installed.Frame;
+    if(installed[powerSlot]?.[1]!==spec.component)delete installed[powerSlot];
+    if(spec.battery&&installed.TractionBattery?.[1]!==spec.battery)delete installed.TractionBattery;
+    if(spec.solarArray&&installed.SolarArray?.[1]!==spec.solarArray)delete installed.SolarArray;
+    selected=null;
+    currentTab=requiredParts().find(slot=>!installed[slot])||'Frame';
+    render();
+}
 
 function setLevel(n,b){
     if(n === 3 && globalXP < 200) {
@@ -554,21 +618,32 @@ function setLevel(n,b){
     render();
 }
 
-function available(){let a=parts.filter(p=>p[2]===type||p[2]==='both');if(level===1)a=a.filter(p=>required.includes(p[0]));return a}
+function available(){
+    const spec=models[type][model],powerSlot=type==='Sport'||type==='Scooter'?'Engine':'Motor';
+    let a=parts.filter(p=>p[2]===type||p[2]==='both'||((type==='Electric'||type==='SolarAssist')&&p[2]==='EV'));
+    a=a.filter(p=>p[0]!=='Frame'||p[1]===spec.frame);
+    a=a.filter(p=>p[0]!==powerSlot||p[1]===spec.component);
+    if(spec.battery)a=a.filter(p=>p[0]!=='TractionBattery'||p[1]===spec.battery);
+    if(spec.solarArray)a=a.filter(p=>p[0]!=='SolarArray'||p[1]===spec.solarArray);
+    if(level===1)a=a.filter(p=>requiredParts().includes(p[0]));
+    return a
+}
 function slotLabel(slot){return slot.replace(/([a-z])([A-Z])/g,'$1 $2')}
 
 function render(){
-    let a=available(),groups=[...new Set(a.map(p=>p[0]))],m=models[type][model];
+    let a=available(),groups=[...new Set(a.map(p=>p[0]))],m=models[type][model],visualType=type==='SolarAssist'?'Electric':type;
     // Toggle active SVG display
     document.getElementById('bike-Sport').style.display = type === 'Sport' ? 'block' : 'none';
     document.getElementById('bike-Scooter').style.display = type === 'Scooter' ? 'block' : 'none';
+    document.getElementById('bike-Electric').style.display = visualType === 'Electric' ? 'block' : 'none';
 
     if (selected) currentTab = selected[0];
     if (!groups.includes(currentTab)) currentTab = groups[0];
     let tab = currentTab;
 
-    document.getElementById('title').textContent=m[1]+' '+m[0]+' · '+m[2]+' hp';
-    document.getElementById('models').innerHTML=models[type].map((v,i)=>'<button class="'+(i===model?'active':'')+'" onclick="model='+i+';render()">'+v[1]+' '+v[0]+'</button>').join('');
+    document.getElementById('title').textContent=m.name+' · '+m.output;
+    document.getElementById('models').innerHTML=models[type].map((v,i)=>'<button class="'+(i===model?'active':'')+'" onclick="selectModel('+i+')"><b>'+v.icon+' '+v.name+'</b><small>'+v.detail+'</small></button>').join('');
+    document.getElementById('modelProfile').innerHTML='<div><strong>'+m.name+'</strong><small>'+m.detail+'</small></div><div class="model-profile-stats"><span>'+m.output+'</span><span>'+(type==='Sport'?'Manual drive':type==='Scooter'?'Automatic CVT':type==='SolarAssist'?'Solar-assisted electric':'Battery electric')+'</span></div>'+(type==='SolarAssist'?'<div class="model-profile-note">The solar panel only adds a slow charge while parked in sunlight. The traction battery powers the motor.</div>':'');
     
     let canUnlockPaints = globalXP >= 100;
     document.getElementById('paintLock').textContent = canUnlockPaints ? '' : '(Earn 100 XP to unlock special colors)';
@@ -581,11 +656,7 @@ function render(){
     document.getElementById('tabs').innerHTML=groups.map(g=>'<button class="tab '+(g===tab?'active':'')+'" onclick="currentTab=\''+g+'\'; selected=null; render()">'+slotLabel(g)+'</button>').join('');
     
     let show=a.filter(p=>p[0]===tab);
-    document.getElementById('parts').innerHTML=show.map(p=>'<div class="part-row"><button type="button" draggable="true" class="part '+(p===selected?'selected':installed[p[0]]===p?'installed':'')+'" onclick="choose('+parts.indexOf(p)+')" ondragstart="dragPart(event,'+parts.indexOf(p)+')"><b>'+p[1]+'</b><small>'+(p===selected?'Selected · tap or drag to install':installed[p[0]]===p?'✓ Installed':'Tap to select · drag to install')+'</small></button><button type="button" class="install-part" onclick="choose('+parts.indexOf(p)+');install(\''+p[0]+'\')">Install</button></div>').join('');
-    
-    document.getElementById('installTargets').innerHTML=groups.map(k=>
-        '<button type="button" class="install-target '+(installed[k]?'good':selected?.[0]===k?'target':'')+'" onclick="install(\''+k+'\')" ondragover="allowPartDrop(event)" ondragenter="this.classList.add(\'drag-over\')" ondragleave="this.classList.remove(\'drag-over\')" ondrop="dropPart(event,\''+k+'\')"><b>'+(selected?.[0]===k?'Install '+slotLabel(k):slotLabel(k))+'</b><small>'+(installed[k]?'✓ Installed: '+installed[k][1]:selected?.[0]===k?'Tap to install here':'Choose part, then tap here')+'</small></button>'
-    ).join('');
+    document.getElementById('parts').innerHTML=show.map(p=>'<div class="part-row"><button type="button" class="part '+(p===selected?'selected':installed[p[0]]===p?'installed':'')+'" onclick="choose('+parts.indexOf(p)+')"><b>'+p[1]+'</b><small>'+(p===selected?'Selected':installed[p[0]]===p?'✓ Installed':'Select this component')+'</small></button><button type="button" class="install-part" aria-label="Install '+p[1]+'" onclick="choose('+parts.indexOf(p)+');install(\''+p[0]+'\')">Install</button></div>').join('');
     
     document.querySelectorAll('.paintable').forEach(e=>e.setAttribute('fill',paintColor));
     
@@ -594,32 +665,12 @@ function render(){
     
     // Turn on newly installed parts in the correct SVG
     Object.keys(installed).forEach(k=> {
-        let el = document.getElementById('v-' + type + '-' + k);
+        let el = document.getElementById('v-' + visualType + '-' + k);
         if(el) el.classList.add('on');
     });
     
-    document.getElementById('guide').innerHTML=selected?'<b>'+selected[1]+'</b> selected. Tap <b>Install '+slotLabel(selected[0])+'</b> below or drag the part onto that tile.':'Choose a part from the tray, then tap its matching install tile or drag it onto the tile.';
+    document.getElementById('guide').innerHTML=selected?'<b>'+selected[1]+'</b> selected. Tap <b>Install</b> beside its name.':'Choose a component, then use its Install button in the parts tray.';
     diagnose()
-}
-
-function dragPart(event,index){
-    event.dataTransfer.effectAllowed='copy';
-    event.dataTransfer.setData('text/plain',String(index));
-}
-
-function allowPartDrop(event){
-    event.preventDefault();
-    event.dataTransfer.dropEffect='copy';
-}
-
-function dropPart(event,slot){
-    event.preventDefault();
-    event.currentTarget.classList.remove('drag-over');
-    const index=Number(event.dataTransfer.getData('text/plain'));
-    if(Number.isInteger(index)&&parts[index]){
-        selected=parts[index];
-        install(slot);
-    }
 }
 
 function choose(i){
@@ -646,33 +697,36 @@ function install(slot){
     selected=null;
     addXP(10); 
     
-    let nextNeeded = required.find(k => !installed[k]);
+    let nextNeeded = requiredParts().find(k => !installed[k]);
     if (nextNeeded) currentTab = nextNeeded;
     render();
 }
 
 function issues(){
     let q=[],e=installed.Engine?.[1]||'';
-    if(type==='Sport'&&(e.includes('250')||e.includes('400')||e.includes('600'))&&!installed.Cooling)q.push('Powerful engine needs a radiator');
+    if(type==='Sport'&&(e.includes('400')||e.includes('600'))&&!installed.Cooling)q.push('This higher-output engine needs its radiator and fan');
     if(type==='Sport'&&installed.Transmission&&!installed.Transmission[1].includes('Gearbox')&&!installed.Transmission[1].includes('Clutch'))q.push('Sport motorcycle needs manual gearbox');
     if(type==='Scooter'&&installed.Transmission&&!installed.Transmission[1].includes('CVT'))q.push('Scooter needs automatic CVT');
+    const powerSlot=type==='Sport'||type==='Scooter'?'Engine':'Motor';
+    const expected=models[type][model].component;
+    if(installed[powerSlot]&&installed[powerSlot][1]!==expected)q.push('Installed power unit does not match the selected model');
     return q
 }
 
 function diagnose(){
-    let n=required.filter(k=>installed[k]).length,q=issues();
+    const required=requiredParts(),n=required.filter(k=>installed[k]).length,q=issues();
     document.getElementById('diag').innerHTML='<b class="ok">Assembly: '+n+' / '+required.length+'</b><br>'+((level===3)?(q.length?'<b class="warn">Fix: '+q.join('; ')+'</b>':'<b class="ok">Compatibility OK</b>'):'Level '+level+' workshop in progress')
 }
 
 function check(){
-    let m=required.filter(k=>!installed[k]);
+    let m=requiredParts().filter(k=>!installed[k]);
     alert(m.length?'Still needed: '+m.join(', '):level===3&&issues().length?'Fix: '+issues().join('; '):'Excellent! Road test ready.')
 }
 function reset(){installed={};selected=null;currentTab='Frame';render()}
 function learn(){go('learn')}
 
 function roadTest(){
-    let m=required.filter(k=>!installed[k]);
+    let m=requiredParts().filter(k=>!installed[k]);
     if(m.length) { playSound('error'); return alert('Complete essential build first.'); }
     if(level===3&&issues().length) { playSound('error'); return alert('Fix compatibility before road test.'); }
     
@@ -683,7 +737,8 @@ function roadTest(){
     simSky.innerHTML = '<div class="scrolling-road"></div>';
     
     // Grab the CORRECT active SVG
-    const activeBikeSVG = document.getElementById('bike-' + type);
+    const visualType=type==='SolarAssist'?'Electric':type;
+    const activeBikeSVG = document.getElementById('bike-' + visualType);
     const bikeClone = activeBikeSVG.cloneNode(true);
     
     bikeClone.classList.add('riding-bike');

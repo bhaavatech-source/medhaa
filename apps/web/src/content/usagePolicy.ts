@@ -1,7 +1,7 @@
 export const USAGE_POLICY_VERSION = "1.2";
 
 export const USAGE_POLICY_TEXT = `
-Medhā Usage & Data Policy (v1.1)
+Medhā Usage & Data Policy (v1.2)
 
 1. What we collect
    - Child's name/nickname (as entered by the parent/guardian)

@@ -434,7 +434,7 @@ const ABILITIES = [
     extend:["Infrared thermometers extend temperature sensing to contactless measurement.","Thermal cameras extend temperature sensing into full visual heat-maps.","Weather satellites extend temperature sensing to global climate monitoring."],
     engineerImprovements:["Precise thermocouples and thermistors","Infrared sensor technology","Automated climate control systems","Thermal imaging cameras"],
     realWorld:["Digital thermometers","Smart home thermostats","Fever-screening cameras at airports","Industrial furnace temperature control"],
-    funFact:"Thermal cameras can spot a fever in a crowd of people by detecting body heat differences invisible to the naked eye.",
+    funFact:"Thermal cameras can spot a fever in a crowd by detecting body heat differences invisible to unaided vision.",
     engineerTip:"Temperature sensing tech needs materials engineers (sensor design) and control engineers (automatic regulation).",
     minigame:{type:"guess-component", label:"Guess the right temperature sensor"}
   },
