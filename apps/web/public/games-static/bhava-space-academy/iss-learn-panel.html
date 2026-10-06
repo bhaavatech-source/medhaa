@@ -303,7 +303,7 @@
           <div class="logo"></div>
           <div>
             <h1>Medhā Space Academy</h1>
-            <p>12-Part Precision Learning</p>
+            <p>35 ISS chapters · 12-section lesson format</p>
           </div>
         </div>
 <a href="astronaut-sim.html" target="_blank" style="
@@ -457,7 +457,7 @@
         why: "Without electricity, life support, heating, computers, and scientific experiments could eventually stop operating.",
         flow: ["Sun", "Solar Panels", "Electricity", "Battery Storage", "Power Bus", "Laboratories", "Computers", "Life Support"],
         fail: "When the ISS flies through Earth's shadow (Night pass), solar panels stop generating electricity.",
-        fix: "Lithium-ion batteries automatically discharge to keep the station powered during the ~45-minute orbital night.",
+        fix: "Lithium-ion batteries supply power while the station is in Earth's shadow. Eclipse duration varies with orbital geometry.",
         howWeKnow: "Real-time voltage and current sensors on the Main Power Bus continuously transmit electrical load data to Mission Control.",
         myth: {
           m: "Myth: 'The ISS uses nuclear reactors for its electricity.'",
@@ -502,7 +502,7 @@
       {
         id: "c7", cat: "2. Core Systems & Anatomy", title: "7. Water Recycling System",
         what: "A closed-loop purification plant that captures humidity, sweat, and urine and converts it into clean, potable drinking water.",
-        why: "Launching water from Earth is heavy and costly. The ISS recovers most of its water (about 98% in current systems) to stay self-sufficient.",
+        why: "Launching water from Earth is heavy and costly. With upgraded recovery hardware, the ISS has demonstrated recovery of up to about 98% of water; the figure depends on which streams and system configuration are counted.",
         flow: ["Waste Water / Sweat", "Filtration", "Distillation", "Catalytic Oxidation", "Potable Drinking Water", "Reuse"],
         fail: "A filter clog can slow water purification, requiring astronauts to use stored reserve water containers temporarily.",
         fix: "Crew members replace multi-stage filtration beds and centrifuge seals to restore normal purification rates.",
@@ -513,7 +513,7 @@
         },
         simTitle: "Water Purification Cycle Tool",
         simAction: "Run Distillation & Oxidation Cycle",
-        simResult: "98% water recovery achieved! Clean, potable drinking water verified for crew use.",
+        simResult: "Illustrative result: an upgraded recovery configuration can approach 98% total water recovery. Actual water is tested before crew use.",
         challenge: "Why do engineers design space stations to recycle cabin humidity and sweat instead of launching new water tanks every week?",
         quiz: {
           q: "Approximately what percentage of water is recovered in current ISS recycling systems?",
@@ -597,9 +597,9 @@
       },
       {
         id: "c11", cat: "2. Core Systems & Anatomy", title: "11. Sunlight & Shadows",
-        what: "The rapid 45-minute day and 45-minute night thermal/light cycle the station experiences on every 90-minute orbit.",
+        what: "The ISS orbits Earth about every 90 minutes and can pass through sunlight and Earth's shadow during an orbit. The time in each varies with orbital geometry.",
         why: "Understanding sunlight angles is critical for solar power generation and managing thermal expansion of metal trusses.",
-        flow: ["Orbital Sunrise", "45-Min Day (Solar Power)", "Orbital Sunset", "45-Min Night (Battery Power)", "16 Cycles/Day"],
+        flow: ["Orbital Sunrise", "Solar Array Power", "Orbital Sunset", "Battery Power in Shadow", "Up to 16 Sunrises/Day"],
         fail: "Rapid temperature swings between sunlight and shadow cause metal trusses to expand and contract, creating mechanical stress.",
         fix: "Flexible joints and Multi-Layer Insulation (MLI) blankets protect modules and trusses from thermal shock.",
         howWeKnow: "External solar sensors and structural strain gauges measure expansion and contraction during orbital sunrises.",
@@ -703,7 +703,7 @@
         howWeKnow: "Pre- and post-flight DEXA bone density scans, ultrasound imaging, and continuous heart rate monitoring.",
         myth: {
           m: "Myth: 'Astronauts don't need to exercise because floating is easy.'",
-          f: "Fact: Floating is so easy that muscles and bones dissolve without 2 hours of rigorous daily resistance exercise!"
+          f: "Fact: Reduced loading in microgravity can lead to muscle and bone loss, so astronauts follow an exercise program to help limit those changes."
         },
         simTitle: "ARED Resistance Exercise Gym",
         simAction: "Complete Daily Workout Routine",
@@ -721,15 +721,15 @@
       // CATEGORY 4: OPERATIONS & SAFETY
       {
         id: "c16", cat: "4. Operations & Safety", title: "16. Docking vs. Berthing",
-        what: "The automated and robotic maneuvers used to connect visiting spacecraft to the space station's docking ports.",
-        why: "Spacecraft like Crew Dragon and Soyuz dock autonomously, while Canadarm2 is used for berthing certain cargo spacecraft by capturing and manually attaching them.",
-        flow: ["Approach Orbit", "Laser Alignment", "Autonomous Docking (Dragon/Soyuz)", "OR Canadarm2 Berthing (Cargo)", "Hatch Equalization"],
+        what: "Docking joins compatible spacecraft through a docking interface. Berthing uses a robotic arm to position a visiting vehicle at a station berthing port.",
+        why: "Some crew vehicles dock autonomously. Canadarm2 captures certain unpiloted cargo vehicles and places them at berthing ports, where the vehicles are attached to the station.",
+        flow: ["Approach", "Relative Navigation", "Docking Interface OR Robotic Capture", "Docking OR Berthing", "Hatch Checks"],
         fail: "An alignment error during docking could damage docking mechanism latches or seals.",
         fix: "Laser guidance sensors, automated collision-avoidance aborts, and manual crew overrides ensure millimeter precision.",
         howWeKnow: "High-speed laser radar telemetry, docking ring contact sensors, and external camera feeds during arrival.",
         myth: {
           m: "Myth: 'Docking and Berthing are the exact same word for parking a spacecraft.'",
-          f: "Fact: Docking is automated collision-latching (like Dragon), while Berthing uses the robotic arm to capture and bolt cargo ships!"
+          f: "Fact: Docking uses a compatible docking interface; berthing uses a robotic arm to position a vehicle at a station berthing port. Both require controlled procedures."
         },
         simTitle: "Orbital Docking & Berthing Monitor",
         simAction: "Engage Docking Soft Capture Latches",
@@ -771,13 +771,13 @@
         id: "c18", cat: "4. Operations & Safety", title: "18. Spacewalks (EVA)",
         what: "Extravehicular Activities where astronauts leave the pressurized cabin in spacesuits to work on the exterior hull.",
         why: "Certain repairs, solar array maintenance, and external science installations can only be performed outside.",
-        flow: ["Pre-breathe Pure O2", "Suit Integrity Check", "Airlock Depressurization", "Hull Repair", "Tether Safety", "Airlock Return"],
+        flow: ["Mission-Specific Pre-breathe", "Suit Checks", "Airlock Depressurization", "EVA Task", "Tether Safety", "Airlock Return"],
         fail: "A tool dropped in open space drifts away forever, and a tether disconnection would be a serious safety hazard.",
         fix: "Astronauts anchor themselves with steel tethers and wear a SAFER nitrogen jetpack to fly back if disconnected.",
         howWeKnow: "Helmet cameras, spacesuit biomedical telemetry, and continuous voice communication with Mission Control during EVAs.",
         myth: {
           m: "Myth: 'Astronauts can jump outside for a quick 5-minute spacewalk whenever they want.'",
-          f: "Fact: Spacewalks require hours of pre-breathing preparation and safety checks before opening the airlock!"
+          f: "Fact: Spacewalks require carefully planned suit checks and a mission-specific pre-breathe protocol to reduce decompression-sickness risk."
         },
         simTitle: "Airlock Depressurization Sequence",
         simAction: "Open External Airlock Hatch",
@@ -913,7 +913,7 @@
       },
       {
         id: "c24", cat: "4. Operations & Safety", title: "24. Communications & Mission Control",
-        what: "The global network of tracking satellites, ground stations, and Mission Control centers that communicate with the ISS 24/7.",
+        what: "A network of relay satellites, ground stations, and Mission Control centers supports near-continuous communication with the ISS, with occasional interruptions.",
         why: "Mission Control centers in Houston, Moscow, Munich, and Tsukuba monitor telemetry and assist crew work schedules.",
         flow: ["ISS Antenna", "TDRS Relay Satellites", "Ground Station", "Mission Control Centers", "Scientists & Families"],
         fail: "When the ISS passes out of range of relay satellites, a brief 'Loss of Signal' (LOS) communication blackout can occur.",
@@ -951,14 +951,14 @@
         },
         simTitle: "Microgravity Experiment Rack Tool",
         simAction: "Run Protein Crystallization Experiment",
-        simResult: "Ultra-pure protein crystals grown with greatly reduced effects of gravity! Data logged for medical research.",
+        simResult: "Illustrative scenario: a crystal-growth experiment is underway. Microgravity findings depend on the sample and conditions.",
         challenge: "Why can researchers observe fluid phenomena more clearly in microgravity than on Earth?",
         quiz: {
           q: "Why is the ISS an ideal place to conduct scientific experiments?",
           options: ["It is very quiet", "It allows experiments with greatly reduced effects of gravity", "It is closer to the Sun"],
           ans: 1
         },
-        realWorld: "Space science research has contributed to new medical treatments, better water purifiers, and advanced alloys.",
+        realWorld: "Space-station research contributes data to fields including human health, fluid physics, materials science, and life-support engineering.",
         connect: "Connected to Complete Anatomy, Fluid Physics, and Crystal Growth."
       },
       {
@@ -982,7 +982,7 @@
           options: ["RoboHand", "Canadarm2", "SpaceCrane"],
           ans: 1
         },
-        realWorld: "Canadarm2 precision robotic engineering was adapted to create neurosurgical robots for MRI-guided surgery.",
+        realWorld: "Remote operation, precise motion control, and fault-tolerant design are principles shared by space and some medical or industrial robotics.",
         connect: "Connected to Assembly of ISS, Docking vs. Berthing, and Spacewalks."
       },
       {
@@ -991,7 +991,7 @@
         why: "The ISS flies over 90% of Earth's populated area, providing a valuable viewpoint for storm tracking and environmental science.",
         flow: ["Cupola Observation", "Weather Tracking", "Forest Monitoring", "Flood & Cyclone Mapping", "Climate Data collection"],
         fail: "Cloud cover or sunlight glare off the ocean can occasionally obscure visible photography of target regions.",
-        fix: "Astronauts use multi-spectral and radar sensors that can observe land changes through clouds and darkness.",
+        fix: "Researchers combine crew photographs with data from Earth-observation instruments. Some radar sensors can observe through clouds or darkness; capabilities depend on the instrument.",
         howWeKnow: "Millions of cataloged Earth observation photographs taken by astronauts and automated external cameras.",
         myth: {
           m: "Myth: 'Astronauts can see individual people walking on Earth with their bare eyes.'",
@@ -1036,22 +1036,22 @@
       {
         id: "c29", cat: "5. Science Labs & Discoveries", title: "29. Fire Behavior in Space",
         what: "Studying how flames burn in microgravity inside sealed, specialized combustion experimental chambers.",
-        why: "In microgravity, flames burn as spherical domes at lower temperatures; understanding this improves spacecraft fire safety.",
+        why: "With buoyancy-driven flow greatly reduced, some flames become more rounded and diffusion-driven. Shape and behavior still depend on fuel, oxygen, and airflow.",
         flow: ["Sealed Combustion Chamber", "Droplet Ignition", "Spherical Burn Pattern", "Soot Analysis", "Safety Extinguishing"],
         fail: "Without natural upward convection, hot gases do not rise; air ventilation currents influence how flames move.",
         fix: "Station smoke detectors monitor air ducts, and specially designed fire extinguishers and emergency procedures are used.",
         howWeKnow: "High-speed video and temperature data from the Combustion Integrated Rack inside the Destiny laboratory.",
         myth: {
           m: "Myth: 'A candle flame in space looks tall and flickers upwards just like on Earth.'",
-          f: "Fact: Without buoyancy from gravity, a flame in microgravity burns as a round, dome-shaped sphere!"
+          f: "Fact: Reduced buoyancy can make some microgravity flames more rounded, but flame shape depends on the experiment and airflow."
         },
         simTitle: "Combustion Integrated Rack Tool",
         simAction: "Ignite Test Droplet in Chamber",
         simResult: "Spherical flame observed! Combustion data recorded safely without cabin contamination.",
-        challenge: "Why does a flame form a round sphere in microgravity instead of pointing upward?",
+        challenge: "How can reduced buoyancy affect flame shape in a microgravity experiment?",
         quiz: {
-          q: "What shape does a flame take in microgravity?",
-          options: ["Tall and thin", "A round sphere", "It won't burn at all"],
+          q: "What can happen to some flames when buoyancy-driven flow is greatly reduced?",
+          options: ["They may become more rounded", "They always point upward", "They cannot burn"],
           ans: 1
         },
         realWorld: "ISS combustion research helps engineers design cleaner-burning engines and more effective fire extinguishers.",
@@ -1059,33 +1059,33 @@
       },
       {
         id: "c30", cat: "5. Science Labs & Discoveries", title: "30. Protein Crystal Growth",
-        what: "Growing well-ordered biological crystals in space for pharmaceutical and medical structure analysis.",
-        why: "With greatly reduced effects of gravity, crystals grow slowly without sedimentation, revealing clear 3D molecular structures.",
-        flow: ["Sample Loading", "Microgravity Crystallization", "No-Sediment Growth", "X-Ray Diffraction", "Drug Formulation"],
+        what: "Studying protein crystal growth in microgravity to investigate molecular structures and compare results with Earth-based experiments.",
+        why: "Reduced sedimentation and convection can improve some crystal-growth experiments, but benefits vary by protein and conditions; microgravity does not guarantee better crystals.",
+        flow: ["Sample Loading", "Crystal Growth", "Compare Conditions", "X-Ray Diffraction", "Analyze Structure"],
         fail: "Vibrations from exercise treadmills could occasionally disturb delicate crystal formation.",
         fix: "Crystallization chambers are mounted on vibration-isolation platforms to protect growing crystals.",
         howWeKnow: "X-ray crystallography scans of space-grown crystals compared against Earth-grown samples in medical labs.",
         myth: {
           m: "Myth: 'Growing crystals in space is just a hobby for astronauts.'",
-          f: "Fact: Protein crystal growth on the ISS has directly contributed to real-world medicines and disease treatments!"
+          f: "Fact: Some space-grown crystals have supported structural-biology and drug-development research; results are experiment-specific."
         },
         simTitle: "Protein Crystallization Chamber",
         simAction: "Scan Protein Crystal Structure",
-        simResult: "Clear 3D molecular blueprint revealed. Data sent to medical labs for drug design.",
-        challenge: "Why can researchers grow better-ordered crystals in space than in a normal laboratory on Earth?",
+        simResult: "Illustrative result: diffraction data can help researchers study a protein's structure; it does not guarantee a drug discovery.",
+        challenge: "What is one way microgravity can affect some protein crystal-growth experiments?",
         quiz: {
-          q: "Why do protein crystals grow with fewer defects in space than on Earth?",
-          options: ["Because space is colder", "Greatly reduced effects of gravity prevent sedimentation", "Astronauts talk to them"],
+          q: "What can reduced sedimentation and convection do in some protein crystal-growth experiments?",
+          options: ["They can improve some crystal-growth conditions", "They guarantee perfect crystals", "They make every protein crystallize"],
           ans: 1
         },
-        realWorld: "ISS crystal research has aided the development of treatments for cancer and muscular disorders.",
+        realWorld: "Protein-crystal research can support structural biology and drug-development studies; benefits depend on the specific experiment and findings.",
         connect: "Connected to Science, Health, and Materials Science."
       },
       {
         id: "c31", cat: "5. Science Labs & Discoveries", title: "31. Fluid Physics in Microgravity",
-        what: "Studying how liquids behave without buoyancy, dominated by surface tension, wetting, and capillary action.",
+        what: "In microgravity, buoyancy is greatly reduced, while surface tension, wetting, capillary action, and fluid motion all influence liquids. The balance depends on scale and conditions.",
         why: "Understanding microgravity fluid physics is critical for designing fuel tanks, plumbing, and medical diagnostics in space.",
-        flow: ["Surface Tension Dominance", "Capillary Action", "Spherical Droplets", "Fuel Tank Vanes", "Fluid Physics Lab"],
+        flow: ["Reduced Buoyancy", "Surface Tension & Wetting", "Capillary Action", "Tank Geometry", "Fluid Physics Lab"],
         fail: "Without buoyancy, rocket fuel can float away from engine intake pipes, causing thrusters to suck bubbles.",
         fix: "Engineers design tanks with internal capillary vanes that use surface tension to guide fuel to engine valves.",
         howWeKnow: "Capillary flow experiments and high-speed fluid physics cameras operated in ESA and NASA laboratories.",
@@ -1098,8 +1098,8 @@
         simResult: "Liquid clings to cup walls and flows along capillary grooves smoothly!",
         challenge: "Why does spilled liquid form a floating sphere in space instead of a puddle on the floor?",
         quiz: {
-          q: "What force dominates how liquids behave in microgravity?",
-          options: ["Gravity buoyancy", "Surface tension and capillary action", "Magnetism"],
+          q: "Which effects become especially important for small liquid volumes in microgravity?",
+          options: ["Buoyancy alone", "Surface tension, wetting, and capillary action", "Magnetism in every liquid"],
           ans: 1
         },
         realWorld: "Capillary flow research from ISS improved medical diagnostic chips and heat pipes in computers.",
@@ -1108,8 +1108,8 @@
       {
         id: "c32", cat: "5. Science Labs & Discoveries", title: "32. Materials Science & Manufacturing",
         what: "Melting metals, glass, and alloys in orbital furnaces to produce materials with uniform structures.",
-        why: "With greatly reduced effects of gravity, heavy and light elements mix evenly without separating, creating specialized alloys and optical fibers.",
-        flow: ["Alloy Mixing", "Electrostatic Levitation Furnace", "ZBLAN Fiber Optics", "Uniform Solidification", "Sample Return"],
+        why: "Reduced buoyancy-driven convection and sedimentation can change how molten materials mix, but density differences and other processes do not disappear.",
+        flow: ["Sample Setup", "Electrostatic Levitation Furnace", "Material Processing", "Solidification & Comparison", "Sample Analysis"],
         fail: "Air bubbles or container contact on Earth can cause flaws in optical fibers and metal alloys.",
         fix: "Levitation furnaces hold molten metal spheres in mid-air using magnetic or electrostatic fields without touching container walls.",
         howWeKnow: "Microscopic structural analysis of ZBLAN optical fibers and metal alloys manufactured on the ISS.",
@@ -1119,14 +1119,14 @@
         },
         simTitle: "Electrostatic Levitation Furnace",
         simAction: "Melt & Fuse Test Alloy",
-        simResult: "Alloy solidified uniformly without container defects. Material structure verified!",
-        challenge: "Why do heavy and light metals mix evenly in microgravity instead of separating into layers?",
+        simResult: "Illustrative result: the activity shows a sample solidifying. Real material behavior depends on its composition and experiment conditions.",
+        challenge: "How can reduced buoyancy affect mixing in a molten-material experiment?",
         quiz: {
-          q: "What happens when you mix heavy and light molten metals in microgravity?",
-          options: ["The heavy metal sinks to the bottom", "They mix evenly without separating", "They explode"],
+          q: "What can reduced buoyancy do in a molten-material experiment?",
+          options: ["It can reduce settling and buoyancy-driven mixing", "It guarantees all materials mix evenly", "It makes density differences disappear"],
           ans: 1
         },
-        realWorld: "Space-manufactured optical fibers and alloys pave the way for high-speed communication lines and aerospace turbines.",
+        realWorld: "Materials experiments in space investigate processing methods; practical uses require separate testing and validation on Earth.",
         connect: "Connected to Science Labs, Maintenance, and Future Missions."
       },
 
@@ -1141,18 +1141,18 @@
         howWeKnow: "NASA Artemis architecture blueprints, ESA Lunar Gateway agreements, and commercial LEO development plans.",
         myth: {
           m: "Myth: 'When the ISS retires, humanity will stop living in space.'",
-          f: "Fact: New commercial space stations and the Lunar Gateway will continue continuous human presence in space!"
+          f: "Fact: Commercial low-Earth-orbit stations and the Lunar Gateway are planned or in development; schedules and future operations are not guaranteed."
         },
         simTitle: "Lunar Gateway Architecture Tool",
         simAction: "Compare ISS to Lunar Gateway",
-        simResult: "Gateway is smaller but features autonomous deep-space life support systems proven on the ISS!",
+        simResult: "Illustrative comparison: Gateway is a planned lunar-orbit outpost with a different mission and design from the ISS. Its architecture can evolve.",
         challenge: "Why is the operational experience gained on the ISS essential for planning missions to Mars?",
         quiz: {
           q: "What is the name of the new space station being built to orbit the Moon?",
           options: ["Lunar Gateway", "Mir 2", "Apollo Station"],
           ans: 0
         },
-        realWorld: "Commercial space stations will soon expand orbital access for universities and industries globally.",
+        realWorld: "Commercial station projects aim to expand future low-Earth-orbit access, but their schedules and capabilities can change.",
         connect: "Connected to History, Assembly of ISS, and Engineering Challenges."
       },
       {
@@ -1162,7 +1162,7 @@
         flow: ["Bus Alarm Trip", "Identify Affected Equipment", "Check Telemetry", "Isolate Short Circuit", "Restore Bus Power"],
         fail: "A trip on a secondary electrical bus can temporarily turn off power to science freezers or lighting in a module.",
         fix: "Follow the diagnostic procedure: check battery charge, inspect switching units, and bypass the isolated fault.",
-        howWeKnow: "Actual historical electrical trip logs and telemetry records handled by electrical controllers in Mission Control.",
+        howWeKnow: "This lesson applies general electrical fault-isolation principles; it is not based on a specific ISS incident log.",
         myth: {
           m: "Myth: 'If one fuse blows, the entire space station goes completely dark.'",
           f: "Fact: The ISS has redundant electrical channels so backup buses keep critical life support running!"
@@ -1182,18 +1182,18 @@
       {
         id: "c35", cat: "6. Future & Challenges", title: "35. Final Challenge: Design Your ISS",
         what: "The capstone creative challenge where students design a modular space station balancing power, life support, and laboratories.",
-        why: "Designing a functioning station requires balancing electricity generation with the power consumption of laboratories and crew quarters.",
+        why: "A station design must balance shared power generation and distribution with demand from laboratories, life support, and crew areas.",
         flow: ["Select Altitude", "Add Solar Panels", "Add Life Support", "Add Crew Modules", "Add Science Labs", "Verify Balance"],
         fail: "If a design includes five laboratories but only one solar array, electrical demand will exceed generation capacity.",
-        fix: "Balance the architecture: ensure every pressurized module has sufficient solar power and life-support capacity.",
+        fix: "Balance the architecture: check that shared station-wide power and life-support capacity can support each added module.",
         howWeKnow: "Decades of aerospace systems engineering balance calculations used to construct the International Space Station.",
         myth: {
           m: "Myth: 'You can attach as many laboratory rooms as you want without adding solar panels.'",
-          f: "Fact: Every new laboratory module requires extra electrical power and life-support capacity to operate safely!"
+          f: "Fact: Adding a laboratory increases station-wide resource needs; designers must check that shared power and life-support capacity can support it."
         },
         simTitle: "Space Station Architect Studio",
         simAction: "Validate Space Station Design",
-        simResult: "CONGRATULATIONS! Your station has balanced Power (140 kW), Life Support for 6 crew, and 4 Labs!",
+        simResult: "Illustrative game result: the selected design meets this activity's preset checks. It is not an engineering assessment of a real station.",
         challenge: "Why must space station designers balance the number of science laboratories with the size of solar arrays?",
         quiz: {
           q: "Why must a space station designer balance solar panels with laboratory modules?",
@@ -1201,7 +1201,7 @@
           ans: 1
         },
         realWorld: "Systems engineering design balance is how architects design sustainable eco-cities and research facilities.",
-        connect: "Connected to ALL 35 ISS Learning Systems!"
+        connect: "Connected to all 35 ISS learning chapters."
       }
     ];
 
@@ -1314,7 +1314,7 @@
       pageEl.className = "fadePage";
       pageEl.innerHTML = `
         <header class="lesson-header">
-          <div class="eyebrow">${data.cat} • 12-Part Precision Learning Structure</div>
+          <div class="eyebrow">${data.cat} • Chapter ${data.id.slice(1)} of 35 · 12-section lesson format</div>
           <h2>${data.title}</h2>
 
           ${explorerModule ? `
@@ -1449,8 +1449,8 @@
 
     function openExplorer(moduleId) {
       const url = moduleId
-        ? `./iss-anatomy-explorer-jsondriven.html#module=${moduleId}`
-        : './iss-anatomy-explorer-jsondriven.html';
+        ? `./iss-anatomy-explorer-3d-full.html#module=${moduleId}`
+        : './iss-anatomy-explorer-3d-full.html';
       window.open(url, '_blank');
     }
 

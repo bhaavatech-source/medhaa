@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ArrowLeft, House } from 'lucide-react';
+import medhaaIcon from '../assets/logo/medhaa-icon.svg';
 
 export default function SharingPermissions() {
   const navigate = useNavigate();
@@ -19,8 +21,12 @@ export default function SharingPermissions() {
   return (
     <main style={styles.page}>
       <section style={styles.card}>
+        <nav aria-label="Page navigation" style={{ display: 'flex', justifyContent: 'space-between', gap: 12, marginBottom: 16 }}>
+          <button type="button" style={styles.navigationButton} onClick={() => window.history.state?.idx > 0 ? navigate(-1) : navigate('/parent-dashboard')}><ArrowLeft size={16} aria-hidden="true" /> Back</button>
+          <button type="button" style={styles.navigationButton} onClick={() => navigate('/')}><House size={16} aria-hidden="true" /> Home</button>
+        </nav>
         <img
-          src="/images/logo/medhaa-icon.svg"
+          src={medhaaIcon}
           alt="Medhā"
           style={styles.logo}
         />
@@ -78,6 +84,7 @@ export default function SharingPermissions() {
 }
 
 const styles = {
+  navigationButton: { display: 'inline-flex', alignItems: 'center', gap: 6, minHeight: 44, padding: '8px 12px', border: '1px solid #b8d8d5', borderRadius: 8, background: '#fff', color: '#087f83', cursor: 'pointer', fontWeight: 700 },
   page: {
     minHeight: '100vh',
     display: 'grid',
@@ -88,7 +95,7 @@ const styles = {
   },
   card: {
     width: 'min(100%, 650px)',
-    padding: 40,
+    padding: 24,
     borderRadius: 28,
     background: '#ffffff',
     boxShadow: '0 20px 60px rgba(8, 127, 131, 0.12)',

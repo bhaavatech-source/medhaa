@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ISS Anatomy Explorer 3D (Full 50+) - Medhā Space Academy</title>
+<title>ISS Systems Concept Explorer - Medhā Space Academy</title>
 <style>
   :root{
     --bg-dark:#02040a; --bg-panel:#0b1220; --accent:#4fd1ff; --warn:#ff5c5c;
@@ -13,21 +13,27 @@
   body{background:#02040a; color:var(--text); overflow:hidden;}
   #app{display:flex; height:100vh;}
   #stage{flex:1; position:relative;}
-  #three-canvas{position:absolute; inset:0; display:block;}
+  #three-canvas{position:absolute; inset:0; display:block; width:100%; height:100%;}
   #hud{position:absolute; top:14px; left:14px; z-index:2; display:flex; gap:10px; flex-wrap:wrap;}
   .hud-chip{background:rgba(11,18,32,.85); border:1px solid #1c2b4a; border-radius:20px; padding:6px 14px; font-size:.78rem; color:var(--dim);}
   .hud-chip b{color:var(--text);}
   #controlsHint{position:absolute; bottom:12px; left:14px; z-index:2; font-size:.72rem; color:var(--dim);}
   #legend{position:absolute; bottom:12px; right:14px; z-index:2; display:flex; gap:8px; flex-wrap:wrap; max-width:340px;}
-  .legend-chip{font-size:.68rem; padding:3px 8px; border-radius:12px; color:#02040a; font-weight:600;}
+  .legend-chip{appearance:none; border:1px solid transparent; font-size:.68rem; padding:3px 8px; border-radius:12px; color:#02040a; font-weight:600; cursor:pointer;}
+  .legend-chip:hover{filter:brightness(1.12);}
+  .legend-chip[aria-pressed="true"]{border-color:#fff; box-shadow:0 0 0 1px rgba(255,255,255,.45);}
+  .legend-chip:focus-visible{outline:2px solid #fff; outline-offset:2px;}
+  .legend-chip--all{background:#dbeafe;}
   #moduleCount{position:absolute; top:14px; right:14px; z-index:2; font-size:.72rem; color:var(--dim); background:rgba(11,18,32,.85); border:1px solid #1c2b4a; border-radius:20px; padding:6px 14px;}
   #sidebar{width:380px; background:var(--bg-panel); border-left:1px solid #1c2b4a; padding:18px; overflow-y:auto;}
   #sidebar h1{font-size:1.1rem; color:var(--accent); margin-bottom:6px;}
   #sidebar .sub{color:var(--dim); font-size:.8rem; margin-bottom:14px;}
   #searchBox{width:100%; padding:8px; background:#050a16; border:1px solid #1c2b4a; border-radius:6px; color:var(--text); margin-bottom:12px; font-size:.8rem;}
   #moduleList{max-height:180px; overflow-y:auto; margin-bottom:14px; border:1px solid #1c2b4a; border-radius:8px;}
+  #moduleListStatus{min-height:1.25em; margin:-5px 0 7px; color:var(--dim); font-size:.7rem; line-height:1.35;}
   .list-item{padding:6px 10px; font-size:.75rem; cursor:pointer; border-bottom:1px solid #14203a; display:flex; justify-content:space-between;}
   .list-item:hover{background:#14203a;}
+  .list-empty{padding:12px 10px; color:var(--dim); font-size:.78rem;}
   .list-item .dot{width:8px; height:8px; border-radius:50%; display:inline-block; margin-right:6px;}
   .panel-card{background:#0f1a33; border:1px solid #1c2b4a; border-radius:10px; padding:14px; margin-bottom:12px;}
   .panel-card h2{font-size:1rem; color:var(--accent); margin-bottom:8px;}
@@ -42,6 +48,18 @@
   .badge{display:inline-block; background:#1c2b4a; color:var(--accent); border-radius:6px; padding:2px 8px; font-size:.68rem; margin-right:4px; margin-top:4px;}
   #loadingScreen{position:absolute; inset:0; background:#02040a; z-index:10; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:12px;}
   #loadingScreen .spinner{width:40px; height:40px; border:4px solid #1c2b4a; border-top-color:var(--accent); border-radius:50%; animation:spin 1s linear infinite;}
+  @media(max-width:900px){
+    body{height:auto; min-height:100%; overflow:auto;}
+    #app{height:auto; min-height:100vh; flex-direction:column;}
+    #stage{flex:0 0 48vh; width:100%; min-height:320px;}
+    #sidebar{width:100%; flex:1 0 auto; border-left:0; border-top:1px solid #1c2b4a; overflow:visible; padding:14px;}
+    #hud{top:8px; left:8px; right:8px; gap:4px;}
+    .hud-chip{padding:5px 8px; font-size:.65rem;}
+    #moduleCount{top:48px; left:8px; right:auto; padding:5px 10px;}
+    #controlsHint{left:8px; bottom:58px; max-width:58%; line-height:1.35;}
+    #legend{right:8px; bottom:58px; max-width:38%; gap:4px; justify-content:flex-end;}
+    .legend-chip{min-height:36px; padding:7px 8px;}
+  }
   @keyframes spin{to{transform:rotate(360deg);}}
 </style>
 </head>
@@ -56,18 +74,19 @@
       <div class="hud-chip">Temp: <b id="hudTemp">22°C</b></div>
       <div class="hud-chip">Mission: <b id="hudMission">Free Explore</b></div>
     </div>
-    <div id="moduleCount">Modules: <b id="moduleCountVal">0</b></div>
-    <div id="controlsHint">Drag to rotate · Scroll to zoom · Right-drag to pan · Click a module to investigate</div>
+    <div id="moduleCount">Concept components: <b id="moduleCountVal">0</b></div>
+    <div id="controlsHint">Drag to rotate · Scroll to zoom · Right-drag to pan · Click a component to investigate</div>
     <div id="legend"></div>
   </div>
   <div id="sidebar">
     <h1>🛰️ Medhā Space Academy</h1>
-    <div class="sub">ISS Anatomy — Full 3D Exploration (50+ parts)</div>
-    <input id="searchBox" placeholder="Search a module (e.g. Canadarm2, Cupola)…">
+    <div class="sub">Simplified ISS systems concept model; not to scale. Tap a system label to filter the list; use All to reset.</div>
+    <input id="searchBox" placeholder="Search a component (e.g. Canadarm2, Cupola)…">
+    <div id="moduleListStatus" role="status" aria-live="polite"></div>
     <div id="moduleList"></div>
     <div class="panel-card" id="introCard">
       <h2>Welcome, Cadet</h2>
-      <p>Click any module — in 3D or in the list — to begin your investigation. Fault types now include power, cooling, oxygen, comms, fire, micrometeoroid, radiation and computer failures.</p>
+      <p>Explore the simplified component model in 3D or from the list. Positions and fault scenarios are illustrative, not a precise ISS layout or operating procedure.</p>
       <div class="flow-step active" data-step="0">1. Experience</div>
       <div class="flow-step" data-step="1">2. Observe</div>
       <div class="flow-step" data-step="2">3. Think</div>
@@ -78,11 +97,10 @@
   </div>
 </div>
 
-<script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
-<script src="https://unpkg.com/three@0.160.0/examples/js/controls/OrbitControls.js"></script>
+<script src="https://unpkg.com/three@0.149.0/build/three.min.js"></script>
 <script>
 /* =========================================================
-   ISS ANATOMY EXPLORER — FULL 50+ MODULE REGISTRY
+  ISS SYSTEMS EXPLORER — SIMPLIFIED COMPONENT CONCEPTS
    Each module: id, label, cat, pos, size, shape, rot(optional),
    fail (title + steps) or null, explain
    ========================================================= */
@@ -159,14 +177,14 @@ const ISS_MODULES = [
    explain:"The Thermal Control System circulates coolant (ammonia externally, water internally) to keep all systems within safe temperature ranges."},
   {id:"battery", label:"Battery Units", cat:"power", pos:[-4,3.2,0], size:[0.8,0.5,0.8], shape:"box",
    fail:{type:"power", title:"Battery degradation detected", steps:["Charge cycles are shorter than expected.","One battery unit reports reduced capacity.","Test individual battery cell voltage."]},
-   explain:"Nickel-hydrogen batteries store solar energy so systems keep running during the 45 minutes per orbit spent in Earth's shadow."},
+  explain:"Lithium-ion batteries store solar energy for use when the station is in Earth's shadow; eclipse duration varies with orbital geometry."},
   {id:"pdu", label:"Power Distribution Units", cat:"power", pos:[-2,3.2,0], size:[0.8,0.5,0.8], shape:"box",
    fail:{type:"power", title:"Power distribution imbalance", steps:["One module is drawing excess power.","Others report undervoltage.","Rebalance load across distribution units."]},
    explain:"PDUs route electricity from batteries to every module, balancing supply with demand across the station."},
   {id:"n2tanks", label:"Nitrogen Storage Tanks", cat:"life-support", pos:[-5,3.2,1], size:[0.5,0.5,0.8], shape:"cylinder",
    fail:null, explain:"Nitrogen tanks supply gas used to pressurize the cabin atmosphere alongside oxygen."},
-  {id:"h2tanks", label:"Hydrogen Storage Tanks", cat:"life-support", pos:[-5,3.2,-1], size:[0.5,0.5,0.8], shape:"cylinder",
-   fail:null, explain:"Hydrogen, a byproduct of the oxygen generation system, is stored or vented safely to avoid buildup."},
+  {id:"sabatier", label:"Sabatier Water-Recovery Process", cat:"life-support", pos:[-5,3.2,-1], size:[0.5,0.5,0.8], shape:"cylinder",
+   fail:null, explain:"The Sabatier process combines hydrogen from oxygen generation with carbon dioxide to recover water; excess methane is vented."},
 
   // ---- Command, Data, Comms ----
   {id:"cdh", label:"Command & Data Handling System", cat:"comms", pos:[0.5,2.4,-1], size:[0.6,0.6,0.6], shape:"box",
@@ -236,7 +254,7 @@ const ISS_MODULES = [
    explain:"The OGS splits water into oxygen and hydrogen via electrolysis — the hydrogen is vented or recycled, oxygen is released to the cabin."},
   {id:"wrs", label:"Water Recovery System", cat:"life-support", pos:[-0.8,-0.5,3.2], size:[0.7,0.7,0.7], shape:"box",
    fail:{type:"water", title:"Water Recovery filter clogged", steps:["Drinking water output slows.","Recycled water quality alert triggers.","Check the filtration and distillation unit."]},
-   explain:"The WRS recycles urine, sweat and moisture from air into drinking water — recovering about 90% of water aboard."},
+  explain:"The water recovery system reclaims water from several sources. Upgraded ISS systems have demonstrated up to about 98% total recovery; the figure depends on which streams and configuration are counted."},
   {id:"co2scrub", label:"Carbon Dioxide Scrubbers", cat:"life-support", pos:[0,-0.5,4], size:[0.7,0.7,0.7], shape:"box",
    fail:{type:"oxygen", title:"CO2 levels rising", steps:["Crew reports mild headaches.","Scrubber cycle seems too slow.","Inspect the CDRA absorbent beds."]},
    explain:"Carbon dioxide removal assemblies use absorbent beds to capture CO2 that crew members exhale, keeping air breathable."},
@@ -247,19 +265,88 @@ const ISS_MODULES = [
    explain:"Spacesuits (EMUs) provide oxygen, pressure, temperature control and micrometeoroid protection during spacewalks."},
 
   // ---- Docking ----
-  {id:"ida1", label:"Docking Port IDA-1", cat:"structure", pos:[4.4,0,0.6], size:[0.5,0.5,0.5], shape:"cylinder",
-   fail:{type:"docking", title:"IDA-1 alignment sensor error", steps:["An arriving crew capsule cannot lock in.","Sensors show a slight angle offset.","Guide the approach using camera feedback."]},
-   explain:"International Docking Adapters allow crew and cargo vehicles to autonomously dock or be berthed to the station."},
   {id:"ida2", label:"Docking Port IDA-2", cat:"structure", pos:[4.4,0,-0.6], size:[0.5,0.5,0.5], shape:"cylinder",
-   fail:null, explain:"A second IDA allows two crew vehicles to be docked simultaneously, increasing crew rotation flexibility."},
-  {id:"ida3", label:"Docking Port IDA-3", cat:"structure", pos:[-12.6,1.6,0.6], size:[0.5,0.5,0.5], shape:"cylinder",
-   fail:null, explain:"IDA-3 on the Russian segment supports Soyuz and Progress vehicle dockings."}
+    fail:null, explain:"IDA-2 is installed on PMA-2 in the U.S. segment and provides a docking interface for compatible visiting spacecraft."},
+  {id:"ida3", label:"Docking Adapter IDA-3", cat:"structure", pos:[1.2,2.2,0], size:[0.5,0.5,0.5], shape:"cylinder",
+   fail:null, explain:"IDA-3 is installed on the U.S. segment at PMA-3 and provides a docking interface for compatible visiting spacecraft. It is not a Soyuz or Progress port."}
 ];
 
 let scene, camera, renderer, controls, raycaster, mouse;
 let moduleMeshes = [];
 let selectedMesh = null;
 let faultInterval = null;
+const selectedCategories = new Set();
+
+class LocalOrbitControls {
+  constructor(camera, element) {
+    this.camera = camera;
+    this.element = element;
+    this.target = new THREE.Vector3();
+    this.minDistance = 6;
+    this.maxDistance = 70;
+    this.rotateX = 0;
+    this.rotateY = 0;
+    this.zoomDelta = 0;
+    this.panDelta = new THREE.Vector2();
+    this.pointer = null;
+    this.dragged = false;
+    element.style.touchAction = 'none';
+    element.addEventListener('pointerdown', event => {
+      if (event.button !== 0 && event.button !== 2) return;
+      this.pointer = { id: event.pointerId, x: event.clientX, y: event.clientY, button: event.button };
+      this.dragged = false;
+      element.setPointerCapture(event.pointerId);
+      event.preventDefault();
+    });
+    element.addEventListener('pointermove', event => {
+      if (!this.pointer || this.pointer.id !== event.pointerId) return;
+      const dx = event.clientX - this.pointer.x;
+      const dy = event.clientY - this.pointer.y;
+      if (Math.abs(dx) + Math.abs(dy) > 2) this.dragged = true;
+      if (this.pointer.button === 2 || event.shiftKey) {
+        this.panDelta.x += dx;
+        this.panDelta.y += dy;
+      } else {
+        this.rotateX += (2 * Math.PI * dx) / Math.max(1, element.clientHeight);
+        this.rotateY += (2 * Math.PI * dy) / Math.max(1, element.clientHeight);
+      }
+      this.pointer.x = event.clientX;
+      this.pointer.y = event.clientY;
+    });
+    const endPointer = event => {
+      if (this.pointer && this.pointer.id === event.pointerId) this.pointer = null;
+    };
+    element.addEventListener('pointerup', endPointer);
+    element.addEventListener('pointercancel', endPointer);
+    element.addEventListener('contextmenu', event => event.preventDefault());
+    element.addEventListener('wheel', event => {
+      event.preventDefault();
+      this.zoomDelta += event.deltaY;
+    }, { passive: false });
+  }
+
+  update() {
+    const damping = 0.14;
+    const spherical = new THREE.Spherical().setFromVector3(this.camera.position.clone().sub(this.target));
+    spherical.theta -= this.rotateX * damping;
+    spherical.phi = THREE.MathUtils.clamp(spherical.phi - this.rotateY * damping, 0.05, Math.PI - 0.05);
+    spherical.radius = THREE.MathUtils.clamp(spherical.radius * Math.exp(this.zoomDelta * 0.001), this.minDistance, this.maxDistance);
+    this.rotateX *= 1 - damping;
+    this.rotateY *= 1 - damping;
+    this.zoomDelta *= 1 - damping;
+
+    this.camera.updateMatrixWorld();
+    const scale = (2 * spherical.radius * Math.tan(THREE.MathUtils.degToRad(this.camera.fov / 2))) / Math.max(1, this.element.clientHeight);
+    const right = new THREE.Vector3().setFromMatrixColumn(this.camera.matrix, 0);
+    const up = new THREE.Vector3().setFromMatrixColumn(this.camera.matrix, 1);
+    this.target.addScaledVector(right, -this.panDelta.x * scale * damping);
+    this.target.addScaledVector(up, this.panDelta.y * scale * damping);
+    this.panDelta.multiplyScalar(1 - damping);
+
+    this.camera.position.setFromSpherical(spherical).add(this.target);
+    this.camera.lookAt(this.target);
+  }
+}
 
 function init(){
   scene = new THREE.Scene();
@@ -272,11 +359,7 @@ function init(){
   renderer = new THREE.WebGLRenderer({canvas, antialias:true});
   resizeRenderer();
 
-  controls = new THREE.OrbitControls(camera, renderer.domElement);
-  controls.enableDamping = true;
-  controls.dampingFactor = 0.08;
-  controls.minDistance = 6;
-  controls.maxDistance = 70;
+  controls = new LocalOrbitControls(camera, renderer.domElement);
 
   scene.add(new THREE.AmbientLight(0x404040, 1.2));
   const sun = new THREE.DirectionalLight(0xffffff, 1.4);
@@ -291,11 +374,15 @@ function init(){
   buildLegend();
   buildModuleList();
 
+  const linkedModuleId = new URLSearchParams(location.hash.slice(1)).get('module');
+  const linkedMesh = moduleMeshes.find(mesh => mesh.userData.moduleId === linkedModuleId);
+  if (linkedMesh) selectModule(linkedMesh);
+
   raycaster = new THREE.Raycaster();
   mouse = new THREE.Vector2();
   renderer.domElement.addEventListener('click', onCanvasClick);
   window.addEventListener('resize', resizeRenderer);
-  document.getElementById('searchBox').addEventListener('input', filterModuleList);
+  document.getElementById('searchBox').addEventListener('input', renderModuleList);
 
   document.getElementById('moduleCountVal').textContent = ISS_MODULES.length;
   document.getElementById('loadingScreen').style.display = 'none';
@@ -348,19 +435,61 @@ function buildStation(){
 
 function buildLegend(){
   const legend = document.getElementById('legend');
+  const allChip = document.createElement('button');
+  allChip.type = 'button';
+  allChip.className = 'legend-chip legend-chip--all';
+  allChip.textContent = 'All';
+  allChip.title = 'Show all components';
+  allChip.setAttribute('aria-label', 'Show all components');
+  allChip.setAttribute('aria-pressed', 'true');
+  allChip.addEventListener('click', ()=>{
+    selectedCategories.clear();
+    document.getElementById('searchBox').value = '';
+    renderModuleList();
+  });
+  legend.appendChild(allChip);
   Object.entries(CATEGORY_COLORS).forEach(([cat,col])=>{
-    const chip = document.createElement('div');
+    const chip = document.createElement('button');
+    chip.type = 'button';
     chip.className = 'legend-chip';
     chip.style.background = '#' + col.toString(16).padStart(6,'0');
     chip.textContent = cat;
+    chip.title = 'Filter components by ' + cat;
+    chip.setAttribute('aria-label', 'Filter components by ' + cat);
+    chip.setAttribute('aria-pressed', 'false');
+    chip.dataset.category = cat;
+    chip.addEventListener('click', ()=>{
+      if(selectedCategories.has(cat)) selectedCategories.delete(cat);
+      else selectedCategories.add(cat);
+      renderModuleList();
+    });
     legend.appendChild(chip);
   });
 }
 
 function buildModuleList(){
+  renderModuleList();
+}
+
+function renderModuleList(){
   const list = document.getElementById('moduleList');
   list.innerHTML = "";
-  ISS_MODULES.slice().sort((a,b)=>a.label.localeCompare(b.label)).forEach(m=>{
+  const query = document.getElementById('searchBox').value.trim().toLowerCase();
+  const matching = ISS_MODULES
+    .filter(m=>(selectedCategories.size===0 || selectedCategories.has(m.cat)) && m.label.toLowerCase().includes(query))
+    .sort((a,b)=>a.label.localeCompare(b.label));
+  const categoryChips = document.querySelectorAll('#legend [data-category]');
+  categoryChips.forEach(chip=>chip.setAttribute('aria-pressed', String(selectedCategories.has(chip.dataset.category))));
+  document.querySelector('.legend-chip--all').setAttribute('aria-pressed', String(selectedCategories.size===0 && !query));
+  const status = selectedCategories.size
+    ? `Showing ${matching.length} of ${ISS_MODULES.length} components in ${[...selectedCategories].join(', ')}`
+    : `Showing ${matching.length} of ${ISS_MODULES.length} components`;
+  document.getElementById('moduleListStatus').textContent = status;
+  if(!matching.length){
+    list.innerHTML = '<div class="list-empty">No components match these filters.</div>';
+    return;
+  }
+  matching.forEach(m=>{
     const item = document.createElement('div');
     item.className = 'list-item';
     item.dataset.id = m.id;
@@ -374,14 +503,8 @@ function buildModuleList(){
   });
 }
 
-function filterModuleList(){
-  const q = document.getElementById('searchBox').value.toLowerCase();
-  document.querySelectorAll('.list-item').forEach(item=>{
-    item.style.display = item.textContent.toLowerCase().includes(q) ? 'flex' : 'none';
-  });
-}
-
 function onCanvasClick(event){
+  if(controls.dragged){ controls.dragged = false; return; }
   const rect = renderer.domElement.getBoundingClientRect();
   mouse.x = ((event.clientX - rect.left)/rect.width)*2 - 1;
   mouse.y = -((event.clientY - rect.top)/rect.height)*2 + 1;

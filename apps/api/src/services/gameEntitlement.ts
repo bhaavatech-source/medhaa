@@ -118,6 +118,7 @@ interface CheckGameAccessInput {
   gameSlug: string;
   accountCreatedAt: Date;
   isSubscribed: boolean;
+  isAdmin?: boolean;
   dbTier?: string | null;
   isActive?: boolean;
 }
@@ -133,6 +134,7 @@ export function checkGameAccess({
   gameSlug,
   accountCreatedAt,
   isSubscribed,
+  isAdmin = false,
   dbTier,
   isActive = true,
 }: CheckGameAccessInput): CheckGameAccessResult {
@@ -143,6 +145,10 @@ export function checkGameAccess({
 
   if (!isActive) {
     return { tier, allowed: false, reason: 'disabled by admin', daysSinceSignup };
+  }
+
+  if (isAdmin) {
+    return { tier, allowed: true, reason: 'admin access', daysSinceSignup };
   }
 
   if (tier === 'assessment') {

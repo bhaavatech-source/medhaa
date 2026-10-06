@@ -6,18 +6,18 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://medhaa.net/medha_logo_transparent.png">
 <script type="application/ld+json">
-{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What age group is BCS Lite designed for?", "acceptedAnswer": {"@type": "Answer", "text": "BCS Lite is designed for children aged 11 to 17 and focuses on Self-Awareness, Baseline Cognitive Screening."}}, {"@type": "Question", "name": "Is BCS Lite free to play?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, BCS Lite is free to play on Medhaa as part of the Cognitive Assessment game collection."}}, {"@type": "Question", "name": "What skills does BCS Lite help build?", "acceptedAnswer": {"@type": "Answer", "text": "BCS Lite helps build Self-Awareness, Baseline Cognitive Screening through interactive, game-based practice."}}]}
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What age group is My Medhā designed for?", "acceptedAnswer": {"@type": "Answer", "text": "My Medhā is designed for ages 8 to 17 and includes memory, attention, focus, observation, and a separate game-knowledge quiz."}}, {"@type": "Question", "name": "Is My Medhā free to use?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, My Medhā is free to use on Medhā."}}, {"@type": "Question", "name": "What does My Medhā include?", "acceptedAnswer": {"@type": "Answer", "text": "My Medhā offers brief practice activities and a separate quiz on topics covered by Medhā games. Results reflect this session and are not age-normed."}}]}
 </script>
 
 <!-- MEDHAA-SEO-INJECTED -->
-<title>BCS Lite – Cognitive Assessment Game for Kids | Medhaa</title>
-<meta name="description" content="A lightweight version of the cognitive screening test, a fast check-in on where you stand. Free game for ages 11-17 on Medhaa.">
-<meta property="og:title" content="BCS Lite – Cognitive Assessment Game for Kids | Medhaa">
-<meta property="og:description" content="A lightweight version of the cognitive screening test, a fast check-in on where you stand. Free game for ages 11-17 on Medhaa.">
+<title>My Medhā – Activities and Game Knowledge | Medhā</title>
+<meta name="description" content="My Medhā offers short memory, attention, focus, and observation activities, plus a separate quiz on topics from Medhā games. For ages 8–17.">
+<meta property="og:title" content="My Medhā – Activities and Game Knowledge | Medhā">
+<meta property="og:description" content="Short practice activities plus a separate quiz on topics from Medhā games. For ages 8–17.">
 <meta property="og:url" content="https://medhaa.net/games-static/bcs-lite-v3.html">
 <link rel="canonical" href="https://medhaa.net/games-static/bcs-lite-v3.html">
 <script type="application/ld+json">
-{"@context": "https://schema.org", "@type": "LearningResource", "name": "BCS Lite", "description": "A lightweight version of the cognitive screening test, a fast check-in on where you stand.", "url": "https://medhaa.net/games-static/bcs-lite-v3.html", "learningResourceType": "Educational Game", "teaches": ["Self-Awareness", "Baseline Cognitive Screening"], "typicalAgeRange": "11-17", "isAccessibleForFree": true, "provider": {"@type": "Organization", "name": "Bhava Tech", "url": "https://medhaa.net"}}
+{"@context": "https://schema.org", "@type": "LearningResource", "name": "My Medhā", "description": "Short practice activities and a separate quiz based on topics covered by Medhā games.", "url": "https://medhaa.net/games-static/bcs-lite-v3.html", "learningResourceType": "Educational Game", "teaches": ["Memory practice", "Attention practice", "Game-topic knowledge"], "typicalAgeRange": "8-17", "isAccessibleForFree": true, "provider": {"@type": "Organization", "name": "Bhava Tech", "url": "https://medhaa.net"}}
 </script>
 
 <meta charset="UTF-8">
@@ -500,14 +500,9 @@ select option { background: #1a2a3a; }
     <div class="logo-bar">
       <div class="logo-text">
         <h1>My Medhā</h1>
-        <p>Medhā Cognitive Screen</p>
       </div>
     </div>
     <div class="card">
-      <div class="section-title">Assessment Overview</div>
-      <p style="font-size:0.9rem;line-height:1.6;color:var(--text-muted);margin-bottom:18px;">
-        This tool measures 5 cognitive domains in approximately 12–15 minutes. Ensure you are in a quiet environment before starting.
-      </p>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
         <div style="padding:12px;border-radius:10px;background:rgba(255,255,255,0.05);border:1px solid var(--card-border);">
           <div style="font-size:1.2rem">🧩</div>
@@ -526,8 +521,8 @@ select option { background: #1a2a3a; }
         </div>
         <div style="padding:12px;border-radius:10px;background:rgba(255,255,255,0.05);border:1px solid var(--card-border);">
           <div style="font-size:1.2rem">🔷</div>
-          <div style="font-size:0.78rem;color:var(--accent);font-weight:600;margin-top:4px;">Logic</div>
-          <div style="font-size:0.72rem;color:var(--text-muted);">Reasoning patterns</div>
+          <div style="font-size:0.78rem;color:var(--accent);font-weight:600;margin-top:4px;">Game Knowledge</div>
+          <div style="font-size:0.72rem;color:var(--text-muted);">Questions based on Medhā game topics</div>
         </div>
         <div style="padding:12px;border-radius:10px;background:rgba(255,255,255,0.05);border:1px solid var(--card-border);grid-column:1/-1;max-width:50%;margin:0 auto;width:100%;">
           <div style="font-size:1.2rem">👁️</div>
@@ -673,7 +668,7 @@ select option { background: #1a2a3a; }
       <div class="stroop-word" id="stroop-word">RED</div>
       <div class="stroop-options" id="stroop-options"></div>
       <div style="text-align:center;margin-top:10px;font-size:0.78rem;color:var(--text-muted);">
-        Trial <span id="stroop-trial-num">1</span> of 10
+        Trial <span id="stroop-trial-num">1</span> of <span id="stroop-trial-total">10</span>
       </div>
     </div>
   </div>
@@ -697,6 +692,7 @@ select option { background: #1a2a3a; }
         <div class="progress-bar-fill" id="logic-bar" style="width:0%"></div>
       </div>
       <div class="logic-question" id="logic-q-text">Loading...</div>
+      <div class="smallHint" id="logic-source"></div>
       <div class="logic-options" id="logic-options"></div>
       <div class="logic-explanation" id="logic-expl"></div>
       <button class="btn btn-primary btn-full mt-12 hidden" id="logic-next-btn" onclick="nextLogicQuestion()">Next Question →</button>
@@ -742,7 +738,7 @@ select option { background: #1a2a3a; }
       <div class="logo-icon">📊</div>
       <div class="logo-text">
         <h1>Assessment Complete</h1>
-        <p id="result-student-name">BCS Lite Report</p>
+        <p id="result-student-name">My Medhā Report</p>
       </div>
     </div>
 
@@ -809,6 +805,7 @@ const BCS = {
   startTime: null,
   activeTimers: []
 };
+window.BCS = BCS;
 
 /* ============================================================
    SCREEN ROUTER
@@ -1079,7 +1076,7 @@ let stroopTimeLeft = 30;
 let stroopDone = false;
 let stroopTotalTrials = 10; // set per-age in startFocusModule
 
-function buildStroopTrials() {
+function buildStroopTrials(totalTrials) {
   // Incongruent: word ≠ ink color (harder — interference effect)
   const incongruent = [];
   STROOP_WORDS.forEach(word => {
@@ -1093,7 +1090,9 @@ function buildStroopTrials() {
   const congruent = STROOP_WORDS.map(word => ({
     word, inkColor: STROOP_COLORS[word].hex, inkName: STROOP_COLORS[word].name, inkWord: word, congruent: true
   }));
-  const picked = [...shuffle(incongruent).slice(0,7), ...shuffle(congruent).slice(0,3)];
+  const congruentCount = Math.round(totalTrials * 0.3);
+  const incongruentCount = totalTrials - congruentCount;
+  const picked = [...shuffle(incongruent).slice(0,incongruentCount), ...shuffle(congruent).slice(0,congruentCount)];
   return shuffle(picked);
 }
 
@@ -1107,7 +1106,7 @@ function startFocusModule() {
   else                    { stroopTotalTrials = 12; stroopTimeLeft = 25; } // Senior: 12 trials, 25s
   BCS._stroopInitTime = stroopTimeLeft;
 
-  stroopTrials = buildStroopTrials().slice(0, stroopTotalTrials);
+  stroopTrials = buildStroopTrials(stroopTotalTrials);
   stroopCurrentTrial = 0;
   stroopCorrect = 0;
   stroopDone = false;
@@ -1123,6 +1122,7 @@ function startFocusModule() {
 
   document.getElementById('stroop-bar').style.width='100%';
   document.getElementById('stroop-time-val').textContent=stroopTimeLeft;
+  document.getElementById('stroop-trial-total').textContent=stroopTotalTrials;
   document.getElementById('stroop-timer').classList.remove('urgent');
 
   // Global timer
@@ -1191,7 +1191,7 @@ function handleStroopAnswer(isCorrect, btn, chosenHex) {
   }
 
   stroopCurrentTrial++;
-  if(stroopCurrentTrial >= 10){
+  if(stroopCurrentTrial >= stroopTotalTrials){
     const t = setTimeout(() => finishStroop(), 500);
     BCS.activeTimers.push(t);
   } else {
@@ -1226,35 +1226,35 @@ const LOGIC_BANK = {
   ],
   B: [
     {id:'B1',q:'A → Z → B → Y → C → ?',opts:['W','X','D','Z'],ans:'X',expl:'Alternating from start and end of alphabet: A,Z,B,Y,C,X.'},
-    {id:'B2',q:'A → B → D → H → P → ?',opts:['Z','Y','X','W'],ans:'Z',expl:'Each step doubles the gap: +1,+2,+4,+8,+16 → P(16th)+16=Z(32nd wraps to 26th=Z).'},
+    {id:'B2',q:'Assume the alphabet wraps from Z back to A. A → B → D → H → P → ?',opts:['F','Z','X','W'],ans:'F',expl:'The gaps double: +1,+2,+4,+8, then +16. Starting at P, move 16 letters and wrap after Z to land on F.'},
     {id:'B3',q:'Z → X → U → Q → ?',opts:['L','M','N','K'],ans:'L',expl:'Steps: −2,−3,−4,−5 → Q(17)−5=L(12).'},
     {id:'B4',q:'A → C → F → J → O → ?',opts:['T','U','V','W'],ans:'U',expl:'Steps: +2,+3,+4,+5,+6 → O(15)+6=U(21).'},
     {id:'B5',q:'B → E → I → N → ?',opts:['R','S','T','U'],ans:'T',expl:'Steps: +3,+4,+5,+6 → N(14)+6=T(20).'},
-    {id:'B6',q:'M → J → F → A → ?',opts:['V','U','W','X'],ans:'V',expl:'Steps: −3,−4,−5,−6 → A(1)−6=−5, wraps to V(22).'}
+    {id:'B6',q:'M → J → F → A → ?',opts:['V','U','W','X'],ans:'U',expl:'The steps are −3, −4, −5, then −6. Moving six places backward from A wraps to U.'}
   ],
   C: [
     {id:'C1',q:'Fluffy is not a dog. All dogs are animals. Therefore:',opts:['Fluffy is not an animal','Fluffy may or may not be an animal','All animals are dogs','Fluffy is a dog'],ans:'Fluffy may or may not be an animal',expl:'Fluffy could be a cat (animal) or a rock (non-animal). “Not a dog” tells us nothing about animal status.'},
     {id:'C2',q:'All X are Y. All Y are Z. Therefore:',opts:['All Z are X','Some X are not Z','All X are Z','No X are Z'],ans:'All X are Z',expl:'Chain rule: X⊆Y and Y⊆Z, so X⊆Z — all X must be Z.'},
     {id:'C3',q:'Some A are B. Some B are C. Therefore:',opts:['Some A are C','All A are C','No A are C','We cannot conclude about A and C'],ans:'We cannot conclude about A and C',expl:'The B that overlaps A and the B that overlaps C may be completely different Bs — no link between A and C is guaranteed.'},
     {id:'C4',q:'If P then Q. Q is true. Therefore:',opts:['P must be true','P is false','P may or may not be true','Q causes P'],ans:'P may or may not be true',expl:'Affirming the consequent is a fallacy — Q can be true for reasons other than P.'},
-    {id:'C5',q:'No mammals lay eggs. A platypus lays eggs. Therefore (by strict logic):',opts:['Platypus is not a mammal','Platypus is a mammal','Some mammals lay eggs','Cannot be determined'],ans:'Platypus is not a mammal',expl:'By strict logical deduction from the given premise: if no mammals lay eggs and platypus lays eggs, it cannot be a mammal.'},
-    {id:'C6',q:'All politicians are liars. Some liars are trustworthy. Therefore:',opts:['All politicians are trustworthy','Some politicians are trustworthy','No politicians are trustworthy','Cannot be determined'],ans:'Cannot be determined',expl:'The trustworthy liars may not overlap with politicians at all — no valid conclusion about politicians being trustworthy.'}
+    {id:'C5',q:'All birds have feathers. A penguin is a bird. Therefore:',opts:['A penguin has feathers','A penguin can fly','All birds are penguins','Feathers are birds'],ans:'A penguin has feathers',expl:'The conclusion follows from both statements: penguins are birds, and all birds have feathers.'},
+    {id:'C6',q:'All R items are S. Some S items are T. Which conclusion must follow?',opts:['All R items are T','Some R items are T','All T items are R','None of these conclusions must follow'],ans:'None of these conclusions must follow',expl:'The S items that are also T might not include any R items, so none of the first three conclusions is guaranteed.'}
   ],
   D: [
     {id:'D1',q:'Sculptor : Statue :: Composer : ?',opts:['Orchestra','Symphony','Musician','Concert'],ans:'Symphony',expl:'A sculptor creates a statue; a composer creates a symphony.'},
     {id:'D2',q:'Ignorance : Knowledge :: Chaos : ?',opts:['Disorder','Peace','Order','Noise'],ans:'Order',expl:'Ignorance is the opposite of knowledge; chaos is the opposite of order.'},
-    {id:'D3',q:'Venom : Snake :: Ink : ?',opts:['Pen','Squid','Octopus','Paper'],ans:'Octopus',expl:'Venom is a defense weapon of a snake; ink is a defense weapon of an octopus.'},
+    {id:'D3',q:'Some snakes use venom for defense. Some cephalopods use ink for defense. Which option names an ink-releasing cephalopod?',opts:['A squid or octopus','A dolphin','A sea turtle','A salmon'],ans:'A squid or octopus',expl:'Squid and octopuses are cephalopods and can release ink as a defense; either is correct.'},
     {id:'D4',q:'Archipelago : Islands :: Constellation : ?',opts:['Planets','Galaxies','Stars','Nebulae'],ans:'Stars',expl:'An archipelago is a group of islands; a constellation is a group of stars.'},
-    {id:'D5',q:'Myopia : Spectacles :: Deafness : ?',opts:['Glasses','Hearing Aid','Medicine','Surgery'],ans:'Hearing Aid',expl:'Spectacles correct myopia; a hearing aid corrects deafness.'},
+    {id:'D5',q:'Corrective lenses can help with myopia. Which device can help some people with hearing loss?',opts:['A hearing aid','A magnifying glass','A thermometer','A stethoscope'],ans:'A hearing aid',expl:'A hearing aid can amplify sound for some people with hearing loss; it does not cure deafness.'},
     {id:'D6',q:'Pedology : Soil :: Seismology : ?',opts:['Sea','Earthquakes','Stars','Birds'],ans:'Earthquakes',expl:'Pedology is the study of soil; seismology is the study of earthquakes.'}
   ],
   E: [
     {id:'E1',q:'What is the angle between hour and minute hands at 3:15?',opts:['0°','7.5°','15°','22.5°'],ans:'7.5°',expl:'Minute hand at 90°; hour hand at 3×30+15×0.5=97.5°; difference=7.5°.'},
     {id:'E2',q:'Which number is NOT prime? 2, 5, 9, 11, 13',opts:['2','5','9','11'],ans:'9',expl:'9 = 3×3, so it is not prime. All others are prime numbers.'},
     {id:'E3',q:'How many squares (of all sizes) are in a 3×3 grid?',opts:['9','12','14','16'],ans:'14',expl:'9 unit squares + 4 (2×2) squares + 1 (3×3) square = 14 total.'},
-    {id:'E4',q:'Circle → Triangle → Square → Pentagon → ?',opts:['Hexagon','Heptagon','Octagon','Star'],ans:'Hexagon',expl:'Each shape gains one side: 0(circle),3,4,5,6 → Hexagon.'},
+    {id:'E4',q:'Triangle → Square → Pentagon → Hexagon → ?',opts:['Hexagon','Heptagon','Octagon','Nonagon'],ans:'Heptagon',expl:'The number of sides increases by one: 3, 4, 5, 6, then 7.'},
     {id:'E5',q:'A cube has how many edges?',opts:['6','8','10','12'],ans:'12',expl:'A cube has 12 edges: 4 top + 4 bottom + 4 vertical.'},
-    {id:'E6',q:'If 5 machines make 5 items in 5 minutes, how long for 100 machines to make 100 items?',opts:['100 min','20 min','5 min','1 min'],ans:'5 min',expl:'Each machine makes 1 item in 5 min regardless of how many machines — still 5 minutes.'}
+    {id:'E6',q:'Assume identical machines work at the same constant rate. If 5 machines make 5 items in 5 minutes, how long will 100 such machines take to make 100 items?',opts:['100 min','20 min','5 min','1 min'],ans:'5 min',expl:'Each machine makes one item in five minutes, so 100 machines make 100 items in five minutes.'}
   ]
 };
 const LOGIC_CAT_NAMES = { A:'Number Patterns', B:'Letter Sequences', C:'Syllogisms', D:'Analogies', E:'Spatial/Math' };
@@ -1874,7 +1874,7 @@ function showResults() {
     {icon:'🧩',label:'Memory',key:'memory'},
     {icon:'🎯',label:'Attention',key:'attention'},
     {icon:'🧘',label:'Focus',key:'focus'},
-    {icon:'🔷',label:'Logic',key:'logic'},
+    {icon:'🔷',label:BCS.rawMetrics.progressCheck?'Game Knowledge':'Logic',key:'logic'},
     {icon:'👁️',label:'Observation',key:'observation'}
   ];
   breakdown.innerHTML = '';

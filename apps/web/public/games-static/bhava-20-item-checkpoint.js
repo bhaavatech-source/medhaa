@@ -20,14 +20,42 @@
 
   const TOTAL_ITEMS = 20;
   const COOLDOWN_ASSESSMENTS = 3;
-  const AREAS = ['logic', 'language', 'numeracy', 'memory', 'attention', 'real-world'];
+  const AREAS = ['logic', 'language', 'numeracy', 'attention', 'real-world'];
   const BLUEPRINT = {
-    logic: 4, language: 3, numeracy: 3, memory: 3, attention: 3, 'real-world': 4
+    logic: 4, language: 3, numeracy: 3, attention: 3, 'real-world': 7
   };
   const areaLabels = {
-    logic: 'Logic & Reasoning', language: 'Language', numeracy: 'Numeracy & Spatial',
-    memory: 'Memory', attention: 'Attention', 'real-world': 'Real-world Learning'
+    logic: 'Game Logic & Systems', language: 'Language Concepts', numeracy: 'Numeracy Concepts',
+    attention: 'Applied Game Knowledge', 'real-world': 'Real-world Game Knowledge'
   };
+  const sourceAliases = {
+    'secret-of-silicon': { gameId: 'secret-of-silicon-game', gameName: 'Chip Detective' },
+    'chip-detective': { gameId: 'secret-of-silicon-game', gameName: 'Chip Detective' },
+    'device-engineer': { gameId: 'bhava-build-device-engineer', gameName: 'Device Engineer' },
+    'build-cycles': { gameId: 'bhava-tech-build-your-bike', gameName: 'Build Cycles' },
+    'build-your-bike': { gameId: 'bhava-tech-build-your-bike', gameName: 'Build Cycles' },
+    'bike-builder': { gameId: 'bhava-tech-build-your-bike', gameName: 'Build Cycles' },
+    'rocket-engineer': { gameId: 'rocket-build-engineer', gameName: 'Rocket Engineer' },
+    'space-academy': { gameId: 'bhava-space-academy', gameName: 'Bhava Space Academy' },
+    'drone-engineer': { gameId: 'drone-build-engineer', gameName: 'Drone Engineer' },
+    'car-designer': { gameId: 'build-your-car', gameName: 'Car Designer' },
+    'know-google-lab': { gameId: 'google-search-lab-deep-v2', gameName: 'Know Google Lab' },
+    'focus-master': { gameId: 'focus-under-distraction', gameName: 'Focus Master' },
+    'fin-smart': { gameId: 'finlife-india-quest-enhanced', gameName: 'Fin Smart' }
+  };
+  const itemSourceAliases = {
+    'elec-01': 'secret-of-silicon', 'elec-02': 'secret-of-silicon',
+    'elec-03': 'device-engineer', 'elec-04': 'device-engineer', 'elec-05': 'device-engineer',
+    'elec-06': 'space-academy', 'elec-07': 'device-engineer', 'elec-08': 'device-engineer',
+    'elec-09': 'device-engineer', 'elec-10': 'space-academy'
+  };
+  const registeredGameIds = new Set([
+    'secret-of-silicon-game', 'bhava-build-device-engineer', 'build-your-car',
+    'rocket-build-engineer', 'bhava-space-academy', 'drone-build-engineer',
+    'plane-builder', 'bhava-tech-build-your-bike', 'google-search-lab-deep-v2',
+    'focus-under-distraction', 'finlife-india-quest-enhanced', 'grammar-galaxy',
+    'planet-guardians'
+  ]);
 
   let session = { items: [], index: 0, correct: 0, answers: [], startedAt: 0, answered: false };
 
@@ -57,48 +85,57 @@
 
   function bank() {
     const items = Array.isArray(window.BHAVA_GAME_BANK) ? window.BHAVA_GAME_BANK : [];
-    return items.filter(item =>
+    return items.map(item => {
+      if (!item) return item;
+      const alias = sourceAliases[itemSourceAliases[item.id] || item.gameId];
+      return alias ? { ...item, ...alias } : item;
+    }).filter(item =>
       item && item.id && item.gameId && item.gameName && AREAS.includes(item.area) &&
       item.skill && Number.isFinite(item.difficulty) && item.prompt &&
       Array.isArray(item.options) && item.options.length >= 3 && item.options.includes(item.answer)
     );
   }
 
-  function eligible(items, area, usedIds, usedGames) {
-    const age = (window.BCS && BCS.student && BCS.student.age) || 12;
-    const recent = new Set(loadHistory().flat());
-    const normal = items.filter(item => item.area === area && age >= item.ageMin && age <= item.ageMax && !usedIds.has(item.id) && !recent.has(item.id));
-    const noGameRepeat = normal.filter(item => !usedGames.has(item.gameId));
-    return noGameRepeat.length ? noGameRepeat : normal;
-  }
-
   function selectItems() {
     const items = bank();
+    const unmappedSources = items.filter(item => !registeredGameIds.has(item.gameId));
+    if (unmappedSources.length) {
+      throw new Error('Some questions do not map to registered Medhā games: ' + unmappedSources.map(item => item.id).join(', '));
+    }
+    const age = (window.BCS && BCS.student && BCS.student.age) || 12;
     const usedIds = new Set();
     const usedGames = new Set();
     const selected = [];
-    const targetDifficulty = ((window.BCS && BCS.student && BCS.student.age) || 12) <= 10 ? 1.8 : 2.5;
+    const targetDifficulty = age <= 10 ? 1.8 : 2.5;
+    const recent = new Set(loadHistory().flat());
+    const agePools = Object.fromEntries(AREAS.map(area => [area, items.filter(item =>
+      item.area === area && age >= item.ageMin && age <= item.ageMax
+    )]));
+    const areaCounts = Object.fromEntries(AREAS.map(area => [area, 0]));
 
-    Object.entries(BLUEPRINT).forEach(([area, count]) => {
-      let pool = eligible(items, area, usedIds, usedGames);
-      pool = shuffle(pool).sort((a, b) => Math.abs(a.difficulty - targetDifficulty) - Math.abs(b.difficulty - targetDifficulty));
-      for (const item of pool.slice(0, count)) {
-        selected.push(item); usedIds.add(item.id); usedGames.add(item.gameId);
-      }
-    });
-
-    // Fill any blueprint shortfall from other eligible areas while preserving unique item IDs.
-    if (selected.length < TOTAL_ITEMS) {
-      const remaining = shuffle(items.filter(item => {
-        const age = (window.BCS && BCS.student && BCS.student.age) || 12;
-        return age >= item.ageMin && age <= item.ageMax && !usedIds.has(item.id) && !new Set(loadHistory().flat()).has(item.id);
-      }));
-      remaining.forEach(item => {
-        if (selected.length < TOTAL_ITEMS) { selected.push(item); usedIds.add(item.id); }
+    while (selected.length < TOTAL_ITEMS) {
+      const freshAreas = AREAS.filter(area => agePools[area].some(item => !usedIds.has(item.id) && !recent.has(item.id)));
+      const preferFresh = freshAreas.length > 0;
+      const availableAreas = preferFresh ? freshAreas : AREAS.filter(area => agePools[area].some(item => !usedIds.has(item.id)));
+      if (!availableAreas.length) break;
+      const activeWeight = availableAreas.reduce((sum, area) => sum + BLUEPRINT[area], 0);
+      const area = availableAreas.reduce((best, candidate) => {
+        const candidateDeficit = BLUEPRINT[candidate] / activeWeight * (selected.length + 1) - areaCounts[candidate];
+        const bestDeficit = BLUEPRINT[best] / activeWeight * (selected.length + 1) - areaCounts[best];
+        return candidateDeficit > bestDeficit ? candidate : best;
       });
+      const candidates = agePools[area].filter(item => !usedIds.has(item.id) && (!preferFresh || !recent.has(item.id)));
+      const distinctGameCandidates = candidates.filter(item => !usedGames.has(item.gameId));
+      const pool = shuffle(distinctGameCandidates.length ? distinctGameCandidates : candidates);
+      pool.sort((a, b) => Math.abs(a.difficulty - targetDifficulty) - Math.abs(b.difficulty - targetDifficulty));
+      const item = pool[0];
+      selected.push(item);
+      usedIds.add(item.id);
+      usedGames.add(item.gameId);
+      areaCounts[area]++;
     }
     if (selected.length !== TOTAL_ITEMS) {
-      throw new Error('The approved game bank needs more age-appropriate, unused items. Each assessment requires 20 eligible unique questions.');
+      throw new Error('There are not enough age-appropriate questions in the game bank for a complete 20-question check.');
     }
     return shuffle(selected);
   }
@@ -111,10 +148,10 @@
     try { session = { items: selectItems(), index: 0, correct: 0, answers: [], startedAt: Date.now(), answered: false }; }
     catch (error) { alert(error.message); return; }
     if (typeof window.showScreen === 'function') showScreen('screen-logic');
-    setText('#screen-logic .logo-text h1', 'Medhā Progress Check');
-    setText('#screen-logic .logo-text p', 'Answer 20 questions from across your learning journey');
+    setText('#screen-logic .logo-text h1', 'Game Knowledge Check');
+    setText('#screen-logic .logo-text p', 'Answer 20 questions based on topics from Medhā games');
     const label = document.querySelector('.logic-progress');
-    if (label) label.childNodes[0].nodeValue = 'Question ';
+    if (label) label.innerHTML = 'Question <span id="logic-q-num">1</span> of ' + TOTAL_ITEMS;
     render();
   }
 
@@ -123,6 +160,7 @@
     session.answered = false;
     setText('#logic-q-num', String(session.index + 1));
     setText('#logic-cat-badge', areaLabels[item.area]);
+    setText('#logic-source', 'Source game: ' + item.gameName);
     setText('#logic-score-badge', session.correct + ' / ' + session.index + ' correct');
     const bar = document.getElementById('logic-bar'); if (bar) bar.style.width = (session.index / TOTAL_ITEMS * 100) + '%';
     setText('#logic-q-text', item.prompt);

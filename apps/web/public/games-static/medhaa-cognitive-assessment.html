@@ -51,7 +51,7 @@ header{display:flex;align-items:center;justify-content:space-between;gap:15px;ma
 .choiceGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;width:min(800px,100%);position:relative;z-index:2}.choice{border:2px solid var(--line);background:rgba(255,255,255,0.9);border-radius:18px;padding:16px;min-height:70px;font-weight:900;color:var(--ink);transition:transform .2s cubic-bezier(0.34,1.56,0.64,1),box-shadow .2s ease,border-color .2s}.choice:hover,.choice:focus-visible{border-color:#bca9fa;transform:translateY(-3px);box-shadow:0 12px 24px rgba(91,60,196,.15)}.choice.selected{border-color:var(--brand);background:#f5f1ff;box-shadow:0 9px 20px rgba(91,60,196,.10)}
 .big,.visual,.numberDisplay{color:#2d244f;text-shadow:0 3px 10px rgba(91,60,196,0.15);position:relative;z-index:2}
 .big{font-size:clamp(40px,11vw,72px);font-weight:950}.visual{font-size:clamp(28px,8vw,48px);letter-spacing:6px;text-align:center}.smallHint{font-size:12px;color:var(--muted);text-align:center;margin-top:8px;position:relative;z-index:2}
-.board{width:min(820px,100%);height:315px;border:1px solid var(--line);border-radius:22px;background:radial-gradient(circle at 20% 20%,rgba(241,237,255,0.7),transparent 34%),rgba(250,251,254,0.8);position:relative;overflow:hidden;z-index:2}.dot{position:absolute;z-index:3;width:46px;height:46px;border:0;border-radius:50%;font-weight:950;box-shadow:0 5px 12px rgba(20,30,50,.12);transition:transform .2s cubic-bezier(0.34,1.56,0.64,1),opacity .15s}.dot:hover,.dot:focus-visible{transform:scale(1.15)}.dot.good{background:#c9f0dc;color:#11683f}.dot.bad{background:#edf0f4;color:#6b7280}.dot.hit{transform:scale(1.2);opacity:.45}
+.board{width:min(820px,100%);height:315px;border:1px solid var(--line);border-radius:22px;background:radial-gradient(circle at 20% 20%,rgba(241,237,255,0.7),transparent 34%),rgba(250,251,254,0.8);position:relative;display:grid;grid-template-columns:repeat(7,46px);grid-auto-rows:46px;gap:8px;justify-content:center;align-content:center;overflow:hidden;z-index:2}.dot{position:relative;z-index:1;width:100%;height:100%;aspect-ratio:1;border:0;border-radius:50%;font-size:21px;font-weight:950;box-shadow:0 5px 12px rgba(20,30,50,.12);transition:transform .2s cubic-bezier(0.34,1.56,0.64,1),opacity .15s}.dot:hover,.dot:focus-visible{transform:scale(1.08)}.dot.selected{outline:3px solid var(--brand);outline-offset:2px}.dot.good{background:#c9f0dc;color:#11683f}.dot.bad{background:#edf0f4;color:#6b7280}.dot.hit{transform:scale(1.08);opacity:.45}
 .tiles{display:flex;flex-wrap:wrap;justify-content:center;gap:9px;max-width:850px;position:relative;z-index:2}.tile{min-width:70px;min-height:62px;padding:10px 14px;border:2px solid var(--line);border-radius:16px;background:rgba(255,255,255,0.9);font-weight:900;color:var(--ink);transition:transform .2s,box-shadow .2s}.tile:hover,.tile:focus-visible{transform:translateY(-2px);box-shadow:0 8px 16px rgba(0,0,0,.1)}.tile.used{opacity:.35;transform:none;box-shadow:none}
 .sequenceSlots{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:18px;position:relative;z-index:2}.slot{width:70px;height:58px;border:2px dashed #cbd0da;border-radius:14px;display:grid;place-items:center;font-weight:950;background:rgba(250,251,252,0.8)}
 .shapeGrid{display:grid;grid-template-columns:repeat(4,72px);gap:10px;justify-content:center;position:relative;z-index:2}.shape{height:72px;border:2px solid var(--line);border-radius:18px;background:rgba(255,255,255,0.9);display:grid;place-items:center;font-size:34px;font-weight:950;cursor:pointer;transition:transform .2s}.shape:focus-visible{box-shadow:var(--focus-ring)}.shape.selected{border-color:var(--brand);background:#f4f0ff}
@@ -68,7 +68,7 @@ header{display:flex;align-items:center;justify-content:space-between;gap:15px;ma
 .results{padding:30px;text-align:center}.scoreCircle{width:185px;height:185px;border-radius:50%;margin:14px auto 22px;background:conic-gradient(var(--brand) var(--score),#ececf2 0);display:grid;place-items:center;position:relative;box-shadow:0 12px 30px rgba(91,60,196,.15)}.scoreCircle:after{content:"";position:absolute;width:140px;height:140px;border-radius:50%;background:#fff}.scoreCircle strong{z-index:1;font-size:44px}.scoreCaption{margin:-14px 0 8px;color:var(--muted);font-size:12px}.bars{display:grid;gap:10px;text-align:left;max-width:820px;margin:22px auto}.barrow{display:grid;grid-template-columns:180px 1fr 150px;gap:9px;align-items:center}.bar{height:11px;background:#eceef3;border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--brand),var(--brand2));width:0}.profile{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:820px;margin:20px auto}.profileBox{padding:16px;border:1px solid var(--line);border-radius:17px;text-align:left;background:rgba(255,255,255,0.7)}.profileBox b{display:block;margin-bottom:6px}.note{font-size:11px;color:var(--muted);line-height:1.5;max-width:820px;margin:15px auto}
 .suggestedGames{max-width:820px;margin:22px auto 0;text-align:left}.suggestedGames h3{margin:0 0 4px;font-size:17px}.suggestedGames>p{margin:0 0 14px;color:var(--muted);font-size:13px}.sgGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}.sgCard{padding:15px;border:1px solid var(--line);border-radius:17px;background:rgba(255,255,255,0.8);display:flex;flex-direction:column;gap:8px}.sgCard b{font-size:14px}.sgTag{display:inline-block;align-self:flex-start;padding:4px 9px;border-radius:999px;background:#f2edff;color:#5b3cc4;font-size:10px;font-weight:850;letter-spacing:.03em}.sgPlay{margin-top:auto;text-align:center;text-decoration:none;padding:9px 12px;border-radius:11px;background:linear-gradient(135deg,var(--brand),#7d5de1);color:#fff;font-weight:850;font-size:12px}.sgPlay:hover{filter:brightness(1.06)}
 .integrityLog{max-width:820px;margin:18px auto;text-align:left;padding:14px;border-radius:16px;background:rgba(255,247,232,0.9);border:1px solid #f2dfb1;font-size:12px;color:#735000}
-.hidden{display:none!important}@media(max-width:700px){.app{padding:10px 9px 30px}.hero,.task,.results{padding:20px}.paths,.formgrid,.profile{grid-template-columns:1fr}.full{grid-column:auto}.choiceGrid{grid-template-columns:1fr}.shapeGrid{grid-template-columns:repeat(4,58px)}.shape{height:58px}.stage{min-height:315px;padding:24px 12px;}.barrow{grid-template-columns:120px 1fr 120px}.taskActions{align-items:flex-start}
+.hidden{display:none!important}@media(max-width:700px){.app{padding:10px 9px 30px}.hero,.task,.results{padding:20px}.paths,.formgrid,.profile{grid-template-columns:1fr}.full{grid-column:auto}.choiceGrid{grid-template-columns:1fr}.shapeGrid{grid-template-columns:repeat(4,58px)}.shape{height:58px}.board{grid-template-columns:repeat(7,minmax(0,1fr));grid-auto-rows:42px;gap:4px;padding:8px}.dot{width:min(38px,100%);height:auto;justify-self:center;align-self:center}.stage{min-height:315px;padding:24px 12px;}.barrow{grid-template-columns:120px 1fr 120px}.taskActions{align-items:flex-start}
   header{padding:6px 8px!important;gap:4px}
   header .navRow{order:1;gap:5px!important}
   header .topStatus{order:2;margin-left:auto;gap:4px;flex-wrap:nowrap}
@@ -107,6 +107,10 @@ header{display:flex;align-items:center;justify-content:space-between;gap:15px;ma
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.stage > .board {
+  display: grid;
 }
 
 
@@ -191,13 +195,13 @@ h1{letter-spacing:-0.02em}
 <div class="card hero">
   <div class="eyebrow">MEDHĀ COGNITIVE ASSESSMENT</div>
   <h1>Think. Notice. Remember. Adapt.</h1>
-  <p id="introLead">Every mind is unique. Explore your strengths through a simple, engaging assessment designed to help you understand how you think, focus and solve problems.</p>
+  <p id="introLead">Try a set of short activities and see how you answered in this session. Results are task accuracy, not a measure of general cognitive ability.</p>
   <div class="pills"><span class="pill">⚡ 5–15 minutes</span><span class="pill">✨ Personalized</span><span class="pill">📊 Your results</span></div>
   <div class="voiceDiag" id="voiceDiag" style="display:none"></div>
   <div class="modeGrid" id="modeGrid">
-    <button class="modeCard" data-mode="quick"><span class="modeIcon">⚡</span><h3>Quick Cognitive Check</h3><p>Discover your strengths in memory, focus and thinking with a quick five-minute challenge.</p><span class="modeMeta">5 minutes · Your results</span><strong>Start Quick Check →</strong></button>
-    <button class="modeCard" data-mode="focus"><span class="modeIcon">🎯</span><h3>Focus &amp; Thinking Check</h3><p>Test your attention, memory and decision-making through engaging interactive challenges.</p><span class="modeMeta">5 minutes · Your results</span><strong>Start Focus Check →</strong></button>
-    <button class="modeCard featured" data-mode="detailed"><span class="modeIcon">🔬</span><h3>Detailed Cognitive Assessment</h3><p>Take a deeper look at your cognitive strengths through a broader set of interactive challenges.</p><span class="modeMeta">10–15 minutes · Complete profile</span><strong>Start Detailed Assessment →</strong></button>
+    <button class="modeCard" data-mode="quick"><span class="modeIcon">⚡</span><h3>Quick Cognitive Check</h3><p>Try six brief activities across memory, focus and reasoning.</p><span class="modeMeta">6 activities · Session accuracy</span><strong>Start Quick Check →</strong></button>
+    <button class="modeCard" data-mode="focus"><span class="modeIcon">🎯</span><h3>Focus &amp; Thinking Check</h3><p>Try six brief activities involving attention, memory and flexible thinking.</p><span class="modeMeta">6 activities · Session accuracy</span><strong>Start Focus Check →</strong></button>
+    <button class="modeCard featured" data-mode="detailed"><span class="modeIcon">🔬</span><h3>Detailed Cognitive Assessment</h3><p>Complete 30 activities and review accuracy by task area.</p><span class="modeMeta">30 activities · Detailed task report</span><strong>Start Detailed Assessment →</strong></button>
   </div>
   <div class="modeSelected hidden" id="modeSelected">
     <div><b id="selectedModeTitle">Assessment selected</b><span id="selectedModeText"></span></div>
@@ -206,15 +210,15 @@ h1{letter-spacing:-0.02em}
   <div class="ageChooser hidden" id="ageChooser">
     <h3>Who is taking the assessment?</h3>
     <div class="paths">
-      <button class="path" id="childPath"><h3>🧒 Ages 5–17</h3><p>Age-appropriate challenges. A parent or guardian will provide consent before you begin.</p></button>
-      <button class="path" id="adultPath"><h3>🎓 Age 18+</h3><p>A thoughtful set of interactive challenges for adults, students and curious minds.</p></button>
+      <button class="path" id="childPath"><h3>🧒 Ages 5–17</h3><p>Task difficulty uses broad age bands and is not normed by age. A parent or guardian must provide consent.</p></button>
+      <button class="path" id="adultPath"><h3>🎓 Age 18+</h3><p>Task difficulty uses broad age bands. Results are not age-normed or comparable to standardized tests.</p></button>
     </div>
   </div>
-  <div class="note">Your results describe how you performed in this assessment session. Medhā is not an IQ test or a clinical diagnosis.</div>
+  <div class="note">Scores show accuracy on these activities in this session. Challenge types may repeat; item history is stored in this browser only. This is not an IQ test, age-normed score, or clinical diagnosis.</div>
 </div>
 </section>
 
-<section class="screen" id="payment"><div class="card hero"><div class="eyebrow">Assessment Complete</div><h1>Your assessment is complete</h1><p id="paymentIntroText">You've completed the assessment. Complete the payment below to view your Medhā Cognitive Profile.</p><div><span class="offerBadge">LAUNCH OFFER</span></div><div class="paymentPrice"><span class="paymentOld">₹499</span><span class="paymentNew">₹299</span></div><div class="paymentCard"><div class="payGrid"><div class="qrWrap"><img src="/BT_QR.jpg" alt="Bhāva Tech UPI payment QR code"><div class="paymentNote" style="margin-top:8px">Scan with your UPI app</div></div><div><h3 style="margin:0 0 8px">Pay ₹299 via UPI</h3><div class="upiBox"><span class="paymentNote">UPI ID</span><b id="paymentUpi">yespay.smessi10194393@yesbankltd</b></div><div class="paymentActions"><button type="button" class="btn secondary" id="copyUpi">Copy UPI ID</button><a class="btn primary" id="upiPay" href="upi://pay?pa=yespay.smessi10194393@yesbankltd&amp;pn=Bhava%20Tech&amp;am=299.00&amp;cu=INR">Open UPI App</a></div><div class="utrBox"><label for="paymentUtr" style="display:block;font-size:13px;font-weight:850;margin-bottom:6px">After payment, enter your transaction reference</label><input id="paymentUtr" inputmode="numeric" autocomplete="off" placeholder="Enter the reference shown by your UPI app"><p class="paymentNote">You can find this reference in your UPI payment confirmation.</p><div class="paymentState" id="paymentState"></div><button type="button" class="btn primary" id="continueAfterPayment" style="width:100%;margin-top:8px">Continue to My Profile</button></div></div></div></div><div class="note" style="margin-top:18px">Launch offer ₹299. One payment covers one complete assessment attempt. Ages 5–17 require parent/guardian consent.</div><div class="actions"><button class="btn secondary" id="backPaymentIntro" style="display:none">Go back</button></div></div></section>
+<section class="screen" id="payment"><div class="card hero"><div class="eyebrow">Assessment Complete</div><h1>Your assessment is complete</h1><p id="paymentIntroText">You've completed the assessment. Complete the payment below to view your detailed task report.</p><div><span class="offerBadge">LAUNCH OFFER</span></div><div class="paymentPrice"><span class="paymentOld">₹499</span><span class="paymentNew">₹299</span></div><div class="paymentCard"><div class="payGrid"><div class="qrWrap"><img src="/BT_QR.jpg" alt="Bhāva Tech UPI payment QR code"><div class="paymentNote" style="margin-top:8px">Scan with your UPI app</div></div><div><h3 style="margin:0 0 8px">Pay ₹299 via UPI</h3><div class="upiBox"><span class="paymentNote">UPI ID</span><b id="paymentUpi">yespay.smessi10194393@yesbankltd</b></div><div class="paymentActions"><button type="button" class="btn secondary" id="copyUpi">Copy UPI ID</button><a class="btn primary" id="upiPay" href="upi://pay?pa=yespay.smessi10194393@yesbankltd&amp;pn=Bhava%20Tech&amp;am=299.00&amp;cu=INR">Open UPI App</a></div><div class="utrBox"><label for="paymentUtr" style="display:block;font-size:13px;font-weight:850;margin-bottom:6px">After payment, enter your transaction reference</label><input id="paymentUtr" inputmode="numeric" autocomplete="off" placeholder="Enter the reference shown by your UPI app"><p class="paymentNote">You can find this reference in your UPI payment confirmation.</p><div class="paymentState" id="paymentState"></div><button type="button" class="btn primary" id="continueAfterPayment" style="width:100%;margin-top:8px">Continue to Results</button></div></div></div></div><div class="note" style="margin-top:18px">Launch offer ₹299. One payment covers one complete assessment attempt. Ages 5–17 require parent/guardian consent.</div><div class="actions"><button class="btn secondary" id="backPaymentIntro" style="display:none">Go back</button></div></div></section>
 
 <section class="screen" id="details">
 <div class="card hero">
@@ -259,19 +263,19 @@ h1{letter-spacing:-0.02em}
 
 <section class="screen" id="results">
 <div class="card results">
-  <div class="eyebrow">YOUR MEDHĀ COGNITIVE PROFILE</div><h1 id="resultHeading">Nicely done!</h1><p id="resultText"></p>
+  <div class="eyebrow">YOUR MEDHĀ SESSION RESULTS</div><h1 id="resultHeading">Nicely done!</h1><p id="resultText"></p>
   <div class="scoreCircle" id="circle"><strong id="overall">0</strong></div>
-  <div class="scoreCaption">Your overall score, out of 100</div>
+  <div class="scoreCaption">Task accuracy in this session, out of 100</div>
   <div class="analysisGrid" id="analysisGrid"></div>
   <div class="bars" id="bars"></div>
   <div class="profile" id="profile"></div>
-  <div class="note" style="text-align:center">These descriptions reflect your performance in this session. They are not clinical or norm-referenced scores.</div>
+  <div class="note" style="text-align:center">This percentage is accuracy on the activities completed, not a percentile or comparison with people your age. Response times are recorded separately; scores are not norm-referenced or clinical.</div>
   <div class="integrityLog" id="integrityLog" style="display:none"></div>
   <div class="suggestedGames" id="suggestedGames"></div>
   <div class="resultLockPanel" id="resultLockPanel">
-    <div style="text-align:center;margin-bottom:10px"><span class="lockBadge" id="resultLockBadge">🔒 Detailed profile ready</span></div>
-    <h3 id="resultLockTitle">See your complete cognitive profile</h3>
-    <p id="resultLockText">Your assessment is complete. Your detailed scores are shown below, with the score values gently protected until your profile is unlocked.</p>
+    <div style="text-align:center;margin-bottom:10px"><span class="lockBadge" id="resultLockBadge">🔒 Detailed task report ready</span></div>
+    <h3 id="resultLockTitle">See your detailed task results</h3>
+    <p id="resultLockText">Your assessment is complete. Detailed task-area accuracy is available after payment confirmation.</p>
     <div class="resultUnlockGrid">
       <div class="resultQr">
         <img src="/BT_QR.jpg" alt="UPI payment QR code">
@@ -286,7 +290,7 @@ h1{letter-spacing:-0.02em}
         <div class="resultUtr" style="margin-top:14px;padding-top:14px;border-top:1px solid #ececf2">
           <label for="resultPaymentUtr" style="display:block;font-size:13px;font-weight:850;margin-bottom:6px">After payment, enter your transaction reference</label>
           <input id="resultPaymentUtr" inputmode="numeric" autocomplete="off" placeholder="Enter the reference from your UPI receipt">
-          <p class="paymentNote" style="margin:7px 0 0">Your reference will be sent for payment verification. The detailed profile will unlock only after the payment is confirmed.</p>
+          <p class="paymentNote" style="margin:7px 0 0">Your reference will be sent for payment verification. The detailed task report will unlock only after payment is confirmed.</p>
           <div class="resultPaymentState" id="resultPaymentState"></div>
           <button type="button" class="btn primary" id="submitResultPayment" style="width:100%;margin-top:9px">Submit Payment Reference</button>
         </div>
@@ -294,7 +298,7 @@ h1{letter-spacing:-0.02em}
     </div>
   </div>
 
-  <div class="note">Your profile is a snapshot of this assessment session. It is not an IQ score, clinical diagnosis, or substitute for professional assessment.</div>
+  <div class="note">This report summarizes performance on this session's activities. It is not an IQ score, age-normed comparison, clinical diagnosis, or substitute for professional assessment.</div>
   <div class="actions noPrint"><button class="btn primary" id="print">Print Report</button><button class="btn secondary" id="downloadData">Save My Data</button><button class="btn secondary" id="restart">Start another assessment</button></div>
 </div>
 </section>
@@ -376,7 +380,7 @@ $("navHome").onclick = ()=>{
 
 const SUBMIT_ENDPOINT = "";
 const MEDHAA_API_URL = "https://medhaa-tni1.onrender.com/api";
-const APP_VERSION = "1.9.1-locked-profile-server-verification";
+const APP_VERSION = "1.9.2-session-accuracy-report";
 
 let medhaaAssessmentId = null;
 let pendingPaymentPatch = null;
@@ -435,13 +439,13 @@ function unlockFullProfileUI(){
   const panel = $("resultLockPanel");
   if(panel){
     panel.classList.add("fullUnlocked");
-    $("resultLockBadge").textContent = "✓ Profile unlocked";
-    $("resultLockTitle").textContent = "Your complete cognitive profile";
-    $("resultLockText").textContent = "Your payment has been confirmed. Your detailed scores are now available.";
+    $("resultLockBadge").textContent = "✓ Task report unlocked";
+    $("resultLockTitle").textContent = "Your detailed task results";
+    $("resultLockText").textContent = "Your payment has been confirmed. Your detailed task-area accuracy is now available.";
   }
   const msg = $("resultPaymentState");
   if(msg){
-    msg.textContent = "Payment confirmed. Your complete cognitive profile is now unlocked.";
+    msg.textContent = "Payment confirmed. Your detailed task results are now available.";
     msg.classList.add("show");
     msg.style.background = "#eefaf3"; msg.style.color = "#12653e"; msg.style.borderColor = "#bfe8d0";
   }
@@ -696,9 +700,9 @@ function difficulty(age){return age<8?1:age<11?2:age<14?3:age<18?4:5}
 function show(id){document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));$(id).classList.add("active");const tm=$("timer");if(tm)tm.style.display=id==="assessment"?"inline":"none";window.scrollTo({top:0,behavior:"smooth"})}
 
 const QUICK_MODES={
-  quick:{label:"Quick Cognitive Check",description:"A friendly five-minute snapshot of memory, focus and thinking.",tasks:["Visual Target Hunt","Symbol Recall","Pattern Builder","Go / No-Go","Shape Rotation","Quantity Logic"]},
-  focus:{label:"Focus & Thinking Check",description:"A five-minute challenge focused on attention, memory and flexible thinking.",tasks:["Rapid Scan","Rule Filter","Spatial Recall","Visual Update","Rule Switch","Category Builder"]},
-  detailed:{label:"Detailed Cognitive Assessment",description:"A deeper assessment covering a broader range of thinking skills.",tasks:[]}
+  quick:{label:"Quick Cognitive Check",description:"Six brief activities. Results summarize accuracy in this session, not general ability.",tasks:["Visual Target Hunt","Symbol Recall","Pattern Builder","Go / No-Go","Shape Rotation","Quantity Logic"]},
+  focus:{label:"Focus & Thinking Check",description:"Six brief activities. Results summarize accuracy in this session, not general ability.",tasks:["Rapid Scan","Rule Filter","Spatial Recall","Visual Update","Rule Switch","Category Builder"]},
+  detailed:{label:"Detailed Cognitive Assessment",description:"Thirty activities with task-area accuracy results. Scores are not age-normed.",tasks:[]}
 };
 
 function getUserKey(){
@@ -740,7 +744,7 @@ function setPath(p){
   show("details");
   $("detailsEyebrow").textContent=p==="child"?"5–17 YEARS":"18+ YEARS";
   $("detailsTitle").textContent=p==="child"?"Children’s Cognitive Assessment":"Adult Cognitive Assessment";
-  $("detailsSub").textContent=p==="child"?"Age-adjusted cognitive challenges. Parent/guardian consent is required.":"Cognitive challenges for adults, students and aspirants.";
+  $("detailsSub").textContent=p==="child"?"Task difficulty uses broad age bands; scores are not normed by age. Parent/guardian consent is required.":"Task difficulty uses broad age bands; scores are not age-normed or comparable to standardized tests.";
   $("consentBox").classList.toggle("hidden",p!=="child");
   $("adultDeclaration").classList.toggle("hidden",p!=="adult");
   $("purposeField").classList.toggle("hidden",p!=="adult");
@@ -768,16 +772,16 @@ $("continueAfterPayment").onclick=()=>{
     amount:299
   };
   submitPaymentReferenceToMedhaa(paymentReference);
-  $("paymentState").textContent="Payment reference recorded. Your Medhā Cognitive Profile is now ready to view.";
+  $("paymentState").textContent="Payment reference recorded. Your detailed task report is ready for verification.";
   $("paymentState").classList.add("show");
   setTimeout(()=>publishResults(),350);
 };
 
 const defs=[
-["Attention","Visual Target Hunt", "Look at the target shown above the board, then tap every matching item you can find. Try to avoid tapping the wrong ones."],["Attention","Rapid Scan", "Tap every item that matches the one shown at the top, as quickly and accurately as you can."],["Attention","Rule Filter", "A shape will appear with a rule above it. Read the rule each time, then tap the shape it asks for — the rule can change every round."],
+["Attention","Visual Target Hunt", "Select every item matching one of the target symbols shown, then check your selections."],["Attention","Rapid Scan", "Select every item that matches the target, then check your scan."],["Attention","Rule Filter", "Follow the displayed rule each round. MATCH means choose the same shape; PAIRED means use the fixed pairs shown."],
 ["Memory","Symbol Recall", "Study the symbols shown carefully. They will disappear, then you must pick the option that shows them in the exact same order."],["Memory","Sequence Echo", "Watch the order the symbols appear in. Once they disappear, tap the tiles below in that same order to rebuild the sequence."],["Memory","Spatial Recall", "Watch which squares light up on the grid. After they turn off, click the same squares again from memory."],["Memory","Delayed Recall", "Read the words shown. They will disappear, then select every word you remember from the list of choices."],
 ["Working Memory","Number Hold", "Remember the numbers shown. After they disappear, type the total sum of those numbers into the box."],["Working Memory","Visual Update", "Watch the row of symbols. One symbol will be swapped for a new one — tell us which symbol is new."],["Working Memory","Order Rebuild", "Tap the tiles in the correct logical order, from the first step to the last."],
-["Processing Speed","Same or Different", "Look at the two symbols shown together. Tap SAME if they match, or DIFFERENT if they don't."],["Processing Speed","Rapid Classification", "Look at the picture shown, then tap the category it belongs to."],["Processing Speed","Symbol Match", "Look at the symbol shown at the top, then tap the matching symbol from the choices below."],
+["Visual Recognition","Same or Different", "Look at the two symbols shown together. Tap SAME if they match, or DIFFERENT if they don't."],["Visual Recognition","Rapid Classification", "Look at the picture shown, then tap the category it belongs to."],["Visual Recognition","Symbol Match", "Look at the symbol shown at the top, then tap the matching symbol from the choices below."],
 ["Reasoning","Pattern Builder", "Look at the number sequence shown. Work out the pattern, then tap the number that should come next."],["Reasoning","Odd Rule", "Look at the four numbers shown. Tap the one number that breaks the pattern followed by the other three."],["Reasoning","Sequence Logic", "Tap the tiles in the correct order to complete the logical sequence, from start to finish."],["Reasoning","Analogy Forge", "Work out how the first pair of words are related, then tap the word that completes the second pair the same way."],
 ["Problem Solving","Constraint Puzzle", "Read both rules shown carefully, then tap the one arrangement of letters that satisfies both rules at the same time."],["Problem Solving","Best Route", "Compare the cost listed next to each route, then tap the route with the lowest total cost."],["Problem Solving","Resource Choice", "Read the situation described, then tap the best course of action to take."],
 ["Executive Functions","Go / No-Go", "Tap TAP as fast as you can when you see GO. Do nothing at all when you see STOP."],["Executive Functions","Rule Switch", "Read the question shown, then tap YES or NO based on the number or letter displayed."],["Executive Functions","Impulse Guard", "Tap TAP only when you see the ● symbol. Do nothing when you see the ✖ symbol."],
@@ -802,6 +806,18 @@ function setReady(ok,msg,meta={}){
   $("next").dataset.correct = ok ? "1" : "0";
   $("status").textContent = msg || "";
   state.currentMeta = meta;
+}
+
+function taskCredit(meta, wasCorrect){
+  if(Number.isFinite(meta.fraction)) return Math.max(0,Math.min(1,meta.fraction));
+  if(Number.isFinite(meta.correct) && Number.isFinite(meta.total) && meta.total>0)
+    return Math.max(0,Math.min(1,meta.correct/meta.total));
+  if(Array.isArray(meta.selected) && Array.isArray(meta.target)){
+    const selected=new Set(meta.selected), target=new Set(meta.target);
+    const matches=[...target].filter(value=>selected.has(value)).length;
+    return target.size+selected.size ? 2*matches/(target.size+selected.size) : 1;
+  }
+  return wasCorrect?1:0;
 }
 
 function arrTextSafe(items){return items.map(x=>String(x)).sort().join("|")}
@@ -829,7 +845,7 @@ function makeFallbackChoices(correct, count, r, multi){
   }
   return out;
 }
-function simpleChoices(items, correct, r, multi=false){
+function simpleChoices(items, correct, r, multi=false, optionCount=4){
   const target = Array.isArray(correct) ? correct.map(String) : [String(correct)];
   const seen = new Set();
   let deduped = items.map(x=>String(x)).filter(x=>{
@@ -838,7 +854,7 @@ function simpleChoices(items, correct, r, multi=false){
     return true;
   });
 
-  // Single-answer tasks must always present four genuinely different choices.
+  // Single-answer tasks must always present the requested number of distinct choices.
   // Multi-select tasks keep all correct answers and add enough distractors.
   if(!multi){
     deduped = deduped.filter(x => x !== "");
@@ -858,18 +874,19 @@ function simpleChoices(items, correct, r, multi=false){
     }
 
     for(const x of candidates){
-      if(deduped.length>=4) break;
+      if(deduped.length>=optionCount) break;
       if(!deduped.includes(x)) deduped.push(x);
     }
 
     // Absolute safety net: never render fewer than four buttons.
     let n=1;
-    while(deduped.length<4){
+    while(deduped.length<optionCount){
       const x=`Choice ${n++}`;
       if(!deduped.includes(x)) deduped.push(x);
     }
-    // For single-answer questions, show exactly four options.
-    deduped = deduped.slice(0,4);
+    if(deduped.length>optionCount&&!deduped.slice(0,optionCount).includes(correctText))
+      deduped[optionCount-1]=correctText;
+    deduped = deduped.slice(0,optionCount);
   }else{
     // Multi-select: retain every correct answer and guarantee at least four choices.
     if(deduped.length < Math.max(4,target.length)) {
@@ -920,26 +937,34 @@ const TaskRegistry = {
     const board = h("div", { className: "board", role: "application", "aria-label": "Target Hunt Board" });
     
     const dotCount = 20 + l*3;
-    let targets = 0, hit = 0, wrong = 0;
+    let targets = 0;
     for (let i = 0; i < dotCount; i++) {
       const isTarget = i === dotCount-1 && targets === 0 ? true : r() < 0.34;
       if (isTarget) targets++;
       const dot = h("button", {
         className: "dot", "data-yes": isTarget ? "1" : "0", tabIndex: 0,
         onclick: (e) => {
-          const t = e.target;
-          if (t.disabled) return;
-          t.disabled = true;
-          isTarget ? (hit++, t.classList.add("good", "hit")) : (wrong++, t.classList.add("bad", "hit"));
-          if (hit + wrong === dotCount) setReady(hit === targets && wrong === 0, `${hit} targets found • ${wrong} missed`, {hit, wrong, targets});
+          const button=e.currentTarget;
+          button.classList.toggle("selected");
+          button.setAttribute("aria-pressed",String(button.classList.contains("selected")));
         }
       }, [isTarget ? pick(set.t, r) : pick(set.d, r)]);
       
-      dot.style.left = `${2 + r() * 92}%`; 
-      dot.style.top = `${4 + r() * 82}%`;
       board.appendChild(dot);
     }
     stage.appendChild(board);
+    stage.appendChild(h("button",{className:"choice",type:"button",style:{marginTop:"12px"},onclick:()=>{
+      let hit=0,wrong=0;
+      board.querySelectorAll(".dot").forEach(button=>{
+        const selected=button.classList.contains("selected"), target=button.dataset.yes==="1";
+        if(selected&&target)hit++;
+        if(selected&&!target)wrong++;
+        if(selected)button.classList.add(target?"good":"bad","hit");
+        button.disabled=true;
+      });
+      const correct=hit+(dotCount-targets-wrong);
+      setReady(hit===targets&&wrong===0,`${hit}/${targets} targets found • ${wrong} false selections`,{hit,wrong,targets,total:dotCount,correct});
+    }},["Check targets"]));
   },
  "Rapid Scan": (l, r, stage) => {
     // Uses distinct color/shape contrasts instead of themes
@@ -952,26 +977,34 @@ const TaskRegistry = {
     stage.appendChild(h("div", {className: "taskQuestion"}, [`Rapidly tap every: ${set.t}`]));
     const board = h("div", { className: "board" });
     
-    let hit = 0, total = 0, wrong = 0;
+    let total = 0;
     for(let i=0; i<30; i++){
       const yes = i === 29 && total === 0 ? true : r() < 0.25; 
       if(yes) total++;
       const dot = h("button", {
         className: "dot", "data-yes": yes ? "1" : "0",
         onclick: (e) => {
-          const t = e.target; 
-          if(t.disabled) return; 
-          t.disabled = true;
-          yes ? (hit++, t.classList.add("good", "hit")) : (wrong++, t.classList.add("bad", "hit"));
-          if(hit + wrong === 30) setReady(hit === total && wrong === 0, `Scan complete • ${wrong} false hits`, {hit, wrong, total});
+          const button=e.currentTarget;
+          button.classList.toggle("selected");
+          button.setAttribute("aria-pressed",String(button.classList.contains("selected")));
         }
       }, [yes ? set.t : set.d]);
       
-      dot.style.left = `${2 + r() * 92}%`; 
-      dot.style.top = `${4 + r() * 82}%`;
       board.appendChild(dot);
     }
     stage.appendChild(board);
+    stage.appendChild(h("button",{className:"choice",type:"button",style:{marginTop:"12px"},onclick:()=>{
+      let hit=0,wrong=0;
+      board.querySelectorAll(".dot").forEach(button=>{
+        const selected=button.classList.contains("selected"), target=button.dataset.yes==="1";
+        if(selected&&target)hit++;
+        if(selected&&!target)wrong++;
+        if(selected)button.classList.add(target?"good":"bad","hit");
+        button.disabled=true;
+      });
+      const correct=hit+(30-total-wrong);
+      setReady(hit===total&&wrong===0,`Scan complete • ${hit}/${total} targets • ${wrong} false selections`,{hit,wrong,total,correct});
+    }},["Check scan"]));
   },
   "Rule Filter": (l, r, stage) => {
     let i = 0, c = 0;
@@ -985,7 +1018,8 @@ const TaskRegistry = {
       const match = r() < (l > 3 ? 0.5 : 0.67);
       const correctAns = match ? target : oppositeOf[target];
       wrap.innerHTML = "";
-      wrap.appendChild(h("div", {className: "taskQuestion"}, [match ? "MATCH THE SHAPE" : "CHOOSE THE OPPOSITE"]));
+      wrap.appendChild(h("div", {className: "taskQuestion"}, [match ? "Choose the same shape" : "Choose the target's paired shape"]));
+      if(!match) wrap.appendChild(h("div", {className:"smallHint"}, ["Pair rule: ◆ ↔ ● and ■ ↔ ▲"]));
       wrap.appendChild(h("div", {className: "big", style: {margin: "6px 0 20px"}}, [target]));
       const cg = h("div", {className: "choiceGrid"});
       shuffle(shapes, r).forEach(s => {
@@ -1021,7 +1055,10 @@ const TaskRegistry = {
         const b = h("button", {className: "tile", onclick: () => {
           if(b.classList.contains("used")) return;
           b.classList.add("used"); p.push(x);
-          if(p.length === sy.length) setReady(p.join("") === sy.join(""), "Sequence recorded", {sequence: p});
+          if(p.length === sy.length){
+            const correct=p.reduce((count,value,index)=>count+(value===sy[index]?1:0),0);
+            setReady(correct===sy.length, "Sequence recorded", {sequence:p,correct,total:sy.length});
+          }
         }}, [x]);
         box.appendChild(b);
       });
@@ -1041,7 +1078,9 @@ const TaskRegistry = {
           audio.tap();
           x.classList.toggle("selected");
           const got = Array.from(document.querySelectorAll(".shape.selected")).map(q => +q.id.slice(2)).sort((a,b)=>a-b);
-          setReady(got.length===chosen.length && got.every((v,j)=>v===chosen.slice().sort((a,b)=>a-b)[j]), "Select positions", {chosen});
+          const matches=got.filter(value=>chosen.includes(value)).length;
+          const fraction=got.length+chosen.length?2*matches/(got.length+chosen.length):1;
+          setReady(got.length===chosen.length && matches===chosen.length, "Select positions", {chosen,selected:got,fraction});
         };
       });
     }, 1900);
@@ -1089,7 +1128,10 @@ const TaskRegistry = {
       const b = h("button", {className: "tile", onclick: () => {
         if(b.classList.contains("used")) return;
         b.classList.add("used"); p.push(x);
-        if(p.length === base.length) setReady(p.join("|") === base.join("|"), "Order recorded");
+        if(p.length === base.length){
+          const correct=p.reduce((count,value,index)=>count+(value===base[index]?1:0),0);
+          setReady(correct===base.length, "Order recorded", {correct,total:base.length});
+        }
       }}, [x]);
       box.appendChild(b);
     });
@@ -1115,11 +1157,12 @@ const TaskRegistry = {
     const pool = [["🍎","FRUIT"],["🚲","TRANSPORT"],["🐶","ANIMAL"],["📘","OBJECT"],["🌳","NATURE"]];
     const wrap = h("div"); stage.appendChild(wrap);
     function go(){
-      if(i === 9){ setReady(c >= 8, `${c}/9 correct`); return; }
+      if(i === 9){ setReady(c >= 8, `${c}/9 correct`,{correct:c,total:9}); return; }
       const q = pick(pool, r);
       const others = shuffle(pool.filter(x => x[1] !== q[1]).map(x => x[1]), r).slice(0, 3);
       const choices = shuffle([q[1], ...others], r);
       wrap.innerHTML = "";
+      wrap.appendChild(h("div",{className:"taskQuestion"},["Which category does this item belong to?"]));
       wrap.appendChild(h("div", {className: "big"}, [q[0]]));
       const cg = h("div", {className: "choiceGrid"});
       choices.forEach(txt => {
@@ -1188,7 +1231,7 @@ const TaskRegistry = {
         const add=2+Math.floor(r()*(3+l));
         arr=[start,start*mul+add];
         for(let k=2;k<5;k++) arr.push(k%2===0 ? arr[k-1]+add : arr[k-1]*mul+add);
-        correct=arr[4]+add;
+        correct=arr[4]*mul+add;
         explanation=`Alternate ×${mul}+${add} and +${add}`;
       }else{
         // Offset square sequence for higher levels.
@@ -1258,9 +1301,15 @@ const TaskRegistry = {
   },
   "Sequence Logic": (l, r, stage) => {
     const sequences = [
-      ["Seed","Plant","Flower","Fruit"],["Question","Explore","Test","Conclusion"],["Plan","Prepare","Act","Review"],
-      ["Notice","Compare","Decide","Respond"],["Goal","Plan","Practice","Improve"],["Observe","Sort","Group","Classify"],
-      ["Idea","Design","Build","Test"],["Read","Understand","Apply","Review"],["Start","Continue","Finish","Reflect"]
+      ["Egg","Caterpillar","Chrysalis","Butterfly"],
+      ["Choose a question","Form a hypothesis","Run an experiment","Record results"],
+      ["Plan a design","Build a prototype","Test the prototype","Improve the design"],
+      ["Measure ingredients","Mix ingredients","Bake the cake","Serve the cake"],
+      ["Write a draft","Revise the draft","Proofread the draft","Publish the writing"],
+      ["Wash vegetables","Chop vegetables","Cook the vegetables","Serve the meal"],
+      ["Put on socks","Put on shoes","Tie the laces","Go outside"],
+      ["Open a book","Read a chapter","Answer the questions","Check the answers"],
+      ["Collect data","Organize data","Analyze results","Present findings"]
     ];
     const base = novelPick("Sequence Logic", sequences, r, x=>x.join("|"));
     const box = h("div", {className: "tiles"});
@@ -1277,15 +1326,17 @@ const TaskRegistry = {
   },
  "Analogy Forge": (l, r, stage) => {
     const qs = [
-      ["Bird","Nest","Bee","?","Hive"], ["Book","Read","Food","?","Eat"], 
-      ["Fish","Water","Bird","?","Air"], ["Car","Road","Train","?","Track"],
-      ["Sun","Day","Moon","?","Night"], ["Fire","Hot","Ice","?","Cold"]
+      ["Bird","Nest","Bee","?","Hive",["Wing","Honey","Tree"]],
+      ["Book","Read","Song","?","Listen",["Write","Dance","Compose"]],
+      ["Fish","Gills","Bird","?","Lungs",["Water","Nest","Fins"]],
+      ["Car","Road","Train","?","Track",["Wheel","Station","Drive"]],
+      ["Sun","Day","Moon","?","Night",["Light","Morning","Star"]],
+      ["Fire","Hot","Ice","?","Cold",["Warm","Water","Smoke"]]
     ];
     const q = novelPick("Analogy Forge", qs, r, x=>x.join("|"));
     stage.appendChild(h("div", {className: "taskQuestion"}, ["Complete the analogy:"]));
     stage.appendChild(h("div", {className: "visual", style: {fontSize: "32px", margin:"15px 0"}}, [`${q[0]} is to ${q[1]} as ${q[2]} is to ?`]));
-    const distractors = shuffle(["Home","Move","See","Sky","Run","Fast","Dark"], r).slice(0,3);
-    simpleChoices(shuffle([q[4], ...distractors], r), q[4], r);
+    simpleChoices(shuffle([q[4], ...q[5]], r), q[4], r);
   },
   "Category Builder": (l, r, stage) => {
     const pools = [
@@ -1295,7 +1346,9 @@ const TaskRegistry = {
     ];
     const g = novelPick("Category Builder", pools, r, x=>x.set.join("|")+"|"+x.answer);
     const distractorPool = ["Chair","River","Cloud","Brick","Glass","Paper","Window","Bottle","Mountain","Pencil","Garden","Road","Ocean","Clock","Table","Banana","Horse","Bus","Violin","Yellow"];
-    const distractors = shuffle(distractorPool.filter(x=>x!==g.answer), r).slice(0,3);
+    const distractors = shuffle(distractorPool.filter(x=>x!==g.answer&&!g.set.includes(x)), r).slice(0,3);
+    stage.appendChild(h("div",{className:"taskQuestion"},["Which word belongs in the same category as these?"]));
+    stage.appendChild(h("div",{className:"visual"},[g.set.join(" • ")]));
     simpleChoices(shuffle([g.answer, ...distractors], r), g.answer, r);
   },
   "Constraint Puzzle": (l, r, stage) => {
@@ -1331,12 +1384,16 @@ const TaskRegistry = {
       const sorted=candidates.slice().sort((a,b)=>a.total-b.total);
       if(sorted[0].total<sorted[1].total){best=sorted[0];break;}
     }
-    if(!best) best=candidates.slice().sort((a,b)=>a.total-b.total)[0];
+    if(!best){
+      best=candidates[0];
+      best.costs=[1,1,1]; best.total=3;
+      candidates.slice(1).forEach(candidate=>{candidate.costs=[2,1,1];candidate.total=4;});
+    }
     stage.appendChild(h("div",{className:"taskQuestion"},["Which route has the lowest TOTAL cost?"]));
     const board=h("div",{className:"tiles"});
     candidates.forEach(x=>board.appendChild(h("button",{className:"tile",type:"button",onclick:()=>{
-      if(x===best) setReady(true,`Lowest total: ${x.total}`,{selected:x.route,total:x.total,best:best.total});
-      else setReady(false,`That route costs ${x.total}. Choose again.`,{selected:x.route,total:x.total,best:best.total});
+      board.querySelectorAll("button").forEach(button=>button.disabled=true);
+      setReady(x===best,x===best?`Lowest total: ${x.total}`:`That route costs ${x.total}.`,{selected:x.route,total:x.total,best:best.total});
     }},[`${x.route} • ${x.costs.join(" + ")} = ${x.total}`])));
     stage.appendChild(board);
   },
@@ -1370,14 +1427,13 @@ const TaskRegistry = {
       }
     }
     if(!best){
-      const options=[
+      const fallbackTimes=[1,2,2,3],fallbackValues=[2,3,6,8];
+      tasks=names.map((name,i)=>({name,time:fallbackTimes[i],value:fallbackValues[i]}));
+      valid=[
         [tasks[0],tasks[2]], [tasks[0],tasks[1],tasks[3]],
         [tasks[2],tasks[1]], [tasks[0],tasks[3]]
       ].map(set=>({set,time:set.reduce((a,x)=>a+x.time,0),value:set.reduce((a,x)=>a+x.value,0)}));
-      valid=options.filter(x=>x.time<=budget);
-      if(valid.length<3) valid=options;
-      valid=valid.slice(0,4);
-      best=valid.slice().sort((a,b)=>b.value-a.value)[0];
+      best=valid[1];
     }
     stage.appendChild(h("div",{className:"taskQuestion"},[`You have ${budget} time units. Choose the plan with the highest total value without exceeding the limit.`]));
     stage.appendChild(h("div",{className:"smallHint",style:{marginBottom:"12px"}},[tasks.map(t=>`${t.name}: ${t.time} time, ${t.value} value`).join(" • ")]));
@@ -1418,7 +1474,7 @@ const TaskRegistry = {
   "Rule Switch": (l, r, stage) => {
     let i = 0, c = 0; const wrap = h("div"); stage.appendChild(wrap);
     function go(){
-      if(i === 10){ setReady(c >= 8, `${c}/10 correct`); return; }
+      if(i === 10){ setReady(c >= 8, `${c}/10 correct`,{correct:c,total:10}); return; }
       const isNum = r() > 0.5; // True 50/50 randomization
       const v = isNum ? pick([2,5,8,3,6,9,4,7], r) : pick(["A","B","E","C","I","O","U","K","M"], r);
       const truth = isNum ? v % 2 === 0 : "AEIOU".includes(v);
@@ -1435,7 +1491,7 @@ const TaskRegistry = {
   "Impulse Guard": (l, r, stage) => {
     let i = 0, c = 0; const wrap = h("div"); stage.appendChild(wrap);
     function go(){
-      if(i === 10){ setReady(c >= 8, `${c}/10 correct`); return; }
+      if(i === 10){ setReady(c >= 8, `${c}/10 correct`,{correct:c,total:10}); return; }
       const allowed = r() > .3; wrap.innerHTML = "";
       wrap.appendChild(h("div", {className: "big"}, [allowed ? "●" : "✖"]));
       let done = false;
@@ -1451,10 +1507,13 @@ const TaskRegistry = {
   "Spatial Map": (l, r, stage) => {
     const dirs=["north","east","south","west"]; let path,final;
     do{ path=Array.from({length:4+Math.min(2,l)},()=>pick(dirs,r)); final=path.reduce((a,x)=>x==="north"?{x:a.x,y:a.y+1}:x==="south"?{x:a.x,y:a.y-1}:x==="east"?{x:a.x+1,y:a.y}:{x:a.x-1,y:a.y},{x:0,y:0}); }while(final.x===0&&final.y===0);
-    const ans=Math.abs(final.x)>=Math.abs(final.y)?(final.x>0?"east":"west"):(final.y>0?"north":"south");
-    stage.appendChild(h("div",{className:"taskQuestion"},["Track the moves from START. Which direction is the final position from START?"]));
+    const horizontal=final.x>0?"east":final.x<0?"west":"";
+    const vertical=final.y>0?"north":final.y<0?"south":"";
+    const ans=vertical&&horizontal?`${vertical}-${horizontal}`:vertical||horizontal;
+    const choices=["north","north-east","east","south-east","south","south-west","west","north-west"];
+    stage.appendChild(h("div",{className:"taskQuestion"},["Track the moves from START. Which compass direction describes your final position?"]));
     stage.appendChild(h("div",{className:"visual",style:{fontSize:"25px"}},[`START → ${path.join(" • ")}`]));
-    simpleChoices(dirs,ans,r);
+    simpleChoices(choices,ans,r,false,8);
   },
   "Shape Construction": (l, r, stage) => {
     const partSets=[
@@ -1472,17 +1531,17 @@ const TaskRegistry = {
   "Word Relationship": (l, r, stage) => {
     const qs=[
       ["Bird","Nest","Bee","Hive",["Wing","Honey","Tree"]],
-      ["Book","Read","Food","Eat",["Cook","Taste","Plate"]],
-      ["Fish","Water","Bird","Air",["Swim","Nest","Sky"]],
+      ["Book","Read","Song","Listen",["Write","Dance","Compose"]],
+      ["Fish","Gills","Bird","Lungs",["Water","Nest","Fins"]],
       ["Car","Road","Train","Track",["Wheel","Station","Drive"]],
       ["Key","Lock","Password","Account",["Door","Login","Screen"]],
       ["Teacher","School","Doctor","Hospital",["Patient","Lesson","Medicine"]],
       ["Chef","Kitchen","Pilot","Cockpit",["Plane","Recipe","Runway"]],
-      ["Tree","Forest","Star","Sky",["Leaf","Space","Root"]],
+      ["Wheel","Car","Page","Book",["Road","Drive","Engine"]],
       ["Author","Book","Composer","Song",["Reader","Music","Stage"]],
       ["Camera","Photo","Microphone","Sound",["Lens","Record","Screen"]],
       ["Clock","Time","Thermometer","Temperature",["Hour","Heat","Weather"]],
-      ["Pencil","Write","Brush","Paint",["Paper","Colour","Eraser"]]
+      ["Pencil","Write","Keyboard","Type",["Paper","Letter","Mouse"]]
     ];
     const q=novelPick("Word Relationship",qs,r,x=>x.slice(0,4).join("|")+"|"+x[4].join("|")); stage.appendChild(h("div",{className:"taskQuestion"},["Complete the relationship"]));
     stage.appendChild(h("div",{className:"visual",style:{fontSize:"30px"},},[`${q[0]} : ${q[1]}  ::  ${q[2]} : ?`]));
@@ -1618,11 +1677,12 @@ function finishTask(){
   const d = state.tasks[state.idx].domain;
   if(!state.score[d]) state.score[d] = {earned:0, possible:0, time:0, attempts:0};
   const taskPoints = 10;
+  const credit=taskCredit(state.currentMeta||{},ok);
   state.score[d].possible += taskPoints;
-  state.score[d].earned += ok ? taskPoints : 0;
+  state.score[d].earned += taskPoints * credit;
   state.score[d].time += elapsed;
   state.score[d].attempts++;
-  state.raw.push({task: state.tasks[state.idx].name, domain: d, correct: ok, responseMs: elapsed, itemKey: state.currentItemKey, meta: state.currentMeta || {}});
+  state.raw.push({task: state.tasks[state.idx].name, domain: d, correct: ok, credit, responseMs: elapsed, itemKey: state.currentItemKey, meta: state.currentMeta || {}});
   [state.currentItemKey,state.currentVariantKey].forEach(k=>{if(k && !state.usedItemKeys.includes(k)) state.usedItemKeys.push(k);});
   if(state.currentContentKey && !state.usedContentKeys.includes(state.currentContentKey)) state.usedContentKeys.push(state.currentContentKey);
   (state.sessionContentKeys||[]).forEach(k=>{if(k && !state.usedContentKeys.includes(k)) state.usedContentKeys.push(k);});
@@ -1775,7 +1835,7 @@ const GAME_SUGGESTIONS={
   "Attention":[{title:"Dhāraṇā Arena",tag:"Sustained Attention",path:"dharana-arena.html"},{title:"Focus Flash",tag:"Attention Span",path:"focus-flash/index.html"},{title:"Visual Difference Detector",tag:"Visual Attention",path:"visual-difference-detector.html"}],
   "Memory":[{title:"Bhava Smriti",tag:"Memory",path:"bhava-smriti/index.html"},{title:"Neuroflash Memory",tag:"Memory Recall",path:"neuroflash-memory.html"},{title:"Memory Match Ultimate",tag:"Memory",path:"memory-match-ultimate.html"}],
   "Working Memory":[{title:"Bhava Smriti",tag:"Working Memory",path:"bhava-smriti/index.html"},{title:"Memory Match Puzzle",tag:"Working Memory",path:"memory-match-puzzle.html"}],
-  "Processing Speed":[{title:"Focus Flash",tag:"Reaction Speed",path:"focus-flash/index.html"},{title:"Dhāraṇā Arena",tag:"Reaction Speed",path:"dharana-arena.html"},{title:"Math Blitz",tag:"Quick Thinking",path:"math-blitz.html"}],
+  "Visual Recognition":[{title:"Visual Difference Detector",tag:"Visual Recognition",path:"visual-difference-detector.html"}],
   "Reasoning":[{title:"Brain Quest",tag:"Reasoning",path:"brain-quest.html"},{title:"Mindscape Pro",tag:"Logical Reasoning",path:"mindscape-pro.html"},{title:"Logic Grid Puzzle",tag:"Reasoning",path:"logic-grid-puzzle.html"}],
   "Problem Solving":[{title:"Logic Grid Puzzle",tag:"Problem Solving",path:"logic-grid-puzzle.html"},{title:"Neurospark",tag:"Problem Solving",path:"neurospark.html"}],
   "Executive Functions":[{title:"Dhāraṇā Arena",tag:"Impulse Control",path:"dharana-arena.html"},{title:"Focus Under Distraction",tag:"Executive Function",path:"focus-under-distraction.html"}],
@@ -1797,14 +1857,6 @@ function renderSuggestedGames(vals){
     `<div class="sgGrid">`+picks.map(g=>`<div class="sgCard"><span class="sgTag">${g.tag}</span><b>${g.title}</b><a class="sgPlay" href="/games-static/${g.path}" target="_blank" rel="noopener">Play now →</a></div>`).join("")+`</div>`;
 }
 
-function scoreBand(pct){
-  if(pct>=85) return {label:"Strong", cls:"band-excellent"};
-  if(pct>=70) return {label:"Good Progress", cls:"band-good"};
-  if(pct>=55) return {label:"Developing", cls:"band-average"};
-  if(pct>=40) return {label:"Emerging", cls:"band-below"};
-  return {label:"Room to Grow", cls:"band-attention"};
-}
-
 function publishResults(){
   if(!state.pendingResults) return;
   show("results");
@@ -1819,43 +1871,41 @@ function finish(timeExpired=false,integrityStop=false){
  if(!timeExpired&&!integrityStop){$("progress").style.width="100%"}
  const vals=Object.entries(state.score).map(([name,s])=>{
   const accuracy=100*s.earned/Math.max(1,s.possible);
-  const avg=s.time/Math.max(1,s.attempts);
-  const speed=Math.max(0,Math.min(100,100-(avg/22000)*35));
-  return {name,pct:Math.round(accuracy*.8+speed*.2)};
+  return {name,pct:Math.round(accuracy),tasks:s.attempts};
  });
- const overall=vals.length?Math.round(vals.reduce((a,b)=>a+b.pct,0)/vals.length):0;
+ const totalEarned=Object.values(state.score).reduce((sum,score)=>sum+score.earned,0);
+ const totalPossible=Object.values(state.score).reduce((sum,score)=>sum+score.possible,0);
+ const overall=totalPossible?Math.round(totalEarned/totalPossible*100):0;
+ const briefMode=state.mode!=="detailed";
  $("overall").textContent=overall+"%";$("circle").style.setProperty("--score",overall+"%");
  $("resultHeading").textContent=state.status==="Valid"?"Nicely done!":state.status==="Incomplete"?"Session paused":"Time's up!";
  $("resultText").textContent=state.participant.name+", "+(state.status==="Valid"?"you just completed the assessment — here’s a gentle snapshot of how you performed today.":state.status==="Incomplete"?"the session was interrupted before we could finish. No worries, you can always try again.":"the maximum assessment time was reached. We’ve captured the work completed so far.");
 
  const analysisGrid = $("analysisGrid");
- let sorted=[], best=null, worst=null, median=overall, stddev=0, strengths=[], develop=[];
+ let sorted=[], best=null, worst=null, stddev=0;
  if(analysisGrid && vals.length){
    sorted = vals.slice().sort((a,b)=>a.pct-b.pct);
    best = sorted[sorted.length-1];
    worst = sorted[0];
-   const mid = Math.floor(sorted.length/2);
-   median = sorted.length % 2 ? sorted[mid].pct : Math.round((sorted[mid-1].pct + sorted[mid].pct)/2);
    const mean = overall;
    const variance = vals.reduce((a,v)=>a+Math.pow(v.pct-mean,2),0)/vals.length;
    stddev = Math.round(Math.sqrt(variance));
-   const bestBand = scoreBand(best.pct), worstBand = scoreBand(worst.pct), meanBand = scoreBand(mean);
-   analysisGrid.innerHTML = `
-     <div class="analysisBox"><div class="label">Strongest area</div><div class="value lockedValue">${best.pct}%</div><div class="sub lockedSub">${best.name}<br><span class="band ${bestBand.cls}">${bestBand.label}</span></div></div>
-     <div class="analysisBox"><div class="label">Overall snapshot</div><div class="value">${mean}%</div><div class="sub">Your Medhā score, out of 100</div></div>
-     <div class="analysisBox"><div class="label">Room to grow</div><div class="value lockedValue">${worst.pct}%</div><div class="sub lockedSub">${worst.name}<br><span class="band ${worstBand.cls}">${worstBand.label}</span></div></div>
-     <div class="analysisBox"><div class="label">Profile variation</div><div class="value lockedValue">${stddev}</div><div class="sub">How much the areas differ</div></div>
+   analysisGrid.innerHTML = briefMode ? `
+     <div class="analysisBox"><div class="label">Session accuracy</div><div class="value">${mean}%</div><div class="sub">Across ${state.tasks.length} short activities</div></div>
+    <div class="analysisBox"><div class="label">Area results</div><div class="sub">Most areas have one activity; treat area results as task results, not ability estimates.</div></div>
+   ` : `
+     <div class="analysisBox"><div class="label">Highest task-area accuracy</div><div class="value lockedValue">${best.pct}%</div><div class="sub lockedSub">${best.name} · ${best.tasks} activities</div></div>
+     <div class="analysisBox"><div class="label">Overall task accuracy</div><div class="value">${mean}%</div><div class="sub">Across ${state.tasks.length} activities</div></div>
+     <div class="analysisBox"><div class="label">Lowest task-area accuracy</div><div class="value lockedValue">${worst.pct}%</div><div class="sub lockedSub">${worst.name} · ${worst.tasks} activities</div></div>
+     <div class="analysisBox"><div class="label">Accuracy spread</div><div class="value lockedValue">${stddev}</div><div class="sub">Difference across task areas</div></div>
    `;
  } else if(analysisGrid) analysisGrid.innerHTML = "";
 
  $("bars").innerHTML=vals.map(v=>{
-   const b=scoreBand(v.pct);
-   return `<div class="barrow"><b>${v.name}</b><div class="bar lockedBar" aria-label="${v.name} score is locked"><i style="width:52%"></i></div><span class="lockedValue">${v.pct}%<span class="band ${b.cls}">${b.label}</span></span></div>`;
+   return `<div class="barrow"><b>${v.name} <small>(${v.tasks} ${v.tasks===1?"activity":"activities"})</small></b><div class="bar lockedBar" aria-label="${v.name} task accuracy is locked"><i style="width:52%"></i></div><span class="lockedValue">${v.pct}%</span></div>`;
  }).join("");
- strengths=vals.filter(x=>x.pct>=75).map(x=>x.name);
- develop=vals.filter(x=>x.pct<60).map(x=>x.name);
- $("profile").innerHTML=`<div class="profileBox"><b>Your strengths today</b><span class="lockedSub">${strengths.length?strengths.join(", "):"Your performance was fairly balanced across the areas we explored."}</span></div><div class="profileBox"><b>Good areas to keep building</b><span class="lockedSub">${develop.length?develop.join(", "):"You showed a solid balance across the areas we explored."}</span></div>`;
- renderSuggestedGames(vals);
+ $("profile").innerHTML=`<div class="profileBox"><b>How to read these results</b><span>Percentages show accuracy on generated activities in this session. They do not establish cognitive strengths or weaknesses and are not age-normed.</span></div>`;
+ if(briefMode) $("suggestedGames").innerHTML=""; else renderSuggestedGames(vals);
  const finalStatus = state.status;
  state.status="Finished";
  state.finalStatus = finalStatus;
@@ -1865,15 +1915,15 @@ function finish(timeExpired=false,integrityStop=false){
  state.paymentStatus = "NOT_VERIFIED";
  $("resultLockPanel").classList.remove("hidden");
  $("resultLockPanel").classList.remove("fullUnlocked");
- $("resultLockBadge").textContent = "🔒 Detailed profile ready";
- $("resultLockTitle").textContent = "See your complete cognitive profile";
+ $("resultLockBadge").textContent = "🔒 Detailed task report ready";
+ $("resultLockTitle").textContent = "See your detailed task results";
  $("resultLockText").textContent = finalStatus === "Valid"
-   ? "Your assessment is complete. Your Medhā score is shown above. Your detailed scores are ready and gently protected until payment is confirmed."
-   : "Your assessment session has ended. The detailed profile remains protected until the assessment is completed and payment is confirmed.";
+  ? (briefMode ? "Your session accuracy is shown above. Task-area results are available after payment confirmation; most areas reflect one short activity." : "Your session accuracy is shown above. Detailed task-area accuracy is available after payment confirmation.")
+   : "Your assessment session has ended. The detailed task report is available after the attempt is completed and payment is confirmed.";
  $("resultPaymentUtr").value = "";
  $("resultPaymentState").classList.remove("show");
  show("results");
- voice.speak(`${$("resultHeading").textContent}. Your Medhā score is ${overall}.`);
+ voice.speak(`${$("resultHeading").textContent}. Session task accuracy is ${overall} percent.`);
 }
 
 function buildExportPayload(){

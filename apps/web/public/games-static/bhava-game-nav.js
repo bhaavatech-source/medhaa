@@ -207,6 +207,13 @@
     return true;
   }
 
+  function clearScreenHistory() {
+    _screenStack.length = 0;
+    _trackedGroups.forEach(function (g) {
+      g.lastEl = document.querySelector(g.selector + '.' + g.activeClass);
+    });
+  }
+
   // ── Actions ────────────────────────────────────────────────────────────────
   function goHome() { window.location.href = '/student'; }
   function goBack() { if (internalBack()) return; window.history.length > 1 ? window.history.back() : goHome(); }
@@ -378,6 +385,161 @@
     if (checkReady() || ++checks > 40) clearInterval(poll);
   }, 250);
 
+  // ── Touch drag bridge ──────────────────────────────────────────────────────
+  // Mobile WebViews don't fire HTML5 drag events for finger drags, so translate
+  // touch gestures on [draggable="true"] into dragstart/dragover/drop/dragend.
+  // Games with their own touch drag opt out with data-touch-drag="custom".
+  (function initTouchDragBridge() {
+    if (window.__medhaaTouchDragBridge) return;
+    window.__medhaaTouchDragBridge = true;
+
+    var drag = null;
+    var EDGE = 70;
+
+    // Without this the browser may claim the gesture as a scroll and cancel the drag.
+    var touchStyle = document.createElement('style');
+    touchStyle.textContent = '[draggable="true"]:not([data-touch-drag="custom"]){touch-action:none;}';
+    document.head.appendChild(touchStyle);
+
+    function makeTransfer() {
+      var store = {};
+      return {
+        dropEffect: 'move', effectAllowed: 'all', files: [], items: [],
+        get types() { return Object.keys(store); },
+        setData: function (type, value) { store[String(type)] = String(value); },
+        getData: function (type) { return store[String(type)] || ''; },
+        clearData: function (type) { if (type) delete store[type]; else store = {}; },
+        setDragImage: function () {},
+      };
+    }
+
+    function fire(target, type, x, y, related) {
+      if (!target) return false;
+      var event = new Event(type, { bubbles: true, cancelable: true });
+      Object.defineProperties(event, {
+        dataTransfer: { value: drag.transfer },
+        clientX: { value: x }, clientY: { value: y },
+        pageX: { value: x + window.scrollX }, pageY: { value: y + window.scrollY },
+        relatedTarget: { value: related || null },
+      });
+      return !target.dispatchEvent(event);
+    }
+
+    function elementAt(x, y) {
+      return document.elementFromPoint(x, y) || document.body;
+    }
+
+    function spawnGhost(source, x, y) {
+      var rect = source.getBoundingClientRect();
+      var ghost = source.cloneNode(true);
+      ghost.removeAttribute('id');
+      ghost.querySelectorAll('[id]').forEach(function (n) { n.removeAttribute('id'); });
+      ghost.setAttribute('aria-hidden', 'true');
+      ghost.style.cssText += ';position:fixed;margin:0;z-index:2147483647;pointer-events:none;' +
+        'opacity:.85;transform:scale(1.04);box-shadow:0 10px 26px rgba(0,0,0,.45);' +
+        'width:' + rect.width + 'px;height:' + rect.height + 'px;box-sizing:border-box;';
+      drag.offsetX = x - rect.left;
+      drag.offsetY = y - rect.top;
+      document.body.appendChild(ghost);
+      drag.ghost = ghost;
+      moveGhost(x, y);
+    }
+
+    function moveGhost(x, y) {
+      if (!drag.ghost) return;
+      drag.ghost.style.left = (x - drag.offsetX) + 'px';
+      drag.ghost.style.top = (y - drag.offsetY) + 'px';
+    }
+
+    function autoScroll() {
+      if (!drag || !drag.active) return;
+      var step = 0;
+      var bottomEdge = window.innerHeight - EDGE - 52;
+      // Only scroll toward an edge the finger has moved toward, not one it started in.
+      if (drag.y < EDGE && drag.y < drag.startY - 10) step = -Math.ceil((EDGE - drag.y) / 5);
+      else if (drag.y > bottomEdge && drag.y > drag.startY + 10) step = Math.ceil((drag.y - bottomEdge) / 5);
+      if (step) {
+        window.scrollBy(0, step);
+        updateTarget(drag.x, drag.y);
+      }
+      drag.raf = requestAnimationFrame(autoScroll);
+    }
+
+    function updateTarget(x, y) {
+      var under = elementAt(x, y);
+      if (under !== drag.over) {
+        if (drag.over) fire(drag.over, 'dragleave', x, y, under);
+        fire(under, 'dragenter', x, y, drag.over);
+        drag.over = under;
+      }
+      drag.accepted = fire(under, 'dragover', x, y);
+    }
+
+    function finish(dropped) {
+      if (!drag) return;
+      var state = drag;
+      if (state.active) {
+        cancelAnimationFrame(state.raf);
+        if (state.ghost) state.ghost.remove();
+        if (dropped) {
+          updateTarget(state.x, state.y);
+          if (state.accepted) fire(state.over, 'drop', state.x, state.y);
+          else fire(state.over, 'dragleave', state.x, state.y);
+        } else if (state.over) {
+          fire(state.over, 'dragleave', state.x, state.y);
+        }
+        fire(state.source, 'dragend', state.x, state.y);
+      }
+      drag = null;
+    }
+
+    document.addEventListener('touchstart', function (event) {
+      if (drag) finish(false);
+      if (event.touches.length !== 1) return;
+      var source = event.target.closest && event.target.closest('[draggable="true"]');
+      if (!source || source.closest('[data-touch-drag="custom"], #bhava-game-nav')) return;
+      if (event.target.closest('input, textarea, select, [contenteditable="true"]')) return;
+      var touch = event.touches[0];
+      drag = { source: source, startX: touch.clientX, startY: touch.clientY, x: touch.clientX, y: touch.clientY, active: false };
+    }, { capture: true, passive: true });
+
+    document.addEventListener('touchmove', function (event) {
+      if (!drag) return;
+      var touch = event.touches[0];
+      drag.x = touch.clientX;
+      drag.y = touch.clientY;
+      if (!drag.active) {
+        var dx = drag.x - drag.startX;
+        var dy = drag.y - drag.startY;
+        if (Math.abs(dx) < 4 && Math.abs(dy) < 4) return;
+        drag.transfer = makeTransfer();
+        if (fire(drag.source, 'dragstart', drag.startX, drag.startY)) {
+          drag = null;
+          return;
+        }
+        drag.active = true;
+        spawnGhost(drag.source, drag.x, drag.y);
+        drag.raf = requestAnimationFrame(autoScroll);
+      }
+      if (event.cancelable) event.preventDefault();
+      moveGhost(drag.x, drag.y);
+      updateTarget(drag.x, drag.y);
+    }, { capture: true, passive: false });
+
+    document.addEventListener('touchend', function (event) {
+      if (!drag) return;
+      if (drag.active) event.preventDefault();
+      finish(true);
+    }, { capture: true, passive: false });
+
+    document.addEventListener('touchcancel', function () { finish(false); }, { capture: true, passive: true });
+
+    // Browser-native touch drag (e.g. long-press on newer Chrome) wins if it starts first.
+    document.addEventListener('dragstart', function (event) {
+      if (event.isTrusted && drag && !drag.active) drag = null;
+    }, true);
+  })();
+
   // ── Public API ─────────────────────────────────────────────────────────────
   window.BhavaNav = {
     setStudent: function (id) {
@@ -388,6 +550,7 @@
     openReport: openReport,
     goHome:     goHome,
     goBack:     goBack,
+    clearScreenHistory: clearScreenHistory,
     // Register an extra screen-toggle convention for the in-game Back stack
     // (built-in: '.screen'/'active' and '.level-section'/'active-level').
     trackScreens: trackScreens,

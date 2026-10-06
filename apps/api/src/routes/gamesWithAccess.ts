@@ -6,18 +6,20 @@ import { checkGameAccess } from '../services/gameEntitlement';
 const prisma = new PrismaClient();
 const router = Router();
 
-function mapGameWithAccess(game: any, accountCreatedAt: Date, isSubscribed: boolean, trialEndsAt?: Date | null) {
+function mapGameWithAccess(game: any, accountCreatedAt: Date, isSubscribed: boolean, trialEndsAt?: Date | null, isAdmin = false) {
   try {
     const access = checkGameAccess({
       gameSlug: game.slug,
       accountCreatedAt,
       isSubscribed,
+      isAdmin,
       dbTier: game.tier,
       isActive: game.isActive,
     });
     return {
       slug: game.slug,
       title: game.title,
+      entryPath: game.entryPath,
       domain: game.domain,
       ageLabel: game.ageLabel,
       skills: game.skills,
@@ -69,7 +71,13 @@ router.get('/with-access', authenticate, async (req: AuthenticatedRequest, res: 
     ?? subscriptions.find((entry) => entry.status === 'TRIALING' && entry.trialEndsAt && entry.trialEndsAt > new Date());
 
   const gamesWithAccess = games
-    .map((game) => mapGameWithAccess(game, student.createdAt, !!subscription, subscription?.status === 'TRIALING' ? subscription.trialEndsAt : null))
+    .map((game) => mapGameWithAccess(
+      game,
+      student.createdAt,
+      !!subscription,
+      subscription?.status === 'TRIALING' ? subscription.trialEndsAt : null,
+      req.user!.role === 'admin'
+    ))
     .filter((g) => g !== null);
 
   const lastCheckIn = await prisma.cognitiveCheckIn.findFirst({

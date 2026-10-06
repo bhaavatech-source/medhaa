@@ -30,6 +30,7 @@ export class DragDropController {
   }
   makeDraggable(el, payload) {
     el.setAttribute("draggable", "true");
+    el.dataset.touchDrag = "custom";
     el.addEventListener("dragstart", (e) => {
       this.draggedPayload = payload;
       el.classList.add("dragging");

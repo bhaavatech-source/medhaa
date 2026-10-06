@@ -45,6 +45,8 @@ const learningGuide = new LearningGuide(learningPathData, partsData);
 let simTimer = null;
 let trackTimer = null;
 let roadTrackPx = 0;
+let displayedTrackSpeed = 0;
+let wheelAngle = 0;
 
 let mission = new MissionFactory().create(missionsData[0]);
 store.patch({ mission });
@@ -86,6 +88,10 @@ function updateLevelBadge() {
 }
 
 function selectMission(id) {
+  if (simTimer) clearInterval(simTimer);
+  simTimer = null;
+  setExploreVisible(false);
+  stopTrackMotion();
   mission = new MissionFactory().create(missionIndex.get(id));
   store.patch({ mission, installedIds: [], lastResult: null, simStep: 0, simHistory: [], trackDistance: 0, lastMotionSpeed: 0 });
   renderMission(mission);
@@ -279,7 +285,7 @@ function refreshUI() {
   const state = store.getState();
   const installedIds = new Set(state.installedIds);
 
-  renderParts(state.parts, installedIds, (partId) => togglePart(partId));
+  renderParts(state.parts, installedIds, (partId) => togglePart(partId), state.mission);
 
   const result = state.lastResult || computeSimFrame();
 
@@ -460,6 +466,13 @@ function bindHeroNav() {
   });
 }
 
+function setExploreVisible(visible) {
+  const footer = document.getElementById('exploreFooter');
+  const navButton = document.querySelector('[data-nav-target="exploreFooter"]');
+  if (footer) footer.hidden = !visible;
+  if (navButton) navButton.hidden = !visible;
+}
+
 function applyLevelCarLook() {
   const currentMission = store.getState().mission;
   const shell = document.getElementById('trackCar');
@@ -470,6 +483,8 @@ function applyLevelCarLook() {
 }
 
 function resetTrack() {
+  displayedTrackSpeed = 0;
+  wheelAngle = 0;
   const car = document.getElementById('trackCar');
   const road = document.getElementById('trackRoad');
   const boundary = document.getElementById('trackBoundary');
@@ -483,35 +498,62 @@ function resetTrack() {
   if (boundary) boundary.style.transform = 'translateX(0px)';
 
   roadTrackPx = 0;
+  document.querySelectorAll('#trackCar .car-wheel').forEach(wheel => {
+    wheel.style.transform = 'rotate(0deg)';
+  });
   document.getElementById('trackNote').textContent = 'Press Start Test to begin.';
 }
 
-function advanceTrack(speed) {
+function advanceTrack(speed, elapsedSeconds) {
   const road = document.getElementById('trackRoad');
-  const car = document.getElementById('trackCar');
-  const note = document.getElementById('trackNote');
 
-  const step = Math.max(0, speed) * 0.22;
-  roadTrackPx += step;
+  const distance = Math.max(0, speed) * 1.22 * elapsedSeconds;
+  roadTrackPx += distance;
 
   if (road) {
-    road.style.transform = `translateX(${-Math.floor(roadTrackPx)}px)`;
+    road.style.transform = `translateX(${-roadTrackPx}px)`;
   }
 
-  if (car) {
-    car.style.left = '18%';
-  }
-
-  if (note && speed > 0) {
-    note.textContent = 'Vehicle running on extended track.';
-  }
+  wheelAngle = (wheelAngle + distance / 10.85 * 180 / Math.PI) % 360;
+  document.querySelectorAll('#trackCar .car-wheel').forEach(wheel => {
+    wheel.style.transform = `rotate(${wheelAngle}deg)`;
+  });
 }
 
 function stopTrackMotion() {
-  if (trackTimer) {
-    clearInterval(trackTimer);
+  if (trackTimer !== null) {
+    cancelAnimationFrame(trackTimer);
     trackTimer = null;
   }
+  displayedTrackSpeed = 0;
+  store.patch({ lastMotionSpeed: 0 });
+  const car = document.getElementById('trackCar');
+  car?.classList.remove('running', 'was-running');
+  const speedGauge = document.querySelector('#gSpeed strong');
+  if (speedGauge) speedGauge.textContent = '0 km/h';
+  const speedBar = document.querySelector('#gSpeed .gauge-fill span');
+  if (speedBar) speedBar.style.width = '0%';
+}
+
+function startTrackMotion() {
+  let lastFrameTime = performance.now();
+  const animate = frameTime => {
+    const elapsedSeconds = Math.min(0.1, Math.max(0, (frameTime - lastFrameTime) / 1000));
+    lastFrameTime = frameTime;
+    const state = store.getState();
+    const targetSpeed = state.lastResult?.sim?.stall ? 0 : state.lastMotionSpeed || 0;
+    displayedTrackSpeed += (targetSpeed - displayedTrackSpeed) * (1 - Math.exp(-elapsedSeconds * 8));
+    if (displayedTrackSpeed < 0.1) displayedTrackSpeed = 0;
+    const car = document.getElementById('trackCar');
+    car?.classList.toggle('running', displayedTrackSpeed > 0);
+    const gauge = document.querySelector('#gSpeed strong');
+    if (gauge) gauge.textContent = Math.round(displayedTrackSpeed) + ' km/h';
+    const bar = document.querySelector('#gSpeed .gauge-fill span');
+    if (bar) bar.style.width = Math.min(100, displayedTrackSpeed) + '%';
+    if (displayedTrackSpeed > 0) advanceTrack(displayedTrackSpeed, elapsedSeconds);
+    trackTimer = requestAnimationFrame(animate);
+  };
+  trackTimer = requestAnimationFrame(animate);
 }
 
 function updateTrack(sim) {
@@ -525,8 +567,10 @@ function updateTrack(sim) {
   const brakePct = Math.min(100, Math.max(0, (sim?.brakeMargin || 0) + 50));
   const q = (sel) => document.querySelector(sel);
 
-  if (q('#gSpeed .gauge-fill span')) q('#gSpeed .gauge-fill span').style.width = speedPct + '%';
-  if (q('#gSpeed strong')) q('#gSpeed strong').textContent = (sim?.speed || 0) + ' km/h';
+  if (trackTimer === null) {
+    if (q('#gSpeed .gauge-fill span')) q('#gSpeed .gauge-fill span').style.width = speedPct + '%';
+    if (q('#gSpeed strong')) q('#gSpeed strong').textContent = (sim?.speed || 0) + ' km/h';
+  }
 
   if (q('#gTemp .gauge-fill span')) q('#gTemp .gauge-fill span').style.width = tempPct + '%';
   if (q('#gTemp strong')) q('#gTemp strong').textContent = (sim?.temperature || 0) + '°C';
@@ -540,7 +584,7 @@ function updateTrack(sim) {
   if (sim?.stall) {
     car.classList.remove('running');
     car.classList.add('stalled');
-    note.textContent = 'Engine stalled. Check battery and cooling.';
+    note.textContent = 'Test stopped: ' + (sim.stopReasons?.join(' ') || 'Check the build diagnostics.');
     soundManager.stall();
     stopTrackMotion();
     return;
@@ -549,20 +593,23 @@ function updateTrack(sim) {
   if ((sim?.speed || 0) > 0) {
     car.classList.add('running');
     car.classList.remove('stalled');
-    note.textContent = 'Vehicle running toward checkpoint.';
+    note.textContent = sim.phase === 'braking' ? 'Slowing down for a controlled stop.' : sim.phase === 'cruising' ? 'Cruising on the test track.' : 'Accelerating gently.';
     if (!car.classList.contains('was-running')) {
       soundManager.startEngine();
       car.classList.add('was-running');
     }
-    advanceTrack(sim.speed);
   } else {
-    car.classList.remove('running', 'stalled', 'was-running');
-    note.textContent = 'Vehicle idle.';
-    stopTrackMotion();
+    car.classList.remove('stalled');
+    note.textContent = sim?.phase === 'accelerating' ? 'Starting gently.' : sim?.phase === 'stopped' ? 'Vehicle stopped safely.' : 'Vehicle idle.';
+    if (sim?.phase !== 'accelerating' && sim?.phase !== 'stopped') stopTrackMotion();
   }
 }
 
 function togglePart(partId) {
+  if (simTimer) clearInterval(simTimer);
+  simTimer = null;
+  stopTrackMotion();
+  resetTrack();
   const state = store.getState();
   const wasInstalled = state.installedIds.includes(partId);
 
@@ -573,7 +620,7 @@ function togglePart(partId) {
   if (!wasInstalled) soundManager.install();
   else soundManager.remove();
 
-  store.patch({ installedIds, lastResult: null });
+  store.patch({ installedIds, lastResult: null, simStep: 0, simHistory: [], lastMotionSpeed: 0 });
   eventBus.emit('part:toggled', { partId, installedIds });
   refreshUI();
 }
@@ -588,7 +635,7 @@ function tickSimulation() {
     lastResult: current,
     simStep: nextStep,
     simHistory: nextHistory,
-    lastMotionSpeed: current.sim?.speed || 0
+    lastMotionSpeed: current.sim?.stall ? 0 : current.sim?.speed || 0
   });
 
   eventBus.emit('simulation:tick', current);
@@ -597,10 +644,11 @@ function tickSimulation() {
 }
 
 function runSimulation() {
+  setExploreVisible(false);
   soundManager.startEngine();
 
   if (simTimer) clearInterval(simTimer);
-  if (trackTimer) clearInterval(trackTimer);
+  stopTrackMotion();
 
   resetTrack();
 
@@ -619,31 +667,24 @@ function runSimulation() {
   simTimer = setInterval(() => {
     const state = store.getState();
 
-    if (state.simStep >= 20 || state.lastResult?.scores?.overall >= 90) {
+    if (state.simStep >= 20 || state.lastResult?.sim?.stall) {
       clearInterval(simTimer);
       simTimer = null;
-      if (trackTimer) {
-        clearInterval(trackTimer);
-        trackTimer = null;
-      }
+      stopTrackMotion();
       if (state.lastResult?.scores?.overall >= 90) soundManager.success();
 
       const note = document.getElementById('trackNote');
       if (note && !state.lastResult?.sim?.stall) {
-        note.textContent = 'Test complete. Press Run Test to start again.';
+        note.textContent = 'Test complete. The car slowed down and stopped safely.';
       }
+      setExploreVisible(true);
       return;
     }
 
     tickSimulation();
   }, 650);
 
-  trackTimer = setInterval(() => {
-    const state = store.getState();
-    if ((state.lastMotionSpeed || 0) > 0) {
-      advanceTrack(state.lastMotionSpeed);
-    }
-  }, 180);
+  if (!store.getState().lastResult?.sim?.stall) startTrackMotion();
 }
 
 function initSound() {

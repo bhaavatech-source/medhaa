@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Medhā Space Academy — Astronaut Career & Mission Engineering Simulator</title>
+  <title>Medhā Space Academy — ISS Systems Learning Simulator</title>
   <link rel="icon" href="data:,">
   <style>
     :root {
@@ -104,6 +104,7 @@
       display: flex; gap: 16px; font-size: 0.82rem; color: var(--muted); flex-wrap: wrap;
     }
     .rank-stats strong { color: #fff; }
+    .simulation-note { margin: 0 0 12px; color: var(--cyan); font-size: 0.78rem; font-weight: 700; line-height: 1.45; }
 
     /* Role Selection Screen */
     #role-screen { display: block; }
@@ -334,11 +335,11 @@
         <div class="logo"></div>
         <div>
           <h1>Medhā Space Academy</h1>
-          <p>ASTRONAUT CAREER & MISSION ENGINEERING SIMULATOR</p>
+          <p>ISS SYSTEMS LEARNING SIMULATOR</p>
         </div>
       </div>
       <div class="nav-actions">
-        <button class="nav-btn" onclick="triggerRandomHazard()">⚠️ Test Hazard Drill</button>
+        <button class="nav-btn" onclick="triggerRandomHazard()">⚠️ Run Simulated Hazard</button>
         <a href="iss-learn-panel.html" class="nav-btn">📖 Return to ISS Lessons</a>
       </div>
     </header>
@@ -349,22 +350,21 @@
         <span id="rank-icon">🚀</span>
         <div>
           <div id="rank-title">ISS Cadet</div>
-          <small style="color:var(--muted); font-size:0.75rem;">Astronaut Rating: <span id="rating-score">100</span></small>
+          <small style="color:var(--muted); font-size:0.75rem;">Game rank · Simulation XP: <span id="rating-score">0</span></small>
         </div>
       </div>
       <div class="rank-stats">
         <span>Engineering: <strong id="pt-eng">0</strong></span>
         <span>Science: <strong id="pt-sci">0</strong></span>
         <span>Leadership: <strong id="pt-lead">0</strong></span>
-        <span>Safety Rating: <strong id="pt-safe">100%</strong></span>
       </div>
     </div>
 
     <!-- SCREEN 1: CAREER ROLE SELECTION -->
     <section id="role-screen">
       <div class="screen-title">
-        <h2>👨‍🚀 Select Your Orbit Specialization</h2>
-        <p>Choose an active career track. Operate live station systems, repair faults, and master orbital engineering.</p>
+        <h2>👨‍🚀 Choose a Learning Track</h2>
+        <p>Explore simplified, fictional scenarios inspired by ISS systems. This learning game does not represent live telemetry, flight procedures, or astronaut qualification.</p>
       </div>
 
       <div class="role-grid">
@@ -372,7 +372,7 @@
           <div>
             <div class="role-icon">🎖️</div>
             <h3>Station Commander</h3>
-            <p>Execute orbital reboost burns against atmospheric drag, isolate depressurizing node hatches, and manage eclipse battery grids.</p>
+            <p>Explore reboost, hatch-isolation, and eclipse-power scenarios inspired by station systems.</p>
           </div>
           <button class="select-btn">Select Commander</button>
         </div>
@@ -381,7 +381,7 @@
           <div>
             <div class="role-icon">⚙️</div>
             <h3>Flight Engineer</h3>
-            <p>Maintain cabin air CO₂ scrubbers, calibrate ~98% water recovery distillation loops, and balance ammonia heat rejection radiators.</p>
+            <p>Explore illustrative air-scrubbing, water-recovery, and thermal-control scenarios.</p>
           </div>
           <button class="select-btn">Select Engineer</button>
         </div>
@@ -390,7 +390,7 @@
           <div>
             <div class="role-icon">🔬</div>
             <h3>Science Officer</h3>
-            <p>Adjust microgravity protein crystallization racks, regulate Veggie botanical gardens, and analyze spherical combustion flames.</p>
+            <p>Explore protein-crystal, plant-growth, and microgravity-combustion concepts.</p>
           </div>
           <button class="select-btn">Select Scientist</button>
         </div>
@@ -399,7 +399,7 @@
           <div>
             <div class="role-icon">🤖</div>
             <h3>Robotics & EVA Specialist</h3>
-            <p>Operate the Canadarm2 robotic arm to berth cargo spacecraft, conduct EMU spacesuit pre-breathing, and fly the SAFER rescue jetpack.</p>
+            <p>Explore Canadarm2 berthing, EVA preparation, and SAFER concepts in simplified scenarios.</p>
           </div>
           <button class="select-btn">Select Specialist</button>
         </div>
@@ -408,22 +408,23 @@
 
     <!-- SCREEN 2: ACTIVE MISSION CONSOLE -->
     <section id="mission-screen">
+      <p class="simulation-note">SIMULATED READINGS · Illustrative game values only; not live ISS telemetry or operating limits.</p>
       <!-- Dynamic Animated Telemetry Grid -->
       <div class="telemetry-grid">
         <div class="gauge-card" id="gauge-o2">
-          <div class="gauge-title"><span>Oxygen (O₂)</span> <span>Target: 21%</span></div>
+          <div class="gauge-title"><span>Oxygen (O₂)</span> <span>Example: 21%</span></div>
           <div class="gauge-value" id="val-o2">21.0%</div>
           <div class="gauge-bar-bg"><div class="gauge-bar-fill" id="bar-o2" style="width:100%; background:var(--accent-2);"></div></div>
         </div>
 
         <div class="gauge-card" id="gauge-co2">
-          <div class="gauge-title"><span>Carbon Dioxide</span> <span>Safe: &lt;0.5%</span></div>
+          <div class="gauge-title"><span>Carbon Dioxide</span> <span>Illustrative reading</span></div>
           <div class="gauge-value" id="val-co2">0.32%</div>
           <div class="gauge-bar-bg"><div class="gauge-bar-fill" id="bar-co2" style="width:30%; background:var(--accent-2);"></div></div>
         </div>
 
         <div class="gauge-card" id="gauge-alt">
-          <div class="gauge-title"><span>Orbital Altitude</span> <span>400 km Orbit</span></div>
+          <div class="gauge-title"><span>Orbital Altitude</span> <span>Scenario value</span></div>
           <div class="gauge-value" id="val-alt">400.2 km</div>
           <div class="gauge-bar-bg"><div class="gauge-bar-fill" id="bar-alt" style="width:85%; background:var(--accent);"></div></div>
         </div>
@@ -435,14 +436,14 @@
         </div>
 
         <div class="gauge-card" id="gauge-temp">
-          <div class="gauge-title"><span>Cabin Thermal</span> <span>Nominal: 22°C</span></div>
+          <div class="gauge-title"><span>Cabin Temperature</span> <span>Scenario value</span></div>
           <div class="gauge-value" id="val-temp">22.1°C</div>
           <div class="gauge-bar-bg"><div class="gauge-bar-fill" id="bar-temp" style="width:55%; background:var(--accent-2);"></div></div>
         </div>
 
         <div class="gauge-card" id="gauge-rad">
-          <div class="gauge-title"><span>Radiation Flux</span> <span>Low Earth Orbit</span></div>
-          <div class="gauge-value" id="val-rad">0.42 mSv</div>
+          <div class="gauge-title"><span>Radiation (scenario)</span> <span>Illustrative units</span></div>
+          <div class="gauge-value" id="val-rad">0.42 units</div>
           <div class="gauge-bar-bg"><div class="gauge-bar-fill" id="bar-rad" style="width:20%; background:var(--accent-2);"></div></div>
         </div>
       </div>
@@ -452,8 +453,8 @@
         <!-- Left: AI Mission Control Panel -->
         <aside class="mc-panel">
           <div class="mc-header">
-            <h3>🤖 AI Mission Control</h3>
-            <div class="live-dot" title="Live Telemetry Link"></div>
+            <h3>🧪 Simulated Mission Control</h3>
+            <div class="live-dot" title="Simulated scenario status"></div>
           </div>
           <div class="mc-log" id="mc-log-box">
             <!-- Dynamic logs inserted here -->
@@ -464,24 +465,24 @@
         <main class="task-section">
           <div class="task-header">
             <h3 id="role-heading">Station Commander Operations</h3>
-            <span class="progress-badge" id="task-counter">0 / 4 Systems Operational</span>
+            <span class="progress-badge" id="task-counter">0 / 4 Scenarios Complete</span>
           </div>
 
           <div class="task-list" id="task-container">
             <!-- Tasks injected dynamically -->
           </div>
 
-          <!-- Capstone Career Debrief Certificate Modal -->
+          <!-- Simulation completion badge -->
           <div id="debrief-box">
             <div class="wings-badge">🌟 🚀 🌟</div>
-            <h3>MISSION SHIFT COMPLETED!</h3>
-            <p>You diagnosed faults, operated real station systems, and maintained 28,000 km/h orbital stability!</p>
+            <h3>LEARNING SCENARIOS COMPLETED</h3>
+            <p>You explored four simplified scenarios inspired by ISS systems. No real station controls or orbital calculations were simulated.</p>
             
             <div class="certificate-card">
-              <b>🎖️ OFFICIAL ISS CAREER DEBRIEF CERTIFICATE</b><br />
-              <b>Astronaut Role:</b> <span id="cert-role">Commander</span><br />
-              <b>Safety Rating:</b> <span id="cert-safe">100%</span> | <b>Systems Accuracy:</b> Mastered<br />
-              <b>Status:</b> Qualified for Lunar Gateway & Deep Space Operations
+              <b>Medhā ISS Learning Badge</b><br />
+              <b>Scenario track:</b> <span id="cert-role">Commander</span><br />
+              <b>Completion:</b> Four educational scenarios<br />
+              This badge is not an astronaut credential or operational qualification.
             </div>
 
             <div style="display:flex; justify-content:center; gap:12px; flex-wrap:wrap;">
@@ -502,7 +503,7 @@
         <button class="close-btn" onclick="closeWorkbench()">&times;</button>
       </div>
 
-      <p id="wb-desc" style="color:var(--muted); font-size:0.9rem; margin-top:0;">Investigate the system and adjust parameters to restore nominal operation.</p>
+      <p id="wb-desc" style="color:var(--muted); font-size:0.9rem; margin-top:0;">Adjust the game controls to explore a simplified system scenario. Values are illustrative, not flight procedures.</p>
 
       <!-- Interactive Canvas for Robotics & Space Physics -->
       <canvas id="sim-canvas" class="sim-canvas" width="700" height="260" style="display:none;"></canvas>
@@ -555,7 +556,7 @@
     };
 
     /************************************************************************
-     * 2. LIVE TELEMETRY & AI MISSION CONTROL ENGINE
+    * 2. SIMULATED SCENARIO DATA & MISSION CONTROL
      ************************************************************************/
     const Telemetry = {
       o2: 21.0, co2: 0.32, alt: 400.2, pwr: 100, temp: 22.1, rad: 0.42,
@@ -587,7 +588,7 @@
         document.getElementById("bar-pwr").style.width = `${this.pwr}%`;
 
         document.getElementById("val-temp").textContent = `${this.temp}°C`;
-        document.getElementById("val-rad").textContent = `${this.rad} mSv`;
+        document.getElementById("val-rad").textContent = `${this.rad.toFixed(2)} units`;
       }
     };
 
@@ -596,8 +597,8 @@
         const box = document.getElementById("mc-log-box");
         const div = document.createElement("div");
         div.className = `mc-msg ${type}`;
-        const time = new Date().toTimeString().split(" ")[0];
-        div.innerHTML = `<b>UTC ${time} • CAPCOM</b>${msg}`;
+        const time = new Date().toISOString().slice(11, 19);
+        div.innerHTML = `<b>SIM UTC ${time}</b>${msg}`;
         box.prepend(div);
         if (type === "alert") AudioEngine.playWarning();
         else AudioEngine.playClick();
@@ -613,11 +614,11 @@
         tasks: [
           {
             id: "cmd-1", name: "1. Orbit Reboost Burn",
-            desc: "Thin upper atmospheric drag has lowered altitude to 398.2 km. Calculate and execute a Progress cargo freighter thruster burn.",
-            wbTitle: "Progress Thruster Orbital Reboost Console",
-            wbDesc: "Set burn duration to achieve exact Delta-v needed to restore 400.0 km circular orbit.",
+            desc: "Scenario: atmospheric drag has lowered the station's example altitude to 398.2 km. Explore how a visiting cargo vehicle can provide a reboost.",
+            wbTitle: "Progress Reboost Scenario",
+            wbDesc: "Move the game slider to its marked scenario target. This exercise does not calculate burn duration, Delta-v, or a real orbit.",
             controls: [
-              { id: "burn_time", label: "Thruster Burn Duration", min: 10, max: 120, val: 30, target: 80, unit: " s" }
+              { id: "burn_time", label: "Illustrative Burn Setting", min: 10, max: 120, val: 30, target: 80, unit: " game units" }
             ],
             refQ: "Why does the ISS require periodic engine reboost burns to stay in orbit?",
             refOptions: [
@@ -628,14 +629,14 @@
           },
           {
             id: "cmd-2", name: "2. Day/Night Orbital Eclipse Power",
-            desc: "The station is entering Earth's dark shadow for 45 minutes. Balance electrical loads between solar wings and lithium-ion batteries.",
+            desc: "Scenario: the station is entering Earth's shadow. Explore how stored battery power supports the station when its arrays are not in sunlight; eclipse duration varies by orbit.",
             wbTitle: "Main Power Bus Switching Console",
             wbDesc: "Switch grid from Solar Array feed to Battery Discharge and trim non-essential heating loads.",
             controls: [
               { id: "bat_discharge", label: "Battery Discharge Rate", min: 0, max: 100, val: 20, target: 85, unit: "%" },
               { id: "load_shed", label: "Non-Essential Power Load", min: 10, max: 100, val: 90, target: 40, unit: " kW" }
             ],
-            refQ: "What powers the ISS when it flies through Earth's dark shadow during every 90-minute orbit?",
+            refQ: "What supplies electrical power when the ISS passes through Earth's shadow?",
             refOptions: [
               { text: "Rechargeable lithium-ion battery banks charged during the daylight pass", correct: true },
               { text: "Emergency diesel backup generators inside the nodes", correct: false },
@@ -697,7 +698,7 @@
             id: "eng-2", name: "2. ~98% Water Recovery System Distillation",
             desc: "Launch weight is expensive; water must be recycled. Calibrate the catalytic oxidation distillation loop.",
             wbTitle: "Water Recovery System (WRS) Purifier Console",
-            wbDesc: "Adjust distillation temperature and catalytic filtration pressure to achieve ~98% potable water recovery.",
+            wbDesc: "Explore a simplified water-recovery scenario. The controls do not model ISS purification hardware or verify drinking-water quality.",
             controls: [
               { id: "dist_temp", label: "Distillation Boiler Temp", min: 80, max: 140, val: 95, target: 125, unit: "°C" },
               { id: "cat_press", label: "Catalytic Oxidation Pressure", min: 10, max: 60, val: 20, target: 45, unit: " PSI" }
@@ -747,16 +748,16 @@
         tasks: [
           {
             id: "sci-1", name: "1. Microgravity Protein Crystal Growth",
-            desc: "Grow ultra-pure biological protein crystals for medical drug design by eliminating vibration sedimentation.",
+            desc: "Explore how microgravity experiments study protein crystal growth. Results vary by protein and experiment; microgravity does not guarantee larger or better crystals.",
             wbTitle: "Crystallization Experiment Rack",
-            wbDesc: "Adjust thermal incubation chamber and enable magnetic vibration dampeners.",
+            wbDesc: "Adjust illustrative experiment settings. Reduced sedimentation and convection can help some crystal-growth experiments, but outcomes vary.",
             controls: [
               { id: "crys_temp", label: "Chamber Incubation Temp", min: 10, max: 40, val: 15, target: 22, unit: "°C" },
               { id: "vib_damp", label: "Vibration Isolation Dampening", min: 0, max: 100, val: 30, target: 95, unit: "%" }
             ],
-            refQ: "Why do biological protein crystals grow larger and with fewer defects in space than on Earth?",
+            refQ: "How can microgravity affect some protein crystal-growth experiments?",
             refOptions: [
-              { text: "Greatly reduced effects of gravity prevent sedimentation, allowing molecules to align perfectly", correct: true },
+              { text: "Reduced sedimentation and convection can improve some crystals, but results depend on the protein and conditions", correct: true },
               { text: "Because space radiation makes crystals glow and grow faster", correct: false },
               { text: "Because the vacuum of space freezes protein solutions instantly", correct: false }
             ]
@@ -785,9 +786,9 @@
             controls: [
               { id: "fuel_press", label: "Droplet Injection Pressure", min: 10, max: 80, val: 20, target: 50, unit: " PSI" }
             ],
-            refQ: "Why does a candle or fuel flame form a round sphere in space instead of pointing upward?",
+            refQ: "Why can some flames become more rounded in a microgravity experiment?",
             refOptions: [
-              { text: "Without gravity buoyancy, hot air does not rise; oxygen diffuses evenly from all sides into a sphere", correct: true },
+              { text: "With buoyancy-driven flow greatly reduced, diffusion can dominate; flame shape still depends on fuel and airflow", correct: true },
               { text: "Because the cabin air ventilation fans blow flames into a ball", correct: false },
               { text: "Flames cannot burn at all in microgravity", correct: false }
             ]
@@ -825,22 +826,22 @@
             ],
             refQ: "What is the engineering difference between 'Docking' and 'Berthing' a spacecraft to the ISS?",
             refOptions: [
-              { text: "Docking is automated collision-latching; Berthing uses the robotic arm to capture and bolt cargo ships", correct: true },
+              { text: "Docking joins compatible spacecraft through a docking interface; berthing uses a robotic arm to place a vehicle at a station berthing port", correct: true },
               { text: "They are two identical words for parking a rocket", correct: false },
               { text: "Berthing is only used for spacesuits", correct: false }
             ]
           },
           {
             id: "rob-2", name: "2. Spacewalk (EVA) Pure Oxygen Pre-Breathe",
-            desc: "Before lowering suit pressure to 4.3 PSI, astronauts must purge nitrogen from their bloodstream to prevent decompression sickness.",
+            desc: "EVA pre-breathe procedures reduce decompression-sickness risk before the suit is operated at lower pressure. The exact protocol depends on the mission.",
             wbTitle: "Quest Airlock Pre-Breathe Console",
-            wbDesc: "Set airlock breathing mask oxygen concentration to 100% and run nitrogen purge cycle.",
+            wbDesc: "Explore why oxygen pre-breathe is used in EVA preparation. This game control is illustrative, not an approved airlock protocol.",
             controls: [
               { id: "o2_purge", label: "Oxygen Purge Concentration", min: 50, max: 100, val: 70, target: 100, unit: "%" }
             ],
-            refQ: "Why do astronauts breathe 100% pure oxygen for hours before exiting the airlock on a spacewalk?",
+            refQ: "Why do EVA pre-breathe procedures reduce nitrogen in the body before suit pressure is lowered?",
             refOptions: [
-              { text: "To eliminate nitrogen from their blood so bubbles do not form when suit pressure is lowered", correct: true },
+              { text: "To reduce decompression-sickness risk from nitrogen bubbles when pressure is lowered", correct: true },
               { text: "To make their voices sound higher over the radio", correct: false },
               { text: "Because spacesuits do not have enough battery power for regular air", correct: false }
             ]
@@ -849,13 +850,13 @@
             id: "rob-3", name: "3. EMU Spacesuit Liquid Cooling Garment",
             desc: "An EMU spacesuit is a personal spacecraft. Verify water coolant flow inside the Liquid Cooling Garment before leaving airlock.",
             wbTitle: "EMU Spacesuit Life Support Check",
-            wbDesc: "Adjust cooling garment water loop flow rate to shed astronaut body heat in open vacuum.",
+            wbDesc: "Explore the suit cooling loop. Liquid carries heat away from the astronaut; the suit's thermal-control system then rejects heat.",
             controls: [
               { id: "suit_cool", label: "Liquid Cooling Loop Flow", min: 10, max: 100, val: 30, target: 80, unit: " L/h" }
             ],
             refQ: "Why do astronauts wear a water-cooling garment of tubes underneath their outer space suit?",
             refOptions: [
-              { text: "In a vacuum, body heat cannot escape; circulating chilled water prevents severe overheating", correct: true },
+              { text: "The liquid garment carries body heat to the suit's thermal-control system for removal", correct: true },
               { text: "To store reserve drinking water for emergencies", correct: false },
               { text: "To make the spacesuit heavy enough to walk on the hull", correct: false }
             ]
@@ -885,7 +886,7 @@
      * 4. CAREER PROGRESSION, SCORES & BADGE STORAGE
      ************************************************************************/
     const Career = {
-      points: { eng: 0, sci: 0, lead: 0, safe: 100 },
+      points: { eng: 0, sci: 0, lead: 0 },
       ranks: [
         { name: "ISS Cadet", min: 0, icon: "🚀" },
         { name: "Junior Astronaut", min: 80, icon: "🛰️" },
@@ -908,8 +909,6 @@
         document.getElementById("pt-eng").textContent = this.points.eng;
         document.getElementById("pt-sci").textContent = this.points.sci;
         document.getElementById("pt-lead").textContent = this.points.lead;
-        document.getElementById("pt-safe").textContent = `${this.points.safe}%`;
-
         const total = this.points.eng + this.points.sci + this.points.lead;
         document.getElementById("rating-score").textContent = total;
 
@@ -939,7 +938,7 @@
 
       const mission = Missions[roleKey];
       document.getElementById("role-heading").textContent = mission.title;
-      document.getElementById("task-counter").textContent = "0 / 4 Systems Operational";
+      document.getElementById("task-counter").textContent = "0 / 4 Scenarios Complete";
 
       const container = document.getElementById("task-container");
       container.innerHTML = "";
@@ -955,7 +954,7 @@
               <p>${task.desc}</p>
             </div>
             <button class="action-btn" id="btn-${task.id}" onclick="openWorkbench('${task.id}')">
-              🛠️ Operate System
+              🛠️ Open Scenario
             </button>
           </div>
         `;
@@ -963,7 +962,7 @@
       });
 
       Telemetry.start();
-      MissionControl.log(`Airlock hatch open. Welcome to active shift: ${mission.title}.`, "normal");
+      MissionControl.log(`Starting simulated learning track: ${mission.title}.`, "normal");
     }
 
     function openWorkbench(taskId) {
@@ -1028,7 +1027,7 @@
       
       if (allBalanced && document.getElementById("wb-reflection").style.display !== "block") {
         AudioEngine.playSuccess();
-        MissionControl.log(`System calibrated to nominal. Answer technical reflection to log completion.`, "success");
+        MissionControl.log(`Scenario targets reached. Answer the concept question to complete this exercise.`, "success");
         showReflectionPhase();
       }
     }
@@ -1055,20 +1054,20 @@
     function evaluateReflection(isCorrect) {
       if (isCorrect) {
         AudioEngine.playSuccess();
-        MissionControl.log(`Technical reflection correct! ${activeTaskObj.name} verified operational.`, "success");
+        MissionControl.log(`Concept answer correct. ${activeTaskObj.name} scenario complete.`, "success");
         
         // Mark UI completed
         const card = document.getElementById(`card-${activeTaskObj.id}`);
         const btn = document.getElementById(`btn-${activeTaskObj.id}`);
         card.classList.add("completed");
         btn.disabled = true;
-        btn.innerHTML = "✓ System Operational";
+        btn.innerHTML = "✓ Scenario Complete";
 
         // Award career points
         Career.addPoints(40, 30, 25);
         
         completedTasksCount++;
-        document.getElementById("task-counter").textContent = `${completedTasksCount} / 4 Systems Operational`;
+        document.getElementById("task-counter").textContent = `${completedTasksCount} / 4 Scenarios Complete`;
 
         closeWorkbench();
 
@@ -1076,14 +1075,13 @@
           setTimeout(() => {
             document.getElementById("debrief-box").style.display = "block";
             document.getElementById("cert-role").textContent = Missions[currentRoleKey].title;
-            document.getElementById("cert-safe").textContent = `${Career.points.safe}%`;
             document.getElementById("debrief-box").scrollIntoView({ behavior: "smooth" });
             AudioEngine.playSuccess();
           }, 600);
         }
       } else {
         AudioEngine.playWarning();
-        MissionControl.log("Incorrect technical debrief! Review system physics and select the correct cause.", "alert");
+        MissionControl.log("Not quite. Review the lesson and try the concept question again.", "alert");
       }
     }
 
@@ -1220,7 +1218,7 @@
 
       setTimeout(() => {
         document.querySelectorAll(".gauge-card").forEach(g => g.classList.remove("alarm"));
-        MissionControl.log("Hazard mitigated by automated station safety overrides. Return to checklist.", "success");
+        MissionControl.log("End of simulated hazard demonstration. No crew response was modeled; real procedures are mission-specific.", "success");
       }, 7000);
     }
   </script>

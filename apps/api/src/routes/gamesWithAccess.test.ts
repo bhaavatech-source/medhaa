@@ -8,6 +8,7 @@ const db = vi.hoisted(() => ({
   findSubscriptions: vi.fn(),
   findCheckIn: vi.fn(),
 }));
+const authState = vi.hoisted(() => ({ role: 'student' as 'student' | 'admin' }));
 
 vi.mock('@prisma/client', () => ({
   PrismaClient: class {
@@ -18,8 +19,8 @@ vi.mock('@prisma/client', () => ({
   },
 }));
 vi.mock('../middleware/auth', () => ({
-  authenticate: (req: { user?: { id: string } }, _res: unknown, next: () => void) => {
-    req.user = { id: 'child-user' };
+  authenticate: (req: { user?: { id: string; role: 'student' | 'admin' } }, _res: unknown, next: () => void) => {
+    req.user = { id: 'child-user', role: authState.role };
     next();
   },
 }));
@@ -31,6 +32,7 @@ describe('GET /with-access for a child account', () => {
 
   beforeEach(async () => {
     vi.clearAllMocks();
+    authState.role = 'student';
     db.findUser.mockResolvedValue({
       id: 'child-user',
       createdAt: new Date(Date.now() - 30 * 86400000),
@@ -39,6 +41,7 @@ describe('GET /with-access for a child account', () => {
     db.findGames.mockResolvedValue([{
       slug: 'ready-for-the-world', title: 'Ready for the World', domain: 'life-skills',
       ageLabel: '11-17', skills: [], kind: 'game', tier: 'premium-only', isActive: true,
+      entryPath: 'ready-for-the-world.html',
     }]);
     db.findCheckIn.mockResolvedValue(null);
     const app = express();
@@ -69,6 +72,7 @@ describe('GET /with-access for a child account', () => {
     expect(db.findSubscriptions).toHaveBeenCalledWith({ where: { userId: { in: ['child-user', 'parent-user'] } } });
     expect(result.games[0].access.allowed).toBe(true);
     expect(result.subscription.status).toBe('ACTIVE');
+    expect(result.games[0].entryPath).toBe('ready-for-the-world.html');
   });
 
   it('still unlocks premium games for a student subscribed directly', async () => {
@@ -78,6 +82,22 @@ describe('GET /with-access for a child account', () => {
     const result = await getGames();
     expect(result.games[0].access.allowed).toBe(true);
     expect(result.subscription.status).toBe('ACTIVE');
+  });
+
+  it('unlocks premium games for an admin without a subscription', async () => {
+    authState.role = 'admin';
+    db.findUser.mockResolvedValue({
+      id: 'child-user',
+      createdAt: new Date(),
+      student: null,
+    });
+    db.findSubscriptions.mockResolvedValue([]);
+
+    const result = await getGames();
+
+    expect(result.games[0].access.allowed).toBe(true);
+    expect(result.games[0].access.reason).toBe('admin access');
+    expect(result.subscription).toBeNull();
   });
 
   it('sends the actual trial end date with premium game access', async () => {

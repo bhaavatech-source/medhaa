@@ -172,10 +172,6 @@ const playLabel = kind === 'activity' ? 'Start Now' : 'Play Now';
         <div className="game-card-banner" onMouseEnter={() => setPreviewActive(true)} onMouseLeave={() => setPreviewActive(false)}>
           <GameCardMedia slug={slug} emoji={emoji} previewActive={previewActive} />
 
-          <span className={`tier-badge ${badge.color}`}>
-            {badge.label}
-          </span>
-
           {!access.allowed && (
             <div className="lock-overlay" aria-hidden="true">
               <span className="lock-icon">🔒</span>
@@ -187,6 +183,10 @@ const playLabel = kind === 'activity' ? 'Start Now' : 'Play Now';
         </div>
 
         <div className="game-card-body">
+          <span className={`tier-badge ${badge.color}`}>
+            {badge.label}
+          </span>
+
           <div className="game-card-domain">
             {domain.replace(/-/g, ' ')}
           </div>

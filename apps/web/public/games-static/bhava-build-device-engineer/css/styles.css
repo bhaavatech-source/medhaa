@@ -237,8 +237,9 @@ body{color:var(--text-1);background:radial-gradient(circle at 20% 0%,var(--bg-2)
     max-height:min(58vh,340px);
     overflow-y:auto;
     padding:10px;
-    background:rgba(15,21,42,.97);
+    background:rgba(10,15,29,.99);
     backdrop-filter:blur(16px);
+    color:#f1f4ff;
   }
   #screen-build .diagnostics-panel{order:3;max-height:none;min-width:0;}
 
@@ -298,8 +299,18 @@ body{color:var(--text-1);background:radial-gradient(circle at 20% 0%,var(--bg-2)
     overflow-wrap:anywhere;
   }
 
-  #screen-build #slot-container .slot-label{font-size:.54rem;letter-spacing:0;}
-  #screen-build #slot-container .slot-empty-text{font-size:.58rem;margin-top:2px;}
+  #screen-build #slot-container .slot-label{
+    color:#70edff;
+    font-size:.68rem;
+    line-height:1.2;
+    letter-spacing:0;
+  }
+  #screen-build #slot-container .slot-empty-text{
+    color:#d7def3;
+    font-size:.66rem;
+    line-height:1.2;
+    margin-top:3px;
+  }
 
   #screen-build .palette-tabs{
     flex-wrap:nowrap;
@@ -307,7 +318,14 @@ body{color:var(--text-1);background:radial-gradient(circle at 20% 0%,var(--bg-2)
     padding-bottom:4px;
   }
 
-  #screen-build .palette-tab{flex:0 0 auto;}
+  #screen-build .palette-tab{
+    flex:0 0 auto;
+    color:#e3e9ff;
+    background:rgba(255,255,255,.09);
+    border-color:rgba(255,255,255,.2);
+    font-size:.82rem;
+    padding:8px 13px;
+  }
 
   #screen-build .palette-list{
     display:grid;
@@ -321,19 +339,24 @@ body{color:var(--text-1);background:radial-gradient(circle at 20% 0%,var(--bg-2)
   #screen-build .palette-item{
     min-width:0;
     min-height:0;
-    padding:9px 11px;
+    padding:11px 12px;
     align-items:flex-start;
+    background:rgba(255,255,255,.08);
+    border-color:rgba(255,255,255,.18);
   }
 
   #screen-build .palette-item strong{
-    font-size:.86rem;
+    color:#f5f7ff;
+    font-size:.95rem;
     overflow-wrap:normal;
     word-break:normal;
   }
 
   #screen-build .palette-item small{
     display:block;
-    font-size:.68rem;
+    color:#d7def3;
+    font-size:.78rem;
+    line-height:1.35;
     overflow-wrap:anywhere;
   }
 
@@ -341,10 +364,14 @@ body{color:var(--text-1);background:radial-gradient(circle at 20% 0%,var(--bg-2)
     content:"Tap to select · tap a slot to place";
     display:block;
     margin-top:5px;
-    color:var(--text-2);
-    font-size:.62rem;
+    color:#d7def3;
+    font-size:.72rem;
     line-height:1.2;
   }
+
+  #screen-build .level-heading,
+  #screen-build .build-level small,
+  #screen-build .level-progress{color:#d7def3;}
 
   #screen-build .stat-strip{margin:0;padding:6px 0;}
 

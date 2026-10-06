@@ -6,18 +6,18 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://medhaa.net/medha_logo_transparent.png">
 <script type="application/ld+json">
-{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What age group is Dharana Arena designed for?", "acceptedAnswer": {"@type": "Answer", "text": "Dharana Arena is designed for children aged 5 to 17 and focuses on Sustained Attention, Reading Comprehension, Mindfulness."}}, {"@type": "Question", "name": "Is Dharana Arena free to play?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, Dharana Arena is free to play on Medhaa as part of the Cognitive Focus game collection."}}, {"@type": "Question", "name": "What skills does Dharana Arena help build?", "acceptedAnswer": {"@type": "Answer", "text": "Dharana Arena helps build Sustained Attention, Reading Comprehension, Mindfulness through interactive, game-based practice."}}]}
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What age groups can play Dhāraṇā Arena?","acceptedAnswer":{"@type":"Answer","text":"Dhāraṇā Arena has age-adaptive games for ages 5–12 and 13–17."}},{"@type":"Question","name":"What games are in Dhāraṇā Arena?","acceptedAnswer":{"@type":"Answer","text":"Dhāraṇā Pulse practises go/no-go impulse control. Dhāraṇā Fusion practises split attention through simultaneous shape and color matching."}},{"@type":"Question","name":"How does difficulty change?","acceptedAnswer":{"@type":"Answer","text":"Pulse changes its target color-and-shape cues by level; Fusion adds shape and color choices and faster rounds."}}]}
 </script>
 
 <!-- MEDHAA-SEO-INJECTED -->
-<title>Dharana Arena – Cognitive Focus Game for Kids | Medhaa</title>
-<meta name="description" content="A holistic attention trainer starting with guided breathing, then real focus challenges under time pressure. Free game for ages 5-17 on Medhaa.">
-<meta property="og:title" content="Dharana Arena – Cognitive Focus Game for Kids | Medhaa">
-<meta property="og:description" content="A holistic attention trainer starting with guided breathing, then real focus challenges under time pressure. Free game for ages 5-17 on Medhaa.">
+<title>Dhāraṇā Arena | Pulse &amp; Fusion | Medhā</title>
+<meta name="description" content="Two age-adaptive action games for ages 5–17: react to changing color-and-shape signals in Dhāraṇā Pulse and match shape and color in Dhāraṇā Fusion.">
+<meta property="og:title" content="Dhāraṇā Arena | Pulse &amp; Fusion | Medhā">
+<meta property="og:description" content="Train impulse control and split attention with two longer, age-adaptive action games.">
 <meta property="og:url" content="https://medhaa.net/games-static/dharana-arena.html">
 <link rel="canonical" href="https://medhaa.net/games-static/dharana-arena.html">
 <script type="application/ld+json">
-{"@context": "https://schema.org", "@type": "LearningResource", "name": "Dharana Arena", "description": "A holistic attention trainer starting with guided breathing, then real focus challenges under time pressure.", "url": "https://medhaa.net/games-static/dharana-arena.html", "learningResourceType": "Educational Game", "teaches": ["Sustained Attention", "Reading Comprehension", "Mindfulness"], "typicalAgeRange": "5-17", "isAccessibleForFree": true, "provider": {"@type": "Organization", "name": "Bhava Tech", "url": "https://medhaa.net"}}
+{"@context":"https://schema.org","@type":"LearningResource","name":"Dhāraṇā Arena","description":"Dhāraṇā Pulse practises go/no-go impulse control using changing color and shape cues. Dhāraṇā Fusion practises split attention through simultaneous shape and color matching.","url":"https://medhaa.net/games-static/dharana-arena.html","learningResourceType":"Educational Game","teaches":["Impulse Control","Split Attention","Sustained Attention","Visual Discrimination"],"typicalAgeRange":"5-17","isAccessibleForFree":true,"provider":{"@type":"Organization","name":"Bhava Tech","url":"https://medhaa.net"}}
 </script>
 
 <meta charset="UTF-8">
@@ -30,7 +30,6 @@
   --primary: #66d7c8; --secondary: #ff8f7c; --accent: #facc15;
   --success: #6bcf7f; --danger: #ff4757; --purple: #a55eea;
   --pink: #ff6b9d; --green: #26de81; --orange: #fd9644;
-  --calm: #4fd1c5; --breath: #667eea;
   --text: #ffffff; --text-dim: #b8b8d4;
   --card-bg: rgba(255,255,255,0.08); --card-border: rgba(255,255,255,0.15);
   --radius: 16px; --shadow: 0 8px 32px rgba(0,0,0,0.3);
@@ -77,17 +76,19 @@ body {
 .age-title { font-size: 1.1rem; font-weight: 700; }
 .age-range { font-size: 0.85rem; color: var(--text-dim); margin-top: 4px; }
 
-.mode-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; max-width: 900px; width: 100%; margin: 14px 0; }
-.mode-card { background: var(--card-bg); border: 2px solid var(--card-border); border-radius: var(--radius); padding: 18px 14px; text-align: center; transition: var(--transition); backdrop-filter: blur(10px); position: relative; overflow: hidden; }
+.mode-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; max-width: 820px; width: 100%; margin: 14px 0; }
+.mode-card { min-height: 260px; display: grid; grid-template-rows: 48px 30px 18px 44px 46px; align-content: space-between; justify-items: center; background: var(--card-bg); border: 2px solid var(--card-border); border-radius: var(--radius); padding: 22px 20px; text-align: center; transition: var(--transition); backdrop-filter: blur(10px); position: relative; overflow: hidden; }
 .mode-card:hover { border-color: var(--mode-color, var(--primary)); box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
-.mode-play { margin-top: 12px; padding: 8px 24px; border: 0; border-radius: 8px; background: var(--mode-color, var(--primary)); color: #101426; font: inherit; font-weight: 800; cursor: pointer; }
+.mode-play { width: 100px; height: 46px; margin: 0; padding: 8px 24px; border: 0; border-radius: 8px; background: var(--mode-color, var(--primary)); color: #101426; font: inherit; font-weight: 800; cursor: pointer; }
 .mode-play:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
-.mode-card .mode-icon { font-size: 2.4rem; margin-bottom: 6px; display: block; animation: bounceIcon 2s ease infinite; }
+.mode-card .mode-icon { display: grid; place-items: center; width: 48px; height: 48px; margin: 0; font-size: 2.4rem; animation: bounceIcon 2s ease infinite; }
 @keyframes bounceIcon { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-.mode-card .mode-name { font-size: 1.05rem; font-weight: 700; margin-bottom: 4px; }
-.mode-card .mode-desc { font-size: 0.75rem; color: var(--text-dim); line-height: 1.4; }
-.mode-card .mode-tag { display: inline-block; margin-top: 6px; padding: 3px 9px; border-radius: 20px; font-size: 0.65rem; font-weight: 600; background: var(--mode-color, var(--primary)); color: #000; }
-.mode-card .diff-badge { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.4); border-radius: 10px; padding: 2px 7px; font-size: 0.62rem; font-weight: 700; color: var(--accent); border: 1px solid var(--card-border); }
+.mode-card .mode-name { margin: 0; font-size: 1.05rem; font-weight: 700; }
+.level-select-label { margin: 0; color: var(--text-dim); font-size: .72rem; font-weight: 700; }
+.level-select { display: flex; justify-content: center; gap: 6px; width: 100%; height: 44px; }
+.level-option { width: 44px; min-height: 40px; flex: 0 0 44px; border: 1px solid var(--card-border); border-radius: 8px; background: rgba(0,0,0,.16); color: var(--text); font: inherit; font-size: .78rem; font-weight: 800; cursor: pointer; }
+.level-option[aria-pressed="true"] { border-color: var(--accent); background: rgba(250,204,21,.2); color: var(--accent); box-shadow: 0 0 12px rgba(250,204,21,.2); }
+.level-option:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
 
 /* CUSTOM MODIFIERS */
 .custom-controls { margin: 15px 0; padding: 15px; background: var(--card-bg); border-radius: var(--radius); border: 1px solid var(--card-border); max-width: 900px; width: 100%; backdrop-filter: blur(10px); }
@@ -101,19 +102,13 @@ body {
 .btn-primary:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 10px 30px rgba(0,212,255,0.6); }
 .btn-secondary { background: var(--card-bg); color: var(--text); border: 2px solid var(--card-border); }
 .btn-secondary:hover { border-color: var(--primary); background: rgba(0,212,255,0.1); }
-.btn-calm { background: linear-gradient(135deg, var(--calm), var(--breath)); color: #fff; box-shadow: 0 6px 20px rgba(79,209,197,0.4); }
-.btn-calm:hover { transform: translateY(-3px) scale(1.05); }
 .btn-icon { width: 42px; height: 42px; border-radius: 50%; border: 2px solid var(--card-border); background: var(--card-bg); color: var(--text); font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: var(--transition); }
 .btn-icon:hover { border-color: var(--primary); transform: scale(1.1); }
 .home-actions { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; justify-content: center; }
 
-/* SETTINGS TOGGLE */
-.settings-row { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; justify-content: center; }
-.toggle-chip { display: flex; align-items: center; gap: 8px; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; padding: 6px 14px; cursor: pointer; font: inherit; font-size: 0.82rem; color: inherit; transition: var(--transition); }
-.toggle-chip:hover { border-color: var(--primary); }
-.toggle-chip.active { border-color: var(--success); background: rgba(107,207,127,0.12); }
-.toggle-chip .tc-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.2); transition: var(--transition); }
-.toggle-chip.active .tc-dot { background: var(--success); box-shadow: 0 0 8px rgba(107,207,127,0.6); }
+.home-intro { max-width: 620px; margin: 4px auto 10px; text-align: center; color: var(--text-dim); line-height: 1.5; }
+.challenge-label { max-width: 700px; margin: 0 auto 12px; text-align: center; color: var(--text-dim); line-height: 1.6; }
+.challenge-label { display: inline-block; margin: 4px 0 0; color: var(--text-dim); font-size: .78rem; }
 
 /* GAME SCREEN */
 #gameScreen { padding: 10px; }
@@ -139,90 +134,51 @@ body {
 
 /* SIGNAL */
 .signal-display { width: 170px; height: 170px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 4rem; margin: 14px auto; transition: all 0.15s ease; cursor: pointer; border: 4px solid var(--card-border); background: var(--card-bg); }
-.signal-go { background: radial-gradient(circle, var(--success), #2ed573); border-color: var(--success); box-shadow: 0 0 40px rgba(107,207,127,0.5); animation: goPulse 0.3s ease; }
-.signal-nogo { background: radial-gradient(circle, var(--danger), #ff4757); border-color: var(--danger); box-shadow: 0 0 40px rgba(255,71,87,0.5); animation: noGoShake 0.3s ease; }
+.signal-cue { background: var(--signal-color); border-color: rgba(255,255,255,.85); color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,.45); box-shadow: 0 0 34px var(--signal-color); animation: signalCueIn .2s ease-out; }
+.signal-cue.cue-circle { border-radius: 50%; }
+.signal-cue.cue-square { border-radius: 16px; }
+.signal-cue.cue-triangle { border: 0; border-radius: 0; clip-path: polygon(50% 3%, 98% 94%, 2% 94%); }
+.signal-cue.cue-diamond { border-radius: 14px; clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
+.signal-cue.cue-star { border-radius: 0; clip-path: polygon(50% 0, 62% 34%, 98% 35%, 70% 57%, 80% 94%, 50% 72%, 20% 94%, 30% 57%, 2% 35%, 38% 34%); }
+.signal-target-panel { width: 100%; margin-bottom: 10px; padding: 10px 12px; border: 1px solid var(--card-border); border-radius: 12px; background: rgba(0,0,0,.12); text-align: center; }
+.signal-target-label { margin-bottom: 8px; color: var(--text-dim); font-size: .8rem; font-weight: 700; }
+.signal-targets { display: flex; justify-content: center; flex-wrap: wrap; gap: 7px; }
+.signal-target-cue { width: 34px; height: 34px; display: grid; place-items: center; background: var(--signal-color); border: 2px solid rgba(255,255,255,.85); color: #fff; font-size: 1.35rem; font-weight: 900; text-shadow: 0 1px 4px rgba(0,0,0,.5); }
+.signal-target-cue.cue-circle { border-radius: 50%; }
+.signal-target-cue.cue-square { border-radius: 7px; }
+.signal-target-cue.cue-triangle { border: 0; clip-path: polygon(50% 3%, 98% 94%, 2% 94%); }
+.signal-target-cue.cue-diamond { border-radius: 5px; clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
+.signal-target-cue.cue-star { border: 0; clip-path: polygon(50% 0, 62% 34%, 98% 35%, 70% 57%, 80% 94%, 50% 72%, 20% 94%, 30% 57%, 2% 35%, 38% 34%); }
 .signal-neutral { background: radial-gradient(circle, #57606f, #2f3542); border-color: #57606f; }
-@keyframes goPulse { 0% { transform: scale(0.8); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
-@keyframes noGoShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
+@keyframes signalCueIn { from { transform: scale(.86); opacity: .55; } to { transform: scale(1); opacity: 1; } }
 .tap-hint { text-align: center; margin-top: 10px; font-size: 0.82rem; color: var(--text-dim); }
 
-/* MEMORY */
-.memory-grid { display: grid; gap: 8px; margin: 14px auto; }
-.memory-cell { width: 60px; height: 60px; border-radius: 12px; background: var(--card-bg); border: 2px solid var(--card-border); cursor: pointer; transition: var(--transition); display: flex; align-items: center; justify-content: center; }
-.memory-cell:hover { border-color: var(--primary); transform: scale(1.05); }
-.memory-cell.lit { background: linear-gradient(135deg, var(--primary), var(--purple)); box-shadow: 0 0 25px rgba(0,212,255,0.6); border-color: var(--primary); transform: scale(1.05); }
-.memory-cell.correct-lit { background: var(--success); box-shadow: 0 0 25px rgba(107,207,127,0.6); }
-.memory-cell.wrong-lit { background: var(--danger); animation: shake 0.4s ease; }
-.memory-phase-text { text-align: center; font-size: 1.1rem; font-weight: 700; margin: 6px 0; color: var(--accent); min-height: 28px; }
-
-/* SCAN */
-.scan-container { display: grid; gap: 6px; margin: 14px auto; max-width: 600px; }
-.scan-item { width: 48px; height: 48px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; cursor: pointer; transition: var(--transition); background: var(--card-bg); border: 2px solid var(--card-border); }
-.scan-item:hover { transform: scale(1.1); border-color: var(--primary); }
-.scan-item.found { background: var(--success); border-color: var(--success); animation: correctPop 0.4s ease; }
-.scan-item.miss { background: var(--danger); animation: shake 0.4s ease; }
-.scan-target-display { background: var(--card-bg); border: 2px solid var(--accent); border-radius: 20px; padding: 8px 18px; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-size: 1rem; }
-.scan-target-display .target-emoji { font-size: 1.6rem; }
-.scan-target-display .found-count { color: var(--accent); font-weight: 800; }
-
-/* DUAL */
-.dual-container { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; width: 100%; }
-.dual-panel { flex: 1; min-width: 250px; background: rgba(255,255,255,0.05); border: 2px solid var(--card-border); border-radius: var(--radius); padding: 16px; text-align: center; position: relative; }
-.dual-panel h3 { font-size: 0.95rem; margin-bottom: 8px; color: var(--text-dim); }
-.dual-panel .panel-score { position: absolute; top: 6px; right: 12px; font-size: 0.78rem; color: var(--accent); font-weight: 700; }
-.dual-shape { width: 85px; height: 85px; margin: 6px auto; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 2rem; transition: all 0.2s ease; cursor: pointer; }
-.dual-shape.circle { border-radius: 50%; }
-.dual-color-btns, .dual-shape-btns { display: flex; gap: 6px; justify-content: center; margin-top: 8px; flex-wrap: wrap; }
-.dual-btn { padding: 7px 12px; border: 2px solid var(--card-border); border-radius: 10px; background: var(--card-bg); color: var(--text); cursor: pointer; font-size: 0.78rem; font-weight: 600; transition: var(--transition); font-family: inherit; }
-.dual-btn:hover { border-color: var(--primary); transform: scale(1.05); }
-.dual-feedback { min-height: 22px; margin-top: 6px; font-size: 0.82rem; font-weight: 600; }
+.dual-container { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; width: 100%; }
+.dual-panel { min-width: 0; padding: 14px; border: 1px solid var(--card-border); border-radius: 14px; background: rgba(0,0,0,.12); text-align: center; }
+.dual-panel h3 { margin-bottom: 4px; font-size: 1rem; }
+.panel-score { min-height: 1.4em; color: var(--accent); font-weight: 800; }
+.dual-target { width: 112px; height: 112px; display: grid; place-items: center; margin: 14px auto; background: rgba(255,255,255,.12); border: 3px solid rgba(255,255,255,.82); color: #fff; font-size: 3.4rem; font-weight: 900; text-shadow: 0 2px 8px rgba(0,0,0,.4); }
+.dual-target.circle { border-radius: 50%; }
+.dual-target.square { border-radius: 16px; }
+.dual-target.triangle { border: 0; border-radius: 0; clip-path: polygon(50% 3%, 98% 94%, 2% 94%); }
+.dual-target.diamond { border-radius: 14px; clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
+.dual-target.color-target { border: 4px solid rgba(255,255,255,.9); background: var(--target-color); border-radius: 50%; box-shadow: 0 0 30px var(--target-color); }
+.dual-shape-btns, .dual-color-btns { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; }
+.dual-btn { min-height: 42px; padding: 8px 12px; border: 1px solid var(--card-border); border-radius: 9px; background: rgba(255,255,255,.1); color: var(--text); font: inherit; font-weight: 700; cursor: pointer; }
+.dual-btn:hover, .dual-btn:focus-visible { border-color: var(--primary); outline: 2px solid var(--primary); outline-offset: 2px; }
+.dual-btn:disabled { opacity: .55; cursor: default; }
+.dual-feedback { min-height: 1.4em; margin-top: 6px; font-weight: 800; }
 .dual-feedback.correct { color: var(--success); }
-.dual-feedback.wrong { color: var(--danger); }
+.dual-feedback.wrong { color: var(--accent); }
 
 /* FEEDBACK */
 .feedback-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; z-index: 100; pointer-events: none; }
-.feedback-pop { font-size: 3.5rem; font-weight: 800; animation: feedbackPop 0.8s ease forwards; }
+.feedback-pop { max-width: 90vw; padding: 10px 18px; border-radius: 14px; background: rgba(20,43,59,.94); font-size: 1.25rem; font-weight: 800; text-align: center; animation: feedbackPop 0.8s ease forwards; }
 @keyframes feedbackPop { 0% { transform: scale(0) rotate(-10deg); opacity: 0; } 30% { transform: scale(1.3) rotate(5deg); opacity: 1; } 70% { transform: scale(1) rotate(0); opacity: 1; } 100% { transform: scale(1.5) rotate(0); opacity: 0; } }
 .confetti { position: fixed; width: 10px; height: 10px; z-index: 200; pointer-events: none; animation: confettiFall 2s linear forwards; }
 @keyframes confettiFall { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
 .diff-up-banner { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, var(--accent), var(--orange)); color: #000; padding: 10px 26px; border-radius: 30px; font-size: 0.95rem; font-weight: 700; z-index: 300; box-shadow: 0 8px 30px rgba(255,217,61,0.5); animation: bannerSlide 3s ease forwards; }
 @keyframes bannerSlide { 0% { transform: translateX(-50%) translateY(-80px); opacity: 0; } 15% { transform: translateX(-50%) translateY(0); opacity: 1; } 85% { transform: translateX(-50%) translateY(0); opacity: 1; } 100% { transform: translateX(-50%) translateY(-80px); opacity: 0; } }
-
-/* ====== BREATHING SCREEN ====== */
-#breathingScreen { justify-content: center; }
-.breathing-container { text-align: center; max-width: 500px; width: 90%; }
-.breathing-title { font-size: 1.6rem; font-weight: 700; margin-bottom: 8px; background: linear-gradient(135deg, var(--calm), var(--breath)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-.breathing-subtitle { font-size: 0.9rem; color: var(--text-dim); margin-bottom: 30px; line-height: 1.5; }
-.breathing-circle-wrapper { display: flex; justify-content: center; align-items: center; height: 280px; margin: 20px 0; position: relative; }
-.breathing-circle {
-  width: 140px; height: 140px; border-radius: 50%;
-  background: radial-gradient(circle, var(--calm), var(--breath));
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.2rem; font-weight: 700; color: #fff;
-  box-shadow: 0 0 40px rgba(79,209,197,0.4);
-  transition: transform 4s ease-in-out, box-shadow 4s ease-in-out;
-}
-.breathing-circle.expanded { transform: scale(2.2); box-shadow: 0 0 80px rgba(102,126,234,0.5); }
-.breathing-circle.contracted { transform: scale(0.9); }
-.breathing-rings { position: absolute; width: 140px; height: 140px; border-radius: 50%; border: 2px solid rgba(79,209,197,0.2); transition: transform 4s ease-in-out, opacity 4s ease-in-out; }
-.breathing-rings.ring2 { width: 180px; height: 180px; border-color: rgba(102,126,234,0.15); }
-.breathing-rings.expanded { transform: scale(2.5); opacity: 0.3; }
-.breathing-rings.contracted { transform: scale(1); opacity: 0.5; }
-.breathing-phase { font-size: 1.4rem; font-weight: 700; margin: 10px 0; min-height: 30px; color: var(--calm); }
-.breathing-counter { font-size: 0.85rem; color: var(--text-dim); margin-top: 8px; }
-.breathing-skip { margin-top: 20px; }
-.breathing-progress { width: 200px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 10px; margin: 12px auto; overflow: hidden; }
-.breathing-progress-fill { height: 100%; background: linear-gradient(90deg, var(--calm), var(--breath)); border-radius: 10px; transition: width 0.3s linear; width: 0%; }
-
-/* ====== PHYSICAL BREAK OVERLAY ====== */
-.physical-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15,12,41,0.95); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 250; animation: fadeIn 0.3s ease; }
-.physical-overlay .po-icon { font-size: 5rem; margin-bottom: 16px; animation: bounceIcon 1.5s ease infinite; }
-.physical-overlay .po-title { font-size: 1.8rem; font-weight: 700; margin-bottom: 8px; background: linear-gradient(135deg, var(--green), var(--calm)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-.physical-overlay .po-desc { font-size: 1.1rem; color: var(--text-dim); margin-bottom: 20px; text-align: center; max-width: 400px; line-height: 1.5; }
-.physical-overlay .po-countdown { font-size: 4rem; font-weight: 800; color: var(--green); animation: countdownPop 1s ease; }
-.physical-overlay .po-timer-bar { width: 250px; height: 6px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; margin: 16px 0; }
-.physical-overlay .po-timer-fill { height: 100%; background: linear-gradient(90deg, var(--green), var(--calm)); border-radius: 10px; transition: width 0.1s linear; width: 100%; }
-.physical-overlay .po-skip-btn { margin-top: 20px; }
 
 /* RESULTS */
 #resultsScreen { justify-content: center; }
@@ -280,27 +236,20 @@ body {
 
 @media (max-width: 600px) {
   .logo { font-size: 2rem; }
-  .mode-grid { grid-template-columns: 1fr 1fr; }
-  .mode-card { padding: 12px 6px; }
+  .mode-grid { grid-template-columns: 1fr; }
+  .mode-card { min-height: 240px; padding: 20px 16px; }
   .mode-card .mode-icon { font-size: 1.8rem; }
   .mode-card .mode-name { font-size: 0.88rem; }
-  .mode-card .mode-desc { font-size: 0.68rem; }
-  .memory-cell { width: 48px; height: 48px; }
-  .scan-item { width: 38px; height: 38px; font-size: 1.1rem; }
   .signal-display { width: 135px; height: 135px; font-size: 3.2rem; }
-  .dual-shape { width: 65px; height: 65px; font-size: 1.6rem; }
   .stat-pill { font-size: 0.75rem; padding: 4px 10px; }
   .game-area { padding: 14px; }
-  .dual-container { flex-direction: column; }
   .journey-path { grid-template-columns: repeat(6, 1fr); }
   .results-card { padding: 22px; }
   .progress-overview { grid-template-columns: 1fr 1fr; }
-  .breathing-circle { width: 110px; height: 110px; }
-  .breathing-circle.expanded { transform: scale(2); }
-  .breathing-circle-wrapper { height: 240px; }
-  .breathing-rings { width: 110px; height: 110px; }
-  .breathing-rings.ring2 { width: 140px; height: 140px; }
 }
+
+@media (max-width: 720px) { .mode-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .mode-grid { grid-template-columns: 1fr; } .dual-container { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -313,55 +262,16 @@ body {
     <div class="logo">Dhāraṇā Arena</div>
     <div class="brand">⚡ Medhā</div>
   </div>
+  <p class="home-intro">Two focused action games. React to changing signals or match two visual cues at once.</p>
+  <p class="challenge-label" id="ageHint">Juniors selected by default. Choose an age group to tune the cues, pace and session length.</p>
   <div class="home-stats" id="homeStatsBar"></div>
   <div class="age-select">
-    <button type="button" class="age-card" data-age="junior" aria-pressed="false" onclick="selectAge('junior')"><div class="age-icon">🧒</div><div class="age-title">Juniors</div><div class="age-range">Ages 5–12</div></button>
+    <button type="button" class="age-card selected" data-age="junior" aria-pressed="true" onclick="selectAge('junior')"><div class="age-icon">🧒</div><div class="age-title">Juniors</div><div class="age-range">Ages 5–12</div></button>
     <button type="button" class="age-card" data-age="teen" aria-pressed="false" onclick="selectAge('teen')"><div class="age-icon">🧑</div><div class="age-title">Teens</div><div class="age-range">Ages 13–17</div></button>
   </div>
   <div class="mode-grid" id="modeGrid"></div>
-  
-  <div class="custom-controls">
-    <h3>⚙️ Pace &amp; Length</h3>
-    <div class="slider-group">
-      <label class="slider-label">
-        <strong>Game Speed</strong>
-        <input type="range" id="speedSlider" min="0.5" max="2.5" step="0.25" value="1.0" onchange="updateModifiers()" style="accent-color: var(--primary);">
-        <span id="speedVal" style="margin-top: 6px; font-weight: 600; color: var(--primary);">1x (Normal)</span>
-      </label>
-      
-      <label class="slider-label">
-        <strong>Time & Rounds</strong>
-        <input type="range" id="timeSlider" min="0.5" max="3" step="0.5" value="1.0" onchange="updateModifiers()" style="accent-color: var(--accent);">
-        <span id="timeVal" style="margin-top: 6px; font-weight: 600; color: var(--accent);">1x (Normal)</span>
-      </label>
-    </div>
-  </div>
-
-  <div class="settings-row">
-    <button type="button" class="toggle-chip active" id="toggleBreathing" aria-pressed="true" onclick="toggleSetting('breathing', this)"><span class="tc-dot"></span>🫁 Breathing Warm-up</button>
-    <button type="button" class="toggle-chip active" id="togglePhysical" aria-pressed="true" onclick="toggleSetting('physical', this)"><span class="tc-dot"></span>🤸 Physical Breaks</button>
-  </div>
   <div class="home-actions">
     <button class="btn btn-secondary" onclick="showProgress()">📊 My Progress</button>
-  </div>
-</div>
-
-<!-- BREATHING -->
-<div class="screen" id="breathingScreen">
-  <div class="breathing-container">
-    <div class="breathing-title">🫁 Calm Your Mind</div>
-    <div class="breathing-subtitle">Before we begin, let's take a moment to breathe.<br>Follow the circle — breathe in as it grows, out as it shrinks.</div>
-    <div class="breathing-circle-wrapper">
-      <div class="breathing-rings ring2" id="breathRing2"></div>
-      <div class="breathing-rings" id="breathRing1"></div>
-      <div class="breathing-circle" id="breathCircle">Breathe</div>
-    </div>
-    <div class="breathing-phase" id="breathPhase">Get ready...</div>
-    <div class="breathing-counter" id="breathCounter">Starting in 3...</div>
-    <div class="breathing-progress"><div class="breathing-progress-fill" id="breathProgress"></div></div>
-    <div class="breathing-skip">
-      <button class="btn btn-secondary" onclick="skipBreathing()">Skip →</button>
-    </div>
   </div>
 </div>
 
@@ -370,20 +280,20 @@ body {
   <div class="game-header">
     <div class="game-title-bar">
       <button class="btn-icon" onclick="goHome()">⬅️</button>
-      <span class="mode-emoji" id="modeEmoji">🎯</span>
-      <h2 id="modeTitle">Dharana Arena</h2>
-      <span class="diff-indicator" id="diffIndicator">Level 1</span>
+      <span class="mode-emoji" id="modeEmoji">🚦</span>
+      <h2 id="modeTitle">Dhāraṇā Pulse</h2>
+      <span class="diff-indicator" id="diffIndicator">Level 1/2</span>
     </div>
     <div class="stats-bar">
       <div class="stat-pill"><span class="stat-icon">⭐</span> <span class="stat-val" id="scoreVal">0</span></div>
-      <div class="stat-pill"><span class="stat-icon">🔄</span> <span class="stat-val" id="roundVal">1</span>/<span id="totalRounds">10</span></div>
+      <div class="stat-pill"><span class="stat-icon">🎯</span> <span class="stat-val" id="roundVal">1</span>/<span id="totalRounds">90</span></div>
       <div class="stat-pill" id="streakPill"><span class="stat-icon">🔥</span> <span class="stat-val" id="streakVal">0</span></div>
       <div class="stat-pill" id="timerPill"><span class="stat-icon">⏱️</span> <span class="stat-val" id="timerVal">0s</span></div>
     </div>
   </div>
   <div class="timer-bar-container"><div id="timerBar"></div></div>
   <div class="game-area" id="gameArea">
-    <div class="instruction-text" id="instructionText">Select a mode to begin!</div>
+    <div class="instruction-text" id="instructionText">Tap the target signal. Hold when it is a distractor.</div>
     <div id="gameContent"></div>
   </div>
 </div>
@@ -429,50 +339,51 @@ body {
 
 <script>
 // ============================================================
-// Dhāraṇā Arena v3 — Holistic Attention Edition
+// Dhāraṇā Arena — Signal Rush and Dual Dash
 // Medhā | Single-file vanilla HTML/CSS/JS
-// Features: 5 game modes + Breathing warm-up + Physical breaks
-//   + Adaptive difficulty + Progress tracking + Custom Modifiers
+// Two age-adaptive attention challenges with longer sessions.
 // ============================================================
 
 const State = {
-  age: null, mode: null, score: 0, round: 1, totalRounds: 10,
+  age: 'junior', mode: 'signal', score: 0, round: 1, totalRounds: 90,
   streak: 0, maxStreak: 0, correctCount: 0, wrongCount: 0,
   reactionTimes: [], timer: null, roundStartTime: 0, isPlaying: false,
-  _keyHandler: null, _currentConfig: null,
-  settings: { breathing: true, physical: true },
-  breathingCompleted: false,
-  physicalBreakRound: 0,
-  customSpeed: 1.0, customTime: 1.0,
-  _scanBag: [], _lastScanEmoji: null, _dualBag: [], _lastDualCombo: null, _memSeqSet: null
+  _keyHandler: null, _currentConfig: null, _sessionId: 0, _timeouts: new Set(),
+  _nextRoundPending: false, _ended: false, _answered: false, _startedAt: 0
 };
 
-// CUSTOM MODIFIER LISTENERS
-function updateModifiers() {
-  State.customSpeed = parseFloat(document.getElementById('speedSlider').value);
-  State.customTime = parseFloat(document.getElementById('timeSlider').value);
-  
-  let sText = State.customSpeed + 'x';
-  if (State.customSpeed < 1) sText += ' (Slow)';
-  else if (State.customSpeed > 1) sText += ' (Fast)';
-  else sText += ' (Normal)';
-
-  let tText = State.customTime + 'x';
-  if (State.customTime < 1) tText += ' (Short)';
-  else if (State.customTime > 1) tText += ' (Extended)';
-  else tText += ' (Normal)';
-
-  document.getElementById('speedVal').textContent = sText;
-  document.getElementById('timeVal').textContent = tText;
-}
-
 // PROGRESS SYSTEM
-const STORAGE_KEY = 'dharana_arena_v3_progress';
+const STORAGE_KEY = 'dharana_arena_v4_progress';
+const LEGACY_STORAGE_KEY = 'dharana_arena_v3_progress';
 const TOTAL_JOURNEY_SESSIONS = 24;
+function maxLevelForAge(age) { return age === 'junior' ? 2 : 5; }
 
+function emptyProgress() {
+  return { sessions: [], dayStreak: 0, lastPlayDate: null, totalSessions: 0, totalPlayTime: 0, bestScores: {}, difficulty: { signal: 1, dual: 1 }, difficultyByAge: { junior: { signal: 1, dual: 1 }, teen: { signal: 1, dual: 1 } }, journeyCompleted: 0 };
+}
 function loadProgress() {
-  try { const d = JSON.parse(localStorage.getItem(STORAGE_KEY)); if (d) return d; } catch(e) {}
-  return { sessions: [], dayStreak: 0, lastPlayDate: null, totalSessions: 0, totalPlayTime: 0, bestScores: {}, difficulty: { signal: 1, memory: 1, scan: 1, dual: 1 }, journeyCompleted: 0, breathingCount: 0, physicalCount: 0 };
+  const defaults = emptyProgress();
+  try {
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || localStorage.getItem(LEGACY_STORAGE_KEY));
+    if (saved) {
+      const migrated = { ...saved };
+      delete migrated.breathingCount;
+      delete migrated.physicalCount;
+      const oldDifficulty = saved.difficulty || {};
+      const oldByAge = saved.difficultyByAge || {};
+      const juniorDefault = { signal: Math.min(oldDifficulty.signal || 1, 2), dual: Math.min(oldDifficulty.dual || 1, 2) };
+      const teenDefault = { signal: oldDifficulty.signal || 1, dual: oldDifficulty.dual || 1 };
+      migrated.difficultyByAge = {
+        junior: {
+          signal: Math.min(oldByAge.junior?.signal ?? juniorDefault.signal, 2),
+          dual: Math.min(oldByAge.junior?.dual ?? juniorDefault.dual, 2),
+        },
+        teen: { ...teenDefault, ...(oldByAge.teen || {}) },
+      };
+      return { ...defaults, ...migrated, difficulty: { ...defaults.difficulty, ...oldDifficulty } };
+    }
+  } catch(e) {}
+  return defaults;
 }
 function saveProgress(d) { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(d)); } catch(e) {} }
 function getTodayStr() { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); }
@@ -481,214 +392,194 @@ function updateDayStreak(p) { const today = getTodayStr(); if (p.lastPlayDate ==
 
 function recordSession(mode, age, score, accuracy, avgRT, maxStreak) {
   const p = loadProgress(); updateDayStreak(p);
-  const session = { date: getTodayStr(), timestamp: Date.now(), mode, age, score, accuracy, avgRT, maxStreak, difficulty: p.difficulty[mode] };
+  const maxLevel = maxLevelForAge(age);
+  const currentLevel = Math.min(p.difficultyByAge[age][mode] || 1, maxLevel);
+  p.difficultyByAge[age][mode] = currentLevel;
+  const session = { date: getTodayStr(), timestamp: Date.now(), mode, age, score, accuracy, avgRT, maxStreak, difficulty: currentLevel };
   p.sessions.push(session); p.totalSessions++;
   if (!p.bestScores[mode] || score > p.bestScores[mode]) p.bestScores[mode] = score;
   if (p.journeyCompleted < TOTAL_JOURNEY_SESSIONS) p.journeyCompleted++;
-  if (State.breathingCompleted) p.breathingCount++;
-  if (State.settings.physical && State.physicalBreakRound > 0) p.physicalCount++;
-
-  let diffChanged = false, diffDirection = '', oldDiff = p.difficulty[mode];
-  if (accuracy >= 85 && p.difficulty[mode] < 5) { p.difficulty[mode]++; diffChanged = true; diffDirection = 'up'; }
-  else if (accuracy < 50 && p.difficulty[mode] > 1) { p.difficulty[mode]--; diffChanged = true; diffDirection = 'down'; }
+  let diffChanged = false, diffDirection = '', oldDiff = currentLevel;
+  if (accuracy >= 85 && currentLevel < maxLevel) { p.difficultyByAge[age][mode]++; diffChanged = true; diffDirection = 'up'; }
+  else if (accuracy < 50 && currentLevel > 1) { p.difficultyByAge[age][mode]--; diffChanged = true; diffDirection = 'down'; }
+  p.difficulty[mode] = p.difficultyByAge[age][mode];
 
   saveProgress(p);
-  return { diffChanged, diffDirection, oldDiff, newDiff: p.difficulty[mode], journeyCompleted: p.journeyCompleted };
+  return { diffChanged, diffDirection, oldDiff, newDiff: p.difficultyByAge[age][mode], journeyCompleted: p.journeyCompleted };
 }
 
 // ADAPTIVE DIFFICULTY
 const BaseConfig = {
-  junior: { signal: { rounds: 12, showTime: 1500, gapTime: 500, goRatio: 0.65 }, memory: { gridSize: 3, maxSeq: 5, rounds: 10, showTime: 600 }, scan: { gridSize: 5, targets: 3, rounds: 10, roundTime: 15 }, dual: { rounds: 12, showTime: 2500, gapTime: 500 } },
-  teen: { signal: { rounds: 14, showTime: 1000, gapTime: 300, goRatio: 0.6 }, memory: { gridSize: 4, maxSeq: 8, rounds: 10, showTime: 450 }, scan: { gridSize: 7, targets: 5, rounds: 10, roundTime: 12 }, dual: { rounds: 12, showTime: 1800, gapTime: 300 } },
+  junior: {
+    signal: { rounds: 90, showTime: 1300, gapTime: 700, goRatio: 0.58 },
+    dual: { rounds: 64, responseTime: 9500, gapTime: 900 },
+  },
+  teen: {
+    signal: { rounds: 110, showTime: 950, gapTime: 500, goRatio: 0.52 },
+    dual: { rounds: 80, responseTime: 7000, gapTime: 700 },
+  },
+};
+const DualOptionsByLevel = {
+  junior: [
+    { shapes: ['circle', 'square'], colors: ['blue', 'red', 'yellow'] },
+    { shapes: ['circle', 'square', 'triangle'], colors: ['blue', 'red', 'yellow'] },
+    { shapes: ['circle', 'square', 'triangle'], colors: ['blue', 'red', 'yellow', 'green'] },
+    { shapes: ['circle', 'square', 'triangle', 'diamond'], colors: ['blue', 'red', 'yellow', 'green'] },
+    { shapes: ['circle', 'square', 'triangle', 'diamond'], colors: ['blue', 'red', 'yellow', 'green', 'purple'] },
+  ],
+  teen: [
+    { shapes: ['circle', 'square', 'triangle'], colors: ['blue', 'red', 'yellow'] },
+    { shapes: ['circle', 'square', 'triangle'], colors: ['blue', 'red', 'yellow', 'green'] },
+    { shapes: ['circle', 'square', 'triangle', 'diamond'], colors: ['blue', 'red', 'yellow', 'green'] },
+    { shapes: ['circle', 'square', 'triangle', 'diamond'], colors: ['blue', 'red', 'yellow', 'green', 'purple'] },
+    { shapes: ['circle', 'square', 'triangle', 'diamond', 'star'], colors: ['blue', 'red', 'yellow', 'green', 'purple'] },
+  ],
 };
 function getAdaptiveConfig(mode, age, dl) {
-  const b = JSON.parse(JSON.stringify(BaseConfig[age][mode]));
-  switch(mode) {
-    case 'signal': b.rounds = b.rounds + (dl-1)*3; b.showTime = Math.max(500, b.showTime - (dl-1)*150); b.gapTime = Math.max(150, b.gapTime - (dl-1)*60); b.goRatio = Math.max(0.45, b.goRatio - (dl-1)*0.04); break;
-    case 'memory': b.maxSeq = b.maxSeq + (dl-1); b.showTime = Math.max(250, b.showTime - (dl-1)*60); if (dl >= 4) b.gridSize = b.gridSize + 1; break;
-    case 'scan': b.gridSize = Math.min(b.gridSize + Math.floor((dl-1)/2), 10); b.targets = b.targets + (dl-1); b.roundTime = Math.max(6, b.roundTime - (dl-1)*1.2); break;
-    case 'dual': b.rounds = b.rounds + (dl-1)*2; b.showTime = Math.max(1200, b.showTime - (dl-1)*150); b.gapTime = Math.max(150, b.gapTime - (dl-1)*40); break;
+  const config = { ...BaseConfig[age][mode] };
+  if (mode === 'signal') {
+    config.rounds += (dl - 1) * 8;
+    config.showTime = Math.max(560, config.showTime - (dl - 1) * 120);
+    config.gapTime = Math.max(300, config.gapTime - (dl - 1) * 60);
+    config.goRatio = Math.max(0.34, config.goRatio - (dl - 1) * 0.035);
+  } else {
+    config.rounds += (dl - 1) * 4;
+    config.responseTime = Math.max(4000, config.responseTime - (dl - 1) * 500);
+    config.gapTime = Math.max(400, config.gapTime - (dl - 1) * 80);
+    config.shapes = [...DualOptionsByLevel[age][dl - 1].shapes];
+    config.colors = [...DualOptionsByLevel[age][dl - 1].colors];
   }
-  
-  // Apply Custom Modifiers
-  if (b.shuffleSpeed) b.shuffleSpeed = b.shuffleSpeed / State.customSpeed;
-  if (b.showTime) b.showTime = b.showTime / State.customSpeed;
-  if (b.gapTime) b.gapTime = b.gapTime / State.customSpeed;
-  if (b.roundTime) b.roundTime = b.roundTime * State.customTime;
-  if (b.rounds) b.rounds = Math.max(8, Math.floor(b.rounds * State.customTime));
-  
-  return b;
+  return config;
 }
+
+const SignalLevelProfiles = {
+  junior: [
+    { targets: 3, shapes: ['circle', 'square'], colors: ['green', 'red', 'yellow'] },
+    { targets: 5, shapes: ['circle', 'square', 'triangle'], colors: ['green', 'red', 'yellow'] },
+    { targets: 7, shapes: ['circle', 'square', 'triangle'], colors: ['green', 'red', 'yellow', 'blue'] },
+    { targets: 9, shapes: ['circle', 'square', 'triangle', 'diamond'], colors: ['green', 'red', 'yellow', 'blue'] },
+    { targets: 12, shapes: ['circle', 'square', 'triangle', 'diamond'], colors: ['green', 'red', 'yellow', 'blue', 'purple'] },
+  ],
+  teen: [
+    { targets: 3, shapes: ['circle', 'square', 'triangle'], colors: ['green', 'red', 'blue'] },
+    { targets: 5, shapes: ['circle', 'square', 'triangle'], colors: ['green', 'red', 'blue', 'yellow'] },
+    { targets: 7, shapes: ['circle', 'square', 'triangle', 'diamond'], colors: ['green', 'red', 'blue', 'yellow'] },
+    { targets: 10, shapes: ['circle', 'square', 'triangle', 'diamond'], colors: ['green', 'red', 'blue', 'yellow', 'purple'] },
+    { targets: 14, shapes: ['circle', 'square', 'triangle', 'diamond', 'star'], colors: ['green', 'red', 'blue', 'yellow', 'purple'] },
+  ],
+};
 
 // Fisher-Yates shuffle used by the anti-repetition bags below
 function shuffleArray(arr) { const a = arr.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
-function getCurrentDifficulty(mode) { return loadProgress().difficulty[mode] || 1; }
+function getCurrentDifficulty(mode, age = State.age) { return Math.min(loadProgress().difficultyByAge[age][mode] || 1, maxLevelForAge(age)); }
 
 // AUDIO ENGINE
 let audioCtx = null;
 function initAudio() { if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)(); if (audioCtx.state === 'suspended') audioCtx.resume(); }
 function playTone(f, d, t='sine', v=0.15) { if (!audioCtx) return; const o = audioCtx.createOscillator(); const g = audioCtx.createGain(); o.type = t; o.frequency.value = f; g.gain.setValueAtTime(v, audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + d); o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(audioCtx.currentTime + d); }
 function playCorrect() { playTone(523.25,0.12); setTimeout(()=>playTone(659.25,0.12),80); setTimeout(()=>playTone(783.99,0.15),160); }
-function playWrong() { playTone(196,0.2,'sawtooth',0.12); setTimeout(()=>playTone(146.83,0.25,'sawtooth',0.1),100); }
 function playClick() { playTone(800,0.05,'square',0.08); }
 function playLevelUp() { [523,659,784,1047,1319].forEach((f,i)=>setTimeout(()=>playTone(f,0.15,'sine',0.13),i*100)); }
 function playCountdown(n) { if (n>0) playTone(440,0.15); else playTone(880,0.3); }
 function playFinish() { [523,659,784,1047,1319].forEach((f,i)=>setTimeout(()=>playTone(f,0.2,'sine',0.12),i*120)); }
-function playBreathIn() { playTone(220, 3, 'sine', 0.06); setTimeout(()=>playTone(277, 2, 'sine', 0.05), 1500); }
-function playBreathOut() { playTone(330, 0.5, 'sine', 0.05); setTimeout(()=>playTone(247, 3, 'sine', 0.05), 200); }
 
 // PARTICLES
 function createParticles() { const c = document.getElementById('particles'); const cols = ['#00d4ff','#a55eea','#ff6b9d','#ffd93d','#6bcf7f']; for (let i=0;i<25;i++) { const p=document.createElement('div'); p.className='particle'; const s=Math.random()*20+10; p.style.width=s+'px'; p.style.height=s+'px'; p.style.left=Math.random()*100+'%'; p.style.background=cols[Math.floor(Math.random()*cols.length)]; p.style.animationDuration=(Math.random()*10+8)+'s'; p.style.animationDelay=(Math.random()*10)+'s'; c.appendChild(p); } }
 createParticles();
 
 // NAVIGATION
+function clearTransientEffects() {
+  for (const timer of State._timeouts) clearTimeout(timer);
+  State._timeouts.clear();
+  document.getElementById('feedbackOverlay')?.replaceChildren();
+  document.querySelectorAll('.confetti, .diff-up-banner').forEach((el) => el.remove());
+  const gameContent = document.getElementById('gameContent');
+  if (gameContent) gameContent.replaceChildren();
+}
+function scheduleGame(callback, delay) {
+  const sessionId = State._sessionId;
+  const timer = setTimeout(() => {
+    State._timeouts.delete(timer);
+    if (sessionId === State._sessionId) callback();
+  }, delay);
+  State._timeouts.add(timer);
+  return timer;
+}
+function cancelGameTimer(timer) { if (timer) { clearTimeout(timer); State._timeouts.delete(timer); } }
 function showScreen(id) { document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
-function selectAge(age) { initAudio(); State.age = age; document.querySelectorAll('.age-card').forEach(c=>{const selected=c.dataset.age===age;c.classList.toggle('selected',selected);c.setAttribute('aria-pressed',String(selected));}); playClick(); }
-function goHome() { if (State.timer) { clearInterval(State.timer); State.timer = null; } if (State._breathTimer) { clearInterval(State._breathTimer); State._breathTimer = null; } if (State._keyHandler) { document.removeEventListener('keydown', State._keyHandler); State._keyHandler = null; } State.isPlaying = false; renderHomeStats(); renderModeGrid(); showScreen('homeScreen'); }
-function toggleSetting(key, el) { State.settings[key] = !State.settings[key]; el.classList.toggle('active',State.settings[key]); el.setAttribute('aria-pressed',String(State.settings[key])); playClick(); }
+function selectAge(age) { initAudio(); State.age = age; document.querySelectorAll('.age-card').forEach(c=>{const selected=c.dataset.age===age;c.classList.toggle('selected',selected);c.setAttribute('aria-pressed',String(selected));}); document.getElementById('ageHint').textContent = age === 'junior' ? 'Ages 5–12: larger cues, more response time, and two starter shapes.' : 'Ages 13–17: faster cues, longer sessions, and more shape/color choices.'; renderModeGrid(); playClick(); }
+function stopActiveSession() {
+  State._sessionId++;
+  if (State.timer) { clearInterval(State.timer); State.timer = null; }
+  if (State._keyHandler) { document.removeEventListener('keydown', State._keyHandler); State._keyHandler = null; }
+  State.isPlaying = false;
+  State._ended = true;
+  State._nextRoundPending = false;
+  clearTransientEffects();
+}
+function goHome() { stopActiveSession(); renderHomeStats(); renderModeGrid(); showScreen('homeScreen'); window.BhavaNav?.clearScreenHistory?.(); }
+document.addEventListener('bhava:screen-restored', (event) => {
+  if (event.target?.id !== 'homeScreen') return;
+  stopActiveSession();
+  renderHomeStats();
+  renderModeGrid();
+});
 
 // HOME RENDERING
 const ModeInfo = {
-  signal: { emoji:'🚦', name:'Signal Rush', desc:'Tap green. Skip red.', color:'#6bcf7f' },
-  memory: { emoji:'🧩', name:'Memory Matrix', desc:'Watch and repeat the pattern.', color:'#a55eea' },
-  scan: { emoji:'🔍', name:'Scan Quest', desc:'Find every matching symbol.', color:'#ffd93d' },
-  dual: { emoji:'⚡', name:'Dual Dash', desc:'Choose the shape and color.', color:'#ff6b9d' },
+  signal: { emoji:'🚦', name:'Dhāraṇā Pulse', color:'#6bcf7f' },
+  dual: { emoji:'⚡', name:'Dhāraṇā Fusion', color:'#ff6b9d' },
 };
 
 function renderHomeStats() {
   const p = loadProgress();
   document.getElementById('homeStatsBar').innerHTML = `
-    <div class="home-stat"><div class="hs-icon">🔥</div><div class="hs-val">${p.dayStreak}</div><div class="hs-label">Day Streak</div></div>
-    <div class="home-stat"><div class="hs-icon">🎮</div><div class="hs-val">${p.totalSessions}</div><div class="hs-label">Total Sessions</div></div>
-    <div class="home-stat"><div class="hs-icon">🗺️</div><div class="hs-val">${p.journeyCompleted}/${TOTAL_JOURNEY_SESSIONS}</div><div class="hs-label">Journey</div></div>
-    <div class="home-stat"><div class="hs-icon">🫁</div><div class="hs-val">${p.breathingCount}</div><div class="hs-label">Breathing</div></div>`;
+    <div class="home-stat"><div class="hs-icon">🎮</div><div class="hs-val">${p.totalSessions}</div><div class="hs-label">Sessions played</div></div>
+    <div class="home-stat"><div class="hs-icon">🔥</div><div class="hs-val">${p.dayStreak}</div><div class="hs-label">Day streak</div></div>`;
 }
 function renderModeGrid() {
   const g = document.getElementById('modeGrid'); g.innerHTML = '';
+  const maxLevel = maxLevelForAge(State.age);
   Object.keys(ModeInfo).forEach(mode => { const info = ModeInfo[mode];
     const c = document.createElement('div'); c.className='mode-card'; c.style.setProperty('--mode-color', info.color);
-    c.innerHTML = `<span class="mode-icon">${info.emoji}</span><div class="mode-name">${info.name}</div><div class="mode-desc">${info.desc}</div><button type="button" class="mode-play">Play</button>`;
-    c.querySelector('.mode-play').addEventListener('click', () => startGame(mode));
+    const selectedLevel = getCurrentDifficulty(mode, State.age);
+    c.innerHTML = `<span class="mode-icon">${info.emoji}</span><div class="mode-name">${info.name}</div><div class="level-select-label">LEVEL</div><div class="level-select" role="group" aria-label="${info.name} level">${Array.from({length:maxLevel},(_,index)=>index+1).map(level => `<button type="button" class="level-option" data-mode="${mode}" data-level="${level}" aria-label="${info.name} Level ${level}" aria-pressed="${level === selectedLevel}">L${level}</button>`).join('')}</div><button type="button" class="mode-play" aria-label="Play ${info.name}">Play</button>`;
+    c.querySelectorAll('.level-option').forEach((button) => button.addEventListener('click', () => {
+      const level = Number(button.dataset.level);
+      const progress = loadProgress();
+      progress.difficultyByAge[State.age][mode] = level;
+      progress.difficulty[mode] = level;
+      saveProgress(progress);
+      c.querySelectorAll('.level-option').forEach((option) => option.setAttribute('aria-pressed', String(option === button)));
+    }));
+    c.querySelector('.mode-play').addEventListener('click', () => { initAudio(); startGame(mode); });
     g.appendChild(c);
   });
 }
 
-// SETTINGS PERSISTENCE
-function loadSettings() { try { const s = JSON.parse(localStorage.getItem('dharana_settings_v3')); if (s) State.settings = s; } catch(e) {} }
-function saveSettings() { try { localStorage.setItem('dharana_settings_v3', JSON.stringify(State.settings)); } catch(e) {} }
-function syncSettingsUI() {
-  document.getElementById('toggleBreathing').classList.toggle('active', State.settings.breathing);
-  document.getElementById('togglePhysical').classList.toggle('active', State.settings.physical);
-  document.getElementById('toggleBreathing').setAttribute('aria-pressed', String(State.settings.breathing));
-  document.getElementById('togglePhysical').setAttribute('aria-pressed', String(State.settings.physical));
-}
-
-// GAME FLOW: Start -> Breathing -> Countdown -> Game (with physical breaks) -> Results
+// GAME FLOW: Choose age -> Choose challenge -> Countdown -> Short session -> Results
 function startGame(mode) {
-  initAudio();
-  if (!State.age) { State.age = 'junior'; document.querySelector('[data-age="junior"]').classList.add('selected'); }
-  saveSettings(); syncSettingsUI();
+  State._sessionId++;
+  clearTransientEffects();
   State.mode = mode; State.score = 0; State.round = 1; State.streak = 0; State.maxStreak = 0;
   State.correctCount = 0; State.wrongCount = 0; State.reactionTimes = [];
-  State.breathingCompleted = false; State.physicalBreakRound = 0;
-  State._scanBag = []; State._lastScanEmoji = null; State._dualBag = []; State._lastDualCombo = null; State._memSeqSet = new Set();
+  State._nextRoundPending = false; State._ended = false; State._answered = false;
 
-  const dl = getCurrentDifficulty(mode);
+  const dl = Math.min(getCurrentDifficulty(mode, State.age), maxLevelForAge(State.age));
   const cfg = getAdaptiveConfig(mode, State.age, dl);
   State._currentConfig = cfg; State.totalRounds = cfg.rounds;
+  State._startedAt = Date.now();
+  if (State.timer) clearInterval(State.timer);
+  State.timer = setInterval(() => {
+    if (!State.isPlaying) return;
+    const elapsed = Math.floor((Date.now() - State._startedAt) / 1000);
+    document.getElementById('timerVal').textContent = `${Math.floor(elapsed / 60)}:${String(elapsed % 60).padStart(2, '0')}`;
+  }, 1000);
   const info = ModeInfo[mode];
   document.getElementById('modeEmoji').textContent = info.emoji;
   document.getElementById('modeTitle').textContent = info.name;
-  document.getElementById('diffIndicator').textContent = 'Level ' + dl + '/5';
+  document.getElementById('diffIndicator').textContent = `Level ${dl}/${maxLevelForAge(State.age)}`;
   document.getElementById('totalRounds').textContent = cfg.rounds;
-  document.getElementById('timerPill').style.display = mode === 'dual' ? 'none' : '';
-  document.querySelector('.timer-bar-container').style.display = mode === 'dual' ? 'none' : '';
-
-  if (State.settings.breathing) { showScreen('breathingScreen'); startBreathing(); }
-  else { enterGame(); }
-}
-
-// BREATHING WARM-UP
-function startBreathing() {
-  const circle = document.getElementById('breathCircle');
-  const ring1 = document.getElementById('breathRing1');
-  const ring2 = document.getElementById('breathRing2');
-  const phaseEl = document.getElementById('breathPhase');
-  const counterEl = document.getElementById('breathCounter');
-  const progressEl = document.getElementById('breathProgress');
-
-  let cycles = 0;
-  const totalCycles = 3;
-  const inhaleTime = 4000;
-  const holdTime = 2000;
-  const exhaleTime = 4000;
-  const cycleTime = inhaleTime + holdTime + exhaleTime;
-
-  let startDelay = 3;
-  counterEl.textContent = `Starting in ${startDelay}...`;
-  phaseEl.textContent = 'Get ready...';
-  circle.className = 'breathing-circle contracted';
-  ring1.className = 'breathing-rings contracted';
-  ring2.className = 'breathing-rings ring2 contracted';
-
-  State._breathTimer = setInterval(() => {
-    startDelay--;
-    if (startDelay <= 0) {
-      clearInterval(State._breathTimer);
-      State._breathTimer = null;
-      counterEl.textContent = `Cycle 1 of ${totalCycles}`;
-      runBreathCycle(0);
-    } else {
-      counterEl.textContent = `Starting in ${startDelay}...`;
-      playCountdown(startDelay);
-    }
-  }, 1000);
-
-  function runBreathCycle(cycle) {
-    if (cycle >= totalCycles) {
-      phaseEl.textContent = '✨ You are ready!';
-      counterEl.textContent = 'Let\'s begin!';
-      progressEl.style.width = '100%';
-      State.breathingCompleted = true;
-      setTimeout(() => enterGame(), 1500);
-      return;
-    }
-
-    counterEl.textContent = `Cycle ${cycle + 1} of ${totalCycles}`;
-    const progressPct = (cycle / totalCycles) * 100;
-    progressEl.style.width = progressPct + '%';
-
-    // Inhale
-    phaseEl.textContent = '🌬️ Breathe in...';
-    circle.className = 'breathing-circle expanded';
-    ring1.className = 'breathing-rings expanded';
-    ring2.className = 'breathing-rings ring2 expanded';
-    playBreathIn();
-
-    setTimeout(() => {
-      // Hold
-      phaseEl.textContent = '⏸️ Hold...';
-      circle.style.transform = 'scale(2.2)';
-    }, inhaleTime);
-
-    setTimeout(() => {
-      // Exhale
-      phaseEl.textContent = '💨 Breathe out...';
-      circle.className = 'breathing-circle contracted';
-      ring1.className = 'breathing-rings contracted';
-      ring2.className = 'breathing-rings ring2 contracted';
-      playBreathOut();
-    }, inhaleTime + holdTime);
-
-    setTimeout(() => {
-      runBreathCycle(cycle + 1);
-    }, cycleTime);
-  }
-}
-
-function skipBreathing() {
-  if (State._breathTimer) { clearInterval(State._breathTimer); State._breathTimer = null; }
-  State.breathingCompleted = false;
   enterGame();
 }
 
@@ -700,89 +591,25 @@ function enterGame() {
 
 function showCountdown(cb) {
   const ga = document.getElementById('gameArea');
+  const sessionId = State._sessionId;
   let count = 3;
   const ov = document.createElement('div'); ov.className = 'countdown-overlay'; ga.appendChild(ov);
   function tick() {
-    if (count > 0) { ov.innerHTML = `<div class="countdown-number">${count}</div>`; playCountdown(count); count--; setTimeout(tick, 800); }
-    else { ov.innerHTML = `<div class="countdown-number">Go!</div>`; playCountdown(0); setTimeout(() => { ov.remove(); cb(); }, 600); }
+    if (sessionId !== State._sessionId) { ov.remove(); return; }
+    if (count > 0) { ov.innerHTML = `<div class="countdown-number">${count}</div>`; playCountdown(count); count--; scheduleGame(tick, 800); }
+    else { ov.innerHTML = `<div class="countdown-number">Go!</div>`; playCountdown(0); scheduleGame(() => { ov.remove(); cb(); }, 600); }
   }
   tick();
 }
 
-// PHYSICAL BREAKS
-const PhysicalBreaks = [
-  { icon: '🧘', title: 'Stand Up!', desc: 'Stand up tall, stretch your arms to the sky, and reach as high as you can!', duration: 15 },
-  { icon: '👋', title: 'Clap 5 Times!', desc: 'Clap your hands loudly 5 times with full energy!', duration: 10 },
-  { icon: '🤸', title: '3 Jumping Jacks!', desc: 'Do 3 jumping jacks — move your whole body!', duration: 12 },
-  { icon: '👐', title: 'Touch Your Toes!', desc: 'Bend down and try to touch your toes. Hold for 3 seconds!', duration: 12 },
-  { icon: '🔄', title: 'Turn Around!', desc: 'Stand up and turn around slowly 2 times. Find your balance!', duration: 15 },
-  { icon: '💪', title: 'Arm Circles!', desc: 'Make 5 big circles with your arms forward, then 5 backward!', duration: 15 },
-  { icon: '👁️', title: 'Look Far Away!', desc: 'Look at something far away through a window for 10 seconds. Rest your eyes!', duration: 12 },
-  { icon: '🫁', title: 'Big Breath!', desc: 'Take 3 deep breaths — in through your nose, out through your mouth!', duration: 12 },
-  { icon: '🦵', title: 'March in Place!', desc: 'March in place 10 times — lift your knees high!', duration: 15 },
-  { icon: '👐', title: 'Squeeze & Release!', desc: 'Squeeze both fists tight for 3 seconds, then release. Repeat 3 times!', duration: 12 },
-];
-
-function showPhysicalBreak(afterCallback) {
-  const brk = PhysicalBreaks[Math.floor(Math.random() * PhysicalBreaks.length)];
-  const overlay = document.createElement('div');
-  overlay.className = 'physical-overlay';
-  overlay.id = 'physicalOverlay';
-  overlay.innerHTML = `
-    <div class="po-icon">${brk.icon}</div>
-    <div class="po-title">${brk.title}</div>
-    <div class="po-desc">${brk.desc}</div>
-    <div class="po-countdown" id="poCountdown">${brk.duration}</div>
-    <div class="po-timer-bar"><div class="po-timer-fill" id="poTimerFill"></div></div>
-    <button class="btn btn-primary po-skip-btn" onclick="document.getElementById('physicalOverlay').remove(); (window._poCallback||(()=>{}))(); window._poCallback=null;">Done! ✅</button>
-  `;
-  document.body.appendChild(overlay);
-  playLevelUp();
-
-  const startTime = Date.now();
-  const totalMs = brk.duration * 1000;
-  const countdownEl = overlay.querySelector('#poCountdown');
-  const timerFill = overlay.querySelector('#poTimerFill');
-
-  State._physicalTimer = setInterval(() => {
-    const elapsed = Date.now() - startTime;
-    const remaining = Math.max(0, totalMs - elapsed);
-    const secs = Math.ceil(remaining / 1000);
-    countdownEl.textContent = secs;
-    timerFill.style.width = (remaining / totalMs * 100) + '%';
-    if (secs <= 3 && secs > 0 && secs !== State._lastPoSec) {
-      playTone(600, 0.1, 'sine', 0.08);
-      State._lastPoSec = secs;
-    }
-    if (remaining <= 0) {
-      clearInterval(State._physicalTimer);
-      State._physicalTimer = null;
-      overlay.remove();
-      playCorrect();
-      if (window._poCallback) { window._poCallback(); window._poCallback = null; }
-    }
-  }, 100);
-}
-
 // GAME ROUND DISPATCHER
 function runRound() {
-  if (State.settings.physical && State.totalRounds >= 6) {
-    const breakInterval = Math.floor(State.totalRounds / 3);
-    if (State.round > 1 && State.round <= State.totalRounds && (State.round - 1) % breakInterval === 0 && State.round !== State.totalRounds + 1) {
-      State.physicalBreakRound = State.round;
-      showPhysicalBreak(() => { runGameRound(); });
-      return;
-    }
-  }
   runGameRound();
 }
 
 function runGameRound() {
-  const cfg = State._currentConfig;
-  if (State.mode === 'signal') runSignalRound(cfg);
-  else if (State.mode === 'memory') runMemoryRound(cfg);
-  else if (State.mode === 'scan') runScanRound(cfg);
-  else if (State.mode === 'dual') runDualRound(cfg);
+  if (State.mode === 'signal') runSignalRound(State._currentConfig);
+  else if (State.mode === 'dual') runDualRound(State._currentConfig);
 }
 
 // COMMON GAME FUNCTIONS
@@ -790,16 +617,28 @@ function updateStats() { document.getElementById('scoreVal').textContent = State
 function startTimer(s, cb) { if (State.timer) clearInterval(State.timer); const st = Date.now(); const tm = s*1000; State.roundStartTime = st; State.timer = setInterval(() => { const e = Date.now()-st; const r = Math.max(0, tm-e); document.getElementById('timerBar').style.width = (r/tm*100)+'%'; document.getElementById('timerVal').textContent = Math.ceil(r/1000)+'s'; if (r<=0) { clearInterval(State.timer); State.timer=null; if(cb) cb(); } }, 50); }
 function stopTimer() { if (State.timer) { clearInterval(State.timer); State.timer=null; } }
 function recordReactionTime() { State.reactionTimes.push(Date.now() - State.roundStartTime); }
-function handleCorrect(p) { State.score+=p; State.streak++; State.maxStreak=Math.max(State.maxStreak,State.streak); State.correctCount++; recordReactionTime(); playCorrect(); showFeedback('+'+p,'#6bcf7f'); burstConfetti(8); updateStats(); }
-function handleWrong() { State.streak=0; State.wrongCount++; playWrong(); showFeedback('✗','#ff4757'); updateStats(); }
-function showFeedback(t,c) { const o=document.getElementById('feedbackOverlay'); const p=document.createElement('div'); p.className='feedback-pop'; p.textContent=t; p.style.color=c; o.appendChild(p); setTimeout(()=>p.remove(),800); }
+function handleCorrect(p, notify = true) { State.score+=p; State.streak++; State.maxStreak=Math.max(State.maxStreak,State.streak); State.correctCount++; recordReactionTime(); playCorrect(); if (notify) showFeedback('Nice focus!','var(--success)'); updateStats(); }
+function handleWrong(notify = true) { State.streak=0; State.wrongCount++; if (notify) showFeedback('Reset and focus','var(--accent)'); updateStats(); }
+function showFeedback(t,c) { if (!State.isPlaying) return; const o=document.getElementById('feedbackOverlay'); const p=document.createElement('div'); p.className='feedback-pop'; p.textContent=t; p.style.color=c; o.appendChild(p); scheduleGame(()=>p.remove(),800); }
 function burstConfetti(n) { const cols=['#00d4ff','#ff6b6b','#ffd93d','#6bcf7f','#a55eea','#ff6b9d']; for(let i=0;i<n;i++){const c=document.createElement('div'); c.className='confetti'; c.style.left=(40+Math.random()*20)+'%'; c.style.top=(40+Math.random()*20)+'%'; c.style.background=cols[Math.floor(Math.random()*cols.length)]; c.style.animationDuration=(1+Math.random())+'s'; c.style.animationDelay=(Math.random()*0.3)+'s'; document.body.appendChild(c); setTimeout(()=>c.remove(),2500);} }
-function showDiffUpBanner(mode, nl) { const b=document.createElement('div'); b.className='diff-up-banner'; b.innerHTML=`⚡ Difficulty Up! ${ModeInfo[mode].emoji} ${ModeInfo[mode].name} → Level ${nl}/5`; document.body.appendChild(b); playLevelUp(); burstConfetti(20); setTimeout(()=>b.remove(),3000); }
-function nextRound() { setTimeout(() => { State.round++; if (State.round > State.totalRounds) { endGame(); return; } updateStats(); runRound(); }, 600); }
+function showDiffUpBanner(mode, nl) { const b=document.createElement('div'); b.className='diff-up-banner'; b.innerHTML=`⚡ Difficulty Up! ${ModeInfo[mode].emoji} ${ModeInfo[mode].name} → Level ${nl}/${maxLevelForAge(State.age)}`; document.body.appendChild(b); playLevelUp(); burstConfetti(20); setTimeout(()=>b.remove(),3000); }
+function nextRound() {
+  if (!State.isPlaying || State._nextRoundPending || State._ended) return;
+  State._nextRoundPending = true;
+  scheduleGame(() => {
+    State._nextRoundPending = false;
+    if (!State.isPlaying || State._ended) return;
+    State.round++;
+    if (State.round > State.totalRounds) { endGame(); return; }
+    updateStats();
+    runRound();
+  }, 500);
+}
 
 // END GAME -> RESULTS
 function endGame() {
-  State.isPlaying = false; stopTimer();
+  if (State._ended) return;
+  State._ended = true; State.isPlaying = false; stopTimer();
   if (State._keyHandler) { document.removeEventListener('keydown', State._keyHandler); State._keyHandler = null; }
   playFinish(); burstConfetti(30);
   showResults();
@@ -818,9 +657,9 @@ function showResults() {
 
   let message = '';
   if (accuracy >= 90) message = 'Outstanding focus! Your attention skills are razor-sharp. 🌟';
-  else if (accuracy >= 75) message = 'Great job! You are building strong attention skills. 💪';
-  else if (accuracy >= 60) message = 'Good effort! You are on the right track. 🎯';
-  else message = 'Every champion starts here! Practice regularly and grow. 🌱';
+  else if (accuracy >= 75) message = 'Strong focus. You kept your responses controlled.';
+  else if (accuracy >= 60) message = 'Good practice. Use the level cue and keep building consistency.';
+  else message = 'Take a short pause, then try again when you are ready.';
 
   const result = recordSession(State.mode, State.age, State.score, accuracy, avgRT, State.maxStreak);
 
@@ -835,16 +674,17 @@ function showResults() {
 
   const jp = Math.round((result.journeyCompleted / TOTAL_JOURNEY_SESSIONS) * 100);
   let jh = `<div class="ju-title">🗺️ Journey Progress</div>Session ${result.journeyCompleted} of ${TOTAL_JOURNEY_SESSIONS} (${jp}%)<div class="journey-bar"><div class="journey-bar-fill" style="width:${jp}%"></div></div>`;
-  if (result.diffChanged && result.diffDirection === 'up') jh += `<div style="margin-top:6px;color:var(--accent);font-weight:700;">⚡ Difficulty increased to Level ${result.newDiff}/5!</div>`;
-  else if (result.diffChanged && result.diffDirection === 'down') jh += `<div style="margin-top:6px;color:var(--primary);">📉 Difficulty adjusted to Level ${result.newDiff}/5.</div>`;
-  else { if (accuracy < 85 && accuracy >= 50) jh += `<div style="margin-top:6px;color:var(--text-dim);">Reach 85% accuracy to unlock the next level!</div>`; }
+  if (result.diffChanged && result.diffDirection === 'up') jh += `<div style="margin-top:6px;color:var(--accent);font-weight:700;">⚡ Difficulty increased to Level ${result.newDiff}/${maxLevelForAge(State.age)}!</div>`;
+  else if (result.diffChanged && result.diffDirection === 'down') jh += `<div style="margin-top:6px;color:var(--primary);">📉 Difficulty adjusted to Level ${result.newDiff}/${maxLevelForAge(State.age)}.</div>`;
+  else if (result.newDiff < maxLevelForAge(State.age) && accuracy < 85 && accuracy >= 50) jh += `<div style="margin-top:6px;color:var(--text-dim);">Reach 85% accuracy to unlock the next level!</div>`;
   document.getElementById('journeyUpdate').innerHTML = jh;
 
   document.getElementById('resultsMessage').textContent = message;
+  window.BhavaSession?.end?.(accuracy);
 
-  setTimeout(() => {
+  scheduleGame(() => {
     showScreen('resultsScreen');
-    if (result.diffChanged && result.diffDirection === 'up') { setTimeout(() => showDiffUpBanner(State.mode, result.newDiff), 500); }
+    if (result.diffChanged && result.diffDirection === 'up') { scheduleGame(() => showDiffUpBanner(State.mode, result.newDiff), 500); }
   }, 500);
 }
 
@@ -852,79 +692,231 @@ function replayGame() { startGame(State.mode); }
 
 // ====== GAME MODES ======
 function runSignalRound(cfg) {
-  let ss={isGo:false,responded:false,st:null};let sc2=0;
-  const c=document.getElementById('gameContent');
-  c.innerHTML=`<div class="instruction-text">Tap ONLY when <strong>green</strong> ✅. Do NOT tap when <strong style="color:var(--danger)">red</strong> ❌!</div><div class="signal-display" id="signalDisplay">⏳</div><div class="tap-hint">Tap or press SPACEBAR</div>`;
-  const d=document.getElementById('signalDisplay');
-  State.round=1;State.totalRounds=cfg.rounds;document.getElementById('roundVal').textContent='1';document.getElementById('totalRounds').textContent=cfg.rounds;
-  function sns(){if(sc2>=cfg.rounds){endGame();return;}State.round=sc2+1;updateStats();ss.responded=false;ss.isGo=Math.random()<cfg.goRatio;d.className='signal-display neutral';d.textContent='...';State.roundStartTime=Date.now();
-    setTimeout(()=>{if(ss.responded)return;if(ss.isGo){d.className='signal-display signal-go';d.textContent='✅';}else{d.className='signal-display signal-nogo';d.textContent='❌';}ss.st=setTimeout(()=>{if(!ss.responded){if(ss.isGo){handleWrong();}else{State.correctCount++;State.score+=5;State.streak++;State.maxStreak=Math.max(State.maxStreak,State.streak);playCorrect();showFeedback('+5','#6bcf7f');updateStats();}sc2++;setTimeout(sns,cfg.gapTime);}},cfg.showTime);},cfg.gapTime+Math.random()*500);}
-  function hst(){if(ss.responded)return;if(!d.classList.contains('signal-go')&&!d.classList.contains('signal-nogo'))return;ss.responded=true;if(ss.st)clearTimeout(ss.st);if(ss.isGo&&d.classList.contains('signal-go')){recordReactionTime();handleCorrect(10+State.streak*2);d.style.transform='scale(0.9)';setTimeout(()=>d.style.transform='',200);}else{handleWrong();d.style.animation='noGoShake 0.3s ease';setTimeout(()=>d.style.animation='',300);}sc2++;setTimeout(sns,cfg.gapTime);}
-  d.addEventListener('click',hst);
-  const kh=(e)=>{if(e.code==='Space'&&State.isPlaying&&State.mode==='signal'){e.preventDefault();hst();}};
-  document.addEventListener('keydown',kh);State._keyHandler=kh;sns();
-}
+  let responded = false;
+  let currentIsGo = false;
+  let signalTimer = null;
+  let completed = 0;
+  let lastCue = '';
+  const level = Math.min(getCurrentDifficulty('signal'), 5);
+  const profile = SignalLevelProfiles[State.age][level - 1];
+  const symbols = { circle: '●', square: '■', triangle: '▲', diamond: '◆', star: '✦' };
+  const colors = { green: '#26de81', red: '#ff4757', blue: '#378bff', orange: '#fd9644', yellow: '#facc15', purple: '#a55eea', cyan: '#18b7c8', pink: '#ff6b9d' };
+  const allCues = shuffleArray(profile.shapes.flatMap((shape) => profile.colors.map((color) => ({ shape, color }))));
+  const targetCues = allCues.slice(0, profile.targets);
+  const distractorCues = allCues.slice(profile.targets);
+  const targetKeys = new Set(targetCues.map((cue) => `${cue.shape}:${cue.color}`));
+  let cueDeck = shuffleArray(allCues);
+  let cueDeckIndex = 0;
+  const content = document.getElementById('gameContent');
+  document.getElementById('instructionText').textContent = `Tap any of the ${targetCues.length} target cues shown. Ignore every other signal.`;
+  content.innerHTML = `<div class="signal-target-panel"><div class="signal-target-label">TARGET CUES</div><div class="signal-targets">${targetCues.map((cue) => `<span class="signal-target-cue cue-${cue.shape}" style="--signal-color:${colors[cue.color]}" aria-label="${cue.color} ${cue.shape}">${symbols[cue.shape]}</span>`).join('')}</div></div><div class="signal-display signal-neutral" id="signalDisplay" role="button" tabindex="0" aria-label="Signal, waiting">Ready</div><div class="tap-hint">Tap a cue from the target set · Hold on every other cue · SPACE also works</div>`;
+  const display = document.getElementById('signalDisplay');
+  State.round = 1;
+  State.totalRounds = cfg.rounds;
+  document.getElementById('roundVal').textContent = '1';
+  document.getElementById('totalRounds').textContent = cfg.rounds;
 
-function runMemoryRound(cfg) {
-  const c=document.getElementById('gameContent');const sl=Math.min(cfg.maxSeq,2+Math.floor(State.round/2));const gs=cfg.gridSize;const tc=gs*gs;
-  if(!State._memSeqSet) State._memSeqSet=new Set();
-  let seq,key,attempts=0;
-  do{seq=[];for(let i=0;i<sl;i++){let cl;do{cl=Math.floor(Math.random()*tc);}while(seq.includes(cl));seq.push(cl);}key=seq.join(',');attempts++;}while(State._memSeqSet.has(key)&&attempts<30);
-  State._memSeqSet.add(key);
-  document.getElementById('instructionText').innerHTML='Watch the pattern <strong>light up</strong>, then repeat it!';
-  c.innerHTML='';const pt=document.createElement('div');pt.className='memory-phase-text';pt.textContent='Memorize...';c.appendChild(pt);
-  const g=document.createElement('div');g.className='memory-grid';g.style.gridTemplateColumns=`repeat(${gs},1fr)`;g.style.maxWidth=(gs*68)+'px';
-  for(let i=0;i<tc;i++){const cl=document.createElement('div');cl.className='memory-cell';cl.dataset.idx=i;g.appendChild(cl);}
-  c.appendChild(g);const cells=g.querySelectorAll('.memory-cell');
-  let si=0;function ss2(){if(si<seq.length){const ci=seq[si];cells[ci].classList.add('lit');playTone(400+si*80,0.25);setTimeout(()=>{cells[ci].classList.remove('lit');si++;setTimeout(ss2,200);},cfg.showTime);}else{pt.textContent='Your turn! Repeat the pattern';pt.style.color='var(--success)';startInput();}}
-  let ii=0;function startInput(){State.roundStartTime=Date.now();startTimer(sl*3,()=>{handleWrong();nextRound();});cells.forEach(cl=>{cl.addEventListener('click',function(){if(!State.isPlaying)return;const idx=parseInt(this.dataset.idx);if(idx===seq[ii]){this.classList.add('correct-lit');playTone(500+ii*60,0.15);ii++;if(ii===seq.length){stopTimer();handleCorrect(10*sl+State.streak*3);cells.forEach(c2=>c2.style.pointerEvents='none');setTimeout(()=>nextRound(),800);}}else{this.classList.add('wrong-lit');stopTimer();handleWrong();cells.forEach(c2=>c2.style.pointerEvents='none');setTimeout(()=>nextRound(),800);}});});}
-  setTimeout(ss2,600);
-}
-
-function nextScanEmoji(Emojis) {
-  if (!State._scanBag || State._scanBag.length === 0) {
-    State._scanBag = shuffleArray(Emojis);
-    if (State._lastScanEmoji && State._scanBag[0] === State._lastScanEmoji) {
-      const j = State._scanBag.findIndex(e => e !== State._lastScanEmoji);
-      if (j > 0) [State._scanBag[0], State._scanBag[j]] = [State._scanBag[j], State._scanBag[0]];
+  function nextSignal() {
+    if (!State.isPlaying || State._ended) return;
+    if (completed >= cfg.rounds) { endGame(); return; }
+    State.round = completed + 1;
+    updateStats();
+    responded = false;
+    if (cueDeckIndex >= cueDeck.length) {
+      cueDeck = shuffleArray(allCues);
+      if (cueDeck.length > 1 && `${cueDeck[0].shape}:${cueDeck[0].color}` === lastCue) [cueDeck[0], cueDeck[1]] = [cueDeck[1], cueDeck[0]];
+      cueDeckIndex = 0;
     }
+    const cue = cueDeck[cueDeckIndex++];
+    const { shape, color } = cue;
+    lastCue = `${shape}:${color}`;
+    currentIsGo = targetKeys.has(lastCue);
+    display.className = 'signal-display signal-neutral';
+    display.textContent = 'Ready';
+    display.style.removeProperty('--signal-color');
+    display.setAttribute('aria-label', 'Signal, waiting');
+    scheduleGame(() => {
+      if (!State.isPlaying || responded) return;
+      display.className = `signal-display signal-cue cue-${shape}`;
+      display.style.setProperty('--signal-color', colors[color]);
+      display.textContent = symbols[shape];
+      display.setAttribute('aria-label', `${color} ${shape}. ${currentIsGo ? 'Tap now' : 'Do not tap'}`);
+      State.roundStartTime = Date.now();
+      signalTimer = scheduleGame(() => {
+        signalTimer = null;
+        if (responded || !State.isPlaying) return;
+        responded = true;
+        if (currentIsGo) {
+          handleWrong(false);
+        } else {
+          handleCorrect(6 + State.streak, false);
+        }
+        completed++;
+        scheduleGame(nextSignal, cfg.gapTime);
+      }, cfg.showTime);
+    }, cfg.gapTime + Math.random() * 500);
   }
-  const tE = State._scanBag.shift();
-  State._lastScanEmoji = tE;
-  return tE;
-}
 
-function runScanRound(cfg) {
-  const Emojis=['⭐','🌟','💫','✨','🌙','☀️','🔥','💧','🌈','🌸','🍀','🎈','🎀','💎','🔔','🎵'];
-  const c=document.getElementById('gameContent');const tc=cfg.gridSize*cfg.gridSize;const tE=nextScanEmoji(Emojis);const dist=Emojis.filter(e=>e!==tE);let tp=[];
-  while(tp.length<cfg.targets){const p=Math.floor(Math.random()*tc);if(!tp.includes(p))tp.push(p);}
-  document.getElementById('instructionText').innerHTML=`Find ALL <strong>${tE}</strong> items fast!`;
-  c.innerHTML=`<div class="scan-target-display"><span>Find:</span><span class="target-emoji">${tE}</span><span class="found-count"><span id="foundCount">0</span>/${cfg.targets}</span></div>`;
-  const g=document.createElement('div');g.className='scan-container';g.style.gridTemplateColumns=`repeat(${cfg.gridSize},1fr)`;
-  for(let i=0;i<tc;i++){const it=document.createElement('div');it.className='scan-item';if(tp.includes(i)){it.textContent=tE;it.dataset.target='true';}else{it.textContent=dist[Math.floor(Math.random()*dist.length)];}it.dataset.idx=i;g.appendChild(it);}
-  c.appendChild(g);let fc=0;startTimer(cfg.roundTime,()=>{g.querySelectorAll('.scan-item[data-target="true"]:not(.found)').forEach(e=>e.classList.add('miss'));handleWrong();nextRound();});
-  g.querySelectorAll('.scan-item').forEach(it=>{it.addEventListener('click',function(){if(!State.isPlaying)return;if(this.classList.contains('found'))return;if(this.dataset.target==='true'){this.classList.add('found');fc++;document.getElementById('foundCount').textContent=fc;playTone(600+fc*50,0.12);if(fc===cfg.targets){stopTimer();recordReactionTime();handleCorrect(15+State.streak*3);burstConfetti(12);setTimeout(()=>nextRound(),600);}}else{this.classList.add('miss');playWrong();State.score=Math.max(0,State.score-3);State.streak=0;showFeedback('-3','#ff4757');updateStats();setTimeout(()=>this.classList.remove('miss'),600);}});});
+  function respond() {
+    if (!State.isPlaying || responded) return;
+    if (!display.classList.contains('signal-cue')) return;
+    responded = true;
+    cancelGameTimer(signalTimer);
+    signalTimer = null;
+    if (currentIsGo) handleCorrect(10 + State.streak * 2);
+    else handleWrong();
+    completed++;
+    scheduleGame(nextSignal, cfg.gapTime);
+  }
+
+  display.addEventListener('click', respond);
+  const keyHandler = (event) => {
+    if (event.code === 'Space' && State.isPlaying && State.mode === 'signal') {
+      event.preventDefault();
+      respond();
+    }
+  };
+  document.addEventListener('keydown', keyHandler);
+  State._keyHandler = keyHandler;
+  nextSignal();
 }
 
 function runDualRound(cfg) {
-  const c=document.getElementById('gameContent');let ps={left:0,right:0};let tt=0;const Shapes=['circle','square'];const ch=['#378bff','#ff6b6b','#ffd93d','#6bcf7f'];
-  document.getElementById('instructionText').innerHTML=`Choose the shape on the left and the color on the right.`;
-  c.innerHTML=`<div class="dual-container"><div class="dual-panel"><h3>🔹 Shape Match</h3><div class="panel-score" id="leftScore">0</div><div class="dual-shape" id="leftShape">❓</div><div class="dual-shape-btns"><button class="dual-btn" data-panel="left" data-answer="circle">⭕ Circle</button><button class="dual-btn" data-panel="left" data-answer="square">⬜ Square</button></div><div class="dual-feedback" id="leftFeedback"></div></div><div class="dual-panel"><h3>🎨 Color Match</h3><div class="panel-score" id="rightScore">0</div><div class="dual-shape" id="rightShape" style="background:var(--card-bg);">🎨</div><div class="dual-color-btns"><button class="dual-btn" data-panel="right" data-answer="0">🔵 Blue</button><button class="dual-btn" data-panel="right" data-answer="1">🔴 Red</button><button class="dual-btn" data-panel="right" data-answer="2">🟡 Yellow</button><button class="dual-btn" data-panel="right" data-answer="3">🟢 Green</button></div><div class="dual-feedback" id="rightFeedback"></div></div></div>`;
-  let la=null,ra=null,lA=false,rA=false;
-  State.round=1;State.totalRounds=cfg.rounds;document.getElementById('roundVal').textContent='1';document.getElementById('totalRounds').textContent=cfg.rounds;
-  function nt(){if(tt>=cfg.rounds){endGame();return;}State.round=tt+1;updateStats();lA=true;rA=true;
-    let si,ci,combo;let attempts=0;
-    do{si=Math.floor(Math.random()*2);ci=Math.floor(Math.random()*4);combo=si+':'+ci;attempts++;}while(combo===State._lastDualCombo&&attempts<10);
-    State._lastDualCombo=combo;
-    la=Shapes[si];const ls=document.getElementById('leftShape');ls.className='dual-shape '+la;ls.style.background=ch[Math.floor(Math.random()*4)];ls.textContent='';
-    ra=ci.toString();const rs=document.getElementById('rightShape');rs.style.background=ch[ci];rs.textContent='';rs.className='dual-shape circle';
-    document.getElementById('leftFeedback').textContent='';document.getElementById('leftFeedback').className='dual-feedback';document.getElementById('rightFeedback').textContent='';document.getElementById('rightFeedback').className='dual-feedback';
-    State.roundStartTime=Date.now();}
-  document.querySelectorAll('.dual-btn').forEach(btn=>{btn.addEventListener('click',function(){const pn=this.dataset.panel;const an=this.dataset.answer;
-    if(pn==='left'&&lA){lA=false;const fb=document.getElementById('leftFeedback');if(an===la){ps.left++;document.getElementById('leftScore').textContent=ps.left;fb.textContent='✓';fb.className='dual-feedback correct';playTone(700,0.12);}else{fb.textContent='✗';fb.className='dual-feedback wrong';playWrong();}}
-    else if(pn==='right'&&rA){rA=false;const fb=document.getElementById('rightFeedback');if(an===ra){ps.right++;document.getElementById('rightScore').textContent=ps.right;fb.textContent='✓';fb.className='dual-feedback correct';playTone(800,0.12);}else{fb.textContent='✗';fb.className='dual-feedback wrong';playWrong();}}
-    if(!lA&&!rA){const bc=document.getElementById('leftFeedback').classList.contains('correct')&&document.getElementById('rightFeedback').classList.contains('correct');if(bc){handleCorrect(12+State.streak*3);burstConfetti(8);}else{handleWrong();}tt++;setTimeout(nt,Math.max(850,cfg.gapTime));}});});
-  nt();
+  const shapes = {
+    circle: { label: 'Circle', symbol: '●' },
+    square: { label: 'Square', symbol: '■' },
+    triangle: { label: 'Triangle', symbol: '▲' },
+    diamond: { label: 'Diamond', symbol: '◆' },
+    star: { label: 'Star', symbol: '★' },
+  };
+  const colors = {
+    blue: { label: 'Blue', symbol: '🔵', value: '#378bff' },
+    red: { label: 'Red', symbol: '🔴', value: '#ff6b6b' },
+    yellow: { label: 'Yellow', symbol: '🟡', value: '#ffd93d' },
+    green: { label: 'Green', symbol: '🟢', value: '#6bcf7f' },
+    purple: { label: 'Purple', symbol: '🟣', value: '#a55eea' },
+  };
+  const content = document.getElementById('gameContent');
+  document.getElementById('instructionText').textContent = 'Match both cues before the round timer runs out.';
+  content.innerHTML = `
+    <div class="dual-container">
+      <section class="dual-panel" aria-labelledby="dual-shape-heading">
+        <h3 id="dual-shape-heading">Match the shape</h3>
+        <div class="dual-target" id="dualShapeTarget" aria-label="Target shape"></div>
+        <div class="dual-shape-btns">${cfg.shapes.map((shape) => `<button type="button" class="dual-btn" data-panel="shape" data-answer="${shape}">${shapes[shape].symbol} ${shapes[shape].label}</button>`).join('')}</div>
+        <div class="dual-feedback" id="dualShapeFeedback" aria-live="polite"></div>
+      </section>
+      <section class="dual-panel" aria-labelledby="dual-color-heading">
+        <h3 id="dual-color-heading">Match the color</h3>
+        <div class="dual-target color-target" id="dualColorTarget" aria-label="Target color"></div>
+        <div class="dual-color-btns">${cfg.colors.map((color) => `<button type="button" class="dual-btn" data-panel="color" data-answer="${color}">${colors[color].symbol} ${colors[color].label}</button>`).join('')}</div>
+        <div class="dual-feedback" id="dualColorFeedback" aria-live="polite"></div>
+      </section>
+    </div>
+    <p class="dual-round-hint" id="dualRoundHint"></p>`;
+
+  const shapeTarget = document.getElementById('dualShapeTarget');
+  const colorTarget = document.getElementById('dualColorTarget');
+  const shapeFeedback = document.getElementById('dualShapeFeedback');
+  const colorFeedback = document.getElementById('dualColorFeedback');
+  const roundHint = document.getElementById('dualRoundHint');
+  const buttons = [...content.querySelectorAll('.dual-btn')];
+  let completed = 0;
+  let shapeOpen = false;
+  let colorOpen = false;
+  let shapeCorrect = false;
+  let colorCorrect = false;
+  let roundResolved = false;
+  let expectedShape = '';
+  let expectedColor = '';
+  let deadlineAt = 0;
+  let countdownTimer = null;
+  let lastCombo = '';
+  let comboDeck = shuffleArray(cfg.shapes.flatMap((shape) => cfg.colors.map((color) => `${shape}:${color}`)));
+  let comboIndex = 0;
+
+  State.totalRounds = cfg.rounds;
+  document.getElementById('totalRounds').textContent = cfg.rounds;
+
+  function nextCombo() {
+    if (comboIndex >= comboDeck.length) {
+      comboDeck = shuffleArray(cfg.shapes.flatMap((shape) => cfg.colors.map((color) => `${shape}:${color}`)));
+      if (comboDeck.length > 1 && comboDeck[0] === lastCombo) [comboDeck[0], comboDeck[1]] = [comboDeck[1], comboDeck[0]];
+      comboIndex = 0;
+    }
+    lastCombo = comboDeck[comboIndex++];
+    return lastCombo.split(':');
+  }
+
+  function nextRound() {
+    if (!State.isPlaying || State._ended) return;
+    if (completed >= cfg.rounds) { endGame(); return; }
+    State.round = completed + 1;
+    updateStats();
+    [expectedShape, expectedColor] = nextCombo();
+    shapeTarget.className = `dual-target ${expectedShape}`;
+    shapeTarget.textContent = shapes[expectedShape].symbol;
+    colorTarget.style.setProperty('--target-color', colors[expectedColor].value);
+    shapeOpen = true;
+    colorOpen = true;
+    shapeCorrect = false;
+    colorCorrect = false;
+    roundResolved = false;
+    shapeFeedback.textContent = '';
+    colorFeedback.textContent = '';
+    shapeFeedback.className = 'dual-feedback';
+    colorFeedback.className = 'dual-feedback';
+    buttons.forEach((button) => { button.disabled = false; button.classList.remove('is-correct', 'is-missed'); });
+    deadlineAt = Date.now() + cfg.responseTime;
+    State.roundStartTime = Date.now();
+    updateRoundCountdown();
+  }
+
+  function updateRoundCountdown() {
+    if (roundResolved || !State.isPlaying) return;
+    const secondsLeft = Math.ceil((deadlineAt - Date.now()) / 1000);
+    if (secondsLeft <= 0) { finishRound(true); return; }
+    roundHint.textContent = `Round ${State.round} · ${secondsLeft}s left to match both`;
+    countdownTimer = scheduleGame(updateRoundCountdown, 200);
+  }
+
+  function finishRound(timedOut = false) {
+    if (roundResolved) return;
+    roundResolved = true;
+    if (countdownTimer) { cancelGameTimer(countdownTimer); countdownTimer = null; }
+    shapeOpen = false;
+    colorOpen = false;
+    buttons.forEach((button) => { button.disabled = true; });
+    if (timedOut) {
+      if (!shapeCorrect) shapeFeedback.textContent = 'Time';
+      if (!colorCorrect) colorFeedback.textContent = 'Time';
+    }
+    if (shapeCorrect && colorCorrect) handleCorrect(12 + State.streak * 2);
+    else { recordReactionTime(); handleWrong(); }
+    completed++;
+    scheduleGame(nextRound, cfg.gapTime);
+  }
+
+  buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+      if (!State.isPlaying || button.disabled) return;
+      const isShape = button.dataset.panel === 'shape';
+      const isOpen = isShape ? shapeOpen : colorOpen;
+      if (!isOpen) return;
+      const correct = button.dataset.answer === (isShape ? expectedShape : expectedColor);
+      const feedback = isShape ? shapeFeedback : colorFeedback;
+      if (isShape) { shapeOpen = false; shapeCorrect = correct; }
+      else { colorOpen = false; colorCorrect = correct; }
+      content.querySelectorAll(`.dual-btn[data-panel="${isShape ? 'shape' : 'color'}"]`).forEach((option) => { option.disabled = true; });
+      button.classList.add(correct ? 'is-correct' : 'is-missed');
+      feedback.textContent = correct ? 'Matched' : 'Next pair';
+      feedback.classList.add(correct ? 'correct' : 'wrong');
+      if (correct) playTone(isShape ? 700 : 820, 0.12);
+      if (!shapeOpen && !colorOpen) finishRound();
+    });
+  });
+
+  nextRound();
 }
 
 // PROGRESS DASHBOARD
@@ -935,16 +927,15 @@ function renderProgressDashboard() {
     <div class="overview-card"><div class="oc-icon">🔥</div><div class="oc-val">${p.dayStreak}</div><div class="oc-label">Day Streak</div></div>
     <div class="overview-card"><div class="oc-icon">🎮</div><div class="oc-val">${p.totalSessions}</div><div class="oc-label">Total Sessions</div></div>
     <div class="overview-card"><div class="oc-icon">🗺️</div><div class="oc-val">${p.journeyCompleted}/${TOTAL_JOURNEY_SESSIONS}</div><div class="oc-label">Journey Done</div></div>
-    <div class="overview-card"><div class="oc-icon">🫁</div><div class="oc-val">${p.breathingCount}</div><div class="oc-label">Breathing Sessions</div></div>
-    <div class="overview-card"><div class="oc-icon">🤸</div><div class="oc-val">${p.physicalCount}</div><div class="oc-label">Physical Breaks</div></div>
-    <div class="overview-card"><div class="oc-icon">🏆</div><div class="oc-val">${Object.values(p.bestScores).reduce((a,b)=>Math.max(a,b),0)}</div><div class="oc-label">Best Score</div></div>`;
+    <div class="overview-card"><div class="oc-icon">🏆</div><div class="oc-val">${Object.keys(ModeInfo).map(mode => p.bestScores[mode] || 0).reduce((a,b)=>Math.max(a,b),0)}</div><div class="oc-label">Best Score</div></div>`;
   const jp=document.getElementById('journeyPath');jp.innerHTML='';
   for(let i=0;i<TOTAL_JOURNEY_SESSIONS;i++){const n=document.createElement('div');n.className='journey-node';if(i<p.journeyCompleted){n.classList.add('completed');n.innerHTML='✓';}else if(i===p.journeyCompleted){n.classList.add('current');n.innerHTML='▶';}else{n.classList.add('locked');n.innerHTML=i+1;}jp.appendChild(n);}
   const dg=document.getElementById('diffGrid');dg.innerHTML='';
-  Object.keys(ModeInfo).forEach(mode=>{const lv=p.difficulty[mode]||1;let dots='';for(let i=0;i<5;i++){dots+=`<div class="diff-dot ${i<lv?'filled':''}"></div>`;}const it=document.createElement('div');it.className='diff-item';it.innerHTML=`<div class="di-name">${ModeInfo[mode].emoji} ${ModeInfo[mode].name}</div><div class="diff-dots">${dots}</div>`;dg.appendChild(it);});
-  drawTrendChart('accuracyChart','accuracyEmpty',p.sessions,'accuracy','%','#6bcf7f',100);
-  drawTrendChart('rtChart','rtEmpty',p.sessions,'avgRT','s','#00d4ff',null,true);
-  renderHistory(p.sessions);
+  Object.keys(ModeInfo).forEach(mode=>{const max=maxLevelForAge(State.age);const lv=getCurrentDifficulty(mode,State.age);let dots='';for(let i=0;i<max;i++){dots+=`<div class="diff-dot ${i<lv?'filled':''}"></div>`;}const it=document.createElement('div');it.className='diff-item';it.innerHTML=`<div class="di-name">${ModeInfo[mode].emoji} ${ModeInfo[mode].name} · ${lv}/${max}</div><div class="diff-dots">${dots}</div>`;dg.appendChild(it);});
+  const activeSessions = p.sessions.filter((session) => Object.prototype.hasOwnProperty.call(ModeInfo, session.mode));
+  drawTrendChart('accuracyChart','accuracyEmpty',activeSessions,'accuracy','%','#6bcf7f',100);
+  drawTrendChart('rtChart','rtEmpty',activeSessions,'avgRT','s','#00d4ff',null,true);
+  renderHistory(activeSessions);
 }
 function drawTrendChart(cid,eid,sessions,metric,unit,color,maxVal,lowerIsBetter) {
   const cv=document.getElementById(cid);const ee=document.getElementById(eid);
@@ -967,14 +958,17 @@ function renderHistory(sessions) {
   const recent=sessions.slice(-20).reverse();
   list.innerHTML=recent.map(s=>{const info=ModeInfo[s.mode]||{emoji:'🎮',name:s.mode};return `<div class="history-item"><div class="hi-mode">${info.emoji} ${info.name} <span style="color:var(--text-dim);font-size:0.75rem;">(Lv${s.difficulty})</span></div><div class="hi-stats"><span>⭐ ${s.score}</span><span class="hi-acc">${s.accuracy}%</span><span>⚡ ${s.avgRT}s</span><span style="color:var(--text-dim);font-size:0.72rem;">${s.date}</span></div></div>`;}).join('');
 }
-function resetProgress() { if(confirm('Delete ALL progress, history, streaks, and difficulty levels? This cannot be undone.')){localStorage.removeItem(STORAGE_KEY);renderProgressDashboard();renderHomeStats();renderModeGrid();alert('All progress data reset. Fresh start! 🌱');} }
+function resetProgress() { if(confirm('Delete ALL progress, history, streaks, and difficulty levels? This cannot be undone.')){localStorage.removeItem(STORAGE_KEY);localStorage.removeItem(LEGACY_STORAGE_KEY);localStorage.removeItem('dharana_settings_v3');renderProgressDashboard();renderHomeStats();renderModeGrid();alert('All progress data reset. Fresh start! 🌱');} }
 
 // INIT
-loadSettings(); syncSettingsUI(); renderHomeStats(); renderModeGrid();
+document.querySelector('[data-age="junior"]').classList.add('selected');
+document.querySelector('[data-age="junior"]').setAttribute('aria-pressed', 'true');
+document.getElementById('ageHint').textContent = 'Ages 5–12: larger cues, more response time, and two starter shapes.';
+renderHomeStats(); renderModeGrid();
 </script>
 
   <!-- Medhā Session Tracker -->
-  <script>document.title = "Dhāraṇā Arena | Medhā";</script>
+  <script>document.title = "Dhāraṇā Arena | Pulse & Fusion | Medhā";</script>
   <script src="bhava-bridge.js"></script>
 <script src="bhava-session.js"></script>
 <script src="bhava-game-nav.js"></script>

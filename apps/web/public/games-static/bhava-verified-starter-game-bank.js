@@ -1,19 +1,19 @@
 ﻿/*
-  Medhā Verified Master Game Bank — 80 Items (10 Questions per Game)
+  Medhā Verified Master Game Bank — 220 Items
   Load BEFORE bhava-20-item-checkpoint.js.
   Covering website titles across Cognitive, Engineering, Language, Science, and Society domains.
-  All items map strictly to bhaavajaalam.com gameplay concepts and BCS Lite cognitive areas.
+  Items are based on listed Medhā game content. Area labels group quiz topics and do not, by themselves, measure cognitive abilities.
 */
 window.BHAVA_GAME_BANK = [
 
   /* =========================================================
      1. THE SECRET OF SILICON / CHIP DETECTIVE (10 ITEMS)
-     Age: 9–17 | Area: Logic / Real-World
+    Age: 10–17 | Area: Logic / Real-World
   ========================================================= */
   {
     id:'silicon-01', gameId:'secret-of-silicon', gameName:'The Secret of Silicon',
-    area:'logic', skill:'technology-concepts', ageMin:9, ageMax:17, difficulty:1,
-    prompt:'The Secret of Silicon describes chips as the heart of modern technology. What material gives the game its name?',
+    area:'logic', skill:'technology-concepts', ageMin:10, ageMax:17, difficulty:1,
+    prompt:'In Chip Detective, which element is the main semiconductor used in most computer chips?',
     options:['Silicon','Iron','Wood','Rubber'], answer:'Silicon',
     explanation:'The game focuses on silicon, the key semiconductor material used to make electronic chips.'
   },
@@ -48,9 +48,9 @@ window.BHAVA_GAME_BANK = [
   {
     id:'silicon-06', gameId:'secret-of-silicon', gameName:'The Secret of Silicon',
     area:'logic', skill:'systems-integration', ageMin:11, ageMax:17, difficulty:3,
-    prompt:'If a chip doubles its transistor count without increasing its physical size, what engineering challenge must be managed?',
+    prompt:'As more transistors are packed into the same chip area, which thermal design challenge may increase?',
     options:['Heat dissipation and cooling','The weight of the screen','The color of the outer case','The length of the charging cord'], answer:'Heat dissipation and cooling',
-    explanation:'Packing more active transistors into the same space increases electrical resistance and thermal heat.'
+    explanation:'Higher transistor density can increase power density and heat generation, so the chip needs effective thermal management.'
   },
   {
     id:'silicon-07', gameId:'secret-of-silicon', gameName:'The Secret of Silicon',
@@ -76,9 +76,9 @@ window.BHAVA_GAME_BANK = [
   {
     id:'silicon-10', gameId:'secret-of-silicon', gameName:'The Secret of Silicon',
     area:'logic', skill:'logic-gates', ageMin:13, ageMax:17, difficulty:3,
-    prompt:'When two transistors are connected in series so that BOTH must be ON for current to flow, which logic gate is formed?',
+    prompt:'In a simplified series-switch model, current flows only when both switches are ON. Which logic condition does this describe?',
     options:['AND gate','OR gate','NOT gate','RANDOM gate'], answer:'AND gate',
-    explanation:'An AND gate requires all inputs to be true (ON) for the output to be true.'
+    explanation:'A series path conducts only when both switches are closed. Real CMOS gate output behavior depends on the full transistor network.'
   },
 
   /* =========================================================
@@ -102,9 +102,9 @@ window.BHAVA_GAME_BANK = [
   {
     id:'dev-02', gameId:'device-engineer', gameName:'Device Engineer',
     area:'numeracy', skill:'battery-capacity', ageMin:11, ageMax:13, difficulty:1,
-    prompt:'What does the "mAh" rating on a phone battery indicate to a device engineer?',
-    options:['The total electrical energy storage capacity','The weight of the battery in grams','The charging cable length','The camera zoom distance'], answer:'The total electrical energy storage capacity',
-    explanation:'Milliampere-hours (mAh) measure how much electrical charge a battery holds over time.'
+    prompt:'What does the mAh rating on a phone battery describe?',
+    options:['Its rated electrical charge capacity','Its nominal voltage','Its maximum power output','How long it takes to recharge'], answer:'Its rated electrical charge capacity',
+    explanation:'Milliampere-hours measure charge capacity. Stored energy also depends on voltage and is commonly expressed in watt-hours.'
   },
   {
     id:'dev-03', gameId:'device-engineer', gameName:'Device Engineer',
@@ -123,9 +123,9 @@ window.BHAVA_GAME_BANK = [
   {
     id:'dev-05', gameId:'device-engineer', gameName:'Device Engineer',
     area:'logic', skill:'sensor-function', ageMin:11, ageMax:13, difficulty:2,
-    prompt:'Which internal sensor allows a phone to know if it is being held upright or horizontally?',
-    options:['The accelerometer / gyroscope','The microphone','The ambient light sensor','The charging port'], answer:'The accelerometer / gyroscope',
-    explanation:'Accelerometers detect orientation and motion by measuring gravitational forces.'
+    prompt:'Which sensor can help a phone detect its tilt relative to gravity?',
+    options:['The accelerometer','The microphone','The ambient light sensor','The charging port'], answer:'The accelerometer',
+    explanation:'An accelerometer measures acceleration, including the component caused by gravity; a gyroscope can supplement rotation tracking.'
   },
   {
     id:'dev-06', gameId:'device-engineer', gameName:'Device Engineer',
@@ -137,9 +137,9 @@ window.BHAVA_GAME_BANK = [
   {
     id:'dev-07', gameId:'device-engineer', gameName:'Device Engineer',
     area:'logic', skill:'radio-transmission', ageMin:12, ageMax:13, difficulty:2,
-    prompt:'Why do device engineers place antenna bands along the outer edges of a metal phone frame?',
-    options:['Solid metal blocks radio signals, so external bands allow signals to escape and enter','To make the phone look colorful','To prevent the phone from sliding off a table','So the screen does not crack when dropped'], answer:'Solid metal blocks radio signals, so external bands allow signals to escape and enter',
-    explanation:'Radio frequency waves cannot penetrate a solid metal enclosure (Faraday cage effect).'
+    prompt:'Why may a metal phone frame include breaks or insulated antenna sections?',
+    options:['A continuous metal frame can interfere with the antennas used for wireless signals','To make the phone look colorful','To prevent the phone from sliding off a table','So the screen does not crack when dropped'], answer:'A continuous metal frame can interfere with the antennas used for wireless signals',
+    explanation:'Antenna design needs suitable gaps and tuning; the exact arrangement depends on the device and its radio bands.'
   },
   {
     id:'dev-08', gameId:'device-engineer', gameName:'Device Engineer',
@@ -151,9 +151,9 @@ window.BHAVA_GAME_BANK = [
   {
     id:'dev-09', gameId:'device-engineer', gameName:'Device Engineer',
     area:'real-world', skill:'durability-engineering', ageMin:12, ageMax:13, difficulty:3,
-    prompt:'What design feature allows a modern smartphone to achieve an IP68 water resistance rating?',
-    options:['Rubber O-ring gaskets, adhesive seals, and hydrophobic mesh over ports','Painting the outside of the phone with glue','Removing the battery completely','Making the phone twice as thick'], answer:'Rubber O-ring gaskets, adhesive seals, and hydrophobic mesh over ports',
-    explanation:'Precision mechanical seals prevent liquid intrusion while allowing air pressure to balance.'
+    prompt:'Which design approach helps limit water entry through a phone’s seams and ports?',
+    options:['Sealing seams with gaskets or adhesives and protecting openings with suitable mesh','Painting the outside of the phone with glue','Removing the battery completely','Making the phone twice as thick'], answer:'Sealing seams with gaskets or adhesives and protecting openings with suitable mesh',
+    explanation:'Seals and protected openings can reduce water ingress; a specific IP rating depends on the complete device design and test conditions.'
   },
   {
     id:'dev-10', gameId:'device-engineer', gameName:'Device Engineer',
@@ -197,9 +197,9 @@ window.BHAVA_GAME_BANK = [
   {
     id:'chip-05', gameId:'chip-detective', gameName:'Chip Detective',
     area:'numeracy', skill:'scale-measurement', ageMin:12, ageMax:15, difficulty:2,
-    prompt:'When chip engineers refer to a "3-nanometer" process node, what scale of measurement are they working in?',
+    prompt:'A nanometer is what fraction of a meter?',
     options:['Billionths of a meter','Thousandths of a meter','Millionths of a meter','Tenths of a meter'], answer:'Billionths of a meter',
-    explanation:'A nanometer (nm) is one-billionth of a meter, smaller than a single strand of human DNA.'
+    explanation:'One nanometer is one-billionth of a meter. Modern chip process-node names do not directly specify every feature’s physical size.'
   },
   {
     id:'chip-06', gameId:'chip-detective', gameName:'Chip Detective',
@@ -420,8 +420,8 @@ window.BHAVA_GAME_BANK = [
     id:'space-05', gameId:'space-academy', gameName:'Medhā Space Academy',
     area:'real-world', skill:'eva-suits', ageMin:14, ageMax:17, difficulty:2,
     prompt:'Why must an astronaut wear a pressurized EMU spacesuit during a spacewalk outside the ISS?',
-    options:['Space has no air pressure; without a suit, bodily fluids would boil and breathing is impossible','To stay dry in case it rains in space','To hide from space telescopes','Because the sun is too bright to look at'], answer:'Space has no air pressure; without a suit, bodily fluids would boil and breathing is impossible',
-    explanation:'Spacesuits act as miniature personal spacecraft providing pressure, thermal insulation, and air.'
+    options:['Space has almost no ambient pressure or breathable oxygen; the suit provides a pressurized, oxygen-rich environment','To stay dry in case it rains in space','To hide from space telescopes','Because the sun is too bright to look at'], answer:'Space has almost no ambient pressure or breathable oxygen; the suit provides a pressurized, oxygen-rich environment',
+    explanation:'A spacesuit supplies pressure, oxygen, temperature control, and other life support needed outside the spacecraft.'
   },
   {
     id:'space-06', gameId:'space-academy', gameName:'Medhā Space Academy',
@@ -447,9 +447,9 @@ window.BHAVA_GAME_BANK = [
   {
     id:'space-09', gameId:'space-academy', gameName:'Medhā Space Academy',
     area:'attention', skill:'docking-precision', ageMin:14, ageMax:17, difficulty:2,
-    prompt:'What alignment system is critical when a visiting cargo spacecraft docks with the ISS?',
-    options:['Laser guidance sensors and automated docking capture latches','Throwing a rope from the window and pulling it by hand','Bumping into the station at full speed until it sticks','Using magnetic compasses to point North'], answer:'Laser guidance sensors and automated docking capture latches',
-    explanation:'Orbital docking requires millimeter precision at relative velocities near zero.'
+    prompt:'What helps a visiting spacecraft line up and dock safely with the ISS?',
+    options:['Navigation sensors and docking systems that monitor relative position and motion','Throwing a rope from the window and pulling it by hand','Bumping into the station at full speed until it sticks','Using a magnetic compass alone to point north'], answer:'Navigation sensors and docking systems that monitor relative position and motion',
+    explanation:'Docking systems use sensors and controlled maneuvers to align the vehicles and manage their relative speed.'
   },
   {
     id:'space-10', gameId:'space-academy', gameName:'Medhā Space Academy',
@@ -472,16 +472,16 @@ window.BHAVA_GAME_BANK = [
   {
     id:'drone-02', gameId:'drone-engineer', gameName:'Drone Engineer',
     area:'logic', skill:'flight-control', ageMin:14, ageMax:17, difficulty:2,
-    prompt:'How does a drone fly forward toward a target?',
-    options:['It speeds up the rear propellers to tilt the nose down, directing thrust backward','It turns on a jet engine on the tail','It folds its front arms inward','It drops its battery to slide forward'], answer:'It speeds up the rear propellers to tilt the nose down, directing thrust backward',
-    explanation:'Pitching forward converts vertical lift into a horizontal propulsion vector.'
+    prompt:'How does a typical quadcopter begin moving forward?',
+    options:['It tilts nose-down so part of the propellers’ thrust points forward','It turns on a jet engine on the tail','It folds its front arms inward','It drops its battery to slide forward'], answer:'It tilts nose-down so part of the propellers’ thrust points forward',
+    explanation:'Tilting the aircraft angles the total thrust vector, creating a forward component while the motors continue supporting the drone.'
   },
   {
     id:'drone-03', gameId:'drone-engineer', gameName:'Drone Engineer',
     area:'logic', skill:'imu-stabilization', ageMin:15, ageMax:17, difficulty:3,
-    prompt:'Which internal sensor unit continuously measures tilt and acceleration 1,000 times per second to keep a drone stable?',
+    prompt:'Which internal sensor unit measures rotation and acceleration so a flight controller can help stabilize a drone?',
     options:['The Inertial Measurement Unit (IMU)','The GPS antenna','The camera lens','The SD card slot'], answer:'The Inertial Measurement Unit (IMU)',
-    explanation:'The IMU fuses gyroscope and accelerometer data to feed real-time stabilization algorithms.'
+    explanation:'An inertial measurement unit typically combines gyroscope and accelerometer readings; sampling rates vary by device and configuration.'
   },
   {
     id:'drone-04', gameId:'drone-engineer', gameName:'Drone Engineer',
@@ -501,15 +501,15 @@ window.BHAVA_GAME_BANK = [
     id:'drone-06', gameId:'drone-engineer', gameName:'Drone Engineer',
     area:'numeracy', skill:'battery-c-rating', ageMin:15, ageMax:17, difficulty:3,
     prompt:'Why do drone engineers select LiPo (Lithium Polymer) batteries with high "C-ratings"?',
-    options:['High C-ratings allow the battery to safely discharge massive electrical currents instantly for flight','C-rating means the battery is shaped like the letter C','C-rating indicates the battery is waterproof in oceans','C-rating means the battery never runs out of charge'], answer:'High C-ratings allow the battery to safely discharge massive electrical currents instantly for flight',
-    explanation:'The C-rating measures maximum safe continuous discharge rate relative to capacity.'
+    options:['A higher C-rating specifies a higher rated continuous discharge current relative to battery capacity','C-rating means the battery is shaped like the letter C','C-rating indicates the battery is waterproof in oceans','C-rating means the battery never runs out of charge'], answer:'A higher C-rating specifies a higher rated continuous discharge current relative to battery capacity',
+    explanation:'The C-rating relates a battery’s rated discharge current to its capacity. Actual safe current also depends on the battery specifications and conditions.'
   },
   {
     id:'drone-07', gameId:'drone-engineer', gameName:'Drone Engineer',
     area:'real-world', skill:'gps-navigation', ageMin:14, ageMax:17, difficulty:1,
-    prompt:'What happens when a drone loses signal from its remote controller if GPS is enabled?',
-    options:['It activates "Return to Home" (RTH) and autonomously flies back to the launch coordinates','It turns off its motors immediately and falls to the ground','It flies up into outer space forever','It starts playing music from the speakers'], answer:'It activates "Return to Home" (RTH) and autonomously flies back to the launch coordinates',
-    explanation:'Autonomous failsafe systems use satellite coordinates to recover lost aircraft.'
+    prompt:'If GPS is available and Return-to-Home is configured as the signal-loss failsafe, what may the drone do when it loses controller signal?',
+    options:['Use its configured Return-to-Home procedure to navigate toward its recorded home point','It must turn off its motors immediately','It always flies straight upward','It starts playing music from the speakers'], answer:'Use its configured Return-to-Home procedure to navigate toward its recorded home point',
+    explanation:'Signal-loss behavior depends on the drone’s configuration and conditions; Return-to-Home is one common failsafe option.'
   },
   {
     id:'drone-08', gameId:'drone-engineer', gameName:'Drone Engineer',
@@ -682,73 +682,73 @@ window.BHAVA_GAME_BANK = [
   },
 
   /* =========================================================
-     9. BIKE BUILDER (10 ITEMS) — Age: 11–17
+    9. BUILD CYCLES / BICYCLE MECHANICS (10 ITEMS) — Ages: 11–17 extension items
   ========================================================= */
   {
-    id:'bikeb-01', gameId:'bike-builder', gameName:'Bike Builder',
+    id:'bikeb-01', gameId:'bhava-tech-build-your-bike', gameName:'Build Cycles',
     area:'logic', skill:'hydraulic-brakes', ageMin:13, ageMax:17, difficulty:3,
-    prompt:'In Bike Builder, how do hydraulic disc brakes transfer force from the hand lever to the wheel caliper?',
+    prompt:'In a hydraulic bicycle brake, how does pressing the lever apply force at the wheel caliper?',
     options:['Non-compressible mineral oil or brake fluid pushes pistons against the brake rotor (Pascal\'s Law)','A steel wire stretches until the wheel stops','Magnets pull the wheel rim backward','Air bubbles blow against the tire surface'], answer:'Non-compressible mineral oil or brake fluid pushes pistons against the brake rotor (Pascal\'s Law)',
     explanation:'Incompressible fluid lines multiply braking force with superior modulation and zero cable stretch.'
   },
   {
-    id:'bikeb-02', gameId:'bike-builder', gameName:'Bike Builder',
+    id:'bikeb-02', gameId:'bhava-tech-build-your-bike', gameName:'Build Cycles',
     area:'logic', skill:'suspension-forks', ageMin:12, ageMax:17, difficulty:2,
     prompt:'What internal components inside a mountain bike suspension fork absorb jump impacts and control bounce?',
     options:['An air or metal coil spring paired with a hydraulic oil damper','Solid wooden sticks inside steel tubes','Empty plastic bottles filled with sand','Magnetic springs that never move'], answer:'An air or metal coil spring paired with a hydraulic oil damper',
     explanation:'Springs absorb impact energy, while viscous oil dampers prevent uncontrolled rebound oscillations.'
   },
   {
-    id:'bikeb-03', gameId:'bike-builder', gameName:'Bike Builder',
+    id:'bikeb-03', gameId:'bhava-tech-build-your-bike', gameName:'Build Cycles',
     area:'attention', skill:'derailleur-indexing', ageMin:11, ageMax:17, difficulty:2,
     prompt:'What happens if the shift cable on a rear derailleur has too much slack tension?',
     options:['The chain hesitates or fails to climb onto larger rear sprockets when shifting','The pedals spin backward automatically','The bicycle tires deflate instantly','The handlebar bell rings nonstop'], answer:'The chain hesitates or fails to climb onto larger rear sprockets when shifting',
     explanation:'Indexed shifters require precise cable tension to move the derailleur cage exact millimeter steps.'
   },
   {
-    id:'bikeb-04', gameId:'bike-builder', gameName:'Bike Builder',
+    id:'bikeb-04', gameId:'bhava-tech-build-your-bike', gameName:'Build Cycles',
     area:'logic', skill:'wheel-truing-mechanics', ageMin:12, ageMax:17, difficulty:3,
     prompt:'If a bicycle rim wobbles to the left during rotation, how does a builder "true" (straighten) the wheel?',
     options:['Tighten spokes pulling to the right hub flange and loosen opposing left spokes','Hit the rim with a heavy iron hammer','Spray water onto the tire tread','Remove three spokes from the wheel'], answer:'Tighten spokes pulling to the right hub flange and loosen opposing left spokes',
     explanation:'Truing balances opposing lateral spoke vectors to align the rim plane concentrically.'
   },
   {
-    id:'bikeb-05', gameId:'bike-builder', gameName:'Bike Builder',
+    id:'bikeb-05', gameId:'bhava-tech-build-your-bike', gameName:'Build Cycles',
     area:'numeracy', skill:'cassette-ratios', ageMin:13, ageMax:17, difficulty:3,
     prompt:'Why do modern adventure bikes use rear cassettes with giant 52-tooth low gears?',
     options:['To provide an ultra-low gear ratio that allows climbing steep gradients while seated','So the bike can ride at 100 km/h on highways','Because 52 teeth make the wheel lighter','To replace the bicycle chain with a belt'], answer:'To provide an ultra-low gear ratio that allows climbing steep gradients while seated',
     explanation:'A cog larger than the front chainring creates a torque-multiplying gear reduction.'
   },
   {
-    id:'bikeb-06', gameId:'bike-builder', gameName:'Bike Builder',
+    id:'bikeb-06', gameId:'bhava-tech-build-your-bike', gameName:'Build Cycles',
     area:'real-world', skill:'carbon-fiber-properties', ageMin:13, ageMax:17, difficulty:2,
     prompt:'Why can a carbon fiber bike frame be engineered to be stiff when pedaling but flexible over road vibrations?',
     options:['Carbon cloth sheets can be layered with specific fiber grain orientations (anisotropic properties)','Carbon fiber turns into rubber when exposed to sunlight','Carbon frames are hollow inside without any walls','Because carbon is heavier than solid iron'], answer:'Carbon cloth sheets can be layered with specific fiber grain orientations (anisotropic properties)',
     explanation:'Composites allow directional stiffness tuning that isotropic metals like aluminum cannot match.'
   },
   {
-    id:'bikeb-07', gameId:'bike-builder', gameName:'Bike Builder',
+    id:'bikeb-07', gameId:'bhava-tech-build-your-bike', gameName:'Build Cycles',
     area:'real-world', skill:'tubeless-tires', ageMin:12, ageMax:17, difficulty:2,
     prompt:'What is the mechanical benefit of "Tubeless" bicycle tire systems filled with liquid sealant?',
     options:['Small thorn punctures seal instantly without flatting, and tires can run lower pressure for grip','Tires never need to be pumped with air again','The bicycle can ride across ocean water','The wheels become impossible to remove'], answer:'Small thorn punctures seal instantly without flatting, and tires can run lower pressure for grip',
     explanation:'Eliminating inner tubes removes pinch-flat risks and allows sealant to clot punctures dynamically.'
   },
   {
-    id:'bikeb-08', gameId:'bike-builder', gameName:'Bike Builder',
+    id:'bikeb-08', gameId:'bhava-tech-build-your-bike', gameName:'Build Cycles',
     area:'logic', skill:'bottom-bracket-physics', ageMin:13, ageMax:17, difficulty:3,
     prompt:'What is the function of the "Bottom Bracket" assembly on a bicycle frame?',
     options:['It houses the axle bearings that allow the pedal crank spindle to rotate inside the frame shell','It holds the rear brake caliper in place','It connects the saddle seatpost to the frame','It measures how fast the bicycle is traveling'], answer:'It houses the axle bearings that allow the pedal crank spindle to rotate inside the frame shell',
     explanation:'The bottom bracket supports high rider pedaling torque while isolating rotational bearings.'
   },
   {
-    id:'bikeb-09', gameId:'bike-builder', gameName:'Bike Builder',
+    id:'bikeb-09', gameId:'bhava-tech-build-your-bike', gameName:'Build Cycles',
     area:'attention', skill:'chain-wear', ageMin:12, ageMax:17, difficulty:2,
     prompt:'What actually happens when a bicycle mechanic says a chain has "stretched" from heavy use?',
     options:['The internal steel pins and roller bushings have worn down, increasing pitch distance between links','The metal link plates have grown 5 inches longer','The chain has melted from sun heat','The chain has turned into stainless aluminum'], answer:'The internal steel pins and roller bushings have worn down, increasing pitch distance between links',
     explanation:'Chains do not stretch physically; abrasive wear on joint pins elongates effective link spacing.'
   },
   {
-    id:'bikeb-10', gameId:'bike-builder', gameName:'Bike Builder',
+    id:'bikeb-10', gameId:'bhava-tech-build-your-bike', gameName:'Build Cycles',
     area:'real-world', skill:'aerodynamic-tuck', ageMin:11, ageMax:17, difficulty:1,
     prompt:'Why do road cyclists crouch low over drop handlebars during high-speed downhill descents?',
     options:['To reduce frontal surface area and minimize aerodynamic wind drag','To look closer at the front tire tread','Because handlebars cannot be reached while sitting upright','To stop the bicycle brakes from cooling down'], answer:'To reduce frontal surface area and minimize aerodynamic wind drag',
@@ -968,8 +968,8 @@ window.BHAVA_GAME_BANK = [
   },
 
   /* =========================================================
-     4. DEVANAGARI LEARNING GAME (10 ITEMS)
-     Age: 5–17 | Area: Language / Memory
+    4. GRAMMAR GALAXY (50 ITEMS)
+    Age: 8–15 | Area: Language
   ========================================================= */
   {
     id:'grammar-01', gameId:'grammar-galaxy', gameName:'Grammar Galaxy',
@@ -981,9 +981,9 @@ window.BHAVA_GAME_BANK = [
   {
     id:'grammar-02', gameId:'grammar-galaxy', gameName:'Grammar Galaxy',
     area:'language', skill:'proper-nouns', ageMin:8, ageMax:12, difficulty:1,
-    prompt:'Which of the following words is a Proper Noun and should always be capitalized?',
-    options:['mountain','river','himalayas','forest'], answer:'himalayas',
-    explanation:'Proper nouns name specific, unique people, places, or things, and must begin with a capital letter.'
+    prompt:'Which word names a specific mountain range and is a proper noun?',
+    options:['mountain','river','the Himalayas','forest'], answer:'the Himalayas',
+    explanation:'The Himalayas is the specific name of a mountain range, so the name is capitalized.'
   },
   {
     id:'grammar-03', gameId:'grammar-galaxy', gameName:'Grammar Galaxy',
@@ -1076,9 +1076,9 @@ window.BHAVA_GAME_BANK = [
   {
     id:'grammar-15', gameId:'grammar-galaxy', gameName:'Grammar Galaxy',
     area:'language', skill:'subject-verb-agreement', ageMin:9, ageMax:14, difficulty:2,
-    prompt:'Choose the correct verb: "The group of students ___ going to the museum."',
+    prompt:'Choose the verb that agrees with the singular subject: "The student ___ going to the museum."',
     options:['is','are','am','were'], answer:'is',
-    explanation:'The subject is "group" (singular collective noun), not "students", so the singular verb "is" is correct.'
+    explanation:'The singular subject "student" takes the singular verb "is" in this present-progressive sentence.'
   },
 
   /* --- Verb Tenses --- */
@@ -1270,7 +1270,7 @@ window.BHAVA_GAME_BANK = [
   {
     id:'grammar-41', gameId:'grammar-galaxy', gameName:'Grammar Galaxy',
     area:'language', skill:'end-punctuation', ageMin:8, ageMax:12, difficulty:1,
-    prompt:'Which punctuation mark belongs at the end of an exclamatory sentence like "Watch out for that car" ?',
+    prompt:'Which punctuation mark completes this exclamatory sentence: "What a beautiful rainbow___"?',
     options:['A period (.)','A question mark (?)','An exclamation mark (!)','A comma (,)'], answer:'An exclamation mark (!)',
     explanation:'Exclamatory sentences show strong emotion or urgency and end with an exclamation mark.'
   },
@@ -1345,73 +1345,73 @@ window.BHAVA_GAME_BANK = [
   ========================================================= */
   {
     id:'focus-01', gameId:'focus-master', gameName:'Focus Master',
-    area:'attention', skill:'target-tracking', ageMin:5, ageMax:17, difficulty:1,
-    prompt:'In Focus Master, what is the primary goal when a target appears on the screen?',
-    options:['Keep your aim steady on the target until the task completes','Look away from the screen immediately','Click buttons as fast and randomly as possible','Close your eyes and count to ten'], answer:'Keep your aim steady on the target until the task completes',
-    explanation:'The game trains visual attention span and steady motor control under pressure.'
+    area:'attention', skill:'target-matching', ageMin:12, ageMax:17, difficulty:1,
+    prompt:'In Focus Master, which card should you tap?',
+    options:['The card that matches the target across all six attributes','Any card with the same color','The first card in the row','The card with the most details'], answer:'The card that matches the target across all six attributes',
+    explanation:'Each round has one exact match to the six-attribute target.'
   },
   {
     id:'focus-02', gameId:'focus-master', gameName:'Focus Master',
-    area:'attention', skill:'impulse-control', ageMin:6, ageMax:17, difficulty:1,
-    prompt:'When distracting moving shapes appear around your target in Focus Master, what should you do?',
-    options:['Ignore the distractors and maintain focus on the true target','Chase every moving shape around the screen','Stop playing and restart the game','Tap the screen repeatedly with all fingers'], answer:'Ignore the distractors and maintain focus on the true target',
-    explanation:'Self-control requires filtering out irrelevant background noise to stay on task.'
+    area:'attention', skill:'near-miss-filtering', ageMin:12, ageMax:17, difficulty:1,
+    prompt:'A card matches five target attributes but differs on the sixth. What should you do?',
+    options:['Do not select it; compare all six attributes','Select it because most details match','Select it only if it is the largest','Ignore the target and choose another card'], answer:'Do not select it; compare all six attributes',
+    explanation:'Near-miss cards are distractors. Only the card matching all six attributes is correct.'
   },
   {
     id:'focus-03', gameId:'focus-master', gameName:'Focus Master',
-    area:'focus', skill:'pressure-resilience', ageMin:8, ageMax:17, difficulty:2,
-    prompt:'Why does Focus Master speed up target movement as your score gets higher?',
-    options:['To challenge your ability to stay calm and accurate under pressure','To make the screen look colorful','Because the computer battery is low','To stop you from completing the level'], answer:'To challenge your ability to stay calm and accurate under pressure',
-    explanation:'Progressive difficulty builds real-world mental endurance and cognitive resilience.'
+    area:'attention', skill:'level-structure', ageMin:12, ageMax:17, difficulty:2,
+    prompt:'Compared with Calm, what changes in the harder Focus Master levels?',
+    options:['More cards appear and the time allowed per round gets shorter','The target stops being shown','There are no distractor cards','Each level uses fewer target attributes'], answer:'More cards appear and the time allowed per round gets shorter',
+    explanation:'The listed levels progress from 6 cards and 30 seconds in Calm to 15 cards and 8.5 seconds in Chaos.'
   },
   {
     id:'focus-04', gameId:'focus-master', gameName:'Focus Master',
-    area:'focus', skill:'reaction-timing', ageMin:8, ageMax:17, difficulty:2,
-    prompt:'What happens to your accuracy if you react impulsively without waiting for the signal in Focus Master?',
-    options:['You lose precision and register a false attempt','Your score automatically doubles','The game slows down for you','You skip to the final level'], answer:'You lose precision and register a false attempt',
-    explanation:'Focus Master rewards deliberate, timed responses rather than premature guesses.'
+    area:'attention', skill:'attribute-comparison', ageMin:12, ageMax:17, difficulty:2,
+    prompt:'Why should you compare the target and a candidate card across every attribute?',
+    options:['A distractor can match most attributes but differ on exactly one','The game accepts any card with a similar shape','Only the card position determines the answer','The target changes after every tap'], answer:'A distractor can match most attributes but differ on exactly one',
+    explanation:'The game describes near-miss distractors that differ from the target in one attribute.'
   },
   {
     id:'focus-05', gameId:'focus-master', gameName:'Focus Master',
-    area:'attention', skill:'sustained-attention', ageMin:9, ageMax:17, difficulty:2,
-    prompt:'What skill is being developed when you hold your aim steady over an extended 60-second trial?',
-    options:['Sustained attention span','Mathematical vocabulary','Handwriting neatness','Musical pitch recognition'], answer:'Sustained attention span',
-    explanation:'Sustained attention is the capacity to maintain focus on a single task over time.'
+    area:'attention', skill:'session-structure', ageMin:12, ageMax:17, difficulty:2,
+    prompt:'How many rounds are listed for a full Focus Master session?',
+    options:['60 rounds across four difficulty levels','10 rounds in one level','20 rounds with no level changes','100 rounds across ten levels'], answer:'60 rounds across four difficulty levels',
+    explanation:'The game information lists four levels with 15 rounds each, for 60 rounds total.'
   },
   {
     id:'focus-06', gameId:'focus-master', gameName:'Focus Master',
-    area:'focus', skill:'error-recovery', ageMin:10, ageMax:17, difficulty:2,
-    prompt:'If you lose your aim momentarily during a high-speed round, what is the best strategy?',
-    options:['Breathe, re-center your cursor, and lock back onto the target calmly','Quit the game immediately','Tap the screen everywhere in panic','Turn off the monitor'], answer:'Breathe, re-center your cursor, and lock back onto the target calmly',
-    explanation:'Emotional regulation during mistakes prevents compound errors and restores performance.'
+    area:'attention', skill:'round-response', ageMin:12, ageMax:17, difficulty:2,
+    prompt:'What does Focus Master ask you to do after studying the target card?',
+    options:['Tap the one card below that matches it exactly','Tap every card with one matching feature','Memorize the order of all cards','Move the target card to the answer row'], answer:'Tap the one card below that matches it exactly',
+    explanation:'The on-screen instructions say to study the target, then tap the one exact match below.'
   },
   {
     id:'focus-07', gameId:'focus-master', gameName:'Focus Master',
-    area:'logic', skill:'mind-body-control', ageMin:11, ageMax:17, difficulty:3,
-    prompt:'How does controlled, steady breathing affect physical aiming tasks in Focus Master?',
-    options:['It lowers heart rate and reduces involuntary hand tremors','It makes the computer screen brighter','It stops the game timer completely','It makes the target stop moving forever'], answer:'It lowers heart rate and reduces involuntary hand tremors',
-    explanation:'Mind-body discipline directly stabilizes motor control during fine-precision tasks.'
+    area:'attention', skill:'target-signature', ageMin:12, ageMax:17, difficulty:3,
+    prompt:'What makes a card an exact match in Focus Master?',
+    options:['All six of its attributes match the target','Its color matches the target','It is in the same row as the target','It has five matching attributes'], answer:'All six of its attributes match the target',
+    explanation:'The help text defines the target as an exact match across all six attributes.'
   },
   {
     id:'focus-08', gameId:'focus-master', gameName:'Focus Master',
-    area:'attention', skill:'selective-attention', ageMin:11, ageMax:17, difficulty:3,
-    prompt:'When two targets appear but only the glowing one should be tracked, which cognitive mechanism is active?',
-    options:['Selective attention','Auditory memory','Grammatical syntax','Spatial rotation'], answer:'Selective attention',
-    explanation:'Selective attention isolates high-priority stimuli while suppressing secondary competitors.'
+    area:'attention', skill:'distractor-design', ageMin:12, ageMax:17, difficulty:3,
+    prompt:'How are Focus Master distractor cards designed to challenge a choice?',
+    options:['They look similar to the target but differ in one attribute','They all match the target exactly','They contain no attributes','They are hidden until after the answer'], answer:'They look similar to the target but differ in one attribute',
+    explanation:'The game describes near-miss distractors that match most, but not all, target attributes.'
   },
   {
     id:'focus-09', gameId:'focus-master', gameName:'Focus Master',
-    area:'focus', skill:'fatigue-management', ageMin:12, ageMax:17, difficulty:3,
-    prompt:'Why is it harder to track targets accurately during the final rounds of a long session?',
-    options:['Cognitive fatigue temporarily depletes mental alertness','The computer mouse becomes heavier','The game pixels change shape','Numbers become letters'], answer:'Cognitive fatigue temporarily depletes mental alertness',
-    explanation:'The brain consumes glucose and energy during intense focus, requiring endurance training.'
+    area:'attention', skill:'level-comparison', ageMin:12, ageMax:17, difficulty:3,
+    prompt:'Which Focus Master level has the shortest listed time per round?',
+    options:['Chaos','Calm','Wave','Storm'], answer:'Chaos',
+    explanation:'The listed time bases are 30 seconds for Calm, 20 for Wave, 12.5 for Storm, and 8.5 for Chaos.'
   },
   {
     id:'focus-10', gameId:'focus-master', gameName:'Focus Master',
-    area:'real-world', skill:'academic-transfer', ageMin:10, ageMax:17, difficulty:2,
-    prompt:'How does mastering impulse control in Focus Master help a student in a real classroom?',
-    options:['It helps the student resist distractions and concentrate during exams','It allows the student to read without opening books','It makes pencils write faster automatically','It eliminates the need for homework'], answer:'It helps the student resist distractions and concentrate during exams',
-    explanation:'Self-control and attention control directly improve classroom listening and exam focus.'
+    area:'attention', skill:'difficulty-levels', ageMin:12, ageMax:17, difficulty:2,
+    prompt:'How many cards are listed for a round in Calm mode?',
+    options:['6','8','12','15'], answer:'6',
+    explanation:'The game configuration lists 6 cards in Calm, increasing to 8, 12, and 15 in later modes.'
   },
 
   /* =========================================================
@@ -1427,10 +1427,10 @@ window.BHAVA_GAME_BANK = [
   },
   {
     id:'fin-02', gameId:'fin-smart', gameName:'Fin Smart',
-    area:'numeracy', skill:'budget-allocation', ageMin:14, ageMax:17, difficulty:1,
-    prompt:'What is the primary goal of creating a personal monthly budget in Fin Smart?',
-    options:['To track income and ensure expenses do not exceed earnings','To spend every single rupee on the first day of the month','To avoid opening a bank account','To borrow as much money as possible'], answer:'To track income and ensure expenses do not exceed earnings',
-    explanation:'A budget provides financial clarity and prevents debt accumulation.'
+    area:'numeracy', skill:'savings-race-inputs', ageMin:14, ageMax:17, difficulty:1,
+    prompt:'In Fin Smart’s Savings Race, which two values can you adjust?',
+    options:['Monthly saving amount and number of years','Daily spending and shoe size','Loan interest rate and school grade','Tax rate and phone model'], answer:'Monthly saving amount and number of years',
+    explanation:'The Savings Race provides a monthly-amount slider and a years slider, then shows a growth estimate.'
   },
   {
     id:'fin-03', gameId:'fin-smart', gameName:'Fin Smart',
@@ -1448,10 +1448,10 @@ window.BHAVA_GAME_BANK = [
   },
   {
     id:'fin-05', gameId:'fin-smart', gameName:'Fin Smart',
-    area:'logic', skill:'opportunity-cost', ageMin:14, ageMax:17, difficulty:2,
-    prompt:'If you choose to spend Rs. 1,000 on concert tickets today instead of saving it, what is the "Opportunity Cost"?',
-    options:['The future growth and security that Rs. 1,000 could have provided if saved','The ticket paper color','The time spent traveling to the concert','The music played at the show'], answer:'The future growth and security that Rs. 1,000 could have provided if saved',
-    explanation:'Opportunity cost is the loss of potential gain from other alternatives when one choice is made.'
+    area:'logic', skill:'loan-tenure-tradeoff', ageMin:14, ageMax:17, difficulty:2,
+    prompt:'In Fin Smart’s Loans & EMI chapter, what can happen when a loan tenure gets longer?',
+    options:['Total interest paid can increase','The loan automatically becomes interest-free','The amount borrowed disappears','The monthly payment must become larger'], answer:'Total interest paid can increase',
+    explanation:'The game teaches that a longer tenure can lower each monthly payment while increasing the total interest paid.'
   },
   {
     id:'fin-06', gameId:'fin-smart', gameName:'Fin Smart',
@@ -1462,31 +1462,31 @@ window.BHAVA_GAME_BANK = [
   },
   {
     id:'fin-07', gameId:'fin-smart', gameName:'Fin Smart',
-    area:'real-world', skill:'credit-management', ageMin:15, ageMax:17, difficulty:3,
-    prompt:'What happens if you pay only the "Minimum Due" on a credit card bill every month?',
-    options:['High interest charges accumulate on the remaining balance, increasing total debt','The bank cancels your debt as a reward','Your purchases become free after six months','Your credit score instantly reaches maximum'], answer:'High interest charges accumulate on the remaining balance, increasing total debt',
-    explanation:'Paying only minimum balances triggers compounding interest on unpaid principal.'
+    area:'real-world', skill:'credit-score-habits', ageMin:15, ageMax:17, difficulty:3,
+    prompt:'In Fin Smart’s CIBIL chapter, which habit is described as helping a credit score?',
+    options:['Paying bills on time','Ignoring bills','Applying for many loans in one week','Using the entire available credit limit'], answer:'Paying bills on time',
+    explanation:'The CIBIL chapter identifies timely bill payments as a healthy credit habit.'
   },
   {
     id:'fin-08', gameId:'fin-smart', gameName:'Fin Smart',
-    area:'logic', skill:'risk-diversification', ageMin:15, ageMax:17, difficulty:3,
-    prompt:'Why is "Diversification" (spreading money across different investments) considered a smart strategy?',
-    options:['It reduces risk because a loss in one area can be balanced by gains in another','It guarantees you will become a billionaire in one day','It eliminates the need to track your budget','It allows you to spend money without limits'], answer:'It reduces risk because a loss in one area can be balanced by gains in another',
-    explanation:'Not putting all eggs in one basket protects total wealth against isolated market drops.'
+    area:'logic', skill:'saving-versus-investing', ageMin:15, ageMax:17, difficulty:3,
+    prompt:'According to Fin Smart, how does investing differ from saving?',
+    options:['Investing aims for higher growth but can have more ups and downs','Investing is always risk-free','Saving always earns more than investing','There is no difference between them'], answer:'Investing aims for higher growth but can have more ups and downs',
+    explanation:'The Saving & Investing chapter says investing may grow more but can fluctuate more than savings.'
   },
   {
     id:'fin-09', gameId:'fin-smart', gameName:'Fin Smart',
     area:'real-world', skill:'scam-vigilance', ageMin:14, ageMax:17, difficulty:2,
-    prompt:'In Fin Smart, what should you do if an online message promises "Guaranteed double return in 24 hours"?',
-    options:['Recognize it as a financial scam and never share bank details or money','Send all your savings immediately','Share the message with all your classmates','Click the link and enter your passwords'], answer:'Recognize it as a financial scam and never share bank details or money',
-    explanation:'Real financial growth takes time; promises of risk-free overnight doubling are fraudulent.'
+    prompt:'In Fin Smart’s Scam Spotter, a message says your bank KYC expired and asks you to share an OTP through a link. What should you do?',
+    options:['Treat it as suspicious; do not share the OTP and verify through an official channel','Share the OTP to avoid an account block','Forward the link to classmates','Enter your PIN to confirm your identity'], answer:'Treat it as suspicious; do not share the OTP and verify through an official channel',
+    explanation:'The game teaches players to pause, distrust urgent messages asking for OTPs, and verify through a trusted official channel.'
   },
   {
     id:'fin-10', gameId:'fin-smart', gameName:'Fin Smart',
     area:'numeracy', skill:'goal-setting', ageMin:14, ageMax:17, difficulty:2,
-    prompt:'If a student wants to buy a Rs. 6,000 educational course in 6 months, what is the required monthly savings goal?',
-    options:['Rs. 1,000 per month','Rs. 500 per month','Rs. 6,000 per month','Rs. 100 per month'], answer:'Rs. 1,000 per month',
-    explanation:'Dividing the total cost (6,000) by the target time period (6 months) equals Rs. 1,000 monthly.'
+    prompt:'In the Savings Race, what does the years slider change?',
+    options:['How long the regular monthly investment is made','The student’s age','The loan interest rate','The number of CIBIL applications'], answer:'How long the regular monthly investment is made',
+    explanation:'The Savings Race combines the selected monthly amount and time period to estimate investment growth.'
   },
 
   /* =========================================================
@@ -1496,72 +1496,72 @@ window.BHAVA_GAME_BANK = [
   {
     id:'elec-01', gameId:'electricity-materials', gameName:'Electricity & Materials',
     area:'logic', skill:'material-conductivity', ageMin:11, ageMax:13, difficulty:1,
-    prompt:'Why does electricity flow easily through a copper wire but not through a rubber glove?',
+    prompt:'In Chip Detective, which statement correctly compares copper and rubber in a circuit?',
     options:['Copper is an electrical conductor; rubber is an electrical insulator','Copper is lighter than rubber','Rubber is too cold to carry electricity','Copper absorbs water from the air'], answer:'Copper is an electrical conductor; rubber is an electrical insulator',
-    explanation:'Conductors have free electrons that allow electrical current to pass smoothly.'
+    explanation:'Chip Detective classifies metals such as copper as conductors and materials such as rubber as insulators.'
   },
   {
     id:'elec-02', gameId:'electricity-materials', gameName:'Electricity & Materials',
     area:'real-world', skill:'electrical-safety', ageMin:11, ageMax:13, difficulty:1,
-    prompt:'Why are household electrical wires coated in a layer of coloured plastic or rubber?',
-    options:['To protect people from electric shocks and prevent short circuits','To make the wires look pretty inside walls','So the electricity travels faster','To keep the wires from making noise'], answer:'To protect people from electric shocks and prevent short circuits',
-    explanation:'Insulating outer sheaths contain the current safely inside the conductive metal core.'
+    prompt:'In Chip Detective, why is plastic grouped with insulators rather than conductors?',
+    options:['It strongly resists the flow of electric current in ordinary circuit conditions','It is a metal that carries current better than copper','It stores current permanently','It creates voltage by itself'], answer:'It strongly resists the flow of electric current in ordinary circuit conditions',
+    explanation:'The game sorts plastic and glass as insulators because they do not provide an ordinary conducting path.'
   },
   {
     id:'elec-03', gameId:'electricity-materials', gameName:'Electricity & Materials',
     area:'logic', skill:'circuit-continuity', ageMin:11, ageMax:13, difficulty:1,
-    prompt:'What is required for a bulb to light up when connected to a battery?',
-    options:['A complete, unbroken closed circuit path from battery to bulb and back','An open circuit with a broken wire','Only a single wire connected to one side of the battery','A glass cup placed next to the bulb'], answer:'A complete, unbroken closed circuit path from battery to bulb and back',
-    explanation:'Electric current only flows continuously around a complete closed loop.'
+    prompt:'In Device Engineer’s electricity lesson, what happens if the circuit path has a gap?',
+    options:['The path is open, so a continuous current cannot flow through it','The gap creates extra battery capacity','The voltage becomes infinite','The circuit works exactly as before'], answer:'The path is open, so a continuous current cannot flow through it',
+    explanation:'The lesson asks learners to predict what a gap does to a circuit; a continuous path is needed for current to flow.'
   },
   {
     id:'elec-04', gameId:'electricity-materials', gameName:'Electricity & Materials',
     area:'logic', skill:'switch-mechanisms', ageMin:11, ageMax:13, difficulty:2,
-    prompt:'What happens inside a circuit when you turn a wall switch to the "OFF" position?',
-    options:['The switch creates a physical gap, opening the circuit so current stops flowing','The switch absorbs all the remaining electricity','The battery reverses its direction','The bulb melts'], answer:'The switch creates a physical gap, opening the circuit so current stops flowing',
-    explanation:'An OFF switch breaks the conductive loop, halting electrical movement instantly.'
+    prompt:'In a simple circuit, what does an open switch do to the current path?',
+    options:['It breaks the path, so continuous current stops','It makes the battery store more charge','It increases the wire’s conductivity','It changes the current into voltage'], answer:'It breaks the path, so continuous current stops',
+    explanation:'An open switch creates a gap in the circuit path. This applies the same open-circuit principle practiced in Device Engineer.'
   },
   {
     id:'elec-05', gameId:'electricity-materials', gameName:'Electricity & Materials',
     area:'numeracy', skill:'electrical-resistance', ageMin:11, ageMax:13, difficulty:2,
-    prompt:'What property of a material describes how strongly it opposes the flow of electric current?',
-    options:['Electrical resistance','Electrical gravity','Electrical brightness','Electrical weight'], answer:'Electrical resistance',
+    prompt:'In Device Engineer’s glossary, what does electrical resistance describe?',
+    options:['How strongly a material opposes electric current','How much voltage a battery stores','How quickly electrons move through a wire','How much charge a battery can store'], answer:'How strongly a material opposes electric current',
     explanation:'Resistance is measured in Ohms and determines how easily current passes through an object.'
   },
   {
     id:'elec-06', gameId:'electricity-materials', gameName:'Electricity & Materials',
     area:'logic', skill:'short-circuits', ageMin:12, ageMax:13, difficulty:2,
-    prompt:'What danger occurs during a "short circuit" when bare wires touch without passing through a bulb or appliance?',
-    options:['Current flows with very low resistance, causing intense heat and fire risk','The electricity turns into solid ice','The battery recharges instantly','The wires become invisible'], answer:'Current flows with very low resistance, causing intense heat and fire risk',
-    explanation:'Without a load to convert energy, short circuits draw massive current and overheat dangerously.'
+    prompt:'In the Space Academy power-bus scenario, what should the crew do when a short circuit trips the bus?',
+    options:['Locate and isolate the fault before restoring bus power','Repeatedly reset the breaker without checking the fault','Increase power to the affected bus immediately','Disconnect life support from every module'], answer:'Locate and isolate the fault before restoring bus power',
+    explanation:'The Space Academy scenario has the crew identify and isolate the short-circuit fault before restoring power.'
   },
   {
     id:'elec-07', gameId:'electricity-materials', gameName:'Electricity & Materials',
     area:'real-world', skill:'energy-efficiency', ageMin:12, ageMax:13, difficulty:2,
-    prompt:'Why are LED bulbs considered more energy-efficient than old incandescent filament bulbs?',
-    options:['LEDs convert more electrical energy into light and waste much less heat','LEDs use wood instead of electricity','LEDs do not require any wires to operate','LEDs only turn on during the daytime'], answer:'LEDs convert more electrical energy into light and waste much less heat',
-    explanation:'Incandescent filament bulbs waste nearly 90% of their electrical energy as unwanted heat.'
+    prompt:'In Device Engineer, what can happen when a phone build’s total component power draw is too high for its power setup?',
+    options:['The battery can drain quickly or the build can overheat','The battery capacity increases automatically','The display resolution doubles','The phone no longer needs a charging circuit'], answer:'The battery can drain quickly or the build can overheat',
+    explanation:'Device Engineer checks component power draw, battery capacity, charging support, and overheating risks.'
   },
   {
     id:'elec-08', gameId:'electricity-materials', gameName:'Electricity & Materials',
     area:'logic', skill:'voltage-vs-current', ageMin:12, ageMax:13, difficulty:3,
-    prompt:'In a water pipe analogy of electricity, if electrical current is the amount of flowing water, what represents "Voltage"?',
+    prompt:'In Device Engineer’s water-pipe analogy, what represents voltage?',
     options:['The water pressure pushing the water through the pipe','The color of the water','The taste of the water','The length of the pipe'], answer:'The water pressure pushing the water through the pipe',
     explanation:'Voltage is the electrical pressure or potential difference driving electrons through a circuit.'
   },
   {
     id:'elec-09', gameId:'electricity-materials', gameName:'Electricity & Materials',
     area:'logic', skill:'static-electricity', ageMin:11, ageMax:13, difficulty:2,
-    prompt:'What causes a balloon to stick to a wall after being rubbed against wool hair?',
-    options:['Static electricity caused by the transfer of electric charges','Magnetic iron inside the balloon','Glue released by the wool','Air pressure from the room fan'], answer:'Static electricity caused by the transfer of electric charges',
-    explanation:'Friction transfers electrons, creating an electrostatic attraction between opposite charges.'
+    prompt:'According to Device Engineer’s battery lesson, what kind of energy conversion occurs as a battery powers a device?',
+    options:['Chemical energy is converted into electrical energy','Light energy is converted into chemical energy','Sound energy is converted into nuclear energy','Heat is converted directly into stored charge'], answer:'Chemical energy is converted into electrical energy',
+    explanation:'The battery lesson describes chemical reactions converting stored chemical energy into electrical energy.'
   },
   {
     id:'elec-10', gameId:'electricity-materials', gameName:'Electricity & Materials',
     area:'real-world', skill:'safety-devices', ageMin:12, ageMax:13, difficulty:3,
-    prompt:'What is the function of a household electrical Fuse or Circuit Breaker?',
-    options:['To automatically break the circuit if the current flow becomes dangerously high','To make household electricity free of cost','To store extra electricity for rainy days','To turn on the television remotely'], answer:'To automatically break the circuit if the current flow becomes dangerously high',
-    explanation:'Fuses and breakers protect wiring installations by cutting power during overload events.'
+    prompt:'In the Space Academy power-bus scenario, why must the breaker not simply be reset before the fault is checked?',
+    options:['The short-circuit fault could remain and trip the bus again','The breaker stores oxygen for the crew','Resetting it would change the station’s orbit','The circuit would become a solar panel'], answer:'The short-circuit fault could remain and trip the bus again',
+    explanation:'The scenario asks the crew to locate and isolate the faulty shunt/short-circuit path before restoring bus power.'
   },
 
   /* =========================================================

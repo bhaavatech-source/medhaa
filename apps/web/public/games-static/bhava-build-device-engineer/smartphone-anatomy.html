@@ -19,7 +19,11 @@
     }
     .app-shell { max-width: 1400px; margin: 0 auto; padding: 20px; }
     .glass { background: rgba(255, 255, 255, 0.03); border-radius: 15px; padding: 20px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.05); }
-    .hero-copy h2 { text-align: center; }
+    .topbar h1 { margin: 0 0 10px; font-size: 1rem; line-height: 1.3; }
+    .hero { padding: 10px 12px; margin-bottom: 12px; }
+    .hero-copy { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+    .hero-copy h2 { margin: 0; text-align: left; }
+    .physiology-link { display: inline-flex; align-items: center; min-height: 36px; padding: 6px 10px; border-radius: 8px; background: #00d2ff; color: #06121a; font-size: .75rem; font-weight: 700; text-decoration: none; }
     
     /* Layout for Dual Phones */
     .dual-view-container {
@@ -105,8 +109,9 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       animation: gradient-glow 5s linear infinite;
-      font-size: 3.2rem;
-      text-transform: uppercase;
+      font-size: 1rem;
+      line-height: 1.3;
+      text-transform: none;
     }
 
     /* Tab Layout */
@@ -189,6 +194,28 @@
       animation: electric-pulse 1.5s infinite;
       z-index: 10;
     }
+
+    @media (max-width: 700px) {
+      .app-shell { padding: 12px; }
+      .dual-view-container {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        padding: 10px;
+      }
+      .phone-container { min-width: 0; width: 100%; gap: 10px; align-content: start; }
+      .phone-container .tab-content { width: 100%; }
+      .dual-view-container > .tab-content { grid-column: 1 / -1; min-width: 0; width: 100%; }
+      .phone-label { font-size: .72rem; line-height: 1.3; letter-spacing: .06em; text-align: center; }
+      .anatomy-svg { width: 100% !important; height: auto !important; aspect-ratio: 280 / 540; }
+      .anatomy-tabs { display: flex; flex-direction: column; }
+      .anatomy-tabs .tab-content { order: -1; }
+      .tab-row { gap: 7px; padding: 10px; margin-bottom: 14px; }
+      .tab-btn { font-size: .78rem; padding: 8px 10px; }
+      .info-card { box-sizing: border-box; width: 100%; padding: 10px 12px; border-radius: 8px; animation: none; }
+      .info-card h4 { margin: 0 0 6px; font-size: .9rem; line-height: 1.3; letter-spacing: 0; overflow-wrap: anywhere; }
+      .info-card p { margin: 0; font-size: .85rem; line-height: 1.45; }
+    }
   </style>
 </head>
 <body>
@@ -204,13 +231,9 @@
     <main id="app">
       <section class="hero card glass">
         <div class="hero-copy">
-          <h2>How a phone works! 📱✨</h2>
-          <p class="hero-text" style="text-align: center; font-size: 1.2rem;">Hover over any part on the front screen or the internal motherboard to uncover its secrets!</p>
-        <div>
-        <a href="smartphone-physiology.html" style="background: linear-gradient(45deg, #00ffcc, #008cff); color: #000; padding: 10px 24px; border-radius: 30px; text-decoration: none; font-weight: 800; font-family: 'Orbitron', sans-serif; box-shadow: 0 0 15px rgba(0, 255, 204, 0.4); display: inline-block; transition: transform 0.2s;">
-          Explore Physiology ⚡ ➔
-        </a>
-		</div>
+          <h2>Phone Anatomy</h2>
+          <a href="smartphone-physiology.html" class="physiology-link">Physiology →</a>
+        </div>
       </section>
 
       <section class="anatomy-explorer card glass">
@@ -504,6 +527,23 @@
     const tabButtons = document.querySelectorAll('.tab-btn');
     const svgParts = document.querySelectorAll('.anatomy-part');
     const tooltip = document.getElementById('hoverTooltip');
+    const anatomyTabs = document.querySelector('.anatomy-tabs');
+    const tabContent = document.querySelector('.tab-content');
+    let activeTabId = 'tab-intro';
+
+    function positionTabContent() {
+      const target = window.matchMedia('(max-width: 700px)').matches
+        ? document.querySelector('.dual-view-container')
+        : null;
+
+      if (target) {
+        target.appendChild(tabContent);
+      } else if (tabContent.parentElement !== anatomyTabs) {
+        anatomyTabs.insertBefore(tabContent, anatomyTabs.firstElementChild);
+      }
+    }
+
+    window.addEventListener('resize', positionTabContent);
 
     // Setup Custom Cursor Tooltip logic
     svgParts.forEach(part => {
@@ -522,6 +562,7 @@
     });
 
     function activateSystemUI(tabId) {
+      activeTabId = tabId;
       if (tabId === 'tab-turbo') { playTurboSound(); } else { playPopSound(); }
 
       tabButtons.forEach(b => b.classList.remove('active'));
@@ -534,16 +575,21 @@
       const activePanel = document.getElementById(tabId);
       if (activePanel) {
         activePanel.classList.add('active');
+        positionTabContent();
         const infoCard = activePanel.querySelector('.info-card');
         if (infoCard) {
           infoCard.style.animation = 'none';
           setTimeout(() => infoCard.style.animation = '', 10);
+          if (window.matchMedia('(max-width: 700px)').matches) {
+            infoCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
         }
       }
 
       // Highlight in SVG
       const matchingParts = document.querySelectorAll(`.anatomy-part[data-tab="${tabId}"]`);
       matchingParts.forEach(part => part.classList.add('active-part'));
+      positionTabContent();
 
       // Update the Detail Title text
       const titleEl = document.getElementById('detailTitle');

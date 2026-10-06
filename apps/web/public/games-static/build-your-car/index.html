@@ -58,45 +58,29 @@
   <button class="nav-pill" data-nav-target="garagePanel">Build Car</button>
   <button class="nav-pill" data-nav-target="testTrackPanel">Run Test</button>
 <!--  <button class="nav-pill" data-nav-target="diagnosticsPanel">Fix Problems</button>-->
-  <button class="nav-pill" data-nav-target="exploreFooter">More Games</button>
+  <button class="nav-pill" data-nav-target="exploreFooter" hidden>More Games</button>
 </nav>
     </header>
 
     <main id="app" class="main-grid">
       <section class="hero card glass">
         <div class="hero-copy">
-          <p class="eyebrow accent">Version 0.4 — Level Up</p>
-          <h2>Assemble, test, diagnose, repair.</h2>
-          <p class="hero-text">A modular browser-game foundation for students to understand how car systems depend on one another through building, testing, and engineering trade-offs.</p>
+          <h2>Build a car that works.</h2>
           <div class="hero-actions">
             <button class="primary-btn" id="missionStartBtn">Start Mission</button>
-            <button class="ghost-btn" id="simulateBtn">Run Test</button>
           </div>
         </div>
 
-        <div class="hero-machine" aria-hidden="true">
-          <div class="machine-frame"></div>
-          <div class="machine-wheel wheel-left"></div>
-          <div class="machine-wheel wheel-right"></div>
-          <div class="signal signal-power"></div>
-          <div class="signal signal-cooling"></div>
-        </div>
+        <figure class="hero-machine">
+          <img src="./car-hero.svg" alt="A complete teal compact car shown from the front and side" fetchpriority="high" />
+        </figure>
       </section>
-<section class="journey-panel card glass" id="journeyPanel">
-  <div class="section-head">
-    <div>
-      <p class="eyebrow">Mission Path</p>
-      <h3>Learn → Build → Test → Improve</h3>
-    </div>
-    <span class="small-note">Follow the steps in order</span>
-  </div>
-
+<section class="journey-panel card glass" id="journeyPanel" aria-label="Mission steps">
   <div class="journey-steps">
     <button class="journey-step active" data-nav-target="learningPanel">
       <span>1</span>
       <div>
         <strong>Learn</strong>
-        <p>Understand what a car needs to work.</p>
       </div>
     </button>
 
@@ -104,7 +88,6 @@
       <span>2</span>
       <div>
         <strong>Build</strong>
-        <p>Install the required and useful parts.</p>
       </div>
     </button>
 
@@ -112,7 +95,6 @@
       <span>3</span>
       <div>
         <strong>Test</strong>
-        <p>Run the car and watch how it behaves.</p>
       </div>
     </button>
 
@@ -120,7 +102,6 @@
       <span>4</span>
       <div>
         <strong>Improve</strong>
-        <p>Find faults and repair weak systems.</p>
       </div>
     </button>
   </div>
@@ -157,68 +138,81 @@
         <div class="car-replica-stage">
           <div class="car-shadow"></div>
 
-          <svg class="car-replica-svg" viewBox="0 0 640 280" xmlns="http://www.w3.org/2000/svg">
+          <svg class="car-replica-svg" viewBox="0 0 640 280" role="img" aria-label="Layered side view of the car being assembled" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="carPaint" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="#9cf8e4"/><stop offset=".42" stop-color="#38c9d5"/><stop offset="1" stop-color="#1876aa"/></linearGradient>
+              <linearGradient id="carGlass" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e8ffff"/><stop offset=".38" stop-color="#78c9e9"/><stop offset="1" stop-color="#25476f"/></linearGradient>
+              <linearGradient id="carRubber" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#33485d"/><stop offset=".5" stop-color="#101b2a"/><stop offset="1" stop-color="#050a12"/></linearGradient>
+              <linearGradient id="carMetal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f1fbff"/><stop offset=".5" stop-color="#88aabc"/><stop offset="1" stop-color="#e8f3f8"/></linearGradient>
+              <filter id="carGlow" x="-.5" y="-.5" width="2" height="2"><feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            </defs>
             <g id="layerChassis" class="car-part visible">
-              <path d="M108 178 Q125 138 175 136 L452 136 Q492 138 520 176 L532 198 Q535 206 528 206 L112 206 Q104 206 104 197 Z" fill="rgba(93,177,255,0.09)" stroke="rgba(97,218,251,0.78)" stroke-width="3"/>
-              <path d="M166 148 Q240 108 352 114 Q435 118 500 150" fill="none" stroke="rgba(255,255,255,0.10)" stroke-width="4"/>
-              <ellipse cx="235" cy="178" rx="126" ry="74" fill="rgba(97,218,251,0.06)" opacity=".6"/>
+              <circle cx="169" cy="205" r="37" fill="#0b1726" stroke="#587286" stroke-width="3" opacity=".48"/>
+              <circle cx="470" cy="205" r="37" fill="#0b1726" stroke="#587286" stroke-width="3" opacity=".48"/>
+              <path d="M70 185 Q74 169 91 160 L132 147 Q155 141 176 138 L223 130 L264 91 Q279 76 301 74 L383 74 Q410 75 427 95 L463 137 L526 149 Q552 154 566 175 L573 194 Q575 204 563 208 L78 208 Q67 205 70 185Z" fill="url(#carPaint)" stroke="#b9fff1" stroke-width="4" stroke-linejoin="round"/>
+              <path d="M226 131 L267 94 Q281 81 301 80 L333 80 L333 133Z" fill="url(#carGlass)" stroke="#d8fbff" stroke-width="3"/>
+              <path d="M344 80 L382 80 Q401 81 414 98 L441 132 L344 132Z" fill="url(#carGlass)" stroke="#d8fbff" stroke-width="3"/>
+              <path d="M344 82 V135 M224 137 L443 137" fill="none" stroke="#d8fbff" stroke-width="3" opacity=".9"/>
+              <path d="M89 164 Q195 146 285 150 T548 164" fill="none" stroke="#efffff" stroke-width="3" opacity=".62"/>
+              <path d="M86 187 Q187 196 285 190 T562 187" fill="none" stroke="#075378" stroke-width="5" opacity=".68"/>
+              <path d="M353 146 V184 M259 149 V181" stroke="#0a648a" stroke-width="2" opacity=".7"/>
+              <path d="M365 157 h28 q4 0 4 4 v2 h-32z M270 157 h24 q4 0 4 4 v2 h-28z" fill="#c8fff3" stroke="#0d6382" stroke-width="1.5"/>
+              <path d="M77 179 Q68 181 67 192 L79 196 H96 V181Z M548 160 Q568 164 576 180 L563 186 H548Z" fill="#147ca0" stroke="#b9fff1" stroke-width="2"/>
+              <path d="M77 209 H566" stroke="#d8f7f2" stroke-width="3" opacity=".7"/>
+              <path d="M138 225 Q165 215 193 224 T249 224 M411 224 Q439 215 467 224 T523 224" fill="none" stroke="#36d9d2" stroke-width="3" opacity=".75"/>
             </g>
 
             <g id="layerEngine" class="car-part">
-              <rect x="394" y="142" width="84" height="38" rx="12" fill="rgba(255,107,138,0.28)" stroke="rgba(255,107,138,0.95)" stroke-width="2"/>
-              <circle cx="420" cy="161" r="4" fill="rgba(255,255,255,0.8)"/>
-              <circle cx="448" cy="161" r="4" fill="rgba(255,255,255,0.8)"/>
-              <text x="436" y="165" fill="rgba(255,183,197,0.95)" font-size="9" text-anchor="middle" font-family="Inter">ENGINE</text>
+              <path d="M425 145 h67 l10 12 v29 h-83 v-29z" fill="#e76a63" stroke="#ffd1a5" stroke-width="3"/>
+              <path d="M439 143 v-12 h10 v12 M466 143 v-12 h10 v12" fill="#ffc56e" stroke="#8c3342" stroke-width="2"/>
+              <circle cx="438" cy="163" r="5" fill="#fff1ce"/><circle cx="454" cy="163" r="5" fill="#fff1ce"/><circle cx="470" cy="163" r="5" fill="#fff1ce"/>
+              <path d="M421 178 h72" stroke="#803d4a" stroke-width="4"/>
             </g>
-
             <g id="layerGearbox" class="car-part">
-              <rect x="334" y="156" width="58" height="22" rx="7" fill="rgba(140,255,183,0.24)" stroke="rgba(140,255,183,0.8)" stroke-width="2"/>
-              <text x="363" y="170" fill="rgba(183,255,214,0.96)" font-size="8" text-anchor="middle" font-family="Inter">GEAR</text>
+              <path d="M344 161 h64 l8 8 v19 h-76z" fill="#96d6b5" stroke="#e0fff1" stroke-width="3"/>
+              <circle cx="359" cy="174" r="6" fill="none" stroke="#246b68" stroke-width="3"/><circle cx="390" cy="174" r="6" fill="none" stroke="#246b68" stroke-width="3"/>
             </g>
-
             <g id="layerBattery" class="car-part">
-              <rect x="158" y="150" width="44" height="26" rx="6" fill="rgba(255,191,105,0.22)" stroke="rgba(255,191,105,0.82)" stroke-width="2"/>
-              <path d="M168 154 h6 v4 h-6 z" fill="rgba(255,255,255,.8)"/>
-              <path d="M176 154 h6 v4 h-6 z" fill="rgba(255,255,255,.8)"/>
+              <rect x="139" y="153" width="55" height="31" rx="7" fill="#ffc45d" stroke="#fff1b7" stroke-width="3"/>
+              <rect x="150" y="148" width="10" height="7" rx="2" fill="#f4ffff"/><rect x="174" y="148" width="10" height="7" rx="2" fill="#f4ffff"/>
+              <path d="M163 159 l-6 9 h7 l-3 9 11-12 h-7 l4-6z" fill="#fff"/>
             </g>
-
             <g id="layerRadiator" class="car-part">
-              <rect x="486" y="150" width="34" height="34" rx="8" fill="rgba(97,218,251,0.20)" stroke="rgba(97,218,251,0.76)" stroke-width="2"/>
-              <path d="M492 156 h22 M492 162 h22 M492 168 h22" stroke="rgba(183,244,255,0.7)" stroke-width="1.5"/>
+              <rect x="504" y="154" width="30" height="35" rx="6" fill="#75d9e6" stroke="#e4ffff" stroke-width="3"/>
+              <path d="M511 160 v23 M518 160 v23 M525 160 v23" stroke="#16658c" stroke-width="2"/>
             </g>
-
             <g id="layerFuelTank" class="car-part">
-              <rect x="244" y="168" width="82" height="22" rx="9" fill="rgba(200,160,255,0.18)" stroke="rgba(200,160,255,0.78)" stroke-width="2"/>
-              <text x="285" y="182" fill="rgba(226,206,255,0.9)" font-size="8" text-anchor="middle" font-family="Inter">FUEL</text>
+              <path d="M256 169 Q256 161 266 161 H320 Q330 161 330 170 V183 H256Z" fill="#a98af3" stroke="#e7ddff" stroke-width="3"/>
+              <path d="M276 161 v-5 h14 v5" fill="none" stroke="#e7ddff" stroke-width="3"/>
+              <path d="M268 174 h48" stroke="#6349b6" stroke-width="3"/>
             </g>
-
             <g id="layerWheels" class="car-part">
-              <circle cx="164" cy="206" r="31" fill="rgba(255,255,255,0.04)" stroke="rgba(233,240,255,0.92)" stroke-width="5"/>
-              <circle cx="164" cy="206" r="17" fill="none" stroke="rgba(97,218,251,0.42)" stroke-width="3"/>
-              <circle cx="478" cy="206" r="31" fill="rgba(255,255,255,0.04)" stroke="rgba(233,240,255,0.92)" stroke-width="5"/>
-              <circle cx="478" cy="206" r="17" fill="none" stroke="rgba(97,218,251,0.42)" stroke-width="3"/>
+              <circle cx="169" cy="205" r="39" fill="url(#carRubber)" stroke="#536f84" stroke-width="4"/>
+              <circle cx="169" cy="205" r="25" fill="url(#carMetal)" stroke="#eefcff" stroke-width="3"/>
+              <circle cx="169" cy="205" r="10" fill="#4a7088" stroke="#efffff" stroke-width="3"/>
+              <path d="M169 181 v14 M169 215 v14 M145 205 h14 M179 205 h14 M152 188 l10 10 M176 212 l10 10 M186 188 l-10 10 M162 212 l-10 10" stroke="#51819a" stroke-width="3"/>
+              <circle cx="470" cy="205" r="39" fill="url(#carRubber)" stroke="#536f84" stroke-width="4"/>
+              <circle cx="470" cy="205" r="25" fill="url(#carMetal)" stroke="#eefcff" stroke-width="3"/>
+              <circle cx="470" cy="205" r="10" fill="#4a7088" stroke="#efffff" stroke-width="3"/>
+              <path d="M470 181 v14 M470 215 v14 M446 205 h14 M480 205 h14 M453 188 l10 10 M477 212 l10 10 M487 188 l-10 10 M463 212 l-10 10" stroke="#51819a" stroke-width="3"/>
             </g>
-
             <g id="layerBrakes" class="car-part">
-              <circle cx="164" cy="206" r="24" fill="none" stroke="rgba(255,107,138,0.5)" stroke-width="2" stroke-dasharray="3,3"/>
-              <circle cx="478" cy="206" r="24" fill="none" stroke="rgba(255,107,138,0.5)" stroke-width="2" stroke-dasharray="3,3"/>
+              <circle cx="169" cy="205" r="18" fill="none" stroke="#f17978" stroke-width="4" stroke-dasharray="5 4"/>
+              <circle cx="470" cy="205" r="18" fill="none" stroke="#f17978" stroke-width="4" stroke-dasharray="5 4"/>
+              <path d="M183 188 l8 4 v12 h-7 M484 188 l8 4 v12 h-7" fill="#ff9c72" stroke="#843a4c" stroke-width="2"/>
             </g>
-
             <g id="layerSteering" class="car-part">
-              <path d="M150 155 L172 134 L178 148" fill="none" stroke="rgba(255,191,105,0.78)" stroke-width="3" stroke-linecap="round"/>
-              <circle cx="170" cy="135" r="7" fill="none" stroke="rgba(255,191,105,0.9)" stroke-width="2"/>
+              <path d="M137 167 L155 145 L172 151 L177 160" fill="none" stroke="#ffd06b" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="155" cy="145" r="8" fill="#fff2c2" stroke="#9b663f" stroke-width="3"/>
             </g>
-
             <g id="layerSuspension" class="car-part">
-              <path d="M164 184 L164 198" stroke="rgba(200,160,255,0.72)" stroke-width="2" stroke-dasharray="2,2"/>
-              <path d="M478 184 L478 198" stroke="rgba(200,160,255,0.72)" stroke-width="2" stroke-dasharray="2,2"/>
-              <path d="M154 198 L174 198" stroke="rgba(200,160,255,0.72)" stroke-width="2"/>
-              <path d="M468 198 L488 198" stroke="rgba(200,160,255,0.72)" stroke-width="2"/>
+              <path d="M154 176 l8 4 -8 4 8 4 -8 4 M455 176 l8 4 -8 4 8 4 -8 4" fill="none" stroke="#bd9cff" stroke-width="3"/>
+              <path d="M148 195 h20 M449 195 h20" stroke="#eee4ff" stroke-width="3"/>
             </g>
-
             <g id="layerHeadlights" class="car-part">
-              <ellipse cx="521" cy="164" rx="9" ry="5" fill="rgba(255,255,200,0.36)" stroke="rgba(255,255,200,0.76)" stroke-width="1.4"/>
-              <path d="M530 164 L567 159 L567 169 L530 164 Z" fill="rgba(255,255,200,0.12)"/>
+              <path d="M552 160 q13 2 17 12 l-17 4z" fill="#fff3a1" stroke="#fffce0" stroke-width="2" filter="url(#carGlow)"/>
+              <path d="M567 163 l34 -10 M570 169 h35 M567 175 l34 10" stroke="#ffe991" stroke-width="3" opacity=".65"/>
+              <path d="M73 168 l-12 4 v14 l13 3z" fill="#ff647c" stroke="#ffc5d0" stroke-width="2"/>
             </g>
           </svg>
 
@@ -257,9 +251,9 @@
         <div class="section-head">
           <div>
             <p class="eyebrow">Build Garage</p>
-            <h3>Essential Systems</h3>
+            <h3>Install by system</h3>
           </div>
-          <span class="small-note">Install all required parts</span>
+          <span class="small-note">Required parts are marked</span>
         </div>
         <div id="partsGrid" class="parts-grid"></div>
       </section>
@@ -317,20 +311,35 @@
           </div>
 
           <div class="track-car level-1" id="trackCar">
-            <div class="car-body">
-              <div class="car-window"></div>
-              <div class="car-window rear"></div>
-              <div class="car-door"></div>
-              <div class="seat-icon seat-left"></div>
-              <div class="seat-icon seat-right"></div>
-              <div class="ac-glow"></div>
-              <div class="dash-sparkle"></div>
-              <div class="car-smile"></div>
-              <div class="car-light head"></div>
-              <div class="car-light tail"></div>
-            </div>
-            <div class="car-wheel wheel-front"></div>
-            <div class="car-wheel wheel-rear"></div>
+            <svg class="track-car-art" viewBox="0 0 640 280" role="img" aria-label="Teal car with alloy wheels on the test track" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="trackPaint" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="#9cf8e4"/><stop offset=".42" stop-color="#38c9d5"/><stop offset="1" stop-color="#1876aa"/></linearGradient>
+                <linearGradient id="trackGlass" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e8ffff"/><stop offset=".38" stop-color="#78c9e9"/><stop offset="1" stop-color="#25476f"/></linearGradient>
+                <linearGradient id="trackMetal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f1fbff"/><stop offset=".5" stop-color="#88aabc"/><stop offset="1" stop-color="#e8f3f8"/></linearGradient>
+              </defs>
+              <ellipse cx="320" cy="247" rx="244" ry="12" fill="#050a12" opacity=".3"/>
+              <path d="M70 185 Q74 169 91 160 L132 147 Q155 141 176 138 L223 130 L264 91 Q279 76 301 74 L383 74 Q410 75 427 95 L463 137 L526 149 Q552 154 566 175 L573 194 Q575 204 563 208 L78 208 Q67 205 70 185Z" fill="url(#trackPaint)" stroke="#b9fff1" stroke-width="4" stroke-linejoin="round"/>
+              <path d="M226 131 L267 94 Q281 81 301 80 L333 80 L333 133Z M344 80 L382 80 Q401 81 414 98 L441 132 L344 132Z" fill="url(#trackGlass)" stroke="#d8fbff" stroke-width="3"/>
+              <path d="M89 164 Q195 146 285 150 T548 164" fill="none" stroke="#efffff" stroke-width="3" opacity=".62"/>
+              <path d="M86 187 Q187 196 285 190 T562 187" fill="none" stroke="#075378" stroke-width="5" opacity=".68"/>
+              <path d="M353 146 V184 M259 149 V181" stroke="#0a648a" stroke-width="2" opacity=".7"/>
+              <path d="M365 157 h28 q4 0 4 4 v2 h-32z M270 157 h24 q4 0 4 4 v2 h-28z" fill="#c8fff3" stroke="#0d6382" stroke-width="1.5"/>
+              <path d="M77 209 H566" stroke="#d8f7f2" stroke-width="3" opacity=".7"/>
+              <g class="car-wheel" style="transform-origin:169px 205px">
+                <circle cx="169" cy="205" r="39" fill="#101b2a" stroke="#536f84" stroke-width="4"/>
+                <circle cx="169" cy="205" r="25" fill="url(#trackMetal)" stroke="#eefcff" stroke-width="3"/>
+                <path d="M169 181 v48 M145 205 h48 M152 188 l34 34 M186 188 l-34 34" stroke="#51819a" stroke-width="3"/>
+                <circle cx="169" cy="205" r="10" fill="#4a7088" stroke="#efffff" stroke-width="3"/>
+              </g>
+              <g class="car-wheel" style="transform-origin:470px 205px">
+                <circle cx="470" cy="205" r="39" fill="#101b2a" stroke="#536f84" stroke-width="4"/>
+                <circle cx="470" cy="205" r="25" fill="url(#trackMetal)" stroke="#eefcff" stroke-width="3"/>
+                <path d="M470 181 v48 M446 205 h48 M453 188 l34 34 M487 188 l-34 34" stroke="#51819a" stroke-width="3"/>
+                <circle cx="470" cy="205" r="10" fill="#4a7088" stroke="#efffff" stroke-width="3"/>
+              </g>
+              <path d="M552 160 q13 2 17 12 l-17 4z" fill="#fff3a1" stroke="#fffce0" stroke-width="2"/>
+              <path d="M73 168 l-12 4 v14 l13 3z" fill="#ff647c" stroke="#ffc5d0" stroke-width="2"/>
+            </svg>
             <div class="car-exhaust" id="carExhaust"></div>
           </div>
 
@@ -386,8 +395,7 @@
       </section>
     </main>
   </div> -->
-<footer class="explore-footer card glass" id="exploreFooter">
-  <footer class="explore-footer card glass">
+<footer class="explore-footer card glass" id="exploreFooter" hidden>
   <div class="section-head">
     <div>
       <p class="eyebrow">Explore More</p>

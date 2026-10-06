@@ -29,6 +29,23 @@ describe('GameCard access labels', () => {
     expect(screen.queryByText(/Trial/)).not.toBeInTheDocument();
   });
 
+  it('lets an entitled premium subscriber play without an upgrade prompt', () => {
+    const onPlay = vi.fn();
+    render(<GameCard {...game} onPlay={onPlay} access={{ allowed: true, reason: 'premium subscriber', daysSinceSignup: 20 }} />);
+
+    fireEvent.click(screen.getByRole('button', { name: /Play Now/ }));
+
+    expect(onPlay).toHaveBeenCalledWith(game.slug);
+    expect(screen.queryByRole('button', { name: /Upgrade to play/ })).not.toBeInTheDocument();
+  });
+
+  it('keeps the access badge below the preview image', () => {
+    const { container } = render(<GameCard {...game} access={{ allowed: true, reason: 'premium subscriber', daysSinceSignup: 20 }} />);
+    const badge = screen.getByText('Premium');
+    expect(container.querySelector('.game-card-banner')).not.toContainElement(badge);
+    expect(container.querySelector('.game-card-body')).toContainElement(badge);
+  });
+
   it('loads a desktop preview video only while the card is hovered', () => {
     vi.stubGlobal('matchMedia', () => ({
       matches: true, addEventListener: vi.fn(), removeEventListener: vi.fn(),

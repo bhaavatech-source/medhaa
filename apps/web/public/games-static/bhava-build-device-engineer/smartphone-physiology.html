@@ -131,6 +131,17 @@
       font-weight: bold;
     }
 
+    @media (max-width: 640px) {
+      .app-shell { padding: 12px; }
+      .hero-copy h2 { font-size: 1.35rem; line-height: 1.25; }
+      .simulator-container { padding: 12px; }
+      .action-row { gap: 8px; padding: 10px; }
+      .action-btn { font-size: .82rem; padding: 10px 12px; letter-spacing: 0; }
+      .status-panel { box-sizing: border-box; min-height: 100px; padding: 14px; }
+      .status-text { font-size: 1.05rem; }
+      .flow-svg { box-sizing: border-box; padding: 8px; }
+    }
+
   </style>
 </head>
 <body>
@@ -155,6 +166,13 @@
           <button class="action-btn" style="background: linear-gradient(45deg, #95a5a6, #7f8c8d); color: white;" onclick="triggerSequence('calc')">🧮 Calculator</button>
           <button class="action-btn" style="background: linear-gradient(45deg, #25D366, #128C7E); color: white;" onclick="triggerSequence('whatsapp')">💬 WhatsApp</button>
           <button class="action-btn" style="background: linear-gradient(45deg, #4285F4, #0F9D58); color: white;" onclick="triggerSequence('maps')">🗺️ Maps</button>
+        </div>
+
+        <!-- Status / Storyboard Panel -->
+        <div class="status-panel">
+          <div id="statusText" class="status-text">
+            Waiting for an action... Press a button above to start the simulator!
+          </div>
         </div>
 
         <!-- Dynamic Data Flow Diagram -->
@@ -239,13 +257,6 @@
             <text class="node-text" x="60" y="35" text-anchor="middle">🔊 SPEAKER</text>
           </g>
         </svg>
-
-        <!-- Status / Storyboard Panel -->
-        <div class="status-panel">
-          <div id="statusText" class="status-text">
-            Waiting for an action... Press a button above to start the simulator!
-          </div>
-        </div>
 
       </section>
     </main>

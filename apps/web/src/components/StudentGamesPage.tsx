@@ -29,6 +29,7 @@ import '../styles/games-grid-enhanced.css';
 import '../styles/student-games-page.css';
 import { SimilarGames } from './SimilarGames';
 import { getLastPlayedSlug, markPlayed } from '../services/gameExposure';
+import { isGameVisible } from '../services/gameVisibility';
 
 interface GameWithAccess {
   slug: string;
@@ -293,7 +294,7 @@ function isAgeEligible(game: GameWithAccess, ageGroup: Exclude<AgeGroup, 'aspira
 }
 
 function buildRecommendedGames(games: GameWithAccess[], ageGroup: AgeGroup): GameWithAccess[] {
-  const recommendationSafeGames = games.filter((game) => game.tier !== 'rotating-free');
+  const recommendationSafeGames = games.filter(isGameVisible);
   const bySlug = new Map(recommendationSafeGames.map((game) => [game.slug, game]));
   const orderedSlugs = ageGroup === 'aspirants'
     ? ASPIRANT_GAME_SLUGS
@@ -1077,13 +1078,29 @@ export function StudentGamesPage({ apiUrl, childStudentId }: StudentGamesPagePro
       window.clearTimeout(timeout);
       controller.abort();
     };
-  }, [apiUrl, childStudentId, catalogReload]);
+  }, [apiUrl, childStudentId, catalogReload, user?.id]);
 
   function retryCatalogLoad() {
     setCatalogError('');
     setLoading(true);
     setCatalogReload((value) => value + 1);
   }
+
+  useEffect(() => {
+    if (!user?.id) return;
+    let lastRefresh = Date.now();
+    const refreshAccess = () => {
+      if (document.visibilityState !== 'visible' || Date.now() - lastRefresh < 30000) return;
+      lastRefresh = Date.now();
+      setCatalogReload(value => value + 1);
+    };
+    window.addEventListener('focus', refreshAccess);
+    document.addEventListener('visibilitychange', refreshAccess);
+    return () => {
+      window.removeEventListener('focus', refreshAccess);
+      document.removeEventListener('visibilitychange', refreshAccess);
+    };
+  }, [user?.id]);
 
   useEffect(() => {
     localStorage.setItem('medhaa-homework', JSON.stringify(homework));
@@ -1148,6 +1165,7 @@ export function StudentGamesPage({ apiUrl, childStudentId }: StudentGamesPagePro
   const filteredGames = useMemo(() => {
     const query = gameSearch.trim().toLowerCase();
     return games.filter((game) => {
+      if (!isGameVisible(game)) return false;
       if (catalogKindFilter !== 'all' && game.kind !== catalogKindFilter) return false;
       if (!query) return true;
       const catalog = getCatalogEntry(game.slug);
@@ -1516,7 +1534,7 @@ const disclaimerBanner = (
         onPlay={handlePlay}
         apiUrl={apiUrl}
         excludeSlugs={new Set(filteredRecommendedGames.map((game) => game.slug))}
-        accessPending={accessPending}
+        accessPending={accessPending || (isLoggedIn && !!catalogError)}
       />
     )}
 
@@ -1525,7 +1543,7 @@ const disclaimerBanner = (
         <div className="games-grid games-grid--recommended">
           {filteredRecommendedGames.map((game) => {
             const cat = getCatalogEntry(game.slug);
-            return <GameCard key={game.slug} {...game} emoji={cat?.emoji} kind={game.kind} onPlay={handlePlay} apiUrl={apiUrl} accessPending={accessPending} />;
+            return <GameCard key={game.slug} {...game} emoji={cat?.emoji} kind={game.kind} onPlay={handlePlay} apiUrl={apiUrl} accessPending={accessPending || (isLoggedIn && !!catalogError)} />;
           })}
         </div>
         {!filteredRecommendedGames.length && (
@@ -1552,7 +1570,7 @@ const disclaimerBanner = (
             <div className="games-grid games-grid--library">
               {domainGames.map((game) => {
                 const cat = getCatalogEntry(game.slug);
-                return <GameCard key={game.slug} {...game} emoji={cat?.emoji} kind={game.kind} onPlay={handlePlay} apiUrl={apiUrl} accessPending={accessPending} />;
+                return <GameCard key={game.slug} {...game} emoji={cat?.emoji} kind={game.kind} onPlay={handlePlay} apiUrl={apiUrl} accessPending={accessPending || (isLoggedIn && !!catalogError)} />;
               })}
             </div>
           </section>

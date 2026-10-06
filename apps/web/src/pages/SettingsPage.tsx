@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { authFetch } from '../utils/authFetch';
+import { API_URL } from '../utils/apiConfig';
 import {
   APP_USAGE_CONSENT_CHANGE_EVENT,
   getAppUsageConsent,
@@ -9,8 +11,14 @@ import {
   setAppUsageConsent,
 } from '../utils/appUsageConsent';
 
-// Mock API URL - replace with your actual environment variable
-const API_URL = 'https://medhaa-tni1.onrender.com/api';
+type AccountSubscription = {
+  plan: string;
+  status: string;
+  amount: number | null;
+  currentPeriodEnd: string | null;
+  trialEndsAt: string | null;
+  transactionRef: string | null;
+};
 
 export function SettingsPage() {
   const navigate = useNavigate();
@@ -30,17 +38,32 @@ export function SettingsPage() {
   });
 
   // State for subscription data (fetched from API)
-  const [subData, setSubData] = useState({ tier: 'Loading...', renewal: '...' });
+  const [subscription, setSubscription] = useState<AccountSubscription | null>(null);
+  const [subscriptionLoading, setSubscriptionLoading] = useState(true);
+  const [subscriptionError, setSubscriptionError] = useState('');
+  const [subscriptionReload, setSubscriptionReload] = useState(0);
   const [nativeAndroid, setNativeAndroid] = useState(false);
   const [analyticsConsent, setAnalyticsConsent] = useState(getAppUsageConsent() === true);
 
   useEffect(() => {
-    // Simulated fetch for user details and subscription
-    // In production, use your authFetch wrapper here
-    if (user?.role !== 'student') {
-      setSubData({ tier: 'Free Tier', renewal: 'N/A' });
+    let cancelled = false;
+    setSubscriptionLoading(true);
+    setSubscriptionError('');
+    setSubscription(null);
+    if (!user) {
+      setSubscriptionLoading(false);
+      return;
     }
-  }, [user]);
+    authFetch(`${API_URL}/subscriptions/me`)
+      .then(async (response) => {
+        if (!response.ok) throw new Error('Could not load subscription details.');
+        return response.json();
+      })
+      .then((data) => { if (!cancelled) setSubscription(data.subscription ?? null); })
+      .catch(() => { if (!cancelled) setSubscriptionError('Could not load subscription details. Please retry.'); })
+      .finally(() => { if (!cancelled) setSubscriptionLoading(false); });
+    return () => { cancelled = true; };
+  }, [user?.id, subscriptionReload]);
 
   useEffect(() => {
     setNativeAndroid(isNativeAndroidApp());
@@ -153,13 +176,23 @@ export function SettingsPage() {
         )}
 
         {/* Billing & Plans */}
-        {user?.role !== 'student' && (
+        {user && (
           <section style={cardStyle}>
             <h2 style={sectionTitleStyle}>Billing & Plans</h2>
-            <div style={gridStyle}>
-              <DataField label="Active Tier" value={subData.tier} />
-              <DataField label="Renewal Date" value={subData.renewal} />
-            </div>
+            {subscriptionLoading ? <p role="status">Loading subscription details…</p> : subscriptionError ? (
+              <div role="alert">
+                <p>{subscriptionError}</p>
+                <button type="button" onClick={() => setSubscriptionReload(value => value + 1)} style={secondaryButtonStyle}>Retry</button>
+              </div>
+            ) : subscription ? (
+              <div style={gridStyle}>
+                <DataField label="Plan" value={subscription.plan.replace(/_/g, ' ')} />
+                <DataField label="Status" value={subscription.status} />
+                <DataField label="Amount" value={subscription.amount == null ? 'Not applicable' : `₹${(subscription.amount / 100).toLocaleString('en-IN')}`} />
+                <DataField label={subscription.status === 'TRIALING' ? 'Trial Ends' : 'Valid Until'} value={(subscription.status === 'TRIALING' ? subscription.trialEndsAt : subscription.currentPeriodEnd) ? new Date((subscription.status === 'TRIALING' ? subscription.trialEndsAt : subscription.currentPeriodEnd)!).toLocaleDateString('en-IN') : 'Not set'} />
+                <DataField label="Payment Reference" value={subscription.transactionRef || 'Not provided'} />
+              </div>
+            ) : <p style={paragraphStyle}>No subscription recorded for this account.</p>}
             <button onClick={() => navigate('/subscribe')} style={primaryButtonStyle}>
               Upgrade or Manage Subscription
             </button>

@@ -52,6 +52,29 @@ describe('checkGameAccess', () => {
     expect(result.reason).toBe('disabled by admin');
   });
 
+  it('allows admins to access active premium games without a subscription', () => {
+    const result = checkGameAccess({
+      gameSlug: PREMIUM_ONLY_GAMES[0],
+      accountCreatedAt: new Date(),
+      isSubscribed: false,
+      isAdmin: true,
+    });
+    expect(result.allowed).toBe(true);
+    expect(result.reason).toBe('admin access');
+  });
+
+  it('keeps games disabled by an admin unavailable to admins', () => {
+    const result = checkGameAccess({
+      gameSlug: PREMIUM_ONLY_GAMES[0],
+      accountCreatedAt: new Date(),
+      isSubscribed: false,
+      isAdmin: true,
+      isActive: false,
+    });
+    expect(result.allowed).toBe(false);
+    expect(result.reason).toBe('disabled by admin');
+  });
+
   it('allows a premium-only game for an active subscriber', () => {
     const result = checkGameAccess({
       gameSlug: PREMIUM_ONLY_GAMES[0],

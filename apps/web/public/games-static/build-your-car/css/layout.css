@@ -89,18 +89,26 @@
 }
 
 @media (max-width: 600px) {
-  .app-shell { padding: .75rem; overflow-x: hidden; }
-  .topbar { gap: .75rem; }
-  .topbar-actions {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
+  .app-shell { padding: .75rem; padding-bottom: calc(.75rem + 58px + env(safe-area-inset-bottom)); overflow-x: hidden; }
+  .topbar { display: grid; grid-template-columns: minmax(0, 1fr); gap: .75rem; }
+  .brand { min-width: 0; }
+  .hero-nav.topbar-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .5rem;
     max-width: 100%;
-    padding: .15rem 0 .35rem;
-    scrollbar-width: none;
+    overflow: visible;
+    padding: 0;
   }
-  .topbar-actions::-webkit-scrollbar { display: none; }
+  .topbar-actions .theme-toggle { grid-column: 1 / -1; justify-self: end; min-height: 40px; padding: .45rem .85rem; }
+  .topbar-actions .nav-pill { min-width: 0; min-height: 42px; padding: .55rem .4rem; border-radius: 8px; font-size: .75rem; line-height: 1.15; white-space: normal; }
   .card { padding: 1rem; min-width: 0; }
   .section-head { grid-template-columns: 1fr; gap: .65rem; }
   .section-head > :last-child { justify-self: start; }
+
+  .build-mode .app-shell { display: block; height: auto; min-height: 100svh; }
+  .build-mode .main-grid { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: none; height: auto; min-height: 0; max-height: none; overflow: visible; gap: .75rem; }
+  .build-mode .main-grid > * { grid-column: 1; grid-row: auto; min-width: 0; }
+  .build-mode .car-replica-panel,
+  .build-mode .garage-panel { min-height: 0; overflow: visible; }
 }

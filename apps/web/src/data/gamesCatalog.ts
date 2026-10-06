@@ -49,10 +49,10 @@ export const GAMES_CATALOG: Record<string, CatalogEntry> = {
   },
   'dharana-arena': {
     slug: 'dharana-arena', title: 'Dhāraṇā Arena',
-    tagline: 'Calm your mind, then sharpen your focus',
-    description: "A holistic attention trainer that starts with a guided breathing exercise, then moves into real focus challenges: reading short passages under time pressure and picking out precise details from instructions, exactly like following exam rules or a lab safety sheet.",
-    secondary: 'Concentration', skillsBuilt: ['Sustained Attention', 'Reading Comprehension', 'Mindfulness'],
-    ageMin: 5, ageMax: 17, color: '#302b63', domain: 'cognitive-focus', emoji: '🧘',
+    tagline: 'React with control. Match with focus.',
+    description: 'Two age-adaptive action games for ages 5–17: Dhāraṇā Pulse practises impulse control with changing color-and-shape go/no-go cues; Dhāraṇā Fusion practises split attention by matching shape and color simultaneously.',
+    secondary: 'Impulse Control & Split Attention', skillsBuilt: ['Impulse Control', 'Split Attention', 'Sustained Attention', 'Visual Discrimination'],
+    ageMin: 5, ageMax: 17, color: '#147c70', domain: 'cognitive-focus', emoji: '🚦',
   },
   'bhava-math-grid': {
     slug: 'bhava-math-grid', title: 'Apt Number',
