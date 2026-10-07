@@ -15,7 +15,11 @@ for (const file of ['game.js', 'style.css', 'bhava-responsive.css']) {
 }
 await cp(resolve(projectDir, 'assets/smriti-memory-match.png'), resolve(webDir, 'smriti-art.png'));
 await cp(resolve(projectDir, 'branding.css'), resolve(webDir, 'branding.css'));
-await cp(resolve(projectDir, '../web/public/privacy-policy.html'), resolve(webDir, 'privacy-policy.html'));
+let privacyHtml = await readFile(resolve(projectDir, '../web/public/privacy-policy.html'), 'utf8');
+privacyHtml = privacyHtml
+  .replace(/<a\b[^>]*href="(?:https?:\/\/|mailto:)[^"]*"[^>]*>([\s\S]*?)<\/a>/gi, '$1')
+  .replace(/<a\b[^>]*href="\/(?:usage-policy)?"[^>]*>([\s\S]*?)<\/a>/gi, '$1');
+await writeFile(resolve(webDir, 'privacy-policy.html'), privacyHtml);
 
 let html = await readFile(resolve(sourceDir, 'index.html'), 'utf8');
 html = html
@@ -30,7 +34,7 @@ html = html
   .replace('<h1>Medhā-smṛti</h1>', '<h1>Smṛti</h1>')
   .replace('<section class="hero" id="heroBox">', '<section class="hero" id="heroBox"><img class="smriti-title-art" src="smriti-art.png" alt="Smṛti memory-match artwork">')
   .replace('</head>', '  <link rel="stylesheet" href="branding.css">\n</head>')
-  .replace('</body>', '  <footer class="brand-credit">By Bhāva Tech · <a href="privacy-policy.html">Privacy policy</a></footer>\n</body>');
+  .replace('</body>', '  <footer class="brand-credit"><span>By Bhāva Tech</span><span>Website: medhaa.net</span><span>Support: support@medhaa.net</span><a href="privacy-policy.html">Privacy policy</a></footer>\n</body>');
 
 await writeFile(resolve(webDir, 'index.html'), html);
 console.log(`Prepared standalone game bundle at ${webDir}`);
