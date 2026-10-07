@@ -1,0 +1,41 @@
+.logo {
+  display: none;
+}
+
+.smriti-title-art {
+  display: block;
+  width: min(54vw, 220px);
+  max-width: 100%;
+  aspect-ratio: 1;
+  object-fit: contain;
+  margin: 0 auto 14px;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(15, 7, 70, .3);
+}
+
+.hero {
+  text-align: center;
+}
+
+@media (max-width: 560px) {
+  .smriti-title-art {
+    width: min(58vw, 190px);
+    margin-bottom: 12px;
+  }
+}
+
+.brand-credit {
+  position: relative;
+  z-index: 1;
+  padding: 8px 20px 18px;
+  color: rgba(255, 255, 255, .78);
+  font-family: "Noto Sans", "DejaVu Sans", system-ui, sans-serif;
+  font-size: .82rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.brand-credit a {
+  color: inherit;
+  text-underline-offset: 3px;
+}

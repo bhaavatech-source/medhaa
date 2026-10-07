@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#102844"/>
+      <stop offset=".55" stop-color="#075a68"/>
+      <stop offset="1" stop-color="#112e52"/>
+    </linearGradient>
+    <radialGradient id="aura">
+      <stop stop-color="#25d5d0" stop-opacity=".26"/>
+      <stop offset="1" stop-color="#25d5d0" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="512" height="512" rx="118" fill="url(#bg)"/>
+  <circle cx="256" cy="250" r="220" fill="url(#aura)"/>
+  <circle cx="256" cy="256" r="192" fill="none" stroke="#9ff8ed" stroke-opacity=".12" stroke-width="2"/>
+  <path d="M106 300C106 214 168 150 256 150s150 64 150 150" fill="none" stroke="#72eee0" stroke-opacity=".7" stroke-width="8" stroke-linecap="round"/>
+  <path d="M406 300c0 86-62 150-150 150s-150-64-150-150" fill="none" stroke="#8db8ff" stroke-opacity=".48" stroke-width="5" stroke-linecap="round" stroke-dasharray="2 18"/>
+  <g filter="url(#glow)" transform="translate(156 218)">
+    <circle r="55" fill="#123d55" stroke="#8ff5e8" stroke-width="5"/>
+    <path d="M0-30 7-8 29 0 7 8 0 30-7 8-29 0-7-8Z" fill="#ffd36f"/>
+    <circle r="6" fill="#fff8d8"/>
+  </g>
+  <g filter="url(#glow)" transform="translate(356 218)">
+    <circle r="55" fill="#123d55" stroke="#8ff5e8" stroke-width="5"/>
+    <path d="M0-30 7-8 29 0 7 8 0 30-7 8-29 0-7-8Z" fill="#ffd36f"/>
+    <circle r="6" fill="#fff8d8"/>
+  </g>
+  <g transform="translate(256 348)">
+    <circle r="47" fill="#f06462" stroke="#ffd6a2" stroke-width="6"/>
+    <path d="M0-27C-16-10-16-2 0 9 16-2 16-10 0-27Zm27 27C10-16 2-16-9 0c11 16 19 16 36 0ZM0 27C16 10 16 2 0-9-16 2-16 10 0 27Zm-27-27C-10 16-2 16 9 0-2-16-10-16-27 0Z" fill="#fff4d9"/>
+    <circle r="5" fill="#f06462"/>
+  </g>
+  <path d="M91 116h14m-7-7v14M407 390h14m-7-7v14" stroke="#ffd36f" stroke-linecap="round" stroke-width="6" opacity=".9"/>
+</svg>
