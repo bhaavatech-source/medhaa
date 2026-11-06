@@ -8,6 +8,7 @@ import { z } from 'zod';
 import { PrismaClient } from '@prisma/client';
 import { OAuth2Client } from 'google-auth-library';
 import { sendPasswordResetEmail } from '../utils/mail';
+import { isPlatformAdminEmail, resolveAccountRole } from '../services/platformAdmins';
 
 const prisma = new PrismaClient();
 const router = Router();
@@ -90,7 +91,9 @@ router.post('/login', async (req: Request, res: Response) => {
   }
   const { email, password } = parsed.data;
 
-  const user = await prisma.user.findUnique({ where: { email } });
+  const user = await prisma.user.findFirst({
+    where: { email: { equals: email.trim(), mode: 'insensitive' } },
+  });
   if (!user || !user.passwordHash) {
     res.status(401).json({ error: 'Invalid email or password' });
     return;
@@ -107,15 +110,12 @@ router.post('/login', async (req: Request, res: Response) => {
     return;
   }
 
-  // Designated permanent super-admin account — always ensured ADMIN on login, on any device.
-  const SUPER_ADMIN_EMAIL = 'bhaavatech@gmail.com';
-  let role = user.role;
-  if (user.email.toLowerCase() === SUPER_ADMIN_EMAIL && role !== 'ADMIN') {
-    const promoted = await prisma.user.update({ where: { id: user.id }, data: { role: 'ADMIN' } });
-    role = promoted.role;
+  const role = resolveAccountRole(user.email, user.role);
+  if (role !== user.role) {
+    await prisma.user.update({ where: { id: user.id }, data: { role } });
   }
 
-  if (parsed.data.role) {
+  if (parsed.data.role && !isPlatformAdminEmail(user.email)) {
     const expectedRole = PORTAL_TO_ROLE[parsed.data.role.toLowerCase()];
     if (expectedRole && role !== expectedRole) {
       res.status(403).json({
@@ -161,7 +161,7 @@ router.post('/google', async (req: Request, res: Response) => {
     }
 
     const email = profile.email.toLowerCase().trim();
-    const role = parsed.data.role.toUpperCase() as 'STUDENT' | 'PARENT';
+    const role = resolveAccountRole(email, parsed.data.role.toUpperCase() as 'STUDENT' | 'PARENT');
     let user = await prisma.user.findUnique({ where: { googleId: profile.sub } })
         ?? await prisma.user.findFirst({ where: { email: { equals: email, mode: 'insensitive' } } });
     if (user) {
@@ -169,7 +169,7 @@ router.post('/google', async (req: Request, res: Response) => {
         res.status(403).json({ error: 'This account has been disabled. Contact support for help.' });
         return;
       }
-      if (user.role !== role) {
+      if (user.role !== role && !isPlatformAdminEmail(user.email)) {
         res.status(403).json({ error: `This account is registered as a ${user.role.toLowerCase()}. Please use the ${user.role.toLowerCase()} login instead.` });
         return;
       }
@@ -177,7 +177,10 @@ router.post('/google', async (req: Request, res: Response) => {
         res.status(409).json({ error: 'This account is linked to a different Google account.' });
         return;
       }
-      user = await prisma.user.update({ where: { id: user.id }, data: { googleId: profile.sub, lastLoginAt: new Date() } });
+      user = await prisma.user.update({
+        where: { id: user.id },
+        data: { googleId: profile.sub, lastLoginAt: new Date(), role: resolveAccountRole(user.email, user.role) },
+      });
     } else {
       const trialEndsAt = new Date(Date.now() + TRIAL_DAYS * 24 * 60 * 60 * 1000);
       const fullName = profile.name?.trim() || email.split('@')[0];
@@ -185,7 +188,8 @@ router.post('/google', async (req: Request, res: Response) => {
         data: {
           email, googleId: profile.sub, role, passwordHash: null,
           subscription: { create: { plan: 'PREMIUM', status: 'TRIALING', trialEndsAt } },
-          ...(role === 'STUDENT' ? { student: { create: { fullName } } } : { parent: { create: { fullName } } }),
+          ...(role === 'STUDENT' && { student: { create: { fullName } } }),
+          ...(role === 'PARENT' && { parent: { create: { fullName } } }),
         },
       });
     }
@@ -216,7 +220,11 @@ router.post('/refresh', async (req: Request, res: Response) => {
       res.status(403).json({ error: 'This account has been disabled.' });
       return;
     }
-    const accessToken = jwt.sign({ id: user.id, email: user.email, role: user.role.toLowerCase() }, ACCESS_SECRET, {
+    const role = resolveAccountRole(user.email, user.role);
+    if (role !== user.role) {
+      await prisma.user.update({ where: { id: user.id }, data: { role } });
+    }
+    const accessToken = jwt.sign({ id: user.id, email: user.email, role: role.toLowerCase() }, ACCESS_SECRET, {
       expiresIn: '15m',
     });
     res.json({ accessToken });

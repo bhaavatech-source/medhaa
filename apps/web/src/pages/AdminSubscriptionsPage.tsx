@@ -59,6 +59,9 @@ export default function AdminSubscriptionsPage() {
   const [filter, setFilter] = useState<'ALL' | 'PENDING' | 'ACTIVE' | 'TRIALING'>('ALL');
   const [search, setSearch] = useState('');
   const [busyId, setBusyId] = useState<string | null>(null);
+  const [recipientEmail, setRecipientEmail] = useState('');
+  const [granting, setGranting] = useState(false);
+  const [grantMessage, setGrantMessage] = useState('');
 
   const load = useCallback(async () => {
     setError('');
@@ -94,6 +97,29 @@ export default function AdminSubscriptionsPage() {
       setError(err.message || 'Action failed.');
     } finally {
       setBusyId(null);
+    }
+  }
+
+  async function grantFree(e: React.FormEvent) {
+    e.preventDefault();
+    setError('');
+    setGrantMessage('');
+    setGranting(true);
+    try {
+      const res = await authFetch(`${API_URL}/subscriptions/grant-free`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: recipientEmail.trim() }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Unable to grant the free subscription.');
+      setGrantMessage(data.message);
+      setRecipientEmail('');
+      await load();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Unable to grant the free subscription.');
+    } finally {
+      setGranting(false);
     }
   }
 
@@ -159,6 +185,28 @@ export default function AdminSubscriptionsPage() {
         </button>
       </div>
 
+      <form onSubmit={grantFree} style={{ marginBottom: 24 }}>
+        <label htmlFor="free-subscription-email" style={{ display: 'block', marginBottom: 8, fontWeight: 600 }}>
+          Give an existing account a free lifetime subscription
+        </label>
+        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+          <input
+            id="free-subscription-email"
+            type="email"
+            required
+            value={recipientEmail}
+            onChange={(e) => setRecipientEmail(e.target.value)}
+            placeholder="Recipient email"
+            style={{ flex: '1 1 220px', minWidth: 0, padding: '10px 14px', borderRadius: 10, border: '1px solid #d1d5db' }}
+          />
+          <button type="submit" disabled={granting} style={{ padding: '10px 16px', borderRadius: 10, border: 0, background: '#6366f1', color: '#fff', fontWeight: 700 }}>
+            {granting ? 'Granting...' : 'Grant free lifetime access'}
+          </button>
+        </div>
+        <p style={{ color: '#6b7280', fontSize: 13 }}>This replaces the recipient's current subscription with lifetime access at no charge.</p>
+        {grantMessage && <p role="status" style={{ color: '#047857' }}>{grantMessage}</p>}
+      </form>
+
       <div style={{ display: 'flex', gap: 10, marginBottom: 18, flexWrap: 'wrap' }}>
         {(['ALL', 'PENDING', 'ACTIVE', 'TRIALING'] as const).map((f) => (
           <button
@@ -193,7 +241,7 @@ export default function AdminSubscriptionsPage() {
       </div>
 
       {error && (
-        <div style={{ marginBottom: 16, padding: '10px 14px', borderRadius: 10, background: '#fef2f2', color: '#b91c1c', fontSize: 14 }}>
+        <div role="alert" style={{ marginBottom: 16, padding: '10px 14px', borderRadius: 10, background: '#fef2f2', color: '#b91c1c', fontSize: 14 }}>
           {error}
         </div>
       )}

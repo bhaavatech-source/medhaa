@@ -2,6 +2,7 @@ import { Router, Response } from 'express';
 import { PrismaClient, SubscriptionStatus, SubscriptionPlan } from '@prisma/client';
 import { authenticate, requireRole, AuthenticatedRequest } from '../middleware/auth';
 import { logAudit } from '../services/auditLog';
+import { z } from 'zod';
 
 const prisma = new PrismaClient();
 const router = Router();
@@ -51,6 +52,46 @@ const BENEFITS = [
 router.get('/plans', (_req, res: Response) => {
   const plans = Object.entries(PLAN_CATALOG).map(([id, details]) => ({ id, ...details }));
   res.json({ plans, benefits: BENEFITS, upiId: 'yespay.smessi10194393@yesbankltd' });
+});
+
+router.post('/grant-free', authenticate, requireRole(['admin']), async (req: AuthenticatedRequest, res: Response) => {
+  const parsed = z.object({ email: z.string().trim().email() }).safeParse(req.body);
+  if (!parsed.success) {
+    res.status(400).json({ error: 'Enter a valid recipient email address.' });
+    return;
+  }
+
+  const user = await prisma.user.findFirst({
+    where: { email: { equals: parsed.data.email, mode: 'insensitive' } },
+  });
+  if (!user) {
+    res.status(404).json({ error: 'No account found for this email. Ask the recipient to register first.' });
+    return;
+  }
+  if (!user.isActive) {
+    res.status(403).json({ error: 'This account is disabled. Enable it before granting a subscription.' });
+    return;
+  }
+
+  const data = {
+    plan: SubscriptionPlan.LIFETIME,
+    status: SubscriptionStatus.ACTIVE,
+    amount: 0,
+    paymentMethod: 'admin-free',
+    trialEndsAt: null,
+    currentPeriodEnd: null,
+    transactionRef: null,
+    notes: 'Free lifetime subscription granted by an admin.',
+  };
+  const subscription = await prisma.subscription.upsert({
+    where: { userId: user.id },
+    update: data,
+    create: { userId: user.id, ...data },
+  });
+  await logAudit(req.user!.id, 'subscription.grant_free', {
+    targetUserId: user.id, subscriptionId: subscription.id, plan: 'LIFETIME',
+  });
+  res.json({ message: `Free lifetime subscription granted to ${user.email}.`, subscription });
 });
 
 router.post('/initiate', authenticate, async (req: AuthenticatedRequest, res: Response) => {

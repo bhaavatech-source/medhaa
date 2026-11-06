@@ -13,6 +13,7 @@ const mocks = vi.hoisted(() => {
     findFirst: vi.fn(),
     create: vi.fn(),
     update: vi.fn(),
+    compare: vi.fn(),
   };
 });
 
@@ -25,14 +26,17 @@ vi.mock('@prisma/client', () => ({
   },
 }));
 vi.mock('../utils/mail', () => ({ sendPasswordResetEmail: vi.fn() }));
+vi.mock('bcrypt', () => ({ default: { compare: mocks.compare } }));
 
 import router from './auth';
+import { PLATFORM_ADMIN_EMAILS } from '../services/platformAdmins';
 
-describe('POST /google', () => {
+describe('Account authentication', () => {
   let server: Server;
 
   beforeEach(async () => {
     vi.clearAllMocks();
+    mocks.compare.mockResolvedValue(true);
     mocks.verifyIdToken.mockResolvedValue({ getPayload: () => ({
       sub: 'google-subject', email: 'student@example.com', email_verified: true, name: 'Student Name',
     }) });
@@ -54,11 +58,15 @@ describe('POST /google', () => {
   });
 
   async function signIn(role = 'student', credential = 'google-id-token') {
+    return post('/google', { role, credential });
+  }
+
+  async function post(path: string, body: Record<string, string>) {
     const address = server.address();
     if (!address || typeof address === 'string') throw new Error('Missing test server port');
-    const response = await fetch(`http://127.0.0.1:${address.port}/google`, {
+    const response = await fetch(`http://127.0.0.1:${address.port}${path}`, {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ role, credential }),
+      body: JSON.stringify(body),
     });
     return { status: response.status, body: await response.json() };
   }
@@ -111,6 +119,66 @@ describe('POST /google', () => {
     expect((await signIn()).status).toBe(403);
     mocks.findFirst.mockResolvedValueOnce({ ...existing, isActive: true, googleId: 'other-google-id' });
     expect((await signIn()).status).toBe(409);
+    expect(mocks.update).not.toHaveBeenCalled();
+  });
+
+  it.each(PLATFORM_ADMIN_EMAILS)('promotes %s through password login from any portal', async (email) => {
+    const existing = { id: 'platform-admin', email, role: 'STUDENT', isActive: true, passwordHash: 'hashed' };
+    mocks.findFirst.mockResolvedValue(existing);
+    const result = await post('/login', { email: email.toUpperCase(), password: 'password', role: 'parent' });
+    expect(result.status).toBe(200);
+    expect(mocks.findFirst).toHaveBeenCalledWith({ where: { email: { equals: email.toUpperCase(), mode: 'insensitive' } } });
+    expect(mocks.update).toHaveBeenCalledWith({ where: { id: existing.id }, data: { role: 'ADMIN' } });
+    expect(jwt.verify(result.body.accessToken, 'test-access-secret')).toMatchObject({ role: 'admin', email });
+  });
+
+  it.each(PLATFORM_ADMIN_EMAILS.flatMap((email) => ['STUDENT', 'ADMIN'].map((role) => ({ email, role }))))(
+    'ensures admin access for $email through Google with an existing $role role', async ({ email, role }) => {
+    const existing = { id: 'platform-admin', email, role, isActive: true, googleId: null };
+    mocks.verifyIdToken.mockResolvedValue({ getPayload: () => ({
+      sub: 'google-subject', email: email.toUpperCase(), email_verified: true,
+    }) });
+    mocks.findFirst.mockResolvedValue(existing);
+    mocks.update.mockImplementation(async ({ data }) => ({ ...existing, ...data }));
+    const result = await signIn('parent');
+    expect(result.status).toBe(200);
+    expect(mocks.update).toHaveBeenCalledWith({ where: { id: existing.id }, data: expect.objectContaining({ role: 'ADMIN' }) });
+    expect(jwt.verify(result.body.accessToken, 'test-access-secret')).toMatchObject({ role: 'admin' });
+  });
+
+  it.each(PLATFORM_ADMIN_EMAILS)('promotes %s when refreshing an existing session', async (email) => {
+    mocks.findUnique.mockResolvedValue({ id: 'platform-admin', email, role: 'STUDENT', isActive: true });
+    const result = await post('/refresh', { refreshToken: jwt.sign({ id: 'platform-admin' }, 'test-refresh-secret') });
+    expect(result.status).toBe(200);
+    expect(mocks.update).toHaveBeenCalledWith({ where: { id: 'platform-admin' }, data: { role: 'ADMIN' } });
+    expect(jwt.verify(result.body.accessToken, 'test-access-secret')).toMatchObject({ role: 'admin' });
+  });
+
+  it('provisions a new platform admin only after Google verifies the email', async () => {
+    mocks.verifyIdToken.mockResolvedValue({ getPayload: () => ({
+      sub: 'google-subject', email: PLATFORM_ADMIN_EMAILS[1], email_verified: true,
+    }) });
+    const result = await signIn();
+    expect(result.status).toBe(200);
+    expect(mocks.create).toHaveBeenCalledWith({ data: expect.objectContaining({ role: 'ADMIN' }) });
+    expect(jwt.verify(result.body.accessToken, 'test-access-secret')).toMatchObject({ role: 'admin' });
+  });
+
+  it('does not promote a platform admin with an invalid password or a disabled account', async () => {
+    const existing = { id: 'platform-admin', email: PLATFORM_ADMIN_EMAILS[1], role: 'STUDENT', isActive: true, passwordHash: 'hashed' };
+    mocks.findFirst.mockResolvedValue(existing);
+    mocks.compare.mockResolvedValueOnce(false);
+    expect((await post('/login', { email: existing.email, password: 'wrong' })).status).toBe(401);
+    mocks.findFirst.mockResolvedValue({ ...existing, isActive: false });
+    expect((await post('/login', { email: existing.email, password: 'password' })).status).toBe(403);
+    mocks.findUnique.mockResolvedValue({ ...existing, isActive: false });
+    expect((await post('/refresh', { refreshToken: jwt.sign({ id: existing.id }, 'test-refresh-secret') })).status).toBe(403);
+    expect(mocks.update).not.toHaveBeenCalled();
+  });
+
+  it('continues to reject an ordinary account logging in through the wrong portal', async () => {
+    mocks.findFirst.mockResolvedValue({ id: 'student', email: 'student@example.com', role: 'STUDENT', isActive: true, passwordHash: 'hashed' });
+    expect((await post('/login', { email: 'student@example.com', password: 'password', role: 'admin' })).status).toBe(403);
     expect(mocks.update).not.toHaveBeenCalled();
   });
 });

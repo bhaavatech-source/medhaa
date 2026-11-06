@@ -29,7 +29,7 @@ async function getOrCreateOwnStudentProfile(userId: string) {
 
 // GET /games — returns full catalog, flagging which games this student
 // can currently play based on trial/subscription/free-tier status.
-router.get('/', authenticate, requireRole(['student']), async (req: AuthenticatedRequest, res: Response) => {
+router.get('/', authenticate, requireRole(['student', 'admin']), async (req: AuthenticatedRequest, res: Response) => {
   const studentId = req.user!.id;
 
   const [games, subscription] = await Promise.all([
@@ -43,7 +43,7 @@ router.get('/', authenticate, requireRole(['student']), async (req: Authenticate
     subscription.trialEndsAt &&
     subscription.trialEndsAt > now;
   const premiumActive = subscription?.status === 'ACTIVE';
-  const hasFullAccess = trialActive || premiumActive;
+  const hasFullAccess = req.user!.role === 'admin' || trialActive || premiumActive;
 
   const catalog = games.map((game) => ({
     ...game,

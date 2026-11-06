@@ -11,3 +11,9 @@ To enable Google sign-in, create a **Web application** OAuth client ID in [Googl
 - Web build environment: `VITE_GOOGLE_CLIENT_ID`
 
 Restart the API and web development server after changing these values, or redeploy both services. The Google button remains unavailable until the web client ID is set. Never put a Google client secret in the web application.
+
+## Platform administrator access
+
+The three designated platform accounts are maintained in `apps/api/src/services/platformAdmins.ts`. Password login, verified Google sign-in, and token refresh ensure their ADMIN role. They may sign in through any login portal and play all active games without a paid subscription on any device. Disabled accounts and disabled games remain blocked.
+
+Deploy the API migration to promote existing accounts, then sign out and back in to obtain an updated admin session. In **Admin > Subscriptions**, enter a registered recipient's email and select **Grant free lifetime access**. This creates or replaces their subscription with an ACTIVE, zero-cost LIFETIME plan without an expiry date; the grant is audit-logged. Non-admin accounts cannot grant subscriptions.
