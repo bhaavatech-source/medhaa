@@ -121,7 +121,7 @@ if (!school) {
     { slug: 'rocket-build-engineer', title: 'Rocket Build Engineer', domain: 'stem-engineering', isFreeTier: false, entryPath: 'rocket-build-engineer/index.html' },
     { slug: 'plane-builder', title: 'Plane Builder', domain: 'stem-engineering', isFreeTier: false, entryPath: 'plane-builder/index.html' },
     { slug: 'secret-of-silicon-game', title: 'Secret of Silicon', domain: 'stem-engineering', isFreeTier: false, entryPath: 'secret-of-silicon-game/index.html' },
-    { slug: 'devanagari-game', title: 'Devanagari Game', domain: 'language-hindi', isFreeTier: false, entryPath: 'devanagari-game/index.html' },
+    { slug: 'devanagari-game', title: 'Akṣarābhyāsaḥ', domain: 'language-hindi', isFreeTier: false, entryPath: 'devanagari-game/index.html' },
     { slug: 'ready-for-the-world', title: 'Ready For The World', domain: 'life-skills', isFreeTier: false, entryPath: 'ready-for-the-world.html' },
     { slug: 'google-search-lab-deep-v2', title: 'Google Search Lab Deep v2', domain: 'digital-literacy', isFreeTier: false, entryPath: 'google-search-lab-deep-v2.html' },
     { slug: 'grammar-galaxy', title: 'Grammar Galaxy', domain: 'language-english', isFreeTier: false, entryPath: 'grammar-galaxy.html' },
@@ -235,6 +235,5 @@ main()
   .finally(async () => {
     await prisma.$disconnect();
   });
-
 
 

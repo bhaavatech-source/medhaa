@@ -1,110 +1,25 @@
 <!doctype html>
-<html lang="en" data-bhava-game="Devanagari Game" data-bhava-mobile="nudge">
+<html lang="en" data-bhava-game="Akṣarābhyāsaḥ" data-bhava-mobile="off">
   <head>
-<!-- MEDHAA-SEO-EXTRA-INJECTED -->
-<meta property="og:image" content="https://medhaa.net/medha_logo_transparent.png">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://medhaa.net/medha_logo_transparent.png">
-<script type="application/ld+json">
-{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What age group is Devanagari designed for?", "acceptedAnswer": {"@type": "Answer", "text": "Devanagari is designed for children aged 5 to 7 and focuses on Script Recognition, Visual Memory, Language Foundations."}}, {"@type": "Question", "name": "Is Devanagari free to play?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, Devanagari is free to play on Medhaa as part of the Language Learning game collection."}}, {"@type": "Question", "name": "What skills does Devanagari help build?", "acceptedAnswer": {"@type": "Answer", "text": "Devanagari helps build Script Recognition, Visual Memory, Language Foundations through interactive, game-based practice."}}]}
-</script>
-
-<!-- MEDHAA-SEO-INJECTED -->
-<title>Devanagari – Language Learning Game for Kids | Medhaa</title>
-<meta name="description" content="An interactive introduction to Devanagari, the script used to write Sanskrit and Hindi. Free game for ages 5-7 on Medhaa.">
-<meta property="og:title" content="Devanagari – Language Learning Game for Kids | Medhaa">
-<meta property="og:description" content="An interactive introduction to Devanagari, the script used to write Sanskrit and Hindi. Free game for ages 5-7 on Medhaa.">
-<meta property="og:url" content="https://medhaa.net/games-static/devanagari-game/index.html">
-<link rel="canonical" href="https://medhaa.net/games-static/devanagari-game/index.html">
-<script type="application/ld+json">
-{"@context": "https://schema.org", "@type": "LearningResource", "name": "Devanagari", "description": "An interactive introduction to Devanagari, the script used to write Sanskrit and Hindi.", "url": "https://medhaa.net/games-static/devanagari-game/index.html", "learningResourceType": "Educational Game", "teaches": ["Script Recognition", "Visual Memory", "Language Foundations"], "typicalAgeRange": "5-7", "isAccessibleForFree": true, "provider": {"@type": "Organization", "name": "Bhava Tech", "url": "https://medhaa.net"}}
-</script>
-
     <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-     <script src="https://code.responsivevoice.org/responsivevoice.js?key=FREE"></script>
-    
-    <script type="module" crossorigin src="./assets/index-CqIwJqDL.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-Bi3Zc2G5.css">
-    <link rel="stylesheet" href="bhava-responsive.css">
-</head>
+    <title>अक्षराभ्यासः · Akṣarābhyāsaḥ — Learn to read and write Devanāgarī | Medhaa</title>
+    <meta name="description" content="Learn to read and write Devanāgarī for Saṃskṛtam and Hindi: a three-level journey of letter games, word breakdown and stroke-by-stroke writing practice. Free on Medhaa." />
+    <meta name="theme-color" content="#fff8f1" />
+    <link rel="canonical" href="https://medhaa.net/games-static/devanagari-game/index.html" />
+    <meta property="og:title" content="Akṣarābhyāsaḥ · Learn to Read &amp; Write Devanagari | Medhaa" />
+    <meta property="og:description" content="Letter games, word breakdown and stroke-by-stroke writing practice for Sanskrit and Hindi." />
+    <script type="module" crossorigin src="./assets/index-DzIc7Kyc.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CEADrUfe.css">
+  </head>
   <body>
-  <script>
-    // Medhā Nav — injected before React mounts, survives React render via MutationObserver
-    (function() {
-      var NAV_ID = 'bhava-universal-nav';
-      var SPC_ID = 'bhava-universal-spacer';
-
-      function goHome() {
-        var h = window.location.pathname.replace(/\\/g,'/');
-        window.location.href = h.indexOf('/docs/') !== -1 ? '../index.html' : 'docs/index.html';
-      }
-      function goBack() { window.history.length > 1 ? window.history.back() : goHome(); }
-
-      function mountNav() {
-        if (document.getElementById(NAV_ID)) return;
-
-        var style = document.createElement('style');
-        style.textContent =
-          '#'+NAV_ID+'{position:fixed;top:0;left:0;right:0;z-index:2147483647;'+
-          'display:flex;align-items:center;gap:8px;padding:0 14px;height:44px;'+
-          'background:rgba(10,8,20,0.93);backdrop-filter:blur(16px);'+
-          'border-bottom:1px solid rgba(255,255,255,0.09);'+
-          "font-family:'Poppins','Inter',system-ui,sans-serif;box-sizing:border-box;}"+
-          '#'+SPC_ID+'{height:44px;display:block;}'+
-          '.unav-btn{display:inline-flex;align-items:center;gap:5px;padding:5px 14px;'+
-          'border-radius:999px;font-size:12px;font-weight:700;cursor:pointer;'+
-          'border:1px solid rgba(255,255,255,0.13);background:rgba(255,255,255,0.06);'+
-          'color:#94a3b8;font-family:inherit;}'+
-          '.unav-btn:hover{background:rgba(255,255,255,0.15);color:#e2e8f0;}'+
-          '.unav-home{background:rgba(109,40,217,0.2)!important;'+
-          'border-color:rgba(167,139,250,0.4)!important;color:#c4b5fd!important;}'+
-          '.unav-report{margin-left:auto;background:rgba(1,105,111,0.2)!important;'+
-          'border-color:rgba(79,152,163,0.4)!important;color:#67e8f9!important;}'+
-          '.unav-title{flex:1;text-align:center;font-size:11px;font-weight:600;'+
-          'color:rgba(255,255,255,0.22);text-transform:uppercase;letter-spacing:.09em;}';
-        document.head.appendChild(style);
-
-        var nav = document.createElement('div');
-        nav.id = NAV_ID;
-        nav.innerHTML =
-          '<button class="unav-btn" onclick="(function(){window.history.length>1?window.history.back():(function(){var h=window.location.pathname.replace(/\\\\/g,chr47);window.location.href=h.indexOf(chr100+chr111+chr99+chr115+chr47)!==-1?\'../index.html\':\'docs/index.html\'})()})()">&#8592; Back</button>'+
-          '<button class="unav-btn unav-home" id="unav-home-btn">&#127968; Home</button>'+
-          '<span class="unav-title">Bh\u0101va Game</span>'+
-          '<button class="unav-btn unav-report" id="unav-report-btn">&#128202; My Report</button>';
-
-        var spacer = document.createElement('div');
-        spacer.id = SPC_ID;
-        document.body.insertBefore(spacer, document.body.firstChild);
-        document.body.insertBefore(nav, document.body.firstChild);
-
-        document.getElementById('unav-home-btn').onclick = goHome;
-        document.getElementById('unav-report-btn').onclick = function() {
-          var sid = null;
-          try { var s=sessionStorage.getItem('bhava_student'); if(s) sid=JSON.parse(s).id; } catch(e){}
-          window.location.href = '../bhava-student-report.html' + (sid ? '?sid='+sid : '');
-        };
-      }
-
-      // Mount immediately if body ready, else wait
-      if (document.body) { mountNav(); }
-      else { document.addEventListener('DOMContentLoaded', mountNav); }
-
-      // MutationObserver — re-mounts nav if React wipes it out
-      var obs = new MutationObserver(function() {
-        if (!document.getElementById(NAV_ID)) mountNav();
-      });
-      document.addEventListener('DOMContentLoaded', function() {
-        obs.observe(document.body, { childList: true, subtree: false });
-      });
-    })();
-  </script>
     <div id="root"></div>
-    <script src="bhava-responsive.js"></script>
-<script src="../bhava-game-nav.js"></script>
-</body>
+    <!-- Shared host scripts stay external to this game's Vite bundle. -->
+    <script src="../bhava-session.js"></script>
+    <script src="../bhava-game-nav.js"></script>
+  </body>
 </html>

@@ -385,11 +385,11 @@ export const GAMES_CATALOG: Record<string, CatalogEntry> = {
     ageMin: 5, ageMax: 12, color: '#f0a13c', domain: 'language-telugu', emoji: '🅰️',
   },
   'devanagari-game': {
-    slug: 'devanagari-game', title: 'Devanagari',
-    tagline: 'Learn the Sanskrit script',
-    description: "An interactive introduction to Devanagari, the script used to write both Sanskrit and Hindi — recognizing and forming characters through guided practice.",
-    secondary: 'Script Literacy', skillsBuilt: ['Script Recognition', 'Visual Memory', 'Language Foundations'],
-    ageMin: 5, ageMax: 7, color: '#f0a13c', domain: 'language-hindi', emoji: '🅰️',
+    slug: 'devanagari-game', title: 'Akṣarābhyāsaḥ',
+    tagline: 'Read and write Devanāgarī',
+    description: "Explore Devanāgarī through three regions: Bāla, Adhyetā and Nipuṇa. Play builder, memory and listening games, break words into sounds and signs, and practise writing with animated stroke order and feedback.",
+    secondary: 'Script Literacy', skillsBuilt: ['Script Recognition', 'Handwriting & Stroke Order', 'Sound–Script Mapping'],
+    ageMin: 6, ageMax: 17, color: '#f0a13c', domain: 'language-hindi', emoji: '🅰️',
   },
   'grammar-galaxy': {
     slug: 'grammar-galaxy', title: 'Grammar Galaxy',
@@ -451,4 +451,8 @@ export const GAMES_CATALOG: Record<string, CatalogEntry> = {
 
 export function getCatalogEntry(slug: string): CatalogEntry | null {
   return GAMES_CATALOG[slug] ?? null;
+}
+
+export function getGameDisplayTitle(slug: string, title: string): string {
+  return slug === 'devanagari-game' ? GAMES_CATALOG[slug].title : title;
 }

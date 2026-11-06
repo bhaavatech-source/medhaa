@@ -8,6 +8,7 @@
     "packages/*"
   ],
   "scripts": {
+    "build:devanagari": "npm --prefix game-sources/devanagari-game run build && npm --prefix game-sources/devanagari-game run publish:medhaa",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

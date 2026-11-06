@@ -5,6 +5,7 @@ import { useGameGate } from '../pages/hooks/useGameGate';
 import LoginPricingModal from './LoginPricingModal';
 import { SimilarGames } from './SimilarGames';
 import { getLastPlayedSlug, markPlayed } from '../services/gameExposure';
+import { getGameDisplayTitle } from '../data/gamesCatalog';
 import '../styles/games-grid.css';
 import '../styles/games-grid-enhanced.css';
 
@@ -46,7 +47,9 @@ export function GamesGrid({ apiUrl, domainFilter = null, excludeDomains = null }
         return;
       }
       const data = await res.json();
-      setGames(data.games ?? []);
+      setGames((data.games ?? []).map((game: GameWithAccess) => ({
+        ...game, title: getGameDisplayTitle(game.slug, game.title),
+      })));
       setLastCheckInAt(data.lastCheckInAt ?? null);
       setLoading(false);
     }

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { UpgradeModal } from './UpgradeModal';
+import { getGameDisplayTitle } from '../data/gamesCatalog';
 
 export type GameTier =
   | 'assessment'
@@ -153,7 +154,7 @@ export function GameCard({
   const [showUpgrade, setShowUpgrade] = useState(false);
   const [previewActive, setPreviewActive] = useState(false);
   const badge = getBadge(tier, access);
-  const displayTitle = displayGameTitle(title);
+  const displayTitle = displayGameTitle(getGameDisplayTitle(slug, title));
 const playLabel = kind === 'activity' ? 'Start Now' : 'Play Now';
   const visibleSkills = skills.slice(0, 3);
 

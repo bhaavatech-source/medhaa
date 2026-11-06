@@ -19,7 +19,7 @@ import { Clock3, Gamepad2, House, Palette, Sparkles, Wrench } from 'lucide-react
 import { GameCard, GameTier } from './GameCard';
 import { useGameGate } from '../pages/hooks/useGameGate';
 import LoginPricingModal from './LoginPricingModal';
-import { GAMES_CATALOG, getCatalogEntry } from '../data/gamesCatalog';
+import { GAMES_CATALOG, getCatalogEntry, getGameDisplayTitle } from '../data/gamesCatalog';
 import { useAuth } from '../contexts/AuthContext';
 import { authFetch } from '../utils/authFetch';
 import { useClickSound } from '../pages/hooks/useClickSound';
@@ -1039,7 +1039,7 @@ export function StudentGamesPage({ apiUrl, childStudentId }: StudentGamesPagePro
         const allGames: GameWithAccess[] = (data.games ?? []).map((game: GameWithAccess) => ({
           ...game,
           kind: game.kind ?? getCatalogEntry(game.slug)?.kind ?? 'game',
-          title: game.slug === 'bhava-tech-build-your-bike' ? 'Build Cycles' : displayGameTitle(game.title),
+          title: game.slug === 'bhava-tech-build-your-bike' ? 'Build Cycles' : displayGameTitle(getGameDisplayTitle(game.slug, game.title)),
         }));
         if (cancelled) return;
         setGames(allGames);

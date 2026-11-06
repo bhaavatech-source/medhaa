@@ -17,6 +17,13 @@ const game = {
 };
 
 describe('GameCard access labels', () => {
+  it('shows the IAST game name even when the API still sends its legacy title', () => {
+    render(<GameCard {...game} slug="devanagari-game" title="Devanagari Game"
+      access={{ allowed: true, reason: 'premium subscriber', daysSinceSignup: 20 }} />);
+    expect(screen.getByRole('heading', { name: 'Akṣarābhyāsaḥ' })).toBeInTheDocument();
+    expect(screen.queryByText('Devanagari Game')).not.toBeInTheDocument();
+  });
+
   it('shows the actual remaining subscription trial even after the tenth account day', () => {
     const trialEndsAt = new Date(Date.now() + 3 * 86400000).toISOString();
     render(<GameCard {...game} access={{ allowed: true, reason: 'premium subscriber', daysSinceSignup: 12, trialEndsAt }} />);
