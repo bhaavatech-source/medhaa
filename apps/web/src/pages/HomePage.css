@@ -1258,6 +1258,42 @@ html {
   font-size: 11px;
 }
 
+.home-footer__site-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 14px;
+}
+
+.home-footer__site-links a {
+  display: inline-flex;
+  min-height: 36px;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  border: 1px solid rgba(125, 211, 199, 0.85);
+  border-radius: 999px;
+  background: #fffaf0;
+  color: #155e59;
+  font-size: 13px;
+  font-weight: 750;
+  line-height: 1.2;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.home-footer__site-links a:hover {
+  border-color: #5ab9ad;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.home-footer__site-links a:focus-visible {
+  outline: 3px solid #f4cf77;
+  outline-offset: 2px;
+}
+
 @keyframes fadeUp {
   from {
     opacity: 0;
