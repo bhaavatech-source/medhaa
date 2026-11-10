@@ -2362,7 +2362,11 @@ export default function HomePage() {
     <ArrowRight size={19} aria-hidden="true" />
   </a>
 
-  <div className="home-footer__bottom">
+  <div className="home-footer__bottom" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+    <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '8px 16px', fontSize: '0.82rem' }}>
+      <a href="https://naada.medhaa.net" style={{ color: '#2d5d5f', textDecoration: 'underline', textUnderlineOffset: '3px' }}>naada.medhaa.net</a>
+      <a href="https://samskritam.medhaa.net/" style={{ color: '#2d5d5f', textDecoration: 'underline', textUnderlineOffset: '3px' }}>samskritam.medhaa.net</a>
+    </div>
     <span>© 2026 Medhā</span>
     <span>By Bhāva Tech</span>
   </div>
