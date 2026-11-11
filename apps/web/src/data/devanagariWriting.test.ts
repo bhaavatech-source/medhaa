@@ -8,7 +8,7 @@ import { layoutMarkers } from '../../../../game-sources/devanagari-game/src/likh
 const joined = [...DOUBLED_LETTERS, ...CONJUNCT_LETTERS];
 
 describe('Devanagari joined-letter writing', () => {
-  it('keeps every numbered dot separate and inside the pad for all 57 forms', () => {
+  it('keeps every numbered dot separate and inside the pad for all 59 forms', () => {
     for (const data of Object.values(STROKES)) {
       for (const width of [240, 320, 857]) {
         const height = 300;
@@ -156,9 +156,19 @@ describe('Devanagari joined-letter writing', () => {
       CONJUNCT_LETTERS.map(l => l.char),
     ]);
     const letters = GROUPS.flatMap(g => g.letters);
-    expect(letters).toHaveLength(57);
+    expect(GROUPS[0].letters).toEqual(['अ', 'आ', 'इ', 'ई', 'उ', 'ऊ', 'ऋ', 'ॠ', 'ऌ', 'ए', 'ऐ', 'ओ', 'औ']);
+    expect(GROUPS.flatMap(g => g.letters)).not.toContain('ॡ');
+    expect(letters).toHaveLength(59);
     expect(new Set(letters).size).toBe(letters.length);
     expect(letters.every(l => STROKES[l]?.strokes.length > 0)).toBe(true);
+  });
+
+  it.each(['ॠ', 'ऌ'])('%s has a traceable vowel stroke guide', letter => {
+    const data = STROKES[letter];
+    expect(GROUPS[0].letters).toContain(letter);
+    expect(data.strokes.at(-1)?.kind).toBe('shirorekha');
+    expect(data.strokes.length).toBe(5);
+    expect(score(data.strokes, data.strokes.map(toPts)).score).toBeGreaterThanOrEqual(90);
   });
 
   for (const letter of joined) {

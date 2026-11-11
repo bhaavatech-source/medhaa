@@ -12,7 +12,7 @@ import { speak } from "../speech";
 import "./likhana.css";
 
 export const GROUPS: { name: string; en: string; letters: string[] }[] = [
-  { name: "स्वराः",    en: "Vowels",      letters: ["अ","आ","इ","ई","उ","ऊ","ऋ","ए","ऐ","ओ","औ"] },
+  { name: "स्वराः",    en: "Vowels",      letters: ["अ","आ","इ","ई","उ","ऊ","ऋ","ॠ","ऌ","ए","ऐ","ओ","औ"] },
   { name: "कवर्गः",   en: "k-group",     letters: ["क","ख","ग","घ","ङ"] },
   { name: "चवर्गः",   en: "c-group",     letters: ["च","छ","ज","झ","ञ"] },
   { name: "टवर्गः",   en: "ṭ-group",     letters: ["ट","ठ","ड","ढ","ण"] },

@@ -265,7 +265,21 @@ const BASE_STROKES: Record<string, LetterStrokes> = {
   ] },
 };
 
+const EXTENDED_VOWEL_STROKES: Record<string, LetterStrokes> = {
+  "ॠ": { w: 95.0, strokes: [
+    ...BASE_STROKES["ऋ"].strokes.slice(0, -1),
+    { kind: "body", pts: [[83.8,74.4],[87.0,77.8],[89.2,81.7],[89.4,85.4],[87.4,88.3],[83.5,89.2],[79.7,87.6],[77.2,84.6]] },
+    BASE_STROKES["ऋ"].strokes[BASE_STROKES["ऋ"].strokes.length - 1],
+  ] },
+  "ऌ": { w: 69.0, strokes: [
+    ...BASE_STROKES["ल"].strokes.slice(0, -1),
+    { kind: "body", pts: [[55.6,76.2],[58.5,79.8],[62.2,83.5],[64.1,86.9],[63.2,89.8],[60.1,91.0],[56.9,89.2]] },
+    BASE_STROKES["ल"].strokes[BASE_STROKES["ल"].strokes.length - 1],
+  ] },
+};
+
 export const STROKES: Record<string, LetterStrokes> = {
   ...BASE_STROKES,
+  ...EXTENDED_VOWEL_STROKES,
   ...CONJUNCT_GEOMETRY,
 };
