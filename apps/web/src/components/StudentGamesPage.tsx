@@ -1125,7 +1125,9 @@ export function StudentGamesPage({ apiUrl, childStudentId }: StudentGamesPagePro
     if (!loggedInNow && !tryPlay(slug)) return;
     markPlayed(slug);
     const entryPath = games.find((g) => g.slug === slug)?.entryPath;
-    const path = slug === 'grammar-pro'
+    const path = slug === 'devanagari-game'
+      ? '/games-static/devanagari-game/index.html'
+      : slug === 'grammar-pro'
       ? '/games-static/grammar-pro.html'
       : entryPath
       ? `/games-static/${entryPath}`
