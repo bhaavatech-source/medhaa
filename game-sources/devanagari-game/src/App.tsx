@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import ReferenceChart from "./components/ReferenceChart";
+import SankhyahPage from "./sankhyah/SankhyahPage";
 import VarnaVibhaga from "./components/VarnaVibhaga";
 import Journey from "./game/Journey";
 import Lekhana from "./likhana/Lekhana";
@@ -11,13 +12,14 @@ import { initAudio } from "./audio/clips";
 // ── the game's name, in one place ──
 export const APP_NAME = { sa: "अक्षराभ्यासः", en: "Akṣarābhyāsaḥ", tagline: "Learn to read and write Devanāgarī — for Saṃskṛtam and Hindi" };
 
-type View = "game" | "write" | "learn" | "vibhaga" | "record" | "review";
+type View = "game" | "write" | "learn" | "vibhaga" | "sankhyah" | "record" | "review";
 
 const NAV: { v: View; icon: string; sa: string; en: string }[] = [
   { v: "game",    icon: "🗺️", sa: "यात्रा",        en: "Journey" },
   { v: "write",   icon: "✍️", sa: "लेखनाभ्यासः",   en: "Writing" },
   { v: "learn",   icon: "📚", sa: "वर्णमाला",      en: "Alphabet chart" },
   { v: "vibhaga", icon: "🔍", sa: "वर्णविच्छेदः",   en: "Word breakdown" },
+  { v: "sankhyah", icon: "🔢", sa: "संख्याः", en: "Numbers" },
 ];
 
 // faint floating letters behind everything (decorative)
@@ -64,6 +66,7 @@ const App: React.FC = () => {
         : view === "write" ? <Lekhana />
         : view === "learn" ? <ReferenceChart />
         : view === "vibhaga" ? <VarnaVibhaga />
+        : view === "sankhyah" ? <SankhyahPage />
         : view === "record" ? <Recorder onClose={() => setView("game")} />
         : <StrokeReview onClose={() => setView("write")} />}
 

@@ -80,7 +80,6 @@ const TABS: { key: RefTab; icon: string; sa: string; en: string; what: string; c
   { key: "halant",    icon: "🔴", sa: "व्यञ्जनानि (हलः)",   en: "Consonants",     what: "Vyañjanāni / Halaḥ · pure consonants, written with ्",          color: "#a13544" },
   { key: "barakhadi", icon: "🟣", sa: "गुणिताक्षराणि",      en: "Syllable chart", what: "Guṇitākṣarāṇi · (बारहखड़ी) every consonant × every vowel",        color: "#7a39bb" },
   { key: "conjuncts", icon: "🟡", sa: "संयुक्ताक्षराणि",    en: "Conjuncts",      what: "Saṃyuktākṣarāṇi · consonants joined with no vowel between",    color: "#d19900" },
-  { key: "numbers",   icon: "⚪", sa: "अङ्काः",            en: "Numerals",       what: "Aṅkāḥ · Devanāgarī digits ० – ९",                               color: "#01696f" },
   { key: "words",     icon: "📖", sa: "शब्दाः",            en: "Words",          what: "Śabdāḥ · common words to read and hear",                        color: "#7a39bb" },
 ];
 
