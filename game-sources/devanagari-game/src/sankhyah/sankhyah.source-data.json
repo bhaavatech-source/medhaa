@@ -1,0 +1,7118 @@
+{
+  "schemaVersion": "1.0.0",
+  "title": "संख्याः",
+  "description": "Source-first multilingual number-learning knowledge base. Do not present unverified fields as validated.",
+  "languages": [
+    {
+      "code": "sa",
+      "name": "Sanskrit",
+      "script": "Devanagari",
+      "status": "source-transcribed"
+    },
+    {
+      "code": "en",
+      "name": "English",
+      "script": "Latin",
+      "status": "source-transcribed"
+    },
+    {
+      "code": "hi",
+      "name": "Hindi",
+      "script": "Devanagari",
+      "status": "source-transcribed"
+    },
+    {
+      "code": "te",
+      "name": "Telugu",
+      "script": "Telugu",
+      "status": "pending-independent-verification"
+    },
+    {
+      "code": "ta",
+      "name": "Tamil",
+      "script": "Tamil",
+      "status": "pending-independent-verification"
+    },
+    {
+      "code": "kn",
+      "name": "Kannada",
+      "script": "Kannada",
+      "status": "pending-independent-verification"
+    },
+    {
+      "code": "ml",
+      "name": "Malayalam",
+      "script": "Malayalam",
+      "status": "pending-independent-verification"
+    },
+    {
+      "code": "bn",
+      "name": "Bengali",
+      "script": "Bengali",
+      "status": "pending-independent-verification"
+    },
+    {
+      "code": "mr",
+      "name": "Marathi",
+      "script": "Devanagari",
+      "status": "pending-independent-verification"
+    },
+    {
+      "code": "gu",
+      "name": "Gujarati",
+      "script": "Gujarati",
+      "status": "pending-independent-verification"
+    }
+  ],
+  "sourceRegister": [
+    {
+      "id": "mycoaching-sanskrit-counting-pdf",
+      "title": "संस्कृत में गिनती 1 से 100 तक (Counting 1 to 100 in Sanskrit)",
+      "url": "https://mycoaching.in/sanskrit-counting",
+      "type": "user-provided-secondary-source",
+      "role": "coverage-baseline",
+      "limitations": [
+        "Secondary web article captured as an 8-page PDF",
+        "Contains duplicated entries, spelling variants and apparent inconsistencies",
+        "Transcription is preserved; no silent correction or claim of linguistic validation"
+      ]
+    }
+  ],
+  "cardinals": [
+    {
+      "value": 1,
+      "devanagariNumeral": "१",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "एकः",
+          "एका",
+          "एकम् (प्रथमः)"
+        ],
+        "iast": null,
+        "genderForms": [
+          {
+            "gender": "masculine",
+            "form": "एकः"
+          },
+          {
+            "gender": "feminine",
+            "form": "एका"
+          },
+          {
+            "gender": "neuter",
+            "form": "एकम्"
+          }
+        ]
+      },
+      "translations": {
+        "hi": {
+          "text": "एक (पहला)",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "One (first)",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 1,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 2,
+      "devanagariNumeral": "२",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "द्वौ",
+          "द्वे",
+          "द्वे (द्वितीयः)"
+        ],
+        "iast": null,
+        "genderForms": [
+          {
+            "gender": "masculine",
+            "form": "द्वौ"
+          },
+          {
+            "gender": "feminine",
+            "form": "द्वे"
+          },
+          {
+            "gender": "neuter",
+            "form": "द्वे"
+          }
+        ]
+      },
+      "translations": {
+        "hi": {
+          "text": "दो (दूसरा)",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Two (second)",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 1,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 3,
+      "devanagariNumeral": "३",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "त्रयः",
+          "तिस्रः",
+          "त्रीणि (तृतीयः)"
+        ],
+        "iast": null,
+        "genderForms": [
+          {
+            "gender": "masculine",
+            "form": "त्रयः"
+          },
+          {
+            "gender": "feminine",
+            "form": "तिस्रः"
+          },
+          {
+            "gender": "neuter",
+            "form": "त्रीणि"
+          }
+        ]
+      },
+      "translations": {
+        "hi": {
+          "text": "तीन (तीसरा)",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Three (third)",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 1,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 4,
+      "devanagariNumeral": "४",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "चत्वारः",
+          "चतस्रः",
+          "चत्वारि (चतुर्थः)"
+        ],
+        "iast": null,
+        "genderForms": [
+          {
+            "gender": "masculine",
+            "form": "चत्वारः"
+          },
+          {
+            "gender": "feminine",
+            "form": "चतस्रः"
+          },
+          {
+            "gender": "neuter",
+            "form": "चत्वारि"
+          }
+        ]
+      },
+      "translations": {
+        "hi": {
+          "text": "चार (चौथा)",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Four (fourth)",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 1,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 5,
+      "devanagariNumeral": "५",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "पञ्च (पंचमः)"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "पाँच (पाँचवाँ)",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Five (fifth)",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 2,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 6,
+      "devanagariNumeral": "६",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "षट् (षष्टः)"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "छः (छठा)",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Six (sixth)",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 2,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 7,
+      "devanagariNumeral": "७",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "सप्त (सप्तमः)"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "सात (सातवाँ)",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Seven (seventh)",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 2,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 8,
+      "devanagariNumeral": "८",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "अष्टौ",
+          "अष्ट (अष्टमः)"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "आठ (आठवाँ)",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Eight (eighth)",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 2,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 9,
+      "devanagariNumeral": "९",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "नव (नवमः)"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "नौ (नौवाँ)",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Nine (ninth)",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 2,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 10,
+      "devanagariNumeral": "१०",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "दश (दशमः)"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "दस (दशवाँ)",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Ten (tenth)",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 2,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 11,
+      "devanagariNumeral": "११",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "एकादश (एकादशः)"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "ग्यारह",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Eleven",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 2,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 12,
+      "devanagariNumeral": "१२",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "द्वादश (द्वादशः)"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "बारह",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Twelve",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 2,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 13,
+      "devanagariNumeral": "१३",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "त्रयोदश (त्रयोदशः)"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "तेरह",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Thirteen",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 2,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 14,
+      "devanagariNumeral": "१४",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "चतुर्दश (चतुर्दशः)"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "चौदह",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Fourteen",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 2,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 15,
+      "devanagariNumeral": "१५",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "पञ्चदश (पंचदशः)"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "पन्द्रह",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Fifteen",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 2,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 16,
+      "devanagariNumeral": "१६",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "षोडश (षोड़शः)"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "सोलह",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Sixteen",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 2,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 17,
+      "devanagariNumeral": "१७",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "सप्तदश (सप्तदशः)"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "सत्रह",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Seventeen",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 2,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 18,
+      "devanagariNumeral": "१८",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "अष्टादश (अष्टादशः)"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "अठारह",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Eighteen",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 2,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 19,
+      "devanagariNumeral": "१९",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "ऊनविंशतिः",
+          "एकोनविंशतिः",
+          "नवदश"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "उन्नीस",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Nineteen",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 2,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 20,
+      "devanagariNumeral": "२०",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "विंशतिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "बीस",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Twenty",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 2,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 21,
+      "devanagariNumeral": "२१",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "एकविंशतिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "इक्कीस",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Twenty One",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 2,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 22,
+      "devanagariNumeral": "२२",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "द्वाविंशतिः",
+          "द्वाविंशः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "बाइस",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Twenty Two",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 2,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 23,
+      "devanagariNumeral": "२३",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "त्रयोविंशतिः",
+          "त्रयोविंशः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "तेइस",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Twenty Three",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 2,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 24,
+      "devanagariNumeral": "२४",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "चतुर्विंशतिः",
+          "चतुर्विंशः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "चौबीस",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Twenty Four",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 3,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 25,
+      "devanagariNumeral": "२५",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "पञ्चविंशतिः",
+          "पञ्चविंशः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "पच्चीस",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Twenty Five",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 3,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 26,
+      "devanagariNumeral": "२६",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "षड् विंशतिः",
+          "षड् विंशः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "छब्बीस",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Twenty Six",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 3,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 27,
+      "devanagariNumeral": "२७",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "सप्तविंशतिः",
+          "सप्तविंशः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "सत्ताईस",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Twenty Seven",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 3,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 28,
+      "devanagariNumeral": "२८",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "अष्टविंशतिः",
+          "अष्टाविंशः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "अट्ठाईस",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Twenty Eight",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 3,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 29,
+      "devanagariNumeral": "२९",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "ऊनत्रिंशत्",
+          "एकोनत्रिंशत्",
+          "नवविंशः",
+          "नवविंशतिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "उनतीस",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Twenty Nine",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 3,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 30,
+      "devanagariNumeral": "३०",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "त्रिंशत्"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "तीस",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Thirty",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 3,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 31,
+      "devanagariNumeral": "३१",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "एकत्रिंशत्"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "इकत्तीस",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Thirty One",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 3,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 32,
+      "devanagariNumeral": "३२",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "द्वात्रिंशत्"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "बत्तीस",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Thirty Two",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 3,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 33,
+      "devanagariNumeral": "३३",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "त्रयस्त्रिंशत्"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "तेतीस",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Thirty Three",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 3,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 34,
+      "devanagariNumeral": "३४",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "चतुर्त्रिंशत्"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "चौतीस",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Thirty Four",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 3,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 35,
+      "devanagariNumeral": "३५",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "पञ्चत्रिंशत्"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "पैंतीस",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Thirty Five",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 3,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 36,
+      "devanagariNumeral": "३६",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "षट् त्रिंशत्"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "छत्तीस",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Thirty Six",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 3,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 37,
+      "devanagariNumeral": "३७",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "सप्तत्रिंशत्"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "सैंतीस",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Thirty Seven",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 3,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 38,
+      "devanagariNumeral": "३८",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "अष्टात्रिंशत्"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "अड़तीस",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Thirty Eight",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 3,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 39,
+      "devanagariNumeral": "३९",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "ऊनचत्वारिंशत्",
+          "एकोनचत्वारिंशत्",
+          "नवत्रिंशत्"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "उनतालीस",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Thirty Nine",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 3,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 40,
+      "devanagariNumeral": "४०",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "चत्वारिंशत्"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "चालीस",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Forty",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 3,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 41,
+      "devanagariNumeral": "४१",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "एकचत्वारिंशत्"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "इकतालीस",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Forty One",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 4,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 42,
+      "devanagariNumeral": "४२",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "द्वाचत्वारिंशत्",
+          "द्वाचत्वारिंशत्"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "बियालीस",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Forty Two",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 4,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 43,
+      "devanagariNumeral": "४३",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "त्रिचत्वारिंशत्",
+          "त्रयश्चत्वारिंशत्"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "तेतालीस",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Forty Three",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 4,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 44,
+      "devanagariNumeral": "४४",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "चतुश्चत्वारिंशत्"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "चबालीस",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Forty Four",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 4,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 45,
+      "devanagariNumeral": "४५",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "पंचचत्वारिंशत्"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "पैंतालीस",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Forty Five",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 4,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 46,
+      "devanagariNumeral": "४६",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "षट् चत्वारिंशत्"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "छियालीस",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Forty Six",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 4,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 47,
+      "devanagariNumeral": "४७",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "सप्तचत्वारिंशत्"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "सैंतालीस",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Forty Seven",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 4,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 48,
+      "devanagariNumeral": "४८",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "अष्टचत्वारिंशत्",
+          "अष्टाचत्वारिंशत्"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "अड़तालीस",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Forty Eight",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 4,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 49,
+      "devanagariNumeral": "४९",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "ऊनपञ्चाशत्",
+          "एकोनपञ्चाशत्",
+          "नवचत्वारिंशत्"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "उनचास",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Forty Nine",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 4,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 50,
+      "devanagariNumeral": "५०",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "पञ्चाशत्"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "पचास",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Fifty",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 4,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 51,
+      "devanagariNumeral": "५१",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "एकपञ्चाशत्"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "इक्यावन",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Fifty One",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 4,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 52,
+      "devanagariNumeral": "५२",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "द्वापञ्चाशत्",
+          "द्वापञ्चाशत्"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "बावन",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Fifty Two",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 4,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 53,
+      "devanagariNumeral": "५३",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "त्रिपञ्चाशत्",
+          "त्रयःपञ्चाशत्"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "तिरेपन",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Fifty Three",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 4,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 54,
+      "devanagariNumeral": "५४",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "चतुःपञ्चाशत्"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "चौबन",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Fifty Four",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 4,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 55,
+      "devanagariNumeral": "५५",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "पञ्चपञ्चाशत्"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "पचपन",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Fifty Five",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 4,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 56,
+      "devanagariNumeral": "५६",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "षट् पञ्चाशत्"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "छप्पन",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Fifty Six",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 4,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 57,
+      "devanagariNumeral": "५७",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "सप्तपञ्चाशत्"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "सत्तावन",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Fifty Seven",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 4,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 58,
+      "devanagariNumeral": "५८",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "अष्टपञ्चाशत्",
+          "अष्टापञ्चाशत्"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "अट्ठावन",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Fifty Eight",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 4,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 59,
+      "devanagariNumeral": "५९",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "ऊनषष्ठिः",
+          "एकोनषष्टिः",
+          "नवपञ्चाशत्"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "उनसठ",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Fifty Nine",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 4,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 60,
+      "devanagariNumeral": "६०",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "षष्टिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "साठ",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Sixty",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 4,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 61,
+      "devanagariNumeral": "६१",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "एकषष्टिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "इकसठ",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Sixty One",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 5,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 62,
+      "devanagariNumeral": "६२",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "द्विषष्टिः",
+          "द्वाषष्ठिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "बासठ",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Sixty Two",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 5,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 63,
+      "devanagariNumeral": "६३",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "त्रिषष्टिः",
+          "त्रयःषष्ठिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "तिरेसठ",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Sixty Three",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 5,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 64,
+      "devanagariNumeral": "६४",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "चतुःषष्टिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "चौंसठ",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Sixty Four",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 5,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 65,
+      "devanagariNumeral": "६५",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "पंचषष्टिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "पैंसठ",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Sixty Five",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 5,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 66,
+      "devanagariNumeral": "६६",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "षट् षष्टिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "छियासठ",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Sixty Six",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 5,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 67,
+      "devanagariNumeral": "६७",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "सप्तषष्टिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "सड़सठ",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Sixty Seven",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 5,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 68,
+      "devanagariNumeral": "६८",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "अष्टषष्टिः",
+          "अष्टाषष्ठिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "अड़सठ",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Sixty Eight",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 5,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 69,
+      "devanagariNumeral": "६९",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "ऊनसप्ततिः",
+          "एकोनसप्ततिः",
+          "नवषष्ठिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "उनहत्तर",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Sixty Nine",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 5,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 70,
+      "devanagariNumeral": "७०",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "सप्ततिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "सत्तर",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Seventy",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 5,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 71,
+      "devanagariNumeral": "७१",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "एकसप्ततिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "इकहत्तर",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Seventy One",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 5,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 72,
+      "devanagariNumeral": "७२",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "द्विसप्ततिः",
+          "द्विसंप्ततिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "बहत्तर",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Seventy Two",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 5,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 73,
+      "devanagariNumeral": "७३",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "त्रिसप्ततिः",
+          "त्रयःसप्ततिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "तिहत्तर",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Seventy Three",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 5,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 74,
+      "devanagariNumeral": "७४",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "चतुःसप्ततिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "चौहत्तर",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Seventy Four",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 5,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 75,
+      "devanagariNumeral": "७५",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "पंचसप्ततिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "पिचहत्तर",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Seventy Five",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 5,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 76,
+      "devanagariNumeral": "७६",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "षट्सप्ततिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "छिहत्तर",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Seventy Six",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 5,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 77,
+      "devanagariNumeral": "७७",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "सप्तसप्ततिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "सतहत्तर",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Seventy Seven",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 5,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 78,
+      "devanagariNumeral": "७८",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "अष्टसप्ततिः",
+          "अष्टासप्ततिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "अठहत्तर",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Seventy Eight",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 5,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 79,
+      "devanagariNumeral": "७९",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "नवसप्ततिः",
+          "एकोनाशीतिः",
+          "ऊनाशीतिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "उन्यासी",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Seventy Nine",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 5,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 80,
+      "devanagariNumeral": "८०",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "अशीतिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "अस्सी",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Eighty",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 5,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 81,
+      "devanagariNumeral": "८१",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "एकाशीतिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "इक्यासी",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Eighty One",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 5,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 82,
+      "devanagariNumeral": "८२",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "द्वाशीतिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "बियासी",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Eighty Two",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 5,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 83,
+      "devanagariNumeral": "८३",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "त्रयाशीतिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "तिरासी",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Eighty Three",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 6,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 84,
+      "devanagariNumeral": "८४",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "चतुराशीतिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "चौरासी",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Eighty Four",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 6,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 85,
+      "devanagariNumeral": "८५",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "पंचाशीतिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "पिच्चासी",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Eighty Five",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 6,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 86,
+      "devanagariNumeral": "८६",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "षडशीतिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "छियासी",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Eighty Six",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 6,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 87,
+      "devanagariNumeral": "८७",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "सप्ताशीतिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "सत्तासी",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Eighty Seven",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 6,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 88,
+      "devanagariNumeral": "८८",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "अष्टाशीतिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "अट्ठासी",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Eighty Eight",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 6,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 89,
+      "devanagariNumeral": "८९",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "नवाशीतिः",
+          "एकोननवतिः",
+          "ऊननवतिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "नवासी",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Eighty Nine",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 6,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 90,
+      "devanagariNumeral": "९०",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "नवतिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "नब्बे",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Ninety",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 6,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 91,
+      "devanagariNumeral": "९१",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "एकनवतिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "इक्यानवे",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Ninety One",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 6,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 92,
+      "devanagariNumeral": "९२",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "द्वानवतिः",
+          "द्वानवतिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "बानवे",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Ninety Two",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 6,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 93,
+      "devanagariNumeral": "९३",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "त्रिनवतिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "तिरानवे",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Ninety Three",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 6,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 94,
+      "devanagariNumeral": "९४",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "चतुर्नवतिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "चौरानवे",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Ninety Four",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 6,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 95,
+      "devanagariNumeral": "९५",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "पंचनवतिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "पिचानवे",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Ninety Five",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 6,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 96,
+      "devanagariNumeral": "९६",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "षण्णवतिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "छियानवे",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Ninety Six",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 6,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 97,
+      "devanagariNumeral": "९७",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "सप्तनवतिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "सतानवे",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Ninety Seven",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 6,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 98,
+      "devanagariNumeral": "९८",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "अष्टनवतिः",
+          "अष्टानवतिः"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "अठानवे",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Ninety Eight",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 6,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 99,
+      "devanagariNumeral": "९९",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "नवनवतिः",
+          "एकोनशतम्",
+          "ऊनशतम्"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "निन्यानवे",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Ninety Nine",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 6,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    },
+    {
+      "value": 100,
+      "devanagariNumeral": "१००",
+      "kind": "cardinal",
+      "sanskrit": {
+        "sourceForms": [
+          "शतम्",
+          "एकशतम्"
+        ],
+        "iast": null,
+        "genderForms": null
+      },
+      "translations": {
+        "hi": {
+          "text": "सौ, एक सौ",
+          "status": "source-transcribed"
+        },
+        "en": {
+          "text": "Hundred, One hundred",
+          "status": "source-transcribed"
+        },
+        "te": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ta": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "kn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "ml": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "bn": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "mr": {
+          "text": null,
+          "status": "not-yet-researched"
+        },
+        "gu": {
+          "text": null,
+          "status": "not-yet-researched"
+        }
+      },
+      "pronunciation": {
+        "audio": null,
+        "recordingStatus": "not-recorded"
+      },
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 6,
+          "verbatim": true
+        }
+      ],
+      "reviewStatus": "source-transcribed-not-linguistically-verified"
+    }
+  ],
+  "ordinals": [
+    {
+      "value": 1,
+      "kind": "ordinal",
+      "forms": {
+        "masculine": "प्रथमः",
+        "feminine": "प्रथमा",
+        "neuter": "प्रथमम्"
+      },
+      "sourceNote": null,
+      "reviewStatus": "source-transcribed-not-linguistically-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 8,
+          "verbatim": true
+        }
+      ]
+    },
+    {
+      "value": 2,
+      "kind": "ordinal",
+      "forms": {
+        "masculine": "द्वितीयः",
+        "feminine": "द्वितीया",
+        "neuter": "द्वितीयम्"
+      },
+      "sourceNote": null,
+      "reviewStatus": "source-transcribed-not-linguistically-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 8,
+          "verbatim": true
+        }
+      ]
+    },
+    {
+      "value": 3,
+      "kind": "ordinal",
+      "forms": {
+        "masculine": "तृतीयः",
+        "feminine": "तृतीया",
+        "neuter": "तृतीयम्"
+      },
+      "sourceNote": null,
+      "reviewStatus": "source-transcribed-not-linguistically-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 8,
+          "verbatim": true
+        }
+      ]
+    },
+    {
+      "value": 4,
+      "kind": "ordinal",
+      "forms": {
+        "masculine": "चतुर्थः",
+        "feminine": "चतुर्थी",
+        "neuter": "चतुर्थम्"
+      },
+      "sourceNote": null,
+      "reviewStatus": "source-transcribed-not-linguistically-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 8,
+          "verbatim": true
+        }
+      ]
+    },
+    {
+      "value": 5,
+      "kind": "ordinal",
+      "forms": {
+        "masculine": "पञ्चमः",
+        "feminine": "पञ्चमी",
+        "neuter": "पञ्चमम्"
+      },
+      "sourceNote": null,
+      "reviewStatus": "source-transcribed-not-linguistically-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 8,
+          "verbatim": true
+        }
+      ]
+    },
+    {
+      "value": 6,
+      "kind": "ordinal",
+      "forms": {
+        "masculine": "षष्ठः",
+        "feminine": "षष्ठी",
+        "neuter": "षष्ठम्"
+      },
+      "sourceNote": null,
+      "reviewStatus": "source-transcribed-not-linguistically-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 8,
+          "verbatim": true
+        }
+      ]
+    },
+    {
+      "value": 7,
+      "kind": "ordinal",
+      "forms": {
+        "masculine": "सप्तमः",
+        "feminine": "सप्तमी",
+        "neuter": "सप्तमम्"
+      },
+      "sourceNote": null,
+      "reviewStatus": "source-transcribed-not-linguistically-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 8,
+          "verbatim": true
+        }
+      ]
+    },
+    {
+      "value": 8,
+      "kind": "ordinal",
+      "forms": {
+        "masculine": "अष्टमः",
+        "feminine": "अष्टमी",
+        "neuter": "अष्टमम्"
+      },
+      "sourceNote": null,
+      "reviewStatus": "source-transcribed-not-linguistically-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 8,
+          "verbatim": true
+        }
+      ]
+    },
+    {
+      "value": 9,
+      "kind": "ordinal",
+      "forms": {
+        "masculine": "नवमः",
+        "feminine": "नवमी",
+        "neuter": "नवमम्"
+      },
+      "sourceNote": null,
+      "reviewStatus": "source-transcribed-not-linguistically-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 8,
+          "verbatim": true
+        }
+      ]
+    },
+    {
+      "value": 10,
+      "kind": "ordinal",
+      "forms": {
+        "masculine": "दशमः",
+        "feminine": "दशमी",
+        "neuter": "दशमम्"
+      },
+      "sourceNote": null,
+      "reviewStatus": "source-transcribed-not-linguistically-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 8,
+          "verbatim": true
+        }
+      ]
+    },
+    {
+      "value": 11,
+      "kind": "ordinal",
+      "forms": {
+        "masculine": "एकादशः",
+        "feminine": "एकादशी",
+        "neuter": "एकादशम्"
+      },
+      "sourceNote": null,
+      "reviewStatus": "source-transcribed-not-linguistically-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 8,
+          "verbatim": true
+        }
+      ]
+    },
+    {
+      "value": 12,
+      "kind": "ordinal",
+      "forms": {
+        "masculine": "द्वादशः",
+        "feminine": "द्वादशी",
+        "neuter": "द्वादशम्"
+      },
+      "sourceNote": null,
+      "reviewStatus": "source-transcribed-not-linguistically-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 8,
+          "verbatim": true
+        }
+      ]
+    },
+    {
+      "value": 13,
+      "kind": "ordinal",
+      "forms": {
+        "masculine": "त्रयोदशः",
+        "feminine": "त्रयोदशी",
+        "neuter": "त्रयोदशम्"
+      },
+      "sourceNote": null,
+      "reviewStatus": "source-transcribed-not-linguistically-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 8,
+          "verbatim": true
+        }
+      ]
+    },
+    {
+      "value": 14,
+      "kind": "ordinal",
+      "forms": {
+        "masculine": "चतुर्दशः",
+        "feminine": "चतुर्दशी",
+        "neuter": "चतुर्दशम्"
+      },
+      "sourceNote": null,
+      "reviewStatus": "source-transcribed-not-linguistically-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 8,
+          "verbatim": true
+        }
+      ]
+    },
+    {
+      "value": 15,
+      "kind": "ordinal",
+      "forms": {
+        "masculine": "पञ्चदशः",
+        "feminine": "पञ्चदशी",
+        "neuter": "पञ्चदशम्"
+      },
+      "sourceNote": null,
+      "reviewStatus": "source-transcribed-not-linguistically-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 8,
+          "verbatim": true
+        }
+      ]
+    },
+    {
+      "value": 16,
+      "kind": "ordinal",
+      "forms": {
+        "masculine": "षोडशः",
+        "feminine": "षोडशी",
+        "neuter": "षोडशम्"
+      },
+      "sourceNote": null,
+      "reviewStatus": "source-transcribed-not-linguistically-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 8,
+          "verbatim": true
+        }
+      ]
+    },
+    {
+      "value": 17,
+      "kind": "ordinal",
+      "forms": {
+        "masculine": "सप्तदशः",
+        "feminine": "सप्तदशी",
+        "neuter": "सप्तदशम्"
+      },
+      "sourceNote": null,
+      "reviewStatus": "source-transcribed-not-linguistically-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 8,
+          "verbatim": true
+        }
+      ]
+    },
+    {
+      "value": 18,
+      "kind": "ordinal",
+      "forms": {
+        "masculine": "अष्टादशः",
+        "feminine": "अष्टादशी",
+        "neuter": "अष्टादशम्"
+      },
+      "sourceNote": null,
+      "reviewStatus": "source-transcribed-not-linguistically-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 8,
+          "verbatim": true
+        }
+      ]
+    },
+    {
+      "value": 19,
+      "kind": "ordinal",
+      "forms": {
+        "masculine": "नवदशः",
+        "feminine": "नवदशी",
+        "neuter": "नवदशम्"
+      },
+      "sourceNote": null,
+      "reviewStatus": "source-transcribed-not-linguistically-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 8,
+          "verbatim": true
+        }
+      ]
+    },
+    {
+      "value": 20,
+      "kind": "ordinal",
+      "forms": {
+        "masculine": "विंशः",
+        "feminine": "विंशी",
+        "neuter": "विशम्"
+      },
+      "sourceNote": "Source prints neuter as विशम्; preserve verbatim pending review.",
+      "reviewStatus": "source-transcribed-not-linguistically-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 8,
+          "verbatim": true
+        }
+      ]
+    }
+  ],
+  "largerNumbers": [
+    {
+      "value": "101",
+      "kind": "large-cardinal",
+      "sanskritSourceForms": [
+        "एकाधिक शतम्",
+        "एकाधिकशतकम्"
+      ],
+      "sourceValueConvention": "Indian comma grouping as printed in source; numeric scale requires independent verification",
+      "reviewStatus": "source-transcribed-scale-not-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 7,
+          "verbatim": true
+        }
+      ]
+    },
+    {
+      "value": "102",
+      "kind": "large-cardinal",
+      "sanskritSourceForms": [
+        "द्वयधिक शतम्",
+        "द्वयधिकशतकम्"
+      ],
+      "sourceValueConvention": "Indian comma grouping as printed in source; numeric scale requires independent verification",
+      "reviewStatus": "source-transcribed-scale-not-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 7,
+          "verbatim": true
+        }
+      ]
+    },
+    {
+      "value": "103",
+      "kind": "large-cardinal",
+      "sanskritSourceForms": [
+        "त्रयधिक शतम्"
+      ],
+      "sourceValueConvention": "Indian comma grouping as printed in source; numeric scale requires independent verification",
+      "reviewStatus": "source-transcribed-scale-not-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 7,
+          "verbatim": true
+        }
+      ]
+    },
+    {
+      "value": "200",
+      "kind": "large-cardinal",
+      "sanskritSourceForms": [
+        "द्विशतम्",
+        "द्वे शते"
+      ],
+      "sourceValueConvention": "Indian comma grouping as printed in source; numeric scale requires independent verification",
+      "reviewStatus": "source-transcribed-scale-not-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 7,
+          "verbatim": true
+        }
+      ]
+    },
+    {
+      "value": "300",
+      "kind": "large-cardinal",
+      "sanskritSourceForms": [
+        "त्रिशतम्",
+        "त्रीणि शतानि"
+      ],
+      "sourceValueConvention": "Indian comma grouping as printed in source; numeric scale requires independent verification",
+      "reviewStatus": "source-transcribed-scale-not-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 7,
+          "verbatim": true
+        }
+      ]
+    },
+    {
+      "value": "1000",
+      "kind": "large-cardinal",
+      "sanskritSourceForms": [
+        "सहस्रम्"
+      ],
+      "sourceValueConvention": "Indian comma grouping as printed in source; numeric scale requires independent verification",
+      "reviewStatus": "source-transcribed-scale-not-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 7,
+          "verbatim": true
+        }
+      ]
+    },
+    {
+      "value": "10000",
+      "kind": "large-cardinal",
+      "sanskritSourceForms": [
+        "अयुतम्"
+      ],
+      "sourceValueConvention": "Indian comma grouping as printed in source; numeric scale requires independent verification",
+      "reviewStatus": "source-transcribed-scale-not-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 7,
+          "verbatim": true
+        }
+      ]
+    },
+    {
+      "value": "100000",
+      "kind": "large-cardinal",
+      "sanskritSourceForms": [
+        "लक्षम्"
+      ],
+      "sourceValueConvention": "Indian comma grouping as printed in source; numeric scale requires independent verification",
+      "reviewStatus": "source-transcribed-scale-not-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 7,
+          "verbatim": true
+        }
+      ]
+    },
+    {
+      "value": "1000000",
+      "kind": "large-cardinal",
+      "sanskritSourceForms": [
+        "प्रयुतम्",
+        "नियुतम्"
+      ],
+      "sourceValueConvention": "Indian comma grouping as printed in source; numeric scale requires independent verification",
+      "reviewStatus": "source-transcribed-scale-not-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 7,
+          "verbatim": true
+        }
+      ]
+    },
+    {
+      "value": "10000000",
+      "kind": "large-cardinal",
+      "sanskritSourceForms": [
+        "कोटिः"
+      ],
+      "sourceValueConvention": "Indian comma grouping as printed in source; numeric scale requires independent verification",
+      "reviewStatus": "source-transcribed-scale-not-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 7,
+          "verbatim": true
+        }
+      ]
+    },
+    {
+      "value": "100000000",
+      "kind": "large-cardinal",
+      "sanskritSourceForms": [
+        "दसकोटिः"
+      ],
+      "sourceValueConvention": "Indian comma grouping as printed in source; numeric scale requires independent verification",
+      "reviewStatus": "source-transcribed-scale-not-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 7,
+          "verbatim": true
+        }
+      ]
+    },
+    {
+      "value": "1000000000",
+      "kind": "large-cardinal",
+      "sanskritSourceForms": [
+        "अर्बुदम्"
+      ],
+      "sourceValueConvention": "Indian comma grouping as printed in source; numeric scale requires independent verification",
+      "reviewStatus": "source-transcribed-scale-not-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 7,
+          "verbatim": true
+        }
+      ]
+    },
+    {
+      "value": "10000000000",
+      "kind": "large-cardinal",
+      "sanskritSourceForms": [
+        "दशार्बुदम्"
+      ],
+      "sourceValueConvention": "Indian comma grouping as printed in source; numeric scale requires independent verification",
+      "reviewStatus": "source-transcribed-scale-not-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 7,
+          "verbatim": true
+        }
+      ]
+    },
+    {
+      "value": "100000000000",
+      "kind": "large-cardinal",
+      "sanskritSourceForms": [
+        "खर्वम्"
+      ],
+      "sourceValueConvention": "Indian comma grouping as printed in source; numeric scale requires independent verification",
+      "reviewStatus": "source-transcribed-scale-not-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 7,
+          "verbatim": true
+        }
+      ]
+    },
+    {
+      "value": "1000000000000",
+      "kind": "large-cardinal",
+      "sanskritSourceForms": [
+        "दशखर्वम्"
+      ],
+      "sourceValueConvention": "Indian comma grouping as printed in source; numeric scale requires independent verification",
+      "reviewStatus": "source-transcribed-scale-not-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 7,
+          "verbatim": true
+        }
+      ]
+    },
+    {
+      "value": "10000000000000",
+      "kind": "large-cardinal",
+      "sanskritSourceForms": [
+        "नीलम्"
+      ],
+      "sourceValueConvention": "Indian comma grouping as printed in source; numeric scale requires independent verification",
+      "reviewStatus": "source-transcribed-scale-not-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 7,
+          "verbatim": true
+        }
+      ]
+    },
+    {
+      "value": "100000000000000",
+      "kind": "large-cardinal",
+      "sanskritSourceForms": [
+        "दशनीलम्"
+      ],
+      "sourceValueConvention": "Indian comma grouping as printed in source; numeric scale requires independent verification",
+      "reviewStatus": "source-transcribed-scale-not-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 7,
+          "verbatim": true
+        }
+      ]
+    },
+    {
+      "value": "1000000000000000",
+      "kind": "large-cardinal",
+      "sanskritSourceForms": [
+        "पद्मम्"
+      ],
+      "sourceValueConvention": "Indian comma grouping as printed in source; numeric scale requires independent verification",
+      "reviewStatus": "source-transcribed-scale-not-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 7,
+          "verbatim": true
+        }
+      ]
+    },
+    {
+      "value": "10000000000000000",
+      "kind": "large-cardinal",
+      "sanskritSourceForms": [
+        "दशपद्मम्"
+      ],
+      "sourceValueConvention": "Indian comma grouping as printed in source; numeric scale requires independent verification",
+      "reviewStatus": "source-transcribed-scale-not-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 7,
+          "verbatim": true
+        }
+      ]
+    },
+    {
+      "value": "100000000000000000",
+      "kind": "large-cardinal",
+      "sanskritSourceForms": [
+        "शङ्खम्"
+      ],
+      "sourceValueConvention": "Indian comma grouping as printed in source; numeric scale requires independent verification",
+      "reviewStatus": "source-transcribed-scale-not-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 7,
+          "verbatim": true
+        }
+      ]
+    },
+    {
+      "value": "1000000000000000000",
+      "kind": "large-cardinal",
+      "sanskritSourceForms": [
+        "दशशङ्खम्"
+      ],
+      "sourceValueConvention": "Indian comma grouping as printed in source; numeric scale requires independent verification",
+      "reviewStatus": "source-transcribed-scale-not-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 7,
+          "verbatim": true
+        }
+      ]
+    },
+    {
+      "value": "10000000000000000000",
+      "kind": "large-cardinal",
+      "sanskritSourceForms": [
+        "महाशङ्खम्"
+      ],
+      "sourceValueConvention": "Indian comma grouping as printed in source; numeric scale requires independent verification",
+      "reviewStatus": "source-transcribed-scale-not-verified",
+      "provenance": [
+        {
+          "sourceId": "mycoaching-sanskrit-counting-pdf",
+          "page": 7,
+          "verbatim": true
+        }
+      ]
+    }
+  ],
+  "editorialRules": [
+    "Preserve source transcription exactly in sourceForms/sourceValueConvention.",
+    "Store reviewed/canonical forms separately; never overwrite source forms.",
+    "Translations beyond Hindi and English remain null until independently checked against language-specific references or native-speaker review.",
+    "IAST must be generated or entered only after Sanskrit form verification.",
+    "Gender variations are attached to the relevant number record, not a separate content section."
+  ],
+  "coverage": {
+    "cardinals": "1-100 inclusive",
+    "ordinals": "1st-20th inclusive",
+    "largerNumbers": "All values listed in the supplied PDF"
+  }
+}
