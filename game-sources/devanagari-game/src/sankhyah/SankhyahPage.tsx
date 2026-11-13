@@ -8,7 +8,7 @@ const LANGUAGES = data.languages as { code: LanguageCode; name: string; status: 
 const CARDINALS = data.cardinals as Entry[];
 const ORDINALS = data.ordinals as Entry[];
 const LARGER = data.largerNumbers as Entry[];
-const toDev = (value: number | string) => String(value).replace(/\\d/g, d => "०१२३४५६७८९"[Number(d)]);
+const toDev = (value: number | string) => String(value).replace(/\d/g, d => "०१२३४५६७८९"[Number(d)]);
 const titleFor = (entry: Entry) => entry.kind === "ordinal" ? `${toDev(entry.value)} · ${entry.value}${Number(entry.value) === 1 ? "st" : Number(entry.value) === 2 ? "nd" : Number(entry.value) === 3 ? "rd" : "th"}` : toDev(entry.value);
 
 const SankhyahPage: React.FC = () => {
