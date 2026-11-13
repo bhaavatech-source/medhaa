@@ -1,0 +1,686 @@
+{
+ "about": "Reviewed corrections to sankhyah.source-data.json (2026-11-13). The source file is left verbatim, as its editorial rules require; SankhyahPage applies these on top.",
+ "references": [
+  "Pāṇini 6.3.47–49 (द्वा-, त्रयः-, अष्टा- in numeral compounds); 6.1.77, 6.1.87–88, 6.1.101 (vowel sandhi)",
+  "Bhāskara II, Līlāvatī, paribhāṣā (names of the decimal places)"
+ ],
+ "largerNote": "The source's names from 10⁹ on (अर्बुद 10⁹, खर्व 10¹¹, नील 10¹³, पद्म 10¹⁵, शङ्ख 10¹⁷) follow the modern Hindi scale (अरब, खरब …). In Bhāskara's Līlāvatī the places are ten-fold: अयुत 10⁴, लक्ष 10⁵, प्रयुत 10⁶, कोटि 10⁷, अर्बुद 10⁸, अब्ज 10⁹, खर्व 10¹⁰, निखर्व 10¹¹, महापद्म 10¹², शङ्कु 10¹³, जलधि 10¹⁴, अन्त्य 10¹⁵, मध्य 10¹⁶, परार्ध 10¹⁷.",
+ "cardinals": {
+  "1": {
+   "sanskrit": [
+    "एकः",
+    "एका",
+    "एकम्"
+   ],
+   "why": "Ordinal in brackets removed from the cardinal list (it is in the ordinals table)."
+  },
+  "2": {
+   "sanskrit": [
+    "द्वौ",
+    "द्वे",
+    "द्वे"
+   ],
+   "why": "Ordinal in brackets removed from the cardinal list (it is in the ordinals table)."
+  },
+  "3": {
+   "sanskrit": [
+    "त्रयः",
+    "तिस्रः",
+    "त्रीणि"
+   ],
+   "why": "Ordinal in brackets removed from the cardinal list (it is in the ordinals table)."
+  },
+  "4": {
+   "sanskrit": [
+    "चत्वारः",
+    "चतस्रः",
+    "चत्वारि"
+   ],
+   "why": "Ordinal in brackets removed from the cardinal list (it is in the ordinals table)."
+  },
+  "5": {
+   "sanskrit": [
+    "पञ्च"
+   ],
+   "why": "Ordinal in brackets removed from the cardinal list (it is in the ordinals table)."
+  },
+  "6": {
+   "sanskrit": [
+    "षट्"
+   ],
+   "why": "Ordinal printed as षष्टः; the ordinal of six is षष्ठः (ठ), as in the ordinals list."
+  },
+  "7": {
+   "sanskrit": [
+    "सप्त"
+   ],
+   "why": "Ordinal in brackets removed from the cardinal list (it is in the ordinals table)."
+  },
+  "8": {
+   "sanskrit": [
+    "अष्टौ",
+    "अष्ट"
+   ],
+   "why": "Ordinal in brackets removed from the cardinal list (it is in the ordinals table)."
+  },
+  "9": {
+   "sanskrit": [
+    "नव"
+   ],
+   "why": "Ordinal in brackets removed from the cardinal list (it is in the ordinals table)."
+  },
+  "10": {
+   "sanskrit": [
+    "दश"
+   ],
+   "why": "Ordinal in brackets removed from the cardinal list (it is in the ordinals table).",
+   "hi": "दस (दसवाँ)",
+   "why_hi": "Standard Hindi spelling (source: दस (दशवाँ))."
+  },
+  "11": {
+   "sanskrit": [
+    "एकादश"
+   ],
+   "why": "Ordinal in brackets removed from the cardinal list (it is in the ordinals table)."
+  },
+  "12": {
+   "sanskrit": [
+    "द्वादश"
+   ],
+   "why": "Ordinal in brackets removed from the cardinal list (it is in the ordinals table)."
+  },
+  "13": {
+   "sanskrit": [
+    "त्रयोदश"
+   ],
+   "why": "Ordinal in brackets removed from the cardinal list (it is in the ordinals table)."
+  },
+  "14": {
+   "sanskrit": [
+    "चतुर्दश"
+   ],
+   "why": "Ordinal in brackets removed from the cardinal list (it is in the ordinals table)."
+  },
+  "15": {
+   "sanskrit": [
+    "पञ्चदश"
+   ],
+   "why": "Ordinal in brackets removed from the cardinal list (it is in the ordinals table)."
+  },
+  "16": {
+   "sanskrit": [
+    "षोडश"
+   ],
+   "why": "Ordinal printed with ड़ (षोड़शः); Sanskrit has no ड़ — षोडशः."
+  },
+  "17": {
+   "sanskrit": [
+    "सप्तदश"
+   ],
+   "why": "Ordinal in brackets removed from the cardinal list (it is in the ordinals table)."
+  },
+  "18": {
+   "sanskrit": [
+    "अष्टादश"
+   ],
+   "why": "Ordinal in brackets removed from the cardinal list (it is in the ordinals table)."
+  },
+  "19": {
+   "sanskrit": [
+    "एकोनविंशतिः",
+    "ऊनविंशतिः",
+    "नवदश"
+   ],
+   "why": "Normalised: ordinals removed from the cardinal list (they are in the ordinals table), one spelling for ञ्च, variants in a fixed order."
+  },
+  "21": {
+   "en": "Twenty-one"
+  },
+  "22": {
+   "sanskrit": [
+    "द्वाविंशतिः"
+   ],
+   "why": "द्वाविंशः is the ordinal (22nd), not a second cardinal form.",
+   "hi": "बाईस",
+   "why_hi": "Standard Hindi spelling (source: बाइस).",
+   "en": "Twenty-two"
+  },
+  "23": {
+   "sanskrit": [
+    "त्रयोविंशतिः"
+   ],
+   "why": "त्रयोविंशः is the ordinal (23rd).",
+   "hi": "तेईस",
+   "why_hi": "Standard Hindi spelling (source: तेइस).",
+   "en": "Twenty-three"
+  },
+  "24": {
+   "sanskrit": [
+    "चतुर्विंशतिः"
+   ],
+   "why": "चतुर्विंशः is the ordinal (24th).",
+   "en": "Twenty-four"
+  },
+  "25": {
+   "sanskrit": [
+    "पञ्चविंशतिः"
+   ],
+   "why": "पञ्चविंशः is the ordinal (25th).",
+   "en": "Twenty-five"
+  },
+  "26": {
+   "sanskrit": [
+    "षड्विंशतिः"
+   ],
+   "why": "Written as one word: षड्विंशतिः; षड्विंशः is the ordinal.",
+   "en": "Twenty-six"
+  },
+  "27": {
+   "sanskrit": [
+    "सप्तविंशतिः"
+   ],
+   "why": "सप्तविंशः is the ordinal (27th).",
+   "en": "Twenty-seven"
+  },
+  "28": {
+   "sanskrit": [
+    "अष्टाविंशतिः"
+   ],
+   "why": "Below 40 the form must be अष्टा- (द्व्यष्टनः संख्यायाम् 6.3.47; option only from 40, 6.3.49): अष्टाविंशतिः. अष्टाविंशः is the ordinal.",
+   "en": "Twenty-eight"
+  },
+  "29": {
+   "sanskrit": [
+    "एकोनत्रिंशत्",
+    "ऊनत्रिंशत्",
+    "नवविंशतिः"
+   ],
+   "why": "नवविंशः is the ordinal; cardinals are एकोनत्रिंशत् / ऊनत्रिंशत् / नवविंशतिः.",
+   "en": "Twenty-nine"
+  },
+  "31": {
+   "en": "Thirty-one"
+  },
+  "32": {
+   "en": "Thirty-two"
+  },
+  "33": {
+   "hi": "तैंतीस",
+   "why_hi": "Standard Hindi spelling (source: तेतीस).",
+   "en": "Thirty-three"
+  },
+  "34": {
+   "sanskrit": [
+    "चतुस्त्रिंशत्"
+   ],
+   "why": "चतुर्त्रिंशत् is not a valid sandhi: र् becomes ः → स् before त: चतुस्त्रिंशत्.",
+   "hi": "चौंतीस",
+   "why_hi": "Standard Hindi spelling (source: चौतीस).",
+   "en": "Thirty-four"
+  },
+  "35": {
+   "en": "Thirty-five"
+  },
+  "36": {
+   "sanskrit": [
+    "षट्त्रिंशत्"
+   ],
+   "why": "One word: षट्त्रिंशत्.",
+   "en": "Thirty-six"
+  },
+  "37": {
+   "en": "Thirty-seven"
+  },
+  "38": {
+   "en": "Thirty-eight"
+  },
+  "39": {
+   "sanskrit": [
+    "एकोनचत्वारिंशत्",
+    "ऊनचत्वारिंशत्",
+    "नवत्रिंशत्"
+   ],
+   "why": "Normalised: ordinals removed from the cardinal list (they are in the ordinals table), one spelling for ञ्च, variants in a fixed order.",
+   "en": "Thirty-nine"
+  },
+  "41": {
+   "en": "Forty-one"
+  },
+  "42": {
+   "sanskrit": [
+    "द्वाचत्वारिंशत्",
+    "द्विचत्वारिंशत्"
+   ],
+   "why": "Same form printed twice; the two options are द्वाचत्वारिंशत् / द्विचत्वारिंशत् (6.3.49).",
+   "hi": "बयालीस",
+   "why_hi": "Standard Hindi spelling (source: बियालीस).",
+   "en": "Forty-two"
+  },
+  "43": {
+   "sanskrit": [
+    "त्रयश्चत्वारिंशत्",
+    "त्रिचत्वारिंशत्"
+   ],
+   "why": "Normalised: ordinals removed from the cardinal list (they are in the ordinals table), one spelling for ञ्च, variants in a fixed order.",
+   "hi": "तैंतालीस",
+   "why_hi": "Standard Hindi spelling (source: तेतालीस).",
+   "en": "Forty-three"
+  },
+  "44": {
+   "hi": "चवालीस",
+   "why_hi": "Standard Hindi spelling (source: चबालीस).",
+   "en": "Forty-four"
+  },
+  "45": {
+   "sanskrit": [
+    "पञ्चचत्वारिंशत्"
+   ],
+   "why": "Ordinal in brackets removed from the cardinal list (it is in the ordinals table).",
+   "en": "Forty-five"
+  },
+  "46": {
+   "sanskrit": [
+    "षट्चत्वारिंशत्"
+   ],
+   "why": "One word: षट्चत्वारिंशत्.",
+   "en": "Forty-six"
+  },
+  "47": {
+   "en": "Forty-seven"
+  },
+  "48": {
+   "sanskrit": [
+    "अष्टाचत्वारिंशत्",
+    "अष्टचत्वारिंशत्"
+   ],
+   "why": "Normalised: ordinals removed from the cardinal list (they are in the ordinals table), one spelling for ञ्च, variants in a fixed order.",
+   "en": "Forty-eight"
+  },
+  "49": {
+   "sanskrit": [
+    "एकोनपञ्चाशत्",
+    "ऊनपञ्चाशत्",
+    "नवचत्वारिंशत्"
+   ],
+   "why": "Normalised: ordinals removed from the cardinal list (they are in the ordinals table), one spelling for ञ्च, variants in a fixed order.",
+   "en": "Forty-nine"
+  },
+  "51": {
+   "en": "Fifty-one"
+  },
+  "52": {
+   "sanskrit": [
+    "द्वापञ्चाशत्",
+    "द्विपञ्चाशत्"
+   ],
+   "why": "Same form printed twice; options द्वापञ्चाशत् / द्विपञ्चाशत्.",
+   "en": "Fifty-two"
+  },
+  "53": {
+   "sanskrit": [
+    "त्रयःपञ्चाशत्",
+    "त्रिपञ्चाशत्"
+   ],
+   "why": "Normalised: ordinals removed from the cardinal list (they are in the ordinals table), one spelling for ञ्च, variants in a fixed order.",
+   "hi": "तिरपन",
+   "why_hi": "Standard Hindi spelling (source: तिरेपन).",
+   "en": "Fifty-three"
+  },
+  "54": {
+   "hi": "चौवन",
+   "why_hi": "Standard Hindi spelling (source: चौबन).",
+   "en": "Fifty-four"
+  },
+  "55": {
+   "en": "Fifty-five"
+  },
+  "56": {
+   "sanskrit": [
+    "षट्पञ्चाशत्"
+   ],
+   "why": "One word: षट्पञ्चाशत्.",
+   "en": "Fifty-six"
+  },
+  "57": {
+   "en": "Fifty-seven"
+  },
+  "58": {
+   "sanskrit": [
+    "अष्टापञ्चाशत्",
+    "अष्टपञ्चाशत्"
+   ],
+   "why": "Normalised: ordinals removed from the cardinal list (they are in the ordinals table), one spelling for ञ्च, variants in a fixed order.",
+   "en": "Fifty-eight"
+  },
+  "59": {
+   "sanskrit": [
+    "एकोनषष्टिः",
+    "ऊनषष्टिः",
+    "नवपञ्चाशत्"
+   ],
+   "why": "ऊनषष्ठिः has ठ; sixty is षष्टिः (ट).",
+   "en": "Fifty-nine"
+  },
+  "61": {
+   "en": "Sixty-one"
+  },
+  "62": {
+   "sanskrit": [
+    "द्वाषष्टिः",
+    "द्विषष्टिः"
+   ],
+   "why": "द्वाषष्ठिः has ठ; षष्टिः (ट).",
+   "en": "Sixty-two"
+  },
+  "63": {
+   "sanskrit": [
+    "त्रयःषष्टिः",
+    "त्रिषष्टिः"
+   ],
+   "why": "त्रयःषष्ठिः has ठ; षष्टिः (ट).",
+   "hi": "तिरसठ",
+   "why_hi": "Standard Hindi spelling (source: तिरेसठ).",
+   "en": "Sixty-three"
+  },
+  "64": {
+   "en": "Sixty-four"
+  },
+  "65": {
+   "sanskrit": [
+    "पञ्चषष्टिः"
+   ],
+   "why": "Ordinal in brackets removed from the cardinal list (it is in the ordinals table).",
+   "en": "Sixty-five"
+  },
+  "66": {
+   "sanskrit": [
+    "षट्षष्टिः"
+   ],
+   "why": "One word: षट्षष्टिः.",
+   "en": "Sixty-six"
+  },
+  "67": {
+   "en": "Sixty-seven"
+  },
+  "68": {
+   "sanskrit": [
+    "अष्टाषष्टिः",
+    "अष्टषष्टिः"
+   ],
+   "why": "अष्टाषष्ठिः has ठ; षष्टिः (ट).",
+   "en": "Sixty-eight"
+  },
+  "69": {
+   "sanskrit": [
+    "एकोनसप्ततिः",
+    "ऊनसप्ततिः",
+    "नवषष्टिः"
+   ],
+   "why": "नवषष्ठिः has ठ; षष्टिः (ट).",
+   "en": "Sixty-nine"
+  },
+  "71": {
+   "en": "Seventy-one"
+  },
+  "72": {
+   "sanskrit": [
+    "द्वासप्ततिः",
+    "द्विसप्ततिः"
+   ],
+   "why": "द्विसंप्ततिः is a misprint; द्वासप्ततिः / द्विसप्ततिः.",
+   "en": "Seventy-two"
+  },
+  "73": {
+   "sanskrit": [
+    "त्रयःसप्ततिः",
+    "त्रिसप्ततिः"
+   ],
+   "why": "Normalised: ordinals removed from the cardinal list (they are in the ordinals table), one spelling for ञ्च, variants in a fixed order.",
+   "en": "Seventy-three"
+  },
+  "74": {
+   "en": "Seventy-four"
+  },
+  "75": {
+   "sanskrit": [
+    "पञ्चसप्ततिः"
+   ],
+   "why": "Ordinal in brackets removed from the cardinal list (it is in the ordinals table).",
+   "hi": "पचहत्तर",
+   "why_hi": "Standard Hindi spelling (source: पिचहत्तर).",
+   "en": "Seventy-five"
+  },
+  "76": {
+   "en": "Seventy-six"
+  },
+  "77": {
+   "en": "Seventy-seven"
+  },
+  "78": {
+   "sanskrit": [
+    "अष्टासप्ततिः",
+    "अष्टसप्ततिः"
+   ],
+   "why": "Normalised: ordinals removed from the cardinal list (they are in the ordinals table), one spelling for ञ्च, variants in a fixed order.",
+   "en": "Seventy-eight"
+  },
+  "79": {
+   "sanskrit": [
+    "एकोनाशीतिः",
+    "ऊनाशीतिः",
+    "नवसप्ततिः"
+   ],
+   "why": "Normalised: ordinals removed from the cardinal list (they are in the ordinals table), one spelling for ञ्च, variants in a fixed order.",
+   "en": "Seventy-nine"
+  },
+  "81": {
+   "en": "Eighty-one"
+  },
+  "82": {
+   "sanskrit": [
+    "द्व्यशीतिः"
+   ],
+   "why": "Before अशीति the द्वा-/त्रयः- forms are not used (…अबहुव्रीह्यशीत्योः 6.3.47): द्वि + अशीतिः → द्व्यशीतिः.",
+   "hi": "बयासी",
+   "why_hi": "Standard Hindi spelling (source: बियासी).",
+   "en": "Eighty-two"
+  },
+  "83": {
+   "sanskrit": [
+    "त्र्यशीतिः"
+   ],
+   "why": "त्रि + अशीतिः → त्र्यशीतिः (इको यणचि); त्रयाशीतिः is not a valid form.",
+   "en": "Eighty-three"
+  },
+  "84": {
+   "sanskrit": [
+    "चतुरशीतिः"
+   ],
+   "why": "चतुर् + अशीतिः → चतुरशीतिः (no lengthening).",
+   "en": "Eighty-four"
+  },
+  "85": {
+   "sanskrit": [
+    "पञ्चाशीतिः"
+   ],
+   "why": "Ordinal in brackets removed from the cardinal list (it is in the ordinals table).",
+   "hi": "पचासी",
+   "why_hi": "Standard Hindi spelling (source: पिच्चासी).",
+   "en": "Eighty-five"
+  },
+  "86": {
+   "en": "Eighty-six"
+  },
+  "87": {
+   "en": "Eighty-seven"
+  },
+  "88": {
+   "en": "Eighty-eight"
+  },
+  "89": {
+   "sanskrit": [
+    "एकोननवतिः",
+    "ऊननवतिः",
+    "नवाशीतिः"
+   ],
+   "why": "Normalised: ordinals removed from the cardinal list (they are in the ordinals table), one spelling for ञ्च, variants in a fixed order.",
+   "en": "Eighty-nine"
+  },
+  "91": {
+   "en": "Ninety-one"
+  },
+  "92": {
+   "sanskrit": [
+    "द्वानवतिः",
+    "द्विनवतिः"
+   ],
+   "why": "Normalised: ordinals removed from the cardinal list (they are in the ordinals table), one spelling for ञ्च, variants in a fixed order.",
+   "en": "Ninety-two"
+  },
+  "93": {
+   "sanskrit": [
+    "त्रयोनवतिः",
+    "त्रिनवतिः"
+   ],
+   "why": "त्रयोनवतिः (6.3.48–49) was missing; त्रिनवतिः is the option.",
+   "en": "Ninety-three"
+  },
+  "94": {
+   "en": "Ninety-four"
+  },
+  "95": {
+   "sanskrit": [
+    "पञ्चनवतिः"
+   ],
+   "why": "Ordinal in brackets removed from the cardinal list (it is in the ordinals table).",
+   "hi": "पंचानवे",
+   "why_hi": "Standard Hindi spelling (source: पिचानवे).",
+   "en": "Ninety-five"
+  },
+  "96": {
+   "en": "Ninety-six"
+  },
+  "97": {
+   "hi": "सत्तानवे",
+   "why_hi": "Standard Hindi spelling (source: सतानवे).",
+   "en": "Ninety-seven"
+  },
+  "98": {
+   "sanskrit": [
+    "अष्टानवतिः",
+    "अष्टनवतिः"
+   ],
+   "why": "Normalised: ordinals removed from the cardinal list (they are in the ordinals table), one spelling for ञ्च, variants in a fixed order.",
+   "hi": "अट्ठानवे",
+   "why_hi": "Standard Hindi spelling (source: अठानवे).",
+   "en": "Ninety-eight"
+  },
+  "99": {
+   "en": "Ninety-nine"
+  }
+ },
+ "ordinals": {
+  "20": {
+   "forms": {
+    "masculine": "विंशः",
+    "feminine": "विंशी",
+    "neuter": "विंशम्"
+   },
+   "alternatives": [
+    "विंशतितमः"
+   ],
+   "why": "Neuter printed विशम् (anusvāra missing): विंशम्. विंशतितमः is the other accepted ordinal."
+  },
+  "19": {
+   "alternatives": [
+    "एकोनविंशः",
+    "एकोनविंशतितमः"
+   ],
+   "why": "Other accepted ordinals for 19th added."
+  },
+  "6": {
+   "why": "Correct here (षष्ठः); the cardinal list printed षष्टः."
+  }
+ },
+ "largerNumbers": {
+  "101": {
+   "sanskrit": [
+    "एकाधिकशतम्"
+   ],
+   "why": "One compound: एक + अधिक + शतम् → एकाधिकशतम्. (शतकम् means 'a set of a hundred'.)"
+  },
+  "102": {
+   "sanskrit": [
+    "द्व्यधिकशतम्"
+   ],
+   "why": "द्वि + अधिक → द्व्यधिक (इको यणचि); द्वयधिक is a misspelling."
+  },
+  "103": {
+   "sanskrit": [
+    "त्र्यधिकशतम्"
+   ],
+   "why": "त्रि + अधिक → त्र्यधिक (इको यणचि); त्रयधिक is a misspelling."
+  },
+  "100000000": {
+   "sanskrit": [
+    "दशकोटिः"
+   ],
+   "why": "दसकोटिः has the Hindi स; Sanskrit दश.",
+   "lilavati": "अर्बुदम्"
+  },
+  "10000": {
+   "lilavati": "अयुतम्"
+  },
+  "100000": {
+   "lilavati": "लक्षम्"
+  },
+  "1000000": {
+   "lilavati": "प्रयुतम्"
+  },
+  "10000000": {
+   "lilavati": "कोटिः"
+  },
+  "1000000000": {
+   "lilavati": "अब्जम्",
+   "why": "This name follows the modern Hindi scale (अरब, खरब, नील, पद्म, शंख); Bhāskara's Līlāvatī uses a strictly ten-fold series."
+  },
+  "10000000000": {
+   "lilavati": "खर्वम्",
+   "why": "This name follows the modern Hindi scale (अरब, खरब, नील, पद्म, शंख); Bhāskara's Līlāvatī uses a strictly ten-fold series."
+  },
+  "100000000000": {
+   "lilavati": "निखर्वम्",
+   "why": "This name follows the modern Hindi scale (अरब, खरब, नील, पद्म, शंख); Bhāskara's Līlāvatī uses a strictly ten-fold series."
+  },
+  "1000000000000": {
+   "lilavati": "महापद्मम्",
+   "why": "This name follows the modern Hindi scale (अरब, खरब, नील, पद्म, शंख); Bhāskara's Līlāvatī uses a strictly ten-fold series."
+  },
+  "10000000000000": {
+   "lilavati": "शङ्कुः",
+   "why": "This name follows the modern Hindi scale (अरब, खरब, नील, पद्म, शंख); Bhāskara's Līlāvatī uses a strictly ten-fold series."
+  },
+  "100000000000000": {
+   "lilavati": "जलधिः",
+   "why": "This name follows the modern Hindi scale (अरब, खरब, नील, पद्म, शंख); Bhāskara's Līlāvatī uses a strictly ten-fold series."
+  },
+  "1000000000000000": {
+   "lilavati": "अन्त्यम्",
+   "why": "This name follows the modern Hindi scale (अरब, खरब, नील, पद्म, शंख); Bhāskara's Līlāvatī uses a strictly ten-fold series."
+  },
+  "10000000000000000": {
+   "lilavati": "मध्यम्",
+   "why": "This name follows the modern Hindi scale (अरब, खरब, नील, पद्म, शंख); Bhāskara's Līlāvatī uses a strictly ten-fold series."
+  },
+  "100000000000000000": {
+   "lilavati": "परार्धम्",
+   "why": "This name follows the modern Hindi scale (अरब, खरब, नील, पद्म, शंख); Bhāskara's Līlāvatī uses a strictly ten-fold series."
+  },
+  "1000000000000000000": {
+   "why": "This name follows the modern Hindi scale (अरब, खरब, नील, पद्म, शंख); Bhāskara's Līlāvatī uses a strictly ten-fold series."
+  },
+  "10000000000000000000": {
+   "why": "This name follows the modern Hindi scale (अरब, खरब, नील, पद्म, शंख); Bhāskara's Līlāvatī uses a strictly ten-fold series."
+  }
+ }
+}

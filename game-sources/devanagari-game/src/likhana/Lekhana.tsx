@@ -107,6 +107,9 @@ const Lekhana: React.FC = () => {
           </button>
         ))}
       </div>
+      {letter === "ऌ" && (
+        <p className="lk-modetip">ऌ (ḷ) is one independent vowel, not उ + ल. Its dependent sign is ॢ, as in कॢ.</p>
+      )}
 
       {joined && <p className="lk-sub" role="note">
         {joined.parts} → {joined.char} · {joined.roman} · Example: {joined.example}.

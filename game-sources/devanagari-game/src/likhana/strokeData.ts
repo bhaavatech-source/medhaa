@@ -267,14 +267,28 @@ const BASE_STROKES: Record<string, LetterStrokes> = {
 
 const EXTENDED_VOWEL_STROKES: Record<string, LetterStrokes> = {
   "ॠ": { w: 95.0, strokes: [
-    ...BASE_STROKES["ऋ"].strokes.slice(0, -1),
-    { kind: "body", pts: [[83.8,74.4],[87.0,77.8],[89.2,81.7],[89.4,85.4],[87.4,88.3],[83.5,89.2],[79.7,87.6],[77.2,84.6]] },
-    BASE_STROKES["ऋ"].strokes[BASE_STROKES["ऋ"].strokes.length - 1],
+    ...BASE_STROKES["ऋ"].strokes.slice(0, 2),
+    {
+      kind: "body",
+      pts: [
+        ...BASE_STROKES["ऋ"].strokes[2].pts,
+        [87.0,77.8],[89.2,81.7],[89.4,85.4],[87.4,88.3],[83.5,89.2],[79.7,87.6],[77.2,84.6],
+      ],
+    },
+    BASE_STROKES["ऋ"].strokes[3],
   ] },
   "ऌ": { w: 69.0, strokes: [
-    ...BASE_STROKES["ल"].strokes.slice(0, -1),
-    { kind: "body", pts: [[55.6,76.2],[58.5,79.8],[62.2,83.5],[64.1,86.9],[63.2,89.8],[60.1,91.0],[56.9,89.2]] },
-    BASE_STROKES["ल"].strokes[BASE_STROKES["ल"].strokes.length - 1],
+    { ...BASE_STROKES["ल"].strokes[0], pts: [...BASE_STROKES["ल"].strokes[0].pts].reverse() },
+    BASE_STROKES["ल"].strokes[1],
+    {
+      kind: "bar",
+      pts: [
+        [55.6,41.9],[55.8,34.0],[55.9,22.3],[55.8,49.0],[55.6,76.2],
+        [56.0,78.0],[57.2,79.6],[59.1,81.2],[61.1,83.0],[62.7,85.0],
+        [63.4,87.0],[62.8,89.0],[61.1,90.3],[59.1,90.3],[57.2,89.1],
+      ],
+    },
+    BASE_STROKES["ल"].strokes[3],
   ] },
 };
 

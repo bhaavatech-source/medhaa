@@ -1,0 +1,2650 @@
+{
+  "title": "Sanskrit Numbers 1–100",
+  "script": "Devanagari",
+  "transliteration": "IAST",
+  "conventions": {
+    "cardinal_1_to_4": "Masculine, feminine and neuter nominative forms are supplied in that order.",
+    "cardinal_5_to_100": "A conventional citation/counting form is supplied; numbers 20–99 are traditionally feminine singular numerals.",
+    "ordinal": "Ordinal adjectives are supplied in masculine, feminine and neuter nominative singular forms.",
+    "ordinal_20_to_100": "The regular -tama ordinal formation is used consistently for transparent classroom reference."
+  },
+  "sources": [
+    "Whitney, Sanskrit Grammar, §§487–488 (ordinal formation and gender)",
+    "Bucknell, Sanskrit Manual, sections on numerals",
+    "Ramkrishna Mission Vivekananda Educational and Research Institute, Saṅkhyāvācanam reference"
+  ],
+  "numbers": [
+    {
+      "number": 1,
+      "cardinal": {
+        "devanagari": [
+          "एकः",
+          "एका",
+          "एकम्"
+        ],
+        "iast": [
+          "ekaḥ",
+          "ekā",
+          "ekam"
+        ],
+        "gender_forms": [
+          "masculine",
+          "feminine",
+          "neuter"
+        ]
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "प्रथमः",
+          "iast": "prathamaḥ"
+        },
+        "feminine": {
+          "devanagari": "प्रथमा",
+          "iast": "prathamī"
+        },
+        "neuter": {
+          "devanagari": "प्रथमम्",
+          "iast": "prathamam"
+        }
+      }
+    },
+    {
+      "number": 2,
+      "cardinal": {
+        "devanagari": [
+          "द्वौ",
+          "द्वे",
+          "द्वे"
+        ],
+        "iast": [
+          "dvau",
+          "dve",
+          "dve"
+        ],
+        "gender_forms": [
+          "masculine",
+          "feminine",
+          "neuter"
+        ]
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "द्वितीयः",
+          "iast": "dvitīyaḥ"
+        },
+        "feminine": {
+          "devanagari": "द्वितीया",
+          "iast": "dvitīyī"
+        },
+        "neuter": {
+          "devanagari": "द्वितीयम्",
+          "iast": "dvitīyam"
+        }
+      }
+    },
+    {
+      "number": 3,
+      "cardinal": {
+        "devanagari": [
+          "त्रयः",
+          "तिस्रः",
+          "त्रीणि"
+        ],
+        "iast": [
+          "trayaḥ",
+          "tisraḥ",
+          "trīṇi"
+        ],
+        "gender_forms": [
+          "masculine",
+          "feminine",
+          "neuter"
+        ]
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "तृतीयः",
+          "iast": "tṛtīyaḥ"
+        },
+        "feminine": {
+          "devanagari": "तृतीया",
+          "iast": "tṛtīyī"
+        },
+        "neuter": {
+          "devanagari": "तृतीयम्",
+          "iast": "tṛtīyam"
+        }
+      }
+    },
+    {
+      "number": 4,
+      "cardinal": {
+        "devanagari": [
+          "चत्वारः",
+          "चतस्रः",
+          "चत्वारि"
+        ],
+        "iast": [
+          "catvāraḥ",
+          "catasraḥ",
+          "catvāri"
+        ],
+        "gender_forms": [
+          "masculine",
+          "feminine",
+          "neuter"
+        ]
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "चतुर्थः",
+          "iast": "caturthaḥ"
+        },
+        "feminine": {
+          "devanagari": "चतुर्थी",
+          "iast": "caturthī"
+        },
+        "neuter": {
+          "devanagari": "चतुर्थम्",
+          "iast": "caturtham"
+        }
+      }
+    },
+    {
+      "number": 5,
+      "cardinal": {
+        "devanagari": [
+          "पञ्च"
+        ],
+        "iast": [
+          "pañca"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "पञ्चमः",
+          "iast": "pañcamaḥ"
+        },
+        "feminine": {
+          "devanagari": "पञ्चमी",
+          "iast": "pañcamī"
+        },
+        "neuter": {
+          "devanagari": "पञ्चमम्",
+          "iast": "pañcamam"
+        }
+      }
+    },
+    {
+      "number": 6,
+      "cardinal": {
+        "devanagari": [
+          "षट्"
+        ],
+        "iast": [
+          "ṣaṭ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "षष्ठः",
+          "iast": "ṣaṣṭhaḥ"
+        },
+        "feminine": {
+          "devanagari": "षष्ठी",
+          "iast": "ṣaṣṭhī"
+        },
+        "neuter": {
+          "devanagari": "षष्ठम्",
+          "iast": "ṣaṣṭham"
+        }
+      }
+    },
+    {
+      "number": 7,
+      "cardinal": {
+        "devanagari": [
+          "सप्त"
+        ],
+        "iast": [
+          "sapta"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "सप्तमः",
+          "iast": "saptamaḥ"
+        },
+        "feminine": {
+          "devanagari": "सप्तमी",
+          "iast": "saptamī"
+        },
+        "neuter": {
+          "devanagari": "सप्तमम्",
+          "iast": "saptamam"
+        }
+      }
+    },
+    {
+      "number": 8,
+      "cardinal": {
+        "devanagari": [
+          "अष्ट"
+        ],
+        "iast": [
+          "aṣṭa"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "अष्टमः",
+          "iast": "aṣṭamaḥ"
+        },
+        "feminine": {
+          "devanagari": "अष्टमी",
+          "iast": "aṣṭamī"
+        },
+        "neuter": {
+          "devanagari": "अष्टमम्",
+          "iast": "aṣṭamam"
+        }
+      }
+    },
+    {
+      "number": 9,
+      "cardinal": {
+        "devanagari": [
+          "नव"
+        ],
+        "iast": [
+          "nava"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "नवमः",
+          "iast": "navamaḥ"
+        },
+        "feminine": {
+          "devanagari": "नवमी",
+          "iast": "navamī"
+        },
+        "neuter": {
+          "devanagari": "नवमम्",
+          "iast": "navamam"
+        }
+      }
+    },
+    {
+      "number": 10,
+      "cardinal": {
+        "devanagari": [
+          "दश"
+        ],
+        "iast": [
+          "daśa"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "दशमः",
+          "iast": "daśamaḥ"
+        },
+        "feminine": {
+          "devanagari": "दशमी",
+          "iast": "daśamī"
+        },
+        "neuter": {
+          "devanagari": "दशमम्",
+          "iast": "daśamam"
+        }
+      }
+    },
+    {
+      "number": 11,
+      "cardinal": {
+        "devanagari": [
+          "एकादश"
+        ],
+        "iast": [
+          "ekādaśa"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "एकादशः",
+          "iast": "ekādaśaḥ"
+        },
+        "feminine": {
+          "devanagari": "एकादशी",
+          "iast": "ekādaśī"
+        },
+        "neuter": {
+          "devanagari": "एकादशम्",
+          "iast": "ekādaśam"
+        }
+      }
+    },
+    {
+      "number": 12,
+      "cardinal": {
+        "devanagari": [
+          "द्वादश"
+        ],
+        "iast": [
+          "dvādaśa"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "द्वादशः",
+          "iast": "dvādaśaḥ"
+        },
+        "feminine": {
+          "devanagari": "द्वादशी",
+          "iast": "dvādaśī"
+        },
+        "neuter": {
+          "devanagari": "द्वादशम्",
+          "iast": "dvādaśam"
+        }
+      }
+    },
+    {
+      "number": 13,
+      "cardinal": {
+        "devanagari": [
+          "त्रयोदश"
+        ],
+        "iast": [
+          "trayodaśa"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "त्रयोदशः",
+          "iast": "trayodaśaḥ"
+        },
+        "feminine": {
+          "devanagari": "त्रयोदशी",
+          "iast": "trayodaśī"
+        },
+        "neuter": {
+          "devanagari": "त्रयोदशम्",
+          "iast": "trayodaśam"
+        }
+      }
+    },
+    {
+      "number": 14,
+      "cardinal": {
+        "devanagari": [
+          "चतुर्दश"
+        ],
+        "iast": [
+          "caturdaśa"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "चतुर्दशः",
+          "iast": "caturdaśaḥ"
+        },
+        "feminine": {
+          "devanagari": "चतुर्दशी",
+          "iast": "caturdaśī"
+        },
+        "neuter": {
+          "devanagari": "चतुर्दशम्",
+          "iast": "caturdaśam"
+        }
+      }
+    },
+    {
+      "number": 15,
+      "cardinal": {
+        "devanagari": [
+          "पञ्चदश"
+        ],
+        "iast": [
+          "pañcadaśa"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "पञ्चदशः",
+          "iast": "pañcadaśaḥ"
+        },
+        "feminine": {
+          "devanagari": "पञ्चदशी",
+          "iast": "pañcadaśī"
+        },
+        "neuter": {
+          "devanagari": "पञ्चदशम्",
+          "iast": "pañcadaśam"
+        }
+      }
+    },
+    {
+      "number": 16,
+      "cardinal": {
+        "devanagari": [
+          "षोडश"
+        ],
+        "iast": [
+          "ṣoḍaśa"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "षोडशः",
+          "iast": "ṣoḍaśaḥ"
+        },
+        "feminine": {
+          "devanagari": "षोडशी",
+          "iast": "ṣoḍaśī"
+        },
+        "neuter": {
+          "devanagari": "षोडशम्",
+          "iast": "ṣoḍaśam"
+        }
+      }
+    },
+    {
+      "number": 17,
+      "cardinal": {
+        "devanagari": [
+          "सप्तदश"
+        ],
+        "iast": [
+          "saptadaśa"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "सप्तदशः",
+          "iast": "saptadaśaḥ"
+        },
+        "feminine": {
+          "devanagari": "सप्तदशी",
+          "iast": "saptadaśī"
+        },
+        "neuter": {
+          "devanagari": "सप्तदशम्",
+          "iast": "saptadaśam"
+        }
+      }
+    },
+    {
+      "number": 18,
+      "cardinal": {
+        "devanagari": [
+          "अष्टादश"
+        ],
+        "iast": [
+          "aṣṭādaśa"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "अष्टादशः",
+          "iast": "aṣṭādaśaḥ"
+        },
+        "feminine": {
+          "devanagari": "अष्टादशी",
+          "iast": "aṣṭādaśī"
+        },
+        "neuter": {
+          "devanagari": "अष्टादशम्",
+          "iast": "aṣṭādaśam"
+        }
+      }
+    },
+    {
+      "number": 19,
+      "cardinal": {
+        "devanagari": [
+          "नवदश"
+        ],
+        "iast": [
+          "navadaśa"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "नवदशः",
+          "iast": "navadaśaḥ"
+        },
+        "feminine": {
+          "devanagari": "नवदशी",
+          "iast": "navadaśī"
+        },
+        "neuter": {
+          "devanagari": "नवदशम्",
+          "iast": "navadaśam"
+        }
+      }
+    },
+    {
+      "number": 20,
+      "cardinal": {
+        "devanagari": [
+          "विंशतिः"
+        ],
+        "iast": [
+          "viṃśatiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "विंशतितमः",
+          "iast": "viṃśatitamaḥ"
+        },
+        "feminine": {
+          "devanagari": "विंशतितमी",
+          "iast": "viṃśatitamī"
+        },
+        "neuter": {
+          "devanagari": "विंशतितमम्",
+          "iast": "viṃśatitamam"
+        }
+      }
+    },
+    {
+      "number": 21,
+      "cardinal": {
+        "devanagari": [
+          "एकविंशतिः"
+        ],
+        "iast": [
+          "ekaviṃśatiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "एकविंशतितमः",
+          "iast": "ekaviṃśatitamaḥ"
+        },
+        "feminine": {
+          "devanagari": "एकविंशतितमी",
+          "iast": "ekaviṃśatitamī"
+        },
+        "neuter": {
+          "devanagari": "एकविंशतितमम्",
+          "iast": "ekaviṃśatitamam"
+        }
+      }
+    },
+    {
+      "number": 22,
+      "cardinal": {
+        "devanagari": [
+          "द्वाविंशतिः"
+        ],
+        "iast": [
+          "dvāviṃśatiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "द्वाविंशतितमः",
+          "iast": "dvāviṃśatitamaḥ"
+        },
+        "feminine": {
+          "devanagari": "द्वाविंशतितमी",
+          "iast": "dvāviṃśatitamī"
+        },
+        "neuter": {
+          "devanagari": "द्वाविंशतितमम्",
+          "iast": "dvāviṃśatitamam"
+        }
+      }
+    },
+    {
+      "number": 23,
+      "cardinal": {
+        "devanagari": [
+          "त्रयोविंशतिः"
+        ],
+        "iast": [
+          "trayoviṃśatiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "त्रयोविंशतितमः",
+          "iast": "trayoviṃśatitamaḥ"
+        },
+        "feminine": {
+          "devanagari": "त्रयोविंशतितमी",
+          "iast": "trayoviṃśatitamī"
+        },
+        "neuter": {
+          "devanagari": "त्रयोविंशतितमम्",
+          "iast": "trayoviṃśatitamam"
+        }
+      }
+    },
+    {
+      "number": 24,
+      "cardinal": {
+        "devanagari": [
+          "चतुर्विंशतिः"
+        ],
+        "iast": [
+          "caturviṃśatiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "चतुर्विंशतितमः",
+          "iast": "caturviṃśatitamaḥ"
+        },
+        "feminine": {
+          "devanagari": "चतुर्विंशतितमी",
+          "iast": "caturviṃśatitamī"
+        },
+        "neuter": {
+          "devanagari": "चतुर्विंशतितमम्",
+          "iast": "caturviṃśatitamam"
+        }
+      }
+    },
+    {
+      "number": 25,
+      "cardinal": {
+        "devanagari": [
+          "पञ्चविंशतिः"
+        ],
+        "iast": [
+          "pañcaviṃśatiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "पञ्चविंशतितमः",
+          "iast": "pañcaviṃśatitamaḥ"
+        },
+        "feminine": {
+          "devanagari": "पञ्चविंशतितमी",
+          "iast": "pañcaviṃśatitamī"
+        },
+        "neuter": {
+          "devanagari": "पञ्चविंशतितमम्",
+          "iast": "pañcaviṃśatitamam"
+        }
+      }
+    },
+    {
+      "number": 26,
+      "cardinal": {
+        "devanagari": [
+          "षड्विंशतिः"
+        ],
+        "iast": [
+          "ṣaḍviṃśatiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "षड्विंशतितमः",
+          "iast": "ṣaḍviṃśatitamaḥ"
+        },
+        "feminine": {
+          "devanagari": "षड्विंशतितमी",
+          "iast": "ṣaḍviṃśatitamī"
+        },
+        "neuter": {
+          "devanagari": "षड्विंशतितमम्",
+          "iast": "ṣaḍviṃśatitamam"
+        }
+      }
+    },
+    {
+      "number": 27,
+      "cardinal": {
+        "devanagari": [
+          "सप्तविंशतिः"
+        ],
+        "iast": [
+          "saptaviṃśatiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "सप्तविंशतितमः",
+          "iast": "saptaviṃśatitamaḥ"
+        },
+        "feminine": {
+          "devanagari": "सप्तविंशतितमी",
+          "iast": "saptaviṃśatitamī"
+        },
+        "neuter": {
+          "devanagari": "सप्तविंशतितमम्",
+          "iast": "saptaviṃśatitamam"
+        }
+      }
+    },
+    {
+      "number": 28,
+      "cardinal": {
+        "devanagari": [
+          "अष्टाविंशतिः"
+        ],
+        "iast": [
+          "aṣṭāviṃśatiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "अष्टाविंशतितमः",
+          "iast": "aṣṭāviṃśatitamaḥ"
+        },
+        "feminine": {
+          "devanagari": "अष्टाविंशतितमी",
+          "iast": "aṣṭāviṃśatitamī"
+        },
+        "neuter": {
+          "devanagari": "अष्टाविंशतितमम्",
+          "iast": "aṣṭāviṃśatitamam"
+        }
+      }
+    },
+    {
+      "number": 29,
+      "cardinal": {
+        "devanagari": [
+          "नवविंशतिः"
+        ],
+        "iast": [
+          "navaviṃśatiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "नवविंशतितमः",
+          "iast": "navaviṃśatitamaḥ"
+        },
+        "feminine": {
+          "devanagari": "नवविंशतितमी",
+          "iast": "navaviṃśatitamī"
+        },
+        "neuter": {
+          "devanagari": "नवविंशतितमम्",
+          "iast": "navaviṃśatitamam"
+        }
+      }
+    },
+    {
+      "number": 30,
+      "cardinal": {
+        "devanagari": [
+          "त्रिंशत्"
+        ],
+        "iast": [
+          "triṃśat"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "त्रिंशतत्तमः",
+          "iast": "triṃśattamaḥ"
+        },
+        "feminine": {
+          "devanagari": "त्रिंशतत्तमी",
+          "iast": "triṃśattamī"
+        },
+        "neuter": {
+          "devanagari": "त्रिंशतत्तमम्",
+          "iast": "triṃśattamam"
+        }
+      }
+    },
+    {
+      "number": 31,
+      "cardinal": {
+        "devanagari": [
+          "एकत्रिंशत्"
+        ],
+        "iast": [
+          "ekatriṃśat"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "एकत्रिंशतत्तमः",
+          "iast": "ekatriṃśattamaḥ"
+        },
+        "feminine": {
+          "devanagari": "एकत्रिंशतत्तमी",
+          "iast": "ekatriṃśattamī"
+        },
+        "neuter": {
+          "devanagari": "एकत्रिंशतत्तमम्",
+          "iast": "ekatriṃśattamam"
+        }
+      }
+    },
+    {
+      "number": 32,
+      "cardinal": {
+        "devanagari": [
+          "द्वात्रिंशत्"
+        ],
+        "iast": [
+          "dvātriṃśat"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "द्वात्रिंशतत्तमः",
+          "iast": "dvātriṃśattamaḥ"
+        },
+        "feminine": {
+          "devanagari": "द्वात्रिंशतत्तमी",
+          "iast": "dvātriṃśattamī"
+        },
+        "neuter": {
+          "devanagari": "द्वात्रिंशतत्तमम्",
+          "iast": "dvātriṃśattamam"
+        }
+      }
+    },
+    {
+      "number": 33,
+      "cardinal": {
+        "devanagari": [
+          "त्रयस्त्रिंशत्"
+        ],
+        "iast": [
+          "trayastriṃśat"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "त्रयस्त्रिंशतत्तमः",
+          "iast": "trayastriṃśattamaḥ"
+        },
+        "feminine": {
+          "devanagari": "त्रयस्त्रिंशतत्तमी",
+          "iast": "trayastriṃśattamī"
+        },
+        "neuter": {
+          "devanagari": "त्रयस्त्रिंशतत्तमम्",
+          "iast": "trayastriṃśattamam"
+        }
+      }
+    },
+    {
+      "number": 34,
+      "cardinal": {
+        "devanagari": [
+          "चतुस्त्रिंशत्"
+        ],
+        "iast": [
+          "catustriṃśat"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "चतुस्त्रिंशतत्तमः",
+          "iast": "catustriṃśattamaḥ"
+        },
+        "feminine": {
+          "devanagari": "चतुस्त्रिंशतत्तमी",
+          "iast": "catustriṃśattamī"
+        },
+        "neuter": {
+          "devanagari": "चतुस्त्रिंशतत्तमम्",
+          "iast": "catustriṃśattamam"
+        }
+      }
+    },
+    {
+      "number": 35,
+      "cardinal": {
+        "devanagari": [
+          "पञ्चत्रिंशत्"
+        ],
+        "iast": [
+          "pañcatriṃśat"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "पञ्चत्रिंशतत्तमः",
+          "iast": "pañcatriṃśattamaḥ"
+        },
+        "feminine": {
+          "devanagari": "पञ्चत्रिंशतत्तमी",
+          "iast": "pañcatriṃśattamī"
+        },
+        "neuter": {
+          "devanagari": "पञ्चत्रिंशतत्तमम्",
+          "iast": "pañcatriṃśattamam"
+        }
+      }
+    },
+    {
+      "number": 36,
+      "cardinal": {
+        "devanagari": [
+          "षट्त्रिंशत्"
+        ],
+        "iast": [
+          "ṣaṭtriṃśat"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "षट्त्रिंशतत्तमः",
+          "iast": "ṣaṭtriṃśattamaḥ"
+        },
+        "feminine": {
+          "devanagari": "षट्त्रिंशतत्तमी",
+          "iast": "ṣaṭtriṃśattamī"
+        },
+        "neuter": {
+          "devanagari": "षट्त्रिंशतत्तमम्",
+          "iast": "ṣaṭtriṃśattamam"
+        }
+      }
+    },
+    {
+      "number": 37,
+      "cardinal": {
+        "devanagari": [
+          "सप्तत्रिंशत्"
+        ],
+        "iast": [
+          "saptatriṃśat"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "सप्तत्रिंशतत्तमः",
+          "iast": "saptatriṃśattamaḥ"
+        },
+        "feminine": {
+          "devanagari": "सप्तत्रिंशतत्तमी",
+          "iast": "saptatriṃśattamī"
+        },
+        "neuter": {
+          "devanagari": "सप्तत्रिंशतत्तमम्",
+          "iast": "saptatriṃśattamam"
+        }
+      }
+    },
+    {
+      "number": 38,
+      "cardinal": {
+        "devanagari": [
+          "अष्टात्रिंशत्"
+        ],
+        "iast": [
+          "aṣṭātriṃśat"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "अष्टात्रिंशतत्तमः",
+          "iast": "aṣṭātriṃśattamaḥ"
+        },
+        "feminine": {
+          "devanagari": "अष्टात्रिंशतत्तमी",
+          "iast": "aṣṭātriṃśattamī"
+        },
+        "neuter": {
+          "devanagari": "अष्टात्रिंशतत्तमम्",
+          "iast": "aṣṭātriṃśattamam"
+        }
+      }
+    },
+    {
+      "number": 39,
+      "cardinal": {
+        "devanagari": [
+          "नवत्रिंशत्"
+        ],
+        "iast": [
+          "navatriṃśat"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "नवत्रिंशतत्तमः",
+          "iast": "navatriṃśattamaḥ"
+        },
+        "feminine": {
+          "devanagari": "नवत्रिंशतत्तमी",
+          "iast": "navatriṃśattamī"
+        },
+        "neuter": {
+          "devanagari": "नवत्रिंशतत्तमम्",
+          "iast": "navatriṃśattamam"
+        }
+      }
+    },
+    {
+      "number": 40,
+      "cardinal": {
+        "devanagari": [
+          "चत्वारिंशत्"
+        ],
+        "iast": [
+          "catvāriṃśat"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "चत्वारिंशतत्तमः",
+          "iast": "catvāriṃśattamaḥ"
+        },
+        "feminine": {
+          "devanagari": "चत्वारिंशतत्तमी",
+          "iast": "catvāriṃśattamī"
+        },
+        "neuter": {
+          "devanagari": "चत्वारिंशतत्तमम्",
+          "iast": "catvāriṃśattamam"
+        }
+      }
+    },
+    {
+      "number": 41,
+      "cardinal": {
+        "devanagari": [
+          "एकचत्वारिंशत्"
+        ],
+        "iast": [
+          "ekacatvāriṃśat"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "एकचत्वारिंशतत्तमः",
+          "iast": "ekacatvāriṃśattamaḥ"
+        },
+        "feminine": {
+          "devanagari": "एकचत्वारिंशतत्तमी",
+          "iast": "ekacatvāriṃśattamī"
+        },
+        "neuter": {
+          "devanagari": "एकचत्वारिंशतत्तमम्",
+          "iast": "ekacatvāriṃśattamam"
+        }
+      }
+    },
+    {
+      "number": 42,
+      "cardinal": {
+        "devanagari": [
+          "द्विचत्वारिंशत्"
+        ],
+        "iast": [
+          "dvicatvāriṃśat"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "द्विचत्वारिंशतत्तमः",
+          "iast": "dvicatvāriṃśattamaḥ"
+        },
+        "feminine": {
+          "devanagari": "द्विचत्वारिंशतत्तमी",
+          "iast": "dvicatvāriṃśattamī"
+        },
+        "neuter": {
+          "devanagari": "द्विचत्वारिंशतत्तमम्",
+          "iast": "dvicatvāriṃśattamam"
+        }
+      }
+    },
+    {
+      "number": 43,
+      "cardinal": {
+        "devanagari": [
+          "त्रिचत्वारिंशत्"
+        ],
+        "iast": [
+          "tricatvāriṃśat"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "त्रिचत्वारिंशतत्तमः",
+          "iast": "tricatvāriṃśattamaḥ"
+        },
+        "feminine": {
+          "devanagari": "त्रिचत्वारिंशतत्तमी",
+          "iast": "tricatvāriṃśattamī"
+        },
+        "neuter": {
+          "devanagari": "त्रिचत्वारिंशतत्तमम्",
+          "iast": "tricatvāriṃśattamam"
+        }
+      }
+    },
+    {
+      "number": 44,
+      "cardinal": {
+        "devanagari": [
+          "चतुश्चत्वारिंशत्"
+        ],
+        "iast": [
+          "catuścatvāriṃśat"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "चतुश्चत्वारिंशतत्तमः",
+          "iast": "catuścatvāriṃśattamaḥ"
+        },
+        "feminine": {
+          "devanagari": "चतुश्चत्वारिंशतत्तमी",
+          "iast": "catuścatvāriṃśattamī"
+        },
+        "neuter": {
+          "devanagari": "चतुश्चत्वारिंशतत्तमम्",
+          "iast": "catuścatvāriṃśattamam"
+        }
+      }
+    },
+    {
+      "number": 45,
+      "cardinal": {
+        "devanagari": [
+          "पञ्चचत्वारिंशत्"
+        ],
+        "iast": [
+          "pañcacatvāriṃśat"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "पञ्चचत्वारिंशतत्तमः",
+          "iast": "pañcacatvāriṃśattamaḥ"
+        },
+        "feminine": {
+          "devanagari": "पञ्चचत्वारिंशतत्तमी",
+          "iast": "pañcacatvāriṃśattamī"
+        },
+        "neuter": {
+          "devanagari": "पञ्चचत्वारिंशतत्तमम्",
+          "iast": "pañcacatvāriṃśattamam"
+        }
+      }
+    },
+    {
+      "number": 46,
+      "cardinal": {
+        "devanagari": [
+          "षट्चत्वारिंशत्"
+        ],
+        "iast": [
+          "ṣaṭcatvāriṃśat"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "षट्चत्वारिंशतत्तमः",
+          "iast": "ṣaṭcatvāriṃśattamaḥ"
+        },
+        "feminine": {
+          "devanagari": "षट्चत्वारिंशतत्तमी",
+          "iast": "ṣaṭcatvāriṃśattamī"
+        },
+        "neuter": {
+          "devanagari": "षट्चत्वारिंशतत्तमम्",
+          "iast": "ṣaṭcatvāriṃśattamam"
+        }
+      }
+    },
+    {
+      "number": 47,
+      "cardinal": {
+        "devanagari": [
+          "सप्तचत्वारिंशत्"
+        ],
+        "iast": [
+          "saptacatvāriṃśat"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "सप्तचत्वारिंशतत्तमः",
+          "iast": "saptacatvāriṃśattamaḥ"
+        },
+        "feminine": {
+          "devanagari": "सप्तचत्वारिंशतत्तमी",
+          "iast": "saptacatvāriṃśattamī"
+        },
+        "neuter": {
+          "devanagari": "सप्तचत्वारिंशतत्तमम्",
+          "iast": "saptacatvāriṃśattamam"
+        }
+      }
+    },
+    {
+      "number": 48,
+      "cardinal": {
+        "devanagari": [
+          "अष्टचत्वारिंशत्"
+        ],
+        "iast": [
+          "aṣṭacatvāriṃśat"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "अष्टचत्वारिंशतत्तमः",
+          "iast": "aṣṭacatvāriṃśattamaḥ"
+        },
+        "feminine": {
+          "devanagari": "अष्टचत्वारिंशतत्तमी",
+          "iast": "aṣṭacatvāriṃśattamī"
+        },
+        "neuter": {
+          "devanagari": "अष्टचत्वारिंशतत्तमम्",
+          "iast": "aṣṭacatvāriṃśattamam"
+        }
+      }
+    },
+    {
+      "number": 49,
+      "cardinal": {
+        "devanagari": [
+          "नवचत्वारिंशत्"
+        ],
+        "iast": [
+          "navacatvāriṃśat"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "नवचत्वारिंशतत्तमः",
+          "iast": "navacatvāriṃśattamaḥ"
+        },
+        "feminine": {
+          "devanagari": "नवचत्वारिंशतत्तमी",
+          "iast": "navacatvāriṃśattamī"
+        },
+        "neuter": {
+          "devanagari": "नवचत्वारिंशतत्तमम्",
+          "iast": "navacatvāriṃśattamam"
+        }
+      }
+    },
+    {
+      "number": 50,
+      "cardinal": {
+        "devanagari": [
+          "पञ्चाशत्"
+        ],
+        "iast": [
+          "pañcāśat"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "पञ्चाशतत्तमः",
+          "iast": "pañcāśattamaḥ"
+        },
+        "feminine": {
+          "devanagari": "पञ्चाशतत्तमी",
+          "iast": "pañcāśattamī"
+        },
+        "neuter": {
+          "devanagari": "पञ्चाशतत्तमम्",
+          "iast": "pañcāśattamam"
+        }
+      }
+    },
+    {
+      "number": 51,
+      "cardinal": {
+        "devanagari": [
+          "एकपञ्चाशत्"
+        ],
+        "iast": [
+          "ekapañcāśat"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "एकपञ्चाशतत्तमः",
+          "iast": "ekapañcāśattamaḥ"
+        },
+        "feminine": {
+          "devanagari": "एकपञ्चाशतत्तमी",
+          "iast": "ekapañcāśattamī"
+        },
+        "neuter": {
+          "devanagari": "एकपञ्चाशतत्तमम्",
+          "iast": "ekapañcāśattamam"
+        }
+      }
+    },
+    {
+      "number": 52,
+      "cardinal": {
+        "devanagari": [
+          "द्विपञ्चाशत्"
+        ],
+        "iast": [
+          "dvipañcāśat"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "द्विपञ्चाशतत्तमः",
+          "iast": "dvipañcāśattamaḥ"
+        },
+        "feminine": {
+          "devanagari": "द्विपञ्चाशतत्तमी",
+          "iast": "dvipañcāśattamī"
+        },
+        "neuter": {
+          "devanagari": "द्विपञ्चाशतत्तमम्",
+          "iast": "dvipañcāśattamam"
+        }
+      }
+    },
+    {
+      "number": 53,
+      "cardinal": {
+        "devanagari": [
+          "त्रिपञ्चाशत्"
+        ],
+        "iast": [
+          "tripañcāśat"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "त्रिपञ्चाशतत्तमः",
+          "iast": "tripañcāśattamaḥ"
+        },
+        "feminine": {
+          "devanagari": "त्रिपञ्चाशतत्तमी",
+          "iast": "tripañcāśattamī"
+        },
+        "neuter": {
+          "devanagari": "त्रिपञ्चाशतत्तमम्",
+          "iast": "tripañcāśattamam"
+        }
+      }
+    },
+    {
+      "number": 54,
+      "cardinal": {
+        "devanagari": [
+          "चतुःपञ्चाशत्"
+        ],
+        "iast": [
+          "catuḥpañcāśat"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "चतुःपञ्चाशतत्तमः",
+          "iast": "catuḥpañcāśattamaḥ"
+        },
+        "feminine": {
+          "devanagari": "चतुःपञ्चाशतत्तमी",
+          "iast": "catuḥpañcāśattamī"
+        },
+        "neuter": {
+          "devanagari": "चतुःपञ्चाशतत्तमम्",
+          "iast": "catuḥpañcāśattamam"
+        }
+      }
+    },
+    {
+      "number": 55,
+      "cardinal": {
+        "devanagari": [
+          "पञ्चपञ्चाशत्"
+        ],
+        "iast": [
+          "pañcapañcāśat"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "पञ्चपञ्चाशतत्तमः",
+          "iast": "pañcapañcāśattamaḥ"
+        },
+        "feminine": {
+          "devanagari": "पञ्चपञ्चाशतत्तमी",
+          "iast": "pañcapañcāśattamī"
+        },
+        "neuter": {
+          "devanagari": "पञ्चपञ्चाशतत्तमम्",
+          "iast": "pañcapañcāśattamam"
+        }
+      }
+    },
+    {
+      "number": 56,
+      "cardinal": {
+        "devanagari": [
+          "षट्पञ्चाशत्"
+        ],
+        "iast": [
+          "ṣaṭpañcāśat"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "षट्पञ्चाशतत्तमः",
+          "iast": "ṣaṭpañcāśattamaḥ"
+        },
+        "feminine": {
+          "devanagari": "षट्पञ्चाशतत्तमी",
+          "iast": "ṣaṭpañcāśattamī"
+        },
+        "neuter": {
+          "devanagari": "षट्पञ्चाशतत्तमम्",
+          "iast": "ṣaṭpañcāśattamam"
+        }
+      }
+    },
+    {
+      "number": 57,
+      "cardinal": {
+        "devanagari": [
+          "सप्तपञ्चाशत्"
+        ],
+        "iast": [
+          "saptapañcāśat"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "सप्तपञ्चाशतत्तमः",
+          "iast": "saptapañcāśattamaḥ"
+        },
+        "feminine": {
+          "devanagari": "सप्तपञ्चाशतत्तमी",
+          "iast": "saptapañcāśattamī"
+        },
+        "neuter": {
+          "devanagari": "सप्तपञ्चाशतत्तमम्",
+          "iast": "saptapañcāśattamam"
+        }
+      }
+    },
+    {
+      "number": 58,
+      "cardinal": {
+        "devanagari": [
+          "अष्टपञ्चाशत्"
+        ],
+        "iast": [
+          "aṣṭapañcāśat"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "अष्टपञ्चाशतत्तमः",
+          "iast": "aṣṭapañcāśattamaḥ"
+        },
+        "feminine": {
+          "devanagari": "अष्टपञ्चाशतत्तमी",
+          "iast": "aṣṭapañcāśattamī"
+        },
+        "neuter": {
+          "devanagari": "अष्टपञ्चाशतत्तमम्",
+          "iast": "aṣṭapañcāśattamam"
+        }
+      }
+    },
+    {
+      "number": 59,
+      "cardinal": {
+        "devanagari": [
+          "नवपञ्चाशत्"
+        ],
+        "iast": [
+          "navapañcāśat"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "नवपञ्चाशतत्तमः",
+          "iast": "navapañcāśattamaḥ"
+        },
+        "feminine": {
+          "devanagari": "नवपञ्चाशतत्तमी",
+          "iast": "navapañcāśattamī"
+        },
+        "neuter": {
+          "devanagari": "नवपञ्चाशतत्तमम्",
+          "iast": "navapañcāśattamam"
+        }
+      }
+    },
+    {
+      "number": 60,
+      "cardinal": {
+        "devanagari": [
+          "षष्टिः"
+        ],
+        "iast": [
+          "ṣaṣṭiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "षष्टिःतमः",
+          "iast": "ṣaṣṭiḥtamaḥ"
+        },
+        "feminine": {
+          "devanagari": "षष्टिःतमी",
+          "iast": "ṣaṣṭiḥtamī"
+        },
+        "neuter": {
+          "devanagari": "षष्टिःतमम्",
+          "iast": "ṣaṣṭiḥtamam"
+        }
+      }
+    },
+    {
+      "number": 61,
+      "cardinal": {
+        "devanagari": [
+          "एकषष्टिः"
+        ],
+        "iast": [
+          "ekaṣaṣṭiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "एकषष्टिःतमः",
+          "iast": "ekaṣaṣṭiḥtamaḥ"
+        },
+        "feminine": {
+          "devanagari": "एकषष्टिःतमी",
+          "iast": "ekaṣaṣṭiḥtamī"
+        },
+        "neuter": {
+          "devanagari": "एकषष्टिःतमम्",
+          "iast": "ekaṣaṣṭiḥtamam"
+        }
+      }
+    },
+    {
+      "number": 62,
+      "cardinal": {
+        "devanagari": [
+          "द्विषष्टिः"
+        ],
+        "iast": [
+          "dviṣaṣṭiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "द्विषष्टिःतमः",
+          "iast": "dviṣaṣṭiḥtamaḥ"
+        },
+        "feminine": {
+          "devanagari": "द्विषष्टिःतमी",
+          "iast": "dviṣaṣṭiḥtamī"
+        },
+        "neuter": {
+          "devanagari": "द्विषष्टिःतमम्",
+          "iast": "dviṣaṣṭiḥtamam"
+        }
+      }
+    },
+    {
+      "number": 63,
+      "cardinal": {
+        "devanagari": [
+          "त्रिषष्टिः"
+        ],
+        "iast": [
+          "triṣaṣṭiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "त्रिषष्टिःतमः",
+          "iast": "triṣaṣṭiḥtamaḥ"
+        },
+        "feminine": {
+          "devanagari": "त्रिषष्टिःतमी",
+          "iast": "triṣaṣṭiḥtamī"
+        },
+        "neuter": {
+          "devanagari": "त्रिषष्टिःतमम्",
+          "iast": "triṣaṣṭiḥtamam"
+        }
+      }
+    },
+    {
+      "number": 64,
+      "cardinal": {
+        "devanagari": [
+          "चतुःषष्टिः"
+        ],
+        "iast": [
+          "catuḥṣaṣṭiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "चतुःषष्टिःतमः",
+          "iast": "catuḥṣaṣṭiḥtamaḥ"
+        },
+        "feminine": {
+          "devanagari": "चतुःषष्टिःतमी",
+          "iast": "catuḥṣaṣṭiḥtamī"
+        },
+        "neuter": {
+          "devanagari": "चतुःषष्टिःतमम्",
+          "iast": "catuḥṣaṣṭiḥtamam"
+        }
+      }
+    },
+    {
+      "number": 65,
+      "cardinal": {
+        "devanagari": [
+          "पञ्चषष्टिः"
+        ],
+        "iast": [
+          "pañcaṣaṣṭiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "पञ्चषष्टिःतमः",
+          "iast": "pañcaṣaṣṭiḥtamaḥ"
+        },
+        "feminine": {
+          "devanagari": "पञ्चषष्टिःतमी",
+          "iast": "pañcaṣaṣṭiḥtamī"
+        },
+        "neuter": {
+          "devanagari": "पञ्चषष्टिःतमम्",
+          "iast": "pañcaṣaṣṭiḥtamam"
+        }
+      }
+    },
+    {
+      "number": 66,
+      "cardinal": {
+        "devanagari": [
+          "षट्षष्टिः"
+        ],
+        "iast": [
+          "ṣaṭṣaṣṭiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "षट्षष्टिःतमः",
+          "iast": "ṣaṭṣaṣṭiḥtamaḥ"
+        },
+        "feminine": {
+          "devanagari": "षट्षष्टिःतमी",
+          "iast": "ṣaṭṣaṣṭiḥtamī"
+        },
+        "neuter": {
+          "devanagari": "षट्षष्टिःतमम्",
+          "iast": "ṣaṭṣaṣṭiḥtamam"
+        }
+      }
+    },
+    {
+      "number": 67,
+      "cardinal": {
+        "devanagari": [
+          "सप्तषष्टिः"
+        ],
+        "iast": [
+          "saptaṣaṣṭiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "सप्तषष्टिःतमः",
+          "iast": "saptaṣaṣṭiḥtamaḥ"
+        },
+        "feminine": {
+          "devanagari": "सप्तषष्टिःतमी",
+          "iast": "saptaṣaṣṭiḥtamī"
+        },
+        "neuter": {
+          "devanagari": "सप्तषष्टिःतमम्",
+          "iast": "saptaṣaṣṭiḥtamam"
+        }
+      }
+    },
+    {
+      "number": 68,
+      "cardinal": {
+        "devanagari": [
+          "अष्टषष्टिः"
+        ],
+        "iast": [
+          "aṣṭaṣaṣṭiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "अष्टषष्टिःतमः",
+          "iast": "aṣṭaṣaṣṭiḥtamaḥ"
+        },
+        "feminine": {
+          "devanagari": "अष्टषष्टिःतमी",
+          "iast": "aṣṭaṣaṣṭiḥtamī"
+        },
+        "neuter": {
+          "devanagari": "अष्टषष्टिःतमम्",
+          "iast": "aṣṭaṣaṣṭiḥtamam"
+        }
+      }
+    },
+    {
+      "number": 69,
+      "cardinal": {
+        "devanagari": [
+          "नवषष्टिः"
+        ],
+        "iast": [
+          "navaṣaṣṭiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "नवषष्टिःतमः",
+          "iast": "navaṣaṣṭiḥtamaḥ"
+        },
+        "feminine": {
+          "devanagari": "नवषष्टिःतमी",
+          "iast": "navaṣaṣṭiḥtamī"
+        },
+        "neuter": {
+          "devanagari": "नवषष्टिःतमम्",
+          "iast": "navaṣaṣṭiḥtamam"
+        }
+      }
+    },
+    {
+      "number": 70,
+      "cardinal": {
+        "devanagari": [
+          "सप्ततिः"
+        ],
+        "iast": [
+          "saptatiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "सप्ततितमः",
+          "iast": "saptatitamaḥ"
+        },
+        "feminine": {
+          "devanagari": "सप्ततितमी",
+          "iast": "saptatitamī"
+        },
+        "neuter": {
+          "devanagari": "सप्ततितमम्",
+          "iast": "saptatitamam"
+        }
+      }
+    },
+    {
+      "number": 71,
+      "cardinal": {
+        "devanagari": [
+          "एकसप्ततिः"
+        ],
+        "iast": [
+          "ekasaptatiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "एकसप्ततितमः",
+          "iast": "ekasaptatitamaḥ"
+        },
+        "feminine": {
+          "devanagari": "एकसप्ततितमी",
+          "iast": "ekasaptatitamī"
+        },
+        "neuter": {
+          "devanagari": "एकसप्ततितमम्",
+          "iast": "ekasaptatitamam"
+        }
+      }
+    },
+    {
+      "number": 72,
+      "cardinal": {
+        "devanagari": [
+          "द्विसप्ततिः"
+        ],
+        "iast": [
+          "dvisaptatiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "द्विसप्ततितमः",
+          "iast": "dvisaptatitamaḥ"
+        },
+        "feminine": {
+          "devanagari": "द्विसप्ततितमी",
+          "iast": "dvisaptatitamī"
+        },
+        "neuter": {
+          "devanagari": "द्विसप्ततितमम्",
+          "iast": "dvisaptatitamam"
+        }
+      }
+    },
+    {
+      "number": 73,
+      "cardinal": {
+        "devanagari": [
+          "त्रिसप्ततिः"
+        ],
+        "iast": [
+          "trisaptatiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "त्रिसप्ततितमः",
+          "iast": "trisaptatitamaḥ"
+        },
+        "feminine": {
+          "devanagari": "त्रिसप्ततितमी",
+          "iast": "trisaptatitamī"
+        },
+        "neuter": {
+          "devanagari": "त्रिसप्ततितमम्",
+          "iast": "trisaptatitamam"
+        }
+      }
+    },
+    {
+      "number": 74,
+      "cardinal": {
+        "devanagari": [
+          "चतुःसप्ततिः"
+        ],
+        "iast": [
+          "catuḥsaptatiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "चतुःसप्ततितमः",
+          "iast": "catuḥsaptatitamaḥ"
+        },
+        "feminine": {
+          "devanagari": "चतुःसप्ततितमी",
+          "iast": "catuḥsaptatitamī"
+        },
+        "neuter": {
+          "devanagari": "चतुःसप्ततितमम्",
+          "iast": "catuḥsaptatitamam"
+        }
+      }
+    },
+    {
+      "number": 75,
+      "cardinal": {
+        "devanagari": [
+          "पञ्चसप्ततिः"
+        ],
+        "iast": [
+          "pañcasaptatiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "पञ्चसप्ततितमः",
+          "iast": "pañcasaptatitamaḥ"
+        },
+        "feminine": {
+          "devanagari": "पञ्चसप्ततितमी",
+          "iast": "pañcasaptatitamī"
+        },
+        "neuter": {
+          "devanagari": "पञ्चसप्ततितमम्",
+          "iast": "pañcasaptatitamam"
+        }
+      }
+    },
+    {
+      "number": 76,
+      "cardinal": {
+        "devanagari": [
+          "षट्सप्ततिः"
+        ],
+        "iast": [
+          "ṣaṭsaptatiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "षट्सप्ततितमः",
+          "iast": "ṣaṭsaptatitamaḥ"
+        },
+        "feminine": {
+          "devanagari": "षट्सप्ततितमी",
+          "iast": "ṣaṭsaptatitamī"
+        },
+        "neuter": {
+          "devanagari": "षट्सप्ततितमम्",
+          "iast": "ṣaṭsaptatitamam"
+        }
+      }
+    },
+    {
+      "number": 77,
+      "cardinal": {
+        "devanagari": [
+          "सप्तसप्ततिः"
+        ],
+        "iast": [
+          "saptasaptatiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "सप्तसप्ततितमः",
+          "iast": "saptasaptatitamaḥ"
+        },
+        "feminine": {
+          "devanagari": "सप्तसप्ततितमी",
+          "iast": "saptasaptatitamī"
+        },
+        "neuter": {
+          "devanagari": "सप्तसप्ततितमम्",
+          "iast": "saptasaptatitamam"
+        }
+      }
+    },
+    {
+      "number": 78,
+      "cardinal": {
+        "devanagari": [
+          "अष्टसप्ततिः"
+        ],
+        "iast": [
+          "aṣṭasaptatiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "अष्टसप्ततितमः",
+          "iast": "aṣṭasaptatitamaḥ"
+        },
+        "feminine": {
+          "devanagari": "अष्टसप्ततितमी",
+          "iast": "aṣṭasaptatitamī"
+        },
+        "neuter": {
+          "devanagari": "अष्टसप्ततितमम्",
+          "iast": "aṣṭasaptatitamam"
+        }
+      }
+    },
+    {
+      "number": 79,
+      "cardinal": {
+        "devanagari": [
+          "नवसप्ततिः"
+        ],
+        "iast": [
+          "navasaptatiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "नवसप्ततितमः",
+          "iast": "navasaptatitamaḥ"
+        },
+        "feminine": {
+          "devanagari": "नवसप्ततितमी",
+          "iast": "navasaptatitamī"
+        },
+        "neuter": {
+          "devanagari": "नवसप्ततितमम्",
+          "iast": "navasaptatitamam"
+        }
+      }
+    },
+    {
+      "number": 80,
+      "cardinal": {
+        "devanagari": [
+          "अशीतिः"
+        ],
+        "iast": [
+          "aśītiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "अशीतितमः",
+          "iast": "aśītitamaḥ"
+        },
+        "feminine": {
+          "devanagari": "अशीतितमी",
+          "iast": "aśītitamī"
+        },
+        "neuter": {
+          "devanagari": "अशीतितमम्",
+          "iast": "aśītitamam"
+        }
+      }
+    },
+    {
+      "number": 81,
+      "cardinal": {
+        "devanagari": [
+          "एकाशीतिः"
+        ],
+        "iast": [
+          "ekāśītiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "एकाशीतितमः",
+          "iast": "ekāśītitamaḥ"
+        },
+        "feminine": {
+          "devanagari": "एकाशीतितमी",
+          "iast": "ekāśītitamī"
+        },
+        "neuter": {
+          "devanagari": "एकाशीतितमम्",
+          "iast": "ekāśītitamam"
+        }
+      }
+    },
+    {
+      "number": 82,
+      "cardinal": {
+        "devanagari": [
+          "द्व्यशीतिः"
+        ],
+        "iast": [
+          "dvyaśītiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "द्व्यशीतितमः",
+          "iast": "dvyaśītitamaḥ"
+        },
+        "feminine": {
+          "devanagari": "द्व्यशीतितमी",
+          "iast": "dvyaśītitamī"
+        },
+        "neuter": {
+          "devanagari": "द्व्यशीतितमम्",
+          "iast": "dvyaśītitamam"
+        }
+      }
+    },
+    {
+      "number": 83,
+      "cardinal": {
+        "devanagari": [
+          "त्र्यशीतिः"
+        ],
+        "iast": [
+          "tryaśītiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "त्र्यशीतितमः",
+          "iast": "tryaśītitamaḥ"
+        },
+        "feminine": {
+          "devanagari": "त्र्यशीतितमी",
+          "iast": "tryaśītitamī"
+        },
+        "neuter": {
+          "devanagari": "त्र्यशीतितमम्",
+          "iast": "tryaśītitamam"
+        }
+      }
+    },
+    {
+      "number": 84,
+      "cardinal": {
+        "devanagari": [
+          "चतुरशीतिः"
+        ],
+        "iast": [
+          "caturaśītiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "चतुरशीतितमः",
+          "iast": "caturaśītitamaḥ"
+        },
+        "feminine": {
+          "devanagari": "चतुरशीतितमी",
+          "iast": "caturaśītitamī"
+        },
+        "neuter": {
+          "devanagari": "चतुरशीतितमम्",
+          "iast": "caturaśītitamam"
+        }
+      }
+    },
+    {
+      "number": 85,
+      "cardinal": {
+        "devanagari": [
+          "पञ्चाशीतिः"
+        ],
+        "iast": [
+          "pañcāśītiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "पञ्चाशीतितमः",
+          "iast": "pañcāśītitamaḥ"
+        },
+        "feminine": {
+          "devanagari": "पञ्चाशीतितमी",
+          "iast": "pañcāśītitamī"
+        },
+        "neuter": {
+          "devanagari": "पञ्चाशीतितमम्",
+          "iast": "pañcāśītitamam"
+        }
+      }
+    },
+    {
+      "number": 86,
+      "cardinal": {
+        "devanagari": [
+          "षडशीतिः"
+        ],
+        "iast": [
+          "ṣaḍaśītiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "षडशीतितमः",
+          "iast": "ṣaḍaśītitamaḥ"
+        },
+        "feminine": {
+          "devanagari": "षडशीतितमी",
+          "iast": "ṣaḍaśītitamī"
+        },
+        "neuter": {
+          "devanagari": "षडशीतितमम्",
+          "iast": "ṣaḍaśītitamam"
+        }
+      }
+    },
+    {
+      "number": 87,
+      "cardinal": {
+        "devanagari": [
+          "सप्ताशीतिः"
+        ],
+        "iast": [
+          "saptāśītiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "सप्ताशीतितमः",
+          "iast": "saptāśītitamaḥ"
+        },
+        "feminine": {
+          "devanagari": "सप्ताशीतितमी",
+          "iast": "saptāśītitamī"
+        },
+        "neuter": {
+          "devanagari": "सप्ताशीतितमम्",
+          "iast": "saptāśītitamam"
+        }
+      }
+    },
+    {
+      "number": 88,
+      "cardinal": {
+        "devanagari": [
+          "अष्टाशीतिः"
+        ],
+        "iast": [
+          "aṣṭāśītiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "अष्टाशीतितमः",
+          "iast": "aṣṭāśītitamaḥ"
+        },
+        "feminine": {
+          "devanagari": "अष्टाशीतितमी",
+          "iast": "aṣṭāśītitamī"
+        },
+        "neuter": {
+          "devanagari": "अष्टाशीतितमम्",
+          "iast": "aṣṭāśītitamam"
+        }
+      }
+    },
+    {
+      "number": 89,
+      "cardinal": {
+        "devanagari": [
+          "नवाशीतिः"
+        ],
+        "iast": [
+          "navāśītiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "नवाशीतितमः",
+          "iast": "navāśītitamaḥ"
+        },
+        "feminine": {
+          "devanagari": "नवाशीतितमी",
+          "iast": "navāśītitamī"
+        },
+        "neuter": {
+          "devanagari": "नवाशीतितमम्",
+          "iast": "navāśītitamam"
+        }
+      }
+    },
+    {
+      "number": 90,
+      "cardinal": {
+        "devanagari": [
+          "नवतिः"
+        ],
+        "iast": [
+          "navatiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "नवतितमः",
+          "iast": "navatitamaḥ"
+        },
+        "feminine": {
+          "devanagari": "नवतितमी",
+          "iast": "navatitamī"
+        },
+        "neuter": {
+          "devanagari": "नवतितमम्",
+          "iast": "navatitamam"
+        }
+      }
+    },
+    {
+      "number": 91,
+      "cardinal": {
+        "devanagari": [
+          "एकनवतिः"
+        ],
+        "iast": [
+          "ekanavatiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "एकनवतितमः",
+          "iast": "ekanavatitamaḥ"
+        },
+        "feminine": {
+          "devanagari": "एकनवतितमी",
+          "iast": "ekanavatitamī"
+        },
+        "neuter": {
+          "devanagari": "एकनवतितमम्",
+          "iast": "ekanavatitamam"
+        }
+      }
+    },
+    {
+      "number": 92,
+      "cardinal": {
+        "devanagari": [
+          "द्विनवतिः"
+        ],
+        "iast": [
+          "dvinavatiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "द्विनवतितमः",
+          "iast": "dvinavatitamaḥ"
+        },
+        "feminine": {
+          "devanagari": "द्विनवतितमी",
+          "iast": "dvinavatitamī"
+        },
+        "neuter": {
+          "devanagari": "द्विनवतितमम्",
+          "iast": "dvinavatitamam"
+        }
+      }
+    },
+    {
+      "number": 93,
+      "cardinal": {
+        "devanagari": [
+          "त्रिनवतिः"
+        ],
+        "iast": [
+          "trinavatiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "त्रिनवतितमः",
+          "iast": "trinavatitamaḥ"
+        },
+        "feminine": {
+          "devanagari": "त्रिनवतितमी",
+          "iast": "trinavatitamī"
+        },
+        "neuter": {
+          "devanagari": "त्रिनवतितमम्",
+          "iast": "trinavatitamam"
+        }
+      }
+    },
+    {
+      "number": 94,
+      "cardinal": {
+        "devanagari": [
+          "चतुर्नवतिः"
+        ],
+        "iast": [
+          "caturnavatiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "चतुर्नवतितमः",
+          "iast": "caturnavatitamaḥ"
+        },
+        "feminine": {
+          "devanagari": "चतुर्नवतितमी",
+          "iast": "caturnavatitamī"
+        },
+        "neuter": {
+          "devanagari": "चतुर्नवतितमम्",
+          "iast": "caturnavatitamam"
+        }
+      }
+    },
+    {
+      "number": 95,
+      "cardinal": {
+        "devanagari": [
+          "पञ्चनवतिः"
+        ],
+        "iast": [
+          "pañcanavatiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "पञ्चनवतितमः",
+          "iast": "pañcanavatitamaḥ"
+        },
+        "feminine": {
+          "devanagari": "पञ्चनवतितमी",
+          "iast": "pañcanavatitamī"
+        },
+        "neuter": {
+          "devanagari": "पञ्चनवतितमम्",
+          "iast": "pañcanavatitamam"
+        }
+      }
+    },
+    {
+      "number": 96,
+      "cardinal": {
+        "devanagari": [
+          "षण्णवतिः"
+        ],
+        "iast": [
+          "ṣaṇṇavatiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "षण्णवतितमः",
+          "iast": "ṣaṇṇavatitamaḥ"
+        },
+        "feminine": {
+          "devanagari": "षण्णवतितमी",
+          "iast": "ṣaṇṇavatitamī"
+        },
+        "neuter": {
+          "devanagari": "षण्णवतितमम्",
+          "iast": "ṣaṇṇavatitamam"
+        }
+      }
+    },
+    {
+      "number": 97,
+      "cardinal": {
+        "devanagari": [
+          "सप्तनवतिः"
+        ],
+        "iast": [
+          "saptanavatiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "सप्तनवतितमः",
+          "iast": "saptanavatitamaḥ"
+        },
+        "feminine": {
+          "devanagari": "सप्तनवतितमी",
+          "iast": "saptanavatitamī"
+        },
+        "neuter": {
+          "devanagari": "सप्तनवतितमम्",
+          "iast": "saptanavatitamam"
+        }
+      }
+    },
+    {
+      "number": 98,
+      "cardinal": {
+        "devanagari": [
+          "अष्टनवतिः"
+        ],
+        "iast": [
+          "aṣṭanavatiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "अष्टनवतितमः",
+          "iast": "aṣṭanavatitamaḥ"
+        },
+        "feminine": {
+          "devanagari": "अष्टनवतितमी",
+          "iast": "aṣṭanavatitamī"
+        },
+        "neuter": {
+          "devanagari": "अष्टनवतितमम्",
+          "iast": "aṣṭanavatitamam"
+        }
+      }
+    },
+    {
+      "number": 99,
+      "cardinal": {
+        "devanagari": [
+          "नवनवतिः"
+        ],
+        "iast": [
+          "navanavatiḥ"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "नवनवतितमः",
+          "iast": "navanavatitamaḥ"
+        },
+        "feminine": {
+          "devanagari": "नवनवतितमी",
+          "iast": "navanavatitamī"
+        },
+        "neuter": {
+          "devanagari": "नवनवतितमम्",
+          "iast": "navanavatitamam"
+        }
+      }
+    },
+    {
+      "number": 100,
+      "cardinal": {
+        "devanagari": [
+          "शतम्"
+        ],
+        "iast": [
+          "śatam"
+        ],
+        "gender_forms": null
+      },
+      "ordinal": {
+        "masculine": {
+          "devanagari": "शततमः",
+          "iast": "śatatamaḥ"
+        },
+        "feminine": {
+          "devanagari": "शततमी",
+          "iast": "śatatamī"
+        },
+        "neuter": {
+          "devanagari": "शततमम्",
+          "iast": "śatatamam"
+        }
+      }
+    }
+  ]
+}

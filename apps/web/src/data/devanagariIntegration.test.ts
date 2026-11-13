@@ -41,6 +41,18 @@ describe('Devanagari production integration', () => {
     expect(game.skillsBuilt).toContain('Handwriting & Stroke Order');
   });
 
+  it('publishes the updated Sankhyāḥ page and vocalic L sign', () => {
+    const script = [...html.matchAll(/src="(\.\/assets\/[^"]+\.js)"/g)][0]?.[1];
+    if (!script) throw new Error('Missing production game script.');
+
+    const bundle = readFileSync(resolve(gameRoot, script), 'utf8');
+    expect(bundle).toContain('संख्याः');
+    expect(bundle).toContain('Large numbers');
+    expect(bundle).toContain('क + ॢ = कॢ');
+    expect(bundle).not.toContain('स्थानमूल्यम्');
+    expect(bundle).not.toContain('संख्यालेखनाभ्यासः');
+  });
+
   it('uses the IAST name for legacy API titles without renaming other games', () => {
     expect(getGameDisplayTitle('devanagari-game', 'Devanagari Game')).toBe('Akṣarābhyāsaḥ');
     expect(getGameDisplayTitle('devanagari-game', 'Devanagari')).toBe('Akṣarābhyāsaḥ');

@@ -13,11 +13,6 @@ import { speak, speakRoman } from "../speech";
 ================================================================ */
 
 const VOWELS      = DEVANAGARI_LETTERS.filter(l => l.type === "vowel");
-const NUMBERS_DEV = DEVANAGARI_LETTERS.filter(l => l.type === "number");
-const HINDI_NUMS  = ["शून्य","एक","दो","तीन","चार","पाँच","छह","सात","आठ","नौ"];
-const SANSKRIT_NUMS  = ["शून्यम्","एकम्","द्वे","त्रीणि","चत्वारि","पञ्च","षट्","सप्त","अष्ट","नव"];
-const SANSKRIT_NUMSR = ["śūnyam","ekam","dve","trīṇi","catvāri","pañca","ṣaṭ","sapta","aṣṭa","nava"];
-const HINDI_NUMSR = ["śūnya","eka","do","tīna","cāra","pāñca","chaha","sāta","āṭha","nau"];
 
 const VOWEL_HEADERS = [
   { dev: "अ",  roman: "a"   }, { dev: "आ",  roman: "ā"   },
@@ -72,7 +67,7 @@ const BK_ROWS: [string, ...string[]][] = [
 /* ================================================================
    TAB CONFIG — icon emoji, bold label, plain English "what is this"
 ================================================================ */
-type RefTab = "barakhadi" | "vowels" | "matras" | "halant" | "conjuncts" | "numbers" | "words";
+type RefTab = "barakhadi" | "vowels" | "matras" | "halant" | "conjuncts" | "words";
 
 const TABS: { key: RefTab; icon: string; sa: string; en: string; what: string; color: string }[] = [
   { key: "vowels",    icon: "🔵", sa: "स्वराः",            en: "Vowels",         what: "Svarāḥ · sounds that stand on their own — अ आ इ ई…",              color: "#006494" },
@@ -80,7 +75,6 @@ const TABS: { key: RefTab; icon: string; sa: string; en: string; what: string; c
   { key: "halant",    icon: "🔴", sa: "व्यञ्जनानि (हलः)",   en: "Consonants",     what: "Vyañjanāni / Halaḥ · pure consonants, written with ्",          color: "#a13544" },
   { key: "barakhadi", icon: "🟣", sa: "गुणिताक्षराणि",      en: "Syllable chart", what: "Guṇitākṣarāṇi · (बारहखड़ी) every consonant × every vowel",        color: "#7a39bb" },
   { key: "conjuncts", icon: "🟡", sa: "संयुक्ताक्षराणि",    en: "Conjuncts",      what: "Saṃyuktākṣarāṇi · consonants joined with no vowel between",    color: "#d19900" },
-  { key: "numbers",   icon: "⚪", sa: "अङ्काः",            en: "Numerals",       what: "Aṅkāḥ · Devanāgarī digits ० – ९",                               color: "#01696f" },
   { key: "words",     icon: "📖", sa: "शब्दाः",            en: "Words",          what: "Śabdāḥ · common words to read and hear",                        color: "#7a39bb" },
 ];
 
@@ -230,6 +224,9 @@ const ReferenceChart: React.FC = () => {
                 />
               ))}
             </div>
+            <div className="rc4__explain">
+              <strong>ऌ (ḷ)</strong> is one independent vowel, not the sequence <strong>उ + ल</strong>. Its dependent sign is <strong>ॢ</strong>, as in <strong>कॢ</strong>.
+            </div>
             <div className="rc4__tip-box">
               <span className="rc4__tip-icon">💡</span>
               <span><strong>How to read:</strong> The big Devanagari character is what you see in text. The small text below (like <em>a, ā, i</em>) is how it sounds. Tap any card to hear it!</span>
@@ -243,7 +240,7 @@ const ReferenceChart: React.FC = () => {
             <div className="rc4__explain">
               <strong>Mātrās (मात्रा)</strong> are <em>not</em> standalone letters — they are vowel signs that attach to a
               consonant to change its vowel sound. Example: <strong>क + ा = का</strong> (ka + aa = kaa).
-              Tap any mātrā to hear its vowel sound.
+              Tap any mātrā to hear its vowel sound. For the independent vowel ऌ, the dependent sign is ॢ; the standalone letter remains ऌ.
             </div>
             <div className="matra-grid">
               {MATRAS.map((m, i) => (
@@ -410,34 +407,6 @@ const ReferenceChart: React.FC = () => {
                   <span className="cjc4__eg">{cj.example}</span>
                 </button>
               ))}
-            </div>
-          </>
-        )}
-
-        {/* --- NUMBERS ------------------------------------------ */}
-        {tab === "numbers" && (
-          <>
-            <div className="rc4__explain">
-              <strong>अङ्काः (Aṅkāḥ) · Numerals</strong> — the Devanāgarī digits used in Sanskrit, Hindi and Marathi
-              texts, matching 0–9. Each card shows the Sanskrit number name and the Hindi one. Tap to hear it.
-            </div>
-            <div className="num4-grid">
-              {NUMBERS_DEV.map((n, i) => (
-                <button key={n.char} className="numc"
-                  onClick={() => { speak(SANSKRIT_NUMS[i]); setSpoken({ dev: n.char, roman: SANSKRIT_NUMSR[i] }); }}
-                  title={"Hear: " + SANSKRIT_NUMS[i]}
-                  style={{ "--numc-c": COLORS[i % COLORS.length] } as React.CSSProperties}
-                >
-                  <span className="numc__arabic">{i}</span>
-                  <span className="numc__dev">{n.char}</span>
-                  <span className="numc__hindi">{SANSKRIT_NUMS[i]} · {HINDI_NUMS[i]}</span>
-                  <span className="numc__roman">{SANSKRIT_NUMSR[i]} · {HINDI_NUMSR[i]}</span>
-                </button>
-              ))}
-            </div>
-            <div className="rc4__tip-box">
-              <span className="rc4__tip-icon">💡</span>
-              <span>Each card shows the familiar digit (grey, top-left), the Devanāgarī form (large), and the number's name in Sanskrit · Hindi.</span>
             </div>
           </>
         )}

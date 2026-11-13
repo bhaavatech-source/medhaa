@@ -72,6 +72,9 @@ server is NOT an integration test: it cannot supply Medhaa's sibling scripts.
    transliteration and example words. Next/Previous must keep the group selection
    synchronized when crossing a group boundary.
 4. Check Alphabet chart and Word breakdown, including a custom Devanagari word.
+   Check Sankhyāḥ: browse digits and counting, explore large-number names, and
+   complete a number-name practice question. In the vowel-sign chart, verify
+   that ॢ is shown as the dependent sign for the independent vowel ऌ.
 5. At desktop and narrow phone widths, check no horizontal overflow and that
    Back, Home and My Report are visible. Home should return to `/student`.
 6. With a real test account, inspect Network for exactly one successful

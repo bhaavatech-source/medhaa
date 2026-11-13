@@ -167,7 +167,16 @@ describe('Devanagari joined-letter writing', () => {
     const data = STROKES[letter];
     expect(GROUPS[0].letters).toContain(letter);
     expect(data.strokes.at(-1)?.kind).toBe('shirorekha');
-    expect(data.strokes.length).toBe(5);
+    expect(data.strokes.length).toBe(4);
+    const bodyStarts = data.strokes.slice(0, -1).map(stroke => stroke.pts[0].join(','));
+    expect(new Set(bodyStarts).size).toBe(bodyStarts.length);
+    if (letter === 'ऌ') {
+      expect(data.strokes[0].pts[0]).toEqual([26.9, 76.2]);
+      expect(data.strokes[1].pts[0]).toEqual([37.5, 49.2]);
+      expect(data.strokes[2].pts[0]).toEqual([55.6, 41.9]);
+      expect(data.strokes[2].pts[4]).toEqual([55.6, 76.2]);
+      expect(data.strokes[2].pts.at(-1)).toEqual([57.2, 89.1]);
+    }
     expect(score(data.strokes, data.strokes.map(toPts)).score).toBeGreaterThanOrEqual(90);
   });
 

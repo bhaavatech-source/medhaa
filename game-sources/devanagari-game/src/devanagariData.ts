@@ -122,6 +122,7 @@ export const MATRAS: Matra[] = [
   { symbol: "ू",  sound: "ū",                vowel: "ऊ", example: "क + ू = कू"  },
   { symbol: "ृ",  sound: "ṛ",                vowel: "ऋ", example: "क + ृ = कृ"  },
   { symbol: "ॄ",  sound: "ṝ",                vowel: "ॠ", example: "क + ॄ = कॄ"  },
+  { symbol: "ॢ",  sound: "ḷ",                vowel: "ऌ", example: "क + ॢ = कॢ"  },
   { symbol: "े",  sound: "e",                vowel: "ए", example: "क + े = के"  },
   { symbol: "ै",  sound: "ai",               vowel: "ऐ", example: "क + ै = कै"  },
   { symbol: "ो",  sound: "o",                vowel: "ओ", example: "क + ो = को"  },

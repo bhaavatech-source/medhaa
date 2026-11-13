@@ -136,11 +136,10 @@ body {
 
 /* chart: coloured romanisation deepened, faint greys made solid */
 :root { --color-text-muted: #475569; --color-text-faint: #526079; }
-.lc__roman, .mc__sound, .cjc4__roman, .numc__roman { filter: none; }
+.lc__roman, .mc__sound, .cjc4__roman { filter: none; }
 .lc__roman  { color: color-mix(in srgb, var(--lc-color, #6d28d9) 55%, #1e293b) !important; }
 .mc__sound  { color: color-mix(in srgb, var(--mc-color, #6d28d9) 55%, #1e293b) !important; }
 .cjc4__roman { color: color-mix(in srgb, var(--cjc4-c, #6d28d9) 55%, #1e293b) !important; }
-.numc__roman { color: color-mix(in srgb, var(--numc-c, #6d28d9) 55%, #1e293b) !important; }
 .lc__tag { color: #fff !important; filter: saturate(1.1) brightness(.85); }
 .cjc4__parts, .hc4__roman { color: #475569 !important; }
 .cjc4__eg, .rc4__tip-box, .rc4__tip-box span, .rc4__tip-icon { color: #526079 !important; }
