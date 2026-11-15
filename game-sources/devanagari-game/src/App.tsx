@@ -13,13 +13,17 @@ import SankhyahPage from "./sankhyah/SankhyahPage";
 export const APP_NAME = { sa: "अक्षराभ्यासः", en: "Akṣarābhyāsaḥ", tagline: "Learn to read and write Devanāgarī — for Saṃskṛtam and Hindi" };
 
 type View = "game" | "write" | "learn" | "vibhaga" | "sankhyah" | "record" | "review";
+type NavItem =
+  | { v: View; icon: string; sa: string; en: string }
+  | { href: string; icon: string; sa: string; en: string };
 
-const NAV: { v: View; icon: string; sa: string; en: string }[] = [
+const NAV: NavItem[] = [
   { v: "game",    icon: "🗺️", sa: "यात्रा",        en: "Journey" },
   { v: "write",   icon: "✍️", sa: "लेखनाभ्यासः",   en: "Writing" },
   { v: "learn",   icon: "📚", sa: "वर्णमाला",      en: "Alphabet chart" },
   { v: "vibhaga", icon: "🔍", sa: "वर्णविच्छेदः",   en: "Word breakdown" },
   { v: "sankhyah", icon: "🔢", sa: "संख्याः", en: "Numbers" },
+  { href: "https://samskritam.medhaa.net/", icon: "📖", sa: "संस्कृतम्", en: "Samskritam" },
 ];
 
 // faint floating letters behind everything (decorative)
@@ -55,9 +59,13 @@ const App: React.FC = () => {
         <p>{APP_NAME.tagline}</p>
         <div className="view-switch">
           {NAV.map(n => (
-            <button key={n.v} className={`view-btn ${view === n.v ? "view-btn-active" : ""}`} onClick={() => setView(n.v)}>
-              <span>{n.icon} {n.sa}</span><small>{n.en}</small>
-            </button>
+            "v" in n
+              ? <button key={n.v} className={`view-btn ${view === n.v ? "view-btn-active" : ""}`} onClick={() => setView(n.v)}>
+                  <span>{n.icon} {n.sa}</span><small>{n.en}</small>
+                </button>
+              : <a key={n.href} className="view-btn external-view-btn" href={n.href} target="_blank" rel="noopener noreferrer">
+                  <span>{n.icon} {n.sa}</span><small>{n.en}</small>
+                </a>
           ))}
         </div>
       </header>

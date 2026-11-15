@@ -456,7 +456,8 @@ body {
   justify-content: center;
   margin-top: 14px;
 }
-.view-btn {
+.view-btn,
+.external-view-btn {
   background: rgba(255,255,255,0.86);
   border: 1px solid rgba(99,102,241,0.25);
   border-radius: 50px;
@@ -467,8 +468,15 @@ body {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  line-height: 1.2;
 }
-.view-btn:hover { border-color: #6366f1; color: #1e2638; }
+.view-btn:hover,
+.external-view-btn:hover { border-color: #6366f1; color: #1e2638; }
 .view-btn-active {
   background: linear-gradient(135deg,#4944e4,rgba(255,255,255,0.86));
   border-color: #818cf8;
