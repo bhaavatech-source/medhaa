@@ -18,6 +18,41 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      (function () {
+        if (document.querySelector('[data-bhava-samskritam-link]')) return;
+        var link = document.createElement('a');
+        link.setAttribute('data-bhava-samskritam-link', 'true');
+        link.href = 'https://medhaa.net/games-static/samskrita-medhaa-game/index.html';
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.textContent = 'संस्कृतम् · Samskritam';
+        link.setAttribute('aria-label', 'Open Samskritam game');
+        link.style.position = 'fixed';
+        link.style.top = '58px';
+        link.style.right = '18px';
+        link.style.zIndex = '2147483646';
+        link.style.display = 'inline-flex';
+        link.style.alignItems = 'center';
+        link.style.justifyContent = 'center';
+        link.style.padding = '10px 16px';
+        link.style.borderRadius = '999px';
+        link.style.border = '1px solid rgba(34, 94, 170, 0.18)';
+        link.style.background = 'linear-gradient(135deg, rgba(255,255,255,0.95), rgba(245,246,255,0.85))';
+        link.style.boxShadow = '0 10px 24px rgba(30, 41, 59, 0.12)';
+        link.style.color = '#111827';
+        link.style.fontWeight = '700';
+        link.style.fontSize = '14px';
+        link.style.textDecoration = 'none';
+        document.body.appendChild(link);
+
+        var style = document.createElement('style');
+        style.textContent =
+          '[data-bhava-samskritam-link]:hover { transform: translateY(-1px); box-shadow: 0 14px 28px rgba(30, 41, 59, 0.16); }\n' +
+          '[data-bhava-samskritam-link] { transition: transform 150ms ease, box-shadow 150ms ease; }';
+        document.head.appendChild(style);
+      })();
+    </script>
     <!-- Shared host scripts stay external to this game's Vite bundle. -->
     <script src="../bhava-session.js"></script>
     <script src="../bhava-game-nav.js"></script>
